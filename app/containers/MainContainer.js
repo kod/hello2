@@ -5,6 +5,7 @@ import Main from '../pages/MainPage/Main';
 
 class MainContainer extends React.Component {
   static navigationOptions = {
+    header: null,
     title: '首页',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="md-home" size={25} color={tintColor} />

@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 class MainContainer extends React.Component {
   static navigationOptions = {
+    header: null,
     title: '关于',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="md-information-circle" size={25} color={tintColor} />

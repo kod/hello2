@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 class MainContainer extends React.Component {
   static navigationOptions = {
+    header: null,
     title: '分类',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="md-pricetags" size={25} color={tintColor} />
