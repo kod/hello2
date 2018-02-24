@@ -18,13 +18,14 @@ const TabContainer = TabNavigator(
   },
   {
     lazy: true,
+    swipeEnabled: false,
+    animationEnabled: false,
     tabBarPosition: 'bottom',
     // initialLayout: {
     //   height: 40,
     //   width: Dimensions.get('window').width,
     // },
     tabBarOptions: {
-      // scrollEnabled: true,
       activeTintColor: '#3e9ce9',
       inactiveTintColor: '#999999',
       showIcon: true,

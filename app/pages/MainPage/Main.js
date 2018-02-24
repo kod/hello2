@@ -3,39 +3,46 @@ import { DeviceEventEmitter, InteractionManager, ListView, StyleSheet, View, Tex
 
 import ScrollableTabView, { ScrollableTabBar } from "react-native-scrollable-tab-view";
 
-export default () => {
-  return (
-    <View style={styles.container}>
-      <ScrollableTabView
-        renderTabBar={() => (
-          <ScrollableTabBar
-            tabStyle={styles.tab}
-            textStyle={styles.tabText}
-          />
-        )}
-        tabBarBackgroundColor="#fcfcfc"
-        tabBarUnderlineStyle={styles.tabBarUnderline}
-        tabBarActiveTextColor="#3e9ce9"
-        tabBarInactiveTextColor="#aaaaaa"
-      >
-        <View tabLabel="热点" style={styles.base}>
-          <Text>my</Text>
-        </View>
-        <View tabLabel="军事" style={styles.base}>
-          <Text>favorite</Text>
-        </View>
-        <View tabLabel="体育迷" style={styles.base}>
-          <Text>体育迷123</Text>
-        </View>
-        
-      </ScrollableTabView>
-    </View>
-  );
+class Main extends React.Component {
+  
+  render () {
+    return (
+      <View style={styles.container}>
+        <ScrollableTabView
+          renderTabBar={() => (
+            <ScrollableTabBar
+              tabStyle={styles.tab}
+              textStyle={styles.tabText}
+            />
+          )}
+          tabBarBackgroundColor="#fcfcfc"
+          tabBarUnderlineStyle={styles.tabBarUnderline}
+          tabBarActiveTextColor="#3e9ce9"
+          tabBarInactiveTextColor="#aaaaaa"
+        >
+          <View tabLabel="热点" style={styles.base}>
+            <Text>favorite</Text>
+          </View>
+          <View tabLabel="军事" style={styles.base}>
+            <Text>favorite</Text>
+          </View>
+          <View tabLabel="体育迷" style={styles.base}>
+            <Text>体育迷123</Text>
+          </View>
+          <View tabLabel="旅行家" style={styles.base}>
+            <Text>旅行家123</Text>
+          </View>
+          <View tabLabel="科技迷" style={styles.base}>
+            <Text>科技迷123</Text>
+          </View>
+        </ScrollableTabView>
+      </View>
+    );
+  }
 };
 const styles = StyleSheet.create({
   base: {
     flex: 1,
-    backgroundColor: '#f00'
   },
   container: {
     flex: 1,
@@ -90,3 +97,5 @@ const styles = StyleSheet.create({
     height: 2
   }
 });
+
+export default Main;
