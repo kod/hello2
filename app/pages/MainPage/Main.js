@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import { DeviceEventEmitter, InteractionManager, ListView, StyleSheet, View, Text, Dimensions, Image, ImageBackground } from "react-native";
+import { DeviceEventEmitter, InteractionManager, ListView, StyleSheet, View, Text, Dimensions, Image, ImageBackground, RefreshControl } from "react-native";
 
 import ScrollableTabView, { ScrollableTabBar } from "react-native-scrollable-tab-view";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -13,7 +13,65 @@ const width3_item = (width-width3_interval)/3;
 
 
 class Main extends React.Component {
+  constructor() {
+    super();
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+    this.auto_data = function(num = 20, begin = 0) {
+      let empty_array = [];
+      for (let index = begin; index < num + begin; index++) {
+        empty_array.push(`row ${index}`);
+      }
+      return empty_array;
+    }
+
+    this._data = this.auto_data();
+    
+    this.state = {
+      dataSource: this.ds.cloneWithRows(this._data),
+      refreshing: false,
+    };
+  }
   
+  componentDidMount() {
+    const { readActions } = this.props;
+    // DeviceEventEmitter.addListener('changeCategory', (typeIds) => {
+    //   typeIds.forEach((typeId) => {
+    //     readActions.requestArticleList(false, true, typeId);
+    //     pages.push(1);
+    //   });
+    //   this.setState({
+    //     typeIds
+    //   });
+    // });
+    InteractionManager.runAfterInteractions(() => {
+      readActions.requestAdverstList();
+    });
+  }
+
+  
+  _onDataArrived() {
+    // console.log(this.auto_data(5, this._data.length));
+    // console.log(this._data);
+    // this._data = this._data.concat(this.auto_data(5, this._data.length));
+    // // console.log(this._data);
+    // // return false;
+    // this.setState({
+    //   dataSource: this.ds.cloneWithRows(this._data)
+    // });
+  }
+
+  _onRefresh() {
+    this.setState({refreshing: true});
+    setTimeout(() => {
+      this._onDataArrived();
+      this.setState({refreshing: false});
+    }, 1000);
+    // fetchData().then(() => {
+    //   this.setState({refreshing: false});
+    // });
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -45,7 +103,14 @@ class Main extends React.Component {
           tabBarInactiveTextColor="#aaaaaa"
         >
           <View tabLabel="Recommend" style={styles.base}>
-            <ScrollView>
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh.bind(this)}
+                />
+              }
+            >
               <ReactNativeSwiper />
 
               <View style={{height: 8,backgroundColor: '#eee'}}></View>

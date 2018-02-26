@@ -3,8 +3,32 @@ import { put, take, call, fork } from 'redux-saga/effects';
 import * as types from '../constants/ActionTypes';
 import ToastUtil from '../utils/ToastUtil';
 import RequestUtil from '../utils/RequestUtil';
-import { WEXIN_ARTICLE_LIST } from '../constants/Urls';
-import { fetchArticleList, receiveArticleList } from '../actions/read';
+import { WEXIN_ARTICLE_LIST, GETADVERSTINFO } from '../constants/Urls';
+import { fetchArticleList, receiveArticleList, receiveAdverstList, fetchAdverstList } from '../actions/read';
+
+export function* requestAdverstList(
+) {
+  try {
+    // yield put(fetchAdverstList());
+    const articleList = yield call(
+      RequestUtil.request,
+      `${GETADVERSTINFO}`,
+      'get'
+    );
+    console.log(articleList);
+    // yield put(receiveAdverstList(
+    //   adverstList.showapi_res_body.pagebean.contentlist,
+    //   typeId
+    // ));
+    // const errorMessage = adverstList.showapi_res_error;
+    // if (errorMessage && errorMessage !== '') {
+    //   yield ToastUtil.showShort(errorMessage);
+    // }
+  } catch (error) {
+    yield put(receiveAdverstList([], typeId));
+    ToastUtil.showShort('网络发生错误，请重试');
+  }
+}
 
 export function* requestArticleList(
   isRefreshing,

@@ -1,17 +1,5 @@
 import * as types from '../constants/ActionTypes';
 
-export function requestAdverstList() {
-  return {
-    type: types.REQUEST_ADVERS_LIST,
-  };
-}
-
-export function fetchAdverstList() {
-  return {
-    type: types.FETCH_ADVERST_LIST,
-  };
-}
-
 export function requestArticleList(
   isRefreshing,
   loading,
