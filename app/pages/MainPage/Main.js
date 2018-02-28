@@ -35,6 +35,7 @@ class Main extends React.Component {
   
   componentDidMount() {
     const { readActions } = this.props;
+    console.log(this.props);
     // DeviceEventEmitter.addListener('changeCategory', (typeIds) => {
     //   typeIds.forEach((typeId) => {
     //     readActions.requestArticleList(false, true, typeId);
@@ -44,7 +45,10 @@ class Main extends React.Component {
     //     typeIds
     //   });
     // });
+
     InteractionManager.runAfterInteractions(() => {
+      console.log(readActions);
+      // readActions.requestArticleList();
       readActions.requestAdverstList();
     });
   }
@@ -117,11 +121,11 @@ class Main extends React.Component {
               
               <View style={{height: 40, justifyContent: 'center', }} ><Text style={{ textAlign: 'center', color: '#333' }} >Brand on sale</Text></View>
               <View style={{ flexDirection: 'row' }}>
-                <Image source={require('../../img/1511872647445_bannner_sjtx_RedmiNote-4.jpg')} style={{ flex: 1, height: 250}} />
+                <Image source={require('../../img/asdf.jpg')} style={{ flex: 1, height: 250}} />
                 <View style={{height: 250, flexBasis: 5, backgroundColor: '#fff'}}></View>
-                <Image source={require('../../img/1508482326050_bannner_smpj_Tai-nghe-Mi-Capsule.jpg')} style={{flex: 1, height: 250}} />
+                <Image source={require('../../img/asdf32.jpg')} style={{flex: 1, height: 250}} />
                 <View style={{height: 250, flexBasis: 5, backgroundColor: '#fff'}}></View>
-                <Image source={require('../../img/1513072187744_xmbjbAir-12.5.jpg')} style={{flex: 1, height: 250}} />
+                <Image source={require('../../img/ewfwegr.jpg')} style={{flex: 1, height: 250}} />
               </View>
    
               <View style={{height: 8,backgroundColor: '#eee'}}></View>
@@ -138,7 +142,7 @@ class Main extends React.Component {
 
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 5 }}>
                 <View style={{ marginLeft: '3%', width: width3_item, marginBottom: 15 }}>
-                  <Image source={require('../../img/1514341845849_OPPO_F5_Youth_G01.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
+                  <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
                   <Text style={{ fontSize: 11, color: '#333', marginBottom: 2 }} >OPPO F5 Youth Vang 3+32G</Text>
                   <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }} >3,690,000 VND</Text>
                   <View style={{ position:'relative', zIndex: 55, paddingTop: 5, paddingBottom: 15, }}>
@@ -154,7 +158,7 @@ class Main extends React.Component {
                   </View>
                 </View>
                 <View style={{ marginLeft: '3%', width: width3_item, marginBottom: 15 }}>
-                  <Image source={require('../../img/1514341845849_OPPO_F5_Youth_G01.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
+                  <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
                   <Text style={{ fontSize: 11, color: '#333', marginBottom: 2 }} >OPPO F5 Youth Vang 3+32G</Text>
                   <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }} >3,690,000 VND</Text>
                   <View style={{ position:'relative', zIndex: 55, paddingTop: 5, paddingBottom: 15, }}>
@@ -170,7 +174,7 @@ class Main extends React.Component {
                   </View>
                 </View>
                 <View style={{ marginLeft: '3%', width: width3_item, marginBottom: 15 }}>
-                  <Image source={require('../../img/1514341845849_OPPO_F5_Youth_G01.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
+                  <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
                   <Text style={{ fontSize: 11, color: '#333', marginBottom: 2 }} >OPPO F5 Youth Vang 3+32G</Text>
                   <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }} >3,690,000 VND</Text>
                   <View style={{ position:'relative', zIndex: 55, paddingTop: 5, paddingBottom: 15, }}>
@@ -186,7 +190,7 @@ class Main extends React.Component {
                   </View>
                 </View>
                 <View style={{ marginLeft: '3%', width: width3_item, marginBottom: 15 }}>
-                  <Image source={require('../../img/1514341845849_OPPO_F5_Youth_G01.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
+                  <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
                   <Text style={{ fontSize: 11, color: '#333', marginBottom: 2 }} >OPPO F5 Youth Vang 3+32G</Text>
                   <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }} >3,690,000 VND</Text>
                   <View style={{ position:'relative', zIndex: 55, paddingTop: 5, paddingBottom: 15, }}>
@@ -202,7 +206,7 @@ class Main extends React.Component {
                   </View>
                 </View>
                 <View style={{ marginLeft: '3%', width: width3_item, marginBottom: 15 }}>
-                  <Image source={require('../../img/1514341845849_OPPO_F5_Youth_G01.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
+                  <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
                   <Text style={{ fontSize: 11, color: '#333', marginBottom: 2 }} >OPPO F5 Youth Vang 3+32G</Text>
                   <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }} >3,690,000 VND</Text>
                   <View style={{ position:'relative', zIndex: 55, paddingTop: 5, paddingBottom: 15, }}>
@@ -218,7 +222,7 @@ class Main extends React.Component {
                   </View>
                 </View>
                 <View style={{ marginLeft: '3%', width: width3_item, marginBottom: 15 }}>
-                  <Image source={require('../../img/1514341845849_OPPO_F5_Youth_G01.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
+                  <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
                   <Text style={{ fontSize: 11, color: '#333', marginBottom: 2 }} >OPPO F5 Youth Vang 3+32G</Text>
                   <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }} >3,690,000 VND</Text>
                   <View style={{ position:'relative', zIndex: 55, paddingTop: 5, paddingBottom: 15, }}>
@@ -244,7 +248,7 @@ class Main extends React.Component {
 
                 <View style={{ flexDirection: 'row', marginBottom: 15, borderBottomColor: '#f2f2f2', borderBottomWidth: StyleSheet.hairlineWidth }}>
                   <View style={{ flex: 1, paddingRight: 10, paddingLeft: 10, }}>
-                    <Image source={require('../../img/1516440899715_F5_b01.jpg')} style={{ width: 'auto', height: 120}} />
+                    <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 120}} />
                   </View>
                   <View style={{ flex: 2 }}>
                     <Text style={{ color: '#333', marginBottom: 60 }} >OPPO F5</Text>
@@ -254,7 +258,7 @@ class Main extends React.Component {
                 </View>
                 <View style={{ flexDirection: 'row', marginBottom: 15, borderBottomColor: '#f2f2f2', borderBottomWidth: StyleSheet.hairlineWidth }}>
                   <View style={{ flex: 1, paddingRight: 10, paddingLeft: 10, }}>
-                    <Image source={require('../../img/1516440899715_F5_b01.jpg')} style={{ width: 'auto', height: 120}} />
+                    <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 120}} />
                   </View>
                   <View style={{ flex: 2 }}>
                     <Text style={{ color: '#333', marginBottom: 60 }} >OPPO F5</Text>
@@ -264,7 +268,7 @@ class Main extends React.Component {
                 </View>
                 <View style={{ flexDirection: 'row', marginBottom: 15, borderBottomColor: '#f2f2f2', borderBottomWidth: StyleSheet.hairlineWidth }}>
                   <View style={{ flex: 1, paddingRight: 10, paddingLeft: 10, }}>
-                    <Image source={require('../../img/1516440899715_F5_b01.jpg')} style={{ width: 'auto', height: 120}} />
+                    <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 120}} />
                   </View>
                   <View style={{ flex: 2 }}>
                     <Text style={{ color: '#333', marginBottom: 60 }} >OPPO F5</Text>
@@ -274,7 +278,7 @@ class Main extends React.Component {
                 </View>
                 <View style={{ flexDirection: 'row', marginBottom: 15, borderBottomColor: '#f2f2f2', borderBottomWidth: StyleSheet.hairlineWidth }}>
                   <View style={{ flex: 1, paddingRight: 10, paddingLeft: 10, }}>
-                    <Image source={require('../../img/1516440899715_F5_b01.jpg')} style={{ width: 'auto', height: 120}} />
+                    <Image source={require('../../img/asdf32.jpg')} style={{ width: 'auto', height: 120}} />
                   </View>
                   <View style={{ flex: 2 }}>
                     <Text style={{ color: '#333', marginBottom: 60 }} >OPPO F5</Text>

@@ -1,8 +1,8 @@
 import { all, fork } from 'redux-saga/effects';
 
 import { watchRequestTypeList } from './category';
-import { watchRequestArticleList } from './read';
+import { watchRequestArticleList, watchRequestAdverstList } from './read';
 
 export default function* rootSaga() {
-  yield all([fork(watchRequestTypeList), fork(watchRequestArticleList)]);
+  yield all([fork(watchRequestTypeList), fork(watchRequestArticleList), fork(watchRequestAdverstList)]);
 }

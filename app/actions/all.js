@@ -1,5 +1,22 @@
 import * as types from '../constants/ActionTypes';
 
+export function requestAdverstList(
+  isRefreshing,
+  loading,
+  typeId,
+  isLoadMore,
+  page = 1
+) {
+  return {
+    type: types.REQUEST_ADVERST_LIST,
+    isRefreshing,
+    loading,
+    isLoadMore,
+    typeId,
+    page
+  };
+}
+
 export function requestArticleList(
   isRefreshing,
   loading,
