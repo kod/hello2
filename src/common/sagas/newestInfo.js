@@ -23,7 +23,6 @@ export function* newestInfoHandle() {
       version: "1.0"
     }]);
     
-    console.log(response);
     
     yield put(
       newestInfoFetchSuccess(

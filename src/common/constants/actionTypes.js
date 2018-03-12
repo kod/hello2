@@ -17,6 +17,18 @@ import {
 
 const appNamespace = defineAction('BUYOO');
 
+export const BANNER_SWIPER = defineAction(
+  'BANNER_SWIPER',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const BANNER_HOME_TYPE = defineAction(
+  'BANNER_SWIPER',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const NEWESTINFO = defineAction(
   'NEWESTINFO',
   [REQUEST, SUCCESS, FAILURE, STOP],
