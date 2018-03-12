@@ -12,7 +12,6 @@ const width3_interval = width * 0.03 * 4;
 const width3_item = (width - width3_interval) / 3;
 
 import { connect } from "react-redux";
-import * as newestInfoActionCreators from "../common/actions/newestInfo";
 import * as bannerSwiperActionCreators from "../common/actions/bannerSwiper";
 import * as bannerHomeTypeActionCreators from "../common/actions/bannerHomeType";
 
@@ -104,7 +103,7 @@ class Main extends React.Component {
 
   componentDidMount() {
     const { bannerSwiperClear, bannerSwiperFetch, bannerHomeTypeFetch } = this.props;
-    bannerSwiperClear();
+    // bannerSwiperClear();
     bannerSwiperFetch('home');
     bannerHomeTypeFetch();
   }
@@ -349,4 +348,4 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(mapStateToProps, { ...newestInfoActionCreators, ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators })(Main);
+export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators })(Main);
