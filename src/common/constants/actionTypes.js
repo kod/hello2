@@ -17,14 +17,26 @@ import {
 
 const appNamespace = defineAction('BUYOO');
 
+export const PROMOTION_INFO = defineAction(
+  'PROMOTION_INFO',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const BANNER_SWIPER = defineAction(
   'BANNER_SWIPER',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 
+export const BANNER_HOME_RECOMMEND = defineAction(
+  'BANNER_HOME_RECOMMEND',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const BANNER_HOME_TYPE = defineAction(
-  'BANNER_SWIPER',
+  'BANNER_HOME_TYPE',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
@@ -40,3 +52,5 @@ export const AUTH_SIGNUP = defineAction(
   [REQUEST, SUCCESS, FAILURE],
   appNamespace,
 );
+
+export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);

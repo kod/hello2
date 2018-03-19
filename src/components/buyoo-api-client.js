@@ -34,6 +34,22 @@ class ReactStore {
     };
   }
 
+  getPromotionInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    return this.requestUrl(`:8185/fun/commodity/getPromotionInfo?${queryString}`);
+  }
+
   getNewestInfo(options) {
     if (!options) {
       return Promise.reject(new Error('fields required'));
