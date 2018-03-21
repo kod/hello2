@@ -3,7 +3,7 @@ import { promotionInfoFetchSuccess, promotionInfoFetchFailure } from '../actions
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { PROMOTION_INFO } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/authEncrypt';
+import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 
 export function* promotionInfoFetchWatchHandle(action) {
   try {

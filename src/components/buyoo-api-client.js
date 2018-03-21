@@ -34,6 +34,54 @@ class ReactStore {
     };
   }
 
+  initTopDigital(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    return this.requestUrl(`:8185/fun/digital/initTopDigital?${queryString}`);
+  }
+
+  initTopComputer(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    return this.requestUrl(`:8185/fun/computer/initTopComputer?${queryString}`);
+  }
+
+  initTopCellphone(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    return this.requestUrl(`:8185/fun/cellphone/initTopCellphone?${queryString}`);
+  }
+
   getPromotionInfo(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));

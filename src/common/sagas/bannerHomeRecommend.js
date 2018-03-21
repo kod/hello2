@@ -5,7 +5,7 @@ import {
 } from '../actions/bannerHomeRecommend';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
-import { BANNER_HOME_TYPE } from '../constants/actionTypes';
+import { BANNER_HOME_RECOMMEND } from '../constants/actionTypes';
 
 export function* bannerHomeRecommendFetchWatchHandle(action) {
   try {
@@ -77,5 +77,5 @@ export function* bannerHomeRecommendFetchWatchHandle(action) {
 }
 
 export function* bannerHomeRecommendFetchWatch() {
-  yield takeEvery(BANNER_HOME_TYPE.REQUEST, bannerHomeRecommendFetchWatchHandle);
+  yield takeEvery(BANNER_HOME_RECOMMEND.REQUEST, bannerHomeRecommendFetchWatchHandle);
 }

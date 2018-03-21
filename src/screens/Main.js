@@ -4,15 +4,10 @@ import { connect } from 'react-redux';
 
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import SwiperFlatList from '../components/SwiperFlatList';
-import BannerHomeType from '../components/bannerHomeType';
-import DiscountsItem from '../components/discountsItem';
-import FeaturedGoodsItem from '../components/featuredGoodsItem';
-
-import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
-import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
-import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import Scrollable1 from '../components/Scrollable1';
+import Scrollable2 from '../components/Scrollable2';
+import Scrollable3 from '../components/Scrollable3';
+import Scrollable4 from '../components/Scrollable4';
 
 const styles = StyleSheet.create({
   base: {
@@ -63,14 +58,7 @@ class Main extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { bannerSwiperClear, bannerSwiperFetch, bannerHomeTypeFetch, promotionInfoFetch, bannerHomeRecommendFetch } = this.props;
-    // bannerSwiperClear();
-    bannerSwiperFetch('home');
-    bannerHomeTypeFetch();
-    promotionInfoFetch();
-    bannerHomeRecommendFetch();
-  }
+  componentDidMount() {}
 
   _onDataArrived() {}
 
@@ -86,73 +74,29 @@ class Main extends React.Component {
   }
 
   render() {
-    const { bannerSwiper, bannerHomeType, promotionInfo, bannerHomeRecommend } = this.props;
-
-    const RecommendView = (tabLabel) => {
-      return (
-        <View>
-          <SwiperFlatList data={bannerSwiper} />
-
-          <View style={{ height: 8, backgroundColor: '#eee' }} />
-
-          <View style={{ height: 40, justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'center', color: '#333' }}>Brand on sale</Text>
-          </View>
-
-          <BannerHomeType data={bannerHomeType} />
-
-          <View style={{ height: 8, backgroundColor: '#eee' }} />
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 40, marginBottom: 10 }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ paddingLeft: 10, color: '#000', fontSize: 16 }}>Big Sale</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ marginTop: 2 }}>more</Text>
-              <Icon name="keyboard-arrow-right" size={24} color="#ddd" style={{}} />
-            </View>
-          </View>
-
-          <DiscountsItem data={promotionInfo} />
-
-          <View style={{ height: 8, backgroundColor: '#eee' }} />
-
-          <View style={{}}>
-            <View style={{}}>
-              <Text style={{ textAlign: 'center', paddingTop: 10, paddingBottom: 10, color: '#333', fontSize: 16 }}>Featured Events</Text>
-            </View>
-
-            <FeaturedGoodsItem data={bannerHomeRecommend} />
-          </View>
-        </View>
-      );
-    };
-
     const scrollableTabKeys = [
       {
         tabLabel: 'Recommend',
-        view: RecommendView('Recommend')
+        view: <Scrollable1 />
       },
       {
         tabLabel: 'Mobile Communications',
-        view: <Text>favorite</Text>
+        view: <Scrollable2 />
       },
       {
         tabLabel: 'Computer office',
-        view: <Text>体育迷123</Text>
+        view: <Scrollable3 />
       },
       {
         tabLabel: 'Digtal devices',
-        view: <Text>98765</Text>
+        view: <Scrollable4 />
       }
     ];
 
     const content = scrollableTabKeys.map((val, key) => {
       return (
-        <View tabLabel={val.tabLabel} style={styles.base} key={ key }>
-          <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />}>
-            { scrollableTabKeys[key].view }
-          </ScrollView>
+        <View tabLabel={val.tabLabel} style={styles.base} key={key}>
+          <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />}>{scrollableTabKeys[key].view}</ScrollView>
         </View>
       );
     });
@@ -173,32 +117,16 @@ class Main extends React.Component {
             <Icon name="crop-free" size={30} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
           </View>
         </View>
-        <ScrollableTabView renderTabBar={() => <ScrollableTabBar style={{ height: 40 }} tabStyle={styles.tab} textStyle={styles.tabText} />} tabBarBackgroundColor="#fcfcfc" tabBarUnderlineStyle={styles.tabBarUnderline} tabBarActiveTextColor="#3e9ce9" tabBarInactiveTextColor="#aaaaaa">
+        <ScrollableTabView initialPage={3} prerenderingSiblingsNumber={0} renderTabBar={() => <ScrollableTabBar style={{ height: 40 }} tabStyle={styles.tab} textStyle={styles.tabText} />} tabBarBackgroundColor="#fcfcfc" tabBarUnderlineStyle={styles.tabBarUnderline} tabBarActiveTextColor="#3e9ce9" tabBarInactiveTextColor="#aaaaaa">
           {content}
         </ScrollableTabView>
       </View>
     );
   }
-
-  // render() {
-  //   return (
-  //     <View>
-  //       <Text>Open up App.js to start working on your app!</Text>
-  //       <Text>Changes you make will automatically reload.</Text>
-  //       <Text>Shake your phone to open the developer menu.</Text>
-  //     </View>
-  //   );
-  // }
 }
 
 function mapStateToProps(state, props) {
-  const { bannerSwiper, bannerHomeType, promotionInfo, bannerHomeRecommend } = state;
-  return {
-    bannerSwiper: bannerSwiper['home'] || {},
-    bannerHomeType: bannerHomeType || {},
-    promotionInfo: promotionInfo || {},
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
+  return {};
 }
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators, ...promotionInfoActionCreators, ...bannerHomeRecommendActionCreators })(Main);
+export default connect(mapStateToProps, {})(Main);

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff0',
   },
   child: {
-    height: 120,
+    height: width * 346 / 899,
     width,
     justifyContent: 'center',
   },
