@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl } from 'react-native';
+import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
-import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import ScrollableTabView from '../components/ScrollableTabView';
 import Scrollable1 from '../components/Scrollable1';
 import Scrollable2 from '../components/Scrollable2';
 import Scrollable3 from '../components/Scrollable3';
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
 class Main extends React.Component {
   static navigationOptions = {
     header: null,
-    title: '分类',
-    tabBarIcon: ({ tintColor }) => <Icon name="home" size={25} color={tintColor} />
+    title: 'home',
+    tabBarIcon: ({ tintColor }) => <MaterialIcons name="home" size={25} color={tintColor} />
   };
 
   constructor() {
@@ -74,22 +75,24 @@ class Main extends React.Component {
   }
 
   render() {
+    const { width, height } = Dimensions.get('window');
+
     const scrollableTabKeys = [
       {
         tabLabel: 'Recommend',
-        view: <Scrollable1 />
+        view: <Scrollable1 {...this.props} />
       },
       {
         tabLabel: 'Mobile Communications',
-        view: <Scrollable2 />
+        view: <Scrollable2 {...this.props} />
       },
       {
         tabLabel: 'Computer office',
-        view: <Scrollable3 />
+        view: <Scrollable3 {...this.props} />
       },
       {
         tabLabel: 'Digtal devices',
-        view: <Scrollable4 />
+        view: <Scrollable4 {...this.props} />
       }
     ];
 
@@ -104,22 +107,18 @@ class Main extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: 45, backgroundColor: '#147af3' }}>
-          <View style={{}}>
-            <Icon name="menu" size={30} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
-          </View>
+          <View style={{ width: width * 0.03 }} />
           <View style={{ flex: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 30, backgroundColor: '#1c6ada', borderRadius: 14 }}>
-              <Icon name="search" size={24} color="#4889f3" style={{}} />
+              <MaterialIcons name="search" size={24} color="#4889f3" style={{}} />
               <Text style={{ color: '#6fa8fc' }}>Search</Text>
             </View>
           </View>
           <View style={{}}>
-            <Icon name="crop-free" size={30} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
+            <MaterialIcons name="crop-free" size={30} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
           </View>
         </View>
-        <ScrollableTabView initialPage={3} prerenderingSiblingsNumber={0} renderTabBar={() => <ScrollableTabBar style={{ height: 40 }} tabStyle={styles.tab} textStyle={styles.tabText} />} tabBarBackgroundColor="#fcfcfc" tabBarUnderlineStyle={styles.tabBarUnderline} tabBarActiveTextColor="#3e9ce9" tabBarInactiveTextColor="#aaaaaa">
-          {content}
-        </ScrollableTabView>
+        <ScrollableTabView content={content} />
       </View>
     );
   }

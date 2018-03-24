@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { SCREENS } from '../common/constants';
+
 import SwiperFlatList from '../components/SwiperFlatList';
 import BannerHomeType from '../components/BannerHomeType';
 import DiscountsItem from '../components/DiscountsItem';
@@ -28,7 +30,9 @@ class Scrollable1 extends React.Component {
   }
 
   render() {
-    const { bannerSwiper, bannerHomeType, promotionInfo, bannerHomeRecommend } = this.props;
+    const { bannerSwiper, bannerHomeType, promotionInfo, bannerHomeRecommend, navigation: { navigate } } = this.props;
+    console.log(this.props);
+
     return (
       <View>
         <SwiperFlatList data={bannerSwiper} />
@@ -36,7 +40,9 @@ class Scrollable1 extends React.Component {
         <View style={{ height: 8, backgroundColor: '#eee' }} />
 
         <View style={{ height: 40, justifyContent: 'center' }}>
-          <Text style={{ textAlign: 'center', color: '#333' }}>Brand on sale</Text>
+          <Text style={{ textAlign: 'center', color: '#333' }} onPress={() => navigate(SCREENS.ProductDetail)}>
+            Brand on sale
+          </Text>
         </View>
 
         <BannerHomeType data={bannerHomeType} />

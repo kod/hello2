@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class Category extends React.Component {
   static navigationOptions = {
     header: null,
-    title: '分类',
+    title: 'Cate',
     tabBarIcon: ({ tintColor }) => (
-      <Icon name="md-pricetags" size={25} color={tintColor} />
+      <MaterialIcons name="grade" size={25} color={tintColor} />
     )
   };
 
