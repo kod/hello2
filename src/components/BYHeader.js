@@ -78,6 +78,7 @@ class PXHeader extends Component {
       showBackButton,
       headerTitle,
       headerRight,
+      headerLeft,
       darkTheme,
       absolutePosition,
     } = this.props;
@@ -90,11 +91,12 @@ class PXHeader extends Component {
         ]}
       >
         <View style={styles.subContainer}>
-          {showBackButton &&
+          {showBackButton ?
             <HeaderBackButton
               onPress={this.handleOnPressBackButton}
               tintColor={darkTheme && '#fff'}
-            />}
+            /> :
+            headerLeft}
           {headerTitle}
           {headerRight}
         </View>

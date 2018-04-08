@@ -5,4 +5,7 @@ export const SCREENS = {
   Category: 'Category',
   Main: 'Main',
   ProductDetail: 'ProductDetail',
+  Login: 'Login',
+  RegisterStepOne: 'RegisterStepOne',
+  RegisterStepTwo: 'RegisterStepTwo',
 };

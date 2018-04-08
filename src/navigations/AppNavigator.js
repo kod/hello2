@@ -1,6 +1,9 @@
 import { StackNavigator } from 'react-navigation';
 import AppTabNavigator from './AppTabNavigator';
 import ProductDetail from '../screens/ProductDetail';
+import Login from '../screens/Login';
+import RegisterStepOne from '../screens/RegisterStepOne';
+import RegisterStepTwo from '../screens/RegisterStepTwo';
 import { SCREENS } from '../common/constants';
 
 const RouteConfigs = {
@@ -12,6 +15,24 @@ const RouteConfigs = {
   },
   [SCREENS.ProductDetail]: {
     screen: ProductDetail,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+  [SCREENS.Login]: {
+    screen: Login,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+  [SCREENS.RegisterStepOne]: {
+    screen: RegisterStepOne,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+  [SCREENS.RegisterStepTwo]: {
+    screen: RegisterStepTwo,
     navigationOptions: {
       headerLeft: null
     }

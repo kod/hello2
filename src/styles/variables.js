@@ -12,7 +12,7 @@ export const MUTE_COLOR = 'red';
 export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);
 export const WINDOW_HEIGHT = Math.floor(Dimensions.get('window').height);
 
-export const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+export const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 50;
 export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 export const DRAWER_WIDTH =
   WINDOW_WIDTH - (Platform.OS === 'android' ? 56 : 64);

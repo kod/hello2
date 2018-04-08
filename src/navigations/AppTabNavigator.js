@@ -5,19 +5,22 @@ import Category from '../screens/Category';
 import Main from '../screens/Main';
 import Cart from '../screens/Cart';
 import Me from '../screens/Me';
+import Login from '../screens/Login';
 import { SCREENS } from '../common/constants';
 
 const TabContainer = TabNavigator(
   {
     [SCREENS.Main]: { screen: Main },
-    [SCREENS.Category]: { screen: Category },
+    // [SCREENS.Category]: { screen: Category },
     [SCREENS.Cart]: { screen: Cart },
-    [SCREENS.Me]: { screen: Me }
+    [SCREENS.Me]: { screen: Me },
+    // [SCREENS.Login]: { screen: Login },
   },
   {
     lazy: true,
     swipeEnabled: false,
     animationEnabled: false,
+    initialRouteName: SCREENS.Cart,
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: '#3e9ce9',
