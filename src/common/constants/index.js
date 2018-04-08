@@ -9,4 +9,5 @@ export const SCREENS = {
   RegisterStepOne: 'RegisterStepOne',
   RegisterStepTwo: 'RegisterStepTwo',
   SearchResult: 'SearchResult',
+  MyCollection: 'MyCollection',
 };

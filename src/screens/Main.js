@@ -81,7 +81,7 @@ class Main extends React.Component {
     const { navigation: { navigate } } = this.props;
 
     setTimeout(() => {
-      navigate(SCREENS.SearchResult);
+      navigate(SCREENS.MyCollection);
     }, 300);
 
     const scrollableTabKeys = [

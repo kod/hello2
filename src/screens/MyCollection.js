@@ -1,0 +1,75 @@
+import React from 'react';
+import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import BYHeader from '../components/BYHeader';
+import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
+
+import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+
+const { width, height } = Dimensions.get('window');
+
+class MyCollection extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    const { bannerHomeRecommendFetch } = this.props;
+    bannerHomeRecommendFetch();
+  }
+
+  static navigationOptions = {
+    header: null,
+    title: 'Cart',
+    tabBarIcon: ({ tintColor }) => (
+      <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
+    )
+  };
+
+  handleOnPressHeaderBackButton = () => {
+    const { goBack } = this.props.navigation;
+    goBack();
+  };
+
+  renderHeaderTitle = () => {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
+        <Text style={{ fontSize: 18, color: '#fff' }}>My collection</Text>
+      </View>
+    )
+  }
+
+  renderHeaderRight = () => {
+    return (
+      <View></View>
+    )
+  }
+
+  render() {
+    const { bannerHomeRecommend, navigation: { navigate } } = this.props;
+    return (
+      <View>
+        <BYHeader
+          headerTitle={this.renderHeaderTitle()}
+          headerRight={this.renderHeaderRight()}
+          darkTheme
+          showBackButton
+          onPressBackButton={this.handleOnPressHeaderBackButton}
+        />
+        <ScrollView style={{ height: height - 25 - 55 }} >
+          <FeaturedGoodsItem data={bannerHomeRecommend} />
+        </ScrollView>
+      </View>
+    );
+  }
+}
+function mapStateToProps(state, props) {
+  const { bannerHomeRecommend } = state;
+  return {
+    bannerHomeRecommend: bannerHomeRecommend || {}
+  };
+}
+
+export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(MyCollection);

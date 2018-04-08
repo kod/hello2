@@ -5,6 +5,7 @@ import Login from '../screens/Login';
 import RegisterStepOne from '../screens/RegisterStepOne';
 import RegisterStepTwo from '../screens/RegisterStepTwo';
 import SearchResult from '../screens/SearchResult';
+import MyCollection from '../screens/MyCollection';
 import { SCREENS } from '../common/constants';
 
 const RouteConfigs = {
@@ -40,6 +41,12 @@ const RouteConfigs = {
   },
   [SCREENS.SearchResult]: {
     screen: SearchResult,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+  [SCREENS.MyCollection]: {
+    screen: MyCollection,
     navigationOptions: {
       headerLeft: null
     }
