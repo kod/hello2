@@ -20,7 +20,7 @@ const TabContainer = TabNavigator(
     lazy: true,
     swipeEnabled: false,
     animationEnabled: false,
-    initialRouteName: SCREENS.Cart,
+    initialRouteName: SCREENS.Main,
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: '#3e9ce9',

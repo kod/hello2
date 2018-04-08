@@ -1,14 +1,17 @@
 import React from 'react';
-import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Dimensions } from 'react-native';
+import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import { SCREENS } from "../common/constants";
 import ScrollableTabView from '../components/ScrollableTabView';
 import Scrollable1 from '../components/Scrollable1';
 import Scrollable2 from '../components/Scrollable2';
 import Scrollable3 from '../components/Scrollable3';
 import Scrollable4 from '../components/Scrollable4';
+
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   base: {
@@ -75,7 +78,11 @@ class Main extends React.Component {
   }
 
   render() {
-    const { width, height } = Dimensions.get('window');
+    const { navigation: { navigate } } = this.props;
+
+    setTimeout(() => {
+      navigate(SCREENS.SearchResult);
+    }, 300);
 
     const scrollableTabKeys = [
       {
@@ -108,11 +115,13 @@ class Main extends React.Component {
       <View style={styles.container}>
         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: 45, backgroundColor: '#147af3' }}>
           <View style={{ width: width * 0.03 }} />
-          <View style={{ flex: 8 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 30, backgroundColor: '#1c6ada', borderRadius: 14 }}>
-              <MaterialIcons name="search" size={24} color="#4889f3" style={{}} />
-              <Text style={{ color: '#6fa8fc' }}>Search</Text>
-            </View>
+          <View style={{ flex: 8, }}>
+            <TouchableWithoutFeedback onPress={ () => navigate(SCREENS.SearchResult) }>
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 30, backgroundColor: '#1c6ada', borderRadius: 14 }}>
+                <MaterialIcons name="search" size={24} color="#4889f3" style={{}} />
+                <Text style={{ color: '#6fa8fc' }}>Search</Text>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
           <View style={{}}>
             <MaterialIcons name="crop-free" size={30} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />

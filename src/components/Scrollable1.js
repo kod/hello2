@@ -65,7 +65,7 @@ class Scrollable1 extends React.Component {
 
         <View style={{}}>
           <View style={{}}>
-            <Text style={{ textAlign: 'center', paddingTop: 10, paddingBottom: 10, color: '#333', fontSize: 16 }}>Featured Events</Text>
+            <Text style={{ textAlign: 'center', paddingTop: 10, color: '#333', fontSize: 16 }}>Featured Events</Text>
           </View>
 
           <FeaturedGoodsItem data={bannerHomeRecommend} />

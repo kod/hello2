@@ -4,6 +4,7 @@ import ProductDetail from '../screens/ProductDetail';
 import Login from '../screens/Login';
 import RegisterStepOne from '../screens/RegisterStepOne';
 import RegisterStepTwo from '../screens/RegisterStepTwo';
+import SearchResult from '../screens/SearchResult';
 import { SCREENS } from '../common/constants';
 
 const RouteConfigs = {
@@ -33,6 +34,12 @@ const RouteConfigs = {
   },
   [SCREENS.RegisterStepTwo]: {
     screen: RegisterStepTwo,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+  [SCREENS.SearchResult]: {
+    screen: SearchResult,
     navigationOptions: {
       headerLeft: null
     }

@@ -8,4 +8,5 @@ export const SCREENS = {
   Login: 'Login',
   RegisterStepOne: 'RegisterStepOne',
   RegisterStepTwo: 'RegisterStepTwo',
+  SearchResult: 'SearchResult',
 };
