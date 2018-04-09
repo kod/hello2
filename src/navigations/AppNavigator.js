@@ -6,6 +6,8 @@ import RegisterStepOne from '../screens/RegisterStepOne';
 import RegisterStepTwo from '../screens/RegisterStepTwo';
 import SearchResult from '../screens/SearchResult';
 import MyCollection from '../screens/MyCollection';
+import Settings from '../screens/Settings';
+import Language from '../screens/Language';
 import { SCREENS } from '../common/constants';
 
 const RouteConfigs = {
@@ -47,6 +49,18 @@ const RouteConfigs = {
   },
   [SCREENS.MyCollection]: {
     screen: MyCollection,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+  [SCREENS.Settings]: {
+    screen: Settings,
+    navigationOptions: {
+      headerLeft: null
+    }
+  },
+  [SCREENS.Language]: {
+    screen: Language,
     navigationOptions: {
       headerLeft: null
     }

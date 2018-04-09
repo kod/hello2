@@ -74,7 +74,8 @@ export default class App extends PureComponent {
 
   render() {
     const { 
-      data: { items, loaded, loading }
+      data: { items, loaded, loading },
+      style
     } = this.props;
     return (
       <View style={styles.container}>
@@ -91,8 +92,11 @@ export default class App extends PureComponent {
               items && items.map((val, index) => {
                 return (<Image
                   key={index} 
-                  style={ styles.child }
                   source={{uri: val}}
+                  style={ [
+                    styles.child,
+                    style
+                  ]}
                 />)
               })
             }

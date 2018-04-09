@@ -10,4 +10,6 @@ export const SCREENS = {
   RegisterStepTwo: 'RegisterStepTwo',
   SearchResult: 'SearchResult',
   MyCollection: 'MyCollection',
+  Settings: 'Settings',
+  Language: 'Language',
 };

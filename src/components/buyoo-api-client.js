@@ -6,9 +6,10 @@ const axios = require("axios");
 const qs = require("qs");
 
 const BASE_URL = "http://119.28.177.175";
-const CLIENT_ID = "KzEZED7aC0vird8jWyHM38mXjNTY";
-const CLIENT_SECRET = "W9JZoJe00qPvJsiyCGT3CCtC6ZUtdpKpzMbNlUGP";
-const filter = "for_ios";
+const DEBUG = false;
+// const CLIENT_ID = "KzEZED7aC0vird8jWyHM38mXjNTY";
+// const CLIENT_SECRET = "W9JZoJe00qPvJsiyCGT3CCtC6ZUtdpKpzMbNlUGP";
+// const filter = "for_ios";
 
 function callApi(url, options) {
   const finalUrl = /^https?:\/\//i.test(url) ? url : BASE_URL + url;

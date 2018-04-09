@@ -3,6 +3,8 @@ import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Di
 import { connect } from 'react-redux';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { SCREENS } from "../common/constants";
 import ScrollableTabView from '../components/ScrollableTabView';
@@ -81,7 +83,7 @@ class Main extends React.Component {
     const { navigation: { navigate } } = this.props;
 
     setTimeout(() => {
-      navigate(SCREENS.MyCollection);
+      navigate(SCREENS.Settings);
     }, 300);
 
     const scrollableTabKeys = [
@@ -118,13 +120,13 @@ class Main extends React.Component {
           <View style={{ flex: 8, }}>
             <TouchableWithoutFeedback onPress={ () => navigate(SCREENS.SearchResult) }>
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 30, backgroundColor: '#1c6ada', borderRadius: 14 }}>
-                <MaterialIcons name="search" size={24} color="#4889f3" style={{}} />
+                <Ionicons name="ios-search" size={20} color="#4889f3" style={{ marginRight: 3 }} />
                 <Text style={{ color: '#6fa8fc' }}>Search</Text>
               </View>
             </TouchableWithoutFeedback>
           </View>
           <View style={{}}>
-            <MaterialIcons name="crop-free" size={30} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
+            <FontAwesome name="qrcode" size={30} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
           </View>
         </View>
         <ScrollableTabView content={content} />
