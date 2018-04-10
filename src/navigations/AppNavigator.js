@@ -14,55 +14,55 @@ const RouteConfigs = {
   [SCREENS.Index]: {
     screen: AppTabNavigator,
     navigationOptions: {
-      headerLeft: null
+      header: null
     }
   },
   [SCREENS.ProductDetail]: {
     screen: ProductDetail,
     navigationOptions: {
-      headerLeft: null
+      header: null
     }
   },
   [SCREENS.Login]: {
     screen: Login,
     navigationOptions: {
-      headerLeft: null
+      header: null
     }
   },
   [SCREENS.RegisterStepOne]: {
     screen: RegisterStepOne,
     navigationOptions: {
-      headerLeft: null
+      header: null
     }
   },
   [SCREENS.RegisterStepTwo]: {
     screen: RegisterStepTwo,
     navigationOptions: {
-      headerLeft: null
+      header: null
     }
   },
   [SCREENS.SearchResult]: {
     screen: SearchResult,
     navigationOptions: {
-      headerLeft: null
+      header: null
     }
   },
   [SCREENS.MyCollection]: {
     screen: MyCollection,
     navigationOptions: {
-      headerLeft: null
+      header: null
     }
   },
   [SCREENS.Settings]: {
     screen: Settings,
     navigationOptions: {
-      headerLeft: null
+      header: null
     }
   },
   [SCREENS.Language]: {
     screen: Language,
     navigationOptions: {
-      headerLeft: null
+      header: null,
     }
   }
 };
@@ -81,4 +81,6 @@ const StackNavigatorConfig = {
   }
 };
 
-export default StackNavigator(RouteConfigs, StackNavigatorConfig);
+const AppNavigator = StackNavigator(RouteConfigs, StackNavigatorConfig);
+
+export default AppNavigator;

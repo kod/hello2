@@ -6,6 +6,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import BYHeader from '../components/BYHeader';
 import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
 import BYTouchable from "../components/BYTouchable";
+import { SCREENS } from "../common/constants";
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 
@@ -21,13 +22,13 @@ class Settings extends React.Component {
     // bannerHomeRecommendFetch();
   }
 
-  static navigationOptions = {
-    header: null,
-    title: 'Cart',
-    tabBarIcon: ({ tintColor }) => (
-      <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
-    )
-  };
+  // static navigationOptions = {
+  //   header: null,
+  //   title: 'Cart',
+  //   tabBarIcon: ({ tintColor }) => (
+  //     <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
+  //   )
+  // };
 
   handleOnPressHeaderBackButton = () => {
     const { goBack } = this.props.navigation;
@@ -79,7 +80,7 @@ class Settings extends React.Component {
                 <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
               </View>
             </BYTouchable>
-            <BYTouchable delayPressIn={0}>
+            <BYTouchable onPress={() => navigate(SCREENS.Language)} delayPressIn={0}>
               <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
                 <Text style={{ flex: 1, }} >Language</Text>
                 <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />

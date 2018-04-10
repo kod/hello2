@@ -8,7 +8,6 @@ import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 export function* promotionInfoFetchWatchHandle(action) {
   try {
     let Key = 'commodityKey';
-    console.log(Key);
     let appId = '';
     let method = 'fun.promotion.query';
     let charset = 'utf-8';

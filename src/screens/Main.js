@@ -12,6 +12,8 @@ import Scrollable1 from '../components/Scrollable1';
 import Scrollable2 from '../components/Scrollable2';
 import Scrollable3 from '../components/Scrollable3';
 import Scrollable4 from '../components/Scrollable4';
+import { connectLocalization } from "../components/Localization";
+import i18n from "../common/helpers/i18n";
 
 const { width, height } = Dimensions.get('window');
 
@@ -38,11 +40,11 @@ const styles = StyleSheet.create({
 });
 
 class Main extends React.Component {
-  static navigationOptions = {
-    header: null,
-    title: 'home',
-    tabBarIcon: ({ tintColor }) => <MaterialIcons name="home" size={25} color={tintColor} />
-  };
+  // static navigationOptions = {
+  //   header: null,
+  //   title: 'home',
+  //   tabBarIcon: ({ tintColor }) => <MaterialIcons name="home" size={25} color={tintColor} />
+  // };
 
   constructor() {
     super();
@@ -82,9 +84,9 @@ class Main extends React.Component {
   render() {
     const { navigation: { navigate } } = this.props;
 
-    setTimeout(() => {
-      navigate(SCREENS.Settings);
-    }, 300);
+    // setTimeout(() => {
+    //   navigate(SCREENS.Language);
+    // }, 300);
 
     const scrollableTabKeys = [
       {
@@ -139,4 +141,6 @@ function mapStateToProps(state, props) {
   return {};
 }
 
-export default connect(mapStateToProps, {})(Main);
+export default connectLocalization(
+  connect(mapStateToProps, {})(Main)
+);

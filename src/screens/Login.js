@@ -10,11 +10,11 @@ import { SCREENS } from "../common/constants";
 const { width, height } = Dimensions.get('window');
 
 class Feedback extends React.Component {
-  static navigationOptions = {
-    header: null,
-    title: 'Cart',
-    tabBarIcon: ({ tintColor }) => <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
-  };
+  // static navigationOptions = {
+  //   header: null,
+  //   title: 'Cart',
+  //   tabBarIcon: ({ tintColor }) => <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
+  // };
 
   handleOnPressHeaderBackButton = () => {
     const { goBack } = this.props.navigation;
@@ -39,7 +39,6 @@ class Feedback extends React.Component {
 
   render() {
     const { navigation: { goBack, navigate }, navigation } = this.props;
-    console.log(navigation);
     return (
       <View style={{ backgroundColor: '#fff' }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', height: 45, borderBottomWidth: 1, borderBottomColor: '#eee' }}>

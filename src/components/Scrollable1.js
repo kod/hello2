@@ -31,7 +31,6 @@ class Scrollable1 extends React.Component {
 
   render() {
     const { bannerSwiper, bannerHomeType, promotionInfo, bannerHomeRecommend, navigation: { navigate } } = this.props;
-    console.log(this.props);
 
     return (
       <View>

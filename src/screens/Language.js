@@ -6,10 +6,30 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import BYHeader from '../components/BYHeader';
 import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
 import BYTouchable from "../components/BYTouchable";
+import { globalStyleVariables } from "../styles";
+import { connectLocalization } from "../components/Localization";
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import * as i18nActionCreators from "../common/actions/i18n";
 
 const { width, height } = Dimensions.get('window');
+
+const languageList = [
+  {
+    id: 'en',
+    title: 'English',
+  },
+  {
+    id: 'vi',
+    title: 'Tiếng Việt',
+  },
+  {
+    id: 'zh',
+    ids: ['zh', 'zh-CN', 'zh-SG'],
+    title: '中文',
+    multipleId: true,
+  },
+]
 
 class Language extends React.Component {
   constructor(props) {
@@ -21,13 +41,26 @@ class Language extends React.Component {
     // bannerHomeRecommendFetch();
   }
 
-  static navigationOptions = {
-    header: null,
-    title: 'Cart',
-    tabBarIcon: ({ tintColor }) => (
-      <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
+  handleOnPressListItem = id => {
+    const { setLanguage } = this.props;
+    setLanguage(id);
+  }
+
+  renderList = list => {
+    const { lang } = this.props;
+    return (
+      <View>
+        {list.map((val, key) => 
+          <BYTouchable delayPressIn={0} key={key} onPress={ () => this.handleOnPressListItem(val.id) }>
+            <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
+              <Text style={{ flex: 1, }} >{ val.title }</Text>
+              { val.id === lang && <MaterialIcons name="check-circle" style={{ fontSize: 26, color: globalStyleVariables.PRIMARY_COLOR }} /> }
+            </View>
+          </BYTouchable>
+        )}
+      </View>
     )
-  };
+  }
 
   handleOnPressHeaderBackButton = () => {
     const { goBack } = this.props.navigation;
@@ -61,35 +94,7 @@ class Language extends React.Component {
         />
         <ScrollView style={{ height: height - 25 - 55, }} >
           <View style={{ backgroundColor: '#fff' }} >
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >Personal information</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >Security center</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >Clear cache</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >Language</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 60, paddingLeft: width * 0.04, paddingRight: width * 0.02, }} >
-                <Text style={{ flex: 1, textAlign: 'center' }} >Sign Out</Text>
-              </View>
-            </BYTouchable>
+            {this.renderList(languageList)}
           </View>
         </ScrollView>
       </View>
@@ -103,4 +108,6 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(Language);
+export default connectLocalization(
+  connect(mapStateToProps, { ...i18nActionCreators })(Language)
+);

@@ -6,7 +6,6 @@ import { BANNER_SWIPER } from '../constants/actionTypes';
 
 export function* bannerSwiperFetchWatchHandle(action) {
   const { swiperId } = action.payload;
-  console.log(swiperId);
   try {
     let response = [];
     let item;
@@ -158,7 +157,6 @@ export function* bannerSwiperFetchWatchHandle(action) {
 
     yield put(bannerSwiperFetchSuccess(swiperId, response));
   } catch (err) {
-    console.log(err);
     yield put(bannerSwiperFetchFailure(swiperId));
     yield put(addError(err));
   }
