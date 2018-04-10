@@ -1,3 +1,10 @@
 {
-  "about": "About us"
+  "about": "About us",
+  "cart": "cart",
+  "language": "Language",
+  "clearCache": "Clear cache",
+  "personalInformation": "Personal information",
+  "securityCenter": "Security center",
+  "signOut": "Sign Out",
+  "home": "Home"
 }

@@ -6,6 +6,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import BYHeader from '../components/BYHeader';
 import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
 import BYTouchable from "../components/BYTouchable";
+import { connectLocalization } from "../components/Localization";
 import { SCREENS } from "../common/constants";
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
@@ -50,7 +51,7 @@ class Settings extends React.Component {
   }
 
   render() {
-    const { bannerHomeRecommend, navigation: { navigate } } = this.props;
+    const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
     return (
       <View>
         <BYHeader
@@ -64,31 +65,31 @@ class Settings extends React.Component {
           <View style={{ backgroundColor: '#fff' }} >
             <BYTouchable delayPressIn={0}>
               <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >Personal information</Text>
+                <Text style={{ flex: 1, }} >{ i18n.personalInformation }</Text>
                 <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
               </View>
             </BYTouchable>
             <BYTouchable delayPressIn={0}>
               <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >Security center</Text>
+                <Text style={{ flex: 1, }} >{ i18n.securityCenter }</Text>
                 <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
               </View>
             </BYTouchable>
             <BYTouchable delayPressIn={0}>
               <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >Clear cache</Text>
+                <Text style={{ flex: 1, }} >{ i18n.clearCache }</Text>
                 <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
               </View>
             </BYTouchable>
             <BYTouchable onPress={() => navigate(SCREENS.Language)} delayPressIn={0}>
               <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >Language</Text>
+                <Text style={{ flex: 1, }} >{ i18n.language }</Text>
                 <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
               </View>
             </BYTouchable>
             <BYTouchable delayPressIn={0}>
               <View style={{ flexDirection: 'row', alignItems: 'center', height: 60, paddingLeft: width * 0.04, paddingRight: width * 0.02, }} >
-                <Text style={{ flex: 1, textAlign: 'center' }} >Sign Out</Text>
+                <Text style={{ flex: 1, textAlign: 'center' }} >{ i18n.signOut }</Text>
               </View>
             </BYTouchable>
           </View>
@@ -104,4 +105,6 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(Settings);
+export default connectLocalization(
+  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(Settings)
+);

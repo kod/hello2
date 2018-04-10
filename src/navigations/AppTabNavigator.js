@@ -1,5 +1,7 @@
 
+import React from 'react';
 import { TabNavigator } from 'react-navigation';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Category from '../screens/Category';
 import Main from '../screens/Main';
@@ -10,9 +12,21 @@ import { SCREENS } from '../common/constants';
 
 const TabContainer = TabNavigator(
   {
-    [SCREENS.Main]: { screen: Main },
+    [SCREENS.Main]: { 
+      screen: Main,
+      navigationOptions: ({ screenProps: { i18n } }) => ({
+        tabBarLabel: i18n.home,
+        tabBarIcon: ({ tintColor }) => <MaterialIcons name="home" size={25} color={tintColor} />
+      }),
+     },
     // [SCREENS.Category]: { screen: Category },
-    [SCREENS.Cart]: { screen: Cart },
+    [SCREENS.Cart]: { 
+      screen: Cart,
+      navigationOptions: ({ screenProps: { i18n } }) => ({
+        tabBarLabel: i18n.cart,
+        tabBarIcon: ({ tintColor }) => <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
+      }),
+     },
     [SCREENS.Me]: { screen: Me },
     // [SCREENS.Login]: { screen: Login },
   },

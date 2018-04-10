@@ -42,8 +42,9 @@ class Language extends React.Component {
   }
 
   handleOnPressListItem = id => {
-    const { setLanguage } = this.props;
+    const { setLanguage, navigation } = this.props;
     setLanguage(id);
+    navigation.goBack();
   }
 
   renderList = list => {

@@ -1,3 +1,10 @@
 {
-  "about": "Về chúng tôi"
+  "about": "Về chúng tôi",
+  "cart": "giỏ hàng",
+  "language": "ngôn ngữ",
+  "clearCache": "Xóa cache",
+  "personalInformation": "Thông tin cá nhân",
+  "securityCenter": "Trung tâm an toàn",
+  "signOut": "Đăng xuất",
+  "home": "Trang chủ"
 }

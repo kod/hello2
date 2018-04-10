@@ -128,7 +128,7 @@ class Main extends React.Component {
             </TouchableWithoutFeedback>
           </View>
           <View style={{}}>
-            <FontAwesome name="qrcode" size={30} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
+            <FontAwesome name="qrcode" size={28} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
           </View>
         </View>
         <ScrollableTabView content={content} />
