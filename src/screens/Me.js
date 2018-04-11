@@ -9,11 +9,6 @@ import BYTouchable from '../components/BYTouchable';
 export const { width, height } = Dimensions.get('window');
 
 class Me extends React.Component {
-  static navigationOptions = {
-    header: null,
-    title: 'Me',
-    tabBarIcon: ({ tintColor }) => <MaterialIcons name="account-circle" size={25} color={tintColor} />
-  };
 
   render() {
     const { navigation: { navigate } } = this.props;

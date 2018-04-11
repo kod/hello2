@@ -40,11 +40,6 @@ const styles = StyleSheet.create({
 });
 
 class Main extends React.Component {
-  // static navigationOptions = {
-  //   header: null,
-  //   title: 'home',
-  //   tabBarIcon: ({ tintColor }) => <MaterialIcons name="home" size={25} color={tintColor} />
-  // };
 
   constructor() {
     super();

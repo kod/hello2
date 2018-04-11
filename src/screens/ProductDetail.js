@@ -22,12 +22,6 @@ class ProductDetail extends React.Component {
     bannerSwiperFetch('one');
   }
 
-  // static navigationOptions = {
-  //   header: null,
-  //   title: 'Cart',
-  //   tabBarIcon: ({ tintColor }) => <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
-  // };
-
   handleOnPressHeaderBackButton = () => {
     const { goBack } = this.props.navigation;
     goBack();

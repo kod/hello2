@@ -7,13 +7,6 @@ import { globalStyleVariables } from '../styles';
 const { width, height } = Dimensions.get('window');
 
 class Feedback extends React.Component {
-  // static navigationOptions = {
-  //   header: null,
-  //   title: 'Cart',
-  //   tabBarIcon: ({ tintColor }) => (
-  //     <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
-  //   )
-  // };
 
   handleOnPressHeaderBackButton = () => {
     const { goBack } = this.props.navigation;

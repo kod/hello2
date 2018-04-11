@@ -3,13 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class Category extends React.Component {
-  // static navigationOptions = {
-  //   header: null,
-  //   title: 'Cate',
-  //   tabBarIcon: ({ tintColor }) => (
-  //     <MaterialIcons name="grade" size={25} color={tintColor} />
-  //   )
-  // };
 
   render() {
     return (

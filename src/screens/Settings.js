@@ -23,14 +23,6 @@ class Settings extends React.Component {
     // bannerHomeRecommendFetch();
   }
 
-  // static navigationOptions = {
-  //   header: null,
-  //   title: 'Cart',
-  //   tabBarIcon: ({ tintColor }) => (
-  //     <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
-  //   )
-  // };
-
   handleOnPressHeaderBackButton = () => {
     const { goBack } = this.props.navigation;
     goBack();
