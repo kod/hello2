@@ -6,15 +6,27 @@ import { globalStyleVariables } from '../styles';
 import { SCREENS } from "../common/constants";
 import BYTouchable from '../components/BYTouchable';
 
-export const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class Me extends React.Component {
 
+  renderList = list => {
+    return (
+      <View style={{ backgroundColor: '#fff' }}>
+        <BYTouchable>
+          <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
+            <MaterialIcons name="assignment" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#ebd35a' }} />
+            <Text style={{ flex: 1, fontSize: 16 }}>Bills</Text>
+            <Text style={{ flex: 5, fontSize: 12 }}>Repayments on the 26th of each month</Text>
+            <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
+          </View>
+        </BYTouchable>
+      </View>
+    )
+  }
+  
   render() {
     const { navigation: { navigate } } = this.props;
-    // setTimeout(() => {
-    //   navigate(SCREENS.RegisterStepTwo)
-    // }, 100);
     return (
       <View>
         <View style={{ flexDirection: 'row', height: 100, width, backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR }}>

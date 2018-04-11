@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, Dimensions } from 'react-native';
 
-export const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export default ({ data }) => {
   const { items } = data;

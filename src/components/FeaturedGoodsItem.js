@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
 
-export const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const width3_interval = width * 0.03 * 4;
 const width3_item = (width - width3_interval) / 3;
 

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Text, Dimensions, Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 
-export const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {

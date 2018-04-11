@@ -7,7 +7,7 @@ import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 
-export const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class Scrollable2 extends React.Component {
   constructor(props) {
