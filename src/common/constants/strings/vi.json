@@ -1,10 +1,21 @@
 {
   "about": "Về chúng tôi",
-  "cart": "giỏ hàng",
-  "language": "ngôn ngữ",
+  "cart": "Giỏ hàng",
+  "language": "Ngôn ngữ",
   "clearCache": "Xóa cache",
   "personalInformation": "Thông tin cá nhân",
+  "certifiedInformation": "Thông tin chứng nhận",
   "securityCenter": "Trung tâm an toàn",
   "signOut": "Đăng xuất",
+  "login": "Đăng nhập",
+  "register": "Đăng ký",
+  "bills": "Hóa đơn",
+  "orders": "Đơn hàng",
+  "myCollection": "Bộ sưu tập của tôi",
+  "myCoupon": "Ưu đãi của tôi",
+  "shippingAddress": "Sổ địa chỉ của bạn",
+  "inviteFriends": "Mời bạn bè",
+  "followUs": "Follow us",
+  "settings": "Cài đặt",
   "home": "Trang chủ"
 }

@@ -4,7 +4,18 @@
   "language": "Language",
   "clearCache": "Clear cache",
   "personalInformation": "Personal information",
+  "certifiedInformation": "Certified information",
   "securityCenter": "Security center",
   "signOut": "Sign Out",
+  "login": "Login",
+  "register": "Register",
+  "bills": "Bills",
+  "orders": "Orders",
+  "myCollection": "My collection",
+  "myCoupon": "My coupon",
+  "shippingAddress": "Shipping address",
+  "inviteFriends": "Invite friends",
+  "followUs": "Follow us",
+  "settings": "Settings",
   "home": "Home"
 }
