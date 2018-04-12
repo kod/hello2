@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { createIconSetFromFontello } from 'react-native-vector-icons';
+// import fontelloConfig from '../res/config.json';
+// const Fontello = createIconSetFromFontello(fontelloConfig);
+import CustomIcon from '../components/CustomIcon.js'
 
 import { SCREENS } from "../common/constants";
 import ScrollableTabView from '../components/ScrollableTabView';
@@ -123,7 +127,9 @@ class Main extends React.Component {
             </TouchableWithoutFeedback>
           </View>
           <View style={{}}>
-            <FontAwesome name="qrcode" size={28} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} />
+            {/* <FontAwesome name="qrcode" size={28} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} /> */}
+            {/* <Fontello name="icon-erweima" size={28} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} /> */}
+            <CustomIcon name="cart" size={25} style={{ paddingLeft: 10, paddingRight: 10 }}/>
           </View>
         </View>
         <ScrollableTabView content={content} />
