@@ -15,6 +15,12 @@ import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType'
 import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 
+const styles = StyleSheet.create({
+  subNav: {
+    flexDirection: 'row',
+  }
+})
+
 class Scrollable1 extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +42,9 @@ class Scrollable1 extends React.Component {
       <View>
         <SwiperFlatList data={bannerSwiper} />
 
-        <View style={{ height: 8, backgroundColor: '#eee' }} />
+        {/* <View style={subNav} >
+        
+        </View> */}
 
         <View style={{ height: 40, justifyContent: 'center' }}>
           <Text style={{ textAlign: 'center', color: '#333' }} onPress={() => navigate(SCREENS.ProductDetail)}>

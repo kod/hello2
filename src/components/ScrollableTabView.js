@@ -12,15 +12,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   tab: {
-    height: 40,
-    paddingBottom: 0
+    height: 32,
+    paddingBottom: 0,
+    paddingTop: 0,
   },
   tabText: {
-    fontSize: 12
+    fontSize: 12,
   },
   tabBarUnderline: {
-    backgroundColor: '#3e9ce9',
-    height: 3
+    backgroundColor: '#0076F7',
+    height: 2,
   }
 });
 
@@ -30,13 +31,13 @@ const ScrollableTabView = ({ content, ...restProps }) => (
   <ReactNativeScrollableTabView 
     initialPage={0} 
     prerenderingSiblingsNumber={0} 
-    renderTabBar={() => <ScrollableTabBar style={{ height: 40 }} 
+    renderTabBar={() => <ScrollableTabBar style={{ height: 32 }} 
     tabStyle={styles.tab} 
     textStyle={styles.tabText} />} 
-    tabBarBackgroundColor="#fcfcfc" 
+    tabBarBackgroundColor="#fff" 
     tabBarUnderlineStyle={styles.tabBarUnderline} 
-    tabBarActiveTextColor="#3e9ce9" 
-    tabBarInactiveTextColor="#aaaaaa"
+    tabBarActiveTextColor="#0076F7" 
+    tabBarInactiveTextColor="#999"
     {...restProps}
   >
     {content}

@@ -1,25 +1,20 @@
 import React from 'react';
-import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Dimensions,StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { createIconSetFromFontello } from 'react-native-vector-icons';
-// import fontelloConfig from '../res/config.json';
-// const Fontello = createIconSetFromFontello(fontelloConfig);
-import CustomIcon from '../components/CustomIcon.js'
+import { globalStyleVariables } from '../styles';
 
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
+
 import ScrollableTabView from '../components/ScrollableTabView';
 import Scrollable1 from '../components/Scrollable1';
 import Scrollable2 from '../components/Scrollable2';
 import Scrollable3 from '../components/Scrollable3';
 import Scrollable4 from '../components/Scrollable4';
-import { connectLocalization } from "../components/Localization";
-import i18n from "../common/helpers/i18n";
-
-const { width, height } = Dimensions.get('window');
+import { connectLocalization } from '../components/Localization';
+import i18n from '../common/helpers/i18n';
+import CustomIcon from '../components/CustomIcon.js';
+import BYTouchable from '../components/BYTouchable';
 
 const styles = StyleSheet.create({
   base: {
@@ -28,23 +23,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff'
+    backgroundColor: globalStyleVariables.BACKGROUND_COLOR
   },
-  tab: {
+  headerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     height: 40,
-    paddingBottom: 0
+    backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR
   },
-  tabText: {
-    fontSize: 12
+  headerMiddle: {
+    flex: 8
   },
-  tabBarUnderline: {
-    backgroundColor: '#3e9ce9',
-    height: 3
+  headerMiddleMain: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.03,
+    height: 30,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 1
+  },
+  headerMiddleIcon: {
+    fontSize: 13,
+    color: '#ccc',
+    marginRight: globalStyleVariables.WINDOW_WIDTH * 0.02
+  },
+  headerMiddleText: {
+    fontSize: 12,
+    color: '#ccc'
+  },
+  headerIcon: {
+    height: 40,
+    lineHeight: 40,
+    paddingLeft: globalStyleVariables.WINDOW_HEIGHT * 0.03,
+    paddingRight: globalStyleVariables.WINDOW_HEIGHT * 0.03,
+    color: '#999',
+    fontSize: 18
   }
 });
 
 class Main extends React.Component {
-
   constructor() {
     super();
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -81,7 +99,7 @@ class Main extends React.Component {
   }
 
   render() {
-    const { navigation: { navigate } } = this.props;
+    const { navigation: { navigate }, i18n } = this.props;
 
     // setTimeout(() => {
     //   navigate(SCREENS.Language);
@@ -89,19 +107,19 @@ class Main extends React.Component {
 
     const scrollableTabKeys = [
       {
-        tabLabel: 'Recommend',
+        tabLabel: i18n.recommend,
         view: <Scrollable1 {...this.props} />
       },
       {
-        tabLabel: 'Mobile Communications',
+        tabLabel: i18n.mobileCommunications,
         view: <Scrollable2 {...this.props} />
       },
       {
-        tabLabel: 'Computer office',
+        tabLabel: i18n.computerOffice,
         view: <Scrollable3 {...this.props} />
       },
       {
-        tabLabel: 'Digtal devices',
+        tabLabel: i18n.digitalDevices,
         view: <Scrollable4 {...this.props} />
       }
     ];
@@ -116,21 +134,21 @@ class Main extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: 45, backgroundColor: '#147af3' }}>
-          <View style={{ width: width * 0.03 }} />
-          <View style={{ flex: 8, }}>
-            <TouchableWithoutFeedback onPress={ () => navigate(SCREENS.SearchResult) }>
-              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: 30, backgroundColor: '#1c6ada', borderRadius: 14 }}>
-                <Ionicons name="ios-search" size={20} color="#4889f3" style={{ marginRight: 3 }} />
-                <Text style={{ color: '#6fa8fc' }}>Search</Text>
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
-          <View style={{}}>
-            {/* <FontAwesome name="qrcode" size={28} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} /> */}
-            {/* <Fontello name="icon-erweima" size={28} color="#fff" style={{ paddingLeft: 10, paddingRight: 10 }} /> */}
-            <CustomIcon name="cart" size={25} style={{ paddingLeft: 10, paddingRight: 10 }}/>
-          </View>
+        <StatusBar
+          backgroundColor="#fff"
+          barStyle="dark-content"
+        />
+        <View style={styles.headerContainer}>
+          <BYTouchable>
+            <CustomIcon name="notice" style={styles.headerIcon} />
+          </BYTouchable>
+          <BYTouchable style={styles.headerMiddle} onPress={() => navigate(SCREENS.SearchResult)}>
+            <View style={styles.headerMiddleMain}>
+              <CustomIcon name="search" style={styles.headerMiddleIcon} />
+              <Text style={styles.headerMiddleText}>XiaoMi 5A</Text>
+            </View>
+          </BYTouchable>
+          <CustomIcon name="qrcode" style={styles.headerIcon} />
         </View>
         <ScrollableTabView content={content} />
       </View>
@@ -142,6 +160,4 @@ function mapStateToProps(state, props) {
   return {};
 }
 
-export default connectLocalization(
-  connect(mapStateToProps, {})(Main)
-);
+export default connectLocalization(connect(mapStateToProps, {})(Main));
