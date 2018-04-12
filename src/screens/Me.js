@@ -5,28 +5,135 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { globalStyleVariables } from '../styles';
 import { SCREENS } from "../common/constants";
 import BYTouchable from '../components/BYTouchable';
+// import MaterialCommunityIcons from "../components/MaterialCommunityIcons";
 
 const { width, height } = Dimensions.get('window');
 
 class Me extends React.Component {
 
-  renderList = list => {
+  renderList = (i18n, navigate) => {
+
+    const list = [
+      {
+        name: i18n.bills,
+        iconName: 'assignment',
+        iconColor: '#ebd35a',
+        iconType: 'MaterialIcons',
+        tips: 'Repayments on the 26th of each month',
+      },
+      {
+        name: i18n.orders,
+        iconName: 'receipt',
+        iconColor: '#eda769',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+      {
+        name: i18n.myCollection,
+        iconName: 'favorite',
+        iconColor: '#ee759a',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+      {
+        name: i18n.certifiedInformation,
+        iconName: 'account-circle',
+        iconColor: '#ef5568',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+      {
+        name: i18n.myCoupon,
+        iconName: 'confirmation-number',
+        iconColor: '#f65045',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+      {
+        name: i18n.securityCenter,
+        iconName: 'lock',
+        iconColor: '#60b2f5',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+      {
+        name: i18n.shippingAddress,
+        iconName: 'room',
+        iconColor: '#8174f0',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+      {
+        name: i18n.inviteFriends,
+        iconName: 'supervisor-account',
+        iconColor: '#f17982',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+      {
+        name: i18n.about,
+        iconName: 'info',
+        iconColor: '#ea7b52',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+      {
+        name: i18n.followUs,
+        iconName: 'facebook-box',
+        iconColor: '#395a96',
+        iconType: 'MaterialCommunityIcons',
+        tips: '',
+      },
+      {
+        name: i18n.settings,
+        iconName: 'settings',
+        iconColor: '#395a96',
+        iconType: 'MaterialIcons',
+        tips: '',
+      },
+    ];
+
+    const getIconElement = (item) => {
+      let result;
+      switch (item.iconType) {
+        case 'MaterialIcons':
+          result = <MaterialIcons name={item.iconName} color={item.iconColor} style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, }} />
+          break;
+
+        case 'MaterialCommunityIcons':
+          result = <MaterialCommunityIcons name={item.iconName} color={item.iconColor} style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, }} />
+          break;
+      
+        default:
+          result = <MaterialIcons name={item.iconName} color={item.iconColor} style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, }} />
+          break;
+      }
+      return result;
+    }
+
     return (
       <View style={{ backgroundColor: '#fff' }}>
-        <BYTouchable>
-          <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-            <MaterialIcons name="assignment" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#ebd35a' }} />
-            <Text style={{ flex: 1, fontSize: 16 }}>Bills</Text>
-            <Text style={{ flex: 5, fontSize: 12 }}>Repayments on the 26th of each month</Text>
-            <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-          </View>
-        </BYTouchable>
+        {list.map((val, key) => 
+          <BYTouchable key={key} onPress={() => navigate(SCREENS.Settings)} delayPressIn={0} >
+            <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
+              {getIconElement(val)}
+              <Text style={{ flex: 1, fontSize: 16 }}>{val.name}</Text>
+              {!!val.tips.length && <Text style={{ flex: 5, fontSize: 12 }}>{val.tips}</Text>}
+              <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
+            </View>
+          </BYTouchable>
+        )}
       </View>
-    )
+    );
   }
   
   render() {
-    const { navigation: { navigate } } = this.props;
+    const { navigation: { navigate }, screenProps: { i18n } } = this.props;
+
+    // setTimeout(() => {
+    //   navigate(SCREENS.Login);
+    // }, 300);
+
     return (
       <View>
         <View style={{ flexDirection: 'row', height: 100, width, backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR }}>
@@ -34,82 +141,12 @@ class Me extends React.Component {
             <Image source={require('../images/ic_avatar.png')} style={{ width: 60, height: 60, borderColor: '#fff', borderWidth: 2, borderRadius: 42 }} />
           </View>
           <View style={{ flex: 2, justifyContent: 'center' }}>
-            <Text style={{ color: '#fff', fontSize: 18 }} onPress={() => navigate(SCREENS.Login)}>Login/Register</Text>
+            <Text style={{ color: '#fff', fontSize: 18, paddingTop: 15, paddingBottom: 15 , }} onPress={() => navigate(SCREENS.Login)}>Login/Register</Text>
           </View>
         </View>
         <ScrollView style={{ height: height - 55 - 25 - 100 }} >
           <View style={{ backgroundColor: '#fff' }}>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="assignment" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#ebd35a' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>Bills</Text>
-                <Text style={{ flex: 5, fontSize: 12 }}>Repayments on the 26th of each month</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="receipt" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#eda769' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>Orders</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>              
-            </BYTouchable>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="favorite" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#ee759a' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>My collection</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>              
-            </BYTouchable>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="account-circle" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#ef5568' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>Personal information</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>              
-            </BYTouchable>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="lock" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#60b2f5' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>Security center</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>              
-            </BYTouchable>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="room" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#8174f0' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>Shipping address</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>              
-            </BYTouchable>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="supervisor-account" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#f17982' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>Invite friends</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>              
-            </BYTouchable>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="info" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#ea7b52' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>About us</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>              
-            </BYTouchable>
-            <BYTouchable>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialCommunityIcons name="facebook-box" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#395a96' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>Follow us</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>
-            </BYTouchable>            
-            <BYTouchable onPress={() => navigate(SCREENS.Settings)} delayPressIn={0} >
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50 }}>
-                <MaterialIcons name="settings" style={{ fontSize: 28, paddingLeft: 15, paddingRight: 15, color: '#999' }} />
-                <Text style={{ flex: 1, fontSize: 16 }}>Setting</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
+            {this.renderList(i18n, navigate)}
           </View>
         </ScrollView>
       </View>

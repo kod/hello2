@@ -18,17 +18,15 @@ class Feedback extends React.Component {
 
   renderHeaderTitle = () => {
     return (
-      <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 18, color: '#fff' }}>Sản phẩm</Text>
+      <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
+        <Text style={{ fontSize: 18, color: '#fff' }}>Language</Text>
       </View>
-    );
-  };
+    )
+  }
 
   renderHeaderRight = () => {
     return (
-      <View>
-        <HeaderShareButton />
-      </View>
+      <View></View>
     );
   };
 
@@ -36,9 +34,16 @@ class Feedback extends React.Component {
     const { navigation: { goBack, navigate }, navigation } = this.props;
     return (
       <View style={{ backgroundColor: '#fff' }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', height: 45, borderBottomWidth: 1, borderBottomColor: '#eee' }}>
+        <BYHeader
+          headerTitle={this.renderHeaderTitle()}
+          headerRight={this.renderHeaderRight()}
+          darkTheme
+          showBackButton
+          onPressBackButton={this.handleOnPressHeaderBackButton}
+        />
+        {/* <View style={{ flexDirection: 'row', alignItems: 'center', height: 45, borderBottomWidth: 1, borderBottomColor: '#eee' }}>
           <MaterialIcons name="navigate-before" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#333', paddingRight: 10 }} onPress={() => goBack()} />
-        </View>
+        </View> */}
         <ScrollView style={{ height: height - 45 , backgroundColor: '#fff' }}>
           <View style={{ paddingLeft: width * 0.03, paddingRight: width * 0.03 }} >
             <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomColor: '#f5f5f5', borderBottomWidth: 5, marginBottom: 10 }} >

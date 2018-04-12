@@ -19,7 +19,6 @@ const TabContainer = TabNavigator(
         tabBarIcon: ({ tintColor }) => <MaterialIcons name="home" size={25} color={tintColor} />
       }),
      },
-    // [SCREENS.Category]: { screen: Category },
     [SCREENS.Cart]: { 
       screen: Cart,
       navigationOptions: ({ screenProps: { i18n } }) => ({
@@ -27,8 +26,13 @@ const TabContainer = TabNavigator(
         tabBarIcon: ({ tintColor }) => <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
       }),
      },
-    [SCREENS.Me]: { screen: Me },
-    // [SCREENS.Login]: { screen: Login },
+    [SCREENS.Me]: { 
+      screen: Me,
+      navigationOptions: ({ screenProps: { i18n } }) => ({
+        tabBarLabel: i18n.Me,
+        tabBarIcon: ({ tintColor }) => <MaterialIcons name="account-circle" size={25} color={tintColor} />
+      }),
+     },
   },
   {
     lazy: true,
