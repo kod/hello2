@@ -17,6 +17,12 @@ import {
 
 const appNamespace = defineAction('BUYOO');
 
+export const MERGE_GETINFO = defineAction(
+  'MERGE_GETINFO',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const PROMOTION_INFO = defineAction(
   'PROMOTION_INFO',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

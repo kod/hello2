@@ -16,6 +16,8 @@ import i18n from '../common/helpers/i18n';
 import CustomIcon from '../components/CustomIcon.js';
 import BYTouchable from '../components/BYTouchable';
 
+import * as i18nActionCreators from "../common/actions/i18n";
+
 const styles = StyleSheet.create({
   base: {
     flex: 1
@@ -83,7 +85,10 @@ class Main extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { setLanguage } = this.props;
+    setLanguage('vi');
+  }
 
   _onDataArrived() {}
 
@@ -160,4 +165,4 @@ function mapStateToProps(state, props) {
   return {};
 }
 
-export default connectLocalization(connect(mapStateToProps, {})(Main));
+export default connectLocalization(connect(mapStateToProps, {...i18nActionCreators})(Main));

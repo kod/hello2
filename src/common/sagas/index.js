@@ -3,6 +3,7 @@ import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
 import { bannerHomeRecommendFetchWatch } from './bannerHomeRecommend';
 import { promotionInfoFetchWatch } from './promotionInfo';
+import { mergeGetInfoFetchWatch } from './mergeGetInfo';
 
 
 export default function* rootSaga() {
@@ -11,5 +12,6 @@ export default function* rootSaga() {
     bannerHomeTypeFetchWatch(),
     bannerHomeRecommendFetchWatch(),
     promotionInfoFetchWatch(),
+    mergeGetInfoFetchWatch(),
   ]);
 }
