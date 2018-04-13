@@ -25,16 +25,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // marginVertical: height * 0.0125,
     justifyContent: 'flex-end',
-    bottom: 15,
+    bottom: 10,
     left: 0,
     // right: 10,
-    right: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    right: globalStyleVariables.WINDOW_WIDTH * 0.03,
   },
   pagination: {
     width: 10,
     height: 3,
     borderRadius: 0,
-    marginHorizontal: globalStyleVariables.WINDOW_WIDTH * 0.015
+    marginHorizontal: globalStyleVariables.WINDOW_WIDTH * 0.010
   }
 });
 

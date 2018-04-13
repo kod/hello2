@@ -12,6 +12,7 @@ import DiscountsItem from '../components/DiscountsItem';
 import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
 import CustomIcon from '../components/CustomIcon.js';
 import ProductItem1 from "../components/ProductItem1";
+import FloorTitle from "../components/FloorTitle";
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
@@ -99,6 +100,55 @@ const styles = StyleSheet.create({
     paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
     marginBottom: 20,
   },
+  ProductItem2Wrap: {
+    backgroundColor: '#fff',
+  },
+  ProductItem2: {
+    flexDirection: 'row',
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderBottomColor: '#f5f5f5',
+    borderBottomWidth: 1,
+  },
+  ProductItem2Left: {
+    width: globalStyleVariables.WINDOW_WIDTH * 0.25,
+    // backgroundColor: '#f00',
+    alignItems: 'center',
+  },
+  ProductItem2Image: {
+    width: 60,
+    height: 60,
+    backgroundColor: '#0f0',
+  },
+  ProductItem2Right: {
+    width: globalStyleVariables.WINDOW_WIDTH * 0.75,
+    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.04,
+  },
+  ProductItem2Title: {
+    fontSize: 11,
+    color: '#333',
+    marginBottom: 4,
+    lineHeight: 18,
+  },
+  ProductItem2Price: {
+    fontSize: 11,
+    color: '#999',
+    marginBottom: 4,
+  },
+  ProductItem2RightRow3: {
+    flexDirection: 'row',
+  },
+  ProductItem2RightRow3Price: {
+    fontSize: 14,
+    color: '#FD5147',
+    marginRight: 9,
+    // fontWeight: "100"
+  },
+  ProductItem2RightRow3Number: {
+    fontSize: 11,
+    color: '#666',
+    paddingTop: 2,
+  },
 });
 
 class Scrollable1 extends React.Component {
@@ -118,10 +168,10 @@ class Scrollable1 extends React.Component {
 
   render() {
     const { bannerSwiper, bannerHomeType, promotionInfo, mergeGetInfo, bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
-
+    // console.log(globalStyleVariables.WINDOW_WIDTH * 0.04);
     return (
       <View>
-        {/* <SwiperFlatList data={bannerSwiper} /> */}
+        <SwiperFlatList data={bannerSwiper} />
 
         <View style={styles.imgNav}>
           <View style={styles.imgNavItem}>
@@ -149,7 +199,7 @@ class Scrollable1 extends React.Component {
           <View style={styles.groupBuyTitle}>
             <Text style={styles.groupBuyTitleText}>{i18n.groupBuy}</Text>
             <View style={styles.groupBuyTitleRight}>
-              <Text style={styles.groupBuyTitleMore}>{i18n.seeMore}</Text>
+              <Text style={styles.groupBuyTitleMore}>{i18n.more}</Text>
               <CustomIcon name="arrowright" style={styles.groupBuyTitleMoreIcon} />
             </View>
           </View>
@@ -158,35 +208,57 @@ class Scrollable1 extends React.Component {
           </View>
         </View>
 
-        <View style={{ height: 40, justifyContent: 'center' }}>
-          <Text style={{ textAlign: 'center', color: '#333' }} onPress={() => navigate(SCREENS.ProductDetail)}>
-            Brand on sale
-          </Text>
+        <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={true} style={{ paddingTop: 30 }} />
+
+        <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
+
+        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} />
+
+        <View style={styles.ProductItem2Wrap} >
+          <View style={styles.ProductItem2} >
+            <View style={styles.ProductItem2Left} >
+              <Image style={styles.ProductItem2Image} source={require('../images/1516440780730_F5_b01.jpg')} />
+            </View>
+            <View style={styles.ProductItem2Right} >
+              <Text style={styles.ProductItem2Title} numberOfLines={2} >Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-Ear Basic 2016 </Text>
+              <Text style={styles.ProductItem2Price} >6.234.000 VND</Text>
+              <View style={styles.ProductItem2RightRow3}>
+                <Text style={styles.ProductItem2RightRow3Price}>6.234.000 VND</Text>
+                <Text style={styles.ProductItem2RightRow3Number}>x12period</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.ProductItem2} >
+            <View style={styles.ProductItem2Left} >
+              <Image style={styles.ProductItem2Image} source={require('../images/1521546805315_mi_mix2_01.jpg')} />
+            </View>
+            <View style={styles.ProductItem2Right} >
+              <Text style={styles.ProductItem2Title} numberOfLines={2} >Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-</Text>
+              <Text style={styles.ProductItem2Price} >6.234.000 VND</Text>
+              <View style={styles.ProductItem2RightRow3}>
+                <Text style={styles.ProductItem2RightRow3Price}>6.234.000 VND</Text>
+                <Text style={styles.ProductItem2RightRow3Number}>x12period</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.ProductItem2} >
+            <View style={styles.ProductItem2Left} >
+              <Image style={styles.ProductItem2Image} source={require('../images/1516440780730_F5_b01.jpg')} />
+            </View>
+            <View style={styles.ProductItem2Right} >
+              <Text style={styles.ProductItem2Title} numberOfLines={2} >Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-</Text>
+              <Text style={styles.ProductItem2Price} >6.234.000 VND</Text>
+              <View style={styles.ProductItem2RightRow3}>
+                <Text style={styles.ProductItem2RightRow3Price}>6.234.000 VND</Text>
+                <Text style={styles.ProductItem2RightRow3Number}>x12period</Text>
+              </View>
+            </View>
+          </View>
         </View>
 
-        <BannerHomeType data={bannerHomeType} />
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 40, marginBottom: 10 }}>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={{ paddingLeft: 10, color: '#000', fontSize: 16 }}>Big Sale</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={{ marginTop: 2 }}>more</Text>
-            <Icon name="keyboard-arrow-right" size={24} color="#ddd" style={{}} />
-          </View>
-        </View>
-
-        <DiscountsItem data={promotionInfo} />
-
-        <View style={{ height: 8, backgroundColor: '#eee' }} />
-
-        <View style={{}}>
-          <View style={{}}>
-            <Text style={{ textAlign: 'center', paddingTop: 10, color: '#333', fontSize: 16 }}>Featured Events</Text>
-          </View>
-
+        {/* <View style={{}}>
           <FeaturedGoodsItem data={bannerHomeRecommend} />
-        </View>
+        </View> */}
       </View>
     );
   }
