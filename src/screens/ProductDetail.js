@@ -66,7 +66,7 @@ class ProductDetail extends React.Component {
           <Image source={require('../images/collect2.png')} style={{ position: 'absolute', zIndex: 333, top: width - 32 - 10, right: 10,  width: 32, height: 32 }} />
           <View style={{ flexDirection: 'row', paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 5, paddingBottom: 5, backgroundColor: '#fff', borderBottomColor: '#eee', borderBottomWidth: 1 }} >
             <Text style={{ fontSize: 28, color: '#fc1159' }} >830,000</Text>
-            <Text style={{ color: '#666', paddingTop: 15 }} >VND</Text>
+            <Text style={{ color: '#666', paddingTop: 15 }} > ₫</Text>
           </View>
           <View style={{ backgroundColor: '#fff', paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 5 }} >
             <Text style={{ color: '#333', fontSize: 14 }} >Tai nghe Mi comfort Trang</Text>

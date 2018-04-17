@@ -7,7 +7,7 @@ const initState = {
   items: [],
 };
 
-export default function bannerHomeType(state = {}, action) {
+export default function bannerHomeRecommend(state = {}, action) {
   switch (action.type) {
     case BANNER_HOME_RECOMMEND.CLEAR:
       return {

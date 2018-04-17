@@ -1,11 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Dimensions, } from 'react-native';
 import { globalStyleVariables } from "../styles";
+import priceFormat from "../common/helpers/priceFormat";
 
 const itemIntervalWidth = globalStyleVariables.WINDOW_WIDTH * 0.04;
 const itemWidth = (globalStyleVariables.WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
+  itemWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    marginBottom: 5,
+  },
   item: {
     width: itemWidth,
     marginRight: globalStyleVariables.WINDOW_WIDTH * 0.04,
@@ -26,6 +33,7 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 11,
     marginBottom: 6,
+    height: 28.8,
   },
   itemOrgPrice: {
     color: '#999',
@@ -45,18 +53,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ data }) => {
-  const { items } = data;
+export default ({ data, style, ...restProps }) => {
   return (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 5 }}>
-      {items &&
-        items.details.map((val, key) => {
+    <View style={[styles.itemWrap, style]} {...restProps}>
+        {data.map((val, key) => {
           return (
             <View style={styles.item} key={key}>
               <Image style={styles.itemImg} source={{ uri: val.imageUrl }} />
-              <Text style={styles.itemText}>{val.name}</Text>
-              <Text style={styles.itemOrgPrice}>{val.price}</Text>
-              <Text style={styles.itemPrice}>{val.mergePrice}</Text>
+              <Text numberOfLines={2} style={styles.itemText}>{val.name}</Text>
+              {!!val.orgPrice && <Text style={styles.itemOrgPrice}>{priceFormat(val.orgPrice) + ' ₫'}</Text>}
+              <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>
             </View>
           );
         })}

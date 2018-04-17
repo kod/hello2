@@ -12,13 +12,15 @@ import DiscountsItem from '../components/DiscountsItem';
 import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
 import CustomIcon from '../components/CustomIcon.js';
 import ProductItem1 from "../components/ProductItem1";
+import ProductItem2 from "../components/ProductItem2";
 import FloorTitle from "../components/FloorTitle";
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
 import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
+import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+// import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 
 const itemIntervalWidth = globalStyleVariables.WINDOW_WIDTH * 0.04;
 const itemWidth = (globalStyleVariables.WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
@@ -94,61 +96,6 @@ const styles = StyleSheet.create({
     fontSize: 8,
     paddingTop: 2
   },
-  groupBuyMain: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
-    marginBottom: 20,
-  },
-  ProductItem2Wrap: {
-    backgroundColor: '#fff',
-  },
-  ProductItem2: {
-    flexDirection: 'row',
-    paddingTop: 20,
-    paddingBottom: 20,
-    borderBottomColor: '#f5f5f5',
-    borderBottomWidth: 1,
-  },
-  ProductItem2Left: {
-    width: globalStyleVariables.WINDOW_WIDTH * 0.25,
-    // backgroundColor: '#f00',
-    alignItems: 'center',
-  },
-  ProductItem2Image: {
-    width: 60,
-    height: 60,
-    backgroundColor: '#0f0',
-  },
-  ProductItem2Right: {
-    width: globalStyleVariables.WINDOW_WIDTH * 0.75,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.04,
-  },
-  ProductItem2Title: {
-    fontSize: 11,
-    color: '#333',
-    marginBottom: 4,
-    lineHeight: 18,
-  },
-  ProductItem2Price: {
-    fontSize: 11,
-    color: '#999',
-    marginBottom: 4,
-  },
-  ProductItem2RightRow3: {
-    flexDirection: 'row',
-  },
-  ProductItem2RightRow3Price: {
-    fontSize: 14,
-    color: '#FD5147',
-    marginRight: 9,
-    // fontWeight: "100"
-  },
-  ProductItem2RightRow3Number: {
-    fontSize: 11,
-    color: '#666',
-    paddingTop: 2,
-  },
 });
 
 class Scrollable1 extends React.Component {
@@ -157,18 +104,25 @@ class Scrollable1 extends React.Component {
   }
 
   componentDidMount() {
-    const { bannerSwiperClear, bannerSwiperFetch, bannerHomeTypeFetch, promotionInfoFetch, mergeGetInfoFetch, bannerHomeRecommendFetch } = this.props;
-    // bannerSwiperClear();
+    const { bannerSwiperFetch, bannerHomeTypeFetch, promotionInfoFetch, adverstInfoFetch, mergeGetInfoFetch } = this.props;
     bannerSwiperFetch('one');
     bannerHomeTypeFetch();
     promotionInfoFetch();
+    adverstInfoFetch({
+      type_id: '1',
+    });
+    adverstInfoFetch({
+      type_id: '2',
+    });
+    adverstInfoFetch({
+      type_id: '5',
+    });
     mergeGetInfoFetch();
-    bannerHomeRecommendFetch();
   }
 
   render() {
-    const { bannerSwiper, bannerHomeType, promotionInfo, mergeGetInfo, bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
-    // console.log(globalStyleVariables.WINDOW_WIDTH * 0.04);
+    const { bannerSwiper, bannerHomeType, promotionInfo, mergeGetInfo, adverstInfo, navigation: { navigate }, i18n } = this.props;
+    const mergeGetInfoList = mergeGetInfo.items;
     return (
       <View>
         <SwiperFlatList data={bannerSwiper} />
@@ -203,76 +157,31 @@ class Scrollable1 extends React.Component {
               <CustomIcon name="arrowright" style={styles.groupBuyTitleMoreIcon} />
             </View>
           </View>
-          <View style={styles.groupBuyMain}>
-            <ProductItem1 data={mergeGetInfo} />
-          </View>
+          <ProductItem1 data={mergeGetInfoList} />
         </View>
 
-        <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={true} style={{ paddingTop: 30 }} />
+        <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={true} style={{ paddingTop: 15, backgroundColor: '#fff', }} />
 
         <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
 
         <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} />
 
-        <View style={styles.ProductItem2Wrap} >
-          <View style={styles.ProductItem2} >
-            <View style={styles.ProductItem2Left} >
-              <Image style={styles.ProductItem2Image} source={require('../images/1516440780730_F5_b01.jpg')} />
-            </View>
-            <View style={styles.ProductItem2Right} >
-              <Text style={styles.ProductItem2Title} numberOfLines={2} >Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-Ear Basic 2016 </Text>
-              <Text style={styles.ProductItem2Price} >6.234.000 VND</Text>
-              <View style={styles.ProductItem2RightRow3}>
-                <Text style={styles.ProductItem2RightRow3Price}>6.234.000 VND</Text>
-                <Text style={styles.ProductItem2RightRow3Number}>x12period</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.ProductItem2} >
-            <View style={styles.ProductItem2Left} >
-              <Image style={styles.ProductItem2Image} source={require('../images/1521546805315_mi_mix2_01.jpg')} />
-            </View>
-            <View style={styles.ProductItem2Right} >
-              <Text style={styles.ProductItem2Title} numberOfLines={2} >Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-</Text>
-              <Text style={styles.ProductItem2Price} >6.234.000 VND</Text>
-              <View style={styles.ProductItem2RightRow3}>
-                <Text style={styles.ProductItem2RightRow3Price}>6.234.000 VND</Text>
-                <Text style={styles.ProductItem2RightRow3Number}>x12period</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.ProductItem2} >
-            <View style={styles.ProductItem2Left} >
-              <Image style={styles.ProductItem2Image} source={require('../images/1516440780730_F5_b01.jpg')} />
-            </View>
-            <View style={styles.ProductItem2Right} >
-              <Text style={styles.ProductItem2Title} numberOfLines={2} >Tai nghe Xiaomi Mi in-Ear Basic 2016 Tai nghe Xiaomi Mi in-</Text>
-              <Text style={styles.ProductItem2Price} >6.234.000 VND</Text>
-              <View style={styles.ProductItem2RightRow3}>
-                <Text style={styles.ProductItem2RightRow3Price}>6.234.000 VND</Text>
-                <Text style={styles.ProductItem2RightRow3Number}>x12period</Text>
-              </View>
-            </View>
-          </View>
-        </View>
+        <ProductItem2 data={adverstInfo} />
 
-        {/* <View style={{}}>
-          <FeaturedGoodsItem data={bannerHomeRecommend} />
-        </View> */}
       </View>
     );
   }
 }
 
 function mapStateToProps(state, props) {
-  const { bannerSwiper, bannerHomeType, promotionInfo, mergeGetInfo, bannerHomeRecommend } = state;
+  const { bannerSwiper, bannerHomeType, promotionInfo, adverstInfo, mergeGetInfo } = state;
   return {
     bannerSwiper: bannerSwiper['one'] || {},
     bannerHomeType: bannerHomeType || {},
     promotionInfo: promotionInfo || {},
+    adverstInfo: adverstInfo || {},
     mergeGetInfo: mergeGetInfo || {},
-    bannerHomeRecommend: bannerHomeRecommend || {}
   };
 }
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators, ...promotionInfoActionCreators, ...bannerHomeRecommendActionCreators, ...mergeGetInfoActionCreators })(Scrollable1);
+export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators, ...promotionInfoActionCreators, ...mergeGetInfoActionCreators, ...adverstInfoActionCreators })(Scrollable1);

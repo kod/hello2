@@ -17,6 +17,18 @@ import {
 
 const appNamespace = defineAction('BUYOO');
 
+export const ADVERST_INFO = defineAction(
+  'ADVERST_INFO',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const AD_PHONE = defineAction(
+  'AD_PHONE',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const MERGE_GETINFO = defineAction(
   'MERGE_GETINFO',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

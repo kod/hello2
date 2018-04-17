@@ -1,4 +1,3 @@
-
 /* 时间戳格式化(时间戳默认为unix-10位数)
  * 
  * -model:
@@ -20,24 +19,24 @@
  *  6:0000.00.00
  */
 const timeStrForm = function(str, model, unUnix) {
-  var reStr = ''; //返回值
-  var monthFormat; //月格式化
-  var dateFormat; //日格式化
-  var hourFormat; //时格式化
-  var minuteFormat; //分格式化
-  var secondFormat; //秒格式化
+  let reStr = ''; //返回值
+  let monthFormat; //月格式化
+  let dateFormat; //日格式化
+  let hourFormat; //时格式化
+  let minuteFormat; //分格式化
+  let secondFormat; //秒格式化
 
-  var nDNow; //现在的时间戳
-  var yearNow; //现在的年份
-  var monthNow; //现在的月份
-  var dateNow; //现在的天数
-  var hourNow; //现在的小时
-  var minuteNow; //现在的分钟
-  var secondNow; //现在的秒数
+  let nDNow; //现在的时间戳
+  let yearNow; //现在的年份
+  let monthNow; //现在的月份
+  let dateNow; //现在的天数
+  let hourNow; //现在的小时
+  let minuteNow; //现在的分钟
+  let secondNow; //现在的秒数
 
-  var dayDiff; // 相差几天
-  var monthDiff; // 相差几年
-  var yearDiff; // 相差几年
+  let dayDiff; // 相差几天
+  let monthDiff; // 相差几年
+  let yearDiff; // 相差几年
 
   if (!str) {
     //默认为当前时间戳
@@ -54,13 +53,13 @@ const timeStrForm = function(str, model, unUnix) {
     str = Number(str);
   }
 
-  var nD = new Date(str);
-  var year = nD.getFullYear();
-  var month = nD.getMonth() + 1;
-  var date = nD.getDate();
-  var hour = nD.getHours();
-  var minute = nD.getMinutes();
-  var second = nD.getSeconds();
+  let nD = new Date(str);
+  let year = nD.getFullYear();
+  let month = nD.getMonth() + 1;
+  let date = nD.getDate();
+  let hour = nD.getHours();
+  let minute = nD.getMinutes();
+  let second = nD.getSeconds();
 
   monthFormat = month;
   dateFormat = date;

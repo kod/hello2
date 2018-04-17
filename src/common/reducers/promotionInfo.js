@@ -7,7 +7,7 @@ const initState = {
   items: [],
 };
 
-export default function bannerHomeType(state = {}, action) {
+export default function promotionInfo(state = {}, action) {
   switch (action.type) {
     case PROMOTION_INFO.CLEAR:
       return {

@@ -15,11 +15,11 @@ export default ({ data }) => {
             <View style={{ marginLeft: '3%', width: width3_item, marginBottom: 15 }} key={key}>
               <Image source={{ uri: val.image }} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
               <Text numberOfLines={2} style={{ fontSize: 11, color: '#333', marginBottom: 2, height: 26 }}>{ val.name }</Text>
-              <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }}>3,690,000 VND</Text>
+              <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }}>3,690,000 ₫</Text>
               <View style={{ position: 'relative', zIndex: 55, paddingTop: 5, paddingBottom: 15 }}>
                 <ImageBackground style={{ width: width3_item, height: 25, flexDirection: 'row', alignItems: 'center' }} source={{ uri: 'http://119.28.177.175:89/img/sale_bar-2.png' }}>
                   <Text style={{ color: '#fff', fontSize: 11, marginRight: 3, marginLeft: 8 }}>{ val.price }</Text>
-                  <Text style={{ color: '#fff', fontSize: 8, marginTop: 2 }}>VND</Text>
+                  <Text style={{ color: '#fff', fontSize: 8, marginTop: 2 }}> ₫</Text>
                 </ImageBackground>
                 <ImageBackground style={{ position: 'absolute', zIndex: 60, top: 1, right: 0, width: width3_item / 3, height: 40 }} source={{ uri: 'http://119.28.177.175:89/img/sale_barge-2.png' }}>
                   <Text style={{ color: '#fff', fontSize: 8, textAlign: 'center', marginTop: 2 }}>GIẢM</Text>

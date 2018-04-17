@@ -48,26 +48,26 @@ class Scrollable2 extends React.Component {
             <View style={{ width: width / 2, borderRightColor: '#f2f2f2', borderRightWidth: StyleSheet.hairlineWidth }}>
               <Image source={require('../images/1513065299190_T9S18PA01.jpg')} style={{ height: width / 2 - width * 0.03, width: width / 2 - width * 0.03, marginLeft: width * 0.015, marginRight: width * 0.015 }} />
               <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, marginBottom: 5 }}>HP Probook 450 G3 T9S18PA</Text>
-              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#999', marginBottom: 5 }}>From 12,390,000 VND</Text>
-              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#88befd', marginBottom: 5 }}>Monthly payment: from 516,250 VND</Text>
+              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#999', marginBottom: 5 }}>From 12,390,000 ₫</Text>
+              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#88befd', marginBottom: 5 }}>Monthly payment: from 516,250 ₫</Text>
             </View>
             <View style={{ width: width / 2, borderRightColor: '#f2f2f2', borderRightWidth: StyleSheet.hairlineWidth }}>
               <Image source={require('../images/1513065299190_T9S18PA01.jpg')} style={{ height: width / 2 - width * 0.03, width: width / 2 - width * 0.03, marginLeft: width * 0.015, marginRight: width * 0.015 }} />
               <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, marginBottom: 5 }}>HP Probook 450 G3 T9S18PA</Text>
-              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#999', marginBottom: 5 }}>From 12,390,000 VND</Text>
-              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#88befd', marginBottom: 5 }}>Monthly payment: from 516,250 VND</Text>
+              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#999', marginBottom: 5 }}>From 12,390,000 ₫</Text>
+              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#88befd', marginBottom: 5 }}>Monthly payment: from 516,250 ₫</Text>
             </View>
             <View style={{ width: width / 2, borderRightColor: '#f2f2f2', borderRightWidth: StyleSheet.hairlineWidth }}>
               <Image source={require('../images/1513065299190_T9S18PA01.jpg')} style={{ height: width / 2 - width * 0.03, width: width / 2 - width * 0.03, marginLeft: width * 0.015, marginRight: width * 0.015 }} />
               <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, marginBottom: 5 }}>HP Probook 450 G3 T9S18PA</Text>
-              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#999', marginBottom: 5 }}>From 12,390,000 VND</Text>
-              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#88befd', marginBottom: 5 }}>Monthly payment: from 516,250 VND</Text>
+              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#999', marginBottom: 5 }}>From 12,390,000 ₫</Text>
+              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#88befd', marginBottom: 5 }}>Monthly payment: from 516,250 ₫</Text>
             </View>
             <View style={{ width: width / 2, borderRightColor: '#f2f2f2', borderRightWidth: StyleSheet.hairlineWidth }}>
               <Image source={require('../images/1513065299190_T9S18PA01.jpg')} style={{ height: width / 2 - width * 0.03, width: width / 2 - width * 0.03, marginLeft: width * 0.015, marginRight: width * 0.015 }} />
               <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, marginBottom: 5 }}>HP Probook 450 G3 T9S18PA</Text>
-              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#999', marginBottom: 5 }}>From 12,390,000 VND</Text>
-              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#88befd', marginBottom: 5 }}>Monthly payment: from 516,250 VND</Text>
+              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#999', marginBottom: 5 }}>From 12,390,000 ₫</Text>
+              <Text style={{ fontSize: 12, paddingLeft: width * 0.03, paddingRight: width * 0.03, color: '#88befd', marginBottom: 5 }}>Monthly payment: from 516,250 ₫</Text>
             </View>
           </View>
         </View>

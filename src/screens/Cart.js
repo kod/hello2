@@ -57,7 +57,7 @@ class Feedback extends React.Component {
               <View style={{ flex: 4, paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 3 }} >
                 <Text style={{ fontSize: 12, height: 32, color: '#333', marginBottom: 60, }} numberOfLines={ 2 } >【新品】Apple MacBook Pro 13.3英寸笔记本电脑2017年新款</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', }} >
-                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 VND</Text>
+                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 ₫</Text>
                   <Text style={{ color: '#333', fontSize: 12 }}>x1</Text>
                 </View>
               </View>
@@ -70,7 +70,7 @@ class Feedback extends React.Component {
               <View style={{ flex: 4, paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 3 }} >
                 <Text style={{ fontSize: 12, height: 32, color: '#333', marginBottom: 60, }} numberOfLines={ 2 } >【新品】Apple MacBook Pro 13.3英寸笔记本电脑2017年新款</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', }} >
-                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 VND</Text>
+                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 ₫</Text>
                   <Text style={{ color: '#333', fontSize: 12 }}>x1</Text>
                 </View>
               </View>
@@ -83,7 +83,7 @@ class Feedback extends React.Component {
               <View style={{ flex: 4, paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 3 }} >
                 <Text style={{ fontSize: 12, height: 32, color: '#333', marginBottom: 60, }} numberOfLines={ 2 } >【新品】Apple MacBook Pro 13.3英寸笔记本电脑2017年新款</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', }} >
-                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 VND</Text>
+                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 ₫</Text>
                   <Text style={{ color: '#333', fontSize: 12 }}>x1</Text>
                 </View>
               </View>
@@ -96,7 +96,7 @@ class Feedback extends React.Component {
               <View style={{ flex: 4, paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 3 }} >
                 <Text style={{ fontSize: 12, height: 32, color: '#333', marginBottom: 60, }} numberOfLines={ 2 } >【新品】Apple MacBook Pro 13.3英寸笔记本电脑2017年新款</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', }} >
-                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 VND</Text>
+                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 ₫</Text>
                   <Text style={{ color: '#333', fontSize: 12 }}>x1</Text>
                 </View>
               </View>
@@ -109,7 +109,7 @@ class Feedback extends React.Component {
               <View style={{ flex: 4, paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 3 }} >
                 <Text style={{ fontSize: 12, height: 32, color: '#333', marginBottom: 60, }} numberOfLines={ 2 } >【新品】Apple MacBook Pro 13.3英寸笔记本电脑2017年新款</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', }} >
-                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 VND</Text>
+                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 ₫</Text>
                   <Text style={{ color: '#333', fontSize: 12 }}>x1</Text>
                 </View>
               </View>
@@ -122,7 +122,7 @@ class Feedback extends React.Component {
               <View style={{ flex: 4, paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 3 }} >
                 <Text style={{ fontSize: 12, height: 32, color: '#333', marginBottom: 60, }} numberOfLines={ 2 } >【新品】Apple MacBook Pro 13.3英寸笔记本电脑2017年新款</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', }} >
-                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 VND</Text>
+                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 ₫</Text>
                   <Text style={{ color: '#333', fontSize: 12 }}>x1</Text>
                 </View>
               </View>
@@ -135,7 +135,7 @@ class Feedback extends React.Component {
               <View style={{ flex: 4, paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 3 }} >
                 <Text style={{ fontSize: 12, height: 32, color: '#333', marginBottom: 60, }} numberOfLines={ 2 } >【新品】Apple MacBook Pro 13.3英寸笔记本电脑2017年新款</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', }} >
-                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 VND</Text>
+                  <Text style={{ color: '#4A9DF4', fontSize: 12, }} >6,190,000 ₫</Text>
                   <Text style={{ color: '#333', fontSize: 12 }}>x1</Text>
                 </View>
               </View>
@@ -152,7 +152,7 @@ class Feedback extends React.Component {
               <Text>Total:</Text>
               <View style={{ flexDirection: 'row' }} >
                 <Text style={{ fontSize: 20, color: '#4A9DF4', marginRight: width * 0.03 }} >6,190,000</Text>
-                <Text style={{ fontSize: 12, paddingTop: 10 }} >VND</Text>
+                <Text style={{ fontSize: 12, paddingTop: 10 }} > ₫</Text>
               </View>
             </View>
           </View>

@@ -1,28 +1,26 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { mergeGetInfoFetchSuccess, mergeGetInfoFetchFailure } from '../actions/mergeGetInfo';
+import { adPhoneFetchSuccess, adPhoneFetchFailure } from '../actions/adPhone';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
-import { MERGE_GETINFO } from '../constants/actionTypes';
+import { AD_PHONE } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 
-
-export function* mergeGetInfoFetchWatchHandle(action) {
+export function* adPhoneFetchWatchHandle(action) {
   try {
+    const { params = {} } = action.payload;
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.merge.query';
+    let method = 'fun.cellphone.ads';
     let charset = 'utf-8';
     let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
-    let version = '2.0';
+    let version = '1.0';
 
-    let typeid = '0';
-    let classfyid = '0';
-    let position = '0';
-    let pagesize = '4';
-    let currentpage = '1';
-  
+    let typeid = params.typeid || '1';
+    let pagesize = params.pagesize || '8';
+    let currentpage = params.currentpage || '1';
+
     let signType = signType_MD5(appId, method, charset, Key, true);
 
     let encrypt = encrypt_MD5(
@@ -30,14 +28,6 @@ export function* mergeGetInfoFetchWatchHandle(action) {
         {
           key: 'typeid',
           value: typeid
-        },
-        {
-          key: 'classfyid',
-          value: classfyid
-        },
-        {
-          key: 'position',
-          value: position
         },
         {
           key: 'pagesize',
@@ -51,7 +41,7 @@ export function* mergeGetInfoFetchWatchHandle(action) {
       Key
     );
 
-    const response = yield apply(buyoo, buyoo.mergeGetInfo, [
+    const response = yield apply(buyoo, buyoo.initAdCellphone, [
       {
         appid: appId,
         method: method,
@@ -61,31 +51,38 @@ export function* mergeGetInfoFetchWatchHandle(action) {
         timestamp: timestamp,
         version: version,
         typeid: typeid,
-        classfyid: classfyid,
-        position: position,
         pagesize: pagesize,
         currentpage: currentpage
       }
     ]);
 
-    let result = [];
+
+    let phoneAdList = [];
+    let phoneAdBanerList = [];
+    let classfyinfo = [];
 
     if (response.code === 10000) {
-      const array = response.details;
+      const array = response.cellphoneadinfo;
       for (let index = 0; index < array.length; index++) {
-        let element = array[index];
-        element.price = element.mergePrice;
-        result.push(element);
+        const element = array[index];
+        if (element.position === 1) {
+          phoneAdBanerList.push(element);
+        }
+        if (element.position === 3) {
+          element.price = element.minprice;
+          phoneAdList.push(element);
+        }
       }
+      classfyinfo = response.classfyinfo;
     }
 
-    yield put(mergeGetInfoFetchSuccess(result));
+    yield put(adPhoneFetchSuccess(phoneAdList, phoneAdBanerList, classfyinfo));
   } catch (err) {
-    yield put(mergeGetInfoFetchFailure());
+    yield put(adPhoneFetchFailure());
     yield put(addError(err));
   }
 }
 
-export function* mergeGetInfoFetchWatch() {
-  yield takeEvery(MERGE_GETINFO.REQUEST, mergeGetInfoFetchWatchHandle);
+export function* adPhoneFetchWatch() {
+  yield takeEvery(AD_PHONE.REQUEST, adPhoneFetchWatchHandle);
 }

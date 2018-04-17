@@ -1,4 +1,4 @@
-import { MERGE_GETINFO } from '../constants/actionTypes';
+import { ADVERST_INFO } from '../constants/actionTypes';
 
 const initState = {
   loading: false,
@@ -7,25 +7,26 @@ const initState = {
   items: [],
 };
 
-export default function mergeGetInfo(state = initState, action) {
+export default function adverstInfo(state = initState, action) {
   switch (action.type) {
-    case MERGE_GETINFO.CLEAR:
+    case ADVERST_INFO.CLEAR:
       return {
         ...initState
       };
-    case MERGE_GETINFO.REQUEST:
+    case ADVERST_INFO.REQUEST:
       return {
         ...state,
+        params: action.payload.params,
         loading: true,
       };
-    case MERGE_GETINFO.SUCCESS:
+    case ADVERST_INFO.SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        items: action.payload.items
+        items: [...state.items, ...action.payload.items],
       };
-    case MERGE_GETINFO.FAILURE:
+    case ADVERST_INFO.FAILURE:
       return {
         ...state,
         loading: false,

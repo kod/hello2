@@ -18,8 +18,8 @@ export default ({ data }) => {
               </View>
               <View style={{ flex: 2 }}>
                 <Text style={{ color: '#333', marginBottom: 60 }}>{ val.name }</Text>
-                <Text style={{ color: '#aaa' }}>{ val.minprice } VND起</Text>
-                <Text style={{ color: '#4f9ff1', marginBottom: 15 }}>月供: { (val.minprice/2/12).toFixed(0) } VND起</Text>
+                <Text style={{ color: '#aaa' }}>{ val.minprice } ₫起</Text>
+                <Text style={{ color: '#4f9ff1', marginBottom: 15 }}>月供: { (val.minprice/2/12).toFixed(0) } ₫起</Text>
               </View>
             </View>
           );

@@ -83,6 +83,22 @@ class ReactStore {
     return this.requestUrl(`:8185/fun/cellphone/initTopCellphone?${queryString}`);
   }
 
+  initAdCellphone(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    return this.requestUrl(`:8185/fun/cellphone/initAdCellphone?${queryString}`);
+  }
+
   mergeGetInfo(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));
@@ -98,6 +114,23 @@ class ReactStore {
     };
     
     return this.requestUrl(`:8185/fun/commodity/merge/getInfo`, options);
+  }
+
+  getAdverstInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    
+    return this.requestUrl(`:8185/fun/commodity/getAdverstInfo?${queryString}`);
   }
 
   getPromotionInfo(options) {

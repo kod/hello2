@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Dimensions,StatusBar } from 'react-native';
+import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Dimensions, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
 import { globalStyleVariables } from '../styles';
@@ -16,7 +16,14 @@ import i18n from '../common/helpers/i18n';
 import CustomIcon from '../components/CustomIcon.js';
 import BYTouchable from '../components/BYTouchable';
 
-import * as i18nActionCreators from "../common/actions/i18n";
+import * as i18nActionCreators from '../common/actions/i18n';
+import * as scrollableTabViewActionCreators from '../common/actions/scrollableTabView';
+import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
+import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
+import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
+import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
+import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
+import * as adPhoneActionCreators from '../common/actions/adPhone';
 
 const styles = StyleSheet.create({
   base: {
@@ -46,12 +53,12 @@ const styles = StyleSheet.create({
     borderRadius: 1
   },
   headerMiddleIcon: {
-    fontSize: 13,
+    fontSize: 12,
     color: '#ccc',
     marginRight: globalStyleVariables.WINDOW_WIDTH * 0.02
   },
   headerMiddleText: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#ccc'
   },
   headerIcon: {
@@ -67,6 +74,9 @@ const styles = StyleSheet.create({
 class Main extends React.Component {
   constructor() {
     super();
+
+    this.onChangeTab = this.onChangeTab.bind(this);
+
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     this.auto_data = function(num = 20, begin = 0) {
@@ -93,18 +103,58 @@ class Main extends React.Component {
   _onDataArrived() {}
 
   _onRefresh() {
+    const { scrollTabIndex, bannerSwiperFetch, bannerHomeTypeFetch, promotionInfoFetch, adverstInfoFetch, mergeGetInfoFetch, adPhoneFetch } = this.props;
+    switch (scrollTabIndex) {
+      case 0:
+        bannerSwiperFetch('one');
+        bannerHomeTypeFetch();
+        promotionInfoFetch();
+        adverstInfoFetch({
+          type_id: '1'
+        });
+        adverstInfoFetch({
+          type_id: '2'
+        });
+        adverstInfoFetch({
+          type_id: '5'
+        });
+        mergeGetInfoFetch();
+
+        break;
+
+      case 1:
+        bannerSwiperFetch('two');
+        adPhoneFetch();
+
+        break;
+
+      case 2:
+        break;
+
+      default:
+        break;
+    }
+
     this.setState({ refreshing: true });
     setTimeout(() => {
       this._onDataArrived();
       this.setState({ refreshing: false });
-    }, 1000);
+    }, 1400);
     // fetchData().then(() => {
     //   this.setState({refreshing: false});
     // });
   }
 
+  onChangeTab(res) {
+    const { scrollableTabViewIndex, scrollTabIndex } = this.props;
+    if (res.i !== res.from) scrollableTabViewIndex(res.i);
+  }
+
   render() {
-    const { navigation: { navigate }, i18n } = this.props;
+    const {
+      navigation: { navigate },
+      i18n
+    } = this.props;
 
     // setTimeout(() => {
     //   navigate(SCREENS.Language);
@@ -139,10 +189,7 @@ class Main extends React.Component {
 
     return (
       <View style={styles.container}>
-        <StatusBar
-          backgroundColor="#fff"
-          barStyle="dark-content"
-        />
+        <StatusBar backgroundColor="#fff" barStyle="dark-content" />
         <View style={styles.headerContainer}>
           <BYTouchable>
             <CustomIcon name="notice" style={styles.headerIcon} />
@@ -155,14 +202,17 @@ class Main extends React.Component {
           </BYTouchable>
           <CustomIcon name="qrcode" style={styles.headerIcon} />
         </View>
-        <ScrollableTabView content={content} />
+        <ScrollableTabView content={content} onChangeTab={this.onChangeTab} />
       </View>
     );
   }
 }
 
 function mapStateToProps(state, props) {
-  return {};
+  const { scrollableTabView } = state;
+  return {
+    scrollTabIndex: scrollableTabView.index
+  };
 }
 
-export default connectLocalization(connect(mapStateToProps, {...i18nActionCreators})(Main));
+export default connectLocalization(connect(mapStateToProps, { ...i18nActionCreators, ...scrollableTabViewActionCreators, ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators, ...promotionInfoActionCreators, ...mergeGetInfoActionCreators, ...adverstInfoActionCreators, ...adPhoneActionCreators })(Main));
