@@ -1,5 +1,6 @@
 export const SCREENS = {
   Index: 'Index',
+  Recharge: 'Recharge',
   Cart: 'Cart',
   Me: 'Me',
   Category: 'Category',

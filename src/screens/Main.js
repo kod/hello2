@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, ListView, StyleSheet, View, Text, Image, RefreshControl, Dimensions, StatusBar } from 'react-native';
+import { ScrollView, ListView, StyleSheet, View, Text, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
 import { globalStyleVariables } from '../styles';

@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { TabNavigator } from 'react-navigation';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Category from '../screens/Category';
 import Main from '../screens/Main';
@@ -10,27 +8,36 @@ import Me from '../screens/Me';
 import Login from '../screens/Login';
 import { SCREENS } from '../common/constants';
 
+import CustomIcon from '../components/CustomIcon.js';
+
 const TabContainer = TabNavigator(
   {
     [SCREENS.Main]: { 
       screen: Main,
       navigationOptions: ({ screenProps: { i18n } }) => ({
         tabBarLabel: i18n.home,
-        tabBarIcon: ({ tintColor }) => <MaterialIcons name="home" size={25} color={tintColor} />
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={16} color={tintColor} />
+      }),
+     },
+    [SCREENS.Recharge]: { 
+      screen: Cart,
+      navigationOptions: ({ screenProps: { i18n } }) => ({
+        tabBarLabel: i18n.recharge,
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="recharge" size={16} color={tintColor} />
       }),
      },
     [SCREENS.Cart]: { 
       screen: Cart,
       navigationOptions: ({ screenProps: { i18n } }) => ({
         tabBarLabel: i18n.cart,
-        tabBarIcon: ({ tintColor }) => <MaterialIcons name="shopping-cart" size={25} color={tintColor} />
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="cart" size={16} color={tintColor} />
       }),
      },
     [SCREENS.Me]: { 
       screen: Me,
       navigationOptions: ({ screenProps: { i18n } }) => ({
-        tabBarLabel: i18n.Me,
-        tabBarIcon: ({ tintColor }) => <MaterialIcons name="account-circle" size={25} color={tintColor} />
+        tabBarLabel: i18n.me,
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
       }),
      },
   },
@@ -38,15 +45,18 @@ const TabContainer = TabNavigator(
     lazy: true,
     swipeEnabled: false,
     animationEnabled: false,
-    initialRouteName: SCREENS.Main,
+    initialRouteName: SCREENS.Me,
     tabBarPosition: 'bottom',
     tabBarOptions: {
-      activeTintColor: '#3e9ce9',
+      activeTintColor: '#0076F7',
       inactiveTintColor: '#999999',
       showIcon: true,
+      upperCaseLabel: false,
       style: {
         backgroundColor: '#fff',
-        height: 55
+        height: 55,
+        padding: 0,
+        margin: 0,
       },
       indicatorStyle: {
         opacity: 0
@@ -56,6 +66,7 @@ const TabContainer = TabNavigator(
         margin: 0,
       },
       labelStyle: {
+        padding: 0,
         margin: 0,
         fontSize: 12,
       },
