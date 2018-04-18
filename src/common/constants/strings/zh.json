@@ -1,6 +1,7 @@
 {
   "about": "关于我们",
   "cart": "购物车",
+  "me": "我",
   "language": "语言",
   "clearCache": "清除缓存",
   "personalInformation": "个人资料",
@@ -15,7 +16,7 @@
   "myCoupon": "我的优惠券",
   "shippingAddress": "我的地址",
   "inviteFriends": "邀请好友",
-  "followUs": "Follow us",
+  "followUs": "关注我们",
   "settings": "设置",
   "recommend": "推荐",
   "mobileCommunications": "手机通讯",
@@ -30,5 +31,10 @@
   "brandOnSale": "品牌特卖",
   "featuredEvents": "精选活动",
   "goodOnesRecommendation": "好物推荐",
+  "monthlyRepaymentOnThe6th": "每月26日还款",
+  "pendingPayment": "待支付",
+  "pendingDelivery": "待收货",
+  "pendingEvaluation": "待评论",
+  "afterSalesService": "售后",
   "home": "首页"
 }

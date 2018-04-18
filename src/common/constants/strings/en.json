@@ -1,6 +1,7 @@
 {
   "about": "About us",
   "cart": "cart",
+  "me": "Me",
   "language": "Language",
   "clearCache": "Clear cache",
   "personalInformation": "Personal information",
@@ -30,5 +31,10 @@
   "brandOnSale": "Brand on sale",
   "featuredEvents": "Featured events",
   "goodOnesRecommendation": "Good ones recommendation",
+  "monthlyRepaymentOnThe6th": "Monthly repayment on the 26th",
+  "pendingPayment": "Pending payment",
+  "pendingDelivery": "Pending delivery",
+  "pendingEvaluation": "Pending evaluation",
+  "afterSalesService": "After-sales service",
   "home": "Home"
 }

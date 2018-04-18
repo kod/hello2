@@ -1,6 +1,7 @@
 {
   "about": "Về chúng tôi",
   "cart": "Giỏ hàng",
+  "me": "Tài khoản",
   "language": "Ngôn ngữ",
   "clearCache": "Xóa cache",
   "personalInformation": "Thông tin cá nhân",
@@ -22,7 +23,7 @@
   "computerOffice": "Máy tính văn phòng",
   "digitalDevices": "Thiết bị kỹ thuật số",
   "coupon": "Mã Giảm Giá",
-  "recharge": "Thẻ cào điện thoại",
+  "recharge": "Nạp Tiền",
   "howToBuy": "Hỗ trợ mua hàng",
   "groupBuyHelp": "Hỗ trợ nhóm mua chung",
   "groupBuy": "Mua chung",
@@ -30,5 +31,10 @@
   "brandOnSale": "Các thương hiệu đang bán",
   "featuredEvents": "Sự kiện nổi bật",
   "goodOnesRecommendation": "Đề cử sản phẩm chất lượng",
+  "monthlyRepaymentOnThe6th": "Hoàn trả vào ngày 26",
+  "pendingPayment": "Chờ thanh toán",
+  "pendingDelivery": "Chờ nhận hàng",
+  "pendingEvaluation": "Chờ đánh giá",
+  "afterSalesService": "Dịch vụ sau khi mua",
   "home": "Trang chủ"
 }
