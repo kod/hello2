@@ -17,6 +17,13 @@ import {
 
 const appNamespace = defineAction('BUYOO');
 
+export const AD_DIGITAL = defineAction(
+  'AD_DIGITAL',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+
 export const ADVERST_INFO = defineAction(
   'ADVERST_INFO',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
@@ -25,6 +32,18 @@ export const ADVERST_INFO = defineAction(
 
 export const AD_PHONE = defineAction(
   'AD_PHONE',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const NEW_COMPUTER = defineAction(
+  'NEW_COMPUTER',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const TOP_COMPUTER = defineAction(
+  'TOP_COMPUTER',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );

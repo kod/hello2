@@ -17,7 +17,7 @@ class MyCollection extends React.Component {
 
   componentDidMount() {
     const { bannerHomeRecommendFetch } = this.props;
-    bannerHomeRecommendFetch();
+    // bannerHomeRecommendFetch();
   }
 
   handleOnPressHeaderBackButton = () => {

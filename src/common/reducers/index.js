@@ -7,6 +7,9 @@ import mergeGetInfo from './mergeGetInfo';
 import adverstInfo from './adverstInfo';
 import scrollableTabView from './scrollableTabView';
 import adPhone from './adPhone';
+import topComputer from './topComputer';
+import newComputer from './newComputer';
+import adDigital from './adDigital';
 import i18n from './i18n';
 
 const rootReducer = combineReducers({
@@ -18,6 +21,9 @@ const rootReducer = combineReducers({
   adverstInfo,
   scrollableTabView,
   adPhone,
+  topComputer,
+  newComputer,
+  adDigital,
   i18n,
 });
 

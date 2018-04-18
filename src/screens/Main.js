@@ -24,6 +24,9 @@ import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
 import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
 import * as adPhoneActionCreators from '../common/actions/adPhone';
+import * as topComputerActionCreators from '../common/actions/topComputer';
+import * as newComputerActionCreators from '../common/actions/newComputer';
+import * as adDigitalActionCreators from '../common/actions/adDigital';
 
 const styles = StyleSheet.create({
   base: {
@@ -103,7 +106,18 @@ class Main extends React.Component {
   _onDataArrived() {}
 
   _onRefresh() {
-    const { scrollTabIndex, bannerSwiperFetch, bannerHomeTypeFetch, promotionInfoFetch, adverstInfoFetch, mergeGetInfoFetch, adPhoneFetch } = this.props;
+    const { 
+      scrollTabIndex,
+      bannerSwiperFetch,
+      bannerHomeTypeFetch,
+      promotionInfoFetch,
+      adverstInfoFetch,
+      mergeGetInfoFetch,
+      adPhoneFetch,
+      topComputerFetch,
+      newComputerFetch,
+      adDigitalFetch,
+     } = this.props;
     switch (scrollTabIndex) {
       case 0:
         bannerSwiperFetch('one');
@@ -129,6 +143,14 @@ class Main extends React.Component {
         break;
 
       case 2:
+        topComputerFetch();
+        newComputerFetch();
+  
+        break;
+
+      case 3:
+        bannerSwiperFetch('four');
+        adDigitalFetch();
         break;
 
       default:
@@ -215,4 +237,21 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connectLocalization(connect(mapStateToProps, { ...i18nActionCreators, ...scrollableTabViewActionCreators, ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators, ...promotionInfoActionCreators, ...mergeGetInfoActionCreators, ...adverstInfoActionCreators, ...adPhoneActionCreators })(Main));
+export default connectLocalization(
+  connect(
+    mapStateToProps, 
+    {
+      ...i18nActionCreators,
+      ...scrollableTabViewActionCreators,
+      ...bannerSwiperActionCreators,
+      ...bannerHomeTypeActionCreators,
+      ...promotionInfoActionCreators,
+      ...mergeGetInfoActionCreators,
+      ...adverstInfoActionCreators,
+      ...adPhoneActionCreators,
+      ...topComputerActionCreators,
+      ...newComputerActionCreators,
+      ...adDigitalActionCreators,
+    }
+  )(Main)
+);

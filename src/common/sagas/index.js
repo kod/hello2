@@ -6,6 +6,9 @@ import { promotionInfoFetchWatch } from './promotionInfo';
 import { mergeGetInfoFetchWatch } from './mergeGetInfo';
 import { adverstInfoFetchWatch } from './adverstInfo';
 import { adPhoneFetchWatch } from './adPhone';
+import { topComputerFetchWatch } from './topComputer';
+import { newComputerFetchWatch } from './newComputer';
+import { adDigitalFetchWatch } from './adDigital';
 
 
 export default function* rootSaga() {
@@ -17,5 +20,8 @@ export default function* rootSaga() {
     mergeGetInfoFetchWatch(),
     adverstInfoFetchWatch(),
     adPhoneFetchWatch(),
+    topComputerFetchWatch(),
+    newComputerFetchWatch(),
+    adDigitalFetchWatch(),
   ]);
 }

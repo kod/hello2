@@ -77,7 +77,7 @@ export default class App extends PureComponent {
 
   render() {
     const { 
-      data: { items, loaded, loading },
+      data: { items },
       style
     } = this.props;
     return (

@@ -27,11 +27,11 @@ function callApi(url, options) {
 class ReactStore {
   constructor() {
     this.headers = {
-      "App-OS": "ios",
-      "Accept-Language": "en-us",
-      "App-OS-Version": "9.3.3",
-      "App-Version": "6.8.3",
-      "User-Agent": "PixivIOSApp/6.8.3 (iOS 9.0; iPhone8,2)"
+      // "App-OS": "ios",
+      // "Accept-Language": "en-us",
+      // "App-OS-Version": "9.3.3",
+      // "App-Version": "6.8.3",
+      // "User-Agent": "PixivIOSApp/6.8.3 (iOS 9.0; iPhone8,2)"
     };
   }
 
@@ -49,6 +49,38 @@ class ReactStore {
       )
     );
     return this.requestUrl(`:8185/fun/digital/initTopDigital?${queryString}`);
+  }
+
+  initAdDigital(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    return this.requestUrl(`:8185/fun/digital/initAdDigital?${queryString}`);
+  }
+
+  initNewComputer(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    return this.requestUrl(`:8185/fun/computer/initNewComputer?${queryString}`);
   }
 
   initTopComputer(options) {
@@ -172,22 +204,6 @@ class ReactStore {
       data,
     };
     return this.requestUrl(`:8185/fun/commodity/getNewestInfo`, options);
-  }
-
-  getAdverstInfo(options) {
-    if (!options) {
-      return Promise.reject(new Error("fields required"));
-    }
-
-    const queryString = qs.stringify(
-      Object.assign(
-        {
-          // filter,
-        },
-        options
-      )
-    );
-    return this.requestUrl(`:8185/fun/commodity/getAdverstInfo?${queryString}`);
   }
 
   requestUrl(url, options) {
