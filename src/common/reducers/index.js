@@ -11,6 +11,7 @@ import topComputer from './topComputer';
 import newComputer from './newComputer';
 import adDigital from './adDigital';
 import i18n from './i18n';
+import auth from './auth';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   newComputer,
   adDigital,
   i18n,
+  auth,
 });
 
 export default rootReducer;

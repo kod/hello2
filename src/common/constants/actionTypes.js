@@ -17,12 +17,37 @@ import {
 
 const appNamespace = defineAction('BUYOO');
 
+export const AUTH_LOGIN = defineAction(
+  'AUTH_LOGIN',
+  [REQUEST, SUCCESS, FAILURE, STOP],
+  appNamespace,
+);
+
+export const AUTH_SIGNUP = defineAction(
+  'AUTH_SIGNUP',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const AUTH_LOGOUT = defineAction('AUTH_LOGOUT', [SUCCESS], appNamespace);
+
+export const AUTH_REFRESH_ACCESS_TOKEN = defineAction(
+  'AUTH_REFRESH_ACCESS_TOKEN',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const AUTH_REHYDRATE = defineAction(
+  'AUTH_REHYDRATE',
+  [SUCCESS],
+  appNamespace,
+);
+
 export const AD_DIGITAL = defineAction(
   'AD_DIGITAL',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
-
 
 export const ADVERST_INFO = defineAction(
   'ADVERST_INFO',
@@ -81,12 +106,6 @@ export const BANNER_HOME_TYPE = defineAction(
 export const NEWESTINFO = defineAction(
   'NEWESTINFO',
   [REQUEST, SUCCESS, FAILURE, STOP],
-  appNamespace,
-);
-
-export const AUTH_SIGNUP = defineAction(
-  'AUTH_SIGNUP',
-  [REQUEST, SUCCESS, FAILURE],
   appNamespace,
 );
 

@@ -100,7 +100,6 @@ class Main extends React.Component {
 
   componentDidMount() {
     const { setLanguage } = this.props;
-    setLanguage('vi');
   }
 
   _onDataArrived() {}
@@ -161,7 +160,7 @@ class Main extends React.Component {
     setTimeout(() => {
       this._onDataArrived();
       this.setState({ refreshing: false });
-    }, 1400);
+    }, 1000);
     // fetchData().then(() => {
     //   this.setState({refreshing: false});
     // });
