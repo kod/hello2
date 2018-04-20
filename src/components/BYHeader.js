@@ -1,32 +1,38 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, View, Platform, StatusBar } from 'react-native';
 import { HeaderBackButton, withNavigation } from 'react-navigation';
 import { globalStyleVariables } from '../styles';
+import CustomIcon from "../components/CustomIcon";
+import BYTouchable from "../components/BYTouchable";
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: globalStyleVariables.STATUSBAR_HEIGHT,
+    // paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
   },
   containerShadow: {
     ...Platform.select({
       ios: {
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: 'rgba(0, 0, 0, .3)',
+        // borderBottomWidth: StyleSheet.hairlineWidth,
+        // borderBottomColor: 'rgba(0, 0, 0, .3)',
       },
       android: {
-        shadowColor: 'black',
-        shadowOpacity: 0.1,
-        shadowRadius: StyleSheet.hairlineWidth,
-        shadowOffset: {
-          height: StyleSheet.hairlineWidth,
-        },
-        elevation: 4,
+        // borderBottomWidth: StyleSheet.hairlineWidth,
+        // borderBottomColor: 'rgba(0, 0, 0, .3)',
+        // shadowColor: 'black',
+        // shadowOpacity: 0.1,
+        // shadowRadius: StyleSheet.hairlineWidth,
+        // shadowOffset: {
+        //   height: StyleSheet.hairlineWidth,
+        // },
+        // elevation: 4,
       },
     }),
   },
   containerDark: {
-    backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
+    // backgroundColor: '#f00',
+    // backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
   },
   absolutePosition: {
     position: 'absolute',
@@ -43,8 +49,26 @@ const styles = StyleSheet.create({
   subContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    // borderBottomWidth: 1,
+    // borderBottomColor: '#f5f5f5',
     // justifyContent: 'space-between',
   },
+  headerBack: {
+    height: 44,
+    lineHeight: 44,
+    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.03,
+    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    fontSize: 15,
+    color: '#333',
+  },
+  headerLine: {
+    position: 'absolute',
+    bottom: 0,
+    left: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    right: 0,
+    height: 1,
+    backgroundColor: '#f5f5f5',
+  }
 });
 
 class PXHeader extends Component {
@@ -82,6 +106,7 @@ class PXHeader extends Component {
       darkTheme,
       absolutePosition,
     } = this.props;
+    console.log(this.props);
     return (
       <View
         style={[
@@ -91,15 +116,18 @@ class PXHeader extends Component {
         ]}
       >
         <View style={styles.subContainer}>
-          {showBackButton ?
-            <HeaderBackButton
-              onPress={this.handleOnPressBackButton}
-              tintColor={darkTheme && '#fff'}
-            /> :
-            headerLeft}
+          <BYTouchable onPress={() => this.handleOnPressBackButton()} >
+            {showBackButton ?
+              <CustomIcon
+                name="back"
+                style={styles.headerBack}
+                /> :
+              headerLeft}
+          </BYTouchable>
           {headerTitle}
           {headerRight}
         </View>
+        <View style={styles.headerLine}></View>
       </View>
     );
   }
