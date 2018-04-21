@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { connect } from "react-redux";
+import { StyleSheet, Text, View, Image, Dimensions, ScrollView, StatusBar } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { globalStyleVariables } from '../styles';
 import { SCREENS } from "../common/constants";
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 45,
     alignItems: 'center',
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    paddingLeft: globalStyleVariables.SIDEINTERVAL,
+    paddingRight: globalStyleVariables.SIDEINTERVAL,
   },
   cellItem1Left: {
     flex: 1,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   nav1ItemIcon: {
     fontSize: 22,
     color: '#ccc',
-    marginBottom: 5
+    marginBottom: 5,
   },
   nav1ItemText: {
     fontSize: 11,
@@ -108,15 +108,24 @@ const styles = StyleSheet.create({
     fontSize: 10,
     paddingLeft: 5,
     paddingRight: 5,
+    paddingBottom: 1,
     borderRadius: 100,
   }
 });
 
 class Me extends React.Component {
 
-  componentDidMount() {}
+  componentDidMount() {
+    // const { navigation: { navigate }, authUser } = this.props;
+    // setTimeout(() => {
+    //   navigate(SCREENS.Login)
+    // }, 700);
+  }
 
   renderHeaderBottom() {
+    const { authUser } = this.props;
+    console.log(authUser);
+    
     const list = [
       {
         price: '6,205,000',
@@ -147,18 +156,22 @@ class Me extends React.Component {
       {
         text: i18n.pendingPayment,
         iconName: 'toBePaid',
+        styleIcon: { fontSize: 25 },
       },
       {
         text: i18n.pendingDelivery,
         iconName: 'toReceiveGoods',
+        styleIcon: { fontSize: 23, paddingTop: 2 },
       },
       {
         text: i18n.pendingEvaluation,
         iconName: 'beEvaluated',
+        styleIcon: { fontSize: 22, paddingTop: 3 },
       },
       {
         text: i18n.afterSalesService,
         iconName: 'returns',
+        styleIcon: { fontSize: 23, paddingTop: 2 },
       },
     ];
 
@@ -166,13 +179,19 @@ class Me extends React.Component {
       <View style={styles.nav1} >
         {list.map((val, key) => 
           <View style={styles.nav1Item} key={key} >
-            <CustomIcon style={styles.nav1ItemIcon} name={val.iconName} ></CustomIcon>
+            <CustomIcon style={[styles.nav1ItemIcon, val.styleIcon]} name={val.iconName} ></CustomIcon>
             <Text style={styles.nav1ItemText}>{val.text}</Text>
             <Text style={styles.nav1ItemBadge} >5</Text>
           </View>
       )}
       </View>
     );
+  }
+
+  handleOnPressUser() {
+    const { navigation: { navigate }, authUser } = this.props;
+
+    authUser ? navigate(SCREENS.Settings) : navigate(SCREENS.Login);
   }
 
   renderCellItem1({list, style, styleItem, styleItemLeft, navigate}) {
@@ -190,7 +209,8 @@ class Me extends React.Component {
   }
   
   render() {
-    const { navigation: { navigate }, screenProps: { i18n } } = this.props;
+    const { navigation, navigation: { navigate }, screenProps: { i18n }, authUser } = this.props;
+    console.log(navigation);
 
     const renderCellItem1List1 = [
       {
@@ -253,14 +273,18 @@ class Me extends React.Component {
       },
     ];
 
+    const username = authUser ? 'Jay Chou' : i18n.loginRegister;
+
     return (
       <ScrollView style={{ height: globalStyleVariables.WINDOW_HEIGHT - 55 - 25 }} >
+        {/* <StatusBar backgroundColor={'#fff'} barStyle="dark-content" /> */}
+        {/* <StatusBar backgroundColor={globalStyleVariables.PRIMARY_COLOR} barStyle="dark-content" /> */}
         <View style={styles.container} >
           <View style={styles.header} >
-            <View style={styles.headerIcon} >
+            <BYTouchable style={styles.headerIcon} onPress={() => this.handleOnPressUser()}>
               <Image style={styles.headerIconImg} source={require('../images/aioru09230f.png')} />
-              <Text style={styles.headerIconText} >Jay Chou</Text>
-            </View>
+              <Text style={styles.headerIconText} >{username}</Text>
+            </BYTouchable>
             {this.renderHeaderBottom()}
           </View>
           {this.renderCellItem1({list:renderCellItem1List1, navigate})}
@@ -271,4 +295,8 @@ class Me extends React.Component {
     );
   }
 }
-export default Me;
+export default connect(
+  state => ({
+    authUser: state.auth.user,
+  })
+)(Me);

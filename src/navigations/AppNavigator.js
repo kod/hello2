@@ -1,5 +1,6 @@
 import { StackNavigator } from 'react-navigation';
 import AppTabNavigator from './AppTabNavigator';
+import { SCREENS } from '../common/constants';
 import ProductDetail from '../screens/ProductDetail';
 import Login from '../screens/Login';
 import RegisterStepOne from '../screens/RegisterStepOne';
@@ -8,7 +9,10 @@ import SearchResult from '../screens/SearchResult';
 import MyCollection from '../screens/MyCollection';
 import Settings from '../screens/Settings';
 import Language from '../screens/Language';
-import { SCREENS } from '../common/constants';
+import RegisterFastStepOne from '../screens/RegisterFastStepOne';
+import RegisterFastStepTwo from '../screens/RegisterFastStepTwo';
+import ForgotPasswordOne from '../screens/ForgotPasswordOne';
+import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -64,10 +68,37 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.RegisterFastStepOne]: {
+    screen: RegisterFastStepOne,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.RegisterFastStepTwo]: {
+    screen: RegisterFastStepTwo,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.ForgotPasswordOne]: {
+    screen: ForgotPasswordOne,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.ForgotPasswordTwo]: {
+    screen: ForgotPasswordTwo,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.Login,
+  // initialRouteName: SCREENS.RegisterFastStepTwo,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

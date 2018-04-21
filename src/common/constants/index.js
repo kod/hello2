@@ -13,4 +13,8 @@ export const SCREENS = {
   MyCollection: 'MyCollection',
   Settings: 'Settings',
   Language: 'Language',
+  RegisterFastStepOne: 'RegisterFastStepOne',
+  RegisterFastStepTwo: 'RegisterFastStepTwo',
+  ForgotPasswordOne: 'ForgotPasswordOne',
+  ForgotPasswordTwo: 'ForgotPasswordTwo',
 };
