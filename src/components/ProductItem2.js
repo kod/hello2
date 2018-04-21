@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { globalStyleVariables } from '../styles';
 import priceFormat from '../common/helpers/priceFormat';
 
-const itemIntervalWidth = globalStyleVariables.WINDOW_WIDTH * 0.04;
+const itemIntervalWidth = globalStyleVariables.SIDEINTERVAL;
 const itemWidth = (globalStyleVariables.WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   itemRight: {
     width: globalStyleVariables.WINDOW_WIDTH * 0.75,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    paddingRight: globalStyleVariables.SIDEINTERVAL,
   },
   itemTitle: {
     fontSize: 11,

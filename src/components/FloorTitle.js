@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import BYTouchable from './BYTouchable';
 import { globalStyleVariables } from '../styles';
 import CustomIcon from '../components/CustomIcon';
@@ -25,8 +24,8 @@ const styles = StyleSheet.create({
     right: 0,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.04
+    paddingLeft: globalStyleVariables.SIDEINTERVAL,
+    paddingRight: globalStyleVariables.SIDEINTERVAL
   },
   componentMoreText: {
     fontSize: 11,

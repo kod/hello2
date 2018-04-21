@@ -11,7 +11,7 @@ const PXTouchable = props => {
     const { style, children, ...otherProps } = props;
     return (
       <TouchableNativeFeedback
-        background={TouchableNativeFeedback.SelectableBackground()}
+        background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.3)', false)}
         style={style}
         {...otherProps}
       >

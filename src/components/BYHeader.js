@@ -9,7 +9,7 @@ import BYTouchable from "../components/BYTouchable";
 const styles = StyleSheet.create({
   container: {
     paddingTop: globalStyleVariables.STATUSBAR_HEIGHT,
-    // paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    // paddingLeft: globalStyleVariables.SIDEINTERVAL,
   },
   containerShadow: {
     ...Platform.select({
@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  containerDark: {
-    // backgroundColor: '#f00',
-    // backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
-  },
+  // containerDark: {
+  //   // backgroundColor: '#f00',
+  //   // backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
+  // },
   absolutePosition: {
     position: 'absolute',
     top: StatusBar.currentHeight || 0, // android only for use with translucent status bar
@@ -57,14 +57,14 @@ const styles = StyleSheet.create({
     height: 44,
     lineHeight: 44,
     paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.03,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    paddingRight: globalStyleVariables.SIDEINTERVAL,
     fontSize: 15,
     color: '#333',
   },
   headerLine: {
     position: 'absolute',
     bottom: 0,
-    left: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    left: globalStyleVariables.SIDEINTERVAL,
     right: 0,
     height: 1,
     backgroundColor: '#f5f5f5',
@@ -77,15 +77,13 @@ class PXHeader extends Component {
   //   showBackButton: PropTypes.bool,
   //   headerTitle: PropTypes.element,
   //   headerRight: PropTypes.element,
-  //   darkTheme: PropTypes.bool,
   // };
 
   static defaultProps = {
     onPressBackButton: null,
-    showBackButton: false,
+    showBackButton: true,
     headerTitle: null,
     headerRight: null,
-    darkTheme: false,
   };
 
   handleOnPressBackButton = () => {
@@ -103,15 +101,13 @@ class PXHeader extends Component {
       headerTitle,
       headerRight,
       headerLeft,
-      darkTheme,
       absolutePosition,
     } = this.props;
-    console.log(this.props);
+
     return (
       <View
         style={[
           styles.container,
-          darkTheme && styles.containerDark,
           absolutePosition ? styles.absolutePosition : styles.containerShadow,
         ]}
       >

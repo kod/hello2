@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import CustomIcon from '../components/CustomIcon';
+import { connectLocalization } from "../components/Localization";
 import BYTouchable from './BYTouchable';
 
 const styles = StyleSheet.create({
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
 
 const HeaderShareButton = ({ onPress, color, style, ...restProps }) =>
   <BYTouchable onPress={onPress} style={style} {...restProps}>
-    <Icon
+    <CustomIcon
       name="share"
       size={20}
       style={styles.icon}

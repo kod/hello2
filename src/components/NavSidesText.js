@@ -4,13 +4,11 @@ import { globalStyleVariables } from '../styles';
 import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({
-  componentWrap: {
-    paddingLeft: globalStyleVariables.SIDEINTERVAL,
-    paddingRight: globalStyleVariables.SIDEINTERVAL
-  },
   component: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingLeft: globalStyleVariables.SIDEINTERVAL,
+    paddingRight: globalStyleVariables.SIDEINTERVAL
   },
   componentText: {
     fontSize: 11,

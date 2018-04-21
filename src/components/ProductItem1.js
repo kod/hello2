@@ -3,19 +3,19 @@ import { StyleSheet, View, Text, Image, Dimensions, } from 'react-native';
 import { globalStyleVariables } from "../styles";
 import priceFormat from "../common/helpers/priceFormat";
 
-const itemIntervalWidth = globalStyleVariables.WINDOW_WIDTH * 0.04;
+const itemIntervalWidth = globalStyleVariables.SIDEINTERVAL;
 const itemWidth = (globalStyleVariables.WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
   itemWrap: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    paddingLeft: globalStyleVariables.SIDEINTERVAL,
     marginBottom: 5,
   },
   item: {
     width: itemWidth,
-    marginRight: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    marginRight: globalStyleVariables.SIDEINTERVAL,
     paddingTop: 4,
     backgroundColor: '#fff',
     borderColor: '#f5f5f5',

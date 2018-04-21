@@ -14,6 +14,7 @@ import CustomIcon from '../components/CustomIcon.js';
 import ProductItem1 from "../components/ProductItem1";
 import ProductItem2 from "../components/ProductItem2";
 import FloorTitle from "../components/FloorTitle";
+import NavImg1 from "../components/NavImg1";
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
@@ -22,35 +23,10 @@ import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
 // import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 
-const itemIntervalWidth = globalStyleVariables.WINDOW_WIDTH * 0.04;
+const itemIntervalWidth = globalStyleVariables.SIDEINTERVAL;
 const itemWidth = (globalStyleVariables.WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
-  imgNav: {
-    flexDirection: 'row',
-    backgroundColor: '#fff'
-  },
-  imgNavItem: {
-    flex: 1,
-    alignItems: 'center',
-    paddingTop: 15,
-    paddingBottom: 15
-  },
-  imgNavItemImg: {
-    height: 30,
-    width: 30,
-    marginBottom: 10
-  },
-  imgNavItemImgCoupon: {
-    height: 32,
-    width: 32,
-    marginBottom: 8
-  },
-  imgNavItemText: {
-    fontSize: 10,
-    color: '#666',
-    textAlign: 'center'
-  },
   groupBuy: {
     position: 'relative',
     zIndex: -2,
@@ -74,7 +50,7 @@ const styles = StyleSheet.create({
   groupBuyTitle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.04,
+    paddingLeft: globalStyleVariables.SIDEINTERVAL,
     paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.03,
     marginBottom: 20
   },
@@ -123,28 +99,36 @@ class Scrollable1 extends React.Component {
   render() {
     const { bannerSwiper, bannerHomeType, promotionInfo, mergeGetInfo, adverstInfo, navigation: { navigate }, i18n } = this.props;
     const mergeGetInfoList = mergeGetInfo.items;
+
+    const nav1Data = [
+      {
+        imageSource: require('../images/coupon.png'), 
+        text: i18n.coupon,
+      },
+      {
+        imageSource: require('../images/recharge.png'), 
+        text: i18n.recharge,
+      },
+      {
+        imageSource: require('../images/buyhelp.png'), 
+        text: i18n.howToBuy,
+        styleImg: {
+          height: 32,
+          width: 32,
+          marginBottom: 8
+        },      
+      },
+      {
+        imageSource: require('../images/grouphelp.png'), 
+        text: i18n.groupBuyHelp,
+      },
+    ]
+    
     return (
       <View>
         <SwiperFlatList data={bannerSwiper} />
-
-        <View style={styles.imgNav}>
-          <View style={styles.imgNavItem}>
-            <Image style={styles.imgNavItemImg} source={require('../images/coupon.png')} />
-            <Text style={styles.imgNavItemText}>{i18n.coupon}</Text>
-          </View>
-          <View style={styles.imgNavItem}>
-            <Image style={styles.imgNavItemImg} source={require('../images/recharge.png')} />
-            <Text style={styles.imgNavItemText}>{i18n.recharge}</Text>
-          </View>
-          <View style={styles.imgNavItem}>
-            <Image style={[styles.imgNavItemImg, styles.imgNavItemImgCoupon]} source={require('../images/buyhelp.png')} />
-            <Text style={styles.imgNavItemText}>{i18n.howToBuy}</Text>
-          </View>
-          <View style={styles.imgNavItem}>
-            <Image style={styles.imgNavItemImg} source={require('../images/grouphelp.png')} />
-            <Text style={styles.imgNavItemText}>{i18n.groupBuyHelp}</Text>
-          </View>
-        </View>
+        
+        <NavImg1 data={nav1Data} />
 
         <View style={styles.groupBuy}>
           <View style={styles.groupBuyBackground} >

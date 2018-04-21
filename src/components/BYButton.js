@@ -4,7 +4,10 @@ import { globalStyleVariables } from '../styles';
 import BYTouchable from '../components/BYTouchable';
 
 const styles = StyleSheet.create({
-  componentWrap: {},
+  componentWrap: {
+    paddingLeft: globalStyleVariables.SIDEINTERVAL, 
+    paddingRight: globalStyleVariables.SIDEINTERVAL,
+  },
   component: {
     backgroundColor: globalStyleVariables.PRIMARY_COLOR
   },
