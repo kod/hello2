@@ -45,7 +45,8 @@ export default function configureStore() {
     storage: AsyncStorage,
   });
   if (module.hot) {
-    module.hot.accept('../reducers', () => store.replaceReducer(rootReducer));
+    // module.hot.accept('../reducers', () => store.replaceReducer(rootReducer));
+    module.hot.accept(module.hot.acceptCallback, () => store.replaceReducer(rootReducer));
   }
 
   return store;
