@@ -1,67 +1,51 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image, TextInput, Button } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import { globalStyleVariables, globalStyles } from '../styles';
+
+import { SCREENS } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
-import HeaderShareButton from '../components/HeaderShareButton';
-import ScrollableTabView from '../components/ScrollableTabView';
-import { SCREENS } from "../common/constants";
+import InputCountry from '../components/InputCountry';
+import InputRight from '../components/InputRight';
+import BYButton from '../components/BYButton';
+import BYTouchable from '../components/BYTouchable';
+import NavSidesText from '../components/NavSidesText';
+import BYStatusBar from '../components/BYStatusBar';
+import OtherLogin from '../components/OtherLogin';
 
-const { width, height } = Dimensions.get('window');
+import { WINDOW_HEIGHT } from '../styles/variables';
+
+const styles = StyleSheet.create({});
 
 class Feedback extends React.Component {
+  renderInputRight = () => {
+    const {
+      navigation: { goBack, navigate },
+    } = this.props;
 
-  handleOnPressHeaderBackButton = () => {
-    const { goBack } = this.props.navigation;
-    goBack();
-  };
-
-  renderHeaderTitle = () => {
     return (
-      <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
-        <Text style={{ fontSize: 18, color: '#fff' }}>Language</Text>
-      </View>
-    )
-  }
-
-  renderHeaderRight = () => {
-    return (
-      <View></View>
+      <BYTouchable style={{ marginRight: globalStyleVariables.SIDEINTERVAL }} onPress={() => navigate(SCREENS.ForgotPasswordOne)}>
+        <Text style={{ marginLeft: 0, color: '#666', fontSize: 11, borderBottomColor: '#666', borderBottomWidth: 1 }}>forgot password?</Text>
+      </BYTouchable>
     );
   };
 
   render() {
-    const { navigation: { goBack, navigate }, navigation } = this.props;
+    const {
+      navigation: { goBack, navigate },
+    } = this.props;
     return (
-      <View style={{ backgroundColor: '#fff' }}>
-        <BYHeader
-          headerTitle={this.renderHeaderTitle()}
-          headerRight={this.renderHeaderRight()}
-          darkTheme
-          showBackButton
-          onPressBackButton={this.handleOnPressHeaderBackButton}
-        />
-        {/* <View style={{ flexDirection: 'row', alignItems: 'center', height: 45, borderBottomWidth: 1, borderBottomColor: '#eee' }}>
-          <MaterialIcons name="navigate-before" style={{ fontSize: 26, paddingLeft: 5, paddingRight: 5, color: '#333', paddingRight: 10 }} onPress={() => goBack()} />
-        </View> */}
-        <ScrollView style={{ height: height - 45 , backgroundColor: '#fff' }}>
-          <View style={{ paddingLeft: width * 0.03, paddingRight: width * 0.03 }} >
-            <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomColor: '#f5f5f5', borderBottomWidth: 5, marginBottom: 10 }} >
-              <Image source={require('../images/viemnam.png')} style={{ width: 18, resizeMode: Image.resizeMode.contain, marginLeft: width * 0.03, }} />
-              <Text style={{ marginLeft: 5, color: '#ccc', paddingRight: 5, borderRightWidth: 1, borderRightColor: '#eee' }} >+84</Text>
-              <TextInput style={{ flex: 1, marginLeft: 10 }} underlineColorAndroid={'rgba(0,0,0,.0)'} placeholder={'please input your phone number'} placeholderTextColor={'#ccc'} />
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', borderBottomColor: '#f5f5f5', borderBottomWidth: 5, marginBottom: 75 }} >
-              <TextInput style={{ flex: 1, marginLeft: width * 0.03, }} underlineColorAndroid={'rgba(0,0,0,.0)'} placeholder={'password'} placeholderTextColor={'#ccc'} secureTextEntry={true} />
-              <Text style={{ marginLeft: 0, color: '#666', marginRight: width * 0.04, fontSize: 11, borderBottomColor: '#666', borderBottomWidth: 1 }} >forgot password?</Text>
-            </View>
-            <View style={{ height: 50, marginBottom: 30 }} >
-              <Text style={{ textAlign: 'center', lineHeight: 50, backgroundColor: '#0076F7', color: '#fff', fontSize: 14 }}>Login</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }} >
-              <Text style={{ fontSize: 11, color: '#0076F7', borderBottomColor: '#0076F7', borderBottomWidth: 1 }} onPress={() => navigate(SCREENS.RegisterStepOne)}>Register now?</Text>
-            </View>
-          </View>
+      <View style={{ backgroundColor: '#fff', position: 'relative', height: globalStyleVariables.WINDOW_HEIGHT }}>
+        <BYStatusBar />
+        <BYHeader />
+        <OtherLogin />
+
+        <ScrollView>
+          <InputCountry />
+          <InputRight inputRight={this.renderInputRight()} styleWrap={{ marginBottom: 75 }} />
+          <BYButton text={'Login'} style={{ marginBottom: 30 }} />
+          <NavSidesText textLeft={'Register now?'} textRight={'Log in via SMS?'} navigateLeft={() => navigate(SCREENS.RegisterStepOne)} navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} />
         </ScrollView>
       </View>
     );
