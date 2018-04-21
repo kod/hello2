@@ -124,7 +124,7 @@ class Me extends React.Component {
 
   renderHeaderBottom() {
     const { authUser } = this.props;
-    console.log(authUser);
+    // console.log(authUser);
     
     const list = [
       {
@@ -210,7 +210,7 @@ class Me extends React.Component {
   
   render() {
     const { navigation, navigation: { navigate }, screenProps: { i18n }, authUser } = this.props;
-    console.log(navigation);
+    // console.log(navigation);
 
     const renderCellItem1List1 = [
       {

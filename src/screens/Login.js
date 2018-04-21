@@ -1,10 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Image, TextInput, Button } from 'react-native';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { StyleSheet, Text, View, ScrollView, Keyboard, } from 'react-native';
 
 import { globalStyleVariables, globalStyles } from '../styles';
 
 import { SCREENS } from '../common/constants';
 
+import { connectLocalization } from "../components/Localization";
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import InputRight from '../components/InputRight';
@@ -13,12 +16,27 @@ import BYTouchable from '../components/BYTouchable';
 import NavSidesText from '../components/NavSidesText';
 import BYStatusBar from '../components/BYStatusBar';
 import OtherLogin from '../components/OtherLogin';
+import Error from '../components/Error';
 
 import { WINDOW_HEIGHT } from '../styles/variables';
 
 const styles = StyleSheet.create({});
 
-class Feedback extends React.Component {
+const validate = (values, props) => {
+  const { email, password } = values;
+  const { i18n } = props;
+  const errors = {};
+  console.log(values);
+  if (!email) {
+    errors.email = 'i18n.loginValidateEmailOrPixivId';
+  }
+  if (!password) {
+    errors.password = 'i18n.loginValidatePassword';
+  }
+  return errors;
+};
+
+class Login extends React.Component {
   renderInputRight = () => {
     const {
       navigation: { goBack, navigate },
@@ -31,9 +49,21 @@ class Feedback extends React.Component {
     );
   };
 
+  submit = data => {
+    console.log(data);
+    // const { login } = this.props;
+    // const { email, password } = data;
+    // if (email && password) {
+    //   Keyboard.dismiss();
+    //   login(email, password);
+    // }
+  };
+
+  
   render() {
     const {
       navigation: { goBack, navigate },
+      handleSubmit,
     } = this.props;
     return (
       <View style={{ backgroundColor: '#fff', position: 'relative', height: globalStyleVariables.WINDOW_HEIGHT }}>
@@ -42,13 +72,29 @@ class Feedback extends React.Component {
         <OtherLogin />
 
         <ScrollView>
-          <InputCountry />
-          <InputRight inputRight={this.renderInputRight()} styleWrap={{ marginBottom: 75 }} />
-          <BYButton text={'Login'} style={{ marginBottom: 30 }} />
+          <Field
+            name="email"
+            component={InputCountry}
+            errElement={<Error text={'input error'} styleWrap={{ marginBottom: 0, marginTop: 5 }} />}
+          />
+          <Field
+            name="password"
+            component={InputRight}
+            inputRight={this.renderInputRight()} 
+            styleWrap={{ marginBottom: 75 }}
+          />
+          <BYButton text={'Login'} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
           <NavSidesText textLeft={'Register now?'} textRight={'Log in via SMS?'} navigateLeft={() => navigate(SCREENS.RegisterStepOne)} navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} />
         </ScrollView>
       </View>
     );
   }
 }
-export default Feedback;
+
+const LoginForm = reduxForm({
+  form: 'login',
+  // destroyOnUnmount: false,
+  validate,
+})(Login);
+
+export default connectLocalization(LoginForm);

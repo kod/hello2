@@ -5,7 +5,6 @@ import { globalStyleVariables } from '../styles';
 
 const styles = StyleSheet.create({
   tipsWrap: {
-    height: 24,
   },
   tips: {
     flexDirection: 'row',

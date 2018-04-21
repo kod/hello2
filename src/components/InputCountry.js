@@ -33,14 +33,23 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ data, style, ...restProps }) => {
+export default ({ data, style, errElement, input, ...inputProps }) => {
   return (
-    <View style={[styles.componentWrap, style]} {...restProps}>
+    <View style={[styles.componentWrap, style]} >
       <View style={styles.component}>
         <Image source={require('../images/viemnam.png')} style={styles.componentFlag} />
         <Text style={styles.componentCode}>+84</Text>
-        <TextInput style={styles.componentInput} underlineColorAndroid={'rgba(0,0,0,.0)'} placeholder={'please input your phone number'} placeholderTextColor={'#ccc'} />
+        <TextInput 
+          style={styles.componentInput} 
+          underlineColorAndroid={'rgba(0,0,0,.0)'} 
+          placeholder={'please input your phone number'} 
+          placeholderTextColor={'#ccc'} 
+          onChangeText={input.onChange}
+          value={input.value}
+          {...inputProps}
+        />
       </View>
+      {errElement}
     </View>
   );
 };

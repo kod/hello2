@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import { watchRehydrate } from "./auth";
+import { watchRehydrate, watchLoginRequest } from "./auth";
 import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
 import { bannerHomeRecommendFetchWatch } from './bannerHomeRecommend';
@@ -15,6 +15,7 @@ import { adDigitalFetchWatch } from './adDigital';
 export default function* rootSaga() {
   yield all([
     watchRehydrate(),
+    watchLoginRequest(),
     bannerSwiperFetchWatch(),
     bannerHomeTypeFetchWatch(),
     bannerHomeRecommendFetchWatch(),

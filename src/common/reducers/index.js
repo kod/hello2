@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import bannerSwiper from './bannerSwiper';
 import bannerHomeType from './bannerHomeType';
 import bannerHomeRecommend from './bannerHomeRecommend';
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   adDigital,
   i18n,
   auth,
+  form: formReducer,
 });
 
 export default rootReducer;
