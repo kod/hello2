@@ -9,6 +9,8 @@
   "securityCenter": "Security center",
   "signOut": "Sign Out",
   "login": "Login",
+  "loginRegister": "Sign in/Sign up",
+  "loginViaSMS": "Log in via SMS",
   "register": "Register",
   "bills": "Bills",
   "orders": "Orders",

@@ -9,6 +9,8 @@
   "securityCenter": "安全中心",
   "signOut": "退出登录",
   "login": "登录",
+  "loginRegister": "登录/注册",
+  "loginViaSMS": "验证码登录",
   "register": "注册",
   "bills": "账单",
   "orders": "订单",

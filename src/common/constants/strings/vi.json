@@ -9,6 +9,8 @@
   "securityCenter": "Trung tâm an toàn",
   "signOut": "Đăng xuất",
   "login": "Đăng nhập",
+  "loginRegister": "ĐĂNG NHẬP/ĐĂNG KÝ",
+  "loginViaSMS": "Đăng nhập qua SMS",
   "register": "Đăng ký",
   "bills": "Hóa đơn",
   "orders": "Đơn hàng",
