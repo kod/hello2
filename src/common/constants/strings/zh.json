@@ -38,5 +38,7 @@
   "pendingDelivery": "待收货",
   "pendingEvaluation": "待评论",
   "afterSalesService": "售后",
+  "PleaseEnterYourPhoneNumber": "请输入您的手机号",
+  "PleaseEnterThePassword": "请输入密码",
   "home": "首页"
 }

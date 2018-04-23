@@ -38,5 +38,7 @@
   "pendingDelivery": "Pending delivery",
   "pendingEvaluation": "Pending evaluation",
   "afterSalesService": "After-sales service",
+  "PleaseEnterYourPhoneNumber": "Please enter your phone number",
+  "PleaseEnterThePassword": "Please enter the password",
   "home": "Home"
 }
