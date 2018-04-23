@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { StyleSheet, Text, View, ScrollView, Keyboard, } from 'react-native';
+import OverlaySpinner from 'react-native-loading-spinner-overlay';
 
 import { globalStyleVariables, globalStyles } from '../styles';
 
@@ -16,22 +17,23 @@ import BYTouchable from '../components/BYTouchable';
 import NavSidesText from '../components/NavSidesText';
 import BYStatusBar from '../components/BYStatusBar';
 import OtherLogin from '../components/OtherLogin';
-import Error from '../components/Error';
+
+import * as authActionCreators from "../common/actions/auth";
 
 import { WINDOW_HEIGHT } from '../styles/variables';
 
 const styles = StyleSheet.create({});
 
 const validate = (values, props) => {
-  const { email, password } = values;
+  const { phone, password } = values;
   const { i18n } = props;
   const errors = {};
-  console.log(values);
-  if (!email) {
-    errors.email = 'i18n.loginValidateEmailOrPixivId';
+
+  if (!phone) {
+    errors.phone = i18n.PleaseEnterYourPhoneNumber;
   }
   if (!password) {
-    errors.password = 'i18n.loginValidatePassword';
+    errors.password = i18n.PleaseEnterThePassword;
   }
   return errors;
 };
@@ -51,12 +53,12 @@ class Login extends React.Component {
 
   submit = data => {
     console.log(data);
-    // const { login } = this.props;
-    // const { email, password } = data;
-    // if (email && password) {
-    //   Keyboard.dismiss();
-    //   login(email, password);
-    // }
+    const { login } = this.props;
+    const { phone, password } = data;
+    if (phone && password) {
+      Keyboard.dismiss();
+      login(phone, password);
+    }
   };
 
   
@@ -64,6 +66,8 @@ class Login extends React.Component {
     const {
       navigation: { goBack, navigate },
       handleSubmit,
+      i18n,
+      auth: { loading },
     } = this.props;
     return (
       <View style={{ backgroundColor: '#fff', position: 'relative', height: globalStyleVariables.WINDOW_HEIGHT }}>
@@ -73,28 +77,38 @@ class Login extends React.Component {
 
         <ScrollView>
           <Field
-            name="email"
+            name="phone"
             component={InputCountry}
-            errElement={<Error text={'input error'} styleWrap={{ marginBottom: 0, marginTop: 5 }} />}
+            placeholder={i18n.PleaseEnterYourPhoneNumber}
           />
           <Field
             name="password"
             component={InputRight}
             inputRight={this.renderInputRight()} 
             styleWrap={{ marginBottom: 75 }}
+            placeholder={i18n.PleaseEnterThePassword}
           />
           <BYButton text={'Login'} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
           <NavSidesText textLeft={'Register now?'} textRight={'Log in via SMS?'} navigateLeft={() => navigate(SCREENS.RegisterStepOne)} navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} />
         </ScrollView>
+        <OverlaySpinner visible={loading} />
       </View>
     );
   }
 }
 
-const LoginForm = reduxForm({
+Login = reduxForm({
   form: 'login',
   // destroyOnUnmount: false,
   validate,
 })(Login);
 
-export default connectLocalization(LoginForm);
+export default connectLocalization(
+  connect(state => {
+    return {
+      auth: state.auth,
+    }
+  }, {
+    ...authActionCreators
+  })(Login)
+);

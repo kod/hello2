@@ -35,6 +35,54 @@ class ReactStore {
     };
   }
 
+  login(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    // const queryString = qs.stringify(
+    //   Object.assign(
+    //     {
+    //       // filter,
+    //     },
+    //     options
+    //   )
+    // );
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+
+    return axios(`${BASE_URL}:8180/fun/userCenter/userAction/login`, options)
+      .then(res => {
+        console.log(res);
+        if (res.data.status !== 1000) {
+          console.log(res.data.result);
+          throw new Error(res.data.result);
+        }
+        return res.data;
+      })
+      .catch(err => {
+        // console.log(err);
+        // console.log(typeof err);
+        // console.log('99999');
+        throw err;
+        // if (err.response) {
+        //   throw err.response.data;
+        // } else {
+        //   throw err.message;
+        // }
+      });
+
+    
+    // return this.requestUrl(`:8180/fun/userCenter/userAction/login`, options);
+  }
+
   initTopDigital(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));

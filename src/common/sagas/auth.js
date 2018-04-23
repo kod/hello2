@@ -1,4 +1,7 @@
+import { Platform } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { delay } from 'redux-saga';
+import { REHYDRATE } from 'redux-persist/constants';
 import {
   take,
   call,
@@ -22,29 +25,69 @@ import {
   refreshAccessTokenFailure,
   rehydrateSuccess,
 } from '../actions/auth';
-
 import { addError } from '../actions/error';
-
 import {
   AUTH_LOGIN,
   AUTH_SIGNUP,
   AUTH_LOGOUT,
   AUTH_REFRESH_ACCESS_TOKEN,
 } from '../constants/actionTypes';
-
-import { REHYDRATE } from 'redux-persist/constants';
-import { getLang } from '../selectors';
 import { setLanguage } from "../actions/i18n";
 
-export function* authorize(email, password, isProvisionalAccount) {
+import { getLang } from '../selectors';
+import buyoo from '../helpers/apiClient';
+import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+
+export function* authorize(phone, passwordParam, isProvisionalAccount) {
+  const Key = 'userKey';
+
+  const provider = Platform.OS === 'ios' ? '1' : '2';
+  const msisdn = phone || '';
+  const password = passwordParam || '';
+  const otp = '';
+  const appid = DeviceInfo.getDeviceId() || '';
+
+  const encrypt = encrypt_MD5(
+    [
+      {
+        key: 'provider',
+        value: provider
+      },
+      {
+        key: 'msisdn',
+        value: msisdn
+      },
+      {
+        key: 'password',
+        value: password
+      },
+      {
+        key: 'otp',
+        value: otp
+      },
+      {
+        key: 'appid',
+        value: appid
+      }
+    ],
+    Key
+  );
+
   // use apply instead of call to pass this to function
   const loginResponse = yield apply(buyoo, buyoo.login, [
     {
-      email,
-      password,
-    }
+      provider: provider,
+      msisdn: msisdn,
+      password: password,
+      otp: otp,
+      appid: appid,
+      encryption: encrypt
+      }
   ]);
   // const options = setProvisionalAccountOptions(isProvisionalAccount, password);
+  // console.log(loginResponse);
+  // if (loginResponse.status !== 10000) throw res.data.result;
+  yield put(loginSuccess(loginResponse));
   // yield put(loginSuccess(loginResponse, options));
   return loginResponse;
 }
@@ -53,10 +96,10 @@ export function* watchLoginRequestTask() {
   while (true) {
     try {
       const action = yield take(AUTH_LOGIN.REQUEST);
-      const { email, password, isProvisionalAccount } = action.payload;
+      const { phone, password, isProvisionalAccount } = action.payload;
       const authResponse = yield call(
         authorize,
-        email,
+        phone,
         password,
         isProvisionalAccount,
       );
@@ -68,10 +111,9 @@ export function* watchLoginRequestTask() {
       // user logged out, next while iteration will wait for the
       // next AUTH_LOGIN.REQUEST action
     } catch (err) {
-      const errMessage =
-        err.errors && err.errors.system && err.errors.system.message
-          ? err.errors.system.message
-          : '';
+      console.log(err);
+      const errMessage = err.error ? err.error : err.toString().slice(7);
+      console.log(errMessage);
       yield put(loginFailure());
       yield put(addError(errMessage));
     }

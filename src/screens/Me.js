@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, StatusBar } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import DeviceInfo from 'react-native-device-info';
 import { globalStyleVariables } from '../styles';
 import { SCREENS } from "../common/constants";
 import BYTouchable from '../components/BYTouchable';
@@ -210,7 +211,42 @@ class Me extends React.Component {
   
   render() {
     const { navigation, navigation: { navigate }, screenProps: { i18n }, authUser } = this.props;
-    // console.log(navigation);
+    // console.log(`getAPILevel: ${DeviceInfo.getAPILevel()}`);
+    // console.log(`getApplicationName: ${DeviceInfo.getApplicationName()}`);
+    // console.log(`getBatteryLevel: ${DeviceInfo.getBatteryLevel()}`);
+    // console.log(`getBrand: ${DeviceInfo.getBrand()}`);
+    // console.log(`getBuildNumber: ${DeviceInfo.getBuildNumber()}`);
+    // console.log(`getBundleId: ${DeviceInfo.getBundleId()}`);
+    // console.log(`getCarrier: ${DeviceInfo.getCarrier()}`);
+    // console.log(`getDeviceCountry: ${DeviceInfo.getDeviceCountry()}`);
+    // console.log(`getDeviceId: ${DeviceInfo.getDeviceId()}`);
+    // console.log(`getDeviceLocale: ${DeviceInfo.getDeviceLocale()}`);
+    // console.log(`getDeviceName: ${DeviceInfo.getDeviceName()}`);
+    // console.log(`getFirstInstallTime: ${DeviceInfo.getFirstInstallTime()}`);
+    // console.log(`getFontScale: ${DeviceInfo.getFontScale()}`);
+    // console.log(`getFreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}`);
+    // console.log(`getIPAddress: ${DeviceInfo.getIPAddress()}`);
+    // console.log(`getInstallReferrer: ${DeviceInfo.getInstallReferrer()}`);
+    // console.log(`getInstanceID: ${DeviceInfo.getInstanceID()}`);
+    // console.log(`getLastUpdateTime: ${DeviceInfo.getLastUpdateTime()}`);
+    // console.log(`getMACAddress: ${DeviceInfo.getMACAddress()}`);
+    // console.log(`getManufacturer: ${DeviceInfo.getManufacturer()}`);
+    // console.log(`getMaxMemory: ${DeviceInfo.getMaxMemory()}`);
+    // console.log(`getModel: ${DeviceInfo.getModel()}`);
+    // console.log(`getPhoneNumber: ${DeviceInfo.getPhoneNumber()}`);
+    // console.log(`getReadableVersion: ${DeviceInfo.getReadableVersion()}`);
+    // console.log(`getSerialNumber: ${DeviceInfo.getSerialNumber()}`);
+    // console.log(`getSystemName: ${DeviceInfo.getSystemName()}`);
+    // console.log(`getSystemVersion: ${DeviceInfo.getSystemVersion()}`);
+    // console.log(`getTimezone: ${DeviceInfo.getTimezone()}`);
+    // console.log(`getTotalDiskCapacity: ${DeviceInfo.getTotalDiskCapacity()}`);
+    // console.log(`getTotalMemory: ${DeviceInfo.getTotalMemory()}`);
+    // console.log(`getUniqueID: ${DeviceInfo.getUniqueID()}`);
+    // console.log(`getUserAgent: ${DeviceInfo.getUserAgent()}`);
+    // console.log(`getVersion: ${DeviceInfo.getVersion()}`);
+    // console.log(`is24Hour: ${DeviceInfo.is24Hour()}`);
+    // console.log(`isEmulator: ${DeviceInfo.isEmulator()}`);
+    // console.log(`isTablet: ${DeviceInfo.isTablet()}`);
 
     const renderCellItem1List1 = [
       {

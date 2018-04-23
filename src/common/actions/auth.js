@@ -6,11 +6,11 @@ import {
   AUTH_REHYDRATE,
 } from '../constants/actionTypes';
 
-export function login(email, password, isProvisionalAccount = false) {
+export function login(phone, password, isProvisionalAccount = false) {
   return {
     type: AUTH_LOGIN.REQUEST,
     payload: {
-      email,
+      phone,
       password,
       isProvisionalAccount,
     },
@@ -21,10 +21,6 @@ export function loginSuccess(json, options) {
   const payload = {
     user: {
       ...json.user,
-      id: parseInt(json.user.id, 10),
-      accessToken: json.access_token,
-      refreshToken: json.refresh_token,
-      expiresIn: json.expires_in,
     },
     timestamp: Date.now(),
   };
