@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image, TextInput, Button } from 'react-native';
+import { Field, reduxForm } from 'redux-form';
 
 import { globalStyleVariables, globalStyles } from '../styles';
 
@@ -14,7 +15,7 @@ import { WINDOW_HEIGHT } from '../styles/variables';
 
 const styles = StyleSheet.create({});
 
-class Feedback extends React.Component {
+class ForgotPasswordOne extends React.Component {
   render() {
     const {
       navigation: { goBack, navigate },
@@ -25,11 +26,22 @@ class Feedback extends React.Component {
         <BYHeader />
         <OtherLogin />
         <ScrollView>
-          <InputCountry style={{marginBottom: 70}} />
+          <Field 
+            name="phone"
+            component={InputCountry}
+            style={{marginBottom: 70}}
+          />
           <BYButton text={'Next'} onPress={() => navigate(SCREENS.ForgotPasswordTwo)} />
         </ScrollView>
       </View>
     );
   }
 }
-export default Feedback;
+
+ForgotPasswordOne = reduxForm({
+  form: 'forgotpasswordone',
+  // destroyOnUnmount: false,
+  // validate,
+})(ForgotPasswordOne);
+
+export default ForgotPasswordOne;

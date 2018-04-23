@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { globalStyleVariables, globalStyles } from '../styles';
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class Feedback extends React.Component {
+class RegisterStepTwo extends React.Component {
   renderInputRightCode = () => {
     return (
       <View style={styles.second}>
@@ -60,13 +61,38 @@ class Feedback extends React.Component {
       <View style={{ backgroundColor: '#fff' }}>
         <BYHeader />
         <ScrollView style={globalStyles.scrollView}>
-          <InputRight inputRight={this.renderInputRightCode()} textInputProps={{placeholder: 'place enter the code', keyboardType: 'numeric'}} />
+          <Field 
+            name="repassword"
+            component={InputRight}
+            inputRight={this.renderInputRightCode()}
+            textInputProps={{placeholder: 'place enter the code', keyboardType: 'numeric'}} 
+          />
+          <Field 
+            name="repassword"
+            component={InputRight}
+            inputRight={this.renderInputRightClose()}
+            textInputProps={{placeholder: '8-20 password', secureTextEntry: true}}
+          />
+          <Field 
+            name="repassword"
+            component={InputRight}
+            inputRight={this.renderInputRightClose()}
+            styleWrap={{marginBottom: 45}}
+            textInputProps={{placeholder: 'confirm password', secureTextEntry: true}}
+          />
+
+          {/* <InputRight inputRight={this.renderInputRightCode()} textInputProps={{placeholder: 'place enter the code', keyboardType: 'numeric'}} />
           <InputRight inputRight={this.renderInputRightClose()} textInputProps={{placeholder: '8-20 password', secureTextEntry: true}} />
-          <InputRight inputRight={this.renderInputRightClose()} styleWrap={{marginBottom: 45}} textInputProps={{placeholder: 'confirm password', secureTextEntry: true}} />
+          <InputRight inputRight={this.renderInputRightClose()} styleWrap={{marginBottom: 45}} textInputProps={{placeholder: 'confirm password', secureTextEntry: true}} /> */}
           <BYButton text={'Register'} style={{ marginBottom: 30 }} onPress={() => navigate(SCREENS.RegisterStepOne)} />
         </ScrollView>
       </View>
     );
   }
 }
-export default Feedback;
+
+RegisterStepTwo = reduxForm({
+  form: 'RegisterStepTwo',
+})(RegisterStepTwo);
+
+export default RegisterStepTwo;

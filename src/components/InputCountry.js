@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
 import { globalStyleVariables } from '../styles';
-import priceFormat from '../common/helpers/priceFormat';
+import Error from "../components/Error";
 
 const styles = StyleSheet.create({
   componentWrap: {
@@ -33,7 +33,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ data, style, errElement, input, ...inputProps }) => {
+export default (
+  { 
+    data,
+    style,
+    input,
+    meta: { touched, dirty, error },
+    ...inputProps 
+  }
+) => {
   return (
     <View style={[styles.componentWrap, style]} >
       <View style={styles.component}>
@@ -46,10 +54,11 @@ export default ({ data, style, errElement, input, ...inputProps }) => {
           placeholderTextColor={'#ccc'} 
           onChangeText={input.onChange}
           value={input.value}
+          {...input}
           {...inputProps}
         />
       </View>
-      {errElement}
+      {touched && error && <Error text={error} styleWrap={{ marginTop: 5, marginBottom: 0 }} />}
     </View>
   );
 };

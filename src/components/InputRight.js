@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
 import { globalStyleVariables } from '../styles';
 import priceFormat from '../common/helpers/priceFormat';
 import Error from '../components/Error';
-import { BACKGROUND_COLOR } from '../styles/variables';
 
 const styles = StyleSheet.create({
   componentWrap: {
@@ -22,7 +21,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ inputRight, style, styleWrap, styleInput, errElement, meta: { touched, dirty, error }, input, ...inputProps }) => {
+export default (
+  { inputRight,
+    style,
+    styleWrap,
+    styleInput,
+    input,
+    meta: { touched, dirty, error },
+    ...inputProps
+  }
+) => {
   return (
     <View style={[styles.componentWrap, styleWrap]} >
       <View style={[styles.component, style]}>
@@ -34,12 +42,12 @@ export default ({ inputRight, style, styleWrap, styleInput, errElement, meta: { 
           secureTextEntry={true} 
           onChangeText={input.onChange}
           value={input.value}
+          {...input}
           {...inputProps} 
         />
         {inputRight}
-        {errElement}
       </View>
-      <Error text={'input error'} styleWrap={{marginBottom: 5}} />
+      {touched && error && <Error text={error} styleWrap={{ marginTop: 5, marginBottom: 0 }} />}
     </View>
   );
 };

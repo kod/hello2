@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { globalStyleVariables, globalStyles } from '../styles';
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Feedback extends React.Component {
+class RegisterFastStepTwo extends React.Component {
   renderInputRightCode = () => {
     return (
       <View style={styles.second}>
@@ -63,7 +64,13 @@ class Feedback extends React.Component {
       <View style={{ backgroundColor: '#fff' }}>
         <BYHeader />
         <ScrollView style={globalStyles.scrollView}>
-          <InputRight inputRight={this.renderInputRightCode()} styleWrap={{ marginBottom: 10, marginTop: 10 }} textInputProps={{ placeholder: 'place enter the code', keyboardType: 'numeric' }} />
+          <Field 
+            name="code"
+            component={InputRight}
+            inputRight={this.renderInputRightCode()} 
+            styleWrap={{ marginBottom: 10, marginTop: 10 }}
+            textInputProps={{ placeholder: 'place enter the code', keyboardType: 'numeric' }} />
+
           <Error text={'input error'} styleWrap={{marginBottom: 50}} />
           <BYButton text={'Login'} style={{ marginBottom: 30 }} onPress={() => navigate(SCREENS.Login)} />
         </ScrollView>
@@ -71,4 +78,9 @@ class Feedback extends React.Component {
     );
   }
 }
-export default Feedback;
+
+RegisterFastStepTwo = reduxForm({
+  name: 'RegisterFastStepTwo',
+})(RegisterFastStepTwo);
+
+export default RegisterFastStepTwo;
