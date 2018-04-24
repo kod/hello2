@@ -61,7 +61,7 @@ class ReactStore {
     return axios(`${BASE_URL}:8180/fun/userCenter/userAction/login`, options)
       .then(res => {
         console.log(res);
-        if (res.data.status !== 1000) {
+        if (res.data.status !== 10000) {
           console.log(res.data.result);
           throw new Error(res.data.result);
         }
