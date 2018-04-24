@@ -1,21 +1,21 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Dimensions, } from 'react-native';
-import { globalStyleVariables } from "../styles";
+import { SIDEINTERVAL, RED_COLOR } from "../styles/variables";
 import priceFormat from "../common/helpers/priceFormat";
 
-const itemIntervalWidth = globalStyleVariables.SIDEINTERVAL;
-const itemWidth = (globalStyleVariables.WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
+const itemIntervalWidth = SIDEINTERVAL;
+const itemWidth = (SIDEINTERVAL - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
   itemWrap: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingLeft: globalStyleVariables.SIDEINTERVAL,
+    paddingLeft: SIDEINTERVAL,
     marginBottom: 5,
   },
   item: {
     width: itemWidth,
-    marginRight: globalStyleVariables.SIDEINTERVAL,
+    marginRight: SIDEINTERVAL,
     paddingTop: 4,
     backgroundColor: '#fff',
     borderColor: '#f5f5f5',
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   itemText: {
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.02,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.02,
+    paddingLeft: SIDEINTERVAL * 0.02,
+    paddingRight: SIDEINTERVAL * 0.02,
     color: '#666',
     fontSize: 11,
     marginBottom: 6,
@@ -38,16 +38,16 @@ const styles = StyleSheet.create({
   itemOrgPrice: {
     color: '#999',
     fontSize: 11,
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.02,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.02,
+    paddingLeft: SIDEINTERVAL * 0.02,
+    paddingRight: SIDEINTERVAL * 0.02,
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
   },
   itemPrice: {
-    color: '#FD5147',
+    color: RED_COLOR,
     fontSize: 14,
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.02,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.02,
+    paddingLeft: SIDEINTERVAL * 0.02,
+    paddingRight: SIDEINTERVAL * 0.02,
     fontWeight: "700",
     marginBottom: 10,
   }

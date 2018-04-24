@@ -4,6 +4,7 @@ export const BACKGROUND_COLOR = '#f5f5f5';
 export const HEADER_BACKGROUND_COLOR = '#fff';
 export const HEADER_TINT_COLOR = '#fff';
 export const PRIMARY_COLOR = '#0076F7';
+export const RED_COLOR = '#FD5147';
 export const HIGHLIGHT_COLOR = 'green';
 
 export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);

@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
-import { globalStyleVariables } from '../styles';
+import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH } from "../styles/variables";
 import priceFormat from '../common/helpers/priceFormat';
 
-const itemIntervalWidth = globalStyleVariables.SIDEINTERVAL;
-const itemWidth = (globalStyleVariables.WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
+const itemIntervalWidth = SIDEINTERVAL;
+const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
   itemWrap: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   itemLeft: {
-    width: globalStyleVariables.WINDOW_WIDTH * 0.25,
+    width: WINDOW_WIDTH * 0.25,
     alignItems: 'center',
   },
   itemImage: {
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#0f0',
   },
   itemRight: {
-    width: globalStyleVariables.WINDOW_WIDTH * 0.75,
-    paddingRight: globalStyleVariables.SIDEINTERVAL,
+    width: WINDOW_WIDTH * 0.75,
+    paddingRight: SIDEINTERVAL,
   },
   itemTitle: {
     fontSize: 11,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   itemRightRow3Price: {
     fontSize: 14,
-    color: '#FD5147',
+    color: RED_COLOR,
     marginRight: 9,
   },
   itemRightRow3Number: {

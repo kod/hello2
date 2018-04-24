@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { globalStyleVariables } from '../styles';
+import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, } from "../styles/variables";
 
 const styles = StyleSheet.create({
   tipsWrap: {
@@ -9,17 +9,17 @@ const styles = StyleSheet.create({
   tips: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: globalStyleVariables.SIDEINTERVAL,
-    paddingRight: globalStyleVariables.SIDEINTERVAL
+    paddingLeft: SIDEINTERVAL,
+    paddingRight: SIDEINTERVAL
   },
   tipsIcon: {
-    color: '#FD5147',
+    color: RED_COLOR,
     fontSize: 12,
-    marginRight: globalStyleVariables.WINDOW_WIDTH * 0.01,
+    marginRight: WINDOW_WIDTH * 0.01,
     paddingTop: 1
   },
   tipsText: {
-    color: '#FD5147',
+    color: RED_COLOR,
     fontSize: 12
   }
 });

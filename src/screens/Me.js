@@ -3,17 +3,18 @@ import { connect } from "react-redux";
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, StatusBar } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DeviceInfo from 'react-native-device-info';
-import { globalStyleVariables } from '../styles';
+import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR } from "../styles/variables";
 import { SCREENS } from "../common/constants";
 import BYTouchable from '../components/BYTouchable';
 import CustomIcon from "../components/CustomIcon";
+import NavBar1 from "../components/NavBar1";
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
   },
   header: {
-    backgroundColor: globalStyleVariables.PRIMARY_COLOR,
+    backgroundColor: PRIMARY_COLOR,
     // height: 175,
   },
   headerIcon: {
@@ -48,32 +49,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 11,
   },
-  cellItem1Wrap: {
-    backgroundColor: '#fff',
-  },
-  cellItem1: {
-    flexDirection: 'row',
-    height: 45,
-    alignItems: 'center',
-    paddingLeft: globalStyleVariables.SIDEINTERVAL,
-    paddingRight: globalStyleVariables.SIDEINTERVAL,
-  },
-  cellItem1Left: {
-    flex: 1,
-    fontSize: 14,
-    color: '#666',
-  },
-  cellItem1Middle: {
-    flex: 2,
-    fontSize: 14,
-    color: '#ccc',
-    textAlign: 'right',
-    paddingRight: 5,
-  },
-  cellItem1Right: {
-    color: '#ccc',
-    fontSize: 9,
-  },
   nav1: {
     flexDirection: 'row',
     backgroundColor: '#fff',
@@ -95,8 +70,8 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#ccc',
     textAlign: 'center',
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.01,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.01,
+    paddingLeft: WINDOW_WIDTH * 0.01,
+    paddingRight: WINDOW_WIDTH * 0.01,
   },
   // nav1ItemBadge: {
   // },
@@ -104,7 +79,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
     right: 18,
-    backgroundColor: '#FD5147',
+    backgroundColor: RED_COLOR,
     color: '#fff',
     fontSize: 10,
     paddingLeft: 5,
@@ -194,23 +169,10 @@ class Me extends React.Component {
 
     authUser ? navigate(SCREENS.Settings) : navigate(SCREENS.Login);
   }
-
-  renderCellItem1({list, style, styleItem, styleItemLeft, navigate}) {
-    return (
-      <View style={[styles.cellItem1Wrap, style]} >
-        {list.map((val, key) => 
-          <BYTouchable delayPressIn={0} style={[styles.cellItem1, styleItem]} key={key} onPress={() => navigate(val.navigate)} >
-            <Text style={[styles.cellItem1Left,styleItemLeft]} numberOfLines={1}>{val.name}</Text>
-            <Text style={styles.cellItem1Middle} numberOfLines={1} >{val.tips}</Text>
-            <CustomIcon style={styles.cellItem1Right} name="arrowright"></CustomIcon>
-          </BYTouchable>
-        )}
-      </View>
-    );
-  }
   
   render() {
     const { navigation, navigation: { navigate }, screenProps: { i18n }, authUser } = this.props;
+
     // console.log(`getAPILevel: ${DeviceInfo.getAPILevel()}`);
     // console.log(`getApplicationName: ${DeviceInfo.getApplicationName()}`);
     // console.log(`getBatteryLevel: ${DeviceInfo.getBatteryLevel()}`);
@@ -263,6 +225,8 @@ class Me extends React.Component {
 
     const renderCellItem1List2 = [
       {
+        // iconName: 'arrowright',
+        // iconImg: require('../images/person.png'),
         name: i18n.myCollection,
         navigate: SCREENS.Settings,
         tips: '',
@@ -312,22 +276,24 @@ class Me extends React.Component {
     const username = authUser ? 'Jay Chou' : i18n.loginRegister;
 
     return (
-      <ScrollView style={{ height: globalStyleVariables.WINDOW_HEIGHT - 55 - 25 }} >
-        {/* <StatusBar backgroundColor={'#fff'} barStyle="dark-content" /> */}
-        {/* <StatusBar backgroundColor={globalStyleVariables.PRIMARY_COLOR} barStyle="dark-content" /> */}
-        <View style={styles.container} >
-          <View style={styles.header} >
-            <BYTouchable style={styles.headerIcon} onPress={() => this.handleOnPressUser()}>
-              <Image style={styles.headerIconImg} source={require('../images/aioru09230f.png')} />
-              <Text style={styles.headerIconText} >{username}</Text>
-            </BYTouchable>
-            {this.renderHeaderBottom()}
+      <View style={styles.container} >
+        <ScrollView style={styles.container} >
+          {/* <StatusBar backgroundColor={'#fff'} barStyle="dark-content" /> */}
+          {/* <StatusBar backgroundColor={globalStyleVariables.PRIMARY_COLOR} barStyle="dark-content" /> */}
+          <View style={styles.container} >
+            <View style={styles.header} >
+              <BYTouchable style={styles.headerIcon} onPress={() => this.handleOnPressUser()}>
+                <Image style={styles.headerIconImg} source={require('../images/aioru09230f.png')} />
+                <Text style={styles.headerIconText} >{username}</Text>
+              </BYTouchable>
+              {this.renderHeaderBottom()}
+            </View>
+            <NavBar1 list={renderCellItem1List1} navigate={navigate} />
+            {this.renderNav1()}
+            <NavBar1 list={renderCellItem1List2} navigate={navigate} styleItemLeft={{flex: 3}} />
           </View>
-          {this.renderCellItem1({list:renderCellItem1List1, navigate})}
-          {this.renderNav1()}
-          {this.renderCellItem1({list: renderCellItem1List2, navigate, styleItemLeft: {flex: 3}})}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }
