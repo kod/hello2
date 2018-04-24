@@ -40,5 +40,7 @@
   "afterSalesService": "After-sales service",
   "PleaseEnterYourPhoneNumber": "Please enter your phone number",
   "PleaseEnterThePassword": "Please enter the password",
+  "DoYouWantToSignOut": "Do you want to sign out",
+  "Cancel": "Cancel",
   "home": "Home"
 }

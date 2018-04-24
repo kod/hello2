@@ -40,5 +40,7 @@
   "afterSalesService": "售后",
   "PleaseEnterYourPhoneNumber": "请输入您的手机号",
   "PleaseEnterThePassword": "请输入密码",
+  "DoYouWantToSignOut": "确定退出登录？",
+  "Cancel": "取消",
   "home": "首页"
 }
