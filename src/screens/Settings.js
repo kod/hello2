@@ -1,90 +1,128 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import BYHeader from '../components/BYHeader';
-import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
-import BYTouchable from "../components/BYTouchable";
-import { connectLocalization } from "../components/Localization";
 import { SCREENS } from "../common/constants";
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import { connectLocalization } from "../components/Localization";
+import BYHeader from '../components/BYHeader';
+import NavBar1 from "../components/NavBar1";
+import BYTouchable from "../components/BYTouchable";
+import { SIDEINTERVAL, RED_COLOR } from "../styles/variables";
 
-const { width, height } = Dimensions.get('window');
+import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import * as authActionCreators from '../common/actions/auth';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  logout: {
+    paddingRight: SIDEINTERVAL,
+    paddingLeft: SIDEINTERVAL,
+  },
+  logoutText: {
+    height: 50,
+    lineHeight: 50,
+    textAlign: 'center',
+    backgroundColor: '#F5F5F5',
+    color: RED_COLOR,
+    fontSize: 14,
+  },
+})
 
 class Settings extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     const { bannerHomeRecommendFetch } = this.props;
     // bannerHomeRecommendFetch();
   }
 
-  handleOnPressHeaderBackButton = () => {
-    const { goBack } = this.props.navigation;
-    goBack();
-  };
+  // handleOnPressHeaderBackButton = () => {
+  //   const { goBack } = this.props.navigation;
+  //   goBack();
+  // };
 
-  renderHeaderTitle = () => {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
-        <Text style={{ fontSize: 18, color: '#fff' }}>Settings</Text>
-      </View>
-    )
-  }
+  // renderHeaderTitle = () => {
+  //   return (
+  //     <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
+  //       <Text style={{ fontSize: 18, color: '#fff' }}>Settings</Text>
+  //     </View>
+  //   )
+  // }
 
-  renderHeaderRight = () => {
-    return (
-      <View></View>
+  // renderHeaderRight = () => {
+  //   return (
+  //     <View></View>
+  //   )
+  // }
+  // 
+
+  handleOnPressLogout() {
+    const { i18n, logout, navigation: { goBack } } = this.props;
+    Alert.alert(
+      '',
+      i18n.doYouWantToSignOut,
+      [
+        {
+          text: i18n.cancel,
+        },
+        {
+          text: i18n.signOut,
+          onPress: () => {
+            logout();
+            goBack();
+          }
+        }
+      ]
     )
   }
 
   render() {
     const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
+
+    const navBar1List = [
+      {
+        iconImg: require('../images/person.png'),
+        name: i18n.personalInformation,
+        navigate: SCREENS.Login,
+        tips: '',
+      },
+      {
+        iconImg: require('../images/osindfaofis.png'),
+        name: i18n.securityCenter,
+        navigate: SCREENS.Login,
+        tips: '',
+      },
+      {
+        iconImg: require('../images/person.png'),
+        name: i18n.clearCache,
+        navigate: SCREENS.Login,
+        tips: '',
+      },
+      {
+        iconImg: require('../images/about.png'),
+        name: i18n.about,
+        navigate: SCREENS.Login,
+        tips: '',
+      },
+      {
+        iconImg: require('../images/person.png'),
+        name: i18n.language,
+        navigate: SCREENS.Login,
+        tips: '',
+      },
+    ];
+    
     return (
-      <View>
-        <BYHeader
-          headerTitle={this.renderHeaderTitle()}
-          headerRight={this.renderHeaderRight()}
-          darkTheme
-          showBackButton
-          onPressBackButton={this.handleOnPressHeaderBackButton}
-        />
-        <ScrollView style={{ height: height - 25 - 55, }} >
-          <View style={{ backgroundColor: '#fff' }} >
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >{ i18n.personalInformation }</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >{ i18n.securityCenter }</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >{ i18n.clearCache }</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable onPress={() => navigate(SCREENS.Language)} delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
-                <Text style={{ flex: 1, }} >{ i18n.language }</Text>
-                <MaterialIcons name="chevron-right" style={{ fontSize: 26, color: '#bbb' }} />
-              </View>
-            </BYTouchable>
-            <BYTouchable delayPressIn={0}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', height: 60, paddingLeft: width * 0.04, paddingRight: width * 0.02, }} >
-                <Text style={{ flex: 1, textAlign: 'center' }} >{ i18n.signOut }</Text>
-              </View>
-            </BYTouchable>
-          </View>
+      <View style={styles.container} >
+        <BYHeader />
+        <ScrollView style={styles.container} >
+          <NavBar1 list={navBar1List} navigate={navigate} style={{marginBottom: 30}} styleItemLeft={{flex: 3}} />
+          <BYTouchable style={styles.logout} onPress={() => this.handleOnPressLogout()} >
+            <Text style={styles.logoutText} >{i18n.signOut}</Text>
+          </BYTouchable>
         </ScrollView>
       </View>
     );
@@ -98,5 +136,5 @@ function mapStateToProps(state, props) {
 }
 
 export default connectLocalization(
-  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(Settings)
+  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, ...authActionCreators })(Settings)
 );
