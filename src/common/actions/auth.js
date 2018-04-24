@@ -18,19 +18,20 @@ export function login(phone, password, isProvisionalAccount = false) {
 }
 
 export function loginSuccess(json, options) {
+  console.log(json);
   const payload = {
     user: {
-      ...json.user,
+      ...json,
     },
     timestamp: Date.now(),
   };
-  if (options && options.isProvisionalAccount && options.password) {
-    payload.user = {
-      ...payload.user,
-      isProvisionalAccount: options.isProvisionalAccount,
-      password: options.password,
-    };
-  }
+  // if (options && options.isProvisionalAccount && options.password) {
+  //   payload.user = {
+  //     ...payload.user,
+  //     isProvisionalAccount: options.isProvisionalAccount,
+  //     password: options.password,
+  //   };
+  // }
   return {
     type: AUTH_LOGIN.SUCCESS,
     payload,

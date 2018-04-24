@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { StyleSheet, Text, View, ScrollView, Keyboard, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Keyboard, DeviceEventEmitter, } from 'react-native';
 import OverlaySpinner from 'react-native-loading-spinner-overlay';
 
 import { globalStyleVariables, globalStyles } from '../styles';
@@ -15,7 +15,7 @@ import InputRight from '../components/InputRight';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
 import NavSidesText from '../components/NavSidesText';
-import BYStatusBar from '../components/BYStatusBar';
+// import BYStatusBar from '../components/BYStatusBar';
 import OtherLogin from '../components/OtherLogin';
 
 import * as authActionCreators from "../common/actions/auth";
@@ -30,15 +30,32 @@ const validate = (values, props) => {
   const errors = {};
 
   if (!phone) {
-    errors.phone = i18n.PleaseEnterYourPhoneNumber;
+    errors.phone = i18n.pleaseEnterYourPhoneNumber;
   }
   if (!password) {
-    errors.password = i18n.PleaseEnterThePassword;
+    errors.password = i18n.pleaseEnterThePassword;
   }
   return errors;
 };
 
 class Login extends React.Component {
+  componentDidMount() {
+    const {
+      navigation: { goBack, navigate },
+    } = this.props;
+
+    this.closeLoginScreen = DeviceEventEmitter.addListener(
+      'closeLoginScreen',
+      () => {
+        goBack()
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    this.closeLoginScreen.remove();
+  }
+  
   renderInputRight = () => {
     const {
       navigation: { goBack, navigate },
@@ -52,7 +69,6 @@ class Login extends React.Component {
   };
 
   submit = data => {
-    console.log(data);
     const { login } = this.props;
     const { phone, password } = data;
     if (phone && password) {
@@ -61,7 +77,7 @@ class Login extends React.Component {
     }
   };
 
-  
+  // 1212312
   render() {
     const {
       navigation: { goBack, navigate },
@@ -71,7 +87,7 @@ class Login extends React.Component {
     } = this.props;
     return (
       <View style={{ backgroundColor: '#fff', position: 'relative', height: globalStyleVariables.WINDOW_HEIGHT }}>
-        <BYStatusBar />
+        {/* <BYStatusBar /> */}
         <BYHeader />
         <OtherLogin />
 
@@ -79,14 +95,17 @@ class Login extends React.Component {
           <Field
             name="phone"
             component={InputCountry}
-            placeholder={i18n.PleaseEnterYourPhoneNumber}
+            placeholder={i18n.pleaseEnterYourPhoneNumber}
+            keyboardType={'phone-pad'}
+            returnKeyType={'next'}
           />
           <Field
             name="password"
             component={InputRight}
             inputRight={this.renderInputRight()} 
             styleWrap={{ marginBottom: 75 }}
-            placeholder={i18n.PleaseEnterThePassword}
+            placeholder={i18n.pleaseEnterThePassword}
+            returnKeyType={'done'}
           />
           <BYButton text={'Login'} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
           <NavSidesText textLeft={'Register now?'} textRight={'Log in via SMS?'} navigateLeft={() => navigate(SCREENS.RegisterStepOne)} navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} />

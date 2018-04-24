@@ -39,7 +39,7 @@ export default function configureStore() {
       // 'muteTags',
       // 'muteUsers',
       // 'entities',
-      // 'auth',
+      'auth',
       'i18n',
     ],
     storage: AsyncStorage,

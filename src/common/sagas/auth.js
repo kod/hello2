@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, DeviceEventEmitter } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { delay } from 'redux-saga';
 import { REHYDRATE } from 'redux-persist/constants';
@@ -125,6 +125,18 @@ export function* watchLoginRequest() {
     const loginRequestTask = yield fork(watchLoginRequestTask);
     yield take(AUTH_LOGIN.STOP);
     yield cancel(loginRequestTask);
+  }
+}
+
+export function* watchLoginSuccess() {
+  while (true) {
+    try {
+      yield take(AUTH_LOGIN.SUCCESS);
+      yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'closeLoginScreen' ]);
+    } catch (err) {
+      // todo logout user
+      // console.log('err in watchRehydrate ', err);
+    }
   }
 }
 

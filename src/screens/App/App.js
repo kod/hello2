@@ -16,7 +16,8 @@ class App extends Component {
     this.showToastListener = DeviceEventEmitter.addListener(
       'showToast',
       text => {
-        this.toast.show(text, DURATION.LENGTH_LONG);
+        console.log(DURATION.LENGTH_LONG);
+        this.toast.show(text);
       },
     );
   }
@@ -30,7 +31,10 @@ class App extends Component {
     return (
       <View style={styles.container} >
         <AppNavigator screenProps={{ i18n }} />
-        <Toast ref={ref => (this.toast = ref)} opacity={0.7} />
+        <Toast 
+          ref={ref => (this.toast = ref)} 
+          opacity={0.7} 
+        />
       </View>
     );
   }
