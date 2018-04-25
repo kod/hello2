@@ -96,7 +96,7 @@ class Settings extends React.Component {
         tips: '',
       },
       {
-        iconImg: require('../images/person.png'),
+        iconImg: require('../images/ufifhiufaisfud.png'),
         name: i18n.clearCache,
         navigate: SCREENS.Login,
         tips: '',
@@ -108,9 +108,9 @@ class Settings extends React.Component {
         tips: '',
       },
       {
-        iconImg: require('../images/person.png'),
+        // iconImg: require('../images/person.png'),
         name: i18n.language,
-        navigate: SCREENS.Login,
+        navigate: SCREENS.Language,
         tips: '',
       },
     ];
