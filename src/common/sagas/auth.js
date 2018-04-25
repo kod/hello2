@@ -26,15 +26,16 @@ import {
   rehydrateSuccess,
 } from '../actions/auth';
 import { addError } from '../actions/error';
+import { setLanguage } from "../actions/i18n";
+import { userCertificateInfoFetch } from "../actions/userCertificateInfo";
 import {
   AUTH_LOGIN,
   AUTH_SIGNUP,
   AUTH_LOGOUT,
   AUTH_REFRESH_ACCESS_TOKEN,
 } from '../constants/actionTypes';
-import { setLanguage } from "../actions/i18n";
 
-import { getLang } from '../selectors';
+import { getLang, getAuthUser, getAuth } from '../selectors';
 import buyoo from '../helpers/apiClient';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 
@@ -85,7 +86,6 @@ export function* authorize(phone, passwordParam, isProvisionalAccount) {
       }
   ]);
   // const options = setProvisionalAccountOptions(isProvisionalAccount, password);
-  // console.log(loginResponse);
   // if (loginResponse.status !== 10000) throw res.data.result;
   yield put(loginSuccess(loginResponse));
   // yield put(loginSuccess(loginResponse, options));
@@ -111,9 +111,7 @@ export function* watchLoginRequestTask() {
       // user logged out, next while iteration will wait for the
       // next AUTH_LOGIN.REQUEST action
     } catch (err) {
-      console.log(err);
       const errMessage = err.error ? err.error : err.toString().slice(7);
-      console.log(errMessage);
       yield put(loginFailure());
       yield put(addError(errMessage));
     }
@@ -132,10 +130,11 @@ export function* watchLoginSuccess() {
   while (true) {
     try {
       yield take(AUTH_LOGIN.SUCCESS);
+      const authUser = yield select(getAuthUser);
+      yield put(userCertificateInfoFetch(authUser));
       yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'closeLoginScreen' ]);
     } catch (err) {
       // todo logout user
-      // console.log('err in watchRehydrate ', err);
     }
   }
 }
@@ -157,7 +156,6 @@ export function* watchRehydrate() {
       yield put(setLanguage(lang));
     } catch (err) {
       // todo logout user
-      // console.log('err in watchRehydrate ', err);
     } finally {
       yield put(rehydrateSuccess());
     }

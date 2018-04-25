@@ -35,6 +35,23 @@ class ReactStore {
     };
   }
 
+  userCertificateInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8180/fun/usercenter/userViewDetailInfo`, options);
+  }
+
   login(options) {
     if (!options) {
       return Promise.reject(new Error('fields required'));
@@ -60,17 +77,12 @@ class ReactStore {
 
     return axios(`${BASE_URL}:8180/fun/userCenter/userAction/login`, options)
       .then(res => {
-        console.log(res);
         if (res.data.status !== 10000) {
-          console.log(res.data.result);
           throw new Error(res.data.result);
         }
         return res.data;
       })
       .catch(err => {
-        // console.log(err);
-        // console.log(typeof err);
-        // console.log('99999');
         throw err;
         // if (err.response) {
         //   throw err.response.data;

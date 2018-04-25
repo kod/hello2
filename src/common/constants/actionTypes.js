@@ -109,4 +109,10 @@ export const NEWESTINFO = defineAction(
   appNamespace,
 );
 
+export const USER_CERTIFICATE_INFO = defineAction(
+  'USER_CERTIFICATE_INFO',
+  [REQUEST, SUCCESS, FAILURE, STOP],
+  appNamespace,
+);
+
 export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);

@@ -15,7 +15,6 @@ import InputRight from '../components/InputRight';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
 import NavSidesText from '../components/NavSidesText';
-// import BYStatusBar from '../components/BYStatusBar';
 import OtherLogin from '../components/OtherLogin';
 
 import * as authActionCreators from "../common/actions/auth";
@@ -87,7 +86,6 @@ class Login extends React.Component {
     } = this.props;
     return (
       <View style={{ backgroundColor: '#fff', position: 'relative', height: globalStyleVariables.WINDOW_HEIGHT }}>
-        {/* <BYStatusBar /> */}
         <BYHeader />
         <OtherLogin />
 
@@ -107,7 +105,7 @@ class Login extends React.Component {
             placeholder={i18n.pleaseEnterThePassword}
             returnKeyType={'done'}
           />
-          <BYButton text={'Login'} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
+          <BYButton text={i18n.login} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
           <NavSidesText textLeft={'Register now?'} textRight={'Log in via SMS?'} navigateLeft={() => navigate(SCREENS.RegisterStepOne)} navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} />
         </ScrollView>
         <OverlaySpinner visible={loading} />

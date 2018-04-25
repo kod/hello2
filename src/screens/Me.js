@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, ScrollView, } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DeviceInfo from 'react-native-device-info';
-import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR } from "../styles/variables";
+import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR, STATUSBAR_HEIGHT } from "../styles/variables";
 import { SCREENS } from "../common/constants";
+import { DEF_AVATAR } from "../common/constants/config";
 import BYTouchable from '../components/BYTouchable';
 import CustomIcon from "../components/CustomIcon";
 import NavBar1 from "../components/NavBar1";
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: PRIMARY_COLOR,
-    // height: 175,
+    paddingTop: STATUSBAR_HEIGHT,
   },
   headerIcon: {
     alignItems: 'center',
@@ -171,44 +172,11 @@ class Me extends React.Component {
   }
   
   render() {
-    const { navigation, navigation: { navigate }, screenProps: { i18n }, authUser } = this.props;
+    const { navigation, navigation: { navigate }, screenProps: { i18n }, certUser, authUser } = this.props;
 
-    // console.log(`getAPILevel: ${DeviceInfo.getAPILevel()}`);
-    // console.log(`getApplicationName: ${DeviceInfo.getApplicationName()}`);
-    // console.log(`getBatteryLevel: ${DeviceInfo.getBatteryLevel()}`);
-    // console.log(`getBrand: ${DeviceInfo.getBrand()}`);
-    // console.log(`getBuildNumber: ${DeviceInfo.getBuildNumber()}`);
-    // console.log(`getBundleId: ${DeviceInfo.getBundleId()}`);
-    // console.log(`getCarrier: ${DeviceInfo.getCarrier()}`);
-    // console.log(`getDeviceCountry: ${DeviceInfo.getDeviceCountry()}`);
-    // console.log(`getDeviceId: ${DeviceInfo.getDeviceId()}`);
-    // console.log(`getDeviceLocale: ${DeviceInfo.getDeviceLocale()}`);
-    // console.log(`getDeviceName: ${DeviceInfo.getDeviceName()}`);
-    // console.log(`getFirstInstallTime: ${DeviceInfo.getFirstInstallTime()}`);
-    // console.log(`getFontScale: ${DeviceInfo.getFontScale()}`);
-    // console.log(`getFreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}`);
-    // console.log(`getIPAddress: ${DeviceInfo.getIPAddress()}`);
-    // console.log(`getInstallReferrer: ${DeviceInfo.getInstallReferrer()}`);
-    // console.log(`getInstanceID: ${DeviceInfo.getInstanceID()}`);
-    // console.log(`getLastUpdateTime: ${DeviceInfo.getLastUpdateTime()}`);
-    // console.log(`getMACAddress: ${DeviceInfo.getMACAddress()}`);
-    // console.log(`getManufacturer: ${DeviceInfo.getManufacturer()}`);
-    // console.log(`getMaxMemory: ${DeviceInfo.getMaxMemory()}`);
-    // console.log(`getModel: ${DeviceInfo.getModel()}`);
-    // console.log(`getPhoneNumber: ${DeviceInfo.getPhoneNumber()}`);
-    // console.log(`getReadableVersion: ${DeviceInfo.getReadableVersion()}`);
-    // console.log(`getSerialNumber: ${DeviceInfo.getSerialNumber()}`);
-    // console.log(`getSystemName: ${DeviceInfo.getSystemName()}`);
-    // console.log(`getSystemVersion: ${DeviceInfo.getSystemVersion()}`);
-    // console.log(`getTimezone: ${DeviceInfo.getTimezone()}`);
-    // console.log(`getTotalDiskCapacity: ${DeviceInfo.getTotalDiskCapacity()}`);
-    // console.log(`getTotalMemory: ${DeviceInfo.getTotalMemory()}`);
-    // console.log(`getUniqueID: ${DeviceInfo.getUniqueID()}`);
-    // console.log(`getUserAgent: ${DeviceInfo.getUserAgent()}`);
-    // console.log(`getVersion: ${DeviceInfo.getVersion()}`);
-    // console.log(`is24Hour: ${DeviceInfo.is24Hour()}`);
-    // console.log(`isEmulator: ${DeviceInfo.isEmulator()}`);
-    // console.log(`isTablet: ${DeviceInfo.isTablet()}`);
+    const headerIconImgSource = (authUser && certUser.headimage) ?  {uri: certUser.headimage} : require('../images/aioru09230f.png');
+    
+    const username = authUser ? certUser.username : i18n.loginRegister;
 
     const renderCellItem1List1 = [
       {
@@ -225,8 +193,6 @@ class Me extends React.Component {
 
     const renderCellItem1List2 = [
       {
-        // iconName: 'arrowright',
-        // iconImg: require('../images/person.png'),
         name: i18n.myCollection,
         navigate: SCREENS.Settings,
         tips: '',
@@ -273,17 +239,13 @@ class Me extends React.Component {
       },
     ];
 
-    const username = authUser ? 'Jay Chou' : i18n.loginRegister;
-
     return (
       <View style={styles.container} >
         <ScrollView style={styles.container} >
-          {/* <StatusBar backgroundColor={'#fff'} barStyle="dark-content" /> */}
-          {/* <StatusBar backgroundColor={globalStyleVariables.PRIMARY_COLOR} barStyle="dark-content" /> */}
           <View style={styles.container} >
             <View style={styles.header} >
               <BYTouchable style={styles.headerIcon} onPress={() => this.handleOnPressUser()}>
-                <Image style={styles.headerIconImg} source={require('../images/aioru09230f.png')} />
+                <Image style={styles.headerIconImg} source={headerIconImgSource} />
                 <Text style={styles.headerIconText} >{username}</Text>
               </BYTouchable>
               {this.renderHeaderBottom()}
@@ -299,6 +261,7 @@ class Me extends React.Component {
 }
 export default connect(
   state => ({
+    certUser: state.userCertificateInfo.certUser,
     authUser: state.auth.user,
   })
 )(Me);

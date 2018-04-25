@@ -6,6 +6,8 @@ import { globalStyleVariables } from '../styles';
 
 import { SCREENS } from '../common/constants';
 
+import { STATUSBAR_HEIGHT } from "../styles/variables";
+
 import ScrollableTabView from '../components/ScrollableTabView';
 import Scrollable1 from '../components/Scrollable1';
 import Scrollable2 from '../components/Scrollable2';
@@ -41,8 +43,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 40,
-    backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR
+    height: 40 + STATUSBAR_HEIGHT,
+    backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
+    paddingTop: STATUSBAR_HEIGHT,
   },
   headerMiddle: {
     flex: 8
@@ -210,7 +213,6 @@ class Main extends React.Component {
 
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor="#fff" barStyle="dark-content" />
         <View style={styles.headerContainer}>
           <BYTouchable>
             <CustomIcon name="notice" style={styles.headerIcon} />

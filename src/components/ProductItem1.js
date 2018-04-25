@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Dimensions, } from 'react-native';
-import { SIDEINTERVAL, RED_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR } from "../styles/variables";
 import priceFormat from "../common/helpers/priceFormat";
 
 const itemIntervalWidth = SIDEINTERVAL;
-const itemWidth = (SIDEINTERVAL - itemIntervalWidth * 3) / 2;
+const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
+const paddingInerval = SIDEINTERVAL / 2
 
 const styles = StyleSheet.create({
   itemWrap: {
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   itemText: {
-    paddingLeft: SIDEINTERVAL * 0.02,
-    paddingRight: SIDEINTERVAL * 0.02,
+    paddingLeft: paddingInerval,
+    paddingRight: paddingInerval,
     color: '#666',
     fontSize: 11,
     marginBottom: 6,
@@ -38,16 +39,16 @@ const styles = StyleSheet.create({
   itemOrgPrice: {
     color: '#999',
     fontSize: 11,
-    paddingLeft: SIDEINTERVAL * 0.02,
-    paddingRight: SIDEINTERVAL * 0.02,
+    paddingLeft: paddingInerval,
+    paddingRight: paddingInerval,
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
   },
   itemPrice: {
     color: RED_COLOR,
     fontSize: 14,
-    paddingLeft: SIDEINTERVAL * 0.02,
-    paddingRight: SIDEINTERVAL * 0.02,
+    paddingLeft: paddingInerval,
+    paddingRight: paddingInerval,
     fontWeight: "700",
     marginBottom: 10,
   }

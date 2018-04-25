@@ -11,6 +11,7 @@ import { adPhoneFetchWatch } from './adPhone';
 import { topComputerFetchWatch } from './topComputer';
 import { newComputerFetchWatch } from './newComputer';
 import { adDigitalFetchWatch } from './adDigital';
+import { userCertificateInfoFetchWatch } from './userCertificateInfo';
 
 
 export default function* rootSaga() {
@@ -29,5 +30,6 @@ export default function* rootSaga() {
     topComputerFetchWatch(),
     newComputerFetchWatch(),
     adDigitalFetchWatch(),
+    userCertificateInfoFetchWatch(),
   ]);
 }

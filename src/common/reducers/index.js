@@ -13,6 +13,7 @@ import newComputer from './newComputer';
 import adDigital from './adDigital';
 import i18n from './i18n';
 import auth from './auth';
+import userCertificateInfo from './userCertificateInfo';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   adDigital,
   i18n,
   auth,
+  userCertificateInfo,
   form: formReducer,
 });
 

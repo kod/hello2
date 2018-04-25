@@ -18,7 +18,6 @@ export function login(phone, password, isProvisionalAccount = false) {
 }
 
 export function loginSuccess(json, options) {
-  console.log(json);
   const payload = {
     user: {
       ...json,

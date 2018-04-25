@@ -38,7 +38,7 @@ export default function configureStore() {
       // 'highlightTags',
       // 'muteTags',
       // 'muteUsers',
-      // 'entities',
+      'userCertificateInfo',
       'auth',
       'i18n',
     ],

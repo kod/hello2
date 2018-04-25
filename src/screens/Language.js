@@ -7,12 +7,18 @@ import BYHeader from '../components/BYHeader';
 import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
 import BYTouchable from "../components/BYTouchable";
 import { globalStyleVariables } from "../styles";
+import { BACKGROUND_COLOR, WINDOW_WIDTH } from "../styles/variables";
 import { connectLocalization } from "../components/Localization";
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as i18nActionCreators from "../common/actions/i18n";
 
-const { width, height } = Dimensions.get('window');
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: BACKGROUND_COLOR,
+  }
+});
 
 const languageList = [
   {
@@ -53,7 +59,7 @@ class Language extends React.Component {
       <View>
         {list.map((val, key) => 
           <BYTouchable delayPressIn={0} key={key} onPress={ () => this.handleOnPressListItem(val.id) }>
-            <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: width * 0.04, paddingRight: width * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
+            <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: WINDOW_WIDTH * 0.04, paddingRight: WINDOW_WIDTH * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
               <Text style={{ flex: 1, }} >{ val.title }</Text>
               { val.id === lang && <MaterialIcons name="check-circle" style={{ fontSize: 26, color: globalStyleVariables.PRIMARY_COLOR }} /> }
             </View>
@@ -85,15 +91,9 @@ class Language extends React.Component {
   render() {
     const { bannerHomeRecommend, navigation: { navigate } } = this.props;
     return (
-      <View>
-        <BYHeader
-          headerTitle={this.renderHeaderTitle()}
-          headerRight={this.renderHeaderRight()}
-          darkTheme
-          showBackButton
-          onPressBackButton={this.handleOnPressHeaderBackButton}
-        />
-        <ScrollView style={{ height: height - 25 - 55, }} >
+      <View style={styles.container} >
+        <BYHeader />
+        <ScrollView style={styles.container} >
           <View style={{ backgroundColor: '#fff' }} >
             {this.renderList(languageList)}
           </View>
