@@ -11,6 +11,7 @@ import {
   select,
   fork,
   cancel,
+  takeEvery,
 } from 'redux-saga/effects';
 
 import {
@@ -25,17 +26,18 @@ import {
   refreshAccessTokenFailure,
   rehydrateSuccess,
 } from '../actions/auth';
-import { addError } from '../actions/error';
-import { setLanguage } from "../actions/i18n";
-import { userCertificateInfoFetch } from "../actions/userCertificateInfo";
 import {
   AUTH_LOGIN,
   AUTH_SIGNUP,
   AUTH_LOGOUT,
   AUTH_REFRESH_ACCESS_TOKEN,
 } from '../constants/actionTypes';
+import { addError } from '../actions/error';
+import { setLanguage } from "../actions/i18n";
+import { cartRequest ,cartClear } from "../actions/cart";
+import { userCertificateInfoFetch, userCertificateInfoClear } from "../actions/userCertificateInfo";
 
-import { getLang, getAuthUser, getAuth } from '../selectors';
+import { getLang, getAuthUser, getAuth, getAuthUserFunid } from '../selectors';
 import buyoo from '../helpers/apiClient';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 
@@ -130,8 +132,14 @@ export function* watchLoginSuccess() {
   while (true) {
     try {
       yield take(AUTH_LOGIN.SUCCESS);
+
       const authUser = yield select(getAuthUser);
       yield put(userCertificateInfoFetch(authUser));
+
+      const authUserFunid = yield select(getAuthUserFunid);
+      yield put(cartRequest(authUserFunid));
+      // 
+
       yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'closeLoginScreen' ]);
     } catch (err) {
       // todo logout user
@@ -160,4 +168,13 @@ export function* watchRehydrate() {
       yield put(rehydrateSuccess());
     }
   }
+}
+
+export function* logoutWatchHandle(action) {
+  yield put(cartClear());
+  yield put(userCertificateInfoClear());
+}
+
+export function* logoutWatch() {
+  yield takeEvery(AUTH_LOGOUT.SUCCESS, logoutWatchHandle);
 }

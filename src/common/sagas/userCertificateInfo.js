@@ -51,27 +51,13 @@ export function* userCertificateInfoFetchWatchHandle(action) {
     ]);
 
 
-    // let userCertificateInfoList = [];
-    // let userCertificateInfoBanerList = [];
-    // let classfyinfo = [];
+    let result = {};
 
-    // if (response.code === 10000) {
-    //   const array = response.digitaladinfo;
-    //   for (let index = 0; index < array.length; index++) {
-    //     const element = array[index];
-    //     if (element.position === 1) {
-    //       userCertificateInfoBanerList.push(element);
-    //     }
-    //     if (element.position === 3) {
-    //       element.price = element.minprice;
-    //       userCertificateInfoList.push(element);
-    //     }
-    //   }
-    //   classfyinfo = response.classfyinfo;
-    // }
+    if (response.code === 10000) {
+      result = response;
+    }
 
-    yield put(userCertificateInfoFetchSuccess(response));
-    // yield put(userCertificateInfoFetchSuccess(userCertificateInfoList, userCertificateInfoBanerList, classfyinfo));
+    yield put(userCertificateInfoFetchSuccess(result));
   } catch (err) {
     yield put(userCertificateInfoFetchFailure());
     yield put(addError(err));

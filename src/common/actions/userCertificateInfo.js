@@ -26,3 +26,12 @@ export function userCertificateInfoFetch(user) {
     },
   };
 }
+
+export function userCertificateInfoClear(user) {
+  return {
+    type: USER_CERTIFICATE_INFO.CLEAR,
+    payload: {
+      user,
+    },
+  };
+}

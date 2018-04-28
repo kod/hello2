@@ -4,9 +4,7 @@ const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
-  certUser: {
-    
-  },
+  certUser: {},
 };
 
 export default function userCertificateInfo(state = initState, action) {
