@@ -5,7 +5,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import DeviceInfo from 'react-native-device-info';
 import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR, STATUSBAR_HEIGHT } from "../styles/variables";
 import { SCREENS } from "../common/constants";
-import { DEF_AVATAR } from "../common/constants/config";
 import BYTouchable from '../components/BYTouchable';
 import CustomIcon from "../components/CustomIcon";
 import NavBar1 from "../components/NavBar1";
@@ -101,7 +100,6 @@ class Me extends React.Component {
 
   renderHeaderBottom() {
     const { authUser } = this.props;
-    // console.log(authUser);
     
     const list = [
       {

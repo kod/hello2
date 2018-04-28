@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, Platform, StatusBar } from 'react-native';
 import { HeaderBackButton, withNavigation } from 'react-navigation';
-import { globalStyleVariables } from '../styles';
+import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, SIDEINTERVAL, HEADER_BACKGROUND_COLOR } from '../styles/variables';
 import CustomIcon from "../components/CustomIcon";
 import BYTouchable from "../components/BYTouchable";
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: globalStyleVariables.STATUSBAR_HEIGHT,
-    // paddingLeft: globalStyleVariables.SIDEINTERVAL,
+    paddingTop: STATUSBAR_HEIGHT,
+    backgroundColor: HEADER_BACKGROUND_COLOR,
   },
   containerShadow: {
     ...Platform.select({
@@ -30,19 +30,13 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  // containerDark: {
-  //   // backgroundColor: '#f00',
-  //   // backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
-  // },
   absolutePosition: {
     position: 'absolute',
     top: StatusBar.currentHeight || 0, // android only for use with translucent status bar
     left: 0,
     right: 0,
     bottom: 0,
-    height:
-      globalStyleVariables.APPBAR_HEIGHT +
-      globalStyleVariables.STATUSBAR_HEIGHT,
+    height: APPBAR_HEIGHT + STATUSBAR_HEIGHT,
     zIndex: 100,
     backgroundColor: 'rgba(0, 0, 0, .3)',
   },
@@ -54,17 +48,17 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between',
   },
   headerBack: {
-    height: 44,
-    lineHeight: 44,
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.03,
-    paddingRight: globalStyleVariables.SIDEINTERVAL,
+    height: APPBAR_HEIGHT,
+    lineHeight: APPBAR_HEIGHT,
+    paddingLeft: WINDOW_WIDTH * 0.03,
+    paddingRight: SIDEINTERVAL,
     fontSize: 15,
     color: '#333',
   },
   headerLine: {
     position: 'absolute',
     bottom: 0,
-    left: globalStyleVariables.SIDEINTERVAL,
+    left: SIDEINTERVAL,
     right: 0,
     height: 1,
     backgroundColor: '#f5f5f5',
@@ -95,6 +89,18 @@ class PXHeader extends Component {
     }
   };
 
+  renderHeaderLeft = () => {
+    return (
+      <View style={{}} ></View>
+    );
+  };
+
+  renderHeaderTitle = () => {
+    return (
+      <View style={{flex: 1}} ></View>
+    );
+  };
+  
   render() {
     const {
       showBackButton,
@@ -118,9 +124,9 @@ class PXHeader extends Component {
                 name="back"
                 style={styles.headerBack}
                 /> :
-              headerLeft}
+              headerLeft || this.renderHeaderLeft()}
           </BYTouchable>
-          {headerTitle}
+          {headerTitle || this.renderHeaderTitle()}
           {headerRight}
         </View>
         <View style={styles.headerLine}></View>
