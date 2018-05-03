@@ -3626,6 +3626,10 @@ normalize-path@^2.0.1, normalize-path@^2.1.1:
   dependencies:
     remove-trailing-separator "^1.0.1"
 
+normalizr@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.npmjs.org/normalizr/-/normalizr-3.2.4.tgz#16aafc540ca99dc1060ceaa1933556322eac4429"
+
 npm-run-path@^2.0.0:
   version "2.0.2"
   resolved "https://registry.npmjs.org/npm-run-path/-/npm-run-path-2.0.2.tgz#35a9232dfa35d7067b4cb2ddf2357b1871536c5f"
@@ -4127,9 +4131,9 @@ react-native-spinkit@^1.1.1:
   dependencies:
     prop-types "^15.5.8"
 
-react-native-swiper-flatlist@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/react-native-swiper-flatlist/-/react-native-swiper-flatlist-1.0.3.tgz#c6c47498f30be048d6465c2d7c850b8d55bfc97d"
+react-native-swiper-flatlist@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/react-native-swiper-flatlist/-/react-native-swiper-flatlist-1.0.5.tgz#3af2d264e4bbda553129f1b9372c2e605f49631e"
   dependencies:
     prop-types "^15.6.0"
 
