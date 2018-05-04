@@ -111,7 +111,61 @@ export const NEWESTINFO = defineAction(
 
 export const USER_CERTIFICATE_INFO = defineAction(
   'USER_CERTIFICATE_INFO',
-  [REQUEST, SUCCESS, FAILURE, STOP],
+  [REQUEST, SUCCESS, FAILURE, STOP, CLEAR],
+  appNamespace,
+);
+
+export const CART = defineAction(
+  'CART',
+  [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
+  appNamespace,
+);
+
+export const CART_NUMBER = defineAction(
+  'CART_NUMBER',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CART_SELECT = defineAction(
+  'CART_SELECT',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CART_SELECTDELALL = defineAction(
+  'CART_SELECTDELALL',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CART_SELECTALL = defineAction(
+  'CART_SELECTALL',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CART_EDIT = defineAction(
+  'CART_EDIT',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CART_EDITINIT = defineAction(
+  'CART_EDITINIT',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CART_SUBMIT = defineAction(
+  'CART_SUBMIT',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CART_DELETE = defineAction(
+  'CART_DELETE',
+  [REQUEST, SUCCESS, FAILURE],
   appNamespace,
 );
 

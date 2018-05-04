@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, DeviceEventEmitter } from 'react-native';
+import { connect } from "react-redux";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { connectLocalization } from '../../components/Localization';
 import BYStatusBar from '../../components/BYStatusBar';
+import Loader from '../../components/Loader';
 
 import AppNavigator from '../../navigations/AppNavigator';
 
@@ -27,10 +29,16 @@ class App extends Component {
   }
   
   render() {
-    const { i18n } = this.props;
+    const { i18n, rehydrated } = this.props;
+    let renderComponent;
+    if (!rehydrated) {
+      renderComponent = <Loader />;
+    } else {
+      renderComponent = <AppNavigator screenProps={{ i18n }} />;
+    }
     return (
       <View style={styles.container} >
-        <AppNavigator screenProps={{ i18n }} />
+        {renderComponent}
         <BYStatusBar />
         <Toast 
           ref={ref => (this.toast = ref)} 
@@ -41,4 +49,10 @@ class App extends Component {
   }
 }
 
-export default connectLocalization(App);
+export default connectLocalization(
+  connect(
+    state => ({
+      rehydrated: state.auth.rehydrated,
+    })
+  )(App)
+);

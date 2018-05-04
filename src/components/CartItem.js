@@ -3,11 +3,10 @@ import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { connect } from "react-redux";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH } from "../styles/variables";
+import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR } from "../styles/variables";
 import priceFormat from '../common/helpers/priceFormat';
 import { CARMAXNUMBER } from "../common/constants";
 import BYTouchable from "../components/BYTouchable";
-import { PRIMARY_COLOR } from "../styles/variables";
 
 import BYTextInput from "../components/BYTextInput";
 
@@ -81,10 +80,10 @@ class ProductItem2 extends Component {
   }
 
   renderProductItem2Left = (id, selected) => {
+    const { isEdit } = this.props;
     const styles = StyleSheet.create({
       container: {
         width: WINDOW_WIDTH * 0.134,
-        // backgroundColor: '#f00',
         justifyContent: 'center',
         alignItems: 'center',
       },
@@ -94,8 +93,7 @@ class ProductItem2 extends Component {
       },
       iconSelected: {
         fontSize: 20,
-        color: PRIMARY_COLOR,
-        // 
+        color: isEdit ? RED_COLOR : PRIMARY_COLOR,
       },
     });
 
@@ -180,7 +178,7 @@ class ProductItem2 extends Component {
       if (text < 1 || text > CARMAXNUMBER) return false;
       const { cartNumberRequest, authUser } = this.props;
       authUser && cartNumberRequest(authUser.result, id, text);
-      }
+    }
     
     return (
       <View style={styles.container} >
@@ -229,26 +227,27 @@ class ProductItem2 extends Component {
         ...restProps
       } = this.props;
     
-    const { items } = data;
+    const { items, products, details, isEdit } = data;
+    // 
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
         {items &&
           items.map((val, key) => {
             return (
               <View style={[styles.item, styleItem]} key={key}>
-                {this.renderProductItem2Left(val.id, val.selected)}
+                {this.renderProductItem2Left(val, isEdit ? products[val].selectedDel : products[val].selected)}
                 <View style={[styles.itemLeft, styleItemLeft]}>
-                  <Image style={styles.itemImage} source={{ uri: val.imageUrl }} />
+                  <Image style={styles.itemImage} source={{ uri: details[products[val].detail].iconUrl }} />
                 </View>
                 <View style={styles.itemRight}>
-                  <Text style={styles.itemTitle} numberOfLines={1}>{val.name}</Text>
-                  <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>
+                  <Text style={styles.itemTitle} numberOfLines={1}>{products[val].subject}</Text>
+                  <Text style={styles.itemPrice}>{priceFormat(details[products[val].detail].price) + ' ₫'}</Text>
                   <View style={styles.itemRightRow3}>
-                    <Text style={styles.itemRightRow3Price}>{priceFormat(val.price) + ' ₫'}</Text>
+                    <Text style={styles.itemRightRow3Price}>{priceFormat(details[products[val].detail].price) + ' ₫'}</Text>
                     <Text style={styles.itemRightRow3Number}>x12 Tháng</Text>
                   </View>
                 </View>
-                {this.renderProductItem2Right(val.id, val.quantity)}
+                {this.renderProductItem2Right(val, products[val].quantity)}
               </View>
             );
           })}
@@ -260,7 +259,8 @@ class ProductItem2 extends Component {
 export default connect(
   state => {
     return {
-      authUser: state.auth.user
+      authUser: state.auth.user,
+      isEdit: state.cart.isEdit,
     }
   },
   {

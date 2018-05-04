@@ -266,6 +266,63 @@ class ReactStore {
     return this.requestUrl(`:8185/fun/commodity/getNewestInfo`, options);
   }
 
+  cartGetInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    return this.requestUrl(':8185/fun/commodity/cart/getInfo', options);
+  }
+
+  cartRemove(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    return this.requestUrl(':8185/fun/commodity/cart/remove', options);
+  }
+
+  cartChangeNum(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    // const queryString = qs.stringify(
+    //   Object.assign(
+    //     {
+    //       // filter,
+    //     },
+    //     options
+    //   )
+    // );
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    return this.requestUrl(`:8185/fun/commodity/cart/changeNum`, options);
+  }
+
   requestUrl(url, options) {
     if (!url) {
       return Promise.reject("Url cannot be empty");

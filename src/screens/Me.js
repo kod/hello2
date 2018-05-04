@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DeviceInfo from 'react-native-device-info';
 import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR, STATUSBAR_HEIGHT } from "../styles/variables";
 import { SCREENS } from "../common/constants";

@@ -18,3 +18,5 @@ export const SCREENS = {
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',
 };
+
+export const CARMAXNUMBER = 50;

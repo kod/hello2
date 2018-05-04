@@ -71,7 +71,18 @@ export function* adverstInfoFetchWatchHandle(action) {
 
     let result = [];
 
-    if (response.code === 10000) result = response.details;
+    if (response.code === 10000) {
+      // result = response.details;
+
+      const array = response.details;
+      for (let index = 0; index < array.length; index++) {
+        let element = array[index];
+        element.price = element.minprice;
+        element.orgPrice = element.maxprice;
+        result.push(element);
+      }
+
+    }
 
     yield put(adverstInfoFetchSuccess(result));
   } catch (err) {
