@@ -10,6 +10,7 @@
   "clearCache": "Xóa cache",
   "coupon": "Mã Giảm Giá",
   "computerOffice": "Máy tính văn phòng",
+  "confirmDelete": "Xác nhận xóa?",
   "digitalDevices": "Thiết bị kỹ thuật số",
   "delete": "Xoá",
   "doYouWantToSignOut": "Bạn có muốn thoát phải không?",
@@ -44,6 +45,7 @@
   "register": "Đăng ký",
   "save": "Lưu",
   "securityCenter": "Trung tâm an toàn",
+  "selectAll": "Chọn tất cả",
   "settings": "Cài đặt",
   "signOut": "Đăng xuất",
   "shippingAddress": "Sổ địa chỉ của bạn"

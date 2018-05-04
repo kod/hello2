@@ -10,6 +10,7 @@
   "clearCache": "Clear cache",
   "coupon": "Coupon",
   "computerOffice": "Computer office",
+  "confirmDelete": "Confirm delete?",
   "digitalDevices": "Digital devices",
   "delete": "Delete",
   "doYouWantToSignOut": "Do you want to sign out",
@@ -44,6 +45,7 @@
   "register": "Register",
   "save": "Save",
   "securityCenter": "Security center",
+  "selectAll": "Select all",
   "settings": "Settings",
   "signOut": "Sign Out",
   "shippingAddress": "Shipping address"
