@@ -17,6 +17,7 @@ export const SCREENS = {
   RegisterFastStepTwo: 'RegisterFastStepTwo',
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',
+  ProductDetailMain: 'ProductDetailMain',
 };
 
 export const CARMAXNUMBER = 50;

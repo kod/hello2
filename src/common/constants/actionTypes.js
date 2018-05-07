@@ -169,4 +169,10 @@ export const CART_DELETE = defineAction(
   appNamespace,
 );
 
+export const PRODUCTDETAIL_OPACITY = defineAction(
+  'PRODUCTDETAIL_OPACITY',
+  [REQUEST],
+  appNamespace,
+);
+
 export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);

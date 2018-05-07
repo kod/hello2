@@ -1,137 +1,115 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-import BYHeader from '../components/BYHeader';
-import HeaderShareButton from '../components/HeaderShareButton';
-import ScrollableTabView from '../components/ScrollableTabView';
-import SwiperFlatList from '../components/SwiperFlatList';
+import CustomIcon from "../components/CustomIcon";
+import ProductDetailTabNavigator from "../navigations/ProductDetailTabNavigator";
+
+import { WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT, SIDEINTERVAL } from "../styles/variables";
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 
-const { width, height } = Dimensions.get('window');
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: 'relative',
+  },
+  // header: {
+  //   position: 'absolute',
+  //   zIndex: 100,
+  //   top: STATUSBAR_HEIGHT,
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  // },
+  // headerLeftIcon: {
+  //   fontSize: 16,
+  //   color: '#666',
+  //   paddingLeft: WINDOW_WIDTH * 0.03,
+  //   paddingRight: SIDEINTERVAL,
+  // },
+  // headerMiddle: {
+  //   flex: 1,
+  //   height: 35,
+  //   backgroundColor: '#ff0',
+  // },
+  // headerRightIcon: {
+  //   fontSize: 16,
+  //   color: '#666',
+  //   paddingLeft: SIDEINTERVAL,
+  //   paddingRight: SIDEINTERVAL,
+  // },
+  headerLeft: {
+    position: 'absolute',
+    top: STATUSBAR_HEIGHT,
+    left: 0,
+    zIndex: 300,
+    fontSize: 16,
+    width: 40,
+    height: 40,
+    lineHeight: 40,
+    textAlign: 'center',
+    backgroundColor: '#fff',
+  },
+  headerTop: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 300,
+    // width: 40,
+    height: STATUSBAR_HEIGHT,
+    backgroundColor: '#fff',
+  },
+  headerRight: {
+    position: 'absolute',
+    top: STATUSBAR_HEIGHT,
+    right: 0,
+    zIndex: 300,
+    fontSize: 16,
+    width: 40,
+    height: 40,
+    lineHeight: 40,
+    textAlign: 'center',
+    backgroundColor: '#fff',
+  },
+});
 
 class ProductDetail extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { bannerSwiperFetch } = this.props;
     bannerSwiperFetch('one');
   }
 
-  handleOnPressHeaderBackButton = () => {
-    const { goBack } = this.props.navigation;
-    goBack();
-  };
-
-  renderHeaderTitle = () => {
-    return (
-      <View style={{ flex: 1 }}>
-        <Text style={{ fontSize: 18, color: '#fff' }}>Sản phẩm</Text>
-      </View>
-    );
-  };
-
-  renderHeaderRight = () => {
-    return (
-      <View>
-        <HeaderShareButton />
-      </View>
-    );
-  };
-
   render() {
-    const { bannerSwiper } = this.props;
+    const { bannerSwiper, screenProps, productdetailOpacity } = this.props;
+
     return (
-      <View style={{ position: 'relative' }} >
-        {/* <BYHeader
-          headerTitle={this.renderHeaderTitle()}
-          headerRight={this.renderHeaderRight()}
-          darkTheme
-          showBackButton
-          onPressBackButton={this.handleOnPressHeaderBackButton}
-        /> */}
-        <View style={{ position: 'absolute', zIndex: 100, flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }} >
-          <MaterialIcons name="navigate-before" style={{ fontSize: 30, color: '#fff', height: 31, width: 31, backgroundColor: 'rgba(150,150,150,.7)', borderRadius: 49 }} />
-          <View style={{ flex: 1, height: 40 }} >
-            <Text></Text>
-          </View>
-          <MaterialIcons name="star-border" style={{ fontSize: 30, color: '#fff', height: 31, width: 31, backgroundColor: 'rgba(200,200,200,.7)', borderRadius: 49 }} />
-        </View>
-        <ScrollView style={{ position: 'relative' }} >
-          <SwiperFlatList data={bannerSwiper} style={{ height: width }} />
-          <Image source={require('../images/collect2.png')} style={{ position: 'absolute', zIndex: 333, top: width - 32 - 10, right: 10,  width: 32, height: 32 }} />
-          <View style={{ flexDirection: 'row', paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 5, paddingBottom: 5, backgroundColor: '#fff', borderBottomColor: '#eee', borderBottomWidth: 1 }} >
-            <Text style={{ fontSize: 28, color: '#fc1159' }} >830,000</Text>
-            <Text style={{ color: '#666', paddingTop: 15 }} > ₫</Text>
-          </View>
-          <View style={{ backgroundColor: '#fff', paddingLeft: width * 0.03, paddingRight: width * 0.03, paddingTop: 5 }} >
-            <Text style={{ color: '#333', fontSize: 14 }} >Tai nghe Mi comfort Trang</Text>
-            <Text>Tai nghe Mi comfort Trang</Text>
-          </View>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail</Text>
-          <Text>productDetail1</Text>
-          <Text>productDetail2</Text>
-          <Text>productDetail3</Text>
-          <Text>productDetail4</Text>
-          <Text>productDetail5</Text>
-          <Text>productDetail6</Text>
-          <Text>productDetail7</Text>
-          <Text>productDetail8</Text>
-          <Text>productDetail9</Text>
-        </ScrollView>
+      <View style={styles.container} >
+        {/* <View style={styles.header} >
+          <CustomIcon name="back" style={styles.headerLeftIcon} />
+          <View style={styles.headerMiddle} ></View>
+          <SimpleLineIcons name="share" style={styles.headerRightIcon} />
+        </View> */}
+        <CustomIcon name="back" style={[styles.headerLeft, {opacity: productdetailOpacity}]} onPress={()=>console.log('123123')} />
+        <View style={[styles.headerTop, {opacity: productdetailOpacity}]} ></View>
+        <SimpleLineIcons name="share" style={[styles.headerRight, {opacity: productdetailOpacity}]} onPress={()=>console.log('123123')} />
+        <ProductDetailTabNavigator screenProps={{
+          ...screenProps,
+          BYopacity: productdetailOpacity
+        }} />
       </View>
     );
   }
 }
 
 function mapStateToProps(state, props) {
-  const { bannerSwiper } = state;
+  const { bannerSwiper, productdetailOpacity } = state;
   return {
-    bannerSwiper: bannerSwiper['one'] || {}
+    bannerSwiper: bannerSwiper['one'] || {},
+    productdetailOpacity: productdetailOpacity.value,
   };
 }
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators })(ProductDetail);
+export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetail);

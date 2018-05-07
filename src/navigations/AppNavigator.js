@@ -96,8 +96,8 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.ProductDetail,
+  // initialRouteName: SCREENS.Index,
+  initialRouteName: SCREENS.ProductDetail,
   // initialRouteName: SCREENS.RegisterFastStepTwo,
   headerMode: 'screen',
   navigationOptions: {

@@ -11,7 +11,7 @@ const PXTouchable = props => {
     const { style, children, ...otherProps } = props;
     return (
       <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple('rgba(0,0,0,.3)', false)}
+        background={TouchableNativeFeedback.Ripple('#ccc', false)}
         useForeground={TouchableNativeFeedback.canUseNativeForeground()}
         style={style}
         {...otherProps}

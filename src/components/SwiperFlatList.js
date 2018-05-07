@@ -23,11 +23,9 @@ const styles = StyleSheet.create({
   paginationContainer: {
     position: 'absolute',
     flexDirection: 'row',
-    // marginVertical: height * 0.0125,
     justifyContent: 'flex-end',
     bottom: 10,
     left: 0,
-    // right: 10,
     right: globalStyleVariables.WINDOW_WIDTH * 0.03,
   },
   pagination: {
@@ -38,39 +36,60 @@ const styles = StyleSheet.create({
   }
 });
 
-class Pagination extends PureComponent {
-  static defaultProps = {
-    data: [],
-    // paginationIndex: 0,
-    paginationActiveColor: '#64615B',
-    paginationDefaultColor: '#c8c2b7'
-  };
+let stylePaginationContainerparam;
 
-  render() {
-    const {
-      data,
-      paginationIndex,
-      scrollToIndex,
-      paginationDefaultColor,
-      paginationActiveColor
-    } = this.props;
-    return (
-      <View style={styles.paginationContainer}>
-        {data.map((_, index) => (
-          <TouchableOpacity
-            style={[
-              styles.pagination,
-              paginationIndex === index
-                ? { backgroundColor: paginationActiveColor }
-                : { backgroundColor: paginationDefaultColor }
-            ]}
-            key={index}
-            onPress={() => scrollToIndex(index)}
-          />
-        ))}
-      </View>
-    );
-  }
+// class Pagination extends PureComponent {
+//   static defaultProps = {
+//     data: [],
+//     // paginationIndex: 0,
+//     paginationActiveColor: '#64615B',
+//     paginationDefaultColor: '#c8c2b7'
+//   };
+
+//   render() {
+//     const {
+//       data,
+//       paginationIndex,
+//       scrollToIndex,
+//       paginationDefaultColor,
+//       paginationActiveColor
+//     } = this.props;
+//     return (
+//       <View style={styles.paginationContainer}>
+//         {data.map((_, index) => (
+//           <TouchableOpacity
+//             style={[
+//               styles.pagination,
+//               paginationIndex === index
+//                 ? { backgroundColor: paginationActiveColor }
+//                 : { backgroundColor: paginationDefaultColor }
+//             ]}
+//             key={index}
+//             onPress={() => scrollToIndex(index)}
+//           />
+//         ))}
+//       </View>
+//     );
+//   }
+// }
+
+const Pagination = ({ data, paginationIndex, scrollToIndex, paginationDefaultColor, paginationActiveColor }) => {
+  return (
+    <View style={[styles.paginationContainer, stylePaginationContainerparam]}>
+      {data.map((_, index) => (
+        <TouchableOpacity
+          style={[
+            styles.pagination,
+            paginationIndex === index
+              ? { backgroundColor: paginationActiveColor }
+              : { backgroundColor: paginationDefaultColor }
+          ]}
+          key={index}
+          onPress={() => scrollToIndex(index)}
+        />
+      ))}
+    </View>
+  )
 }
 
 export default class App extends PureComponent {
@@ -78,10 +97,14 @@ export default class App extends PureComponent {
   render() {
     const { 
       data: { items },
-      style
+      styleWrap,
+      style,
+      stylePaginationContainer,
+      ...restProps,
     } = this.props;
+    stylePaginationContainerparam = stylePaginationContainer;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styleWrap]}>
         <SwiperFlatList
           autoplay
           autoplayDelay={3}
@@ -90,7 +113,9 @@ export default class App extends PureComponent {
           paginationActiveColor="rgba(255,255,255,1)"
           paginationDefaultColor="rgba(255,255,255,.5)"
           showPagination
-          PaginationComponent={Pagination}>
+          PaginationComponent={Pagination}
+          {...restProps}
+        >
             {
               items && items.map((val, index) => {
                 return (<Image
