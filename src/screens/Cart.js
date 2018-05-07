@@ -110,7 +110,7 @@ class Cart extends React.Component {
 
     const onPressHandle = () => {
       cartEditRequest();
-      console.log(isEdit);
+      // console.log(isEdit);
       if (isEdit) cartEditInitRequest();
     }
     
@@ -170,7 +170,7 @@ class Cart extends React.Component {
   render() {
     const { cart, allSelected, allSelectedDel, i18n, isEdit } = this.props;
     const isEmptyCart = cart.items.length === 0 ? true : false;
-    console.log(isEdit ? allSelectedDel : allSelected);
+    // console.log(isEdit ? allSelectedDel : allSelected);
     // 
     return (
       <View style={styles.container}>
