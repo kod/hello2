@@ -1,41 +1,96 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Animated, StyleSheet } from 'react-native';
 import { TabNavigator, TabBarTop } from 'react-navigation';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 import ProductDetailMain from '../screens/ProductDetailMain';
-import Me from '../screens/Me';
+import ProductDetailParam from '../screens/ProductDetailParam';
+import ProductDetailComment from '../screens/ProductDetailComment';
 
 import { SCREENS } from '../common/constants';
 import CustomIcon from '../components/CustomIcon.js';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, PRIMARY_COLOR, STATUSBAR_HEIGHT } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, PRIMARY_COLOR, STATUSBAR_HEIGHT, SIDEINTERVAL } from '../styles/variables';
 
 const opacity_tcy = 0.8;
 
+const styles = StyleSheet.create({
+  header: {
+    position: 'absolute',
+    bottom: WINDOW_HEIGHT - STATUSBAR_HEIGHT - 90,
+    left: 0,
+    zIndex: 400,
+    flexDirection: 'row',
+    paddingTop: STATUSBAR_HEIGHT,
+    backgroundColor: '#fff',
+  },
+  header1: {
+    position: 'absolute',
+    bottom: WINDOW_HEIGHT - STATUSBAR_HEIGHT - 90,
+    left: 0,
+    zIndex: 350,
+    flexDirection: 'row',
+    paddingTop: STATUSBAR_HEIGHT,
+    backgroundColor: '#fff',
+  },
+  headerLeft: {
+    fontSize: 16,
+    width: 40,
+    height: 40,
+    lineHeight: 40,
+    textAlign: 'center',
+  },
+  headerMiddle: {
+    flex: 1,
+    height: 40,
+  },
+  headerRight: {
+    fontSize: 16,
+    width: 40,
+    height: 40,
+    lineHeight: 40,
+    textAlign: 'center',
+  },
+});
+
 class CustomTabBarComponent extends React.Component {
-  handleOnScroll = event => {
-    console.log(event);
-    // const { productdetailOpacityFetch } = this.props;
-    // let opacity = 0;
-    // const opacity_height = event.nativeEvent.layoutMeasurement.width * 0.8;
-    // if (event.nativeEvent.contentOffset.y < opacity_height) {
-    //   opacity = event.nativeEvent.contentOffset.y / opacity_height;
-    // } else {
-    //   opacity = 1;
-    // }
-    // productdetailOpacityFetch(opacity);
-  };
+
+  renderMain(style, opacity) {
+    return (
+      <Animated.View style={[style, {opacity: opacity}]} >
+        <CustomIcon name="back" style={styles.headerLeft} onPress={()=>console.log('123123')} />
+        <View style={styles.headerMiddle} ></View>
+        <TabBarTop
+          {...this.props}
+          // style={{
+          //   ...this.props.style,
+          //   opacity: activeOpacity,
+          // }}
+        />
+        <SimpleLineIcons name="share" style={styles.headerRight} onPress={()=>console.log('123123')} />
+      </Animated.View>
+    );
+  }
   
   render() {
     const { BYopacity = 1 } = this.props.screenProps;
+
+    const {
+      position,
+      navigation,
+    } = this.props;
+
+    const { routes } = navigation.state;
+    const inputRange = [-1, ...routes.map((x, i) => i)];
+    const activeOpacity = position.interpolate({
+      inputRange,
+      outputRange: [1, 0, 1, 1],
+    });
+
     return (
-      <TabBarTop
-        onScroll={this.handleOnScroll}
-        {...this.props}
-        style={{
-          ...this.props.style,
-          opacity: BYopacity,
-        }}
-      />
+      <View>
+        {this.renderMain(styles.header, activeOpacity)}
+        {this.renderMain(styles.header1, BYopacity)}
+      </View>
     );
   }
 }
@@ -45,21 +100,21 @@ const RouteConfigs = {
     screen: ProductDetailMain,
     navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.product,
-      tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={16} color={tintColor} />
+      // tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={16} color={tintColor} />
     })
   },
-  [SCREENS.Me]: {
-    screen: Me,
+  [SCREENS.ProductDetailParam]: {
+    screen: ProductDetailParam,
     navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.parameter,
-      tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
+      // tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
     })
   },
-  ['hhhhh']: {
-    screen: Me,
+  [SCREENS.ProductDetailComment]: {
+    screen: ProductDetailComment,
     navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.comment,
-      tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
+      // tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
     })
   }
 };
@@ -77,13 +132,13 @@ const TabNavigatorConfig = {
     showIcon: false,
     upperCaseLabel: false,
     style: {
-      position: 'absolute',
-      zIndex: 201,
-      bottom: WINDOW_HEIGHT - STATUSBAR_HEIGHT - 40,
-      left: 40,
+      // position: 'absolute',
+      // zIndex: 401,
+      // bottom: WINDOW_HEIGHT - STATUSBAR_HEIGHT - 90,
+      // left: 40,
       width: WINDOW_WIDTH - 80,
       height: 40,
-      backgroundColor: '#fff',
+      backgroundColor: 'transparent',
       elevation: 0,
       shadowOpacity: 0,
       padding: 0,

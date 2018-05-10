@@ -1,7 +1,7 @@
 import { PRODUCTDETAIL_OPACITY } from '../constants/actionTypes';
 
 const initState = {
-  value: 1,
+  value: 0,
 };
 
 export default function productdetailOpacity(state = initState, action) {

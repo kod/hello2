@@ -1,4 +1,5 @@
 export const SCREENS = {
+  Test: 'Test',
   Index: 'Index',
   Recharge: 'Recharge',
   Cart: 'Cart',
@@ -18,6 +19,8 @@ export const SCREENS = {
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',
   ProductDetailMain: 'ProductDetailMain',
+  ProductDetailParam: 'ProductDetailParam',
+  ProductDetailComment: 'ProductDetailComment',
 };
 
 export const CARMAXNUMBER = 50;
