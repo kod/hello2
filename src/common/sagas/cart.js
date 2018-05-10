@@ -191,9 +191,9 @@ export function* cartDeleteRequestWatchHandle(action) {
     let version = '2.0';
     
     const { funid, cartitemids, orderno = '' } = action.payload;
-    console.log(funid);
-    console.log(cartitemids);
-    console.log(orderno);
+    // console.log(funid);
+    // console.log(cartitemids);
+    // console.log(orderno);
     
     // const funid = action.payload.funid;
     // const cartitemids = action.payload.cartitemids;
@@ -234,7 +234,7 @@ export function* cartDeleteRequestWatchHandle(action) {
       }
     ]);
 
-    console.log(response);
+    // console.log(response);
     if (response.code === 10000) {
       yield put(cartDeleteSuccess());
     } else {
@@ -243,7 +243,7 @@ export function* cartDeleteRequestWatchHandle(action) {
     }
 
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     yield put(cartDeleteFailure());
     yield put(addError(err));
   }

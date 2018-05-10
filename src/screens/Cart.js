@@ -7,7 +7,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, HEADER_BACKGROUND_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
-import ProductItem2 from "../components/ProductItem2";
 import CartItem from "../components/CartItem";
 import BYTextInput from "../components/BYTextInput";
 import { connectLocalization } from "../components/Localization";

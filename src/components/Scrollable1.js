@@ -152,13 +152,7 @@ class Scrollable1 extends React.Component {
 
         <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} />
 
-        <ProductItem2
-          data={adverstInfo}
-          // styleItem={{marginBottom: 25, borderTopColor: '#f5f5f5', borderTopWidth: 1,}}
-          // styleItemLeft={{paddingLeft: 0, paddingTop: 15, paddingBottom: 15,}}
-          // itemLeft={this.renderProductItem2Left()}
-          // itemRight={this.renderProductItem2Right()}
-        />
+        <ProductItem2 data={adverstInfo} />
       </View>
     );
   }

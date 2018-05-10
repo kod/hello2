@@ -72,14 +72,14 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProductItem2 extends Component {
+class CartItem extends Component {
 
   componentDidMount() {
     // const { cartNumberRequest, authUser } = this.props;
     // authUser && cartNumberRequest(authUser.result, 297, 4);
   }
 
-  renderProductItem2Left = (id, selected) => {
+  renderCartItemLeft = (id, selected) => {
     const { isEdit } = this.props;
     const styles = StyleSheet.create({
       container: {
@@ -113,7 +113,7 @@ class ProductItem2 extends Component {
     );
   };
 
-  renderProductItem2Right = (id, quantity) => {
+  renderCartItemRight = (id, quantity) => {
     id = id + '';
     quantity = quantity + '';
     const styles = StyleSheet.create({
@@ -235,7 +235,7 @@ class ProductItem2 extends Component {
           items.map((val, key) => {
             return (
               <View style={[styles.item, styleItem]} key={key}>
-                {this.renderProductItem2Left(val, isEdit ? products[val].selectedDel : products[val].selected)}
+                {this.renderCartItemLeft(val, isEdit ? products[val].selectedDel : products[val].selected)}
                 <View style={[styles.itemLeft, styleItemLeft]}>
                   <Image style={styles.itemImage} source={{ uri: details[products[val].detail].iconUrl }} />
                 </View>
@@ -247,7 +247,7 @@ class ProductItem2 extends Component {
                     <Text style={styles.itemRightRow3Number}>x12 Tháng</Text>
                   </View>
                 </View>
-                {this.renderProductItem2Right(val, products[val].quantity)}
+                {this.renderCartItemRight(val, products[val].quantity)}
               </View>
             );
           })}
@@ -266,4 +266,4 @@ export default connect(
   {
     ...cartActionCreators
   }
-)(ProductItem2);
+)(CartItem);
