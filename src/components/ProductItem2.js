@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { connect } from "react-redux";
+import { withNavigation } from 'react-navigation';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH } from "../styles/variables";
 import priceFormat from '../common/helpers/priceFormat';
 import { CARMAXNUMBER } from "../common/constants";
 import BYTouchable from "../components/BYTouchable";
-import { PRIMARY_COLOR } from "../styles/variables";
+import { SCREENS } from "../common/constants";
+
+import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR } from "../styles/variables";
 
 import BYTextInput from "../components/BYTextInput";
 
 import * as cartActionCreators from  "../common/actions/cart";
-
 
 const itemIntervalWidth = SIDEINTERVAL;
 const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
@@ -75,146 +77,6 @@ const styles = StyleSheet.create({
 
 class ProductItem2 extends Component {
 
-  componentDidMount() {
-    // const { cartNumberRequest, authUser } = this.props;
-    // authUser && cartNumberRequest(authUser.result, 297, 4);
-  }
-
-  renderProductItem2Left = (id, selected) => {
-    const styles = StyleSheet.create({
-      container: {
-        width: WINDOW_WIDTH * 0.134,
-        // backgroundColor: '#f00',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      icon: {
-        fontSize: 20,
-        color: '#666',
-      },
-      iconSelected: {
-        fontSize: 20,
-        color: PRIMARY_COLOR,
-        // 
-      },
-    });
-
-    const onPressHandle = (id, selected) => {
-      const { cartSelectRequest } = this.props;
-      cartSelectRequest(id, selected);
-    }
-
-    return (
-      <BYTouchable style={styles.container} onPress={() => onPressHandle(id, !selected)} >
-        {
-          selected
-          ? <Ionicons name={'ios-radio-button-on-outline'} style={styles.iconSelected} />
-          : <Ionicons name={'ios-radio-button-off-outline'} style={styles.icon} />
-        }
-      </BYTouchable>
-    );
-  };
-
-  renderProductItem2Right = (id, quantity) => {
-    id = id + '';
-    quantity = quantity + '';
-    const styles = StyleSheet.create({
-      container: {
-        position: 'relative',
-        width: 30 + SIDEINTERVAL,
-        paddingRight: SIDEINTERVAL,
-      },
-      number: {
-        // display: 'none',
-      },
-      addIcon: {
-        height: 30,
-        lineHeight: 30,
-        width: 30,
-        textAlign: 'center',
-        fontSize: 18,
-        color: '#999',
-        backgroundColor: '#f5f5f5',
-        fontWeight: '900',
-      },
-      removeIcon: {
-        height: 30,
-        lineHeight: 30,
-        width: 30,
-        textAlign: 'center',
-        fontSize: 18,
-        color: '#999',
-        backgroundColor: '#f5f5f5',
-        fontWeight: '900',
-      },
-      removeIconDisable: {
-        opacity: 0.5
-      },
-      textInput: {
-        height: 30,
-        width: 30,
-        backgroundColor: '#ccc',
-        textAlign: 'center',
-        fontSize: 11,
-        color: '#fff',
-      },
-      tips: {
-        position: 'absolute',
-        top: 30,
-        left: -15 - SIDEINTERVAL,
-        backgroundColor: RED_COLOR,
-        transform: [{ rotate: '90deg'}],
-        display: 'none',
-      },
-      tipsText: {
-        height: 30,
-        lineHeight: 30,
-        width: 90,
-        textAlign: 'center',
-        fontSize: 11,
-        color: '#fff',
-      },
-    });
-
-    const onChangeTextHandle = (text, id) => {
-      if (text < 1 || text > CARMAXNUMBER) return false;
-      const { cartNumberRequest, authUser } = this.props;
-      authUser && cartNumberRequest(authUser.result, id, text);
-      }
-    
-    return (
-      <View style={styles.container} >
-        <View style={styles.number} >
-          <BYTouchable onPress={() => onChangeTextHandle(parseInt(quantity) - 1, id)} >
-            <Ionicons 
-              name={'ios-remove'} 
-              style={[styles.removeIcon, quantity === '1' && styles.removeIconDisable]} 
-            />
-          </BYTouchable>
-          <BYTextInput 
-            style={styles.textInput} 
-            keyboardType={'numeric'} 
-            value={quantity} 
-            // onChangeText={(text) => onChangeTextHandle(text, id)}
-            editable={false}
-          />
-          <BYTouchable onPress={() => onChangeTextHandle(parseInt(quantity) + 1, id)} >
-            <Ionicons 
-              name={'ios-add'} 
-              style={[
-                styles.addIcon, 
-                parseInt(quantity) === CARMAXNUMBER && styles.removeIconDisable
-              ]} 
-            />
-          </BYTouchable>
-        </View>
-        <BYTouchable style={styles.tips} >
-          <Text style={styles.tipsText} >Kệ sản phẩm</Text>
-        </BYTouchable>
-      </View>
-    );
-  };
-  
   render() {
     const 
       {
@@ -226,17 +88,17 @@ class ProductItem2 extends Component {
         itemLeft,
         itemRight,
         cartNumberRequest,
+        navigation: { navigate },
         ...restProps
       } = this.props;
-    
+
     const { items } = data;
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
         {items &&
           items.map((val, key) => {
             return (
-              <View style={[styles.item, styleItem]} key={key}>
-                {this.renderProductItem2Left(val.id, val.selected)}
+              <BYTouchable style={[styles.item, styleItem]} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId })} >
                 <View style={[styles.itemLeft, styleItemLeft]}>
                   <Image style={styles.itemImage} source={{ uri: val.imageUrl }} />
                 </View>
@@ -248,8 +110,7 @@ class ProductItem2 extends Component {
                     <Text style={styles.itemRightRow3Number}>x12 Tháng</Text>
                   </View>
                 </View>
-                {this.renderProductItem2Right(val.id, val.quantity)}
-              </View>
+              </BYTouchable>
             );
           })}
       </View>
@@ -257,13 +118,15 @@ class ProductItem2 extends Component {
   }
 };
 
-export default connect(
-  state => {
-    return {
-      authUser: state.auth.user
+export default withNavigation(
+  connect(
+    state => {
+      return {
+        authUser: state.auth.user
+      }
+    },
+    {
+      ...cartActionCreators
     }
-  },
-  {
-    ...cartActionCreators
-  }
-)(ProductItem2);
+  )(ProductItem2)
+);
