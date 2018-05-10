@@ -13,6 +13,7 @@ import RegisterFastStepOne from '../screens/RegisterFastStepOne';
 import RegisterFastStepTwo from '../screens/RegisterFastStepTwo';
 import ForgotPasswordOne from '../screens/ForgotPasswordOne';
 import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
+import Test from '../screens/Test';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -92,13 +93,19 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.Test]: {
+    screen: Test,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
-  initialRouteName: SCREENS.ProductDetail,
-  // initialRouteName: SCREENS.RegisterFastStepTwo,
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.ProductDetail,
+  // initialRouteName: SCREENS.Test,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {
