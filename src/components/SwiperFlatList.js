@@ -9,7 +9,7 @@ const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     width,
-    backgroundColor: '#ff0',
+    backgroundColor: '#fff',
   },
   child: {
     height: globalStyleVariables.WINDOW_WIDTH / 2.25,
