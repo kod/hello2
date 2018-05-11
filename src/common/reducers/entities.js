@@ -1,10 +1,10 @@
 export default function entities(
   state = {
-    illusts: {},
-    illustComments: {},
-    users: {},
-    userPreviews: {},
-    userProfiles: {},
+    product_detail: {},
+    properties_detail: {},
+    // users: {},
+    // userPreviews: {},
+    // userProfiles: {},
   },
   action,
 ) {
@@ -18,5 +18,9 @@ export default function entities(
       };
     });
     return newState;
+  }
+  switch (action.type) {
+    default:
+      return state;
   }
 }

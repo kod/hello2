@@ -16,6 +16,8 @@ import auth from './auth';
 import userCertificateInfo from './userCertificateInfo';
 import cart from './cart';
 import productdetailOpacity from './productdetailOpacity';
+import productDetailInfo from './productDetailInfo';
+import entities from './entities';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -34,6 +36,8 @@ const rootReducer = combineReducers({
   userCertificateInfo,
   cart,
   productdetailOpacity,
+  productDetailInfo,
+  entities,
   form: formReducer,
 });
 

@@ -37,7 +37,7 @@ export default function configureStore() {
       // 'browsingHistory',
       // 'highlightTags',
       // 'muteTags',
-      // 'muteUsers',
+      'entities',
       'userCertificateInfo',
       'auth',
       'i18n',
