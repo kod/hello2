@@ -169,8 +169,44 @@ export const CART_DELETE = defineAction(
   appNamespace,
 );
 
-export const PRODUCTDETAIL_OPACITY = defineAction(
-  'PRODUCTDETAIL_OPACITY',
+export const PRODUCT_DETAIL = defineAction(
+  'PRODUCT_DETAIL',
+  [REQUEST, SUCCESS, FAILURE, STOP, CLEAR],
+  appNamespace,
+);
+
+export const PRODUCT_DETAIL_OPACITY = defineAction(
+  'PRODUCT_DETAIL_OPACITY',
+  [REQUEST],
+  appNamespace,
+);
+
+export const PRODUCT_DETAIL_INFO = defineAction(
+  'PRODUCT_DETAIL_INFO',
+  [REQUEST, SUCCESS, FAILURE, STOP, CLEAR],
+  appNamespace,
+);
+
+export const PRODUCT_DETAIL_NUMBER = defineAction(
+  'PRODUCT_DETAIL_NUMBER',
+  [REQUEST],
+  appNamespace,
+);
+
+export const PRODUCT_DETAIL_COLORID = defineAction(
+  'PRODUCT_DETAIL_COLORID',
+  [REQUEST],
+  appNamespace,
+);
+
+export const PRODUCT_DETAIL_VERSIONID = defineAction(
+  'PRODUCT_DETAIL_VERSIONID',
+  [REQUEST],
+  appNamespace,
+);
+
+export const PRODUCT_DETAIL_SELECT = defineAction(
+  'PRODUCT_DETAIL_SELECT',
   [REQUEST],
   appNamespace,
 );

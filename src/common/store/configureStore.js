@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { persistStore, autoRehydrate, createTransform } from 'redux-persist';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import { REHYDRATE } from 'redux-persist/constants';
 import createActionBuffer from 'redux-action-buffer';
 import { AsyncStorage } from 'react-native';
@@ -36,11 +36,14 @@ export default function configureStore() {
       // 'searchHistory',
       // 'browsingHistory',
       // 'highlightTags',
-      // 'muteTags',
+      // 'productDetailInfo',
       'entities',
       'userCertificateInfo',
       'auth',
       'i18n',
+    ],
+    blacklist: [
+      'productDetailInfo',
     ],
     storage: AsyncStorage,
   });

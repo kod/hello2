@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions, } from 'react-native';
+import { withNavigation } from 'react-navigation';
+
+import BYTouchable from "../components/BYTouchable";
+import { SCREENS } from "../common/constants";
+
 import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR } from "../styles/variables";
 import priceFormat from "../common/helpers/priceFormat";
 
@@ -54,19 +59,30 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ data, style, ...restProps }) => {
-  return (
-    <View style={[styles.itemWrap, style]} {...restProps}>
+class ProductItem1 extends Component {
+  render() {
+    const {
+      data, 
+      style,
+      navigation: { navigate },
+      ...restProps
+    } = this.props;
+    
+    return (
+      <View style={[styles.itemWrap, style]} {...restProps}>
         {data.map((val, key) => {
           return (
-            <View style={styles.item} key={key}>
+            <BYTouchable style={styles.item} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, id: val.id })} >
               <Image style={styles.itemImg} source={{ uri: val.imageUrl }} />
               <Text numberOfLines={2} style={styles.itemText}>{val.name}</Text>
               {!!val.orgPrice && <Text style={styles.itemOrgPrice}>{priceFormat(val.orgPrice) + ' ₫'}</Text>}
               <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>
-            </View>
+            </BYTouchable>
           );
         })}
     </View>
   );
-};
+  }
+}
+
+export default withNavigation(ProductItem1);

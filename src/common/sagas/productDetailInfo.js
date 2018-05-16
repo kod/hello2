@@ -1,0 +1,201 @@
+import { Platform } from 'react-native';
+import { normalize } from 'normalizr';
+import { takeEvery, apply, put } from 'redux-saga/effects';
+import { productDetailInfoFetchSuccess, productDetailInfoFetchFailure } from '../actions/productDetailInfo';
+import { addError } from '../actions/error';
+import buyoo from '../helpers/apiClient';
+import { PRODUCT_DETAIL_INFO } from '../constants/actionTypes';
+import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import timeStrForm from "../../common/helpers/timeStrForm";
+import Schemas from "../../common/constants/schemas";
+
+export function* productDetailInfoFetchWatchHandle(action) {
+
+  const get_propertiesIds = (propertiesIds, properties_detail) => {
+    console.log(propertiesIds);
+    console.log(properties_detail);
+
+    let result = {
+      colorId: 0,
+      versionId: 0,
+    };
+
+    propertiesIds = propertiesIds.split('-');
+    propertiesIds.forEach((id1, key) => {
+      properties_detail.forEach((val1, key1) => {
+        const id2 = val1.id;
+        if (parseInt(id1) !== id2) return false;
+        val1.image ? result.colorId = id2 : result.versionId = id2;
+      })
+    });
+    return result;
+  }
+
+  const get_productDetail = (propertiesIdsResult, product_detail) => {
+    let result = {};
+    const propertiesArray = [];
+    
+    if (propertiesIdsResult.colorId) propertiesArray.push(propertiesIdsResult.colorId);
+    if (propertiesIdsResult.versionId) propertiesArray.push(propertiesIdsResult.versionId);
+
+    if (!propertiesArray.length) return {};
+
+    return product_detail.filter((val, key) => {
+      return propertiesArray.every((val1, key1) => {
+        return val.propertiesIds.indexOf(val1 + '') !== -1;
+      })
+    })[0];
+
+    // product_detail.forEach((val, key) => {
+    //   const item = propertiesArray.every((val1, key1) => {
+    //     return val.propertiesIds.indexOf(val1 + '') !== -1;
+    //   })
+    //   if (item) result = val;
+    // });
+    // return result;
+  };
+
+  const productDetailColorVersionList = (properties_detail) => {
+    let result = {
+      product_color: [],
+      product_version: [],
+    }
+
+    properties_detail.forEach((val, key) => {
+      if (val.image) {
+        result.product_color.push(val);
+      } else {
+        result.product_version.push(val);
+      }
+    });
+    return result;
+  };
+  
+  const {
+    brand_id,
+  } = action.payload;
+  let propertiesIds = action.payload.propertiesIds;
+
+  try {
+    let Key = 'commodityKey';
+    let appId = Platform.OS === 'ios' ? '1' : '2';
+    let method = 'fun.brand.query';
+    let charset = 'utf-8';
+    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let version = '2.1';
+
+    let signType = signType_MD5(appId, method, charset, Key, false);
+
+    let encrypt = encrypt_MD5(
+      [
+        {
+          key: 'brand_id',
+          value: brand_id
+        },
+      ],
+      Key
+    );
+
+    const response = yield apply(buyoo, buyoo.getProductDetailInfo, [
+      {
+        appId: appId,
+        method: method,
+        charset: charset,
+        signType: signType,
+        encrypt: encrypt,
+        timestamp: timestamp,
+        version: version,
+        brand_id: brand_id,
+      }
+    ]);
+
+    if (response.code !== 10000) {
+      yield put(productDetailInfoFetchFailure());
+      yield put(addError(response.msg));
+      return false;
+    }
+
+    console.log('DDDDDDDDDDDDDDDD');
+    console.log(response);
+
+    const { properties_detail, brand_detail } = response;
+
+    const product_detail = response.product_detail.map((val, key) => {
+      val.imageUrls = val.imageUrls.split('|');
+      return val;
+    });
+    
+    propertiesIds = propertiesIds || product_detail[0].propertiesIds;
+    
+    const goodsProperties = product_detail[0].goodsProperties.split('|');
+
+    const imageDesc = brand_detail.desc.split('|');
+    
+    const propertiesIdsResult = get_propertiesIds(propertiesIds, properties_detail)
+    console.log(propertiesIdsResult);
+    
+    const productDetailResult = get_productDetail(propertiesIdsResult, product_detail);
+    console.log(productDetailResult);
+    
+    const productDetailColorVersionListResult = productDetailColorVersionList(properties_detail);
+    console.log(productDetailColorVersionListResult);
+    console.log('JJJJJJJJJJJJ');
+
+    yield put(productDetailInfoFetchSuccess(
+      product_detail,
+      productDetailResult,
+      propertiesIdsResult,
+      productDetailColorVersionListResult,
+      goodsProperties,
+      imageDesc,
+    ));
+
+
+    // response = {
+    //   ...brand_detail,
+    //   product_detail,
+    //   properties_detail,
+    // }
+
+    // let edited = {
+    //   product_color: [],
+    //   product_version: [],
+    //   productDetailJson: {},
+    //   propertiesIds: '',
+    // };
+
+    // edited.propertiesIds = product_detail[0] ? product_detail[0].propertiesIds : '';
+
+    // edited.productDetailJson = product_detail.reduce((a, b, index) => {
+    //   if (index === 1) {
+    //       return {
+    //           [a.propertiesIds]: a,
+    //           [b.propertiesIds]: b,
+    //       }
+    //   } else {
+    //       return {
+    //           ...a,
+    //           [b.propertiesIds]: b,
+    //       }
+    //   }
+    // });
+
+    // const normalized = normalize(
+    //   response, 
+    //   Schemas.PRODUCTDETAIL,
+    // );
+
+    // yield put(productDetailInfoFetchSuccess(
+    //   normalized.entities,
+    //   normalized.result,
+    //   brand_id,
+    // ));
+  } catch (err) {
+    yield put(productDetailInfoFetchFailure());
+    yield put(addError(err));
+  }
+}
+
+export function* productDetailInfoFetchWatch() {
+  yield takeEvery(PRODUCT_DETAIL_INFO.REQUEST, productDetailInfoFetchWatchHandle);
+}

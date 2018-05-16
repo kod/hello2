@@ -1,5 +1,5 @@
-import { normalize } from 'normalizr';
 import { Platform } from 'react-native';
+import { normalize } from 'normalizr';
 import {
   take,
   call,

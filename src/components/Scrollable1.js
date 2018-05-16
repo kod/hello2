@@ -101,7 +101,9 @@ class Scrollable1 extends React.Component {
   render() {
     const { bannerSwiper, bannerHomeType, promotionInfo, mergeGetInfo, adverstInfo, navigation: { navigate }, i18n } = this.props;
     const mergeGetInfoList = mergeGetInfo.items;
+    const bannerSwiperList = bannerSwiper.items;
 
+    
     const nav1Data = [
       {
         imageSource: require('../images/coupon.png'), 
@@ -128,7 +130,7 @@ class Scrollable1 extends React.Component {
     
     return (
       <View>
-        <SwiperFlatList data={bannerSwiper} />
+        {/* <SwiperFlatList data={bannerSwiperList} />
         
         <NavImg1 data={nav1Data} />
 
@@ -150,7 +152,7 @@ class Scrollable1 extends React.Component {
 
         <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
 
-        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} />
+        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} /> */}
 
         <ProductItem2 data={adverstInfo} />
       </View>

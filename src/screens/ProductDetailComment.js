@@ -20,7 +20,6 @@ import {
 } from "../styles/variables";
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
-import * as productdetailOpacityActionCreators from '../common/actions/productdetailOpacity';
 
 const styles = StyleSheet.create({
   container: {
@@ -66,4 +65,4 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...productdetailOpacityActionCreators })(ProductDetailComment);
+export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetailComment);

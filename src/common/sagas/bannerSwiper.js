@@ -241,7 +241,3 @@ export function* bannerSwiperFetchWatchHandle(action) {
 export function* bannerSwiperFetchWatch() {
   yield takeEvery(BANNER_SWIPER.REQUEST, bannerSwiperFetchWatchHandle);
 }
-
-// export function* watchAddIllustComment() {
-//   yield takeEvery(ILLUST_COMMENTS.ADD, handleAddIllustComment);
-// }

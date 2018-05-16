@@ -38,41 +38,6 @@ const styles = StyleSheet.create({
 
 let stylePaginationContainerparam;
 
-// class Pagination extends PureComponent {
-//   static defaultProps = {
-//     data: [],
-//     // paginationIndex: 0,
-//     paginationActiveColor: '#64615B',
-//     paginationDefaultColor: '#c8c2b7'
-//   };
-
-//   render() {
-//     const {
-//       data,
-//       paginationIndex,
-//       scrollToIndex,
-//       paginationDefaultColor,
-//       paginationActiveColor
-//     } = this.props;
-//     return (
-//       <View style={styles.paginationContainer}>
-//         {data.map((_, index) => (
-//           <TouchableOpacity
-//             style={[
-//               styles.pagination,
-//               paginationIndex === index
-//                 ? { backgroundColor: paginationActiveColor }
-//                 : { backgroundColor: paginationDefaultColor }
-//             ]}
-//             key={index}
-//             onPress={() => scrollToIndex(index)}
-//           />
-//         ))}
-//       </View>
-//     );
-//   }
-// }
-
 const Pagination = ({ data, paginationIndex, scrollToIndex, paginationDefaultColor, paginationActiveColor }) => {
   return (
     <View style={[styles.paginationContainer, stylePaginationContainerparam]}>
@@ -96,7 +61,7 @@ export default class App extends PureComponent {
 
   render() {
     const { 
-      data: { items },
+      data,
       styleWrap,
       style,
       stylePaginationContainer,
@@ -117,7 +82,7 @@ export default class App extends PureComponent {
           {...restProps}
         >
             {
-              items && items.map((val, index) => {
+              data && data.map((val, index) => {
                 return (<Image
                   key={index} 
                   source={{uri: val}}

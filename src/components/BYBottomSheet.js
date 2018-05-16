@@ -68,12 +68,14 @@ class PXBottomSheet extends Component {
   };
 
   handleOnCloseModal = () => {
+    const { listenCloseModal } = this.props;
     this.setModalVisible(false);
+    listenCloseModal && listenCloseModal();
   };
 
   render() {
     const { children, onCancel } = this.props;
-    const { animatedHeight, modalVisible } = this.state;
+    const { animatedHeight, modalVisible, } = this.state;
     return (
       <Modal
         transparent

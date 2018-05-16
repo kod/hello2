@@ -17,10 +17,26 @@ const productsSchema = new schema.Entity(
   },
 );
 
+const productDetailSchema = new schema.Entity(
+  'product_detail', 
+  {
+    idAttribute: 'id',
+  }
+);
+
+const propertiesDetailSchema = new schema.Entity(
+  'properties_detail', 
+  {
+    idAttribute: 'id',
+  }
+);
 
 const Schemas = {
-  // ILLUST: illustSchema,
   PRODUCTS_ARRAY: [productsSchema], 
+  PRODUCTDETAIL: {
+    product_detail: [productDetailSchema],
+    properties_detail: [propertiesDetailSchema]
+  },
 };
 
 export default Schemas;

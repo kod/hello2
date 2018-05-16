@@ -15,7 +15,7 @@ import i18n from './i18n';
 import auth from './auth';
 import userCertificateInfo from './userCertificateInfo';
 import cart from './cart';
-import productdetailOpacity from './productdetailOpacity';
+import productDetail from './productDetail';
 import productDetailInfo from './productDetailInfo';
 import entities from './entities';
 
@@ -35,7 +35,7 @@ const rootReducer = combineReducers({
   auth,
   userCertificateInfo,
   cart,
-  productdetailOpacity,
+  productDetail,
   productDetailInfo,
   entities,
   form: formReducer,

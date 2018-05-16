@@ -22,8 +22,7 @@ import {
   PRIMARY_COLOR,
 } from "../styles/variables";
 
-import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
-import * as productdetailOpacityActionCreators from '../common/actions/productdetailOpacity';
+import * as productDetailActionCreators from '../common/actions/productDetail';
 
 const styles = StyleSheet.create({
   container: {
@@ -144,12 +143,11 @@ const styles = StyleSheet.create({
 
 class ProductDetail extends React.Component {
   componentDidMount() {
-    const { bannerSwiperFetch } = this.props;
-    bannerSwiperFetch('one');
+
   }
 
   handleOnScroll = event => {
-    const { productdetailOpacityFetch } = this.props;
+    const { productDetailOpacityFetch } = this.props;
     let opacity = 0;
     const opacity_height = event.nativeEvent.layoutMeasurement.width * 0.8;
     if (event.nativeEvent.contentOffset.y < opacity_height) {
@@ -157,12 +155,17 @@ class ProductDetail extends React.Component {
     } else {
       opacity = 1;
     }
-    productdetailOpacityFetch(opacity);
+    productDetailOpacityFetch(opacity);
   };
   
   render() {
-    const { bannerSwiper } = this.props;
-
+    const {
+      name,
+      screenProps: {swiper, handleOnPressToggleMenuBottomSheet},
+    } = this.props;
+    console.log('ProductDetailMainProductDetailMainProductDetailMain');
+    console.log(this.state);
+    console.log(this.props);
     return (
       <View style={styles.container} >
         <ScrollView onScroll={this.handleOnScroll}>
@@ -171,14 +174,14 @@ class ProductDetail extends React.Component {
           </View>
           <View style={styles.statusbarPlaceholder} ></View>
           <SwiperFlatList 
-            data={bannerSwiper} 
+            data={swiper} 
             style={{ height: WINDOW_WIDTH, }} 
             styleWrap={{ paddingBottom: WINDOW_WIDTH * 0.03, backgroundColor: '#fff' }}
             stylePaginationContainer={{ justifyContent: 'center', }}
             autoplay={false}
           />
           <View style={styles.product} >
-            <Text style={styles.productTitle} >MI mix2</Text>
+            <Text style={styles.productTitle} >{name}</Text>
             <Text style={styles.productPrice} >2.800.500 VND</Text>
             <View style={styles.serverinfo} >
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" ></CustomIcon>
@@ -188,7 +191,7 @@ class ProductDetail extends React.Component {
             </View>
             <View style={styles.spec} >
               <Text style={styles.specTitle} >đã chọn</Text>
-              <Text style={styles.specDesc} >4+64g  balck  x1</Text>
+              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet()} >4+64g  balck  x1</Text>
               <CustomIcon style={styles.specArrow} name="arrowright" />
             </View>
           </View>
@@ -219,11 +222,23 @@ class ProductDetail extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { bannerSwiper } = state;
-  return {
-    bannerSwiper: bannerSwiper['one'] || {}
-  };
-}
+// function mapStateToProps(state, props) {
+//   const { productDetailInfo } = state;
+//   return {
+//     detial: {
+//       ...productDetailInfo.item
+//     },
+//   };
+// }
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...productdetailOpacityActionCreators })(ProductDetail);
+export default connect(
+  (state, props) => {
+    const { productDetailInfo } = state;
+    return {
+      ...productDetailInfo.item,
+    }
+  },
+  {
+    ...productDetailActionCreators
+  }
+)(ProductDetail);

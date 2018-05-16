@@ -9,17 +9,14 @@ import {
   WebView,
   UIManager,
   Platform,
+  InteractionManager,
+  DeviceEventEmitter,
+  ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import CustomIcon from "../components/CustomIcon";
-import BYBottomSheet from "../components/BYBottomSheet";
-import BYTextInput from "../components/BYTextInput";
-import BYTouchable from "../components/BYTouchable";
-import ProductDetailTabNavigator from "../navigations/ProductDetailTabNavigator";
 
 import {
   WINDOW_WIDTH,
@@ -31,7 +28,23 @@ import {
   RED_COLOR
 } from "../styles/variables";
 
-import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
+import * as productDetailActionCreators from '../common/actions/productDetail';
+import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
+
+import {
+  makegetProductDetailInfo,
+  makegetProductDetailProperties,
+  makegetProductDetailItem,
+  makegetProductDetailColorVersionList,
+} from '../common/selectors';
+import CustomIcon from "../components/CustomIcon";
+import BYBottomSheet from "../components/BYBottomSheet";
+import BYTextInput from "../components/BYTextInput";
+import BYTouchable from "../components/BYTouchable";
+import { connectLocalization } from "../components/Localization";
+import ProductDetailTabNavigator from "../navigations/ProductDetailTabNavigator";
+import priceFormat from "../common/helpers/priceFormat";
+
 
 const styles = StyleSheet.create({
   container: {
@@ -104,15 +117,18 @@ const styles = StyleSheet.create({
     // marginBottom: 20,
   },
   paramColorItem: {
-    width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
-    height: 40,
-    lineHeight: 40,
+    // width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
+    
+    height: 35,
+    lineHeight: 35,
     textAlign: 'center',
     marginRight: SIDEINTERVAL,
     marginBottom: SIDEINTERVAL,
     color: '#999',
     borderColor: '#f5f5f5',
     borderWidth: 1,
+    paddingLeft: WINDOW_WIDTH * 0.05,
+    paddingRight: WINDOW_WIDTH * 0.05,
   },
   paramColorItemAcitve: {
     borderColor: PRIMARY_COLOR,
@@ -140,8 +156,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     color: '#999',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     fontWeight: '900',
+    borderColor: '#f5f5f5',
+    borderWidth: 1,
   },
   paramNumberAddIcon: {
     height: 30,
@@ -150,8 +168,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     color: '#999',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     fontWeight: '900',
+    borderColor: '#f5f5f5',
+    borderWidth: 1,
   },
   paramNumberIconDisable: {
     opacity: 0.5,
@@ -159,10 +179,14 @@ const styles = StyleSheet.create({
   paramNumberTextInput: {
     height: 30,
     width: 30,
-    backgroundColor: '#ccc',
+    backgroundColor: '#fff',
     textAlign: 'center',
     fontSize: 11,
-    color: '#fff',
+    color: '#666',
+    borderTopColor: '#f5f5f5',
+    borderBottomColor: '#f5f5f5',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
   },
   buttonWrap: {
     paddingLeft: SIDEINTERVAL,
@@ -181,10 +205,12 @@ const styles = StyleSheet.create({
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isOpenMenuBottomSheet: false,
+      productDetail: {},
     };
-    this.listViewOffset = 0;
+
     if (Platform.OS === 'android') {
       UIManager.setLayoutAnimationEnabledExperimental &&
         UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -192,19 +218,42 @@ class ProductDetail extends React.Component {
   }
 
   componentDidMount() {
-    const { bannerSwiperFetch } = this.props;
-    bannerSwiperFetch('one');
+    const {
+      productDetailInfoFetch,
+      productDetailInfoClear,
+      productDetailInfoResult,
+      propertiesIds,
+      brandId,
+      productDetailColorIdFetch,
+      productDetailVersionIdFetch,
+      // productDetailInfo: { product_detail, properties_detail }
+    } = this.props;
+
+    productDetailInfoFetch(brandId, propertiesIds);
+    // if (!productDetailInfoResult || !productDetailInfoResult.result) {
+    //   productDetailInfoClear(brandId);
+    //   InteractionManager.runAfterInteractions(() => {
+    //     productDetailInfoFetch(brandId);
+    //   });
+    // }
+
+    // setTimeout(() => {
+    //   this.handleOnPressToggleMenuBottomSheet();
+    // }, 300);
+
+    
   }
 
-  handleOnCancelMenuBottomSheet = () => {
-    this.setState({
-      isOpenMenuBottomSheet: false,
-    });
-  };
+  // handleOnCancelMenuBottomSheet = () => {
+  //   this.setState({
+  //     isOpenMenuBottomSheet: false,
+  //   });
+  // };
 
-  handleOnPressOpenMenuBottomSheet = selectedImageIndex => {
+  handleOnPressToggleMenuBottomSheet = selectedImageIndex => {
+    console.log(this.state.isOpenMenuBottomSheet);
     const newState = {
-      isOpenMenuBottomSheet: true,
+      isOpenMenuBottomSheet: !this.state.isOpenMenuBottomSheet,
     };
     // if (selectedImageIndex !== null) {
     //   newState.selectedImageIndex = selectedImageIndex;
@@ -212,45 +261,149 @@ class ProductDetail extends React.Component {
     this.setState(newState);
   };
 
+  setProductDetail(propertiesIds) {
+    const {
+      productDetailColorIdFetch,
+      productDetailVersionIdFetch,
+      productDetailInfo,
+    } = this.props;
+    if (!productDetailInfo.id) return false;
+    if (propertiesIds.colorId) {
+      console.log('rrrrrrrrrrrrrr');
+      productDetailColorIdFetch(propertiesIds.colorId);
+      // InteractionManager.runAfterInteractions(() => productDetailColorIdFetch(propertiesIds.colorId));
+    }
+    if (propertiesIds.versionId) {
+      productDetailVersionIdFetch(propertiesIds.versionId)
+      // InteractionManager.runAfterInteractions(() => productDetailVersionIdFetch(propertiesIds.versionId));
+    }
+  }
+
+  // 是否有改组合商品
+  productPartner(propertiesIdsObject) {
+    const { product_detail } = this.props;
+    return product_detail.filter((val, key) => {
+      return Object.values(propertiesIdsObject).every((val1, key1) => val.propertiesIds.indexOf(val1 + '') !== -1)
+    })[0];
+  }
+
+  selectVersion(id) {
+    const { productDetailSelect, propertiesIdsObject, } = this.props;
+    let object = {
+      colorId: propertiesIdsObject.colorId,
+      versionId: id,
+    };
+    const productDetail = this.productPartner(object);
+    productDetail ? productDetailSelect(object, productDetail) : ToastAndroid.show('无此组合', ToastAndroid.SHORT);
+  }
+
+  selectColor(id) {
+    const { productDetailSelect, propertiesIdsObject, } = this.props;
+    let object = {
+      colorId: id,
+      versionId: propertiesIdsObject.versionId,
+    };
+    const productDetail = this.productPartner(object);
+    productDetail ? productDetailSelect(object, productDetail) : ToastAndroid.show('无此组合', ToastAndroid.SHORT);
+  }
+
   render() {
     const { isOpenMenuBottomSheet } = this.state;
-    const { bannerSwiper, screenProps, productdetailOpacity, } = this.props;
-    const quantity = '1';
+    const {
+      i18n,
+      screenProps,
+      productDetailOpacity,
+      productDetailNumber,
+      productDetailColorId,
+      productDetailVersionId,
+      productDetailItem,
+      colorArray,
+      versionArray,
+      propertiesIdsObject,
+      imageUrls,
+      price,
+      numbers,
+      // colorIdActive,
+      // versionIdActive,
+      // productDetailInfo: { product_detail, properties_detail }
+    } = this.props;
+    console.log(this.state);
+    console.log(this.props);
+    console.log('GGGGGGGGGGGGG');
+    
+    const { colorId = 0, versionId = 0 } = propertiesIdsObject;
+    
+    // if (propertiesIds.colorId || propertiesIds.versionId) {
+    //   this.setProductDetail(propertiesIds);
+    // }
+
+    // const swiperImg = productDetailItem.imageUrls ? productDetailItem.imageUrls.split('|') : [];
+    console.log(imageUrls);
     return (
       <View style={styles.container} >
         <ProductDetailTabNavigator screenProps={{
           ...screenProps,
-          BYopacity: productdetailOpacity
+          BYopacity: productDetailOpacity,
+          swiper: imageUrls,
+          handleOnPressToggleMenuBottomSheet: this.handleOnPressToggleMenuBottomSheet,
         }} />
         <View style={styles.operate} >
           <Text style={styles.operateLeft} >Add to cart</Text>
-          <Text style={styles.operateRight} onPress={() => this.handleOnPressOpenMenuBottomSheet(null)}>buy</Text>
+          <Text style={styles.operateRight} onPress={() => this.handleOnPressToggleMenuBottomSheet()} >buy</Text>
         </View>
         <BYBottomSheet
           visible={isOpenMenuBottomSheet}
-          onCancel={this.handleOnCancelMenuBottomSheet}
+          onCancel={this.handleOnPressToggleMenuBottomSheet}
+          listenCloseModal={() => this.handleOnPressToggleMenuBottomSheet()}
         >
-          <View style={styles.paramClose} >
-            <EvilIcons style={styles.paramCloseIcon} name={'close'} />
+          <View style={styles.paramClose}>
+            <EvilIcons style={styles.paramCloseIcon} name={'close'} onPress={() => this.handleOnPressToggleMenuBottomSheet()} />
           </View>
           <View style={styles.paramInfo} >
-            <Image style={styles.paramImage} source={require('../images/1521546805315_mi_mix2_01.jpg')} />
+            <Image style={styles.paramImage} source={{uri: imageUrls[0]}} />
             <View style={styles.paramInfoLeft} >
-              <Text style={styles.paramPrice} >2.800.500 VND</Text>
-              <Text style={styles.paramHave} >Kho: co hang</Text>
+              <Text style={styles.paramPrice} >{priceFormat(price)} VND</Text>
+              <Text style={styles.paramHave} >{i18n.warehouse}: {numbers > 0 ? i18n.inStock : i18n.soldOut}</Text>
             </View>
           </View>
-          <Text style={styles.paramTitle} >color</Text>
+          <Text style={styles.paramTitle} >{i18n.color}</Text>
           <View style={styles.paramColor} >
-            <Text style={[styles.paramColorItem, styles.paramColorItemAcitve]} >black</Text>
-            <Text style={styles.paramColorItem} >white</Text>
+            {
+              colorArray.map((val, key) => {
+                return (
+                  <Text 
+                    style={[styles.paramColorItem, (val.id === colorId) && styles.paramColorItemAcitve]} 
+                    onPress={() => this.selectColor(val.id)} 
+                    key={key} 
+                  >
+                    {val.value}
+                  </Text>
+                )
+              })
+            }
+            {/* <Text style={[styles.paramColorItem, styles.paramColorItemAcitve]} >black</Text>
+            <Text style={styles.paramColorItem} >white</Text> */}
           </View>
-          <Text style={styles.paramTitle} >guige</Text>
+          <Text style={styles.paramTitle} >RAM & {i18n.memory}</Text>
           <View style={styles.paramColor} >
-            <Text style={[styles.paramColorItem, styles.paramColorItemAcitve]} >4+64G</Text>
+            {
+              versionArray.map((val, key) => {
+                return (
+                  <Text 
+                    style={[styles.paramColorItem, (val.id === versionId) && styles.paramColorItemAcitve]} 
+                    onPress={() => this.selectVersion(val.id)} 
+                    key={key} 
+                  >
+                    {val.value}
+                  </Text>
+                )
+              })
+            }
+
+            {/* <Text style={[styles.paramColorItem, styles.paramColorItemAcitve]} >4+64G</Text>
             <Text style={styles.paramColorItem} >6+64G</Text>
             <Text style={styles.paramColorItem} >6+128G</Text>
-            <Text style={styles.paramColorItem} >8+128G</Text>
+            <Text style={styles.paramColorItem} >8+128G</Text> */}
           </View>
           <View style={styles.paramNumber} >
             <Text style={styles.paramNumberText} >số lượng</Text>
@@ -259,13 +412,13 @@ class ProductDetail extends React.Component {
               <BYTouchable onPress={() => {}} >
                 <Ionicons 
                   name={'ios-remove'} 
-                  style={[styles.paramNumberRemoveIcon, quantity === '1' && styles.paramNumberIconDisable]} 
+                  style={[styles.paramNumberRemoveIcon, productDetailNumber === 1 && styles.paramNumberIconDisable]} 
                 />
               </BYTouchable>
               <BYTextInput 
                 style={styles.paramNumberTextInput} 
                 keyboardType={'numeric'} 
-                value={quantity} 
+                value={productDetailNumber} 
                 editable={false}
               />
               <BYTouchable onPress={() => {}} >
@@ -273,7 +426,7 @@ class ProductDetail extends React.Component {
                   name={'ios-add'} 
                   style={[
                     styles.paramNumberAddIcon, 
-                    parseInt(quantity) === 5 && styles.paramNumberIconDisable
+                    parseInt(productDetailNumber) === 5 && styles.paramNumberIconDisable
                   ]} 
                 />
               </BYTouchable>
@@ -281,7 +434,7 @@ class ProductDetail extends React.Component {
             </View>
           </View>
           <View style={styles.buttonWrap} >
-            <Text style={styles.button} >buy</Text>
+            <Text style={styles.button} onPress={() => this.handleOnPressToggleMenuBottomSheet()} >confirm</Text>
           </View>
         </BYBottomSheet>
       </View>
@@ -289,12 +442,35 @@ class ProductDetail extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { bannerSwiper, productdetailOpacity } = state;
-  return {
-    bannerSwiper: bannerSwiper['one'] || {},
-    productdetailOpacity: productdetailOpacity.value,
-  };
-}
-
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetail);
+export default connectLocalization(connect(
+  () => {
+    // const getProductDetailInfo = makegetProductDetailInfo();
+    // const getProductDetailProperties = makegetProductDetailProperties();
+    // const getProductDetailItem = makegetProductDetailItem();
+    // const getProductDetailColorVersionList = makegetProductDetailColorVersionList();
+    return (state, props) => {
+      console.log('tttttttttttttttttttttttttttttt');
+      const { productDetail, productDetailInfo } = state;
+      console.log(productDetailInfo);
+      const brandId = props.brandId || props.navigation.state.params.brandId;
+      let propertiesIds = props.propertiesIds || props.navigation.state.params.propertiesIds || '';
+      // propertiesIds = propertiesIds || (productDetailInfo[brandId] ? productDetailInfo[brandId].propertiesIds : '');
+      return {
+        ...productDetailInfo.item,
+        brandId,
+        propertiesIds,
+        // productDetailOpacity: productDetail.opacity,
+        // productDetailNumber: productDetail.number,
+        // productDetailColorId: productDetail.colorId,
+        // productDetailVersionId: productDetail.versionId,
+        // productDetailInfoResult: productDetailInfo[brandId],
+        // propertiesIds: getProductDetailProperties(state, props),
+        // productDetailInfo: getProductDetailInfo(state, props),
+        // productDetailItem: getProductDetailItem(state, props),
+        // product_color: getProductDetailColorVersionList(state, props).product_color,
+        // product_version: getProductDetailColorVersionList(state, props).product_version,
+      };
+    };
+  }, 
+  { ...productDetailInfoActionCreators, ...productDetailActionCreators }
+)(ProductDetail));

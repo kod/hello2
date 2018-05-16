@@ -26,6 +26,7 @@ import { topComputerFetchWatch } from './topComputer';
 import { newComputerFetchWatch } from './newComputer';
 import { adDigitalFetchWatch } from './adDigital';
 import { userCertificateInfoFetchWatch } from './userCertificateInfo';
+import { productDetailInfoFetchWatch } from './productDetailInfo';
 
 
 export default function* rootSaga() {
@@ -53,5 +54,6 @@ export default function* rootSaga() {
     cartSelectAllRequestWatch(),
     cartDeleteRequestWatch(),
     cartDeleteSuccessWatch(),
+    productDetailInfoFetchWatch(),
   ]);
 }
