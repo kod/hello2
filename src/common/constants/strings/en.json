@@ -1,6 +1,7 @@
 {
   "about": "About us",
   "afterSalesService": "After-sales service",
+  "amount": "Amount",
   "bills": "Bills",
   "brandOnSale": "Brand on sale",
   "buy": "Buy",
@@ -8,6 +9,7 @@
   "cancel": "Cancel",
   "certifiedInformation": "Certified information",
   "clearCache": "Clear cache",
+  "color": "Color",
   "coupon": "Coupon",
   "comment": "Comment",
   "computerOffice": "Computer office",
@@ -23,6 +25,7 @@
   "groupBuyHelp": "Group buy help",
   "home": "Home",
   "howToBuy": "How to buy",
+  "inStock": "In stock",
   "inviteFriends": "Invite friends",
   "language": "Language",
   "login": "Login",
@@ -30,6 +33,7 @@
   "loginViaSMS": "Log in via SMS",
   "me": "Me",
   "mobileCommunications": "Mobile communications",
+  "memory": "Memory",
   "monthlyRepaymentOnThe6th": "Monthly repayment on the 26th",
   "more": "More",
   "myCollection": "My collection",
@@ -51,5 +55,7 @@
   "selectAll": "Select all",
   "settings": "Settings",
   "signOut": "Sign Out",
-  "shippingAddress": "Shipping address"
+  "shippingAddress": "Shipping address",
+  "soldOut": "Sold Out",
+  "warehouse": "Warehouse"
 }

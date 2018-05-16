@@ -1,6 +1,7 @@
 {
   "about": "Về chúng tôi",
   "afterSalesService": "Dịch vụ sau khi mua",
+  "amount": "Số lượng",
   "bills": "Hóa đơn",
   "brandOnSale": "Các thương hiệu đang bán",
   "buy": "Mua ngay",
@@ -8,6 +9,7 @@
   "cancel": "Hủy bỏ",
   "certifiedInformation": "Thông tin chứng nhận",
   "clearCache": "Xóa cache",
+  "color": "màu sắc",
   "coupon": "Mã Giảm Giá",
   "comment": "Nhận xét",
   "computerOffice": "Máy tính văn phòng",
@@ -23,6 +25,7 @@
   "groupBuyHelp": "Hỗ trợ nhóm mua chung",
   "home": "Trang chủ",
   "howToBuy": "Hỗ trợ mua hàng",
+  "inStock": "Có hàng",
   "inviteFriends": "Mời bạn bè",
   "language": "Ngôn ngữ",
   "login": "Đăng nhập",
@@ -30,6 +33,7 @@
   "loginViaSMS": "Đăng nhập qua SMS",
   "me": "Tài khoản",
   "mobileCommunications": "Truyền thông di động",
+  "memory": "Bộ Nhớ",
   "monthlyRepaymentOnThe6th": "Hoàn trả vào ngày 26",
   "more": "Tải thêm",
   "myCollection": "Bộ sưu tập của tôi",
@@ -51,5 +55,7 @@
   "selectAll": "Chọn tất cả",
   "settings": "Cài đặt",
   "signOut": "Đăng xuất",
-  "shippingAddress": "Sổ địa chỉ của bạn"
+  "shippingAddress": "Sổ địa chỉ của bạn",
+  "soldOut": "Hết hàng",
+  "warehouse": "kho"
 }
