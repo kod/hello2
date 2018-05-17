@@ -1,13 +1,14 @@
 import {
   PRODUCT_DETAIL_INFO,
   PRODUCT_DETAIL_SELECT,
+  PRODUCT_DETAIL_NUMBER,
+  PRODUCT_DETAIL_OPACITY,
 } from '../constants/actionTypes';
 
 const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
-  result: {},
   item: {
     colorArray: [],
     versionArray: [],
@@ -16,6 +17,7 @@ const initState = {
     goodsProperties: [],
     imageUrls: [],
     productDetailOpacity: 0,
+    productDetailNumber: 1,
   },
 };
 
@@ -23,7 +25,7 @@ export default function productDetailInfo(state = initState, action) {
   switch (action.type) {
     case PRODUCT_DETAIL_INFO.CLEAR:
       return {
-        ...state,
+        ...initState,
       };
     case PRODUCT_DETAIL_INFO.REQUEST:
       return {
@@ -33,6 +35,8 @@ export default function productDetailInfo(state = initState, action) {
     case PRODUCT_DETAIL_INFO.SUCCESS:
       return {
         ...state,
+        loading: false,
+        loaded: true,
         item: {
           ...state.item,
           ...action.payload.detail,
@@ -48,26 +52,35 @@ export default function productDetailInfo(state = initState, action) {
     case PRODUCT_DETAIL_INFO.FAILURE:
       return {
         ...state,
+        loading: false,
+        loaded: true,
         [action.payload.brand_id]: {
           ...state[action.payload.brand_id],
-          loading: false,
-          loaded: true,
         },
       };
     case PRODUCT_DETAIL_SELECT.REQUEST:
-      // const findResult = state.item.product_detail.filter((val, key) => {
-      //   return Object.values(action.payload.propertiesIdsObject).every((val1, key1) => val.propertiesIds.indexOf(val1 + '') !== -1)
-      // })[0];
-      // const propertiesIdsObject = findResult ? action.payload.propertiesIdsObject : state.item.propertiesIdsObject;
-      // const findResultInsert = findResult ? findResult : state.item.product_detail[0];
-      // console.log(propertiesIdsObject);
-      // console.log(findResultInsert);
       return {
         ...state,
         item: {
           ...state.item,
           ...action.payload.productDetail,
           propertiesIdsObject: action.payload.propertiesIdsObject,
+        }
+      };
+    case PRODUCT_DETAIL_NUMBER.REQUEST:
+      return {
+        ...state,
+        item: {
+          ...state.item,
+          productDetailNumber: action.payload.number,
+        }
+      };
+    case PRODUCT_DETAIL_OPACITY.REQUEST:
+      return {
+        ...state,
+        item: {
+          ...state.item,
+          productDetailOpacity: action.payload.opacity,
         }
       };
   default:

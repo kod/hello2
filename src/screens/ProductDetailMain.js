@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Dimensions, Image, } from 'react-na
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import { connectLocalization } from "../components/Localization";
 
 import CustomIcon from "../components/CustomIcon";
 import HeaderShareButton from '../components/HeaderShareButton';
@@ -10,6 +11,8 @@ import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
 import ImageGetSize from "../components/ImageGetSize";
 import Comment from "../components/Comment";
+import priceFormat from "../common/helpers/priceFormat";
+import { SCREENS } from "../common/constants";
 
 import {
   WINDOW_WIDTH,
@@ -22,7 +25,7 @@ import {
   PRIMARY_COLOR,
 } from "../styles/variables";
 
-import * as productDetailActionCreators from '../common/actions/productDetail';
+import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,18 +41,22 @@ const styles = StyleSheet.create({
     zIndex: 333,
     top: WINDOW_WIDTH - WINDOW_WIDTH * 0.05,
     right: WINDOW_WIDTH * 0.03,
+    height: 50,
+    width: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   favoriteIcon: {
     fontSize: 20,
     color: '#999',
-    borderColor: '#999',
-    borderWidth: 1,
     borderRadius: 100,
+    elevation: 4,
+    backgroundColor: '#fff',
     margin: 0,
-    paddingTop: 5,
-    paddingBottom: 2,
-    paddingLeft: 5,
-    paddingRight: 3,
+    height: 35,
+    lineHeight: 35,
+    width: 35,
+    textAlign: 'center',
   },
   product: {
     paddingLeft: SIDEINTERVAL,
@@ -161,7 +168,16 @@ class ProductDetail extends React.Component {
   render() {
     const {
       name,
-      screenProps: {swiper, handleOnPressToggleMenuBottomSheet},
+      comment,
+      screenProps: {
+        i18n,
+        price, 
+        swiper, 
+        imageDesc, 
+        propertiesIdsObject,
+        handleOnPressToggleMenuBottomSheet,
+      },
+      navigation: {navigate},
     } = this.props;
     console.log('ProductDetailMainProductDetailMainProductDetailMain');
     console.log(this.state);
@@ -182,23 +198,31 @@ class ProductDetail extends React.Component {
           />
           <View style={styles.product} >
             <Text style={styles.productTitle} >{name}</Text>
-            <Text style={styles.productPrice} >2.800.500 VND</Text>
+            <Text style={styles.productPrice} >{priceFormat(price)} VND</Text>
             <View style={styles.serverinfo} >
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" ></CustomIcon>
-              <Text style={styles.serverinfoToBePaidText} >bảo đảm chất lượng</Text>
+              <Text style={styles.serverinfoToBePaidText} >{i18n.qualityAssurance}</Text>
               <CustomIcon style={styles.serverinfotoReceiveGoods} name="toReceiveGoods" ></CustomIcon>
-              <Text style={styles.serverinfotoReceiveGoodsText} >giao hàng nhanh</Text>
+              <Text style={styles.serverinfotoReceiveGoodsText} >{i18n.fastDelivery}</Text>
             </View>
             <View style={styles.spec} >
-              <Text style={styles.specTitle} >đã chọn</Text>
-              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet()} >4+64g  balck  x1</Text>
+              <Text style={styles.specTitle} >{i18n.selected}</Text>
+              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet()} >{propertiesIdsObject.colorName} {propertiesIdsObject.versionName}</Text>
               <CustomIcon style={styles.specArrow} name="arrowright" />
             </View>
           </View>
-          <Comment />
-          <View style={styles.commentMore} >
-            <Text style={styles.commentMoreText} >More</Text>
-          </View>
+          <Comment data={comment} />
+          {
+            !!comment.length &&
+            <View style={styles.commentMore} >
+              <Text style={styles.commentMoreText} onPress={() => navigate(SCREENS.ProductDetailComment)} >{i18n.more}</Text>
+            </View>
+          }
+          {
+            imageDesc.map((val, key) => {
+              return <ImageGetSize uri={val} key={key} />
+            })
+          }
           <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537442995_vivo_v9_01.jpg'} />
           <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537444074_vivo_v9_02.jpg'} />
           <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537445189_vivo_v9_03.jpg'} />
@@ -233,12 +257,13 @@ class ProductDetail extends React.Component {
 
 export default connect(
   (state, props) => {
-    const { productDetailInfo } = state;
+    const { productDetailInfo, comment } = state;
     return {
       ...productDetailInfo.item,
+      comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
     }
   },
   {
-    ...productDetailActionCreators
+    ...productDetailInfoActionCreators
   }
 )(ProductDetail);

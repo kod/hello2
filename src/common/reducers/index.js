@@ -18,6 +18,7 @@ import cart from './cart';
 import productDetail from './productDetail';
 import productDetailInfo from './productDetailInfo';
 import entities from './entities';
+import comment from './comment';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   productDetail,
   productDetailInfo,
   entities,
+  comment,
   form: formReducer,
 });
 

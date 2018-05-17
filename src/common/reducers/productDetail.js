@@ -1,5 +1,4 @@
 import {
-  PRODUCT_DETAIL_OPACITY,
   PRODUCT_DETAIL_NUMBER,
   PRODUCT_DETAIL_COLORID,
   PRODUCT_DETAIL_VERSIONID,
@@ -19,11 +18,6 @@ export default function productDetail(state = initState, action) {
       return {
         ...state,
         loading: true,
-      };
-    case PRODUCT_DETAIL_OPACITY.REQUEST:
-      return {
-        ...state,
-        opacity: action.payload.opacity,
       };
     case PRODUCT_DETAIL_COLORID.REQUEST:
       return {

@@ -52,6 +52,23 @@ class ReactStore {
     return this.requestUrl(`:8180/fun/usercenter/userViewDetailInfo`, options);
   }
 
+  userGetCollection(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8180/fun/usercenter/userGetCollection`, options);
+  }
+
   login(options) {
     if (!options) {
       return Promise.reject(new Error('fields required'));
@@ -189,6 +206,23 @@ class ReactStore {
       )
     );
     return this.requestUrl(`:8185/fun/cellphone/initAdCellphone?${queryString}`);
+  }
+
+  getEvaluationInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8185/fun/commodity/getEvaluationInfo`, options);
   }
 
   getProductDetailInfo(options) {

@@ -1,6 +1,8 @@
 import {
   PRODUCT_DETAIL_INFO,
   PRODUCT_DETAIL_SELECT,
+  PRODUCT_DETAIL_NUMBER,
+  PRODUCT_DETAIL_OPACITY,
 } from '../constants/actionTypes';
 
 export function productDetailInfoFetchSuccess(product_detail, detail, propertiesIds, colorVersionList, goodsProperties, imageDesc) {
@@ -54,6 +56,28 @@ export function productDetailSelect(propertiesIdsObject, productDetail) {
     payload: {
       propertiesIdsObject,
       productDetail,
+    },
+  };
+}
+
+export function productDetailNumberFetch(
+  number,
+) {
+  return {
+    type: PRODUCT_DETAIL_NUMBER.REQUEST,
+    payload: {
+      number,
+    },
+  };
+}
+
+export function productDetailOpacityFetch(
+  opacity = 0,
+) {
+  return {
+    type: PRODUCT_DETAIL_OPACITY.REQUEST,
+    payload: {
+      opacity,
     },
   };
 }

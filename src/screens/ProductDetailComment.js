@@ -19,7 +19,7 @@ import {
   PRIMARY_COLOR,
 } from "../styles/variables";
 
-import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
+import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,31 +27,44 @@ const styles = StyleSheet.create({
     position: 'relative',
     paddingTop: STATUSBAR_HEIGHT + 40,
   },
+  emptyComment: {
+    alignItems: 'center',
+    paddingTop: WINDOW_WIDTH * 0.3
+  },
+  emptyCommentImage: {
+    height: 160,
+    width: 160,
+    marginBottom: WINDOW_WIDTH * 0.06
+  },
+  emptyCommentText: {
+    fontSize: 11,
+    color: '#ccc',
+  },
 });
 
 class ProductDetailComment extends React.Component {
   componentDidMount() {
     const { bannerSwiperFetch } = this.props;
-    // bannerSwiperFetch('one');
+    
   }
   
   render() {
-    // const { bannerSwiper } = this.props;
+    const {
+      comment,
+      screenProps: {i18n},
+    } = this.props;
+    console.log(this.props);
 
     return (
       <View style={styles.container} >
         <ScrollView >
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          <Comment styleWrap={{ backgroundColor: '#fff', paddingBottom: 20}} />
-          {/* <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537442995_vivo_v9_01.jpg'} /> */}
-          {/* <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/product/1523871203097_vivo_v9_spec.jpg'} /> */}
+          <Comment data={comment} style={{ paddingTop: 20}} />
+          {comment.length === 0 &&
+            <View style={styles.emptyComment} >
+              <Image style={styles.emptyCommentImage} source={require('../images/emptycomment.png')} />
+              <Text style={styles.emptyCommentText} >{i18n.noCommentYet}</Text>
+            </View>
+          }
         </ScrollView>
       </View>
     );
@@ -59,10 +72,11 @@ class ProductDetailComment extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-  const { bannerSwiper } = state;
+  const { comment } = state;
   return {
-    bannerSwiper: bannerSwiper['one'] || {}
+    comment: comment.items.detail ? comment.items.detail : [],
+    // bannerSwiper: bannerSwiper['one'] || {}
   };
 }
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetailComment);
+export default connect(mapStateToProps, { ...productDetailInfoActionCreators, })(ProductDetailComment);

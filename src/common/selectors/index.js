@@ -49,13 +49,9 @@ export const makegetProductDetailProperties = () => {
         colorId: 0,
         versionId: 0,
       }
-      console.log(productDetailInfo);
-      console.log(productDetailInfoResult);
       brandId = props.brandId || brandId;
       propertiesIds = props.propertiesIds || propertiesIds || '';
       propertiesIds = propertiesIds || ( (product_detail && product_detail[0]) ? product_detail[0].propertiesIds : '');
-      console.log(propertiesIds);
-      console.log('aaaaaaaaa');
       if (!propertiesIds || !productDetailInfo.product_detail) return result;
       
       const {
@@ -71,8 +67,6 @@ export const makegetProductDetailProperties = () => {
           val1.image ? result.colorId = id2 : result.versionId = id2;
         })
       });
-      console.log('bbbbbbbbbb');
-      console.log(result);
       return result;
     },
   );

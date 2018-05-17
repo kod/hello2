@@ -1,5 +1,4 @@
 import {
-  PRODUCT_DETAIL_OPACITY,
   PRODUCT_DETAIL_COLORID,
   PRODUCT_DETAIL_VERSIONID,
   PRODUCT_DETAIL_NUMBER,
@@ -42,18 +41,6 @@ export function productDetailClear(brand_id) {
     type: PRODUCT_DETAIL.CLEAR,
     payload: {
       brand_id
-    },
-  };
-}
-
-
-export function productDetailOpacityFetch(
-  opacity = 0,
-) {
-  return {
-    type: PRODUCT_DETAIL_OPACITY.REQUEST,
-    payload: {
-      opacity,
     },
   };
 }

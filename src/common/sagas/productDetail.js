@@ -50,7 +50,6 @@ export function* productDetailInfoFetchWatchHandle(action) {
       return false;
     }
 
-    console.log(response);
     const { product_detail, properties_detail, brand_detail } = response;
 
     response = {

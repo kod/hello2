@@ -191,14 +191,6 @@ export function* cartDeleteRequestWatchHandle(action) {
     let version = '2.0';
     
     const { funid, cartitemids, orderno = '' } = action.payload;
-    // console.log(funid);
-    // console.log(cartitemids);
-    // console.log(orderno);
-    
-    // const funid = action.payload.funid;
-    // const cartitemids = action.payload.cartitemids;
-    // const orderno = action.payload.orderno;
-  
     let signType = signType_MD5(appId, method, charset, Key, true);
 
     let encrypt = encrypt_MD5(
@@ -234,7 +226,6 @@ export function* cartDeleteRequestWatchHandle(action) {
       }
     ]);
 
-    // console.log(response);
     if (response.code === 10000) {
       yield put(cartDeleteSuccess());
     } else {
@@ -243,7 +234,6 @@ export function* cartDeleteRequestWatchHandle(action) {
     }
 
   } catch (err) {
-    // console.log(err);
     yield put(cartDeleteFailure());
     yield put(addError(err));
   }

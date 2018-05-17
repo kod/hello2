@@ -12,8 +12,6 @@ import Schemas from "../../common/constants/schemas";
 export function* productDetailInfoFetchWatchHandle(action) {
 
   const get_propertiesIds = (propertiesIds, properties_detail) => {
-    console.log(propertiesIds);
-    console.log(properties_detail);
 
     let result = {
       colorId: 0,
@@ -25,7 +23,13 @@ export function* productDetailInfoFetchWatchHandle(action) {
       properties_detail.forEach((val1, key1) => {
         const id2 = val1.id;
         if (parseInt(id1) !== id2) return false;
-        val1.image ? result.colorId = id2 : result.versionId = id2;
+        if (val1.image) {
+          result.colorId = id2;
+          result.colorName = val1.value;
+        } else {
+          result.versionId = id2;
+          result.versionName = val1.value;
+        }
       })
     });
     return result;
@@ -115,9 +119,6 @@ export function* productDetailInfoFetchWatchHandle(action) {
       return false;
     }
 
-    console.log('DDDDDDDDDDDDDDDD');
-    console.log(response);
-
     const { properties_detail, brand_detail } = response;
 
     const product_detail = response.product_detail.map((val, key) => {
@@ -132,14 +133,10 @@ export function* productDetailInfoFetchWatchHandle(action) {
     const imageDesc = brand_detail.desc.split('|');
     
     const propertiesIdsResult = get_propertiesIds(propertiesIds, properties_detail)
-    console.log(propertiesIdsResult);
     
     const productDetailResult = get_productDetail(propertiesIdsResult, product_detail);
-    console.log(productDetailResult);
     
     const productDetailColorVersionListResult = productDetailColorVersionList(properties_detail);
-    console.log(productDetailColorVersionListResult);
-    console.log('JJJJJJJJJJJJ');
 
     yield put(productDetailInfoFetchSuccess(
       product_detail,
@@ -149,7 +146,6 @@ export function* productDetailInfoFetchWatchHandle(action) {
       goodsProperties,
       imageDesc,
     ));
-
 
     // response = {
     //   ...brand_detail,

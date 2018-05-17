@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     color: '#999',
     fontSize: 14,
     lineHeight: 22.65,
-    marginBottom: WINDOW_WIDTH * 0.03
+    marginBottom: WINDOW_WIDTH * 0.03,
+    paddingRight: SIDEINTERVAL,
   },
   componentimageWrap: {
     flexDirection: 'row',
@@ -74,28 +75,44 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ data, styleWrap, style, styleText, text, ...restProps }) => {
+export default ({ data, styleWrap, style, ...restProps }) => {
   return (
     <View style={[styles.componentWrap, styleWrap]}>
-      <View style={styles.component}>
-        <View style={styles.componentTitle}>
-          <Text style={styles.componentAcount}>Ng*******u</Text>
-          <View style={styles.componentStar}>
-            <FontAwesome style={styles.componentStarIconActive} name="star" />
-            <FontAwesome style={styles.componentStarIconActive} name="star" />
-            <FontAwesome style={styles.componentStarIcon} name="star" />
-            <FontAwesome style={styles.componentStarIcon} name="star" />
-            <FontAwesome style={styles.componentStarIcon} name="star" />
+      {
+        data && 
+        !!data.length &&
+        data.map((val, key) => 
+          <View style={[styles.component, style]} key={key}>
+            <View style={styles.componentTitle}>
+              <Text style={styles.componentAcount}>{val.username}</Text>
+              <View style={styles.componentStar}>
+                {
+                  [0,1,2,3,4].map((val1) => 
+                    <FontAwesome style={val.score > val1 ? styles.componentStarIconActive : styles.componentStarIcon } name="star" key={val1} />
+                  )
+                }
+                {/* <FontAwesome style={styles.componentStarIconActive} name="star" />
+                <FontAwesome style={styles.componentStarIconActive} name="star" />
+                <FontAwesome style={styles.componentStarIcon} name="star" />
+                <FontAwesome style={styles.componentStarIcon} name="star" />
+                <FontAwesome style={styles.componentStarIcon} name="star" /> */}
+              </View>
+              <Text style={styles.componentTime}>{val.updateTime}</Text>
+            </View>
+            <Text style={styles.componentDesc} numberOfLines={3} >{val.content}</Text>
+            <View style={styles.componentimageWrap}>
+              {
+                val.imageUrls.map((val, key) => 
+                  <Image style={styles.componentimageItem} source={{ uri: val }} key={key} />
+                )
+              }
+              {/* <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />
+              <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />
+              <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} /> */}
+            </View>
           </View>
-          <Text style={styles.componentTime}>2018-05-03</Text>
-        </View>
-        <Text style={styles.componentDesc}>Điện thoại đẹp :D Dịch vụ đángyêu. Một chiếc Click nhanh mà điện thoại không phanh bay về túi Thích quớ :* Từ giwof cố gắng tiết kiemj đi làm</Text>
-        <View style={styles.componentimageWrap}>
-          <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />
-          <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />
-          <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />
-        </View>
-      </View>
+        )
+      }
     </View>
   );
 };

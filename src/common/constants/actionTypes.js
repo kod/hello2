@@ -211,4 +211,16 @@ export const PRODUCT_DETAIL_SELECT = defineAction(
   appNamespace,
 );
 
+export const COMMENT = defineAction(
+  'COMMENT',
+  [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
+  appNamespace,
+);
+
+export const COLLECTION = defineAction(
+  'COLLECTION',
+  [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
+  appNamespace,
+);
+
 export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);
