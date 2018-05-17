@@ -223,4 +223,16 @@ export const COLLECTION = defineAction(
   appNamespace,
 );
 
+export const COLLECTION_ADD = defineAction(
+  'COLLECTION_ADD',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const COLLECTION_REMOVE = defineAction(
+  'COLLECTION_REMOVE',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);

@@ -14,6 +14,13 @@ import {
   cartDeleteRequestWatch,
   cartDeleteSuccessWatch,
 } from './cart';
+import {
+  collectionFetchWatch,
+  collectionAddFetchWatch,
+  collectionAddSuccessWatch,
+  collectionRemoveFetchWatch,
+  collectionRemoveSuccessWatch,
+} from './collection';
 import { watchError } from './error';
 import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
@@ -57,5 +64,10 @@ export default function* rootSaga() {
     cartDeleteSuccessWatch(),
     productDetailInfoFetchWatch(),
     commentFetchWatch(),
+    collectionFetchWatch(),
+    collectionAddFetchWatch(),
+    collectionAddSuccessWatch(),
+    collectionRemoveFetchWatch(),
+    collectionRemoveSuccessWatch(),
   ]);
 }

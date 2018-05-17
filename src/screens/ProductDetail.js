@@ -237,7 +237,7 @@ class ProductDetail extends React.Component {
       this.setState({ mounting: false });
       productDetailInfoClear(brandId);
       productDetailInfoFetch(brandId, propertiesIds);
-      commentFetch(brandId);  
+      commentFetch(brandId);
     });
 
     // if (!productDetailInfoResult || !productDetailInfoResult.result) {
@@ -261,7 +261,6 @@ class ProductDetail extends React.Component {
   // };
 
   handleOnPressToggleMenuBottomSheet = selectedImageIndex => {
-    console.log(this.state.isOpenMenuBottomSheet);
     const newState = {
       isOpenMenuBottomSheet: !this.state.isOpenMenuBottomSheet,
     };
@@ -279,7 +278,6 @@ class ProductDetail extends React.Component {
     } = this.props;
     if (!productDetailInfo.id) return false;
     if (propertiesIds.colorId) {
-      console.log('rrrrrrrrrrrrrr');
       productDetailColorIdFetch(propertiesIds.colorId);
       // InteractionManager.runAfterInteractions(() => productDetailColorIdFetch(propertiesIds.colorId));
     }
@@ -329,8 +327,6 @@ class ProductDetail extends React.Component {
 
   changeNumber(number) {
     const { productDetailNumberFetch, numbers } = this.props;
-    console.log(numbers);
-    console.log(number);
     if (number < 1 || number > numbers) return false;
     productDetailNumberFetch(number);
   }
@@ -354,9 +350,7 @@ class ProductDetail extends React.Component {
       goodsProperties,
       numbers,
       loading,
-      // colorIdActive,
-      // versionIdActive,
-      // productDetailInfo: { product_detail, properties_detail }
+      brandId,
     } = this.props;
     if (mounting) {
       return <Loader />;
@@ -376,6 +370,7 @@ class ProductDetail extends React.Component {
           price,
           imageDesc,
           goodsProperties,
+          brandId,
           handleOnPressToggleMenuBottomSheet: this.handleOnPressToggleMenuBottomSheet,
         }} />
         <View style={styles.operate} >
@@ -416,7 +411,6 @@ class ProductDetail extends React.Component {
     // }
 
     // const swiperImg = productDetailItem.imageUrls ? productDetailItem.imageUrls.split('|') : [];
-    console.log(imageUrls);
     return (
       <View style={styles.container} >
         {this.renderMainContent()}
@@ -520,7 +514,6 @@ export default connectLocalization(connect(
     return (state, props) => {
       console.log('tttttttttttttttttttttttttttttt');
       const { productDetail, productDetailInfo } = state;
-      console.log(productDetailInfo);
       const brandId = props.brandId || props.navigation.state.params.brandId;
       let propertiesIds = props.propertiesIds || props.navigation.state.params.propertiesIds || '';
       // propertiesIds = propertiesIds || (productDetailInfo[brandId] ? productDetailInfo[brandId].propertiesIds : '');
@@ -542,5 +535,9 @@ export default connectLocalization(connect(
       };
     };
   }, 
-  { ...productDetailInfoActionCreators, ...productDetailActionCreators, ...commentActionCreators }
+  {
+    ...productDetailInfoActionCreators,
+    ...productDetailActionCreators,
+    ...commentActionCreators,
+  }
 )(ProductDetail));

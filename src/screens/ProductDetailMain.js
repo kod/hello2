@@ -10,6 +10,7 @@ import HeaderShareButton from '../components/HeaderShareButton';
 import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
 import ImageGetSize from "../components/ImageGetSize";
+import BYTouchable from "../components/BYTouchable";
 import Comment from "../components/Comment";
 import priceFormat from "../common/helpers/priceFormat";
 import { SCREENS } from "../common/constants";
@@ -25,7 +26,10 @@ import {
   PRIMARY_COLOR,
 } from "../styles/variables";
 
+import { makegetIsCollection } from "../common/selectors";
+
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
+import * as collectionActionCreators from '../common/actions/collection';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,6 +61,9 @@ const styles = StyleSheet.create({
     lineHeight: 35,
     width: 35,
     textAlign: 'center',
+  },
+  favoriteIconActive: {
+    color: RED_COLOR,
   },
   product: {
     paddingLeft: SIDEINTERVAL,
@@ -150,7 +157,13 @@ const styles = StyleSheet.create({
 
 class ProductDetail extends React.Component {
   componentDidMount() {
-
+    const {
+      collectionFetch,
+      screenProps: {
+        // brandId,
+      },
+    } = this.props;
+    collectionFetch();
   }
 
   handleOnScroll = event => {
@@ -164,20 +177,27 @@ class ProductDetail extends React.Component {
     }
     productDetailOpacityFetch(opacity);
   };
+
+  handleToggleCollection() {
+    const { collectionAddFetch, collectionRemoveFetch,  brandId, isCollection } = this.props;
+    isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
+  }
   
   render() {
     const {
       name,
       comment,
+      isCollection,
+      navigation: {navigate},
       screenProps: {
         i18n,
         price, 
         swiper, 
+        brandId,
         imageDesc, 
         propertiesIdsObject,
         handleOnPressToggleMenuBottomSheet,
       },
-      navigation: {navigate},
     } = this.props;
     console.log('ProductDetailMainProductDetailMainProductDetailMain');
     console.log(this.state);
@@ -185,9 +205,13 @@ class ProductDetail extends React.Component {
     return (
       <View style={styles.container} >
         <ScrollView onScroll={this.handleOnScroll}>
-          <View style={styles.favorite} >
-            <MaterialIcons name="favorite-border" style={styles.favoriteIcon} />
-          </View>
+          <BYTouchable style={styles.favorite} backgroundColor={'transparent'} onPress={() => this.handleToggleCollection()} >
+            {
+              isCollection ? 
+              <MaterialIcons name="favorite" style={[styles.favoriteIcon, styles.favoriteIconActive]} /> : 
+              <MaterialIcons name="favorite-border" style={styles.favoriteIcon} />
+            }
+          </BYTouchable>
           <View style={styles.statusbarPlaceholder} ></View>
           <SwiperFlatList 
             data={swiper} 
@@ -256,14 +280,19 @@ class ProductDetail extends React.Component {
 // }
 
 export default connect(
-  (state, props) => {
-    const { productDetailInfo, comment } = state;
-    return {
-      ...productDetailInfo.item,
-      comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
+  () => {
+    const getIsCollection = makegetIsCollection();
+    return (state, props) => {
+      const { productDetailInfo, comment, collection } = state;
+      return {
+        ...productDetailInfo.item,
+        comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
+        isCollection: getIsCollection(state, props),
+      }
     }
   },
   {
-    ...productDetailInfoActionCreators
+    ...collectionActionCreators,
+    ...productDetailInfoActionCreators,
   }
 )(ProductDetail);

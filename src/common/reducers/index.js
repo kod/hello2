@@ -19,6 +19,7 @@ import productDetail from './productDetail';
 import productDetailInfo from './productDetailInfo';
 import entities from './entities';
 import comment from './comment';
+import collection from './collection';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   productDetailInfo,
   entities,
   comment,
+  collection,
   form: formReducer,
 });
 

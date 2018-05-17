@@ -1,4 +1,8 @@
-import { COLLECTION } from '../constants/actionTypes';
+import {
+  COLLECTION,
+  COLLECTION_ADD,
+  COLLECTION_REMOVE,
+} from '../constants/actionTypes';
 
 export function collectionFetchSuccess(items) {
   return {
@@ -19,13 +23,11 @@ export function collectionFetchFailure() {
 }
 
 export function collectionFetch(
-  refreshing = false,
+
 ) {
   return {
     type: COLLECTION.REQUEST,
-    payload: {
-      refreshing,
-    },
+    payload: {},
   };
 }
 
@@ -33,6 +35,63 @@ export function collectionClear() {
   return {
     type: COLLECTION.CLEAR,
     payload: {
+    },
+  };
+}
+
+export function collectionAddFetchSuccess() {
+  return {
+    type: COLLECTION_ADD.SUCCESS,
+    payload: {
+
+    },
+  };
+}
+
+export function collectionAddFetchFailure() {
+  return {
+    type: COLLECTION_ADD.FAILURE,
+    payload: {
+
+    },
+  };
+}
+
+export function collectionAddFetch(
+  brandIds
+) {
+  return {
+    type: COLLECTION_ADD.REQUEST,
+    payload: {
+      brandIds,
+    },
+  };
+}
+export function collectionRemoveFetchSuccess() {
+  return {
+    type: COLLECTION_REMOVE.SUCCESS,
+    payload: {
+
+    },
+  };
+}
+
+export function collectionRemoveFetchFailure() {
+  return {
+    type: COLLECTION_REMOVE.FAILURE,
+    payload: {
+
+    },
+  };
+}
+
+export function collectionRemoveFetch(
+  brand_id
+) {
+  return {
+    type: COLLECTION_REMOVE.REQUEST,
+    payload: {
+      brand_id,
     },
   };
 }

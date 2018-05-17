@@ -14,13 +14,16 @@ const defaultString = '';
 export const getAuth = state => state.auth;
 export const getAuthUser = state => state.auth.user;
 export const getAuthUserFunid = state => state.auth.user.result;
+export const getAuthUserMsisdn = state => state.auth.user.msisdn;
 export const getLang = state => state.i18n.lang;
 export const getCart = state => state.cart;
 export const getCartItems = state => state.cart.items;
+export const getProductDetailInfoItem = state => state.productDetailInfo.item;
+export const getCollectionItems = state => state.collection.items;
 
 
-export const makegetProductDetailInfo = () => 
-  createSelector(
+export const makegetProductDetailInfo = () => {
+  return createSelector(
     [selectProductDetailInfo, selectEntities, getProps],
     (productDetailInfo, entities, props) => {
       const brandId = props.brandId || props.navigation.state.params.brandId;
@@ -33,7 +36,7 @@ export const makegetProductDetailInfo = () =>
         : defaultObject;
     },
   );
-  
+}
 
 export const makegetProductDetailProperties = () => {
   const getProductDetailInfo = makegetProductDetailInfo();
@@ -120,3 +123,14 @@ export const makegetProductDetailColorVersionList = () => {
     },
   );
 }
+
+export const makegetIsCollection = () => {
+  return createSelector(
+    [getProductDetailInfoItem, getCollectionItems],
+    (productDetailInfoItem, collectionItems) => {
+      if (!productDetailInfoItem.brandId || !collectionItems.details) return false;
+      return collectionItems.details.some((val, key) => val.brandId === productDetailInfoItem.brandId);
+    },
+  );
+}
+

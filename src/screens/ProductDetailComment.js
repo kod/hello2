@@ -53,7 +53,6 @@ class ProductDetailComment extends React.Component {
       comment,
       screenProps: {i18n},
     } = this.props;
-    console.log(this.props);
 
     return (
       <View style={styles.container} >

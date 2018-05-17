@@ -8,10 +8,10 @@ import {
 
 const PXTouchable = props => {
   if (Platform.OS === 'android') {
-    const { style, children, ...otherProps } = props;
+    const { style, children, backgroundColor = '#ccc', ...otherProps } = props;
     return (
       <TouchableNativeFeedback
-        background={TouchableNativeFeedback.Ripple('#ccc', false)}
+        background={TouchableNativeFeedback.Ripple(backgroundColor, false)}
         useForeground={TouchableNativeFeedback.canUseNativeForeground()}
         style={style}
         {...otherProps}
