@@ -45,7 +45,6 @@ export default function productDetailInfo(state = initState, action) {
           versionArray: action.payload.colorVersionList.product_version,
           propertiesIdsObject: action.payload.propertiesIds,
           imageDesc: action.payload.imageDesc,
-          goodsProperties: action.payload.goodsProperties,
           product_detail: action.payload.product_detail,
         }
       };

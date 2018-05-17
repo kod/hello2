@@ -123,13 +123,12 @@ export function* productDetailInfoFetchWatchHandle(action) {
 
     const product_detail = response.product_detail.map((val, key) => {
       val.imageUrls = val.imageUrls.split('|');
+      val.goodsProperties = val.goodsProperties.split('|');
       return val;
     });
-    
+
     propertiesIds = propertiesIds || product_detail[0].propertiesIds;
     
-    const goodsProperties = product_detail[0].goodsProperties.split('|');
-
     const imageDesc = brand_detail.desc.split('|');
     
     const propertiesIdsResult = get_propertiesIds(propertiesIds, properties_detail)
@@ -143,7 +142,6 @@ export function* productDetailInfoFetchWatchHandle(action) {
       productDetailResult,
       propertiesIdsResult,
       productDetailColorVersionListResult,
-      goodsProperties,
       imageDesc,
     ));
 

@@ -5,7 +5,7 @@ import {
   PRODUCT_DETAIL_OPACITY,
 } from '../constants/actionTypes';
 
-export function productDetailInfoFetchSuccess(product_detail, detail, propertiesIds, colorVersionList, goodsProperties, imageDesc) {
+export function productDetailInfoFetchSuccess(product_detail, detail, propertiesIds, colorVersionList, imageDesc) {
   return {
     type: PRODUCT_DETAIL_INFO.SUCCESS,
     payload: {
@@ -13,7 +13,6 @@ export function productDetailInfoFetchSuccess(product_detail, detail, properties
       detail,
       propertiesIds,
       colorVersionList,
-      goodsProperties,
       imageDesc,
     },
   };
