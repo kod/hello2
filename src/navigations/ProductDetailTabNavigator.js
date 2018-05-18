@@ -28,9 +28,10 @@ const styles = StyleSheet.create({
     bottom: WINDOW_HEIGHT - STATUSBAR_HEIGHT - 90,
     left: 0,
     zIndex: 350,
-    flexDirection: 'row',
-    paddingTop: STATUSBAR_HEIGHT,
-    backgroundColor: '#fff',
+    // flexDirection: 'row',
+    paddingTop: 0,
+    // paddingTop: STATUSBAR_HEIGHT,
+    backgroundColor: 'transparent',
   },
   headerLeft: {
     fontSize: 16,
@@ -41,7 +42,8 @@ const styles = StyleSheet.create({
   },
   headerMiddle: {
     flex: 1,
-    height: 40,
+    height: STATUSBAR_HEIGHT,
+    backgroundColor: '#ff0',
   },
   headerRight: {
     fontSize: 16,
@@ -66,23 +68,26 @@ class CustomTabBarComponent extends React.Component {
     if (type === 'main') {
       return (
         <Animated.View style={[style,]} >
-          <CustomIcon name="back" 
-            onPress={() => goBack()} 
-            style={[styles.headerLeft, { opacity: 1 }]} 
-          />
-          <View style={[styles.headerMiddle, { opacity }]} ></View>
-          <TabBarTop 
-            {...this.props} 
-            style={{
-              ...this.props.style,
-              opacity: opacity,
-            }}
-          />
-          <SimpleLineIcons 
-            name="share" 
-            onPress={() => handleOnPressToggleMenuBottomSheet('share')} 
-            style={[styles.headerRight, { opacity: 1 }]} 
-          />
+          <View style={[styles.headerMiddle, { opacity, backgroundColor: '#fff', }]} ></View>
+          <View style={{flexDirection: 'row'}} >
+            <CustomIcon name="back" 
+              onPress={() => goBack()} 
+              style={[styles.headerLeft, { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})`, }]} 
+            />
+            <TabBarTop 
+              {...this.props} 
+              style={{
+                ...this.props.style,
+                opacity: opacity,
+                backgroundColor: '#fff',
+              }}
+            />
+            <SimpleLineIcons 
+              name="share" 
+              onPress={() => handleOnPressToggleMenuBottomSheet('share')} 
+              style={[styles.headerRight, { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})`, }]} 
+            />
+          </View>
         </Animated.View>
       );
     }
@@ -90,7 +95,6 @@ class CustomTabBarComponent extends React.Component {
     return (
       <Animated.View style={[style, {opacity: opacity}]} >
         <CustomIcon name="back" style={styles.headerLeft} onPress={() => goBack()} />
-        <View style={styles.headerMiddle} ></View>
         <TabBarTop {...this.props} />
         <SimpleLineIcons name="share" style={styles.headerRight} onPress={() => handleOnPressToggleMenuBottomSheet('share')} />
       </Animated.View>
