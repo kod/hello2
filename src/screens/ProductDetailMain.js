@@ -162,8 +162,9 @@ class ProductDetail extends React.Component {
       screenProps: {
         // brandId,
       },
+      user
     } = this.props;
-    collectionFetch();
+    user && collectionFetch();
   }
 
   handleOnScroll = event => {
@@ -285,6 +286,7 @@ export default connect(
         ...productDetailInfo.item,
         comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
         isCollection: getIsCollection(state, props),
+        user: state.auth.user,
       }
     }
   },
