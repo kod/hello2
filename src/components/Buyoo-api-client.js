@@ -388,15 +388,6 @@ class ReactStore {
       return Promise.reject(new Error('fields required'));
     }
 
-    // const queryString = qs.stringify(
-    //   Object.assign(
-    //     {
-    //       // filter,
-    //     },
-    //     options
-    //   )
-    // );
-
     const data = qs.stringify(options);
     options = {
       method: 'POST',
@@ -406,6 +397,22 @@ class ReactStore {
       data,
     };
     return this.requestUrl(`:8185/fun/commodity/cart/changeNum`, options);
+  }
+
+  cartGate(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    return this.requestUrl(`:8185/fun/commodity/cart/gate`, options);
   }
 
   requestUrl(url, options) {

@@ -1,5 +1,6 @@
 import {
   CART,
+  CART_ADD,
   CART_NUMBER,
   CART_SELECT,
   CART_SELECTALL,
@@ -9,6 +10,29 @@ import {
   CART_DELETE,
   CART_SELECTDELALL,
 } from '../constants/actionTypes';
+
+export function cartAddSuccess() {
+  return {
+    type: CART_ADD.SUCCESS,
+    payload: {}
+  };
+}
+
+export function cartAddFailure() {
+  return {
+    type: CART_ADD.FAILURE,
+    payload: {}
+  };
+}
+
+export function cartAddRequest(cartitems) {
+  return {
+    type: CART_ADD.REQUEST,
+    payload: {
+      cartitems,
+    }
+  };
+}
 
 export function cartDeleteSuccess() {
   return {

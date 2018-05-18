@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, ToastAndroid, InteractionManager, DeviceEventEmitter } from 'react-native';
 import { normalize } from 'normalizr';
 import {
   take,
@@ -15,6 +15,9 @@ import {
   cartRequest,
   cartSuccess,
   cartFailure,
+  cartAddRequest,
+  cartAddSuccess,
+  cartAddFailure,
   cartNumberSuccess,
   cartNumberFailure,
   cartDeleteSuccess,
@@ -28,6 +31,7 @@ import {
 } from '../actions/cart';
 import {
   CART,
+  CART_ADD,
   CART_NUMBER,
   CART_SELECT,
   CART_SELECTALL,
@@ -35,6 +39,7 @@ import {
 } from '../constants/actionTypes';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
+import i18n from '../helpers/i18n';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 import { getAuthUserFunid, getCartItems, getCart } from '../selectors';
@@ -296,4 +301,87 @@ export function* cartSelectAllRequestWatchHandle(action) {
 
 export function* cartSelectAllRequestWatch() {
   yield takeEvery(CART_SELECTALL.REQUEST, cartSelectAllRequestWatchHandle);
+}
+
+export function* cartAddRequestWatchHandle(action) {
+  try {
+    const funid = yield select(getAuthUserFunid);
+    const { cartitems } = action.payload;
+
+    let Key = 'commodityKey';
+    let appId = Platform.OS === 'ios' ? '1' : '2';
+    let method = 'fun.cart.gate';
+    let charset = 'utf-8';
+    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let version = '2.0';
+    
+    let signType = signType_MD5(appId, method, charset, Key, true);
+
+    let encrypt = encrypt_MD5(
+      [
+        {
+          key: 'funid',
+          value: funid
+        },
+        {
+          key: 'cartitems',
+          value: cartitems
+        },
+      ],
+        Key
+    );
+
+    console.log({
+      appid: appId,
+      method: method,
+      charset: charset,
+      signtype: signType,
+      encrypt: encrypt,
+      timestamp: timestamp,
+      version: version,
+      funid: funid,
+      cartitems: cartitems,
+    });
+
+    const response = yield apply(buyoo, buyoo.cartGate, [
+      {
+        appid: appId,
+        method: method,
+        charset: charset,
+        signtype: signType,
+        encrypt: encrypt,
+        timestamp: timestamp,
+        version: version,
+        funid: funid,
+        cartitems: cartitems,
+      }
+    ]);
+
+    if (response.code !== 10000) {
+      yield put(cartAddFailure());
+      yield put(addError(response.msg));
+      return false;
+    }
+
+    yield put(cartAddSuccess());
+  } catch (err) {
+    yield put(cartAddFailure());
+    yield put(addError(err));
+  }
+}
+
+export function* cartAddRequestWatch() {
+  yield takeEvery(CART_ADD.REQUEST, cartAddRequestWatchHandle);
+}
+
+export function* cartAddSuccessWatchHandle(action) {
+  try {
+    Platform.OS === 'android' && ToastAndroid.show(i18n.success, ToastAndroid.SHORT)
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* cartAddSuccessWatch() {
+  yield takeEvery(CART_ADD.SUCCESS, cartAddSuccessWatchHandle);
 }

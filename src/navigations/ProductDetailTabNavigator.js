@@ -54,19 +54,45 @@ const styles = StyleSheet.create({
 
 class CustomTabBarComponent extends React.Component {
 
-  renderMain(style, opacity) {
+  renderMain(style, opacity, type) {
+    const {
+      navigation: {goBack},
+      screenProps: {handleOnPressToggleMenuBottomSheet}
+    } = this.props;
+    console.log(this.props);
+    console.log(this.props.navigation);
+    console.log(goBack);
+    
+    if (type === 'main') {
+      return (
+        <Animated.View style={[style,]} >
+          <CustomIcon name="back" 
+            onPress={() => goBack()} 
+            style={[styles.headerLeft, { opacity: 1 }]} 
+          />
+          <View style={[styles.headerMiddle, { opacity }]} ></View>
+          <TabBarTop 
+            {...this.props} 
+            style={{
+              ...this.props.style,
+              opacity: opacity,
+            }}
+          />
+          <SimpleLineIcons 
+            name="share" 
+            onPress={() => handleOnPressToggleMenuBottomSheet('share')} 
+            style={[styles.headerRight, { opacity: 1 }]} 
+          />
+        </Animated.View>
+      );
+    }
+    
     return (
       <Animated.View style={[style, {opacity: opacity}]} >
-        <CustomIcon name="back" style={styles.headerLeft} onPress={()=>console.log('123123')} />
+        <CustomIcon name="back" style={styles.headerLeft} onPress={() => goBack()} />
         <View style={styles.headerMiddle} ></View>
-        <TabBarTop
-          {...this.props}
-          // style={{
-          //   ...this.props.style,
-          //   opacity: activeOpacity,
-          // }}
-        />
-        <SimpleLineIcons name="share" style={styles.headerRight} onPress={()=>console.log('123123')} />
+        <TabBarTop {...this.props} />
+        <SimpleLineIcons name="share" style={styles.headerRight} onPress={() => handleOnPressToggleMenuBottomSheet('share')} />
       </Animated.View>
     );
   }
@@ -88,8 +114,8 @@ class CustomTabBarComponent extends React.Component {
 
     return (
       <View>
-        {this.renderMain(styles.header, activeOpacity)}
-        {this.renderMain(styles.header1, BYopacity)}
+        {this.renderMain(styles.header, activeOpacity, 'all')}
+        {this.renderMain(styles.header1, BYopacity, 'main')}
       </View>
     );
   }

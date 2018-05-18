@@ -52,7 +52,6 @@ class ProductDetailParam extends React.Component {
             })
           }
           <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537442995_vivo_v9_01.jpg'} />
-          {/* <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/product/1523871203097_vivo_v9_spec.jpg'} /> */}
         </ScrollView>
       </View>
     );

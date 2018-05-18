@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
     paddingTop: STATUSBAR_HEIGHT + 40,
   },
   emptyComment: {
+    flex: 1,
+    backgroundColor: '#fff',
     alignItems: 'center',
     paddingTop: WINDOW_WIDTH * 0.3
   },
@@ -56,15 +58,17 @@ class ProductDetailComment extends React.Component {
 
     return (
       <View style={styles.container} >
-        <ScrollView >
-          <Comment data={comment} style={{ paddingTop: 20}} />
-          {comment.length === 0 &&
-            <View style={styles.emptyComment} >
-              <Image style={styles.emptyCommentImage} source={require('../images/emptycomment.png')} />
-              <Text style={styles.emptyCommentText} >{i18n.noCommentYet}</Text>
-            </View>
-          }
-        </ScrollView>
+        {comment.length !== 0 &&
+          <ScrollView >
+            <Comment data={comment} style={{ paddingTop: 20}} />
+          </ScrollView>
+        }
+        {comment.length === 0 &&
+          <View style={styles.emptyComment} >
+            <Image style={styles.emptyCommentImage} source={require('../images/emptycomment.png')} />
+            <Text style={styles.emptyCommentText} >{i18n.noCommentYet}</Text>
+          </View>
+        }
       </View>
     );
   }

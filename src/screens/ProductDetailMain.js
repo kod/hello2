@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 1,
-    height: 45,
+    height: 50,
   },
   specTitle: {
     fontSize: 14,
@@ -231,7 +231,7 @@ class ProductDetail extends React.Component {
             </View>
             <View style={styles.spec} >
               <Text style={styles.specTitle} >{i18n.selected}</Text>
-              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet()} >{propertiesIdsObject.colorName} {propertiesIdsObject.versionName}</Text>
+              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')} >{propertiesIdsObject.colorName} {propertiesIdsObject.versionName}</Text>
               <CustomIcon style={styles.specArrow} name="arrowright" />
             </View>
           </View>
@@ -251,7 +251,6 @@ class ProductDetail extends React.Component {
           <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537444074_vivo_v9_02.jpg'} />
           <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537445189_vivo_v9_03.jpg'} />
           <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537445910_vivo_v9_04.jpg'} />
-          {/* <Image source={{uri: 'https://vnimg.buyoo.xyz/commodity/img/brand/1524537442995_vivo_v9_01.jpg'}} style={{width: 400, height: 400}} /> */}
           {/* <Image 
             style={styles.productImageItem} 
             source={{uri: 'https://vnimg.buyoo.xyz/commodity/img/product/1510227184465_(NB)XIAOMI-MI%20AIR-i5-6200U8GD4256GSSD13.3FHDIPSTPMBT439WHALUB%E1%BA%A0CW10SLLED_KB1GD5_940MX-%E5%8F%82%E6%95%B0.jpg'}} 
@@ -262,8 +261,6 @@ class ProductDetail extends React.Component {
             //   console.log('======');
             // }}
           /> */}
-          {/* <Image style={styles.productImageItem} source={require('../images/1524537445189_vivo_v9_03.jpg')} />
-          <Image style={styles.productImageItem} source={require('../images/1524537445910_vivo_v9_04.jpg')} /> */}
         </ScrollView>
       </View>
     );

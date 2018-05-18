@@ -13,6 +13,8 @@ import {
   cartSelectAllRequestWatch,
   cartDeleteRequestWatch,
   cartDeleteSuccessWatch,
+  cartAddRequestWatch,
+  cartAddSuccessWatch,
 } from './cart';
 import {
   collectionFetchWatch,
@@ -62,6 +64,8 @@ export default function* rootSaga() {
     cartSelectAllRequestWatch(),
     cartDeleteRequestWatch(),
     cartDeleteSuccessWatch(),
+    cartAddRequestWatch(),
+    cartAddSuccessWatch(),
     productDetailInfoFetchWatch(),
     commentFetchWatch(),
     collectionFetchWatch(),

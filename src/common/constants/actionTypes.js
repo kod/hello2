@@ -121,6 +121,12 @@ export const CART = defineAction(
   appNamespace,
 );
 
+export const CART_ADD = defineAction(
+  'CART_ADD',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const CART_NUMBER = defineAction(
   'CART_NUMBER',
   [REQUEST, SUCCESS, FAILURE],
