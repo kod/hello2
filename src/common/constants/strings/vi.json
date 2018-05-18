@@ -1,4 +1,5 @@
 {
+  "addToCart": "Thêm vào giỏ hàng",
   "about": "Về chúng tôi",
   "afterSalesService": "Dịch vụ sau khi mua",
   "amount": "Số lượng",
@@ -61,5 +62,6 @@
   "signOut": "Đăng xuất",
   "shippingAddress": "Sổ địa chỉ của bạn",
   "soldOut": "Hết hàng",
+  "success": "Thành công",
   "warehouse": "kho"
 }

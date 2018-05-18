@@ -1,4 +1,5 @@
 {
+  "addToCart": "加入购物车",
   "about": "关于我们",
   "afterSalesService": "售后",
   "amount": "数量",
@@ -61,5 +62,6 @@
   "signOut": "退出登录",
   "shippingAddress": "我的地址",
   "soldOut": "无货",
+  "success": "成功",
   "warehouse": "仓库"
 }

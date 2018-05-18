@@ -1,4 +1,5 @@
 {
+  "addToCart": "Add to Cart",
   "about": "About us",
   "afterSalesService": "After-sales service",
   "amount": "Amount",
@@ -61,5 +62,6 @@
   "signOut": "Sign Out",
   "shippingAddress": "Shipping address",
   "soldOut": "Sold Out",
+  "success": "Success",
   "warehouse": "Warehouse"
 }
