@@ -83,7 +83,7 @@ export function* commentFetchWatchHandle(action) {
     yield put(commentFetchSuccess(responseEdited));
   } catch (err) {
     yield put(commentFetchFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 

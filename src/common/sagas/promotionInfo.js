@@ -69,7 +69,7 @@ export function* promotionInfoFetchWatchHandle(action) {
     yield put(promotionInfoFetchSuccess(response));
   } catch (err) {
     yield put(promotionInfoFetchFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 

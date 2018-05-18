@@ -72,7 +72,7 @@ export function* bannerHomeRecommendFetchWatchHandle(action) {
     );
   } catch (err) {
     yield put(bannerHomeRecommendFetchFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 

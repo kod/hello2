@@ -234,7 +234,7 @@ export function* bannerSwiperFetchWatchHandle(action) {
     yield put(bannerSwiperFetchSuccess(swiperId, response));
   } catch (err) {
     yield put(bannerSwiperFetchFailure(swiperId));
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 

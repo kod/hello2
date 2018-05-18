@@ -60,7 +60,7 @@ export function* userCertificateInfoFetchWatchHandle(action) {
     yield put(userCertificateInfoFetchSuccess(result));
   } catch (err) {
     yield put(userCertificateInfoFetchFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 

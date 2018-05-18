@@ -106,7 +106,7 @@ export function* cartFetchWatchHandle(action) {
     yield put(cartSuccess(cart.result, cart.entities.products, cart.entities.details));
   } catch (err) {
     yield put(cartFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 
@@ -178,7 +178,7 @@ export function* cartNumberRequestWatchHandle(action) {
     yield put(cartNumberSuccess(cart));
   } catch (err) {
     yield put(cartNumberFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 
@@ -240,7 +240,7 @@ export function* cartDeleteRequestWatchHandle(action) {
 
   } catch (err) {
     yield put(cartDeleteFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 
@@ -255,7 +255,7 @@ export function* cartNumberSuccessWatchHandle(action) {
     
   } catch (err) {
     // yield put(cartNumberFailure());
-    // yield put(addError(err));
+    // yield put(addError(err.toString()));
   }
 }
 
@@ -269,7 +269,7 @@ export function* cartDeleteSuccessWatchHandle(action) {
     yield put(cartRequest(authUserFunid));
   } catch (err) {
     // yield put(cartDeleteFailure());
-    // yield put(addError(err));
+    // yield put(addError(err.toString()));
   }
 }
 
@@ -282,7 +282,7 @@ export function* cartSelectRequestWatchHandle(action) {
     yield put(cartSelectSuccess());
   } catch (err) {
     yield put(cartSelectFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 
@@ -295,7 +295,7 @@ export function* cartSelectAllRequestWatchHandle(action) {
     yield put(cartSelectAllSuccess());
   } catch (err) {
     yield put(cartSelectAllFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 
@@ -366,7 +366,7 @@ export function* cartAddRequestWatchHandle(action) {
     yield put(cartAddSuccess());
   } catch (err) {
     yield put(cartAddFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 

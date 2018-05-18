@@ -84,7 +84,7 @@ export function* collectionFetchWatchHandle(action) {
     yield put(collectionFetchSuccess(response));
   } catch (err) {
     yield put(collectionFetchFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 
@@ -139,7 +139,7 @@ export function* collectionAddFetchWatchHandle(action) {
     yield put(collectionAddFetchSuccess());
   } catch (err) {
     yield put(collectionAddFetchFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 
@@ -208,7 +208,7 @@ export function* collectionRemoveFetchWatchHandle(action) {
     yield put(collectionRemoveFetchSuccess());
   } catch (err) {
     yield put(collectionRemoveFetchFailure());
-    yield put(addError(err));
+    yield put(addError(err.toString()));
   }
 }
 
