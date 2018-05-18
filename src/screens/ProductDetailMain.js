@@ -159,9 +159,9 @@ class ProductDetail extends React.Component {
   componentDidMount() {
     const {
       collectionFetch,
-      screenProps: {
-        // brandId,
-      },
+      // screenProps: {
+      //   // brandId,
+      // },
       user
     } = this.props;
     user && collectionFetch();
