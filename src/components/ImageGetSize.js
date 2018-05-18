@@ -13,24 +13,25 @@ class ImageGetSize extends Component {
 
   componentDidMount() {
     const { uri } = this.props;
-    InteractionManager.runAfterInteractions(() => {
       Image.getSize(
         uri,
         (width, height) => {
-          this.setState({width, height});
+          InteractionManager.runAfterInteractions(() => {
+            this.setState({width, height});
+          });
         },
         (error) => {
           console.log(error);
         },
       )
-    });
   }
 
   render() {
+    const { width, height } = this.state;
     const { uri, ...restProps } = this.props;
     return (
       <Image 
-        style={{width: WINDOW_WIDTH, height: this.state.height / this.state.width * WINDOW_WIDTH, resizeMode: 'contain'}} 
+        style={{width: WINDOW_WIDTH, height: height / width * WINDOW_WIDTH, resizeMode: 'contain'}} 
         source={{uri: uri}}
         {...restProps}
       />
