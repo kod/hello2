@@ -216,7 +216,7 @@ export default connectLocalization(
       allSelected: state.cart.allSelected,
       allSelectedDel: state.cart.allSelectedDel,
       isEdit: state.cart.isEdit,
-      authUserToken: state.auth.user.result,
+      authUserToken: state.auth.user ? state.auth.user.result : null,
     };
   }, {
     ...cartActionCreators
