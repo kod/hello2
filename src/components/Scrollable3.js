@@ -28,9 +28,8 @@ class Scrollable2 extends React.Component {
     const { topComputer, newComputer, i18n } = this.props;
     const { classfyinfo } = topComputer;
     const { computernewList, computernewBanerList } = newComputer;
-    const computeradImgList = {
-      items: topComputer.computeradImgList
-    };
+    const computeradImgList = topComputer.computeradImgList;
+    
 
     return (
       <View>

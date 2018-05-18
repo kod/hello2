@@ -130,7 +130,7 @@ class Scrollable1 extends React.Component {
     
     return (
       <View>
-        {/* <SwiperFlatList data={bannerSwiperList} />
+        <SwiperFlatList data={bannerSwiperList} />
         
         <NavImg1 data={nav1Data} />
 
@@ -152,7 +152,7 @@ class Scrollable1 extends React.Component {
 
         <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
 
-        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} /> */}
+        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} />
 
         <ProductItem2 data={adverstInfo} />
       </View>

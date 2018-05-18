@@ -29,6 +29,7 @@ class Scrollable2 extends React.Component {
   render() {
     const { bannerSwiper, bannerHomeRecommend, adPhone, i18n } = this.props;
     const { classfyinfo, phoneAdList, phoneAdBanerList } = adPhone;
+    const bannerSwiperList = bannerSwiper.items;
     return (
       <View>
 
@@ -82,7 +83,7 @@ class Scrollable2 extends React.Component {
           </View>
         </View> */}
         
-        <SwiperFlatList data={bannerSwiper} />
+        <SwiperFlatList data={bannerSwiperList} />
 
         <BrandList data={classfyinfo} style={{ marginBottom: 5 }} />
 
