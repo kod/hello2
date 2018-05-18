@@ -59,9 +59,9 @@ class CustomTabBarComponent extends React.Component {
       navigation: {goBack},
       screenProps: {handleOnPressToggleMenuBottomSheet}
     } = this.props;
-    console.log(this.props);
-    console.log(this.props.navigation);
-    console.log(goBack);
+    // console.log(this.props);
+    // console.log(this.props.navigation);
+    // console.log(goBack);
     
     if (type === 'main') {
       return (
