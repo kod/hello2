@@ -162,9 +162,9 @@ class ProductDetail extends React.Component {
       // screenProps: {
       //   // brandId,
       // },
-      user
+      authUser
     } = this.props;
-    user && collectionFetch();
+    authUser && collectionFetch();
   }
 
   handleOnScroll = event => {
@@ -180,8 +180,20 @@ class ProductDetail extends React.Component {
   };
 
   handleToggleCollection() {
-    const { collectionAddFetch, collectionRemoveFetch,  brandId, isCollection } = this.props;
-    isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
+    const {
+      collectionAddFetch,
+      collectionRemoveFetch,
+      brandId,
+      isCollection,
+      authUser,
+      navigation,
+      navigation: {navigate},
+    } = this.props;
+    console.log(authUser);
+    console.log(navigation);
+    console.log(navigate(SCREENS.Login));
+    // if (!authUser) return navigate(SCREENS.Login);
+    // isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
   }
   
   render() {
@@ -217,8 +229,10 @@ class ProductDetail extends React.Component {
           <SwiperFlatList 
             data={swiper} 
             style={{ height: WINDOW_WIDTH, }} 
-            styleWrap={{ paddingBottom: WINDOW_WIDTH * 0.03, backgroundColor: '#fff' }}
+            styleWrap={{ height: WINDOW_WIDTH, paddingBottom: WINDOW_WIDTH * 0.03, backgroundColor: '#fff' }}
             stylePaginationContainer={{ justifyContent: 'center', }}
+            paginationActiveColor="rgba(88,88,88,1)"
+            paginationDefaultColor="rgba(88,88,88,.5)"
             autoplay={false}
           />
           <View style={styles.product} >
@@ -286,7 +300,7 @@ export default connect(
         ...productDetailInfo.item,
         comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
         isCollection: getIsCollection(state, props),
-        user: state.auth.user,
+        authUser: state.auth.user,
       }
     }
   },
