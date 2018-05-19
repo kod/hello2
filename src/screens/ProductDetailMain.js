@@ -187,13 +187,11 @@ class ProductDetail extends React.Component {
       isCollection,
       authUser,
       navigation,
-      navigation: {navigate},
+      screenProps: { mainNavigation },
     } = this.props;
-    console.log(authUser);
-    console.log(navigation);
-    console.log(navigate(SCREENS.Login));
-    // if (!authUser) return navigate(SCREENS.Login);
-    // isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
+    const { navigate } = mainNavigation;
+    if (!authUser) return navigate(SCREENS.Login);
+    isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
   }
   
   render() {

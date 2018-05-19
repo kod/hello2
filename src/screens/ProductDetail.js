@@ -241,8 +241,8 @@ class ProductDetail extends React.Component {
     //     productDetailInfoFetch(brandId);
     //   });
     // }
-    
 
+    
     // setTimeout(() => {
     //   this.handleOnPressToggleMenuBottomSheet('share');
     // }, 300);
@@ -268,9 +268,12 @@ class ProductDetail extends React.Component {
       brandId,
       authUser,
       cartAddRequest,
+      navigation,
       navigation: {navigate},
     } = this.props;
-    if (!authUser) return navigate(SCREENS.Login);
+    console.log(navigation);
+    console.log(navigate(SCREENS.Login));
+    // if (!authUser) return navigate(SCREENS.Login);
 
     const param = [{
       quantity: 1,
@@ -346,6 +349,7 @@ class ProductDetail extends React.Component {
       numbers,
       loading,
       brandId,
+      navigation,
     } = this.props;
     if (mounting) {
       return <Loader />;
@@ -366,6 +370,7 @@ class ProductDetail extends React.Component {
           imageDesc,
           goodsProperties,
           brandId,
+          mainNavigation: navigation,
           handleOnPressToggleMenuBottomSheet: this.handleOnPressToggleMenuBottomSheet,
         }} />
         <View style={styles.operate} >
