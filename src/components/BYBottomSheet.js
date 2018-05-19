@@ -68,19 +68,25 @@ class PXBottomSheet extends Component {
   };
 
   handleOnCloseModal = () => {
+    console.log('1111111');
     const { listenCloseModal } = this.props;
-    this.setModalVisible(false);
-    listenCloseModal && listenCloseModal();
+    // this.setModalVisible(false);
+    // listenCloseModal && listenCloseModal();
+    // 
+    // this.setState({ modalVisible: !this.state.modalVisible });
   };
 
   render() {
-    const { children, onCancel } = this.props;
+    const { children, onCancel, visible } = this.props;
     const { animatedHeight, modalVisible, } = this.state;
+    console.log(visible);
+    console.log(onCancel);
     return (
       <Modal
         transparent
-        visible={modalVisible}
-        onRequestClose={this.handleOnCloseModal}
+        visible={visible}
+        onRequestClose={onCancel}
+        // onRequestClose={this.handleOnCloseModal}
         animationType="fade"
         supportedOrientations={[
           'portrait',
@@ -92,7 +98,12 @@ class PXBottomSheet extends Component {
       >
         <TouchableWithoutFeedback onPress={onCancel}>
           <View style={styles.container}>
-            <Animated.View
+            <TouchableWithoutFeedback>
+              <View style={styles.innerContainer} >
+                {children}
+              </View>
+            </TouchableWithoutFeedback>
+            {/* <Animated.View
               style={[styles.innerContainer, { maxHeight: animatedHeight }]}
             >
               <TouchableWithoutFeedback>
@@ -100,7 +111,7 @@ class PXBottomSheet extends Component {
                   {children}
                 </View>
               </TouchableWithoutFeedback>
-            </Animated.View>
+            </Animated.View> */}
           </View>
         </TouchableWithoutFeedback>
       </Modal>

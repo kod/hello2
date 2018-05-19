@@ -96,7 +96,7 @@ class CustomTabBarComponent extends React.Component {
       <Animated.View style={[style, {opacity: opacity}]} >
         <CustomIcon name="back" style={styles.headerLeft} onPress={() => goBack()} />
         <TabBarTop {...this.props} />
-        <SimpleLineIcons name="share" style={styles.headerRight} onPress={() => handleOnPressToggleMenuBottomSheet('share')} />
+        <SimpleLineIcons name="share" style={styles.headerRight} onPress={() => handleOnPressToggleMenuBottomSheet()} />
       </Animated.View>
     );
   }

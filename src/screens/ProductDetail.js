@@ -241,6 +241,7 @@ class ProductDetail extends React.Component {
     //     productDetailInfoFetch(brandId);
     //   });
     // }
+    
 
     // setTimeout(() => {
     //   this.handleOnPressToggleMenuBottomSheet('share');
@@ -250,7 +251,7 @@ class ProductDetail extends React.Component {
 
   handleOnPressToggleMenuBottomSheet = type => {
     console.log(type);
-    console.log('888888888888888888');
+    // console.log('888888888888888888');
     const newState = {
       isOpenMenuBottomSheet: !this.state.isOpenMenuBottomSheet,
       menuBottomSheetType: type,
@@ -540,7 +541,7 @@ class ProductDetail extends React.Component {
         <BYBottomSheet
           visible={isOpenMenuBottomSheet}
           onCancel={this.handleOnPressToggleMenuBottomSheet}
-          listenCloseModal={() => this.handleOnPressToggleMenuBottomSheet()}
+          // listenCloseModal={() => this.handleOnPressToggleMenuBottomSheet()}
         >
           { menuBottomSheetType === 'select' ? this.renderMenuBottomSelect() : this.renderMenuBottomShare()}
         </BYBottomSheet>
