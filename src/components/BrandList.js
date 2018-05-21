@@ -26,7 +26,7 @@ export default ({ data, style, ...restProps }) => {
   return (
     <View style={[styles.itemWrap, style]} {...restProps}>
       {data.map((val, key) => {
-        return <Image source={{ uri: val.imageUrl }} style={styles.itemImg} key={key} />;
+        return <Image source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_10` }} style={styles.itemImg} key={key} />;
       })}
     </View>
   );

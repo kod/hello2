@@ -72,8 +72,8 @@ class ProductItem1 extends Component {
       <View style={[styles.itemWrap, style]} {...restProps}>
         {data.map((val, key) => {
           return (
-            <BYTouchable style={styles.item} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, id: val.id })} >
-              <Image style={styles.itemImg} source={{ uri: val.imageUrl }} />
+            <BYTouchable style={styles.item} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, groupon: true })} >
+              <Image style={styles.itemImg} source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_10` }} />
               <Text numberOfLines={2} style={styles.itemText}>{val.name}</Text>
               {!!val.orgPrice && <Text style={styles.itemOrgPrice}>{priceFormat(val.orgPrice) + ' ₫'}</Text>}
               <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>

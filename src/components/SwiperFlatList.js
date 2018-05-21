@@ -85,7 +85,7 @@ export default class App extends PureComponent {
               data && data.map((val, index) => {
                 return (<Image
                   key={index} 
-                  source={{uri: val}}
+                  source={{uri: `${val}?x-oss-process=image/quality,Q_1`}}
                   style={ [
                     styles.child,
                     style
