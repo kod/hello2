@@ -81,13 +81,13 @@ export function* cartFetchWatchHandle(action) {
     ]);
 
     let cart = [];
-
+    
     if (response.code === 10000) {
       let array = response.cartitems;
 
       cart = array.map((val, key) => {
-        val.detail = JSON.parse(val.detail);
-        val.imageUrl = val.iconUrl;
+        val.detail = JSON.parse(val.detail) || {};
+        val.imageUrl = val.iconUrl || '';
         val.selected = false;
         val.selectedDel = false;
         return val;
