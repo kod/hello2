@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   innerContainer: {
     // paddingHorizontal: 16,
     // paddingVertical: 8,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
   },
 });
 
@@ -68,7 +68,6 @@ class PXBottomSheet extends Component {
   };
 
   handleOnCloseModal = () => {
-    console.log('1111111');
     const { listenCloseModal } = this.props;
     // this.setModalVisible(false);
     // listenCloseModal && listenCloseModal();
@@ -77,10 +76,8 @@ class PXBottomSheet extends Component {
   };
 
   render() {
-    const { children, onCancel, visible } = this.props;
+    const { children, onCancel, visible, containerStyle, } = this.props;
     const { animatedHeight, modalVisible, } = this.state;
-    console.log(visible);
-    console.log(onCancel);
     return (
       <Modal
         transparent
@@ -97,7 +94,7 @@ class PXBottomSheet extends Component {
         ]}
       >
         <TouchableWithoutFeedback onPress={onCancel}>
-          <View style={styles.container}>
+          <View style={[styles.container, containerStyle]}>
             <TouchableWithoutFeedback>
               <View style={styles.innerContainer} >
                 {children}
