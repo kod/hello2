@@ -103,7 +103,7 @@ export default ({ data, styleWrap, style, ...restProps }) => {
             <View style={styles.componentimageWrap}>
               {
                 val.imageUrls.map((val, key) => 
-                  <Image style={styles.componentimageItem} source={{ uri: val }} key={key} />
+                  <Image style={styles.componentimageItem} source={{ uri: `${val}?x-oss-process=image/quality,Q_10` }} key={key} />
                 )
               }
               {/* <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />
