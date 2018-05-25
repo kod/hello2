@@ -1,130 +1,14 @@
 import React from 'react';
-import { View, Text, Animated, StyleSheet } from 'react-native';
-import { TabNavigator, TabBarTop } from 'react-navigation';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+// import { View, Text, } from 'react-native';
+import { TabNavigator } from 'react-navigation';
 
 import ProductDetailMain from '../screens/ProductDetailMain';
 import ProductDetailParam from '../screens/ProductDetailParam';
 import ProductDetailComment from '../screens/ProductDetailComment';
 
 import { SCREENS } from '../common/constants';
-import CustomIcon from '../components/CustomIcon.js';
+import CustomTabBarComponent from "../components/CustomTabBarComponent";
 import { WINDOW_WIDTH, WINDOW_HEIGHT, PRIMARY_COLOR, STATUSBAR_HEIGHT, SIDEINTERVAL } from '../styles/variables';
-
-const opacity_tcy = 0.8;
-
-const styles = StyleSheet.create({
-  header: {
-    position: 'absolute',
-    bottom: WINDOW_HEIGHT - STATUSBAR_HEIGHT - 90,
-    left: 0,
-    zIndex: 400,
-    flexDirection: 'row',
-    paddingTop: STATUSBAR_HEIGHT,
-    backgroundColor: '#fff',
-  },
-  header1: {
-    position: 'absolute',
-    bottom: WINDOW_HEIGHT - STATUSBAR_HEIGHT - 90,
-    left: 0,
-    zIndex: 350,
-    // flexDirection: 'row',
-    paddingTop: 0,
-    // paddingTop: STATUSBAR_HEIGHT,
-    backgroundColor: 'transparent',
-  },
-  headerLeft: {
-    fontSize: 16,
-    width: 40,
-    height: 40,
-    lineHeight: 40,
-    textAlign: 'center',
-  },
-  headerMiddle: {
-    flex: 1,
-    height: STATUSBAR_HEIGHT,
-    backgroundColor: '#ff0',
-  },
-  headerRight: {
-    fontSize: 16,
-    width: 40,
-    height: 40,
-    lineHeight: 40,
-    textAlign: 'center',
-  },
-});
-
-class CustomTabBarComponent extends React.Component {
-
-  renderMain(style, opacity, type) {
-    const {
-      // navigation: { goBack },
-      screenProps: { mainNavigation, handleOnPressToggleMenuBottomSheet },
-    } = this.props;
-    const { goBack } = mainNavigation;
-    // console.log(this.props);
-    // console.log(this.props.navigation);
-    // console.log(goBack);
-    
-    if (type === 'main') {
-      return (
-        <Animated.View style={[style,]} >
-          <View style={[styles.headerMiddle, { opacity, backgroundColor: '#fff', }]} ></View>
-          <View style={{flexDirection: 'row'}} >
-            <CustomIcon name="back" 
-              onPress={() => goBack()} 
-              style={[styles.headerLeft, { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})`, }]} 
-            />
-            <TabBarTop 
-              {...this.props} 
-              style={{
-                ...this.props.style,
-                opacity: opacity,
-                backgroundColor: '#fff',
-              }}
-            />
-            <SimpleLineIcons 
-              name="share" 
-              onPress={() => handleOnPressToggleMenuBottomSheet('share')} 
-              style={[styles.headerRight, { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})`, }]} 
-            />
-          </View>
-        </Animated.View>
-      );
-    }
-    
-    return (
-      <Animated.View style={[style, {opacity: opacity}]} >
-        <CustomIcon name="back" style={styles.headerLeft} onPress={() => goBack()} />
-        <TabBarTop {...this.props} />
-        <SimpleLineIcons name="share" style={styles.headerRight} onPress={() => handleOnPressToggleMenuBottomSheet()} />
-      </Animated.View>
-    );
-  }
-  
-  render() {
-    const { BYopacity = 1 } = this.props.screenProps;
-
-    const {
-      position,
-      navigation,
-    } = this.props;
-
-    const { routes } = navigation.state;
-    const inputRange = [-1, ...routes.map((x, i) => i)];
-    const activeOpacity = position.interpolate({
-      inputRange,
-      outputRange: [1, 0, 1, 1],
-    });
-
-    return (
-      <View>
-        {this.renderMain(styles.header, activeOpacity, 'all')}
-        {this.renderMain(styles.header1, BYopacity, 'main')}
-      </View>
-    );
-  }
-}
 
 const RouteConfigs = {
   [SCREENS.ProductDetailMain]: {
