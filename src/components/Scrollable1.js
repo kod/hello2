@@ -95,7 +95,9 @@ class Scrollable1 extends React.Component {
     adverstInfoFetch({
       type_id: '5',
     });
-    mergeGetInfoFetch();
+    mergeGetInfoFetch({
+      pagesize: 20
+    });
   }
 
   render() {
@@ -130,9 +132,9 @@ class Scrollable1 extends React.Component {
     
     return (
       <View>
-        <SwiperFlatList data={bannerSwiperList} />
+        {/* <SwiperFlatList data={bannerSwiperList} /> */}
         
-        <NavImg1 data={nav1Data} />
+        {/* <NavImg1 data={nav1Data} /> */}
 
         <View style={styles.groupBuy}>
           <View style={styles.groupBuyBackground} >

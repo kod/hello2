@@ -5,6 +5,10 @@ import bannerHomeType from './bannerHomeType';
 import bannerHomeRecommend from './bannerHomeRecommend';
 import promotionInfo from './promotionInfo';
 import mergeGetInfo from './mergeGetInfo';
+import mergeGetDetail from './mergeGetDetail';
+import mergeGetSlave from './mergeGetSlave';
+import mergeCheck from './mergeCheck';
+import mergeGetMaster from './mergeGetMaster';
 import adverstInfo from './adverstInfo';
 import scrollableTabView from './scrollableTabView';
 import adPhone from './adPhone';
@@ -27,6 +31,10 @@ const rootReducer = combineReducers({
   bannerHomeRecommend,
   promotionInfo,
   mergeGetInfo,
+  mergeGetDetail,
+  mergeGetSlave,
+  mergeCheck,
+  mergeGetMaster,
   adverstInfo,
   scrollableTabView,
   adPhone,

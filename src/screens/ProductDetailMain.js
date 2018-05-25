@@ -30,6 +30,7 @@ import { makegetIsCollection } from "../common/selectors";
 
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 import * as collectionActionCreators from '../common/actions/collection';
+import * as commentActionCreators from '../common/actions/comment';
 
 const styles = StyleSheet.create({
   container: {
@@ -158,13 +159,18 @@ const styles = StyleSheet.create({
 class ProductDetail extends React.Component {
   componentDidMount() {
     const {
+      commentFetch,
       collectionFetch,
-      // screenProps: {
-      //   // brandId,
-      // },
-      authUser
+      productDetailInfoFetch,
+      productDetailInfoClear,
+      propertiesIds,
+      brandId,
+      authUser,
     } = this.props;
     authUser && collectionFetch();
+    productDetailInfoClear(brandId);
+    productDetailInfoFetch(brandId, propertiesIds);
+    commentFetch(brandId);
   }
 
   handleOnScroll = event => {
@@ -183,10 +189,10 @@ class ProductDetail extends React.Component {
     const {
       collectionAddFetch,
       collectionRemoveFetch,
-      brandId,
       isCollection,
       authUser,
       navigation,
+      brandId,
       screenProps: { mainNavigation },
     } = this.props;
     const { navigate } = mainNavigation;
@@ -199,14 +205,14 @@ class ProductDetail extends React.Component {
       name,
       comment,
       isCollection,
-      navigation: {navigate},
+      brandId,
+      i18n,
+      price,
+      imageUrls,
+      imageDesc,
+      propertiesIdsObject,
+      navigation: { navigate },
       screenProps: {
-        i18n,
-        price, 
-        swiper, 
-        brandId,
-        imageDesc, 
-        propertiesIdsObject,
         handleOnPressToggleMenuBottomSheet,
       },
     } = this.props;
@@ -225,7 +231,7 @@ class ProductDetail extends React.Component {
           </BYTouchable>
           <View style={styles.statusbarPlaceholder} ></View>
           <SwiperFlatList 
-            data={swiper} 
+            data={imageUrls} 
             style={{ height: WINDOW_WIDTH, }} 
             styleWrap={{ height: WINDOW_WIDTH, paddingBottom: WINDOW_WIDTH * 0.03, backgroundColor: '#fff' }}
             stylePaginationContainer={{ justifyContent: 'center', }}
@@ -260,42 +266,23 @@ class ProductDetail extends React.Component {
               return <ImageGetSize uri={val} key={key} />
             })
           }
-          <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537442995_vivo_v9_01.jpg'} />
-          <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537444074_vivo_v9_02.jpg'} />
-          <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537445189_vivo_v9_03.jpg'} />
-          <ImageGetSize uri={'https://vnimg.buyoo.xyz/commodity/img/brand/1524537445910_vivo_v9_04.jpg'} />
-          {/* <Image 
-            style={styles.productImageItem} 
-            source={{uri: 'https://vnimg.buyoo.xyz/commodity/img/product/1510227184465_(NB)XIAOMI-MI%20AIR-i5-6200U8GD4256GSSD13.3FHDIPSTPMBT439WHALUB%E1%BA%A0CW10SLLED_KB1GD5_940MX-%E5%8F%82%E6%95%B0.jpg'}} 
-            // onLoad={(a,b,c) => {
-            //   console.log(a);
-            //   console.log(b);
-            //   console.log(c);
-            //   console.log('======');
-            // }}
-          /> */}
         </ScrollView>
       </View>
     );
   }
 }
 
-// function mapStateToProps(state, props) {
-//   const { productDetailInfo } = state;
-//   return {
-//     detial: {
-//       ...productDetailInfo.item
-//     },
-//   };
-// }
-
-export default connect(
+export default connectLocalization(connect(
   () => {
     const getIsCollection = makegetIsCollection();
     return (state, props) => {
-      const { productDetailInfo, comment, collection } = state;
+      const { productDetailInfo, comment, collection, productDetail } = state;
+      const { brandId, propertiesIds } = props.screenProps;
+
       return {
         ...productDetailInfo.item,
+        brandId,
+        propertiesIds,
         comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
         isCollection: getIsCollection(state, props),
         authUser: state.auth.user,
@@ -303,7 +290,8 @@ export default connect(
     }
   },
   {
+    ...commentActionCreators,
     ...collectionActionCreators,
     ...productDetailInfoActionCreators,
   }
-)(ProductDetail);
+)(ProductDetail));

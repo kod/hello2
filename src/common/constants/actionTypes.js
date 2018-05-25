@@ -79,6 +79,30 @@ export const MERGE_GETINFO = defineAction(
   appNamespace,
 );
 
+export const MERGE_GETDETAIL = defineAction(
+  'MERGE_GETDETAIL',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const MERGE_GETSLAVE = defineAction(
+  'MERGE_GETSLAVE',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const MERGE_CHECK = defineAction(
+  'MERGE_CHECK',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const MERGE_GETMASTER = defineAction(
+  'MERGE_GETMASTER',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const PROMOTION_INFO = defineAction(
   'PROMOTION_INFO',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

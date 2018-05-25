@@ -29,6 +29,10 @@ import { bannerHomeTypeFetchWatch } from './bannerHomeType';
 import { bannerHomeRecommendFetchWatch } from './bannerHomeRecommend';
 import { promotionInfoFetchWatch } from './promotionInfo';
 import { mergeGetInfoFetchWatch } from './mergeGetInfo';
+import { mergeGetDetailFetchWatch } from './mergeGetDetail';
+import { mergeGetSlaveFetchWatch } from './mergeGetSlave';
+import { mergeCheckFetchWatch } from './mergeCheck';
+import { mergeGetMasterFetchWatch } from './mergeGetMaster';
 import { adverstInfoFetchWatch } from './adverstInfo';
 import { adPhoneFetchWatch } from './adPhone';
 import { topComputerFetchWatch } from './topComputer';
@@ -51,6 +55,10 @@ export default function* rootSaga() {
     bannerHomeRecommendFetchWatch(),
     promotionInfoFetchWatch(),
     mergeGetInfoFetchWatch(),
+    mergeGetDetailFetchWatch(),
+    mergeGetSlaveFetchWatch(),
+    mergeCheckFetchWatch(),
+    mergeGetMasterFetchWatch(),
     adverstInfoFetchWatch(),
     adPhoneFetchWatch(),
     topComputerFetchWatch(),

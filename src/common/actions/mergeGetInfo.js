@@ -18,14 +18,10 @@ export function mergeGetInfoFetchFailure() {
   };
 }
 
-export function mergeGetInfoFetch(
-  refreshing = false,
-) {
+export function mergeGetInfoFetch(params) {
   return {
     type: MERGE_GETINFO.REQUEST,
-    payload: {
-      refreshing,
-    },
+    payload: params,
   };
 }
 

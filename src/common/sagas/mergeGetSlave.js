@@ -1,27 +1,26 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { mergeGetInfoFetchSuccess, mergeGetInfoFetchFailure } from '../actions/mergeGetInfo';
+import { mergeGetSlaveFetchSuccess, mergeGetSlaveFetchFailure } from '../actions/mergeGetSlave';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
-import { MERGE_GETINFO } from '../constants/actionTypes';
+import { MERGE_GETSLAVE } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 
 
-export function* mergeGetInfoFetchWatchHandle(action) {
+export function* mergeGetSlaveFetchWatchHandle(action) {
   try {
     const {
-      typeid = 0,
-      classfyid = 0,
-      position = 0,
-      pagesize = 4,
+      brandId = 0,
+      masterId = 0,
+      pagesize = 10,
       currentpage = 1,
     } = action.payload;
     console.log(action.payload);
     
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.merge.query';
+    let method = 'fun.merge.slave';
     let charset = 'utf-8';
     let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
     let version = '2.0';
@@ -31,16 +30,12 @@ export function* mergeGetInfoFetchWatchHandle(action) {
     let encrypt = encrypt_MD5(
       [
         {
-          key: 'typeid',
-          value: typeid
+          key: 'brandid',
+          value: brandId
         },
         {
-          key: 'classfyid',
-          value: classfyid
-        },
-        {
-          key: 'position',
-          value: position
+          key: 'mergemasterid',
+          value: masterId
         },
         {
           key: 'pagesize',
@@ -54,7 +49,7 @@ export function* mergeGetInfoFetchWatchHandle(action) {
       Key
     );
 
-    const response = yield apply(buyoo, buyoo.mergeGetInfo, [
+    const response = yield apply(buyoo, buyoo.mergeGetSlave, [
       {
         appid: appId,
         method: method,
@@ -63,36 +58,43 @@ export function* mergeGetInfoFetchWatchHandle(action) {
         encrypt: encrypt,
         timestamp: timestamp,
         version: version,
-        typeid: typeid,
-        classfyid: classfyid,
-        position: position,
+        brandid: brandId,
+        mergemasterid: masterId,
         pagesize: pagesize,
         currentpage: currentpage
       }
     ]);
 
-    let result = [];
+    console.log({
+      appid: appId,
+      method: method,
+      charset: charset,
+      signtype: signType,
+      encrypt: encrypt,
+      timestamp: timestamp,
+      version: version,
+      brandid: brandId,
+      mergemasterid: masterId,
+      pagesize: pagesize,
+      currentpage: currentpage
+    });
+
+    console.log(JSON.stringify(response));
     
+
     if (response.code !== 10000) {
-      yield put(mergeGetInfoFetchFailure());
-      yield put(addError(response.msg));  
+      yield put(mergeGetSlaveFetchFailure());
+      yield put(addError(response.msg));
       return false;
     }
 
-    const array = response.details;
-    for (let index = 0; index < array.length; index++) {
-      let element = array[index];
-      element.price = element.mergePrice;
-      result.push(element);
-    }
-
-    yield put(mergeGetInfoFetchSuccess(result));
+    yield put(mergeGetSlaveFetchSuccess(response));
   } catch (err) {
-    yield put(mergeGetInfoFetchFailure());
+    yield put(mergeGetSlaveFetchFailure());
     yield put(addError(err.toString()));
   }
 }
 
-export function* mergeGetInfoFetchWatch() {
-  yield takeEvery(MERGE_GETINFO.REQUEST, mergeGetInfoFetchWatchHandle);
+export function* mergeGetSlaveFetchWatch() {
+  yield takeEvery(MERGE_GETSLAVE.REQUEST, mergeGetSlaveFetchWatchHandle);
 }
