@@ -8,6 +8,7 @@ import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTER
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import CartItem from "../components/CartItem";
+import EmptyState from "../components/EmptyState";
 import BYTextInput from "../components/BYTextInput";
 import { connectLocalization } from "../components/Localization";
 import priceFormat from '../common/helpers/priceFormat';
@@ -81,20 +82,6 @@ const styles = StyleSheet.create({
   },
   overviewSubmitTextDel: {
     backgroundColor: RED_COLOR,
-  },
-  empty: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyImg: {
-    width: WINDOW_WIDTH * 0.7,
-    height: WINDOW_WIDTH * 0.7,
-    marginBottom: 28,
-  },
-  emptyText: {
-    color: '#ccc',
-    fontSize: 14,
   },
 });
 
@@ -200,10 +187,9 @@ class Cart extends React.Component {
             <Text style={[styles.overviewSubmitText, isEdit && styles.overviewSubmitTextDel]} >{isEdit ? i18n.delete : i18n.buy}</Text>
           </BYTouchable>
         </View>}
-        {isEmptyCart && <View style={styles.empty} >
-          <Image style={styles.emptyImg} source={require('../images/ouhrigdfnjsoeijehr.jpg')} />
-          <Text style={styles.emptyText} >爱生活，就不要空空荡荡</Text>
-        </View>}
+        {
+          isEmptyCart && <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
+        }
       </View>
     );
   }
