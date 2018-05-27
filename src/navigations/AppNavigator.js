@@ -1,6 +1,6 @@
 import { StackNavigator } from 'react-navigation';
-import AppTabNavigator from './AppTabNavigator';
 import { SCREENS } from '../common/constants';
+import AppTabNavigator from './AppTabNavigator';
 import ProductDetail from '../screens/ProductDetail';
 import Login from '../screens/Login';
 import RegisterStepOne from '../screens/RegisterStepOne';
@@ -14,6 +14,8 @@ import RegisterFastStepTwo from '../screens/RegisterFastStepTwo';
 import ForgotPasswordOne from '../screens/ForgotPasswordOne';
 import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
 import Test from '../screens/Test';
+import Address from '../screens/Address';
+import AddressAdd from '../screens/AddressAdd';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -99,13 +101,25 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.Address]: {
+    screen: Address,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.AddressAdd]: {
+    screen: AddressAdd,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.Index,
   // initialRouteName: SCREENS.ProductDetail,
-  // initialRouteName: SCREENS.Test,
+  initialRouteName: SCREENS.AddressAdd,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

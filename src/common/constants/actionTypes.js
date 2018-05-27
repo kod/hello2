@@ -247,6 +247,36 @@ export const COMMENT = defineAction(
   appNamespace,
 );
 
+export const ADDRESS = defineAction(
+  'ADDRESS',
+  [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
+  appNamespace,
+);
+
+export const ADDRESS_ADD = defineAction(
+  'ADDRESS_ADD',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const ADDRESS_REMOVE = defineAction(
+  'ADDRESS_REMOVE',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const ADDRESS_MODIFY = defineAction(
+  'ADDRESS_MODIFY',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CITY_INFOS = defineAction(
+  'CITY_INFOS',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const COLLECTION = defineAction(
   'COLLECTION',
   [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],

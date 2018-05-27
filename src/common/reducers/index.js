@@ -24,6 +24,8 @@ import productDetailInfo from './productDetailInfo';
 import entities from './entities';
 import comment from './comment';
 import collection from './collection';
+import address from './address';
+import cityInfos from './cityInfos';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -50,6 +52,8 @@ const rootReducer = combineReducers({
   entities,
   comment,
   collection,
+  address,
+  cityInfos,
   form: formReducer,
 });
 

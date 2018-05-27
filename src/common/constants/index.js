@@ -1,5 +1,6 @@
 export const SCREENS = {
   Address: 'Address',
+  AddressAdd: 'AddressAdd',
   Cart: 'Cart',
   Category: 'Category',
   ForgotPasswordOne: 'ForgotPasswordOne',

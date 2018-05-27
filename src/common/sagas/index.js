@@ -23,6 +23,12 @@ import {
   collectionRemoveFetchWatch,
   collectionRemoveSuccessWatch,
 } from './collection';
+import {
+  addressFetchWatch,
+  addressAddFetchWatch,
+  addressModifyWatch,
+  addressModifySuccessWatch,
+} from './address';
 import { watchError } from './error';
 import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
@@ -41,6 +47,7 @@ import { adDigitalFetchWatch } from './adDigital';
 import { userCertificateInfoFetchWatch } from './userCertificateInfo';
 import { productDetailInfoFetchWatch } from './productDetailInfo';
 import { commentFetchWatch } from './comment';
+import { cityInfosFetchWatch } from './cityInfos';
 
 
 export default function* rootSaga() {
@@ -81,5 +88,10 @@ export default function* rootSaga() {
     collectionAddSuccessWatch(),
     collectionRemoveFetchWatch(),
     collectionRemoveSuccessWatch(),
+    addressFetchWatch(),
+    addressAddFetchWatch(),
+    addressModifyWatch(),
+    addressModifySuccessWatch(),
+    cityInfosFetchWatch(),
   ]);
 }
