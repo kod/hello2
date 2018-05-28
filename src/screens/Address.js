@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { withNavigation } from 'react-navigation';
 
 import { SCREENS } from "../common/constants";
 
@@ -116,7 +117,30 @@ class Address extends React.Component {
     } = this.props;
     console.log(item);
     if (item.isdefault === 'Y') return false;
+    item.isdefault = 'Y';
     addressModifyFetch(item);
+  }
+
+  handleOnPressAddressDel(id) {
+    const {
+      i18n,
+      addressRemoveFetch,
+    } = this.props;
+    Alert.alert(
+      '',
+      '确定删除？',
+      [
+        {
+          text: i18n.cancel,
+        },
+        {
+          text: i18n.delete,
+          onPress: () => {
+            addressRemoveFetch(id);
+          }
+        }
+      ]
+    )
   }
   
   renderMainContent() {
@@ -125,7 +149,9 @@ class Address extends React.Component {
       items,
       loading,
       refreshing,
+      navigation: { navigate }
     } = this.props;
+    console.log(this.props);
 
     if (loading && !refreshing) {
       return <Loader />;
@@ -152,8 +178,22 @@ class Address extends React.Component {
                       <Text style={[styles.selectText, val.isdefault === 'Y' && styles.selected]} >{i18n.defaultAddress}</Text>
                     </BYTouchable>
                     <View style={styles.operateRight} >
-                      <Ionicons style={styles.editIcon} name={'ios-create-outline'} />
-                      <Ionicons style={styles.trashIcon} name={'ios-trash-outline'} />
+                      <Ionicons style={styles.editIcon} name={'ios-create-outline'} 
+                        onPress={() => navigate(SCREENS.AddressAdd, {
+                          id: val.id,
+                          msisdn: val.msisdn,
+                          address: val.address,
+                          username: val.username,
+                          isdefault: val.isdefault,
+                          division2nd: val.division2nd,
+                          division3rd: val.division3rd,
+                          division4th: val.division4th,
+                          division2ndName: val.division2ndName,
+                          division3rdName: val.division3rdName,
+                          division4thName: val.division4thName,
+                        })} 
+                      />
+                      <Ionicons style={styles.trashIcon} name={'ios-trash-outline'} onPress={() => this.handleOnPressAddressDel(val.id)} />
                     </View>
                   </View>
                 </View>
@@ -161,8 +201,7 @@ class Address extends React.Component {
             )}
           </ScrollView>
         }
-        <Text style={styles.add} >add address</Text>
-
+        <Text style={styles.add} onPress={() => navigate(SCREENS.AddressAdd)} >add address</Text>
       </View>
     )
   }
@@ -190,6 +229,8 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connectLocalization(
-  connect(mapStateToProps, { ...addressActionCreators, ...authActionCreators })(Address)
+export default withNavigation(
+  connectLocalization(
+    connect(mapStateToProps, { ...addressActionCreators, ...authActionCreators })(Address)
+  )
 );

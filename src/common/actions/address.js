@@ -90,12 +90,12 @@ export function addressRemoveFailure() {
 }
 
 export function addressRemoveFetch(
-  brand_id
+  adds
 ) {
   return {
     type: ADDRESS_REMOVE.REQUEST,
     payload: {
-      brand_id,
+      adds,
     },
   };
 }
@@ -126,7 +126,7 @@ export function addressModifyFetch(
     payload: {
       ...item,
       addrid: item.id,
-      isdefault: 'Y',
+      // isdefault: 'Y',
     },
   };
 }

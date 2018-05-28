@@ -1,5 +1,7 @@
-import { Platform } from 'react-native';
-import { takeEvery, apply, put, select } from 'redux-saga/effects';
+import { Platform, ToastAndroid, } from 'react-native';
+import { takeEvery, apply, put, select, } from 'redux-saga/effects';
+import { NavigationActions } from 'react-navigation';
+import { SCREENS } from "../constants";
 import {
   addressFetch,
   addressFetchSuccess,
@@ -21,6 +23,7 @@ import {
 } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
+import i18n from '../helpers/i18n';
 
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
 
@@ -154,28 +157,30 @@ export function* addressAddFetchWatchHandle(action) {
       ],
       Key
     );
-
-    console.log({
-      appId: appId,
-      method: method,
-      charset: charset,
-      signType: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      msisdn: msisdn,
-      address: address,
-      isdefault: isdefault,
-      username: username,
-      division1st: division1st,
-      division2nd: division2nd,
-      division3rd: division3rd,
-      division4th: division4th,
-      division5th: division5th,
-      division6th: division6th,
-    });
     
+    // console.log(
+    //   {
+    //     appId: appId,
+    //     method: method,
+    //     charset: charset,
+    //     signType: signType,
+    //     encrypt: encrypt,
+    //     timestamp: timestamp,
+    //     version: version,
+    //     funid: funid,
+    //     msisdn: msisdn,
+    //     address: address,
+    //     isdefault: isdefault,
+    //     username: username,
+    //     division1st: division1st,
+    //     division2nd: division2nd,
+    //     division3rd: division3rd,
+    //     division4th: division4th,
+    //     division5th: division5th,
+    //     division6th: division6th,
+    //   }
+    // );
+
     let response = yield apply(buyoo, buyoo.useraddaddr, [
       {
         appId: appId,
@@ -198,7 +203,7 @@ export function* addressAddFetchWatchHandle(action) {
         division6th: division6th,
       }
     ]);
-    console.log(response);
+    // console.log(response);
 
     if (response.code !== 10000) {
       yield put(addressAddFailure());
@@ -216,6 +221,9 @@ export function* addressAddFetchWatchHandle(action) {
 export function* addressAddSuccessWatchHandle() {
   try {
     yield put(addressFetch());
+    Platform.OS === 'android' && ToastAndroid.show(i18n.success, ToastAndroid.SHORT);
+    // yield put(NavigationActions.back());
+    // yield put(NavigationActions.navigate({ routeName: SCREENS.Address }));
   } catch (err) {
     
   }
@@ -224,17 +232,16 @@ export function* addressAddSuccessWatchHandle() {
 export function* addressRemoveWatchHandle(action) {
   try {
     const funid = yield select(getAuthUserFunid);
-    const msisdn = yield select(getAuthUserMsisdn);
-    const brand_id = action.payload.brand_id;    
+    const adds = action.payload.adds;    
 
     let Key = 'userKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.canceladdress';
+    let method = 'fun.uc.userDelAddrs';
     let charset = 'utf-8';
     let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
     let version = '1.0';
   
-    let signType = signType_MD5(appId, method, charset, Key, false);
+    let signType = signType_MD5(appId, method, charset, Key, true);
 
     let encrypt = encrypt_MD5(
       [
@@ -243,29 +250,24 @@ export function* addressRemoveWatchHandle(action) {
           value: funid
         },
         {
-          key: 'msisdn',
-          value: msisdn
-        },
-        {
-          key: 'brand_id',
-          value: brand_id
+          key: 'adds',
+          value: adds
         },
       ],
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.userCancelCollection, [
+    let response = yield apply(buyoo, buyoo.userDelAddrs, [
       {
-        appId: appId,
+        appid: appId,
         method: method,
         charset: charset,
-        signType: signType,
+        signtype: signType,
         encrypt: encrypt,
         timestamp: timestamp,
         version: version,
         funid: funid,
-        msisdn: msisdn,
-        brand_id: brand_id,
+        adds: adds,
       }
     ]);
 
@@ -293,20 +295,19 @@ export function* addressRemoveSuccessWatchHandle() {
 export function* addressModifyWatchHandle(action) {
   try {
     const funid = yield select(getAuthUserFunid);
-    const msisdn = yield select(getAuthUserMsisdn);
-    const brand_id = action.payload.brand_id;
 
     const {
       addrid,
+      msisdn,
       address,
       isdefault,
       username,
-      division1st,
-      division2nd,
-      division3rd,
-      division4th,
-      division5th,
-      division6th,
+      division1st = 1,
+      division2nd = 0,
+      division3rd = 0,
+      division4th = 0,
+      division5th = 0,
+      division6th = 0,
     } = action.payload;
     
     let Key = 'userKey';
@@ -412,6 +413,7 @@ export function* addressModifyWatchHandle(action) {
 export function* addressModifySuccessWatchHandle() {
   try {
     yield put(addressFetch(true));
+    Platform.OS === 'android' && ToastAndroid.show(i18n.success, ToastAndroid.SHORT);
   } catch (err) {
     
   }

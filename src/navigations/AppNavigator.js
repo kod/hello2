@@ -16,6 +16,7 @@ import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
 import Test from '../screens/Test';
 import Address from '../screens/Address';
 import AddressAdd from '../screens/AddressAdd';
+import AddressEdit from '../screens/AddressEdit';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -113,13 +114,19 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.AddressEdit]: {
+    screen: AddressEdit,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.ProductDetail,
-  initialRouteName: SCREENS.AddressAdd,
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.Address,
+  // initialRouteName: SCREENS.AddressAdd,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

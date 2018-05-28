@@ -211,7 +211,7 @@ class Me extends React.Component {
       },
       {
         name: i18n.shippingAddress,
-        navigate: SCREENS.Settings,
+        navigate: SCREENS.Address,
         tips: '',
       },
       {

@@ -81,6 +81,8 @@ class AddressInput extends React.Component {
       input,
       ...restProps,
     } = this.props;
+    console.log(this.props);
+    console.log('XXXXXXXXXXX');
     return (
       <BYTextInput 
         onChangeText={input.onChange}
@@ -95,14 +97,18 @@ class AddressAdd extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      areaAddressStr: '',
       isOpenMenuBottomSheet: false,
       addressIndex: 0,
+      division2nd: {},
+      division3rd: {},
+      division4th: {},
       division2ndID: null,
       division3rdID: null,
       division4thID: null,
-      division2ndName: null,
-      division3rdName: null,
-      division4thName: null,
+      division2ndCityList: [],
+      division3rdCityList: [],
+      division4thCityList: [],
     }
   }
 
@@ -110,32 +116,11 @@ class AddressAdd extends React.Component {
     // setTimeout(() => {
     //   this.handleOnPressToggleMenuBottomSheet();
     // }, 300);
-    const {
-      initialize,
-      cityInfosFetch,
-      navigation: { state: { params } },
-    } = this.props;
-    console.log(this.props);
-    
-    console.log(params);
-    if (params) {
-      this.setState({
-        addressIndex: 2,
-      });
-      
-      cityInfosFetch(1, 'division2nd');
-      this.handleOnPressCitySelect(params.division2nd, params.division2ndName, 0);
-      this.handleOnPressCitySelect(params.division3rd, params.division3rdName, 1);
-      this.handleOnPressCitySelect(params.division4th, params.division4thName, 2);
-      initialize({
-        name: params.username,
-        phone: params.msisdn,
-        address: params.address,
-      });
-    }
+    // 
+    this.props.initialize({ address: 'your name' });
   }
   
-  handleOnPressToggleMenuBottomSheet = (type) => {
+  handleOnPressToggleMenuBottomSheet = () => {
     const {
       isOpenMenuBottomSheet,
     } = this.state;
@@ -150,17 +135,17 @@ class AddressAdd extends React.Component {
     }
     
     this.setState({
-      isOpenMenuBottomSheet: type === undefined ? !isOpenMenuBottomSheet : type,
+      isOpenMenuBottomSheet: !isOpenMenuBottomSheet,
     });
   };
 
-  handleOnPressCitySelect(id, name, key) {
+  handleOnPressCitySelect(val, key) {
     let item;
 
     const {
-      division2ndName,
-      division3rdName,
-      division4thName,
+      division2nd,
+      division3rd,
+      division4th,
     } = this.state;
     
     const {
@@ -171,37 +156,40 @@ class AddressAdd extends React.Component {
       case 0:
         item = {
           addressIndex: 1,
-          division2ndName: name,
-          division3rdName: null,
-          division4thName: null,
-          division2ndID: id,
+          division2nd: val,
+          division3rd: {},
+          division4th: {},
+          division2ndID: null,
           division3rdID: null,
           division4thID: null,
+          areaAddressStr: '',
         }
-        cityInfosFetch(id, 'division3rd');
+        cityInfosFetch(val.id, 'division3rd');
         break;
     
       case 1:
         item = {
           addressIndex: 2,
-          division3rdName: name,
-          division4thName: null,
-          // division2ndID: null,
-          division3rdID: id,
+          division3rd: val, 
+          division4th: {},
+          division2ndID: null,
+          division3rdID: null,
           division4thID: null,
+          areaAddressStr: '',
         }
-        cityInfosFetch(id, 'division4th');
+        cityInfosFetch(val.id, 'division4th');
       break;
 
       case 2:
         item = {
           addressIndex: 2,
-          division4thName: name,
-          // division2ndID: division2nd.id,
-          // division3rdID: division3rd.id,
-          division4thID: id,    
+          division4th: val,
+          division2ndID: division2nd.id,
+          division3rdID: division3rd.id,
+          division4thID: val.id,    
+          areaAddressStr: `${val.name}, ${division3rd.name}, ${division2nd.name}`,
         }
-        this.handleOnPressToggleMenuBottomSheet(false);
+        this.handleOnPressToggleMenuBottomSheet();
         break;
     }
     this.setState(item);
@@ -215,13 +203,10 @@ class AddressAdd extends React.Component {
     } = this.state;
     
     const {
-      navigation: { state: { params } },
       addressAddFetch,
-      addressModifyFetch,
       addressAddInfo: { values },
     } = this.props;
     console.log(this.props);
-    // return false;
 
     if (!values) {
       Platform.OS === 'android' && ToastAndroid.show('place entry name', ToastAndroid.SHORT)
@@ -244,7 +229,7 @@ class AddressAdd extends React.Component {
       return false;
     }
 
-    if (!division4thID) {
+    if (!this.state.areaAddressStr) {
       Platform.OS === 'android' && ToastAndroid.show('place entry area', ToastAndroid.SHORT)
     }
 
@@ -252,21 +237,6 @@ class AddressAdd extends React.Component {
       Platform.OS === 'android' && ToastAndroid.show('place entry address', ToastAndroid.SHORT)
       return false;
     }
-
-    console.log(params);
-    if(params) {
-      addressModifyFetch({
-        id: params.id,
-        msisdn: phone,
-        address: address,
-        isdefault: params.isdefault,
-        username: name,
-        division2nd: division2ndID,
-        division3rd: division3rdID,
-        division4th: division4thID,
-      });
-      return false;
-    } 
 
     addressAddFetch({
       msisdn: phone,
@@ -339,28 +309,28 @@ class AddressAdd extends React.Component {
     const renderScrollView = (item, scrollViewKey) => {
       const {
         addressIndex,
-        division2ndID,
-        division3rdID,
-        division4thID,
+        division2nd,
+        division3rd,
+        division4th,  
       } = this.state;
 
       const divisionObject = scrollViewKey => {
         switch (scrollViewKey) {
           case 0:
-            return division2ndID;
+            return division2nd;
           case 1:
-            return division3rdID;
+            return division3rd;
           case 2:
-            return division4thID;
+            return division4th;
         }
       }
 
       return (
         <ScrollView style={[styles.scrollView, addressIndex === scrollViewKey && styles.ScrollViewShow]} key={scrollViewKey} >
           {item.map((val, key) => 
-            <BYTouchable style={styles.scrollViewItem} key={key} onPress={() => this.handleOnPressCitySelect(val.id, val.name, scrollViewKey)} >
-              <Text style={[styles.scrollViewItemText, divisionObject(scrollViewKey) === val.id && styles.scrollViewActive]} >{val.name}</Text>
-              <Ionicons style={[styles.scrollViewItemIcon, divisionObject(scrollViewKey) === val.id && styles.scrollViewActive]} name={'ios-radio-button-on-outline'} />
+            <BYTouchable style={styles.scrollViewItem} key={key} onPress={() => this.handleOnPressCitySelect(val, scrollViewKey)} >
+              <Text style={[styles.scrollViewItemText, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]} >{val.name}</Text>
+              <Ionicons style={[styles.scrollViewItemIcon, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]} name={'ios-radio-button-on-outline'} />
             </BYTouchable>
           )}
         </ScrollView>
@@ -369,12 +339,9 @@ class AddressAdd extends React.Component {
 
     const {
       addressIndex,
-      division2ndID,
-      division3rdID,
-      division4thID,
-      division2ndName,
-      division3rdName,
-      division4thName,
+      division2nd,
+      division3rd,
+      division4th,
     } = this.state;
 
     const {
@@ -394,24 +361,24 @@ class AddressAdd extends React.Component {
             style={[styles.navItem, addressIndex === 0 && styles.navActive]} 
             onPress={() => this.setState({addressIndex: 0})}
           >
-            {division2ndName || 'Tỉnh/Thành'}
+            {division2nd.name || 'Tỉnh/Thành'}
           </Text>
           {
-            division2ndID &&
+            division2nd.id &&
             <Text 
               style={[styles.navItem, addressIndex === 1 && styles.navActive]} 
               onPress={() => this.setState({addressIndex: 1})}
             >
-              {division3rdName || 'Quận/huyện'}
+              {division3rd.name || 'Quận/huyện'}
             </Text>
           }
           {
-            division3rdID &&
+            division3rd.id &&
             <Text 
               style={[styles.navItem, addressIndex === 2 && styles.navActive]} 
               onPress={() => this.setState({addressIndex: 2})}
             >
-              {division4thName || 'Phường, xã'}
+              {division4th.name || 'Phường, xã'}
             </Text>            
           }
         </ScrollView>
@@ -427,16 +394,13 @@ class AddressAdd extends React.Component {
 
   render() {
     const {
-      division2ndName,
-      division3rdName,
-      division4thName,
+      areaAddressStr,
       isOpenMenuBottomSheet,
     } = this.state;
 
-    // const {
-    //   navigation: { goBack, navigate }
-    // } = this.props;
-
+    const {
+      // navigation: { goBack, navigate }
+    } = this.props;
     return (
       <View style={styles.container}>
         <BYHeader />
@@ -468,7 +432,7 @@ class AddressAdd extends React.Component {
               placeholder={'please select'}
               placeholderTextColor={'#ccc'}
               style={styles.address}
-              value={division4thName ? `${division4thName}, ${division3rdName}, ${division2ndName}` : ''}
+              value={areaAddressStr}
               editable={false}
             />
             <CustomIcon style={styles.arrow} name="arrowright"></CustomIcon>
@@ -481,6 +445,7 @@ class AddressAdd extends React.Component {
               style={styles.textInput}
               placeholder={'please enter your address'}
               placeholderTextColor={'#ccc'}
+              defaultValue={'123'}
             />
           </View>
           <BYButton styleWrap={styles.submitWrap} styleText={styles.submit} text={'Save'} onPress={() => this.handleOnPressSubmit()}></BYButton>

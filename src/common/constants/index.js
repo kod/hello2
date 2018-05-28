@@ -1,8 +1,10 @@
 export const SCREENS = {
   Address: 'Address',
   AddressAdd: 'AddressAdd',
+  AddressEdit: 'AddressEdit',
   Cart: 'Cart',
   Category: 'Category',
+  CertifiedInformation: 'CertifiedInformation',
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',
   Index: 'Index',

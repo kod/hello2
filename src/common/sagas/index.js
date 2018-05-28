@@ -26,6 +26,9 @@ import {
 import {
   addressFetchWatch,
   addressAddFetchWatch,
+  addressAddSuccessWatch,
+  addressRemoveWatch,
+  addressRemoveSuccessWatch,
   addressModifyWatch,
   addressModifySuccessWatch,
 } from './address';
@@ -90,6 +93,9 @@ export default function* rootSaga() {
     collectionRemoveSuccessWatch(),
     addressFetchWatch(),
     addressAddFetchWatch(),
+    addressAddSuccessWatch(),
+    addressRemoveWatch(),
+    addressRemoveSuccessWatch(),
     addressModifyWatch(),
     addressModifySuccessWatch(),
     cityInfosFetchWatch(),
