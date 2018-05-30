@@ -17,6 +17,10 @@ import Test from '../screens/Test';
 import Address from '../screens/Address';
 import AddressAdd from '../screens/AddressAdd';
 import AddressEdit from '../screens/AddressEdit';
+import CertifiedInformation from '../screens/CertifiedInformation';
+import CertifiedInformationSchool from '../screens/CertifiedInformationSchool';
+import CertifiedInformationContact from '../screens/CertifiedInformationContact';
+import SchoolSelect from '../screens/SchoolSelect';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -120,13 +124,37 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.CertifiedInformation]: {
+    screen: CertifiedInformation,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.CertifiedInformationSchool]: {
+    screen: CertifiedInformationSchool,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.CertifiedInformationContact]: {
+    screen: CertifiedInformationContact,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.SchoolSelect]: {
+    screen: SchoolSelect,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
   initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.Address,
-  // initialRouteName: SCREENS.AddressAdd,
+  // initialRouteName: SCREENS.CertifiedInformation,
+  // initialRouteName: SCREENS.CertifiedInformationContact,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

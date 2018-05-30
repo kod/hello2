@@ -36,7 +36,7 @@ export default function configureStore() {
       // 'searchHistory',
       // 'browsingHistory',
       // 'highlightTags',
-      // 'productDetailInfo',
+      // 'schoolInfo',
       'entities',
       'userCertificateInfo',
       'auth',

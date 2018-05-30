@@ -17,6 +17,7 @@ import { connectLocalization } from '../components/Localization';
 import i18n from '../common/helpers/i18n';
 import CustomIcon from '../components/CustomIcon.js';
 import BYTouchable from '../components/BYTouchable';
+import SearchHeader from '../components/SearchHeader';
 
 import * as i18nActionCreators from '../common/actions/i18n';
 import * as scrollableTabViewActionCreators from '../common/actions/scrollableTabView';
@@ -213,7 +214,8 @@ class Main extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
+        <SearchHeader text={'XiaoMi 5A'} />
+        {/* <View style={styles.headerContainer}>
           <BYTouchable>
             <CustomIcon name="notice" style={styles.headerIcon} />
           </BYTouchable>
@@ -224,7 +226,7 @@ class Main extends React.Component {
             </View>
           </BYTouchable>
           <CustomIcon name="qrcode" style={styles.headerIcon} />
-        </View>
+        </View> */}
         <ScrollableTabView content={content} onChangeTab={this.onChangeTab} />
       </View>
     );

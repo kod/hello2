@@ -191,12 +191,12 @@ class Me extends React.Component {
     const renderCellItem1List2 = [
       {
         name: i18n.myCollection,
-        navigate: SCREENS.Settings,
+        navigate: SCREENS.MyCollection,
         tips: '',
       },
       {
         name: i18n.certifiedInformation,
-        navigate: SCREENS.Settings,
+        navigate: SCREENS.CertifiedInformation,
         tips: '',
       },
       {
