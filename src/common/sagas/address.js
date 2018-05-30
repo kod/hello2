@@ -221,7 +221,7 @@ export function* addressAddFetchWatchHandle(action) {
 export function* addressAddSuccessWatchHandle() {
   try {
     yield put(addressFetch());
-    Platform.OS === 'android' && ToastAndroid.show(i18n.success, ToastAndroid.SHORT);
+    if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
     // yield put(NavigationActions.back());
     // yield put(NavigationActions.navigate({ routeName: SCREENS.Address }));
   } catch (err) {
@@ -413,7 +413,7 @@ export function* addressModifyWatchHandle(action) {
 export function* addressModifySuccessWatchHandle() {
   try {
     yield put(addressFetch(true));
-    Platform.OS === 'android' && ToastAndroid.show(i18n.success, ToastAndroid.SHORT);
+    if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
   } catch (err) {
     
   }

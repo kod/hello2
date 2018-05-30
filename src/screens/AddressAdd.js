@@ -11,6 +11,7 @@ import { SIDEINTERVAL, WINDOW_WIDTH, PRIMARY_COLOR, WINDOW_HEIGHT } from "../sty
 
 import BYHeader from '../components/BYHeader';
 import BYTextInput from "../components/BYTextInput";
+import FieldInput from "../components/FieldInput";
 import InputRight from '../components/InputRight';
 import CustomIcon from "../components/CustomIcon";
 import BYBottomSheet from "../components/BYBottomSheet";
@@ -150,7 +151,7 @@ class AddressAdd extends React.Component {
     }
     
     this.setState({
-      isOpenMenuBottomSheet: type === undefined ? !isOpenMenuBottomSheet : type,
+      isOpenMenuBottomSheet: typeof type !== 'boolean' ? !isOpenMenuBottomSheet : type,
     });
   };
 
@@ -445,7 +446,7 @@ class AddressAdd extends React.Component {
             <Text style={styles.title} >Name</Text>
             <Field
               name="name"
-              component={AddressInput}
+              component={FieldInput}
               style={styles.textInput}
               placeholder={'please enter your name'}
               placeholderTextColor={'#ccc'}
@@ -455,7 +456,7 @@ class AddressAdd extends React.Component {
             <Text style={styles.title} >Phone number</Text>
             <Field
               name="phone"
-              component={AddressInput}
+              component={FieldInput}
               style={styles.textInput}
               placeholder={'please enter your phone number'}
               placeholderTextColor={'#ccc'}
@@ -477,7 +478,7 @@ class AddressAdd extends React.Component {
             <Text style={styles.title} >Address</Text>
             <Field
               name="address"
-              component={AddressInput}
+              component={FieldInput}
               style={styles.textInput}
               placeholder={'please enter your address'}
               placeholderTextColor={'#ccc'}

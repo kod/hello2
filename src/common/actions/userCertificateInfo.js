@@ -1,4 +1,7 @@
-import { USER_CERTIFICATE_INFO } from "../constants/actionTypes";
+import {
+  USER_CERTIFICATE_INFO,
+  ADD_DETAIL_INFO,
+} from "../constants/actionTypes";
 
 export function userCertificateInfoFetchSuccess(certUser) {
   return {
@@ -18,11 +21,12 @@ export function userCertificateInfoFetchFailure() {
   };
 }
 
-export function userCertificateInfoFetch(user) {
+export function userCertificateInfoFetch(user, type = 'userCertificateInfo') {
   return {
     type: USER_CERTIFICATE_INFO.REQUEST,
     payload: {
       user,
+      type,
     },
   };
 }
@@ -33,5 +37,28 @@ export function userCertificateInfoClear(user) {
     payload: {
       user,
     },
+  };
+}
+
+export function userAddDetailInfoFetchSuccess() {
+  return {
+    type: ADD_DETAIL_INFO.SUCCESS,
+    payload: {
+    },
+  };
+}
+
+export function userAddDetailInfoFetchFailure() {
+  return {
+    type: ADD_DETAIL_INFO.FAILURE,
+    payload: {
+    },
+  };
+}
+
+export function userAddDetailInfoFetch() {
+  return {
+    type: ADD_DETAIL_INFO.REQUEST,
+    payload: {},
   };
 }

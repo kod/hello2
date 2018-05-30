@@ -47,10 +47,15 @@ import { adPhoneFetchWatch } from './adPhone';
 import { topComputerFetchWatch } from './topComputer';
 import { newComputerFetchWatch } from './newComputer';
 import { adDigitalFetchWatch } from './adDigital';
-import { userCertificateInfoFetchWatch } from './userCertificateInfo';
+import {
+  userCertificateInfoFetchWatch,
+  userAddDetailInfoFetchWatch,
+  userAddDetailInfoSuccessWatch,
+} from './userCertificateInfo';
 import { productDetailInfoFetchWatch } from './productDetailInfo';
 import { commentFetchWatch } from './comment';
 import { cityInfosFetchWatch } from './cityInfos';
+import { schoolInfoFetchWatch } from './schoolInfo';
 
 
 export default function* rootSaga() {
@@ -75,6 +80,8 @@ export default function* rootSaga() {
     newComputerFetchWatch(),
     adDigitalFetchWatch(),
     userCertificateInfoFetchWatch(),
+    userAddDetailInfoFetchWatch(),
+    userAddDetailInfoSuccessWatch(),  
     cartFetchWatch(),
     cartNumberRequestWatch(),
     cartNumberSuccessWatch(),
@@ -99,5 +106,6 @@ export default function* rootSaga() {
     addressModifyWatch(),
     addressModifySuccessWatch(),
     cityInfosFetchWatch(),
+    schoolInfoFetchWatch(),
   ]);
 }

@@ -18,6 +18,7 @@ import adDigital from './adDigital';
 import i18n from './i18n';
 import auth from './auth';
 import userCertificateInfo from './userCertificateInfo';
+import certifiedInformation from './certifiedInformation';
 import cart from './cart';
 import productDetail from './productDetail';
 import productDetailInfo from './productDetailInfo';
@@ -26,6 +27,8 @@ import comment from './comment';
 import collection from './collection';
 import address from './address';
 import cityInfos from './cityInfos';
+import schoolInfo from './schoolInfo';
+// import userAddDetailInfo from './userAddDetailInfo';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -46,6 +49,7 @@ const rootReducer = combineReducers({
   i18n,
   auth,
   userCertificateInfo,
+  certifiedInformation,
   cart,
   productDetail,
   productDetailInfo,
@@ -54,6 +58,8 @@ const rootReducer = combineReducers({
   collection,
   address,
   cityInfos,
+  schoolInfo,
+  // userAddDetailInfo,
   form: formReducer,
 });
 

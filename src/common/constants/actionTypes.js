@@ -139,6 +139,18 @@ export const USER_CERTIFICATE_INFO = defineAction(
   appNamespace,
 );
 
+export const CERTIFIED_INFORMATION = defineAction(
+  'CERTIFIED_INFORMATION',
+  [REQUEST, SUCCESS, FAILURE, STOP, CLEAR],
+  appNamespace,
+);
+
+export const CERTIFIED_INFORMATION_EDIT = defineAction(
+  'CERTIFIED_INFORMATION_EDIT',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const CART = defineAction(
   'CART',
   [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
@@ -283,6 +295,12 @@ export const CITY_INFOS = defineAction(
   appNamespace,
 );
 
+export const SCHOOL_INFOS = defineAction(
+  'SCHOOL_INFOS',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const COLLECTION = defineAction(
   'COLLECTION',
   [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
@@ -297,6 +315,12 @@ export const COLLECTION_ADD = defineAction(
 
 export const COLLECTION_REMOVE = defineAction(
   'COLLECTION_REMOVE',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const ADD_DETAIL_INFO = defineAction(
+  'ADD_DETAIL_INFO',
   [REQUEST, SUCCESS, FAILURE],
   appNamespace,
 );
