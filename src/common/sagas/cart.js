@@ -376,7 +376,7 @@ export function* cartAddRequestWatch() {
 
 export function* cartAddSuccessWatchHandle(action) {
   try {
-    Platform.OS === 'android' && ToastAndroid.show(i18n.success, ToastAndroid.SHORT)
+    if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
   } catch (err) {
     console.log(err);
   }
