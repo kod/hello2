@@ -80,7 +80,7 @@ class RegisterFastStepTwo extends React.Component {
 }
 
 RegisterFastStepTwo = reduxForm({
-  name: 'RegisterFastStepTwo',
+  form: 'RegisterFastStepTwo',
 })(RegisterFastStepTwo);
 
 export default RegisterFastStepTwo;
