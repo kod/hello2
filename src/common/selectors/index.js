@@ -20,6 +20,8 @@ export const getCart = state => state.cart;
 export const getCartItems = state => state.cart.items;
 export const getProductDetailInfoItem = state => state.productDetailInfo.item;
 export const getCollectionItems = state => state.collection.items;
+export const getSchoolInfoItems = state => state.schoolInfo.items;
+export const getCertifiedInformationCertUser = state => state.certifiedInformation.certUser;
 
 
 export const makegetProductDetailInfo = () => {
@@ -134,3 +136,16 @@ export const makegetIsCollection = () => {
   );
 }
 
+export const makegetSchoolName = () => {
+  return createSelector(
+    [getSchoolInfoItems, getCertifiedInformationCertUser],
+    (schoolInfoItems, certifiedInformationCertUser) => {
+      if (schoolInfoItems.length === 0) return '';
+      if (!certifiedInformationCertUser.collegename) return '';
+      for (let index = 0; index < schoolInfoItems.length; index++) {
+        const element = schoolInfoItems[index];
+        if (element.id === parseInt(certifiedInformationCertUser.collegename)) return element.name;
+      }
+    },
+  );
+}
