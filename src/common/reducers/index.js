@@ -28,7 +28,7 @@ import collection from './collection';
 import address from './address';
 import cityInfos from './cityInfos';
 import schoolInfo from './schoolInfo';
-// import userAddDetailInfo from './userAddDetailInfo';
+import otp from './otp';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -59,7 +59,7 @@ const rootReducer = combineReducers({
   address,
   cityInfos,
   schoolInfo,
-  // userAddDetailInfo,
+  otp,
   form: formReducer,
 });
 

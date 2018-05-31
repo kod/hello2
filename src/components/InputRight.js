@@ -37,9 +37,7 @@ export default (
         <TextInput 
           style={[styles.componentInput, styleInput]} 
           underlineColorAndroid={'rgba(0,0,0,.0)'} 
-          placeholder={'confirm password'} 
           placeholderTextColor={'#ccc'} 
-          secureTextEntry={true} 
           onChangeText={input.onChange}
           value={input.value}
           {...input}

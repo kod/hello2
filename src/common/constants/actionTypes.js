@@ -163,6 +163,18 @@ export const CART_ADD = defineAction(
   appNamespace,
 );
 
+export const OTP = defineAction(
+  'OTP',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const MODIFYPAYPASSWORD = defineAction(
+  'MODIFYPAYPASSWORD',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const CART_NUMBER = defineAction(
   'CART_NUMBER',
   [REQUEST, SUCCESS, FAILURE],

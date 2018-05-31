@@ -29,6 +29,10 @@ export const SCREENS = {
   SearchResult: 'SearchResult',
   Settings: 'Settings',
   Test: 'Test',
+  TransactionPasswordStepOne: 'TransactionPasswordStepOne',
+  TransactionPasswordStepTwo: 'TransactionPasswordStepTwo',
 };
 
 export const CARMAXNUMBER = 50;
+
+export const PHONEEXPR = /^[0-9]{8,11}$/; //手机号

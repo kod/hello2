@@ -21,6 +21,8 @@ import SchoolSelect from '../screens/SchoolSelect';
 import SearchResult from '../screens/SearchResult';
 import Settings from '../screens/Settings';
 import Test from '../screens/Test';
+import TransactionPasswordStepOne from '../screens/TransactionPasswordStepOne';
+import TransactionPasswordStepTwo from '../screens/TransactionPasswordStepTwo';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -148,11 +150,25 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.TransactionPasswordStepOne]: {
+    screen: TransactionPasswordStepOne,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.TransactionPasswordStepTwo]: {
+    screen: TransactionPasswordStepTwo,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
   initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.TransactionPasswordStepOne,
+  // initialRouteName: SCREENS.TransactionPasswordStepTwo,
   // initialRouteName: SCREENS.CertifiedInformation,
   // initialRouteName: SCREENS.CertifiedInformationContact,
   headerMode: 'screen',

@@ -56,6 +56,8 @@ import { productDetailInfoFetchWatch } from './productDetailInfo';
 import { commentFetchWatch } from './comment';
 import { cityInfosFetchWatch } from './cityInfos';
 import { schoolInfoFetchWatch } from './schoolInfo';
+import { otpFetchWatch } from './otp';
+import { modifyPayPasswordFetchWatch } from './modifyPayPassword';
 
 
 export default function* rootSaga() {
@@ -107,5 +109,7 @@ export default function* rootSaga() {
     addressModifySuccessWatch(),
     cityInfosFetchWatch(),
     schoolInfoFetchWatch(),
+    otpFetchWatch(),
+    modifyPayPasswordFetchWatch(),
   ]);
 }
