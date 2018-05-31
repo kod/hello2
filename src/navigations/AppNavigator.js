@@ -1,26 +1,26 @@
 import { StackNavigator } from 'react-navigation';
 import { SCREENS } from '../common/constants';
-import AppTabNavigator from './AppTabNavigator';
-import ProductDetail from '../screens/ProductDetail';
-import Login from '../screens/Login';
-import RegisterStepOne from '../screens/RegisterStepOne';
-import RegisterStepTwo from '../screens/RegisterStepTwo';
-import SearchResult from '../screens/SearchResult';
-import MyCollection from '../screens/MyCollection';
-import Settings from '../screens/Settings';
-import Language from '../screens/Language';
-import RegisterFastStepOne from '../screens/RegisterFastStepOne';
-import RegisterFastStepTwo from '../screens/RegisterFastStepTwo';
-import ForgotPasswordOne from '../screens/ForgotPasswordOne';
-import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
-import Test from '../screens/Test';
 import Address from '../screens/Address';
 import AddressAdd from '../screens/AddressAdd';
 import AddressEdit from '../screens/AddressEdit';
+import AppTabNavigator from './AppTabNavigator';
 import CertifiedInformation from '../screens/CertifiedInformation';
 import CertifiedInformationSchool from '../screens/CertifiedInformationSchool';
 import CertifiedInformationContact from '../screens/CertifiedInformationContact';
+import ForgotPasswordOne from '../screens/ForgotPasswordOne';
+import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
+import Language from '../screens/Language';
+import Login from '../screens/Login';
+import MyCollection from '../screens/MyCollection';
+import ProductDetail from '../screens/ProductDetail';
+import RegisterStepOne from '../screens/RegisterStepOne';
+import RegisterStepTwo from '../screens/RegisterStepTwo';
+import RegisterFastStepOne from '../screens/RegisterFastStepOne';
+import RegisterFastStepTwo from '../screens/RegisterFastStepTwo';
 import SchoolSelect from '../screens/SchoolSelect';
+import SearchResult from '../screens/SearchResult';
+import Settings from '../screens/Settings';
+import Test from '../screens/Test';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
