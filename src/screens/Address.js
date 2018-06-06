@@ -100,10 +100,10 @@ class Address extends React.Component {
     const {
       authUser,
       addressFetch,
+      items,
     } = this.props;
-    console.log(authUser);
     if (authUser) {
-      addressFetch();
+      items.length === 0 && addressFetch();
     }
   }
 
@@ -115,7 +115,6 @@ class Address extends React.Component {
     const {
       addressModifyFetch,
     } = this.props;
-    console.log(item);
     if (item.isdefault === 'Y') return false;
     item.isdefault = 'Y';
     addressModifyFetch(item);
@@ -142,6 +141,16 @@ class Address extends React.Component {
       ]
     )
   }
+
+  handleOnPressItem(item) {
+    const {
+      addressSelectFetch,
+      navigation: { goBack, state },
+    } = this.props;
+    const isSelect = state.params ? state.params.isSelect : false;
+    if (isSelect) addressSelectFetch(item.id);
+    goBack();
+  }
   
   renderMainContent() {
     const {
@@ -149,13 +158,15 @@ class Address extends React.Component {
       items,
       loading,
       refreshing,
-      navigation: { navigate }
+      navigation: { navigate, state },
     } = this.props;
-    console.log(this.props);
 
+    const isSelect = state.params ? state.params.isSelect : false;
+    
     if (loading && !refreshing) {
       return <Loader />;
     }
+
     return (
       <View style={styles.container} >
         {
@@ -165,13 +176,14 @@ class Address extends React.Component {
           :
           <ScrollView style={styles.container} >
             {items.map((val, key) => 
-              <View style={styles.item} key={key} >
+              <BYTouchable style={styles.item} key={key} onPress={() => this.handleOnPressItem(val)} >
                 <View style={styles.main} >
                   <View style={styles.namePhone} >
                     <Text style={styles.name} >{val.username}</Text>
                     <Text style={styles.phone} >{val.msisdn}</Text>
                   </View>
                   <Text style={styles.address} >{this.edit_address(val)}</Text>
+                  {!isSelect && 
                   <View style={styles.operate} >
                     <BYTouchable style={styles.operateLeft} backgroundColor={'transparent'} onPress={() => this.handleOnPressAddressDefault(val)} >
                       <Ionicons style={[styles.selectIcon, val.isdefault === 'Y' && styles.selected]} name={'ios-radio-button-on-outline'} />
@@ -195,9 +207,9 @@ class Address extends React.Component {
                       />
                       <Ionicons style={styles.trashIcon} name={'ios-trash-outline'} onPress={() => this.handleOnPressAddressDel(val.id)} />
                     </View>
-                  </View>
+                  </View>}
                 </View>
-              </View>
+              </BYTouchable>
             )}
           </ScrollView>
         }

@@ -1,10 +1,14 @@
-import { ADDRESS } from '../constants/actionTypes';
+import {
+  ADDRESS,
+  ADDRESS_SELECT,
+} from '../constants/actionTypes';
 
 const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
   items: [],
+  addressSelectedId: 0,
 };
 
 export default function address(state = initState, action) {
@@ -24,13 +28,19 @@ export default function address(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        items: action.payload.items
+        items: action.payload.items,
+        addressSelectedId: action.payload.addressSelectedId,
       };
     case ADDRESS.FAILURE:
       return {
         ...state,
         loading: false,
         loaded: true,
+      };
+    case ADDRESS_SELECT.REQUEST:
+      return {
+        ...state,
+        addressSelectedId: action.payload.id,
       };
     default:
       return state;

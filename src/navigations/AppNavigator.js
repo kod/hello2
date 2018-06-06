@@ -12,6 +12,8 @@ import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
 import Language from '../screens/Language';
 import Login from '../screens/Login';
 import MyCollection from '../screens/MyCollection';
+import OrderWrite from '../screens/OrderWrite';
+import Pay from '../screens/Pay';
 import ProductDetail from '../screens/ProductDetail';
 import RegisterStepOne from '../screens/RegisterStepOne';
 import RegisterStepTwo from '../screens/RegisterStepTwo';
@@ -23,6 +25,7 @@ import Settings from '../screens/Settings';
 import Test from '../screens/Test';
 import TransactionPasswordStepOne from '../screens/TransactionPasswordStepOne';
 import TransactionPasswordStepTwo from '../screens/TransactionPasswordStepTwo';
+import ProductDetailImages from '../screens/ProductDetailImages';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -33,6 +36,18 @@ const RouteConfigs = {
   },
   [SCREENS.ProductDetail]: {
     screen: ProductDetail,
+    navigationOptions: {
+      header: null
+    }
+  },
+  [SCREENS.Pay]: {
+    screen: Pay,
+    navigationOptions: {
+      header: null
+    }
+  },
+  [SCREENS.OrderWrite]: {
+    screen: OrderWrite,
     navigationOptions: {
       header: null
     }
@@ -162,15 +177,19 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.ProductDetailImages]: {
+    screen: ProductDetailImages,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
   initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.TransactionPasswordStepOne,
-  // initialRouteName: SCREENS.TransactionPasswordStepTwo,
-  // initialRouteName: SCREENS.CertifiedInformation,
-  // initialRouteName: SCREENS.CertifiedInformationContact,
+  // initialRouteName: SCREENS.OrderWrite,
+  // initialRouteName: SCREENS.Pay,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

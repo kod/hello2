@@ -29,6 +29,7 @@ import {
 } from "../styles/variables";
 
 import * as productDetailActionCreators from '../common/actions/productDetail';
+import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 import * as cartActionCreators from '../common/actions/cart';
 
 import BYBottomSheet from "../components/BYBottomSheet";
@@ -340,6 +341,10 @@ class ProductDetail extends React.Component {
   renderMainContent() {
     const { mounting } = this.state;
     const {
+      id,
+      orgPrice,
+      name,
+      productDetailNumber,
       i18n,
       screenProps,
       productDetailOpacity,
@@ -355,8 +360,11 @@ class ProductDetail extends React.Component {
       masterItems,
       isMaster,
       authUser,
+      navigation: {navigate},
     } = this.props;
-
+    console.log('============');
+    console.log(this.props);
+    console.log(id);
     if (mounting) {
       return <Loader />;
     }
@@ -414,7 +422,21 @@ class ProductDetail extends React.Component {
           :
           <View style={styles.operate} >
             <Text style={styles.operateLeft} onPress={() => this.handleOnPressAddCart()} >{i18n.addToCart}</Text>
-            <Text style={styles.operateRight} onPress={() => {}} >{i18n.buy}</Text>
+            <Text style={styles.operateRight} 
+              onPress={() => navigate(SCREENS.OrderWrite, {
+                // productInfoId: id, 
+                // orgPrice, 
+                // price, 
+                // name, 
+                // productDetailNumber, 
+                // propertiesIds, 
+                // brandId, 
+                groupon,
+                // imageUrl: imageUrls[0], 
+              })} 
+            >
+              {i18n.buy}
+            </Text>
           </View>
         }
       </View>
@@ -518,6 +540,7 @@ class ProductDetail extends React.Component {
     const styles = StyleSheet.create({
       contanier: {
         paddingTop: 20,
+        backgroundColor: '#fff',
       },
       title: {
         flexDirection: 'row',
@@ -605,6 +628,7 @@ export default connectLocalization(connect(
   }, 
   {
     ...productDetailActionCreators,
+    ...productDetailInfoActionCreators,
     ...cartActionCreators,
   }
 )(ProductDetail));

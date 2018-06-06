@@ -52,12 +52,18 @@ import {
   userAddDetailInfoFetchWatch,
   userAddDetailInfoSuccessWatch,
 } from './userCertificateInfo';
+import {
+  orderCreateFetchWatch,
+  orderCreateSuccessWatch,
+} from './orderCreate';
 import { productDetailInfoFetchWatch } from './productDetailInfo';
 import { commentFetchWatch } from './comment';
 import { cityInfosFetchWatch } from './cityInfos';
 import { schoolInfoFetchWatch } from './schoolInfo';
 import { otpFetchWatch } from './otp';
 import { modifyPayPasswordFetchWatch } from './modifyPayPassword';
+import { returnMoneyFetchWatch } from './returnMoney';
+import { getUserInfoByIdFetchWatch } from './getUserInfoById';
 
 
 export default function* rootSaga() {
@@ -111,5 +117,9 @@ export default function* rootSaga() {
     schoolInfoFetchWatch(),
     otpFetchWatch(),
     modifyPayPasswordFetchWatch(),
+    returnMoneyFetchWatch(),
+    getUserInfoByIdFetchWatch(),
+    orderCreateFetchWatch(),
+    orderCreateSuccessWatch(),
   ]);
 }

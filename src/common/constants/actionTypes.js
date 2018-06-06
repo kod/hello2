@@ -175,6 +175,12 @@ export const MODIFYPAYPASSWORD = defineAction(
   appNamespace,
 );
 
+export const GET_USERINFO_BYID = defineAction(
+  'GET_USERINFO_BYID',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const CART_NUMBER = defineAction(
   'CART_NUMBER',
   [REQUEST, SUCCESS, FAILURE],
@@ -274,6 +280,36 @@ export const COMMENT = defineAction(
 export const ADDRESS = defineAction(
   'ADDRESS',
   [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
+  appNamespace,
+);
+
+export const ADDRESS_SELECT = defineAction(
+  'ADDRESS_SELECT',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const ORDER_CREATE = defineAction(
+  'ORDER_CREATE',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const QUERY_ORDER = defineAction(
+  'QUERY_ORDER',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CREATE_DISORDER = defineAction(
+  'CREATE_DISORDER',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const RETURN_MONEY = defineAction(
+  'RETURN_MONEY',
+  [REQUEST, SUCCESS, FAILURE],
   appNamespace,
 );
 

@@ -108,7 +108,7 @@ export default class CustomTabBarComponent extends Component {
     const inputRange = [-1, ...routes.map((x, i) => i)];
     const activeOpacity = position.interpolate({
       inputRange,
-      outputRange: [1, 0, 1, 1],
+      outputRange: [1, ...routes.map((x, i) => i)],
     });
 
     return (

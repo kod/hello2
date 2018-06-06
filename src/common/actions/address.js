@@ -3,13 +3,15 @@ import {
   ADDRESS_ADD,
   ADDRESS_REMOVE,
   ADDRESS_MODIFY,
+  ADDRESS_SELECT,
 } from '../constants/actionTypes';
 
-export function addressFetchSuccess(items) {
+export function addressFetchSuccess(items, addressSelectedId) {
   return {
     type: ADDRESS.SUCCESS,
     payload: {
       items,
+      addressSelectedId,
     },
   };
 }
@@ -127,6 +129,35 @@ export function addressModifyFetch(
       ...item,
       addrid: item.id,
       // isdefault: 'Y',
+    },
+  };
+}
+
+export function addressSelectSuccess() {
+  return {
+    type: ADDRESS_SELECT.SUCCESS,
+    payload: {
+
+    },
+  };
+}
+
+export function addressSelectFailure() {
+  return {
+    type: ADDRESS_SELECT.FAILURE,
+    payload: {
+
+    },
+  };
+}
+
+export function addressSelectFetch(
+  id
+) {
+  return {
+    type: ADDRESS_SELECT.REQUEST,
+    payload: {
+      id,
     },
   };
 }

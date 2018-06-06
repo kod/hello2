@@ -35,6 +35,57 @@ class ReactStore {
     };
   }
 
+  returnMoney(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8184/fun/installment/returnMoney`, options);
+  }
+
+  orderCreate(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8183/fun/trade/order/create`, options);
+  }
+
+  queryOrder(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8183/fun/trade/queryOrder`, options);
+  }
+
   userCertificateInfo(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));
@@ -254,6 +305,23 @@ class ReactStore {
     };
     
     return this.requestUrl(`:8180/fun/userCenter/userAction/modifyPayPassword`, options);
+  }
+
+  getUserInfoById(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8180/fun/userCenter/userAction/getUserInfoById`, options);
   }
 
   login(options) {

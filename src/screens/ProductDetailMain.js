@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Image, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, Image, FlatList, WebView } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -11,6 +11,7 @@ import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
 import ImageGetSize from "../components/ImageGetSize";
 import BYTouchable from "../components/BYTouchable";
+import BYCacheImage from "../components/BYCacheImage";
 import Comment from "../components/Comment";
 import priceFormat from "../common/helpers/priceFormat";
 import { SCREENS } from "../common/constants";
@@ -154,6 +155,9 @@ const styles = StyleSheet.create({
     height: 800,
     resizeMode: 'contain',
   },
+  WebView: {
+    height: WINDOW_HEIGHT,
+  },
 });
 
 class ProductDetail extends React.Component {
@@ -200,6 +204,31 @@ class ProductDetail extends React.Component {
     isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
   }
   
+  renderItem = ({ item, index }) => {
+    // const { onPressImage, onLongPressImage } = this.props;
+    return (
+      <BYCacheImage
+        uri={`${item}?x-oss-process=image/quality,Q_10`}
+        key={item}
+        // style={imageStyle}
+        // onFoundImageSize={this.handleOnFoundImageSize}
+      />
+
+      // <PXCacheImageTouchable
+      //   key={item}
+      //   uri={item}
+      //   initWidth={globalStyleVariables.WINDOW_HEIGHT}
+      //   initHeight={200}
+      //   // style={styles.multiImageContainer}
+      //   // imageStyle={styles.image}
+      //   // pageNumber={index + 1}
+      //   index={index}
+      //   // onPress={onPressImage}
+      //   // onLongPress={onLongPressImage}
+      // />
+    );
+  };
+
   render() {
     const {
       name,
@@ -212,6 +241,7 @@ class ProductDetail extends React.Component {
       imageDesc,
       propertiesIdsObject,
       navigation: { navigate },
+      screenProps: { mainNavigation },
       screenProps: {
         handleOnPressToggleMenuBottomSheet,
       },
@@ -219,6 +249,21 @@ class ProductDetail extends React.Component {
     console.log('ProductDetailMainProductDetailMainProductDetailMain');
     console.log(this.state);
     console.log(this.props);
+    const WebViewImages = imageDesc.length === 0 ?
+      '' :
+      imageDesc.reduce((a, b, index) => {
+        if (index === 1) {
+          let resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
+          resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+          return resultStr;
+        } else {
+          let resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+          return a + resultStr;
+        }
+      });
+
+    const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${WebViewImages}</body></html>`
+    
     return (
       <View style={styles.container} >
         <ScrollView onScroll={this.handleOnScroll}>
@@ -261,11 +306,35 @@ class ProductDetail extends React.Component {
               <Text style={styles.commentMoreText} onPress={() => navigate(SCREENS.ProductDetailComment)} >{i18n.more}</Text>
             </View>
           }
-          {
+          <WebView
+            source={
+              {
+                html: WebViewHTML,
+              }
+            }
+            style={styles.WebView}
+          />
+          <View style={[styles.commentMore, {paddingTop: SIDEINTERVAL}]} >
+            <Text style={styles.commentMoreText} onPress={() => mainNavigation.navigate(SCREENS.ProductDetailImages, { html: WebViewHTML })} >{i18n.more}</Text>
+          </View>
+
+          {/* <FlatList
+            data={imageDesc}
+            keyExtractor={page => page}
+            renderItem={this.renderItem}
+            removeClippedSubviews={false}
+            // ListFooterComponent={this.renderFooter}
+            // onScroll={this.handleOnScroll}
+            // onViewableItemsChanged={this.handleOnViewableItemsChanged}
+            scrollEventThrottle={16}
+            bounces={false}
+          /> */}
+
+          {/* {
             imageDesc.map((val, key) => {
               return <ImageGetSize uri={val} key={key} />
             })
-          }
+          } */}
         </ScrollView>
       </View>
     );

@@ -54,7 +54,6 @@ export function* addressFetchWatchHandle(action) {
       ],
       Key
     );
-
     let response = yield apply(buyoo, buyoo.userViewAddr, [
       {
         appId: appId,
@@ -75,7 +74,14 @@ export function* addressFetchWatchHandle(action) {
       return false;
     }
 
-    yield put(addressFetchSuccess(response.details));
+    let addressSelectedId = 0;
+
+    for (let index = 0; index < response.details.length; index++) {
+      const element = response.details[index];
+      if (element.isdefault === 'Y') addressSelectedId = element.id;
+    }
+
+    yield put(addressFetchSuccess(response.details, addressSelectedId));
   } catch (err) {
     yield put(addressFetchFailure());
     yield put(addError(err.toString()));
@@ -157,29 +163,6 @@ export function* addressAddFetchWatchHandle(action) {
       ],
       Key
     );
-    
-    // console.log(
-    //   {
-    //     appId: appId,
-    //     method: method,
-    //     charset: charset,
-    //     signType: signType,
-    //     encrypt: encrypt,
-    //     timestamp: timestamp,
-    //     version: version,
-    //     funid: funid,
-    //     msisdn: msisdn,
-    //     address: address,
-    //     isdefault: isdefault,
-    //     username: username,
-    //     division1st: division1st,
-    //     division2nd: division2nd,
-    //     division3rd: division3rd,
-    //     division4th: division4th,
-    //     division5th: division5th,
-    //     division6th: division6th,
-    //   }
-    // );
 
     let response = yield apply(buyoo, buyoo.useraddaddr, [
       {
@@ -203,7 +186,6 @@ export function* addressAddFetchWatchHandle(action) {
         division6th: division6th,
       }
     ]);
-    // console.log(response);
 
     if (response.code !== 10000) {
       yield put(addressAddFailure());

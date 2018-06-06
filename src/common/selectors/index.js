@@ -21,6 +21,8 @@ export const getCartItems = state => state.cart.items;
 export const getProductDetailInfoItem = state => state.productDetailInfo.item;
 export const getCollectionItems = state => state.collection.items;
 export const getSchoolInfoItems = state => state.schoolInfo.items;
+export const getAddressItems = state => state.address.items;
+export const getAddressSelectedId = state => state.address.addressSelectedId;
 export const getCertifiedInformationCertUser = state => state.certifiedInformation.certUser;
 
 
@@ -149,3 +151,15 @@ export const makegetSchoolName = () => {
     },
   );
 }
+
+export const getAddressSelectedItem = createSelector(
+  [getAddressItems, getAddressSelectedId],
+  (addressItems, addressSelectedId) => {
+    if (addressItems.length === 0 || addressSelectedId === 0) return defaultObject;
+    for (let index = 0; index < addressItems.length; index++) {
+      const element = addressItems[index];
+      if (element.id === addressSelectedId) return element;
+    }
+    return defaultObject;
+  },
+);

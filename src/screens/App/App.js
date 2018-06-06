@@ -8,6 +8,8 @@ import Loader from '../../components/Loader';
 
 import AppNavigator from '../../navigations/AppNavigator';
 
+import NavigatorService from "../../navigations/NavigatorService";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -34,7 +36,7 @@ class App extends Component {
     if (!rehydrated) {
       renderComponent = <Loader />;
     } else {
-      renderComponent = <AppNavigator screenProps={{ i18n }} />;
+      renderComponent = <AppNavigator screenProps={{ i18n }} ref={navigatorRef => { NavigatorService.setContainer(navigatorRef); }}  />;
     }
     return (
       <View style={styles.container} >

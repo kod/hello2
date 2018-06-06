@@ -68,35 +68,43 @@ const styles = StyleSheet.create({
     color: RED_COLOR,
     marginRight: 9,
   },
+  itemRightRow3Periods: {
+    fontSize: 11,
+    color: '#666',
+    paddingTop: 2,
+  },
   itemRightRow3Number: {
     fontSize: 11,
     color: '#666',
     paddingTop: 2,
+    flex: 1,
+    textAlign: 'right',
   },
 });
 
 class ProductItem2 extends Component {
 
   render() {
-    const 
-      {
-        data,
-        style,
-        styleItem,
-        styleItemOpacity,
-        styleItemLeft,
-        itemLeft,
-        itemRight,
-        cartNumberRequest,
-        navigation: { navigate },
-        ...restProps
-      } = this.props;
+    const {
+      data,
+      style,
+      styleItem,
+      styleItemOpacity,
+      styleItemLeft,
+      stylePricePrice,
+      itemLeft,
+      itemRight,
+      cartNumberRequest,
+      navigation: { navigate },
+      isShowNumber = false,
+      ...restProps
+    } = this.props;
 
-    const { items } = data;
+    console.log(this.props);
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
-        {items &&
-          items.map((val, key) => {
+        {data &&
+          data.map((val, key) => {
             return (
               <BYTouchable style={[styles.item, styleItem]} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, propertiesIds: val.propertiesIds, })} >
                 <View style={[styles.itemLeft, styleItemLeft]}>
@@ -106,8 +114,9 @@ class ProductItem2 extends Component {
                   <Text style={styles.itemTitle} numberOfLines={1}>{val.name}</Text>
                   <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>
                   <View style={styles.itemRightRow3}>
-                    <Text style={styles.itemRightRow3Price}>{priceFormat(val.price) + ' ₫'}</Text>
-                    <Text style={styles.itemRightRow3Number}>x12 Tháng</Text>
+                    <Text style={[styles.itemRightRow3Price, stylePricePrice]}>{priceFormat(val.price / 12) + ' ₫'}</Text>
+                    <Text style={styles.itemRightRow3Periods}>x12 Tháng</Text>
+                    {isShowNumber && <Text style={styles.itemRightRow3Number}>x{val.number}</Text>}
                   </View>
                 </View>
               </BYTouchable>

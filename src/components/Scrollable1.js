@@ -104,6 +104,7 @@ class Scrollable1 extends React.Component {
     const { bannerSwiper, bannerHomeType, promotionInfo, mergeGetInfo, adverstInfo, navigation: { navigate }, i18n } = this.props;
     const mergeGetInfoList = mergeGetInfo.items;
     const bannerSwiperList = bannerSwiper.items;
+    const adverstInfoList = adverstInfo.items;
 
     
     const nav1Data = [
@@ -136,7 +137,7 @@ class Scrollable1 extends React.Component {
         
         {/* <NavImg1 data={nav1Data} /> */}
 
-        <View style={styles.groupBuy}>
+        {/* <View style={styles.groupBuy}>
           <View style={styles.groupBuyBackground} >
             <Image style={styles.groupBuyImageBackground} source={require('../images/group23423.png')} />
           </View>
@@ -148,15 +149,15 @@ class Scrollable1 extends React.Component {
             </View>
           </View>
           <ProductItem1 data={mergeGetInfoList} />
-        </View>
+        </View> */}
 
-        <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={true} style={{ paddingTop: 15, backgroundColor: '#fff', }} />
+        {/* <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={true} style={{ paddingTop: 15, backgroundColor: '#fff', }} /> */}
 
-        <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
+        {/* <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} /> */}
 
-        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} />
+        {/* <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} /> */}
 
-        <ProductItem2 data={adverstInfo} />
+        <ProductItem2 data={adverstInfoList} />
       </View>
     );
   }
