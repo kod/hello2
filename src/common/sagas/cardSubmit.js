@@ -5,6 +5,9 @@ import {
   cardSubmitFetchSuccess,
   cardSubmitFetchFailure,
 } from '../actions/cardSubmit';
+import {
+  cardQueryFetch,
+} from '../actions/cardQuery';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import {
@@ -12,6 +15,8 @@ import {
 } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
+
+import NavigatorService from '../../navigations/NavigatorService';
 
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
 
@@ -79,4 +84,29 @@ export function* cardSubmitFetchWatchHandle(action) {
 }
 export function* cardSubmitFetchWatch() {
   yield takeEvery(CARD_SUBMIT.REQUEST, cardSubmitFetchWatchHandle);
+}
+
+export function* cardSubmitSuccessWatchHandle() {
+  try {
+    yield put(cardQueryFetch());
+    Alert.alert(
+      '',
+      '申请提交成功, 稍后会有校园大使与您联系',
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {
+            NavigatorService.pop(1);
+          },
+        }
+      ]
+    )
+
+  } catch (error) {
+    
+  }
+}
+
+export function* cardSubmitSuccessWatch() {
+  yield takeEvery(CARD_SUBMIT.SUCCESS, cardSubmitSuccessWatchHandle);
 }

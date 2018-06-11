@@ -20,6 +20,7 @@ import { SCREENS } from '../common/constants';
 
 import { SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../styles/variables';
 
+import * as userAddDetailInfoActionCreators from '../common/actions/userAddDetailInfo';
 import * as userCertificateInfoActionCreators from '../common/actions/userCertificateInfo';
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 import * as schoolInfoActionCreators from '../common/actions/schoolInfo';
@@ -160,7 +161,6 @@ class CertifiedInformation extends Component {
     console.log(!specialty.length);
     console.log(!admissiontime.length);
     console.log(!graduationtime.length);
-    const must = true;
 
     const tips = (text) => Platform.OS === 'android' && ToastAndroid.show(text, ToastAndroid.SHORT);
 
@@ -261,6 +261,8 @@ class CertifiedInformation extends Component {
       sex,
       username,
       loading,
+      addLoading,
+      cardSubmitLoading,
     } = this.props;
 
     if (loading) {
@@ -270,6 +272,7 @@ class CertifiedInformation extends Component {
     return (
       <ScrollView keyboardShouldPersistTaps={'always'} >
         <KeyboardAvoidingView behavior={'padding'} >
+          {(addLoading || cardSubmitLoading) && <Loader absolutePosition />}
           <View style={styles.item} >
             <View style={styles.main} >
               <Text style={styles.label} >Name</Text>
@@ -458,6 +461,8 @@ export default connect(
         auth,
         certifiedInformation,
         userCertificateInfo,
+        userAddDetailInfo,
+        cardSubmit,
         schoolInfo,
       } = state;
       const isCertify = props.navigation.state.params 
@@ -469,6 +474,8 @@ export default connect(
       return {
         ...certifiedInformation.certUser,
         loading: userCertificateInfo.loading,
+        addLoading: userAddDetailInfo.loading,
+        cardSubmitLoading: cardSubmit.loading,
         isCertify,
         authUser: auth.user,
         schoolInfoItems: schoolInfo.items,
@@ -480,6 +487,7 @@ export default connect(
     ...certifiedInformationActionCreators,
     ...schoolInfoActionCreators,
     ...userCertificateInfoActionCreators,
+    ...userAddDetailInfoActionCreators,
     ...cardSubmitActionCreators,
   }
 )(CertifiedInformation);

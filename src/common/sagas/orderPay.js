@@ -9,6 +9,8 @@ import { ORDER_PAY } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 
+import { getAuthUserFunid } from '../selectors';
+
 import NavigatorService from '../../navigations/NavigatorService';
 
 export function* orderPayFetchWatchHandle(action) {
@@ -20,6 +22,7 @@ export function* orderPayFetchWatchHandle(action) {
       paypassword = '',
       payvalue = 0,
     } = action.payload;
+    const funid = yield select(getAuthUserFunid);
 
     let Key = 'tradeKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
@@ -56,6 +59,22 @@ export function* orderPayFetchWatchHandle(action) {
       Key
     );
 
+    console.log(JSON.stringify({
+      appid: appId,
+      method: method,
+      charset: charset,
+      signtype: signType,
+      encrypt: encrypt,
+      timestamp: timestamp,
+      version: version,
+      funid: funid,
+      tradeno: tradeno,
+      orderno: orderno,
+      payway: payway,
+      paypassword: paypassword,
+      payvalue: payvalue,
+    }));
+
     const response = yield apply(buyoo, buyoo.orderPay, [
       {
         appid: appId,
@@ -71,24 +90,8 @@ export function* orderPayFetchWatchHandle(action) {
         payway: payway,
         paypassword: paypassword,
         payvalue: payvalue,
-        }
+      }
     ]);
-
-    JSON.stringify({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      tradeno: tradeno,
-      orderno: orderno,
-      payway: payway,
-      paypassword: paypassword,
-      payvalue: payvalue,
-    });
 
     console.log(response);
     console.log(JSON.stringify(response));

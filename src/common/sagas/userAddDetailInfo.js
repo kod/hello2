@@ -1,17 +1,13 @@
 import { Platform, ToastAndroid, Alert } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
-  userCertificateInfoFetchSuccess,
-  userCertificateInfoFetchFailure,
   userAddDetailInfoFetchSuccess,
   userAddDetailInfoFetchFailure,
-} from '../actions/userCertificateInfo';
-import { certifiedInformationFetchSuccess, certifiedInformationFetchFailure } from '../actions/certifiedInformation';
+} from '../actions/userAddDetailInfo';
 import { cardSubmitFetch } from '../actions/cardSubmit';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import {
-  USER_CERTIFICATE_INFO,
   ADD_DETAIL_INFO,
 } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
@@ -20,84 +16,6 @@ import { getAuthUserFunid, getCertifiedInformationCertUser } from '../selectors'
 import i18n from '../helpers/i18n';
 
 import NavigatorService from '../../navigations/NavigatorService';
-
-export function* userCertificateInfoFetchWatchHandle(action) {
-  try {
-    // const { user: { result } } = action.payload;
-    const {
-      user,
-      type,
-    } = action.payload;
-    const funid = user.result;
-
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.userviewdetail';
-    let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
-    let version = '1.0';
-
-    const msisdn = '';
-
-    let signType = signType_MD5(appId, method, charset, Key, false);
-
-    let encrypt = encrypt_MD5(
-      [
-        {
-          key: 'funid',
-          value: funid,
-        },
-        {
-          key: 'msisdn',
-          value: msisdn,
-        },
-      ],
-      Key
-    );
-
-    const response = yield apply(buyoo, buyoo.userCertificateInfo, [
-      {
-        appId: appId,
-        method: method,
-        charset: charset,
-        signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        msisdn: msisdn,
-      }
-    ]);
-
-
-    let result = {};
-
-    if (response.code === 10000) {
-      result = response;
-    }
-
-    yield put(userCertificateInfoFetchSuccess(result));
-    yield put(certifiedInformationFetchSuccess(result));
-
-    // switch (type) {
-    //   case 'userCertificateInfo':
-    //     yield put(userCertificateInfoFetchSuccess(result));
-    //     break;
-
-    //   case 'certifiedInformation':
-    //     yield put(certifiedInformationFetchSuccess(result));
-    //     break;
-    
-    //   default:
-    //     yield put(userCertificateInfoFetchSuccess(result));
-    //     break;
-    // }
-    
-  } catch (err) {
-    yield put(userCertificateInfoFetchFailure());
-    yield put(addError(err.toString()));
-  }
-}
 
 export function* userAddDetailInfoFetchWatchHandle(action) {
   try {
@@ -331,7 +249,7 @@ export function* userAddDetailInfoSuccessWatchHandle() {
     //     {
     //       text: i18n.confirm,
     //       onPress: () => {
-    //         yield NavigatorService.back();
+    //         NavigatorService.back();
     //       },
     //     }
     //   ]
@@ -342,6 +260,11 @@ export function* userAddDetailInfoSuccessWatchHandle() {
   }
 }
 
-export function* userCertificateInfoFetchWatch() {
-  yield takeEvery(USER_CERTIFICATE_INFO.REQUEST, userCertificateInfoFetchWatchHandle);
+export function* userAddDetailInfoFetchWatch() {
+  yield takeEvery(ADD_DETAIL_INFO.REQUEST, userAddDetailInfoFetchWatchHandle);
+}
+
+
+export function* userAddDetailInfoSuccessWatch() {
+  yield takeEvery(ADD_DETAIL_INFO.SUCCESS, userAddDetailInfoSuccessWatchHandle);
 }

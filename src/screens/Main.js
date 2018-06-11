@@ -109,12 +109,12 @@ class Main extends React.Component {
       setLanguage,
     } = this.props;
 
-    // setTimeout(() => {
-    //   navigate(SCREENS.Pay, {
-    //     tradeNo: '210320180606173139579121',
-    //     orderNo: '220180606173139579374083127',  
-    //   });
-    // }, 300);
+    setTimeout(() => {
+      navigate(SCREENS.Pay, {
+        tradeNo: '210320180611190319703773',
+        orderNo: '220180611190319703561777650',  
+      });
+    }, 300);
   }
 
   _onDataArrived() {}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert, ToastAndroid, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -135,6 +135,10 @@ class OrderWrite extends React.Component {
       //   coupontype: '',
       //   couponvalue: '',
       // }];
+    }
+    
+    if (addressSelectedId === 0) {
+      if(Platform.OS === 'android') return ToastAndroid.show('请选择收货地址', ToastAndroid.SHORT);
     }
     
     const object = {

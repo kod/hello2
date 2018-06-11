@@ -49,9 +49,11 @@ import { newComputerFetchWatch } from './newComputer';
 import { adDigitalFetchWatch } from './adDigital';
 import {
   userCertificateInfoFetchWatch,
+} from './userCertificateInfo';
+import {
   userAddDetailInfoFetchWatch,
   userAddDetailInfoSuccessWatch,
-} from './userCertificateInfo';
+} from './userAddDetailInfo';
 import {
   orderCreateFetchWatch,
   orderCreateSuccessWatch,

@@ -37,6 +37,7 @@ import getUserInfoById from './getUserInfoById';
 import cardSubmit from './cardSubmit';
 import cardQuery from './cardQuery';
 import register from './register';
+import userAddDetailInfo from './userAddDetailInfo';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -76,6 +77,7 @@ const rootReducer = combineReducers({
   cardSubmit,
   cardQuery,
   register,
+  userAddDetailInfo,
   form: formReducer,
 });
 

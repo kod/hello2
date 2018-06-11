@@ -100,6 +100,7 @@ class OrderWrite extends React.Component {
       paypassword: '',
     };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
+    this.enterPasswordCallback = this.enterPasswordCallback.bind(this);
   }
 
   componentDidMount() {
@@ -126,10 +127,10 @@ class OrderWrite extends React.Component {
     console.log(this.props);
     console.log('11111111111111111');
 
-    setTimeout(() => {
+    // setTimeout(() => {
       // navigate(SCREENS.TransactionPasswordStepOne);
       // this.handleOnPressToggleBottomSheet();
-    }, 300);
+    // }, 300);
   }
 
   actionSheetCallback(ret) {
@@ -142,11 +143,10 @@ class OrderWrite extends React.Component {
 
   async enterPasswordCallback(ret) {
     console.log(ret);
-    const {
-      orderNo,
-      tradeNo,
-      orderPayFetch,
-    } = this.props;
+    // const {
+    //   orderNo,
+    //   tradeNo,
+    // } = this.props;
 
     await this.setState({
       paypassword: ret.val,
@@ -163,14 +163,18 @@ class OrderWrite extends React.Component {
   handleOnPressSubmit = () => {
     const {
       payWayIndex,
+      paypassword,
     } = this.state;
     const {
       i18n,
       authUser,
       initPassword,
       userType,
+      orderNo,
+      tradeNo,
       getUserInfoByIdFetch,
       cardSubmitFetch,
+      orderPayFetch,
       navigation: { navigate },
     } = this.props;
     if (!authUser) return navigate(SCREENS.Login);
@@ -195,7 +199,19 @@ class OrderWrite extends React.Component {
             ]
           )
         } else {
-          return this.handleOnPressToggleModal('isOpenEnterPassword')
+          if (paypassword.length === 0) return this.handleOnPressToggleModal('isOpenEnterPassword')
+          console.log({
+            orderno: orderNo,
+            tradeno: tradeNo,
+            payway,
+            paypassword,
+          });
+          orderPayFetch({
+            orderno: orderNo,
+            tradeno: tradeNo,
+            payway,
+            paypassword,
+          });
         }
       } else {
         Alert.alert(
@@ -295,11 +311,11 @@ class OrderWrite extends React.Component {
           <Text style={styles.navLeftBottom} >31.095.000 VND</Text>
         </View>
         {
-          tradeStatus === '20000' &&
+          tradeStatus === '10000' &&
           <Text style={styles.navCancel} >Cancel Order</Text>
         }
         {
-          tradeStatus === '20000' &&
+          tradeStatus === '10000' &&
           <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()} >Pay</Text>
         }
       </View>

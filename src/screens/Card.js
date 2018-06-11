@@ -177,6 +177,14 @@ class Card extends React.Component {
     //     }
     //   })
     // )
+
+    // return (
+    //   this.renderApplyStatus({
+    //     backgroundColor: '#147af3',
+    //     text: 'apply for a credit card >',
+    //     onPress: () => navigate(SCREENS.CertifiedInformation, { isCertify: true })
+    //   })
+    // )
     
     return (
       <View style={styles.container} >

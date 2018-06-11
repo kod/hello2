@@ -25,6 +25,8 @@ import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 import i18n from '../helpers/i18n';
 
+import NavigatorService from '../../navigations/NavigatorService';
+
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
 
 export function* addressFetchWatchHandle(action) {
@@ -204,8 +206,7 @@ export function* addressAddSuccessWatchHandle() {
   try {
     yield put(addressFetch());
     if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
-    // yield put(NavigationActions.back());
-    // yield put(NavigationActions.navigate({ routeName: SCREENS.Address }));
+    NavigatorService.pop(1);
   } catch (err) {
     
   }
