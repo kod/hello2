@@ -56,10 +56,28 @@ function getCurrentRoute(): NavigationRoute | null {
   return _container.state.nav.routes[_container.state.nav.index] || null;
 }
 
+function back(key?: string) {
+  _container.dispatch(
+    NavigationActions.back({
+      key
+    }),
+  );
+}
+
+function pop(key: number) {
+  _container.dispatch(
+    NavigationActions.pop({
+      n: key
+    }),
+  );
+}
+
 export default {
   setContainer,
   navigateDeep,
   navigate,
+  back,
+  pop,
   reset,
   getCurrentRoute,
 };

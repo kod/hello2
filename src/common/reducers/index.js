@@ -30,8 +30,12 @@ import cityInfos from './cityInfos';
 import schoolInfo from './schoolInfo';
 import otp from './otp';
 import orderCreate from './orderCreate';
+import orderPay from './orderPay';
+import queryOrder from './queryOrder';
 import returnMoney from './returnMoney';
 import getUserInfoById from './getUserInfoById';
+import cardSubmit from './cardSubmit';
+import cardQuery from './cardQuery';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -64,8 +68,12 @@ const rootReducer = combineReducers({
   schoolInfo,
   otp,
   orderCreate,
+  orderPay,
+  queryOrder,
   returnMoney,
   getUserInfoById,
+  cardSubmit,
+  cardQuery,
   form: formReducer,
 });
 

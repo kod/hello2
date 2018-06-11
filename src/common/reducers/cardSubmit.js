@@ -1,4 +1,4 @@
-import { MODIFYPAYPASSWORD } from '../constants/actionTypes';
+import { CARD_SUBMIT } from '../constants/actionTypes';
 
 const initState = {
   loading: false,
@@ -6,24 +6,25 @@ const initState = {
   refreshing: false,
 };
 
-export default function modifyPayPassword(state = initState, action) {
+export default function cardSubmit(state = initState, action) {
   switch (action.type) {
-    case MODIFYPAYPASSWORD.CLEAR:
+    case CARD_SUBMIT.CLEAR:
       return {
         ...initState
       };
-    case MODIFYPAYPASSWORD.REQUEST:
+    case CARD_SUBMIT.REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case MODIFYPAYPASSWORD.SUCCESS:
+    case CARD_SUBMIT.SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
+        // certUser: action.payload.certUser,
       };
-    case MODIFYPAYPASSWORD.FAILURE:
+    case CARD_SUBMIT.FAILURE:
       return {
         ...state,
         loading: false,

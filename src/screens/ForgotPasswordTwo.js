@@ -73,6 +73,7 @@ class ForgotPasswordTwo extends React.Component {
             component={InputRight}
             inputRight={this.renderInputRightClose()} 
             textInputProps={{placeholder: '8-20 password', secureTextEntry: true}}
+            secureTextEntry={true}
           />
           <Field 
             name="repassword"
@@ -80,6 +81,7 @@ class ForgotPasswordTwo extends React.Component {
             inputRight={this.renderInputRightClose()} 
             styleWrap={{marginBottom: 5}}
             textInputProps={{placeholder: 'confirm password', secureTextEntry: true}}
+            secureTextEntry={true}
           />
 
           <Error text={'input error'} styleWrap={{marginBottom: 45}} />

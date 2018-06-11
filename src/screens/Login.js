@@ -104,6 +104,7 @@ class Login extends React.Component {
             styleWrap={{ marginBottom: 75 }}
             placeholder={i18n.pleaseEnterThePassword}
             returnKeyType={'done'}
+            secureTextEntry={true}
           />
           <BYButton text={i18n.login} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
           <NavSidesText textLeft={'Register now?'} textRight={'Log in via SMS?'} navigateLeft={() => navigate(SCREENS.RegisterStepOne)} navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} />

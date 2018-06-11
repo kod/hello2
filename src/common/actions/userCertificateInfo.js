@@ -59,6 +59,7 @@ export function userAddDetailInfoFetchFailure() {
 export function userAddDetailInfoFetch() {
   return {
     type: ADD_DETAIL_INFO.REQUEST,
-    payload: {},
+    payload: {
+    },
   };
 }

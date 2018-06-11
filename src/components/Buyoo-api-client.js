@@ -69,6 +69,49 @@ class ReactStore {
     return this.requestUrl(`:8183/fun/trade/order/create`, options);
   }
 
+  orderPay(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8183/fun/trade/order/pay`, options);
+  }
+
+  // queryOrder(options) {
+  //   if (!options) {
+  //     return Promise.reject(new Error('fields required'));
+  //   }
+  //   const data = qs.stringify(options);
+  //   options = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     data,
+  //   };
+
+  //   return axios(`http://192.168.7.99:8183/fun/trade/queryOrder`, options)
+  //     .then(res => {
+  //       if (res.data.status !== 10000) {
+  //         throw new Error(res.data.result);
+  //       }
+  //       return res.data;
+  //     })
+  //     .catch(err => {
+  //       throw err;
+  //     });
+  // }
+
+  
   queryOrder(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));
@@ -84,6 +127,40 @@ class ReactStore {
     };
     
     return this.requestUrl(`:8183/fun/trade/queryOrder`, options);
+  }
+
+  cardSubmit(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8180/fun/userCenter/card/submit`, options);
+  }
+
+  cardQuery(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8180/fun/userCenter/card/query`, options);
   }
 
   userCertificateInfo(options) {

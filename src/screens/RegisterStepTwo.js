@@ -66,12 +66,14 @@ class RegisterStepTwo extends React.Component {
             component={InputRight}
             inputRight={this.renderInputRightCode()}
             textInputProps={{placeholder: 'place enter the code', keyboardType: 'numeric'}} 
+            secureTextEntry={true}
           />
           <Field 
             name="repassword"
             component={InputRight}
             inputRight={this.renderInputRightClose()}
             textInputProps={{placeholder: '8-20 password', secureTextEntry: true}}
+            secureTextEntry={true}
           />
           <Field 
             name="repassword"
@@ -79,6 +81,7 @@ class RegisterStepTwo extends React.Component {
             inputRight={this.renderInputRightClose()}
             styleWrap={{marginBottom: 45}}
             textInputProps={{placeholder: 'confirm password', secureTextEntry: true}}
+            secureTextEntry={true}
           />
 
           {/* <InputRight inputRight={this.renderInputRightCode()} textInputProps={{placeholder: 'place enter the code', keyboardType: 'numeric'}} />

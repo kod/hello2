@@ -2,6 +2,7 @@ export const SCREENS = {
   Address: 'Address',
   AddressAdd: 'AddressAdd',
   AddressEdit: 'AddressEdit',
+  Card: 'Card',
   Cart: 'Cart',
   Category: 'Category',
   CertifiedInformation: 'CertifiedInformation',

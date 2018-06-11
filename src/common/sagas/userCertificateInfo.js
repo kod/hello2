@@ -1,4 +1,4 @@
-import { Platform, ToastAndroid } from 'react-native';
+import { Platform, ToastAndroid, Alert } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
   userCertificateInfoFetchSuccess,
@@ -7,6 +7,7 @@ import {
   userAddDetailInfoFetchFailure,
 } from '../actions/userCertificateInfo';
 import { certifiedInformationFetchSuccess, certifiedInformationFetchFailure } from '../actions/certifiedInformation';
+import { cardSubmitFetch } from '../actions/cardSubmit';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import {
@@ -17,6 +18,8 @@ import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 import { getAuthUserFunid, getCertifiedInformationCertUser } from '../selectors';
 import i18n from '../helpers/i18n';
+
+import NavigatorService from '../../navigations/NavigatorService';
 
 export function* userCertificateInfoFetchWatchHandle(action) {
   try {
@@ -257,43 +260,6 @@ export function* userAddDetailInfoFetchWatchHandle(action) {
         Key
     );
 
-    console.log(      {
-      appId: appId,
-      method: method,
-      charset: charset,
-      signType: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      username: username,
-      funid: funid,
-      birthday: birthday,
-      identification: identification,
-      address: address,
-      email: email,
-      connectusername1: connectusername1,
-      connectusermsisdn1: connectusermsisdn1,
-      connectuserrelation1: connectuserrelation1,
-      connectuseridentification1: connectuseridentification1,
-      connectusername2: connectusername2,
-      connectusermsisdn2: connectusermsisdn2,
-      connectuserrelation2: connectuserrelation2,
-      connectuseridentification2: connectuseridentification2,
-      connectusername3: connectusername3,
-      connectusermsisdn3: connectusermsisdn3,
-      connectuserrelation3: connectuserrelation3,
-      connectuseridentification3: connectuseridentification3,
-      collegeaddr: collegeaddr,
-      collegename: collegename,
-      degree: degree,
-      headimage: headimage,
-      sex: sex,
-      department: department,
-      specialty: specialty,
-      admissiontime: admissiontime,
-      graduationtime: graduationtime
-    });
-    
     const response = yield apply(buyoo, buyoo.userAddDetailInfo, [
       {
         appId: appId,
@@ -347,7 +313,30 @@ export function* userAddDetailInfoFetchWatchHandle(action) {
 
 export function* userAddDetailInfoSuccessWatchHandle() {
   try {
-    if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    const certifiedInformationCertUser = yield select(getCertifiedInformationCertUser);
+    const {
+      username
+    } = certifiedInformationCertUser;
+    // if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    yield put(
+      cardSubmitFetch({
+        name: username,
+      })
+    );
+
+    // Alert.alert(
+    //   '',
+    //   '申请提交成功, 稍后会有校园大使与您联系',
+    //   [
+    //     {
+    //       text: i18n.confirm,
+    //       onPress: () => {
+    //         yield NavigatorService.back();
+    //       },
+    //     }
+    //   ]
+    // )
+
   } catch (error) {
     
   }

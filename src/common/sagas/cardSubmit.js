@@ -1,0 +1,82 @@
+import { Platform } from 'react-native';
+import { takeEvery, apply, put, select } from 'redux-saga/effects';
+import {
+  cardSubmitFetch,
+  cardSubmitFetchSuccess,
+  cardSubmitFetchFailure,
+} from '../actions/cardSubmit';
+import { addError } from '../actions/error';
+import buyoo from '../helpers/apiClient';
+import {
+  CARD_SUBMIT,
+} from '../constants/actionTypes';
+import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import timeStrForm from "../../common/helpers/timeStrForm";
+
+import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
+
+export function* cardSubmitFetchWatchHandle(action) {
+  try {
+    const {
+      name,
+    } = action.payload;
+    const funid = yield select(getAuthUserFunid);
+    const msisdn = yield select(getAuthUserMsisdn);
+
+    let Key = 'userKey';
+    let appId = Platform.OS === 'ios' ? '1' : '2';
+    let method = 'fun.user.card.submit';
+    let charset = 'utf-8';
+    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let version = '2.0';
+  
+    let signType = signType_MD5(appId, method, charset, Key, true);
+
+    let encrypt = encrypt_MD5(
+      [
+        {
+          key: 'funid',
+          value: funid
+        },
+        {
+          key: 'name',
+          value: name
+        },
+        {
+          key: 'msisdn',
+          value: msisdn
+        },
+      ],
+      Key
+    );
+
+    let response = yield apply(buyoo, buyoo.cardSubmit, [
+      {
+        appid: appId,
+        method: method,
+        charset: charset,
+        signtype: signType,
+        encrypt: encrypt,
+        timestamp: timestamp,
+        version: version,
+        funid: funid,
+        name: name,
+        msisdn: msisdn,
+      }
+    ]);
+
+    if (response.code !== 10000) {
+      yield put(cardSubmitFetchFailure());
+      yield put(addError(response.msg));
+      return false;
+    }
+
+    yield put(cardSubmitFetchSuccess());
+  } catch (err) {
+    yield put(cardSubmitFetchFailure());
+    yield put(addError(err.toString()));
+  }
+}
+export function* cardSubmitFetchWatch() {
+  yield takeEvery(CARD_SUBMIT.REQUEST, cardSubmitFetchWatchHandle);
+}

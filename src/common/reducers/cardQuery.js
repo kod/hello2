@@ -1,29 +1,31 @@
-import { MODIFYPAYPASSWORD } from '../constants/actionTypes';
+import { CARD_QUERY } from '../constants/actionTypes';
 
 const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
+  item: {},
 };
 
-export default function modifyPayPassword(state = initState, action) {
+export default function cardQuery(state = initState, action) {
   switch (action.type) {
-    case MODIFYPAYPASSWORD.CLEAR:
+    case CARD_QUERY.CLEAR:
       return {
         ...initState
       };
-    case MODIFYPAYPASSWORD.REQUEST:
+    case CARD_QUERY.REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case MODIFYPAYPASSWORD.SUCCESS:
+    case CARD_QUERY.SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
+        item: action.payload.item,
       };
-    case MODIFYPAYPASSWORD.FAILURE:
+    case CARD_QUERY.FAILURE:
       return {
         ...state,
         loading: false,

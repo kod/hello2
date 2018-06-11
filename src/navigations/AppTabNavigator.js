@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabNavigator } from 'react-navigation';
 
-import Category from '../screens/Category';
+import Card from '../screens/Card';
 import Main from '../screens/Main';
 import Cart from '../screens/Cart';
 import Me from '../screens/Me';
@@ -19,18 +19,18 @@ const TabContainer = TabNavigator(
         tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={16} color={tintColor} />
       })
     },
-    [SCREENS.Recharge]: {
-      screen: Cart,
+    [SCREENS.Card]: {
+      screen: Card,
       navigationOptions: ({ screenProps: { i18n } }) => ({
-        tabBarLabel: i18n.recharge,
-        tabBarIcon: ({ tintColor }) => <CustomIcon name="recharge" size={16} color={tintColor} />
+      tabBarLabel: i18n.card,
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="card" size={14} color={tintColor} />
       })
     },
     [SCREENS.Cart]: {
       screen: Cart,
       navigationOptions: ({ screenProps: { i18n } }) => ({
         tabBarLabel: i18n.cart,
-        tabBarIcon: ({ tintColor }) => <CustomIcon name="cart" size={16} color={tintColor} />
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="cart" size={17} color={tintColor} />
       })
     },
     [SCREENS.Me]: {
@@ -45,9 +45,9 @@ const TabContainer = TabNavigator(
     lazy: true,
     swipeEnabled: false,
     animationEnabled: false,
-    initialRouteName: SCREENS.Main,
+    // initialRouteName: SCREENS.Main,
     // initialRouteName: SCREENS.Me,
-    // initialRouteName: SCREENS.Cart,
+    initialRouteName: SCREENS.Card,
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: '#0076F7',

@@ -167,12 +167,13 @@ class CertifiedInformationSchool extends Component {
           headerTitle={this.renderHeaderTitle()}
           headerRight={this.renderHeaderRight()}
         />
-        <ScrollView style={styles.ScrollView}>
+        <ScrollView keyboardShouldPersistTaps={'always'} >
           <KeyboardAvoidingView behavior="padding" >
             <BYTouchable style={styles.item} onPress={() => this.handleOnPressToggleModal()} >
               <View style={styles.main} >
                 <Text style={styles.label} >relative</Text>
                 <Text style={styles.value} >{connectuserrelation}</Text>
+                <CustomIcon style={styles.icon} name={'arrowright'} ></CustomIcon>
                 {/* <Picker
                   selectedValue={connectuserrelation}
                   style={styles.picker}

@@ -103,7 +103,18 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    const { setLanguage } = this.props;
+    const {
+      navigation: { navigate },
+      i18n,
+      setLanguage,
+    } = this.props;
+
+    // setTimeout(() => {
+    //   navigate(SCREENS.Pay, {
+    //     tradeNo: '210320180606173139579121',
+    //     orderNo: '220180606173139579374083127',  
+    //   });
+    // }, 300);
   }
 
   _onDataArrived() {}
@@ -180,10 +191,6 @@ class Main extends React.Component {
       navigation: { navigate },
       i18n
     } = this.props;
-
-    // setTimeout(() => {
-    //   navigate(SCREENS.Language);
-    // }, 300);
 
     const scrollableTabKeys = [
       {

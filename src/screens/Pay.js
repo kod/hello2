@@ -12,7 +12,11 @@ import { connectLocalization } from "../components/Localization";
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import BYModal from "../components/BYModal";
+import ActionSheet from "../components/ActionSheet";
+import EnterPassword from "../components/EnterPassword";
 import Address from "../components/Address";
+import Loader from "../components/Loader";
+import SeparateBar from "../components/SeparateBar";
 
 import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, WINDOW_HEIGHT } from "../styles/variables";
 
@@ -20,16 +24,16 @@ import { getAddressSelectedItem } from "../common/selectors";
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';
-import { addressJoin } from "../common/helpers";
+import * as queryOrderActionCreators from '../common/actions/queryOrder';
+import * as orderPayActionCreators from '../common/actions/orderPay';
+import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
+import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
+import { addressJoin, tradeStatusCodes } from "../common/helpers";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  bar: {
-    backgroundColor: '#f5f5f5',
-    height: 5,
   },
   totalPrice: {
     height: 40,
@@ -88,45 +92,146 @@ class OrderWrite extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isOpenActionSheet: false,
       isOpenBottomSheet: false,
+      isOpenEnterPassword: false,
+      payWayButtons: ['Buyoo Card', 'Internet Banking'],
+      payWayIndex: 0,
+      paypassword: '',
     };
+    this.actionSheetCallback = this.actionSheetCallback.bind(this);
   }
 
   componentDidMount() {
     const {
       authUser,
       addressFetch,
+      orderNo,
+      tradeNo,
+      queryOrderFetch,
+      getUserInfoByIdFetch,
+      navigation: { navigate },
     } = this.props;
     console.log(authUser);
     if (authUser) {
       addressFetch();
+      getUserInfoByIdFetch();
     }
+
+    queryOrderFetch({
+      orderNo,
+      tradeNo,
+    });
+    
     console.log(this.props);
     console.log('11111111111111111');
 
-    // setTimeout(() => {
-    //   this.handleOnPressToggleBottomSheet();
-    // }, 300);
+    setTimeout(() => {
+      // navigate(SCREENS.TransactionPasswordStepOne);
+      // this.handleOnPressToggleBottomSheet();
+    }, 300);
   }
 
-  handleOnPressToggleBottomSheet = (type) => {
-    const {
-      isOpenBottomSheet,
-    } = this.state;
-
-    // const {
-    //   cityInfosFetch,
-    //   division2ndItems,
-    // } = this.props;
-
-    // if (!isOpenBottomSheet && division2ndItems.length === 0) {
-    //   cityInfosFetch(1, 'division2nd');
-    // }
-    
+  actionSheetCallback(ret) {
+    console.log(ret);
+    if (ret.buttonIndex === -1) return false;
     this.setState({
-      isOpenBottomSheet: typeof type !== 'boolean' ? !isOpenBottomSheet : type,
+      payWayIndex: ret.buttonIndex,
+    });
+  }
+
+  async enterPasswordCallback(ret) {
+    console.log(ret);
+    const {
+      orderNo,
+      tradeNo,
+      orderPayFetch,
+    } = this.props;
+
+    await this.setState({
+      paypassword: ret.val,
+    });
+    this.handleOnPressSubmit();
+  }
+
+  handleOnPressToggleModal = (key, val) => {
+    this.setState({
+      [key]: typeof val !== 'boolean' ? !this.state[key] : val,
     });
   };
+
+  handleOnPressSubmit = () => {
+    const {
+      payWayIndex,
+    } = this.state;
+    const {
+      i18n,
+      authUser,
+      initPassword,
+      userType,
+      getUserInfoByIdFetch,
+      cardSubmitFetch,
+      navigation: { navigate },
+    } = this.props;
+    if (!authUser) return navigate(SCREENS.Login);
+    if (!userType) return getUserInfoByIdFetch();
+
+    const payway = payWayIndex === 0 ? 1: 2;
+    
+    const creditCard = () => {
+      if (userType === 3) {
+        // 已开通信用卡
+        if (initPassword !== 1) {
+          // 未设置支付密码
+          Alert.alert(
+            '',
+            '您尚未设置交易密码?',
+            [
+              { text: i18n.cancel, },
+              {
+                text: '去设置',
+                onPress: () => navigate(SCREENS.TransactionPasswordStepOne),
+              }
+            ]
+          )
+        } else {
+          return this.handleOnPressToggleModal('isOpenEnterPassword')
+        }
+      } else {
+        Alert.alert(
+          '',
+          '您尚未开通信用卡是否现在去开通?',
+          [
+            {
+              text: i18n.cancel,
+            },
+            {
+              text: i18n.join,
+              onPress: () => navigate(SCREENS.Card),
+            }
+          ]
+        )
+
+      }
+    }
+    
+    switch (payway) {
+      case 1:
+        creditCard();
+        break;
+    
+      case 2:
+        // creditCard();
+        break;
+    
+      case 5:
+        // creditCard();
+        break;
+    
+      default:
+        break;
+    }
+  }
 
   renderBottom() {
     const styles = StyleSheet.create({
@@ -168,14 +273,35 @@ class OrderWrite extends React.Component {
       },
     });
 
+    // const handleOnPressSubmit = () => {
+    //   const {
+    //     payWayIndex,
+    //   } = this.state;
+    //   const {
+    //     orderNo,
+    //     tradeNo,
+    //   } = this.props;
+    //   this.goPay();
+    // }
+
+    const {
+      queryOrderItem: { tradeStatus }
+    } = this.props;
+
     return (
       <View style={styles.nav} >
         <View style={styles.navLeft} >
           <Text style={styles.navLeftTop} >Trà lần đầu</Text>
           <Text style={styles.navLeftBottom} >31.095.000 VND</Text>
         </View>
-        <Text style={styles.navCancel} >Cancel Order</Text>
-        <Text style={styles.navRight} >Submit</Text>
+        {
+          tradeStatus === '20000' &&
+          <Text style={styles.navCancel} >Cancel Order</Text>
+        }
+        {
+          tradeStatus === '20000' &&
+          <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()} >Pay</Text>
+        }
       </View>
     )
   }
@@ -284,81 +410,131 @@ class OrderWrite extends React.Component {
       </View>
     )
   }
+
+  renderContent() {
+    const {
+      isOpenActionSheet,
+      isOpenBottomSheet,
+      isOpenEnterPassword,
+      payWayButtons,
+      payWayIndex,
+    } = this.state;
+
+    const {
+      navigation: { navigate },
+      i18n,
+      addressItems,
+      getUserInfoById,
+      queryOrderItem: {
+        goodsDetail,
+        address,
+        couponValue,
+        username,
+        msisdn,
+        division1stName,
+        division2ndName,
+        division3rdName,
+        division4thName,
+        tradeStatus,
+      },
+    } = this.props;
+
+    const addressSelectedItem = {
+      id: 1,
+      address,
+      username,
+      msisdn,
+      division1stName,
+      division2ndName,
+      division3rdName,
+      division4thName,
+    };
+
+    if (getUserInfoById.loading) return <Loader />
+
+    return (
+      <View style={styles.container} >
+        <ScrollView>
+          <Text style={styles.status} >{tradeStatusCodes(tradeStatus)}</Text>
+          <Address
+            addressSelectedItem={addressSelectedItem} 
+            // onPress={() => navigate(SCREENS.Address, { isSelect: true })} 
+          />
+          <SeparateBar />
+          <ProductItem2 
+            data={goodsDetail}
+            stylePricePrice={{ color: '#666' }}
+            isShowNumber={true}
+          />
+          <Text style={styles.totalPrice} >1.988.400 VND</Text>
+          <SeparateBar />
+          <NavBar2 
+            onPress={() => this.handleOnPressToggleModal('isOpenEnterPassword')} 
+            valueLeft={'Order amount'} 
+            valueMiddle={payWayButtons[payWayIndex]} 
+          />
+          <NavBar2 
+            // onPress={() => this.handleOnPressToggleBottomSheet()}
+            valueLeft={'Coupon value'} 
+            valueMiddle={couponValue} 
+            isShowRight={false}
+          />
+        </ScrollView>
+        {this.renderBottom()}
+      </View>
+    )
+  }
   
   render() {
     const {
+      isOpenActionSheet,
       isOpenBottomSheet,
+      isOpenEnterPassword,
+      payWayButtons,
+      payWayIndex,
     } = this.state;
     
     const {
       navigation: { navigate },
       i18n,
       addressItems,
-      addressSelectedItem,
+      queryOrderItem: {
+        goodsDetail,
+        address,
+        couponValue,
+        username,
+        msisdn,
+        division1stName,
+        division2ndName,
+        division3rdName,
+        division4thName,
+        tradeStatus,
+      },
     } = this.props;
+    console.log(this.props);
+    console.log('xxxxxxxx');
 
-    const adverstInfo = [{
-      brandId: "114",
-      classfyId: 14,
-      createTime: "2017-12-12 16:13:18",
-      createUser: "admin",
-      desc: "",
-      id: 38,
-      imageUrl: "https://vnoss.buyoo.club/commodity/img/brand/1512992801550_X541UA-GO1345-01.jpg",
-      maxprice: 9490000,
-      minprice: 9490000,
-      name: "Asus X541UA-GO1345",
-      orgPrice: 9490000,
-      position: 3,
-      price: 9490000,
-      status: "1",
-      typeId: 2,
-      updateTime: "2017-12-12 16:13:18",
-    }];
-    
     return (
       <View style={styles.container} >
         <BYHeader />
-        <ScrollView>
-          <Text style={styles.status} >Order submitted, 3 working days will be sent to you Cell phone</Text>
-          <Address
-            addressSelectedItem={addressSelectedItem} 
-            // onPress={() => navigate(SCREENS.Address, { isSelect: true })} 
-          />
-          <View style={styles.bar} ></View>
-          <ProductItem2 
-            data={adverstInfo}
-            stylePricePrice={{ color: '#666' }}
-            isShowNumber={true}
-          />
-          <Text style={styles.totalPrice} >1.988.400 VND</Text>
-          <View style={styles.bar} ></View>
-          <NavBar2 
-            // onPress={() => navigate(SCREENS.Settings)} 
-            valueLeft={'Staging plans'} 
-            valueMiddle={'622.375 VND x 12period'} 
-          />
-          <NavBar2 
-            // onPress={() => this.handleOnPressToggleBottomSheet()}
-            valueLeft={'Coupon value'} 
-            valueMiddle={'none'} 
-            isShowRight={false}
-          />
-          <NavBar2 
-            valueLeft={'First payment'} 
-            valueMiddle={'3.095.000 VND'} 
-            isShowRight={false}
-            backgroundColor={'transparent'}
-          />
-
-        </ScrollView>
-        {this.renderBottom()}
+        {this.renderContent()}
         <BYModal
           visible={isOpenBottomSheet}
-          onRequestClose={this.handleOnPressToggleBottomSheet}
+          onRequestClose={() => this.handleOnPressToggleModal('isOpenBottomSheet')}
         >
           {this.renderBottomSheet()}
         </BYModal>
+        <ActionSheet 
+          visible={isOpenActionSheet}
+          onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
+          buttons={payWayButtons}
+          callback={this.actionSheetCallback}
+        />
+        <EnterPassword 
+          visible={isOpenEnterPassword}
+          onRequestClose={() => this.handleOnPressToggleModal('isOpenEnterPassword')}
+          callback={this.enterPasswordCallback}
+        />
       </View>
     );
   }
@@ -370,6 +546,8 @@ export default connectLocalization(
       return (state, props) => {
         const {
           address,
+          queryOrder,
+          getUserInfoById,
         } = state;
 
         const {
@@ -381,14 +559,22 @@ export default connectLocalization(
           addressSelectedItem: getAddressSelectedItem(state, props),
           addressItems: address.items,
           authUser: !!state.auth.user,
+          queryOrderItem: queryOrder.item,
           orderNo,
           tradeNo,
+          getUserInfoById,
+          initPassword: getUserInfoById.item.initPassword || null,
+          userType: getUserInfoById.item.userType || null,
         }
       }
     },
     {
       ...addressActionCreators,
       ...authActionCreators,
+      ...queryOrderActionCreators,
+      ...orderPayActionCreators,
+      ...getUserInfoByIdActionCreators,
+      ...cardSubmitActionCreators,
     }
   )(OrderWrite)
 );

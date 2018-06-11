@@ -56,14 +56,25 @@ import {
   orderCreateFetchWatch,
   orderCreateSuccessWatch,
 } from './orderCreate';
+import {
+  orderPayFetchWatch,
+} from './orderPay';
+import {
+  queryOrderFetchWatch,
+} from './queryOrder';
 import { productDetailInfoFetchWatch } from './productDetailInfo';
 import { commentFetchWatch } from './comment';
 import { cityInfosFetchWatch } from './cityInfos';
 import { schoolInfoFetchWatch } from './schoolInfo';
 import { otpFetchWatch } from './otp';
-import { modifyPayPasswordFetchWatch } from './modifyPayPassword';
+import {
+  modifyPayPasswordFetchWatch,
+  modifyPayPasswordSuccessWatch,
+} from './modifyPayPassword';
 import { returnMoneyFetchWatch } from './returnMoney';
 import { getUserInfoByIdFetchWatch } from './getUserInfoById';
+import { cardSubmitFetchWatch } from './cardSubmit';
+import { cardQueryFetchWatch } from './cardQuery';
 
 
 export default function* rootSaga() {
@@ -117,9 +128,14 @@ export default function* rootSaga() {
     schoolInfoFetchWatch(),
     otpFetchWatch(),
     modifyPayPasswordFetchWatch(),
+    modifyPayPasswordSuccessWatch(),
     returnMoneyFetchWatch(),
     getUserInfoByIdFetchWatch(),
     orderCreateFetchWatch(),
     orderCreateSuccessWatch(),
+    orderPayFetchWatch(),
+    queryOrderFetchWatch(),
+    cardSubmitFetchWatch(),
+    cardQueryFetchWatch(),
   ]);
 }

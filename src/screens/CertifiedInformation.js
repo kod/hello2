@@ -23,6 +23,7 @@ import { SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEI
 import * as userCertificateInfoActionCreators from '../common/actions/userCertificateInfo';
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 import * as schoolInfoActionCreators from '../common/actions/schoolInfo';
+import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
 
 const styles = StyleSheet.create({
   container: {
@@ -125,6 +126,7 @@ class CertifiedInformation extends Component {
   handleOnPressSubmit() {
     const {
       userAddDetailInfoFetch,
+      cardSubmitFetch,
       username,
       sex,
       identification,
@@ -151,19 +153,25 @@ class CertifiedInformation extends Component {
       birthday,
       isCertify,
     } = this.props;
-
+    console.log(this.props);
+    console.log(collegename.length === '');
+    console.log(!collegeaddr.length);
+    console.log(!department.length);
+    console.log(!specialty.length);
+    console.log(!admissiontime.length);
+    console.log(!graduationtime.length);
     const must = true;
 
     const tips = (text) => Platform.OS === 'android' && ToastAndroid.show(text, ToastAndroid.SHORT);
 
     if (isCertify) {
       if (!username.length) return tips('username');
-      if (!sex.length) return tips('sex');
       if (!identification.length) return tips('identification');
+      if (!sex.length) return tips('sex');
+      if (!birthday.length) return tips('birthday');
       if (!address.length) return tips('address');
-      if (!email.length) return tips('email');
       if (
-        !collegename.length ||
+        collegename.length === '' ||
         !collegeaddr.length ||
         !department.length ||
         !specialty.length ||
@@ -186,10 +194,9 @@ class CertifiedInformation extends Component {
         !connectusermsisdn3.length ||
         !connectuserrelation3.length
       ) return tips('Người liên lạc 3');
-      if (!birthday.length) return tips('birthday');
+      if (!email.length) return tips('email');
     }
 
-    console.log(this.props);
     userAddDetailInfoFetch();
   }
 
@@ -261,7 +268,7 @@ class CertifiedInformation extends Component {
     }
     
     return (
-      <ScrollView style={styles.ScrollView}>
+      <ScrollView keyboardShouldPersistTaps={'always'} >
         <KeyboardAvoidingView behavior={'padding'} >
           <View style={styles.item} >
             <View style={styles.main} >
@@ -284,6 +291,7 @@ class CertifiedInformation extends Component {
                 placeholderTextColor={'#ccc'}
                 onChangeText={(val) => certifiedInformationEdit('identification', val)}
                 value={identification}
+                keyboardType={'numeric'}
               />
             </View>
           </View>
@@ -413,7 +421,7 @@ class CertifiedInformation extends Component {
               />
             </View>
           </View>
-          <BYButton text={'Save'} style={styles.submit} styleWrap={{paddingTop: SIDEINTERVAL}} onPress={() => this.handleOnPressSubmit()} />
+          <BYButton text={'Apply'} style={styles.submit} styleWrap={{paddingTop: SIDEINTERVAL}} onPress={() => this.handleOnPressSubmit()} />
         </KeyboardAvoidingView>
       </ScrollView>
     )
@@ -472,5 +480,6 @@ export default connect(
     ...certifiedInformationActionCreators,
     ...schoolInfoActionCreators,
     ...userCertificateInfoActionCreators,
+    ...cardSubmitActionCreators,
   }
 )(CertifiedInformation);

@@ -295,6 +295,24 @@ export const ORDER_CREATE = defineAction(
   appNamespace,
 );
 
+export const ORDER_PAY = defineAction(
+  'ORDER_PAY',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CARD_SUBMIT = defineAction(
+  'CARD_SUBMIT',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const CARD_QUERY = defineAction(
+  'CARD_QUERY',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const QUERY_ORDER = defineAction(
   'QUERY_ORDER',
   [REQUEST, SUCCESS, FAILURE],

@@ -1,4 +1,4 @@
-import { Platform, ToastAndroid, } from 'react-native';
+import { Platform, ToastAndroid, Alert, } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
   modifyPayPasswordFetch,
@@ -14,6 +14,9 @@ import {
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 
+import NavigatorService from '../../navigations/NavigatorService';
+
+import { SCREENS } from "../constants";
 
 export function* modifyPayPasswordFetchWatchHandle(action) {
   try {
@@ -21,6 +24,7 @@ export function* modifyPayPasswordFetchWatchHandle(action) {
       msisdn,
       otp,
       paypassword,
+      from,
     } = action.payload;
     
     const Key = 'userKey';
@@ -62,8 +66,7 @@ export function* modifyPayPasswordFetchWatchHandle(action) {
 
     switch (response.status) {
       case 10000:
-        yield put(modifyPayPasswordFetchSuccess());
-        if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+        yield put(modifyPayPasswordFetchSuccess(from));
       return;
     
       case 70002:
@@ -85,4 +88,33 @@ export function* modifyPayPasswordFetchWatchHandle(action) {
 }
 export function* modifyPayPasswordFetchWatch() {
   yield takeEvery(MODIFYPAYPASSWORD.REQUEST, modifyPayPasswordFetchWatchHandle);
+}
+
+export function* modifyPayPasswordSuccessWatchHandle(action) {
+  try {
+    const {
+      from,
+    } = action.payload;
+    // if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    Alert.alert(
+      '',
+      '成功',
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {
+            NavigatorService.pop(2);
+            // NavigatorService.navigate(SCREENS.Card);
+          },
+        }
+      ]
+    )
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* modifyPayPasswordSuccessWatch() {
+  yield takeEvery(MODIFYPAYPASSWORD.SUCCESS, modifyPayPasswordSuccessWatchHandle);
 }

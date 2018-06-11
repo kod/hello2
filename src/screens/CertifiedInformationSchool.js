@@ -97,7 +97,7 @@ class CertifiedInformationSchool extends Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView style={styles.ScrollView}>
+        <ScrollView keyboardShouldPersistTaps={'always'} >
           <BYTouchable 
             style={styles.item} 
             onPress={() => navigate(SCREENS.SchoolSelect)} 

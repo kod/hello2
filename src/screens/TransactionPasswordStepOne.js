@@ -29,26 +29,33 @@ class TransactionPasswordStepOne extends React.Component {
     super(props);
     this.handleOnPressSubmit = this.handleOnPressSubmit.bind(this);
   }
+
+  componentDidMount() {
+    const {
+      msisdn,
+    } = this.props;
+    console.log(msisdn);
+    this.props.initialize({ phone: msisdn });
+  }
   
   handleOnPressSubmit() {
     const {
       formValue,
       otpFetch,
-      navigation: { goBack, navigate },
+      navigation: { goBack, navigate, state },
     } = this.props;
     console.log(formValue);
     if (!formValue) return false;
     if (!PHONEEXPR.test(formValue.phone)) return Platform.OS === 'android' && ToastAndroid.show('định dạng số điện thoại sai', ToastAndroid.SHORT);
     otpFetch(formValue.phone);
-    navigate(SCREENS.TransactionPasswordStepTwo, { msisdn: formValue.phone });
+    navigate(SCREENS.TransactionPasswordStepTwo, { msisdn: formValue.phone, from: state.params.from });
   }
   
   render() {
 
     const {
-      navigation: { goBack, navigate }
+      navigation: { goBack, navigate },
     } = this.props;
-
     return (
       <View style={styles.container}>
         <BYHeader />
@@ -59,9 +66,9 @@ class TransactionPasswordStepOne extends React.Component {
             style={styles.input}
             keyboardType={'numeric'}
             returnKeyType = { "next" }
-            autoFocus={true}
             blurOnSubmit={true}
             onSubmitEditing={this.handleOnPressSubmit}
+            editable={false}
           />
           <BYButton text={'Next step'} style={styles.button} onPress={() => this.handleOnPressSubmit()} />
         </ScrollView>
@@ -80,7 +87,10 @@ export default connect(
       const {
         form: { TransactionPasswordStepOne },
       } = state;
+      console.log(props.navigation.state.params);
+      const msisdn = props.navigation.state.params.msisdn || '';
       return {
+        msisdn,
         formValue: TransactionPasswordStepOne ? TransactionPasswordStepOne.values : '',
       }
     }
