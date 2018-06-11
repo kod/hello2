@@ -441,7 +441,7 @@ class AddressAdd extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView style={globalStyles.scrollView}>
+        <ScrollView keyboardShouldPersistTaps={'always'}>
           <View style={styles.item} >
             <Text style={styles.title} >Name</Text>
             <Field

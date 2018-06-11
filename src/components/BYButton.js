@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Image, } from 'react-native';
 import { globalStyleVariables } from '../styles';
 import BYTouchable from '../components/BYTouchable';
 

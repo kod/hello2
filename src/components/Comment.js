@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Image, } from 'react-native';
 import BYTouchable from '../components/BYTouchable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {

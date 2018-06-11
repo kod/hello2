@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Image, } from 'react-native';
 import { globalStyleVariables } from '../styles';
 import priceFormat from '../common/helpers/priceFormat';
 import Error from '../components/Error';
+
+import BYTextInput from "../components/BYTextInput";
 
 const styles = StyleSheet.create({
   componentWrap: {
@@ -34,7 +36,7 @@ export default (
   return (
     <View style={[styles.componentWrap, styleWrap]} >
       <View style={[styles.component, style]}>
-        <TextInput 
+        <BYTextInput 
           style={[styles.componentInput, styleInput]} 
           underlineColorAndroid={'rgba(0,0,0,.0)'} 
           placeholderTextColor={'#ccc'} 

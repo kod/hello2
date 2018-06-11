@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Image, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, Image, Button } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
 import { globalStyles } from '../styles';
@@ -13,7 +13,13 @@ import BYButton from '../components/BYButton';
 import OtherLogin from '../components/OtherLogin';
 import {  } from "../components/Error";
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    position: 'relative',
+  },
+});
 
 class RegisterFastStepOne extends React.Component {
   render() {
@@ -22,10 +28,10 @@ class RegisterFastStepOne extends React.Component {
       navigation
     } = this.props;
     return (
-      <View style={{ backgroundColor: '#fff', position: 'relative', height: WINDOW_HEIGHT }}>
+      <View style={styles.container}>
         <BYHeader />
         <OtherLogin />
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps={'always'}>
           <Field 
             name="phone"
             component={InputCountry}

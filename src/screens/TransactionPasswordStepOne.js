@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, TextInput, StyleSheet, ToastAndroid, Platform } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, ToastAndroid, Platform } from 'react-native';
 import { connect } from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 
@@ -59,7 +59,7 @@ class TransactionPasswordStepOne extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps={'always'}>
           <Field 
             name="phone"
             component={InputCountry}

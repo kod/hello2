@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Image, } from 'react-native';
 import { globalStyleVariables } from '../styles';
 import Error from "../components/Error";
+import BYTextInput from "../components/BYTextInput";
 
 const styles = StyleSheet.create({
   componentWrap: {
@@ -47,7 +48,7 @@ export default (
       <View style={styles.component}>
         <Image source={require('../images/viemnam.png')} style={styles.componentFlag} />
         <Text style={styles.componentCode}>+84</Text>
-        <TextInput 
+        <BYTextInput 
           style={styles.componentInput} 
           underlineColorAndroid={'rgba(0,0,0,.0)'} 
           placeholder={'please input your phone number'} 

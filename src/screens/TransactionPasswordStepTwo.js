@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput, ToastAndroid, Platform } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, ToastAndroid, Platform } from 'react-native';
 import { connect } from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -130,26 +130,7 @@ class TransactionPasswordStepTwo extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView>
-          {/* <TextInput
-            placeholder = "FirstTextInput"
-            returnKeyType = { "next" }
-            onSubmitEditing={() => { this.secondTextInput1.focus(); }}
-            blurOnSubmit={false}
-          />
-
-          <TextInput
-            placeholder = "FirstTextInput"
-            returnKeyType = { "next" }
-            onSubmitEditing={() => { this.secondTextInput.focus(); }}
-            ref={(input) => { this.secondTextInput1 = input; }}
-            blurOnSubmit={false}
-          />
-
-          <TextInput
-            ref={(input) => { this.secondTextInput = input; }}
-            placeholder = "secondTextInput"
-          /> */}
+        <ScrollView keyboardShouldPersistTaps={'always'}>
 
           <Field 
             name="code"

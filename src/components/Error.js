@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TextInput } from 'react-native';
+import { StyleSheet, View, Text, Image, } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, } from "../styles/variables";
 

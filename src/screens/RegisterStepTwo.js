@@ -14,6 +14,11 @@ import NavSidesText from "../components/NavSidesText";
 import { SCREENS } from '../common/constants';
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    position: 'relative',
+  },
   second: {
     height: 20,
     minWidth: globalStyleVariables.WINDOW_WIDTH * 0.1,
@@ -58,9 +63,9 @@ class RegisterStepTwo extends React.Component {
   render() {
     const { navigation: { goBack, navigate } } = this.props;
     return (
-      <View style={{ backgroundColor: '#fff' }}>
+      <View style={styles.container}>
         <BYHeader />
-        <ScrollView style={globalStyles.scrollView}>
+        <ScrollView keyboardShouldPersistTaps={'always'}>
           <Field 
             name="repassword"
             component={InputRight}

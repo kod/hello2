@@ -11,8 +11,6 @@ import { addressJoin } from "../common/helpers";
 
 import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR } from '../styles/variables';
 
-import BYTextInput from '../components/BYTextInput';
-
 // import * as cartActionCreators from '../common/actions/cart';
 
 const styles = StyleSheet.create({

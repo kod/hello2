@@ -21,7 +21,13 @@ import * as authActionCreators from "../common/actions/auth";
 
 import { WINDOW_HEIGHT } from '../styles/variables';
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    position: 'relative',
+  },
+});
 
 const validate = (values, props) => {
   const { phone, password } = values;
@@ -85,11 +91,11 @@ class Login extends React.Component {
       auth: { loading },
     } = this.props;
     return (
-      <View style={{ backgroundColor: '#fff', position: 'relative', height: globalStyleVariables.WINDOW_HEIGHT }}>
+      <View style={styles.container}>
         <BYHeader />
         <OtherLogin />
 
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps={'always'}>
           <Field
             name="phone"
             component={InputCountry}
