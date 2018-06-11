@@ -40,3 +40,4 @@ export const SCREENS = {
 export const CARMAXNUMBER = 50;
 
 export const PHONEEXPR = /^[0-9]{8,11}$/; //手机号
+export const PWDEXPR = /^.{8,20}$/; // 密码

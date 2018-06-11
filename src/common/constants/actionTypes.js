@@ -175,6 +175,12 @@ export const MODIFYPAYPASSWORD = defineAction(
   appNamespace,
 );
 
+export const REGISTER = defineAction(
+  'REGISTER',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const GET_USERINFO_BYID = defineAction(
   'GET_USERINFO_BYID',
   [REQUEST, SUCCESS, FAILURE],

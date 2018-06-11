@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Keyboard } from 'react-native';
+import { connect } from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 
 import { globalStyleVariables, globalStyles } from '../styles';
@@ -10,7 +11,11 @@ import BYButton from '../components/BYButton';
 import NavSidesText from '../components/NavSidesText';
 import BYTextInput from "../components/BYTextInput";
 
+import { PHONEEXPR } from "../common/constants";
+
 import { SCREENS } from '../common/constants';
+
+import * as otpActionCreators from "../common/actions/otp";
 
 const styles = StyleSheet.create({
   container: {
@@ -20,10 +25,54 @@ const styles = StyleSheet.create({
   },
 });
 
-class RegisterStepOne extends React.Component {
+class InvitationInput extends React.Component {
   render() {
     const {
-      navigation: { goBack, navigate }
+      input,
+      ...restProps,
+    } = this.props;
+    return (
+      <BYTextInput 
+        onChangeText={input.onChange}
+        value={input.value}
+        {...restProps}
+      />
+    )
+  }
+}
+
+const validate = (values, props) => {
+  const { phone } = values;
+  const { i18n } = props;
+  const errors = {};
+
+  if (!PHONEEXPR.test(phone)) {
+    errors.phone = 'phone error';
+  }
+  return errors;
+};
+
+class RegisterStepOne extends React.Component {
+
+  submit = data => {
+    const {
+      phone,
+    } = data;
+    const {
+      otpFetch,
+      navigation: { goBack, navigate },
+    } = this.props;
+    if (phone) {
+      Keyboard.dismiss();
+      otpFetch(phone);
+      navigate(SCREENS.RegisterStepTwo)
+    }
+  }
+  
+  render() {
+    const {
+      navigation: { goBack, navigate },
+      handleSubmit,
     } = this.props;
     return (
       <View style={styles.container}>
@@ -33,12 +82,19 @@ class RegisterStepOne extends React.Component {
           <Field 
             name="phone"
             component={InputCountry}
+            keyboardType={'phone-pad'}
             style={{marginBottom: 30}}
           />
           <View style={{ paddingLeft: globalStyleVariables.SIDEINTERVAL, paddingRight: globalStyleVariables.SIDEINTERVAL }}>
-            <BYTextInput style={{ flex: 1, paddingLeft: globalStyleVariables.SIDEINTERVAL, backgroundColor: '#E0E3EF', marginBottom: 75 }} underlineColorAndroid={'rgba(0,0,0,.0)'} placeholder={'Please enter the invitation code.(选填)'} placeholderTextColor={'#6D7592'} />
+            <Field 
+              name="inviterno"
+              component={InvitationInput}
+              style={{ flex: 1, paddingLeft: globalStyleVariables.SIDEINTERVAL, paddingTop: 10, paddingBottom: 10, backgroundColor: '#E0E3EF', marginBottom: 75 }} 
+              placeholder={'Please enter the invitation code.(选填)'} 
+              placeholderTextColor={'#6D7592'} 
+            />
           </View>
-          <BYButton text={'Next step'} style={{ marginBottom: 20 }} onPress={() => navigate(SCREENS.RegisterStepTwo)} />
+          <BYButton text={'Next step'} style={{ marginBottom: 20 }} onPress={handleSubmit(this.submit)} />
           <NavSidesText textLeft={'Already have an account?'} navigateLeft={() => goBack()} />
         </ScrollView>
       </View>
@@ -48,6 +104,27 @@ class RegisterStepOne extends React.Component {
 
 RegisterStepOne = reduxForm({
   form: 'RegisterStepOne',
+  validate,
 })(RegisterStepOne);
 
-export default RegisterStepOne;
+// export default RegisterStepOne;
+
+
+export default connect(
+  () => {
+    return (state, props) => {
+      // const {
+      //   auth,
+      //   form: { RegisterStepOne },
+      // } = state;
+      // const msisdn = props.navigation.state.params.msisdn || '';
+      return {
+        // msisdn: auth.user ? auth.user.msisdn : '',
+        // formValue: RegisterStepOne ? RegisterStepOne.values : '',
+      }
+    }
+  },
+  {
+    ...otpActionCreators
+  }
+)(RegisterStepOne);

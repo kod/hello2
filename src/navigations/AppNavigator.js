@@ -188,8 +188,8 @@ const RouteConfigs = {
 
 const StackNavigatorConfig = {
   initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.OrderWrite,
-  // initialRouteName: SCREENS.Pay,
+  // initialRouteName: SCREENS.TransactionPasswordStepOne,
+  // initialRouteName: SCREENS.RegisterStepOne,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

@@ -36,6 +36,7 @@ import returnMoney from './returnMoney';
 import getUserInfoById from './getUserInfoById';
 import cardSubmit from './cardSubmit';
 import cardQuery from './cardQuery';
+import register from './register';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -74,6 +75,7 @@ const rootReducer = combineReducers({
   getUserInfoById,
   cardSubmit,
   cardQuery,
+  register,
   form: formReducer,
 });
 

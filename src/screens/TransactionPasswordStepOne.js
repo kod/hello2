@@ -48,7 +48,8 @@ class TransactionPasswordStepOne extends React.Component {
     if (!formValue) return false;
     if (!PHONEEXPR.test(formValue.phone)) return Platform.OS === 'android' && ToastAndroid.show('định dạng số điện thoại sai', ToastAndroid.SHORT);
     otpFetch(formValue.phone);
-    navigate(SCREENS.TransactionPasswordStepTwo, { msisdn: formValue.phone, from: state.params.from });
+    navigate(SCREENS.TransactionPasswordStepTwo);
+    // navigate(SCREENS.TransactionPasswordStepTwo, { msisdn: formValue.phone, from: state.params.from });
   }
   
   render() {
@@ -85,12 +86,12 @@ export default connect(
   () => {
     return (state, props) => {
       const {
+        auth,
         form: { TransactionPasswordStepOne },
       } = state;
-      console.log(props.navigation.state.params);
-      const msisdn = props.navigation.state.params.msisdn || '';
+      // const msisdn = props.navigation.state.params.msisdn || '';
       return {
-        msisdn,
+        msisdn: auth.user ? auth.user.msisdn : '',
         formValue: TransactionPasswordStepOne ? TransactionPasswordStepOne.values : '',
       }
     }

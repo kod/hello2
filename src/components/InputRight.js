@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
   componentInput: {
     flex: 1,
     marginLeft: globalStyleVariables.SIDEINTERVAL,
+    paddingTop: 10,
+    paddingBottom: 10,
   }
 });
 
@@ -38,7 +40,6 @@ export default (
       <View style={[styles.component, style]}>
         <BYTextInput 
           style={[styles.componentInput, styleInput]} 
-          underlineColorAndroid={'rgba(0,0,0,.0)'} 
           placeholderTextColor={'#ccc'} 
           onChangeText={input.onChange}
           value={input.value}

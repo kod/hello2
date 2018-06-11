@@ -10,7 +10,7 @@ import BYHeader from '../components/BYHeader';
 import BYButton from "../components/BYButton";
 import InputRight from "../components/InputRight";
 import BYTouchable from "../components/BYTouchable";
-import NavSidesText from "../components/NavSidesText";
+import ReadSeconds from "../components/ReadSeconds";
 
 import * as modifyPayPasswordActionCreators from "../common/actions/modifyPayPassword";
 
@@ -51,54 +51,14 @@ class TransactionPasswordStepTwo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      seconds: 0,
-      ing: false,
+      // seconds: 0,
+      // ing: false,
     };
   }
 
   componentDidMount() {
-    this.readSeconds();
+    // this.readSeconds();
   }
-
-  async readSeconds() {
-    if (this.state.ing === false) {
-      await this.setState({
-        seconds: 60,
-        ing: true,
-      });
-    }
-    if (this.state.seconds > 0) {
-      setTimeout(async () => {
-        await this.setState({
-          seconds: this.state.seconds - 1,
-        });
-        this.readSeconds();
-      }, 700);
-    } else {
-      await this.setState({
-        ing: false,
-      });
-    }
-  }
-  
-  handleOnPressSeconds() {
-    if (this.state.ing) return false;
-    this.readSeconds();
-    
-  }
-  
-  renderInputRightCode = () => {
-    const {
-      ing,
-      seconds,
-    } = this.state;
-
-    return (
-      <View style={styles.second}>
-        <Text style={styles.secondText} onPress={() => this.handleOnPressSeconds()} >{ing ? seconds : 'gửi mã'}</Text>
-      </View>
-    );
-  };
 
   renderInputRightClose = () => {
     return (
@@ -135,7 +95,8 @@ class TransactionPasswordStepTwo extends React.Component {
           <Field 
             name="code"
             component={InputRight}
-            inputRight={this.renderInputRightCode()}
+            inputRight={<ReadSeconds />}
+            // inputRight={this.renderInputRightCode()}
             placeholder={'Vui lòng nhập mã xác nhận'}
             keyboardType={'numeric'}
             // onSubmitEditing={() => { this.password.focus(); }}

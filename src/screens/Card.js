@@ -186,7 +186,7 @@ class Card extends React.Component {
           this.renderCard()
         }
         {
-          status === 1
+          (!user || status === 1)
           &&
           this.renderApplyStatus({
             backgroundColor: '#147af3',
