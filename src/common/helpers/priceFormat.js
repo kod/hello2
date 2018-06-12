@@ -3,12 +3,11 @@
  * @Author   taichiyi
  * @DateTime 2017-11-10
  * @param    {number/string}   price      待格式化的金额
- * @param    {number}          interval   间隔位数, 默认为3
  * @param    {string}          separator  分隔符/分节符, 默认为","
+ * @param    {number}          interval   间隔位数, 默认为3
  * @return   {string}                     格式化后的金额
  */
 const priceFormat = function(price, separator, interval) {
-  price = parseInt(price);
   price = price === price ? price + '' : '';
   separator = separator || ',';
   interval = interval || 3;
