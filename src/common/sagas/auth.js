@@ -13,6 +13,12 @@ import {
   cancel,
   takeEvery,
 } from 'redux-saga/effects';
+import {
+  AUTH_LOGIN,
+  AUTH_SIGNUP,
+  AUTH_LOGOUT,
+  AUTH_REFRESH_ACCESS_TOKEN,
+} from '../constants/actionTypes';
 
 import {
   login,
@@ -27,14 +33,15 @@ import {
   rehydrateSuccess,
 } from '../actions/auth';
 import {
-  AUTH_LOGIN,
-  AUTH_SIGNUP,
-  AUTH_LOGOUT,
-  AUTH_REFRESH_ACCESS_TOKEN,
-} from '../constants/actionTypes';
+  cardQueryFetch, 
+  cardQueryClear, 
+} from "../actions/cardQuery";
+import {
+  cartRequest,
+  cartClear,
+} from "../actions/cart";
 import { addError } from '../actions/error';
 import { setLanguage } from "../actions/i18n";
-import { cartRequest ,cartClear } from "../actions/cart";
 import { userCertificateInfoFetch, userCertificateInfoClear } from "../actions/userCertificateInfo";
 
 import { getLang, getAuthUser, getAuth, getAuthUserFunid } from '../selectors';
@@ -138,7 +145,7 @@ export function* watchLoginSuccess() {
 
       const authUserFunid = yield select(getAuthUserFunid);
       yield put(cartRequest(authUserFunid));
-      // 
+      yield put(cardQueryFetch());
 
       yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'closeLoginScreen' ]);
     } catch (err) {
@@ -172,6 +179,7 @@ export function* watchRehydrate() {
 
 export function* logoutWatchHandle(action) {
   yield put(cartClear());
+  yield put(cardQueryClear());
   yield put(userCertificateInfoClear());
 }
 

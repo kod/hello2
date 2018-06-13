@@ -114,7 +114,7 @@ class ProductItem2 extends Component {
                   <Text style={styles.itemTitle} numberOfLines={1}>{val.name}</Text>
                   <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>
                   <View style={styles.itemRightRow3}>
-                    <Text style={[styles.itemRightRow3Price, stylePricePrice]}>{priceFormat(val.price / 12) + ' ₫'}</Text>
+                    <Text style={[styles.itemRightRow3Price, stylePricePrice]}>{priceFormat(parseInt(val.price / 12)) + ' ₫'}</Text>
                     <Text style={styles.itemRightRow3Periods}>x12 Tháng</Text>
                     {isShowNumber && <Text style={styles.itemRightRow3Number}>x{val.number}</Text>}
                   </View>

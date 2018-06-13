@@ -2,11 +2,10 @@ import {
   MODIFYPAYPASSWORD,
 } from '../constants/actionTypes';
 
-export function modifyPayPasswordFetchSuccess(from) {
+export function modifyPayPasswordFetchSuccess() {
   return {
     type: MODIFYPAYPASSWORD.SUCCESS,
     payload: {
-      from
     },
   };
 }
@@ -20,14 +19,12 @@ export function modifyPayPasswordFetchFailure() {
   };
 }
 
-export function modifyPayPasswordFetch(msisdn, paypassword, otp, from) {
+export function modifyPayPasswordFetch(paypassword, otp) {
   return {
     type: MODIFYPAYPASSWORD.REQUEST,
     payload: {
-      msisdn,
       paypassword,
       otp,
-      from,
     },
   };
 }

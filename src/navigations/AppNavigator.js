@@ -26,6 +26,7 @@ import Test from '../screens/Test';
 import TransactionPasswordStepOne from '../screens/TransactionPasswordStepOne';
 import TransactionPasswordStepTwo from '../screens/TransactionPasswordStepTwo';
 import ProductDetailImages from '../screens/ProductDetailImages';
+import WebView from '../screens/WebView';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -183,13 +184,19 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.WebView]: {
+    screen: WebView,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
   initialRouteName: SCREENS.Index,
   // initialRouteName: SCREENS.TransactionPasswordStepOne,
-  // initialRouteName: SCREENS.RegisterStepOne,
+  // initialRouteName: SCREENS.WebView,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

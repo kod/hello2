@@ -208,14 +208,13 @@ class OrderWrite extends React.Component {
     });
 
     const {
-      detailItem,
+      detailItem: { price, productDetailNumber },
     } = this.props;
-    const payAmounts = detailItem.price;
     return (
       <View style={styles.nav} >
         <View style={styles.navLeft} >
           <Text style={styles.navLeftTop} >Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom} >{priceFormat(payAmounts)} VND</Text>
+          <Text style={styles.navLeftBottom} >{priceFormat(productDetailNumber * price)} VND</Text>
         </View>
         <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()} >Submit</Text>
       </View>

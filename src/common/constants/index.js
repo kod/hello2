@@ -35,6 +35,7 @@ export const SCREENS = {
   Test: 'Test',
   TransactionPasswordStepOne: 'TransactionPasswordStepOne',
   TransactionPasswordStepTwo: 'TransactionPasswordStepTwo',
+  WebView: 'WebView',
 };
 
 export const CARMAXNUMBER = 50;

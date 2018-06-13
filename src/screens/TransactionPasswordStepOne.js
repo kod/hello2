@@ -34,7 +34,6 @@ class TransactionPasswordStepOne extends React.Component {
     const {
       msisdn,
     } = this.props;
-    console.log(msisdn);
     this.props.initialize({ phone: msisdn });
   }
   
@@ -49,7 +48,6 @@ class TransactionPasswordStepOne extends React.Component {
     if (!PHONEEXPR.test(formValue.phone)) return Platform.OS === 'android' && ToastAndroid.show('định dạng số điện thoại sai', ToastAndroid.SHORT);
     otpFetch(formValue.phone);
     navigate(SCREENS.TransactionPasswordStepTwo);
-    // navigate(SCREENS.TransactionPasswordStepTwo, { msisdn: formValue.phone, from: state.params.from });
   }
   
   render() {
@@ -89,7 +87,6 @@ export default connect(
         auth,
         form: { TransactionPasswordStepOne },
       } = state;
-      // const msisdn = props.navigation.state.params.msisdn || '';
       return {
         msisdn: auth.user ? auth.user.msisdn : '',
         formValue: TransactionPasswordStepOne ? TransactionPasswordStepOne.values : '',

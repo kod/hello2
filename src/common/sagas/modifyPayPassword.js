@@ -5,6 +5,9 @@ import {
   modifyPayPasswordFetchSuccess,
   modifyPayPasswordFetchFailure,
 } from '../actions/modifyPayPassword';
+import {
+  cardQueryFetch, 
+} from "../actions/cardQuery";
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import i18n from '../helpers/i18n';
@@ -16,16 +19,17 @@ import timeStrForm from "../../common/helpers/timeStrForm";
 
 import NavigatorService from '../../navigations/NavigatorService';
 
+import { getAuthUserMsisdn, getAuthUserFunid } from '../selectors';
+
 import { SCREENS } from "../constants";
 
 export function* modifyPayPasswordFetchWatchHandle(action) {
   try {
     const {
-      msisdn,
       otp,
       paypassword,
-      from,
     } = action.payload;
+    const msisdn = yield select(getAuthUserMsisdn);
     
     const Key = 'userKey';
     const provider = Platform.OS === 'ios' ? '1' : '2';
@@ -66,7 +70,7 @@ export function* modifyPayPasswordFetchWatchHandle(action) {
 
     switch (response.status) {
       case 10000:
-        yield put(modifyPayPasswordFetchSuccess(from));
+        yield put(modifyPayPasswordFetchSuccess());
       return;
     
       case 70002:
@@ -96,6 +100,7 @@ export function* modifyPayPasswordSuccessWatchHandle(action) {
       from,
     } = action.payload;
     // if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    yield put(cardQueryFetch());
     Alert.alert(
       '',
       '成功',

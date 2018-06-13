@@ -75,7 +75,7 @@ export function* orderPayFetchWatchHandle(action) {
       payvalue: payvalue,
     }));
 
-    const response = yield apply(buyoo, buyoo.orderPay, [
+    const options = [
       {
         appid: appId,
         method: method,
@@ -91,7 +91,17 @@ export function* orderPayFetchWatchHandle(action) {
         paypassword: paypassword,
         payvalue: payvalue,
       }
-    ]);
+    ];
+
+    if (payway !== 1) {
+      console.log(buyoo.orderPayInternetBank(options[0]) + '');
+      NavigatorService.navigate(SCREENS.WebView, {
+        source: buyoo.orderPayInternetBank(options[0]),
+      });
+      return false;
+    }
+
+    const response = yield apply(buyoo, buyoo.orderPay, options);
 
     console.log(response);
     console.log(JSON.stringify(response));
@@ -104,6 +114,7 @@ export function* orderPayFetchWatchHandle(action) {
 
     yield put(orderPayFetchSuccess());
   } catch (err) {
+    console.log(err);
     yield put(orderPayFetchFailure());
     yield put(addError(err.toString()));
   }

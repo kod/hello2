@@ -86,6 +86,22 @@ class ReactStore {
     return this.requestUrl(`:8183/fun/trade/order/pay`, options);
   }
 
+  orderPayInternetBank(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    return `${BASE_URL}:8183/fun/trade/order/pay?${queryString}`;
+  }
+
   // queryOrder(options) {
   //   if (!options) {
   //     return Promise.reject(new Error('fields required'));
@@ -159,7 +175,7 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`:8180/fun/userCenter/card/query`, options);
   }
 

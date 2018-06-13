@@ -28,7 +28,10 @@ import * as queryOrderActionCreators from '../common/actions/queryOrder';
 import * as orderPayActionCreators from '../common/actions/orderPay';
 import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
 import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
+import * as cardQueryActionCreators from "../common/actions/cardQuery";
+
 import { addressJoin, tradeStatusCodes } from "../common/helpers";
+import priceFormat from "../common/helpers/priceFormat";
 
 const styles = StyleSheet.create({
   container: {
@@ -93,7 +96,7 @@ class OrderWrite extends React.Component {
     super(props);
     this.state = {
       isOpenActionSheet: false,
-      isOpenBottomSheet: false,
+      // isOpenBottomSheet: false,
       isOpenEnterPassword: false,
       payWayButtons: ['Buyoo Card', 'Internet Banking'],
       payWayIndex: 0,
@@ -110,6 +113,7 @@ class OrderWrite extends React.Component {
       orderNo,
       tradeNo,
       queryOrderFetch,
+      cardQueryFetch,
       getUserInfoByIdFetch,
       navigation: { navigate },
     } = this.props;
@@ -117,6 +121,7 @@ class OrderWrite extends React.Component {
     if (authUser) {
       addressFetch();
       getUserInfoByIdFetch();
+      cardQueryFetch();
     }
 
     queryOrderFetch({
@@ -176,13 +181,63 @@ class OrderWrite extends React.Component {
       cardSubmitFetch,
       orderPayFetch,
       navigation: { navigate },
+      cardQuery,
+      queryOrderItem: {
+        advance,
+      },
     } = this.props;
     if (!authUser) return navigate(SCREENS.Login);
     if (!userType) return getUserInfoByIdFetch();
 
-    const payway = payWayIndex === 0 ? 1: 2;
+    const payway = payWayIndex === 0 ? 1 : 2;
     
     const creditCard = () => {
+      
+      let paywayNow = 1;
+      if (cardQuery.item.availableBalance) {
+        paywayNow = cardQuery.item.availableBalance < advance ? 5 : 1;
+      }
+
+      const alreadyPaypassword = () => {
+        if (paypassword.length === 0) return this.handleOnPressToggleModal('isOpenEnterPassword')
+        console.log({
+          orderno: orderNo,
+          tradeno: tradeNo,
+          payway: paywayNow,
+          paypassword,
+        });
+
+        if (paywayNow === 5) {
+          Alert.alert(
+            '',
+            '当前可用额度不够, 其余金额将通过网银支付',
+            [
+              { text: i18n.cancel, },
+              { 
+                text: '确定', 
+                onPress: () => {
+                  orderPayFetch({
+                    orderno: orderNo,
+                    tradeno: tradeNo,
+                    payway: paywayNow,
+                    paypassword,
+                    payvalue: advance - cardQuery.item.availableBalance,
+                  });
+                }
+              }
+            ]
+          )
+        } else {
+          console.log(advance - cardQuery.item.availableBalance);
+          orderPayFetch({
+            orderno: orderNo,
+            tradeno: tradeNo,
+            payway: paywayNow,
+            paypassword,
+          })
+        }
+      };
+      // const paywayNow = cardQuery.item.availableBalance
       if (userType === 3) {
         // 已开通信用卡
         if (initPassword !== 1) {
@@ -199,19 +254,7 @@ class OrderWrite extends React.Component {
             ]
           )
         } else {
-          if (paypassword.length === 0) return this.handleOnPressToggleModal('isOpenEnterPassword')
-          console.log({
-            orderno: orderNo,
-            tradeno: tradeNo,
-            payway,
-            paypassword,
-          });
-          orderPayFetch({
-            orderno: orderNo,
-            tradeno: tradeNo,
-            payway,
-            paypassword,
-          });
+          alreadyPaypassword();
         }
       } else {
         Alert.alert(
@@ -230,6 +273,14 @@ class OrderWrite extends React.Component {
 
       }
     }
+
+    const internetBank = () => {
+      orderPayFetch({
+        orderno: orderNo,
+        tradeno: tradeNo,
+        payway,
+      });
+    }
     
     switch (payway) {
       case 1:
@@ -237,12 +288,12 @@ class OrderWrite extends React.Component {
         break;
     
       case 2:
-        // creditCard();
+        internetBank();
         break;
     
-      case 5:
-        // creditCard();
-        break;
+      // case 5:
+      //   creditCard();
+      //   break;
     
       default:
         break;
@@ -301,14 +352,17 @@ class OrderWrite extends React.Component {
     // }
 
     const {
-      queryOrderItem: { tradeStatus }
+      queryOrderItem: {
+        tradeStatus, 
+        advance,
+      }
     } = this.props;
 
     return (
       <View style={styles.nav} >
         <View style={styles.navLeft} >
           <Text style={styles.navLeftTop} >Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom} >31.095.000 VND</Text>
+          <Text style={styles.navLeftBottom} >{priceFormat(advance)} VND</Text>
         </View>
         {
           tradeStatus === '10000' &&
@@ -322,110 +376,110 @@ class OrderWrite extends React.Component {
     )
   }
 
-  renderBottomSheet() {
-    const styles = StyleSheet.create({
-      container: {
-        backgroundColor: '#fff',
-      },
-      closeWrap: {
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        paddingRight: WINDOW_WIDTH * 0.02,
-      },
-      close: {
-        paddingTop: SIDEINTERVAL,
-        fontSize: 24,
-        color: '#666',
-      },
-      scrollview: {
-        height: WINDOW_HEIGHT * 0.5,
-      },
-      title: {
-        flexDirection: 'row',
-        borderBottomColor: '#f5f5f5',
-        borderBottomWidth: 1,
-      },
-      titleItem: {
-        color: '#333',
-        width: WINDOW_WIDTH / 3,
-        height: 45,
-        lineHeight: 45,
-        textAlign: 'center',
-      },
-      item: {
-        flexDirection: 'row',
-        borderBottomColor: '#f5f5f5',
-        borderBottomWidth: 1,
-      },
-      itemText: {
-        color: '#666',
-        width: WINDOW_WIDTH / 3,
-        height: 45,
-        lineHeight: 45,
-        textAlign: 'center',
-      },
-    });
+  // renderBottomSheet() {
+  //   const styles = StyleSheet.create({
+  //     container: {
+  //       backgroundColor: '#fff',
+  //     },
+  //     closeWrap: {
+  //       alignItems: 'flex-end',
+  //       justifyContent: 'center',
+  //       paddingRight: WINDOW_WIDTH * 0.02,
+  //     },
+  //     close: {
+  //       paddingTop: SIDEINTERVAL,
+  //       fontSize: 24,
+  //       color: '#666',
+  //     },
+  //     scrollview: {
+  //       height: WINDOW_HEIGHT * 0.5,
+  //     },
+  //     title: {
+  //       flexDirection: 'row',
+  //       borderBottomColor: '#f5f5f5',
+  //       borderBottomWidth: 1,
+  //     },
+  //     titleItem: {
+  //       color: '#333',
+  //       width: WINDOW_WIDTH / 3,
+  //       height: 45,
+  //       lineHeight: 45,
+  //       textAlign: 'center',
+  //     },
+  //     item: {
+  //       flexDirection: 'row',
+  //       borderBottomColor: '#f5f5f5',
+  //       borderBottomWidth: 1,
+  //     },
+  //     itemText: {
+  //       color: '#666',
+  //       width: WINDOW_WIDTH / 3,
+  //       height: 45,
+  //       lineHeight: 45,
+  //       textAlign: 'center',
+  //     },
+  //   });
     
-    return (
-      <View style={styles.container} >
-        <BYTouchable style={styles.closeWrap} onPress={() => this.handleOnPressToggleBottomSheet()} >
-          <EvilIcons style={styles.close} name="close" />
-        </BYTouchable>
-        <View style={styles.title} >
-          <Text style={styles.titleItem} >periods</Text>
-          <Text style={styles.titleItem} >supply</Text>
-          <Text style={styles.titleItem} >principalprincipal</Text>
-        </View>
-        <ScrollView style={styles.scrollview} >
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-          <View style={styles.item} >
-            <Text style={styles.itemText} >1st periods</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-            <Text style={styles.itemText} >4349.230.43</Text>
-          </View>
-        </ScrollView>
-      </View>
-    )
-  }
+  //   return (
+  //     <View style={styles.container} >
+  //       <BYTouchable style={styles.closeWrap} onPress={() => this.handleOnPressToggleBottomSheet()} >
+  //         <EvilIcons style={styles.close} name="close" />
+  //       </BYTouchable>
+  //       <View style={styles.title} >
+  //         <Text style={styles.titleItem} >periods</Text>
+  //         <Text style={styles.titleItem} >supply</Text>
+  //         <Text style={styles.titleItem} >principalprincipal</Text>
+  //       </View>
+  //       <ScrollView style={styles.scrollview} >
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //         <View style={styles.item} >
+  //           <Text style={styles.itemText} >1st periods</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         </View>
+  //       </ScrollView>
+  //     </View>
+  //   )
+  // }
 
   renderContent() {
     const {
@@ -441,7 +495,9 @@ class OrderWrite extends React.Component {
       i18n,
       addressItems,
       getUserInfoById,
+      cardQuery,
       queryOrderItem: {
+        advance,
         goodsDetail,
         address,
         couponValue,
@@ -466,7 +522,7 @@ class OrderWrite extends React.Component {
       division4thName,
     };
 
-    if (getUserInfoById.loading) return <Loader />
+    if (getUserInfoById.loading || cardQuery.loading) return <Loader />
 
     return (
       <View style={styles.container} >
@@ -482,10 +538,10 @@ class OrderWrite extends React.Component {
             stylePricePrice={{ color: '#666' }}
             isShowNumber={true}
           />
-          <Text style={styles.totalPrice} >1.988.400 VND</Text>
+          <Text style={styles.totalPrice} >{priceFormat(advance + couponValue)} VND</Text>
           <SeparateBar />
           <NavBar2 
-            onPress={() => this.handleOnPressToggleModal('isOpenEnterPassword')} 
+            onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')} 
             valueLeft={'Order amount'} 
             valueMiddle={payWayButtons[payWayIndex]} 
           />
@@ -504,7 +560,7 @@ class OrderWrite extends React.Component {
   render() {
     const {
       isOpenActionSheet,
-      isOpenBottomSheet,
+      // isOpenBottomSheet,
       isOpenEnterPassword,
       payWayButtons,
       payWayIndex,
@@ -534,12 +590,12 @@ class OrderWrite extends React.Component {
       <View style={styles.container} >
         <BYHeader />
         {this.renderContent()}
-        <BYModal
+        {/* <BYModal
           visible={isOpenBottomSheet}
           onRequestClose={() => this.handleOnPressToggleModal('isOpenBottomSheet')}
         >
           {this.renderBottomSheet()}
-        </BYModal>
+        </BYModal> */}
         <ActionSheet 
           visible={isOpenActionSheet}
           onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
@@ -564,6 +620,7 @@ export default connectLocalization(
           address,
           queryOrder,
           getUserInfoById,
+          cardQuery,
         } = state;
 
         const {
@@ -578,6 +635,7 @@ export default connectLocalization(
           queryOrderItem: queryOrder.item,
           orderNo,
           tradeNo,
+          cardQuery,
           getUserInfoById,
           initPassword: getUserInfoById.item.initPassword || null,
           userType: getUserInfoById.item.userType || null,
@@ -591,6 +649,7 @@ export default connectLocalization(
       ...orderPayActionCreators,
       ...getUserInfoByIdActionCreators,
       ...cardSubmitActionCreators,
+      ...cardQueryActionCreators,
     }
   )(OrderWrite)
 );

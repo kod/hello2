@@ -147,7 +147,7 @@ class Card extends React.Component {
             <Text style={styles.title} >available credit</Text>
             <Text style={styles.price} >{priceFormat(availableBalance)} VND</Text>
             <View style={styles.info} >
-              <Text style={styles.cardId} >8888 8888 8888 8888</Text>
+              <Text style={styles.cardId} >{priceFormat(cardCode, ' ', 4)}</Text>
               <Text style={styles.cardName} >{username}</Text>
             </View>
           </View>

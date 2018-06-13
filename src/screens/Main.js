@@ -110,10 +110,14 @@ class Main extends React.Component {
     } = this.props;
 
     setTimeout(() => {
+      // navigate(SCREENS.WebView, {
+      //   source: 'https://buyoo.vn/html/about.html'
+      // });
       navigate(SCREENS.Pay, {
-        tradeNo: '210320180611190319703773',
-        orderNo: '220180611190319703561777650',  
+        tradeNo: '210320180613093649714444',
+        orderNo: '220180613093649714572433251',
       });
+
     }, 300);
   }
 
