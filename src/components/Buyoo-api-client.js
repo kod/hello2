@@ -69,6 +69,48 @@ class ReactStore {
     return this.requestUrl(`:8183/fun/trade/order/create`, options);
   }
 
+  queryOrderList(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8183/fun/trade/queryOrderList`, options);
+  }
+
+  // orderPay(options) {
+  //   if (!options) {
+  //     return Promise.reject(new Error('fields required'));
+  //   }
+  //   const data = qs.stringify(options);
+  //   options = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     data,
+  //   };
+
+  //   return axios(`http://192.168.7.99:8183/fun/trade/order/pay`, options)
+  //     .then(res => {
+  //       if (res.data.status !== 10000) {
+  //         throw new Error(res.data.result);
+  //       }
+  //       return res.data;
+  //     })
+  //     .catch(err => {
+  //       throw err;
+  //     });
+  // }
+
   orderPay(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));

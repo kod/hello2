@@ -127,11 +127,25 @@ export function* orderPayFetchWatch(res) {
 
 export function* orderPaySuccessWatchHandle(action) {
   try {
-    const { tradeNo, orderNo } = action.payload;
-    yield NavigatorService.navigate(SCREENS.Pay, {
-      tradeNo,
-      orderNo,
-    });
+    // const { tradeNo, orderNo } = action.payload;
+    // yield NavigatorService.navigate(SCREENS.Pay, {
+    //   tradeNo,
+    //   orderNo,
+    // });
+    Alert.alert(
+      '',
+      '支付成功',
+      [
+        // { text: i18n.cancel, },
+        { 
+          text: '确定', 
+          onPress: () => {
+            // 根据入口。刷新及返回到相应页面
+          }
+        }
+      ]
+    )
+
   } catch (err) {
     
   }

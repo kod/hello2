@@ -114,8 +114,8 @@ class Main extends React.Component {
       //   source: 'https://buyoo.vn/html/about.html'
       // });
       navigate(SCREENS.Pay, {
-        tradeNo: '210320180613093649714444',
-        orderNo: '220180613093649714572433251',
+        tradeNo: '210320180613100829786253',
+        orderNo: '220180613100829817675838324',
       });
 
     }, 300);

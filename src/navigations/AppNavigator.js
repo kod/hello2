@@ -4,6 +4,9 @@ import Address from '../screens/Address';
 import AddressAdd from '../screens/AddressAdd';
 import AddressEdit from '../screens/AddressEdit';
 import AppTabNavigator from './AppTabNavigator';
+import Bill from '../screens/Bill';
+import BillDetail from '../screens/BillDetail';
+import BillingPeriodDetail from '../screens/BillingPeriodDetail';
 import CertifiedInformation from '../screens/CertifiedInformation';
 import CertifiedInformationSchool from '../screens/CertifiedInformationSchool';
 import CertifiedInformationContact from '../screens/CertifiedInformationContact';
@@ -12,6 +15,7 @@ import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
 import Language from '../screens/Language';
 import Login from '../screens/Login';
 import MyCollection from '../screens/MyCollection';
+import Order from '../screens/Order';
 import OrderWrite from '../screens/OrderWrite';
 import Pay from '../screens/Pay';
 import ProductDetail from '../screens/ProductDetail';
@@ -19,6 +23,7 @@ import RegisterStepOne from '../screens/RegisterStepOne';
 import RegisterStepTwo from '../screens/RegisterStepTwo';
 import RegisterFastStepOne from '../screens/RegisterFastStepOne';
 import RegisterFastStepTwo from '../screens/RegisterFastStepTwo';
+import RepaymentRecord from '../screens/RepaymentRecord';
 import SchoolSelect from '../screens/SchoolSelect';
 import SearchResult from '../screens/SearchResult';
 import Settings from '../screens/Settings';
@@ -190,13 +195,43 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.Bill]: {
+    screen: Bill,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.BillDetail]: {
+    screen: BillDetail,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.BillingPeriodDetail]: {
+    screen: BillingPeriodDetail,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.RepaymentRecord]: {
+    screen: RepaymentRecord,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.Order]: {
+    screen: Order,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.Index,
   // initialRouteName: SCREENS.TransactionPasswordStepOne,
-  // initialRouteName: SCREENS.WebView,
+  initialRouteName: SCREENS.Order,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

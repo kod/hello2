@@ -59,6 +59,9 @@ import {
   orderCreateSuccessWatch,
 } from './orderCreate';
 import {
+  queryOrderListFetchWatch,
+} from './queryOrderList';
+import {
   orderPayFetchWatch,
 } from './orderPay';
 import {
@@ -139,6 +142,7 @@ export default function* rootSaga() {
     getUserInfoByIdFetchWatch(),
     orderCreateFetchWatch(),
     orderCreateSuccessWatch(),
+    queryOrderListFetchWatch(),
     orderPayFetchWatch(),
     queryOrderFetchWatch(),
     cardSubmitFetchWatch(),

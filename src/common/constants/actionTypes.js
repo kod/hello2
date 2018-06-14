@@ -301,6 +301,12 @@ export const ORDER_CREATE = defineAction(
   appNamespace,
 );
 
+export const QUERY_ORDER_LIST = defineAction(
+  'QUERY_ORDER_LIST',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const ORDER_PAY = defineAction(
   'ORDER_PAY',
   [REQUEST, SUCCESS, FAILURE],
