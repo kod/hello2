@@ -307,6 +307,12 @@ export const QUERY_ORDER_LIST = defineAction(
   appNamespace,
 );
 
+export const QUERY_ORDER_LIST_INDEX = defineAction(
+  'QUERY_ORDER_LIST_INDEX',
+  [REQUEST],
+  appNamespace,
+);
+
 export const ORDER_PAY = defineAction(
   'ORDER_PAY',
   [REQUEST, SUCCESS, FAILURE],

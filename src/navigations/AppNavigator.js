@@ -18,6 +18,7 @@ import MyCollection from '../screens/MyCollection';
 import Order from '../screens/Order';
 import OrderWrite from '../screens/OrderWrite';
 import Pay from '../screens/Pay';
+import PeriodSelect from '../screens/PeriodSelect';
 import ProductDetail from '../screens/ProductDetail';
 import RegisterStepOne from '../screens/RegisterStepOne';
 import RegisterStepTwo from '../screens/RegisterStepTwo';
@@ -26,6 +27,7 @@ import RegisterFastStepTwo from '../screens/RegisterFastStepTwo';
 import RepaymentRecord from '../screens/RepaymentRecord';
 import SchoolSelect from '../screens/SchoolSelect';
 import SearchResult from '../screens/SearchResult';
+import SecurityCenter from '../screens/SecurityCenter';
 import Settings from '../screens/Settings';
 import Test from '../screens/Test';
 import TransactionPasswordStepOne from '../screens/TransactionPasswordStepOne';
@@ -225,13 +227,25 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.PeriodSelect]: {
+    screen: PeriodSelect,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.SecurityCenter]: {
+    screen: SecurityCenter,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
+  initialRouteName: SCREENS.Index,
   // initialRouteName: SCREENS.TransactionPasswordStepOne,
-  initialRouteName: SCREENS.Order,
+  // initialRouteName: SCREENS.SecurityCenter,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

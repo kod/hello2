@@ -176,14 +176,14 @@ class Me extends React.Component {
     const username = authUser ? certUser.username : i18n.loginRegister;
 
     const renderCellItem1List1 = [
-      {
-        name: i18n.bills,
-        navigate: SCREENS.Settings,
-        tips: i18n.monthlyRepaymentOnThe6th,
-      },
+      // {
+      //   name: i18n.bills,
+      //   navigate: SCREENS.Settings,
+      //   tips: i18n.monthlyRepaymentOnThe6th,
+      // },
       {
         name: i18n.orders,
-        navigate: SCREENS.Settings,
+        navigate: SCREENS.Order,
         tips: '',
       },
     ];

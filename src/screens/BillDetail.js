@@ -56,24 +56,38 @@ class BillDetail extends React.Component {
         flex: 1,
       },
       main: {
-        paddingTop: 30,
+        paddingTop: 15,
         backgroundColor: PRIMARY_COLOR,
         paddingLeft: SIDEINTERVAL,
         paddingRight: SIDEINTERVAL,
       },
       title: {
         fontSize: 11,
-        color: '#69aef8',
+        color: '#fff',
         marginBottom: 5,
+        textAlign: 'center',
       },
       price: {
         fontSize: 30,
+        fontWeight: '700',
         color: '#fff',
-        marginBottom: 25,
+        marginBottom: 20,
+        textAlign: 'center',
       },
       items: {
         paddingTop: SIDEINTERVAL,
         paddingBottom: SIDEINTERVAL,
+      },
+      bill: {
+        flexDirection: 'row',
+        marginBottom: 25,
+      },
+      billItem: {
+        flex: 1,
+      },
+      billText: {
+        textAlign: 'center',
+        color: '#82bcf9',
       },
     });
     return (
@@ -81,6 +95,16 @@ class BillDetail extends React.Component {
         <View style={styles.main} >
           <Text style={styles.title}>Payment in April.</Text>
           <Text style={styles.price}>1.082.500 VND</Text>
+          <View style={styles.bill} >
+            <View style={styles.billItem} >
+              <Text style={styles.billText} >6.205.000</Text>
+              <Text style={styles.billText} >This month's bill</Text>
+            </View>
+            <View style={styles.billItem} >
+              <Text style={styles.billText} >6.205.000</Text>
+              <Text style={styles.billText} >This month's bill</Text>
+            </View>
+          </View>
         </View>
         <View style={styles.items} >
           <NavBar2 
@@ -116,21 +140,6 @@ class BillDetail extends React.Component {
             backgroundColor={'transparent'}
           />
         </View>
-        <SeparateBar />
-        <NavBar2 
-          onPress={() => {}}
-          valueLeft={'3月2期'} 
-          valueMiddle={'80.000VND'} 
-          styleLeft={{ color: '#999' }}
-          styleMiddle={{ color: '#666' }}
-        />
-        <NavBar2 
-          onPress={() => {}}
-          valueLeft={'3月2期'}
-          valueMiddle={'80.000VND'}
-          styleLeft={{ color: '#999' }}
-          styleMiddle={{ color: '#666' }}
-        />
       </View>
     )
   }
@@ -147,7 +156,7 @@ class BillDetail extends React.Component {
               style={styles.headerBack}
             />
           </BYTouchable>
-          <Text style={styles.title}>bill details</Text>
+          <Text style={styles.title}></Text>
         </View>
         <ScrollView >
           {this.renderContent()}

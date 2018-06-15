@@ -223,18 +223,18 @@ class Card extends React.Component {
           })
         }
         <NavBar2 
-          onPress={() => {}}
+          onPress={() => navigate(SCREENS.Bill)}
           valueLeft={'Bill'} 
           valueMiddle={'on the 5th of each month'} 
         />
         <NavBar2 
-          onPress={() => {}}
+          onPress={() => navigate(SCREENS.PeriodSelect)}
           valueLeft={'Stage setting'} 
           valueMiddle={'3 period'} 
         />
         <SeparateBar />
         <NavBar2 
-          onPress={() => {}}
+          onPress={() => navigate(SCREENS.SecurityCenter)}
           valueLeft={'Security Settings'} 
           // valueMiddle={'3 period'} 
         />

@@ -109,16 +109,16 @@ class Main extends React.Component {
       setLanguage,
     } = this.props;
 
-    setTimeout(() => {
-      // navigate(SCREENS.WebView, {
-      //   source: 'https://buyoo.vn/html/about.html'
-      // });
-      navigate(SCREENS.Pay, {
-        tradeNo: '210320180613100829786253',
-        orderNo: '220180613100829817675838324',
-      });
+    // setTimeout(() => {
+    //   // navigate(SCREENS.WebView, {
+    //   //   source: 'https://buyoo.vn/html/about.html'
+    //   // });
+    //   navigate(SCREENS.Pay, {
+    //     tradeNo: '210320180613100829786253',
+    //     orderNo: '220180613100829817675838324',
+    //   });
 
-    }, 300);
+    // }, 300);
   }
 
   _onDataArrived() {}

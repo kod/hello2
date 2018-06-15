@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Alert, Image } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 import { SCREENS } from "../common/constants";
 
@@ -13,6 +14,7 @@ import BYTouchable from "../components/BYTouchable";
 import BYTextInput from "../components/BYTextInput";
 import BYButton from "../components/BYButton";
 import BillSelect from "../components/BillSelect";
+import ActionSheet from "../components/ActionSheet";
 
 import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH } from "../styles/variables";
 
@@ -44,20 +46,26 @@ class Bill extends React.Component {
     this.state = {
       isOpenBillSelect: false,
       isOpenPay: false,
+      isOpenActionSheet: false,
+      payWayButtons: ['Buyoo Card',],
       price: '1082500',
     }
+    this.actionSheetCallback = this.actionSheetCallback.bind(this);
   }
 
   componentDidMount() {
     const { bannerHomeRecommendFetch } = this.props;
     // bannerHomeRecommendFetch();
-    this.handleOnPressToggleModal('isOpenPay');
+    // this.handleOnPressToggleModal('isOpenPay');
   }
 
-  // handleOnPressHeaderBackButton = () => {
-  //   const { goBack } = this.props.navigation;
-  //   goBack();
-  // };
+  actionSheetCallback(ret) {
+    console.log(ret);
+    if (ret.buttonIndex === -1) return false;
+    // this.setState({
+    //   payWayIndex: ret.buttonIndex,
+    // });
+  }
 
   renderHeaderTitle = () => {
     const styles = StyleSheet.create({
@@ -67,11 +75,40 @@ class Bill extends React.Component {
         justifyContent: 'center',
         paddingRight: 40,
         flexDirection: 'row',
+        // backgroundColor: '#f00',
+        height: 40,
       },
       title: {
         fontSize: 16,
         color: '#333',
         marginRight: 5,
+      },
+      arrow: {
+        fontSize: 18,
+        color: '#333',
+        // paddingTop: 2,
+      },
+    });
+    return (
+      <BYTouchable 
+        style={styles.container} 
+        backgroundColor={'transparent'} 
+        onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}
+      >
+        <Text style={styles.title}>tháng 4</Text>
+        <Ionicons style={styles.arrow} name={'ios-arrow-down'} />
+      </BYTouchable>
+    )
+  }
+
+  renderHeaderRight = () => {
+    const styles = StyleSheet.create({
+      container: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 40,
+        height: 40,
+        // backgroundColor: '#ff0',
       },
       arrow: {
         fontSize: 16,
@@ -83,10 +120,9 @@ class Bill extends React.Component {
       <BYTouchable 
         style={styles.container} 
         backgroundColor={'transparent'} 
-        onPress={() => this.handleOnPressToggleModal('isOpenPay')}
+        onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}
       >
-        <Text style={styles.title}>tháng 4</Text>
-        <Ionicons style={styles.arrow} name={'ios-arrow-down'} />
+        <Entypo style={styles.arrow} name={'dots-three-vertical'} />
       </BYTouchable>
     )
   }
@@ -260,6 +296,11 @@ class Bill extends React.Component {
         fontSize: 11,
       },
     });
+
+    const {
+      navigation: { navigate }
+    } = this.props;
+    
     return (
       <View style={styles.container} >
         <View style={styles.main} >
@@ -276,11 +317,11 @@ class Bill extends React.Component {
             <Text style={styles.topTwoTitle} >The bill has been paid off this month.</Text>
             <View style={styles.topTwoTextWrap} >
               <Text style={styles.topTwoTextOne} >Has also1.082.500 VND</Text>
-              <Text style={styles.topTwoTextTwo} >query the detail</Text>
+              <Text style={styles.topTwoTextTwo} onPress={() => navigate(SCREENS.BillDetail)} >query the detail</Text>
             </View>
           </View>
           <View style={styles.bottom} >
-            <Text style={styles.bottomText} >debt repayment record ></Text>
+            <Text style={styles.bottomText} onPress={() => navigate(SCREENS.RepaymentRecord)} >debt repayment record ></Text>
           </View>
         </View>
       </View>
@@ -290,7 +331,9 @@ class Bill extends React.Component {
   render() {
     const {
       isOpenBillSelect,
+      isOpenActionSheet,
       isOpenPay,
+      payWayButtons,
     } = this.state;
     const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
     
@@ -298,6 +341,7 @@ class Bill extends React.Component {
       <View style={styles.container} >
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
+          // headerRight={this.renderHeaderRight()}
         />
         <ScrollView>
           {this.renderContent()}
@@ -312,7 +356,12 @@ class Bill extends React.Component {
         >
           {this.renderPay()}
         </BYModal>
-
+        <ActionSheet 
+          visible={isOpenActionSheet}
+          onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
+          buttons={payWayButtons}
+          callback={this.actionSheetCallback}
+        />
       </View>
     );
   }
