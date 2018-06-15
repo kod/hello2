@@ -163,6 +163,7 @@ class Card extends React.Component {
       msisdn,
       navigation: { navigate },
       status,
+      periodHobbit,
       user,
     } = this.props;
     if (loading) return <Loader />;
@@ -225,12 +226,12 @@ class Card extends React.Component {
         <NavBar2 
           onPress={() => navigate(SCREENS.Bill)}
           valueLeft={'Bill'} 
-          valueMiddle={'on the 5th of each month'} 
+          // valueMiddle={'on the 5th of each month'} 
         />
         <NavBar2 
           onPress={() => navigate(SCREENS.PeriodSelect)}
           valueLeft={'Stage setting'} 
-          valueMiddle={'3 period'} 
+          valueMiddle={`${periodHobbit} period`} 
         />
         <SeparateBar />
         <NavBar2 
@@ -268,6 +269,7 @@ export default connect(
         initPassword: cardQuery.item.initPassword,
         item: cardQuery.item,
         status: cardQuery.item.status,
+        periodHobbit: cardQuery.item.periodHobbit,
         user: auth.user,
         msisdn: auth.user ? auth.user.msisdn : '',
       }

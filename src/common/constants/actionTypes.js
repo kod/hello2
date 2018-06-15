@@ -181,6 +181,12 @@ export const REGISTER = defineAction(
   appNamespace,
 );
 
+export const UPDATE_PERIOD = defineAction(
+  'UPDATE_PERIOD',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const GET_USERINFO_BYID = defineAction(
   'GET_USERINFO_BYID',
   [REQUEST, SUCCESS, FAILURE],

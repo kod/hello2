@@ -304,22 +304,22 @@ class Bill extends React.Component {
     return (
       <View style={styles.container} >
         <View style={styles.main} >
-          {/* <View style={styles.topOne} >
+          <View style={styles.topOne} >
             <Text style={styles.price} >1.082.500 VND</Text>
             <View style={styles.detailWrap} >
               <Text style={styles.detail} >query the detail</Text>
             </View>
             <BYButton text={'pay'} styleWrap={styles.button} />
             <Text style={styles.tips} >latest repayment date 5th</Text>
-          </View> */}
-          <View style={styles.topTwo} >
+          </View>
+          {/* <View style={styles.topTwo} >
             <Image style={styles.image} source={require('../images/jafsdbufnl.png')} />
             <Text style={styles.topTwoTitle} >The bill has been paid off this month.</Text>
             <View style={styles.topTwoTextWrap} >
               <Text style={styles.topTwoTextOne} >Has also1.082.500 VND</Text>
               <Text style={styles.topTwoTextTwo} onPress={() => navigate(SCREENS.BillDetail)} >query the detail</Text>
             </View>
-          </View>
+          </View> */}
           <View style={styles.bottom} >
             <Text style={styles.bottomText} onPress={() => navigate(SCREENS.RepaymentRecord)} >debt repayment record ></Text>
           </View>

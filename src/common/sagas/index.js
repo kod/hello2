@@ -81,6 +81,10 @@ import { getUserInfoByIdFetchWatch } from './getUserInfoById';
 import { cardSubmitFetchWatch } from './cardSubmit';
 import { cardQueryFetchWatch } from './cardQuery';
 import {
+  updatePeriodFetchWatch,
+  updatePeriodSuccessWatch,
+} from './updatePeriod';
+import {
   registerFetchWatch,
   registerSuccessWatch,
 } from './register';
@@ -149,5 +153,7 @@ export default function* rootSaga() {
     cardQueryFetchWatch(),
     registerFetchWatch(),
     registerSuccessWatch(),
+    updatePeriodFetchWatch(),
+    updatePeriodSuccessWatch(),
   ]);
 }

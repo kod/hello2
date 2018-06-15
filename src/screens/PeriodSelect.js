@@ -8,9 +8,10 @@ import { connectLocalization } from "../components/Localization";
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import BYButton from "../components/BYButton";
+import Loader from "../components/Loader";
 import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH } from "../styles/variables";
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import * as updatePeriodActionCreators from '../common/actions/updatePeriod';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,11 +20,38 @@ const styles = StyleSheet.create({
   },
 })
 
-class Settings extends React.Component {
+class PeriodSelect extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      period: 0,
+      periodList: [3, 6, 9, 12],
+    };
+  }
 
   componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
+    const {
+      periodHobbit,
+    } = this.props;
+
+    this.setState({
+      period: periodHobbit,
+    });
+  }
+
+  handleOnPressItem(val) {
+    this.setState({
+      period: val,
+    });
+  }
+
+  handleOnPressSubmit() {
+    const {
+      updatePeriodFetch,
+    } = this.props;
+    updatePeriodFetch({
+      period: this.state.period,
+    });
   }
 
   renderHeaderTitle = () => {
@@ -79,6 +107,12 @@ class Settings extends React.Component {
         marginRight: SIDEINTERVAL,
         marginBottom: SIDEINTERVAL,
       },
+      itemActive: {
+        borderColor: PRIMARY_COLOR,
+      },
+      itemTextActive: {
+        color: PRIMARY_COLOR,
+      },
       itemNumber: {
         fontSize: 24,
         color: '#666',
@@ -112,29 +146,33 @@ class Settings extends React.Component {
         lineHeight: 11 * 1.618,
       },
     });
+
+    const {
+      period,
+      periodList,
+    } = this.state;
     
     return (
       <View style={styles.container} >
         <View style={styles.main} >
           <View style={styles.wrap} >
-            <View style={styles.item} >
-              <Text style={styles.itemNumber} >3</Text>
-              <Text style={styles.itemText} >period</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemNumber} >6</Text>
-              <Text style={styles.itemText} >period</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemNumber} >9</Text>
-              <Text style={styles.itemText} >period</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemNumber} >12</Text>
-              <Text style={styles.itemText} >period</Text>
-            </View>
+            {
+              periodList.map((val, key) => {
+                return (
+                  <BYTouchable 
+                    style={[styles.item, period === val && styles.itemActive]} 
+                    key={key}
+                    backgroundColor={'transparent'}
+                    onPress={() => this.handleOnPressItem(val)}
+                  >
+                    <Text style={[styles.itemNumber, period === val && styles.itemTextActive]} >{val}</Text>
+                    <Text style={[styles.itemText, period === val && styles.itemTextActive]} >period</Text>
+                  </BYTouchable>
+                )
+              })
+            }
           </View>
-          <BYButton text={'confirm'} styleWrap={styles.submit} />
+          <BYButton text={'confirm'} styleWrap={styles.submit} onPress={() => this.handleOnPressSubmit()} />
         </View>
         <View style={styles.tips} >
           <Text style={styles.tipsTitle} >说明:</Text>
@@ -146,7 +184,12 @@ class Settings extends React.Component {
   }
   
   render() {
-    const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
+    const {
+      updatePeriod,
+      navigation: { navigate },
+      i18n,
+      loading,
+    } = this.props;
 
     return (
       <View style={styles.container} >
@@ -156,17 +199,30 @@ class Settings extends React.Component {
         <ScrollView style={styles.container} >
           {this.renderContent()}
         </ScrollView>
+        {/* <Loader absolutePosition /> */}
+        { loading && <Loader absolutePosition />}
       </View>
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
-export default connectLocalization(
-  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, })(Settings)
-);
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        cardQuery,
+        updatePeriod,
+      } = state;
+      return {
+        loading: updatePeriod.loading,
+        initPassword: cardQuery.item.initPassword,
+        status: cardQuery.item.status,
+        periodHobbit: cardQuery.item.periodHobbit,
+        // user: auth.user,
+      }
+    }
+  },
+  {
+    ...updatePeriodActionCreators,
+  }
+)(PeriodSelect);

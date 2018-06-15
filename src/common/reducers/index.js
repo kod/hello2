@@ -39,6 +39,7 @@ import cardQuery from './cardQuery';
 import register from './register';
 import userAddDetailInfo from './userAddDetailInfo';
 import queryOrderList from './queryOrderList';
+import updatePeriod from './updatePeriod';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -80,6 +81,7 @@ const rootReducer = combineReducers({
   register,
   userAddDetailInfo,
   queryOrderList,
+  updatePeriod,
   form: formReducer,
 });
 
