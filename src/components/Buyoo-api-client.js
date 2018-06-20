@@ -186,6 +186,40 @@ class ReactStore {
     
     return this.requestUrl(`:8183/fun/trade/queryOrder`, options);
   }
+  
+  searchMonth(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8184/fun/bill/searchMonth`, options);
+  }
+
+  billByYear(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8184/fun/bill/billByYear`, options);
+  }
 
   cardSubmit(options) {
     if (!options) {

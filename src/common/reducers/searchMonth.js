@@ -1,33 +1,32 @@
-import { ORDER_CREATE } from '../constants/actionTypes';
+import { SEARCH_MONTH } from '../constants/actionTypes';
 
 const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
-  tradeNo: '',
-  orderNo: '',
+  item: {},
 };
 
-export default function orderCreate(state = initState, action) {
+export default function searchMonth(state = initState, action) {
+  console.log(action);
   switch (action.type) {
-    case ORDER_CREATE.CLEAR:
+    case SEARCH_MONTH.CLEAR:
       return {
         ...initState
       };
-    case ORDER_CREATE.REQUEST:
+    case SEARCH_MONTH.REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ORDER_CREATE.SUCCESS:
+    case SEARCH_MONTH.SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        tradeNo: action.payload.tradeNo,
-        orderNo: action.payload.orderNo,
+        item: action.payload.result,
       };
-    case ORDER_CREATE.FAILURE:
+    case SEARCH_MONTH.FAILURE:
       return {
         ...state,
         loading: false,

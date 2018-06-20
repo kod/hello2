@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, DeviceEventEmitter } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
 import { SCREENS } from "../constants";
@@ -16,6 +16,7 @@ import NavigatorService from '../../navigations/NavigatorService';
 export function* orderPayFetchWatchHandle(action) {
   try {
     const {
+      BYtype = 'normal',
       tradeno,
       orderno,
       payway,
@@ -112,7 +113,10 @@ export function* orderPayFetchWatchHandle(action) {
       return false;
     }
 
-    yield put(orderPayFetchSuccess());
+    yield put(orderPayFetchSuccess({
+      ret: response,
+      BYtype,
+    }));
   } catch (err) {
     console.log(err);
     yield put(orderPayFetchFailure());
@@ -127,24 +131,37 @@ export function* orderPayFetchWatch(res) {
 
 export function* orderPaySuccessWatchHandle(action) {
   try {
-    // const { tradeNo, orderNo } = action.payload;
+    const {
+      BYtype,
+      ret,
+    } = action.payload;
     // yield NavigatorService.navigate(SCREENS.Pay, {
     //   tradeNo,
     //   orderNo,
     // });
-    Alert.alert(
-      '',
-      '支付成功',
-      [
-        // { text: i18n.cancel, },
-        { 
-          text: '确定', 
-          onPress: () => {
-            // 根据入口。刷新及返回到相应页面
-          }
-        }
-      ]
-    )
+    // Alert.alert(
+    //   '',
+    //   '支付成功',
+    //   [
+    //     // { text: i18n.cancel, },
+    //     { 
+    //       text: '确定', 
+    //       onPress: () => {
+    //         // 根据入口。刷新及返回到相应页面
+    //       }
+    //     }
+    //   ]
+    // )
+
+    switch (BYtype) {
+      case 'billPay':
+        // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'billPayResult', ret]);
+        break;
+    
+      default:
+        break;
+    }
+
 
   } catch (err) {
     

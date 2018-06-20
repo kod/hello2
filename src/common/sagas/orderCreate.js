@@ -1,8 +1,9 @@
-import { Platform } from 'react-native';
+import { Platform, DeviceEventEmitter } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
 import { SCREENS } from "../constants";
 import { orderCreateFetchSuccess, orderCreateFetchFailure } from '../actions/orderCreate';
+import { orderPayFetch } from '../actions/orderPay';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { ORDER_CREATE } from '../constants/actionTypes';
@@ -16,13 +17,14 @@ import { getAuthUserFunid } from '../selectors';
 export function* orderCreateFetchWatchHandle(action) {
   try {
     const {
+      BYtype = 'normal',
       currency = 'VN',
-      ordertype,
-      addrid,
-      goodsdetail,
-      mergedetail,
-      coupondetail,
-      subject,
+      ordertype = '1',
+      addrid = '',
+      goodsdetail = '',
+      mergedetail = '',
+      coupondetail = '',
+      subject = '',
       remark = '',
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
@@ -129,6 +131,7 @@ export function* orderCreateFetchWatchHandle(action) {
     }
 
     yield put(orderCreateFetchSuccess({
+      BYtype,
       tradeNo: response.result.tradeNo,
       orderNo: response.result.orderNo,
     }));
@@ -145,11 +148,41 @@ export function* orderCreateFetchWatch(res) {
 
 export function* orderCreateSuccessWatchHandle(action) {
   try {
-    const { tradeNo, orderNo } = action.payload;
-    yield NavigatorService.navigate(SCREENS.Pay, {
+    const {
       tradeNo,
       orderNo,
-    });
+      BYtype,
+    } = action.payload;
+    switch (BYtype) {
+      case 'normal':
+        yield NavigatorService.navigate(SCREENS.Pay, {
+          tradeNo,
+          orderNo,
+        });
+        break;
+
+      case 'billPay':
+
+    //   console.log('hahahahahahahahahahahahahaha');
+    // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'billPayResult', {
+    //   name: 'haha',
+    //   age: 18
+    // }]);
+
+        yield put(
+          orderPayFetch({
+            orderno: orderNo,
+            tradeno: tradeNo,
+            payway: 2,
+            BYtype,
+          })
+        );
+  
+        break;
+    
+      default:
+        break;
+    }
   } catch (err) {
     
   }

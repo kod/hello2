@@ -22,6 +22,12 @@ export const getProductDetailInfoItem = state => state.productDetailInfo.item;
 export const getCollectionItems = state => state.collection.items;
 export const getSchoolInfoItems = state => state.schoolInfo.items;
 export const getAddressItems = state => state.address.items;
+export const getBillByYearItems = state => state.billByYear.items;
+export const getSearchMonthItem = state => state.searchMonth.item;
+export const getBillActiveYear = state => state.bill.activeYear;
+export const getBillActiveMonth = state => state.bill.activeMonth;
+export const getBillNowYear = state => state.bill.nowYear;
+export const getBillNowMonth = state => state.bill.nowMonth;
 export const getAddressSelectedId = state => state.address.addressSelectedId;
 export const getCertifiedInformationCertUser = state => state.certifiedInformation.certUser;
 
@@ -161,5 +167,25 @@ export const getAddressSelectedItem = createSelector(
       if (element.id === addressSelectedId) return element;
     }
     return defaultObject;
+  },
+);
+
+export const getBillMonthItem = createSelector(
+  [getBillByYearItems, getBillActiveYear, getBillActiveMonth],
+  (billByYearItems, billActiveYear, billActiveMonth) => {
+    return billByYearItems[billActiveYear] ? billByYearItems[billActiveYear][billActiveMonth - 1] : defaultObject;
+  },
+);
+
+export const getBillTotalMoney = createSelector(
+  [getSearchMonthItem, getBillByYearItems, getBillNowYear, getBillNowMonth],
+  (searchMonthItem, billByYearItems, billNowYear, billNowMonth) => {
+    if (!searchMonthItem.totalWaitingAmount) return 0;
+    if (!billByYearItems[billNowYear]) return 0;
+    if (billByYearItems[billNowYear][billNowMonth - 1].status !== 10000) {
+      return searchMonthItem.totalWaitingAmount + billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
+    } else {
+      return searchMonthItem.totalWaitingAmount;
+    }
   },
 );

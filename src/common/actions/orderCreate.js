@@ -1,11 +1,10 @@
 import { ORDER_CREATE } from '../constants/actionTypes';
 
-export function orderCreateFetchSuccess({ tradeNo, orderNo }) {
+export function orderCreateFetchSuccess(params) {
   return {
     type: ORDER_CREATE.SUCCESS,
     payload: {
-      tradeNo,
-      orderNo,
+      ...params
     },
   };
 }

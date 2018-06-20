@@ -88,6 +88,14 @@ import {
   registerFetchWatch,
   registerSuccessWatch,
 } from './register';
+import {
+  billByYearFetchWatch,
+  billByYearSuccessWatch,
+} from './billByYear';
+import {
+  searchMonthFetchWatch,
+  searchMonthSuccessWatch,
+} from './searchMonth';
 
 
 export default function* rootSaga() {
@@ -155,5 +163,9 @@ export default function* rootSaga() {
     registerSuccessWatch(),
     updatePeriodFetchWatch(),
     updatePeriodSuccessWatch(),
+    billByYearFetchWatch(),
+    billByYearSuccessWatch(),
+    searchMonthFetchWatch(),
+    searchMonthSuccessWatch(),
   ]);
 }

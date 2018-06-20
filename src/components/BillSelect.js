@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR, APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_HEIGHT, PRIMARY_COLOR, } from '../styles/variables';
-import BYTouchable from '../components/BYTouchable';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const inputPasswordBackgroundItemWidth = (WINDOW_WIDTH - SIDEINTERVAL * 2) / 6;
+import priceFormat from "../common/helpers/priceFormat";
+import { billStatusCodes } from "../common/helpers";
+
+import BYTouchable from "../components/BYTouchable";
+
+import * as billActionCreators from '../common/actions/bill';
+import * as billByYearActionCreators from '../common/actions/billByYear';
 
 const styles = StyleSheet.create({
-  mask: {
+  mask: { 
     backgroundColor: 'transparent',
     height: APPBAR_HEIGHT,
   },
@@ -18,20 +21,49 @@ const styles = StyleSheet.create({
 class BillSelect extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
     };
   }
 
   componentDidMount() {
+    const {
+      activeYear,
+      billByYearFetch,
+    } = this.props;
 
+    billByYearFetch({
+      year: activeYear,
+      init: true,
+    });
   }
 
-  
-  renderBillSelect() {
+  handleOnPressYear(year) {
+    console.log(year);
     const {
+      billYearFetch,
+      billByYearFetch,
+    } = this.props;
+
+    billByYearFetch({
+      year: year,
+    });
+    billYearFetch(year);
+  }
+  
+
+  handleOnPressMonth(val) {
+    if (!val.month) return false;
+    const {
+      billMonthFetch,
       onRequestClose,
     } = this.props;
 
+    billMonthFetch(val.month);
+    onRequestClose();
+  }
+  
+  renderBillSelect() {
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -65,78 +97,73 @@ class BillSelect extends Component {
         paddingBottom: SIDEINTERVAL,
       },
       item: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: 40,
         paddingLeft: SIDEINTERVAL * 2,
         paddingRight: SIDEINTERVAL * 2,
+        marginBottom: 10,
       },
       itemActive: {
         color: PRIMARY_COLOR,
       },
+      itemMain: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        // height: 40,
+      },
       itemText: {
         color: '#555',
       },
+      itemTips: {
+        color: '#ccc',
+        fontSize: 10,
+        minHeight: 10,
+        textAlign: 'right',
+      },
+      itemTipsActive: {
+        color: RED_COLOR,
+      },
     });
+
+    const {
+      activeYear,
+      activeMonth,
+    } = this.props;
     
+    const {
+      onRequestClose,
+      billByYearItems,
+    } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.main}>
           <View style={styles.nav} >
-            <Text style={styles.navItem} >2016</Text>
-            <Text style={[styles.navItem, styles.navItemActive]} >2017</Text>
-            <Text style={styles.navItem} >2018</Text>
+            <Text style={styles.navItem} onPress={() => this.handleOnPressYear(activeYear - 1)} >{activeYear - 1}</Text>
+            <Text style={[styles.navItem, styles.navItemActive]} >{activeYear}</Text>
+            <Text style={styles.navItem} onPress={() => this.handleOnPressYear(activeYear + 1)} >{activeYear + 1}</Text>
           </View>
           <ScrollView style={styles.wrap} >
-            <View style={styles.item} >
-              <Text style={styles.itemText} >1</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >2</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >3</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={[styles.itemText, styles.itemActive]} >4</Text>
-              <Text style={[styles.itemText, styles.itemActive]} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >5</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >6</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >7</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >8</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >9</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >10</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >11</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
-            <View style={styles.item} >
-              <Text style={styles.itemText} >12</Text>
-              <Text style={styles.itemText} >1.200.770 VND</Text>
-            </View>
+            {
+              billByYearItems[activeYear] && 
+              billByYearItems[activeYear].map((val, key) => {
+                return (
+                  <BYTouchable 
+                    style={styles.item} 
+                    key={key} 
+                    backgroundColor={'transparent'}
+                    onPress={() => this.handleOnPressMonth(val)}
+                  >
+                    <View style={styles.itemMain} >
+                      <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]} >{key + 1}</Text>
+                      <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]} >{ val.totalAmount ? priceFormat(val.totalAmount) + ' VND' : 'no bill' } </Text>
+                    </View>
+                    {
+                      <Text style={[styles.itemTips, val.status === 10007 && styles.itemTipsActive]} >{ val.status && billStatusCodes(val.status) }</Text>
+                    }
+                  </BYTouchable>
+                )
+              })
+            }
           </ScrollView>
         </View>
       </View>
@@ -166,4 +193,22 @@ class BillSelect extends Component {
   }
 }
 
-export default BillSelect;
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        bill,
+        billByYear,
+      } = state;
+      return {
+        activeYear: bill.activeYear,
+        activeMonth: bill.activeMonth,
+        billByYearItems: billByYear.items,
+      }
+    }
+  },
+  {
+    ...billActionCreators,
+    ...billByYearActionCreators,
+  }
+)(BillSelect);

@@ -1,11 +1,10 @@
 import { ORDER_PAY } from '../constants/actionTypes';
 
-export function orderPayFetchSuccess({ tradeNo, orderNo }) {
+export function orderPayFetchSuccess(params) {
   return {
     type: ORDER_PAY.SUCCESS,
     payload: {
-      tradeNo,
-      orderNo,
+      ...params
     },
   };
 }

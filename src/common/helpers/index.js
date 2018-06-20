@@ -1,6 +1,4 @@
 export const addressJoin = item => {
-  console.log(item);
-  console.log('addressJoinaddressJoinaddressJoinaddressJoin');
   return item.address + (item.division4thName ? ', ' : '') + item.division4thName + (item.division3rdName ? ', ' : '') + item.division3rdName + (item.division2ndName ? ', ' : '') + item.division2ndName;
 };
 
@@ -31,7 +29,35 @@ export const tradeStatusCodes = (code = 10000, i18n) => {
     40004: '分期错误', // 取消交易理由
     40005: '不想买了', // 取消交易理由
   };
-  console.log(code);
-  console.log(codes[code]);
   return codes[code];
+};
+
+export const billStatusCodes = (code = 10000, i18n) => {
+  const codes =  {
+    10000: '未出账',
+    10001: '已出账',
+    10002: '已还清',
+    10007: '已逾期',
+  };
+  return codes[code];
+};
+
+export const billInitDate = () => {
+  const nD = new Date();
+  let year = nD.getFullYear();
+  let month = nD.getMonth() + 1;
+  const date = nD.getDate();
+  if (date <= 5) {
+    if (month === 1) {
+      year -= 1;
+      month = 12;
+    } else {
+      month -= 1;
+    }
+  }
+
+  return {
+    year,
+    month
+  };
 };

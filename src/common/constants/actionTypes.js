@@ -415,4 +415,34 @@ export const ADD_DETAIL_INFO = defineAction(
   appNamespace,
 );
 
+export const SEARCH_MONTH = defineAction(
+  'SEARCH_MONTH',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const BILL_BY_YEAR = defineAction(
+  'BILL_BY_YEAR',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const BILL_YEAR = defineAction(
+  'BILL_YEAR',
+  [REQUEST],
+  appNamespace,
+);
+
+export const BILL_MONTH = defineAction(
+  'BILL_MONTH',
+  [REQUEST],
+  appNamespace,
+);
+
+export const BILL_PRICE = defineAction(
+  'BILL_PRICE',
+  [REQUEST],
+  appNamespace,
+);
+
 export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);
