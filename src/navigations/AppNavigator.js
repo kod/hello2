@@ -243,9 +243,9 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.RepaymentRecord,
-  initialRouteName: SCREENS.Bill,
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.Order,
+  // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

@@ -1,11 +1,38 @@
 import { QUERY_ORDER_LIST, QUERY_ORDER_LIST_INDEX } from '../constants/actionTypes';
 
 const initState = {
-  loading: false,
-  loaded: false,
-  refreshing: false,
   scrollTabIndex: 0,
-  classfyinfo: [],
+  rows: 10,
+  item: {
+    0: {
+      loading: false,
+      loaded: false,
+      refreshing: false,    
+      page: 1,
+      items: [],
+    },
+    1: {
+      loading: false,
+      loaded: false,
+      refreshing: false,    
+      page: 1,
+      items: [],
+    },
+    2: {
+      loading: false,
+      loaded: false,
+      refreshing: false,    
+      page: 1,
+      items: [],
+    },
+    3: {
+      loading: false,
+      loaded: false,
+      refreshing: false,
+      page: 1,
+      items: [],
+    },
+  },
 };
 
 export default function queryOrderList(state = initState, action) {
@@ -17,20 +44,39 @@ export default function queryOrderList(state = initState, action) {
     case QUERY_ORDER_LIST.REQUEST:
       return {
         ...state,
-        loading: true,
+        item: {
+          ...state.item,
+          [action.payload.index]: {
+            ...state.item[action.payload.index],
+            loading: true,
+          }
+        },
       };
     case QUERY_ORDER_LIST.SUCCESS:
       return {
         ...state,
-        loading: false,
-        loaded: true,
-        phoneAdList: action.payload.phoneAdList,
+        item: {
+          ...state.item,
+          [action.payload.index]: {
+            ...state.item[action.payload.index],
+            page: action.payload.page,
+            items: [ ...state.item[action.payload.index].items, ...action.payload.result ]
+          }
+        },
       };
     case QUERY_ORDER_LIST.FAILURE:
       return {
         ...state,
         loading: false,
         loaded: true,
+        item: {
+          ...state.item,
+          [action.payload.index]: {
+            ...state.item[action.payload.index],
+            loading: false,
+            loaded: true,
+          }
+        },
       };
     case QUERY_ORDER_LIST_INDEX.REQUEST:
       return {

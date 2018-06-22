@@ -1,11 +1,13 @@
-import { QUERY_ORDER_LIST } from '../constants/actionTypes';
+import {
+  QUERY_ORDER_LIST,
+  QUERY_ORDER_LIST_INDEX,
+} from '../constants/actionTypes';
 
-export function queryOrderListFetchSuccess({ tradeNo, orderNo }) {
+export function queryOrderListFetchSuccess(params) {
   return {
     type: QUERY_ORDER_LIST.SUCCESS,
     payload: {
-      tradeNo,
-      orderNo,
+      ...params
     },
   };
 }
@@ -34,6 +36,15 @@ export function queryOrderListClear() {
   return {
     type: QUERY_ORDER_LIST.CLEAR,
     payload: {
+    },
+  };
+}
+
+export function queryOrderListIndexFetch(params) {
+  return {
+    type: QUERY_ORDER_LIST_INDEX.REQUEST,
+    payload: {
+      ...params,
     },
   };
 }

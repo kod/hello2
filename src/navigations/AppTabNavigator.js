@@ -46,8 +46,8 @@ const TabContainer = TabNavigator(
     swipeEnabled: false,
     animationEnabled: false,
     // initialRouteName: SCREENS.Main,
-    // initialRouteName: SCREENS.Me,
-    initialRouteName: SCREENS.Card,
+    initialRouteName: SCREENS.Me,
+    // initialRouteName: SCREENS.Card,
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: '#0076F7',

@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, RefreshControl, Image, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert, RefreshControl, Image, InteractionManager, } from 'react-native';
 import { connect } from 'react-redux';
 
 import { SCREENS } from "../common/constants";
+import { getOrderItem } from "../common/selectors";
+import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
 
 import { connectLocalization } from "../components/Localization";
 import BYHeader from '../components/BYHeader';
@@ -10,9 +12,11 @@ import BYTouchable from "../components/BYTouchable";
 import ProductItem2 from "../components/ProductItem2";
 import ScrollableTabView from '../components/ScrollableTabView';
 import SeparateBar from '../components/SeparateBar';
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH } from "../styles/variables";
+import EmptyState from "../components/EmptyState";
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, WINDOW_HEIGHT } from "../styles/variables";
+import priceFormat from '../common/helpers/priceFormat';
+import { tradeStatusCodes, buttonTextForTradeStatusCodes } from '../common/helpers';
 
 const styles = StyleSheet.create({
   container: {
@@ -61,7 +65,7 @@ const stylesScrollable = StyleSheet.create({
   },
 });
 
-class Scrollable extends React.Component {
+class Scrollable extends React.Component {  
 
   render() {
     // const adverstInfo = [{
@@ -73,22 +77,48 @@ class Scrollable extends React.Component {
     //   number: detailItem.productDetailNumber,
     // }];
 
+    const {
+      itemKey,
+      queryOrderListItem,
+      // orderItem: { items },
+      navigation: { navigate },
+    } = this.props;
+    const items = queryOrderListItem[itemKey].items;
+
+    if (items.length === 0) return (
+      <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'暂无相关订单'} style={{ paddingTop: WINDOW_HEIGHT * 0.1 }} />
+    ) 
+    
     return (
       <View style={stylesScrollable.container} >
-        {/* <ProductItem2 
-          data={adverstInfo}
-          stylePricePrice={{ color: '#666' }}
-          isShowNumber={true}
-        /> */}
-        <View style={stylesScrollable.totalPrice} >
-          <Text style={stylesScrollable.price} >total: 1.082.500 VND</Text>
-        </View>
-        <View style={stylesScrollable.pay} >
-          <Text style={stylesScrollable.payText} >Pending payment</Text>
-          <Text style={stylesScrollable.payButton} >Pay</Text>
-        </View>
-        <SeparateBar />
-        <SeparateBar />
+        {
+          items.map((val, key) => {
+            return (
+              <View style={styles.item} key={key} >
+                <ProductItem2 
+                  data={val.goodList}
+                  stylePricePrice={{ color: '#fff' }}
+                  stylePricePeriods={{ color: '#fff' }}
+                  isShowNumber={true}
+                />
+                <View style={stylesScrollable.totalPrice} >
+                  <Text style={stylesScrollable.price} >total: {priceFormat(val.totalAmount)} VND</Text>
+                </View>
+                <View style={stylesScrollable.pay} >
+                  <Text style={stylesScrollable.payText} >{tradeStatusCodes(val.tradeStatus)}</Text>
+                  <Text 
+                    style={stylesScrollable.payButton} 
+                    onPress={() => navigate(SCREENS.Pay, { tradeNo: val.tradeNo, orderNo: val.orderNo, })}
+                  >
+                    {buttonTextForTradeStatusCodes(val.tradeStatus)}
+                  </Text>
+                </View>
+                <SeparateBar />
+                <SeparateBar />
+              </View>
+            )
+          })
+        }
       </View>
     )
   }
@@ -101,64 +131,54 @@ class Order extends React.Component {
     this.state = {
       refreshing: false
     };
+
+    this.onChangeTab = this.onChangeTab.bind(this);
   }
 
   componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
+    // const { queryOrderListFetch } = this.props;
+    // queryOrderListFetch();
+   this._onRefresh();
   }
 
-  _onRefresh() {
-    // const { 
-    //   scrollTabIndex,
-    //   bannerSwiperFetch,
-    //   bannerHomeTypeFetch,
-    //   promotionInfoFetch,
-    //   adverstInfoFetch,
-    //   mergeGetInfoFetch,
-    //   adPhoneFetch,
-    //   topComputerFetch,
-    //   newComputerFetch,
-    //   adDigitalFetch,
-    //  } = this.props;
-    // switch (scrollTabIndex) {
-    //   case 0:
-    //     bannerSwiperFetch('one');
-    //     bannerHomeTypeFetch();
-    //     promotionInfoFetch();
-    //     adverstInfoFetch({
-    //       type_id: '1'
-    //     });
-    //     adverstInfoFetch({
-    //       type_id: '2'
-    //     });
-    //     adverstInfoFetch({
-    //       type_id: '5'
-    //     });
-    //     mergeGetInfoFetch();
+  _onRefresh(index) {
+    const { 
+      // scrollTabIndex,
+      queryOrderListFetch,
+     } = this.props;
+    const scrollTabIndex = index || this.props.scrollTabIndex;
+    switch (scrollTabIndex) {
+      case 0:
+        queryOrderListFetch({
+          index: scrollTabIndex,
+          status: '99999',
+        });
+        break;
 
-    //     break;
+      case 1:
+        queryOrderListFetch({
+          index: scrollTabIndex,
+          status: '10000',
+        });
+        break;
 
-    //   case 1:
-    //     bannerSwiperFetch('two');
-    //     adPhoneFetch();
+      case 2:
+        queryOrderListFetch({
+          index: scrollTabIndex,
+          status: '30000',
+        });
+        break;
 
-    //     break;
+      case 3:
+        queryOrderListFetch({
+          index: scrollTabIndex,
+          status: '30001',
+        });
+        break;
 
-    //   case 2:
-    //     topComputerFetch();
-    //     newComputerFetch();
-  
-    //     break;
-
-    //   case 3:
-    //     bannerSwiperFetch('four');
-    //     adDigitalFetch();
-    //     break;
-
-    //   default:
-    //     break;
-    // }
+      default:
+        break;
+    }
 
     // this.setState({ refreshing: true });
     // setTimeout(() => {
@@ -168,8 +188,15 @@ class Order extends React.Component {
   }
 
   onChangeTab(res) {
-    // const { scrollableTabViewIndex, scrollTabIndex } = this.props;
-    // if (res.i !== res.from) scrollableTabViewIndex(res.i);
+    const { queryOrderListIndexFetch } = this.props;
+    InteractionManager.runAfterInteractions(() => {
+      if (res.i !== res.from) {
+        queryOrderListIndexFetch({
+          scrollTabIndex: res.i,
+        });
+        this._onRefresh(res.i);
+      }
+    });
   }
 
   renderHeaderTitle = () => {
@@ -200,11 +227,12 @@ class Order extends React.Component {
 
   render() {
     const {
-      bannerHomeRecommend,
+      orderItem,
       navigation: { navigate },
       i18n,
     } = this.props;
-
+    console.log('orderItemorderItemorderItem');
+    console.log(orderItem);
     const scrollableTabKeys = [
       {
         tabLabel: 'ALL',
@@ -224,7 +252,7 @@ class Order extends React.Component {
       return (
         <View tabLabel={val.tabLabel} style={styles.base} key={key}>
           <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />}>
-            <Scrollable {...this.props} />
+            <Scrollable {...this.props} itemKey={key} />
           </ScrollView>
         </View>
       );
@@ -240,13 +268,38 @@ class Order extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
-export default connectLocalization(
-  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, })(Order)
-);
+
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        queryOrderList,
+      } = state;
+      // console.log(props.navigation.state.params);
+      // console.log(props.navigation.state.params.id);
+      return {
+        orderItem: getOrderItem(state, props),
+        queryOrderListItem: queryOrderList.item,
+        scrollTabIndex: queryOrderList.scrollTabIndex,
+      }
+    }
+  },
+  {
+    ...queryOrderListActionCreators,
+  }
+)(Order);
+
+
+// function mapStateToProps(state, props) {
+//   const {
+//     queryOrderList,
+//   } = state;
+//   return {
+//     scrollTabIndex: queryOrderList.scrollTabIndex,
+//   };
+// }
+
+// export default connectLocalization(
+//   connect(mapStateToProps, { ...queryOrderListActionCreators, })(Order)
+// );

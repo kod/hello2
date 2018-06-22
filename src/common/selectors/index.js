@@ -30,6 +30,9 @@ export const getBillNowYear = state => state.bill.nowYear;
 export const getBillNowMonth = state => state.bill.nowMonth;
 export const getAddressSelectedId = state => state.address.addressSelectedId;
 export const getCertifiedInformationCertUser = state => state.certifiedInformation.certUser;
+export const getQueryOrderListItem = state => state.queryOrderList.item;
+export const getQueryOrderListScrollTabIndex = state => state.queryOrderList.scrollTabIndex;
+export const getQueryOrderListRows = state => state.queryOrderList.rows;
 
 
 export const makegetProductDetailInfo = () => {
@@ -202,5 +205,12 @@ export const getBillTotalMoney = createSelector(
     } else {
       return searchMonthItem.totalWaitingAmount;
     }
+  },
+);
+
+export const getOrderItem = createSelector(
+  [getQueryOrderListItem, getQueryOrderListScrollTabIndex],
+  (queryOrderListItem, queryOrderListScrollTabIndex) => {
+    return queryOrderListItem[queryOrderListScrollTabIndex];
   },
 );

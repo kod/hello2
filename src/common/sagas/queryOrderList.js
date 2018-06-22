@@ -5,34 +5,34 @@ import { SCREENS } from "../constants";
 import { queryOrderListFetchSuccess, queryOrderListFetchFailure } from '../actions/queryOrderList';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
-import { QUERY_ORDER_LIST } from '../constants/actionTypes';
+import { QUERY_ORDER_LIST, QUERY_ORDER_LIST_INDEX } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 
 import NavigatorService from '../../navigations/NavigatorService';
 
-import { getAuthUserFunid } from '../selectors';
+import {
+  getAuthUserFunid,
+  getQueryOrderListScrollTabIndex,
+  getQueryOrderListRows,
+} from '../selectors';
 
 export function* queryOrderListFetchWatchHandle(action) {
   try {
     const {
-      currency = 'VN',
-      ordertype,
-      addrid,
-      goodsdetail,
-      mergedetail,
-      coupondetail,
-      subject,
-      remark = '',
+      page = 1,
+      status,
     } = action.payload;
+    const scrollTabIndex = yield select(getQueryOrderListScrollTabIndex);
+    const rows = yield select(getQueryOrderListRows);
     const funid = yield select(getAuthUserFunid);
 
     let Key = 'tradeKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.trade.order.create';
+    let method = 'fun.trade.queryList';
     let charset = 'utf-8';
     let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
-    let version = '2.0';
+    let version = '2.1';
 
     let signType = signType_MD5(appId, method, charset, Key, true);
 
@@ -43,36 +43,16 @@ export function* queryOrderListFetchWatchHandle(action) {
           value: funid
         },
         {
-          key: 'ordertype',
-          value: ordertype
+          key: 'page',
+          value: page
         },
         {
-          key: 'addrid',
-          value: addrid
+          key: 'rows',
+          value: rows
         },
         {
-          key: 'currency',
-          value: currency
-        },
-        {
-          key: 'subject',
-          value: subject
-        },
-        {
-          key: 'remark',
-          value: remark
-        },
-        {
-          key: 'goodsdetail',
-          value: goodsdetail
-        },
-        {
-          key: 'mergedetail',
-          value: mergedetail
-        },
-        {
-          key: 'coupondetail',
-          value: coupondetail
+          key: 'status',
+          value: status
         },
       ],
       Key
@@ -88,36 +68,25 @@ export function* queryOrderListFetchWatchHandle(action) {
         timestamp: timestamp,
         version: version,
         funid: funid,
-        currency: currency,
-        ordertype: ordertype,
-        addrid: addrid,
-        goodsdetail: goodsdetail,
-        mergedetail: mergedetail,
-        coupondetail: coupondetail,
-        subject: subject,
-        remark: remark,
+        page: page,
+        rows: rows,
+        status: status,
       }
     ]);
 
     console.log(JSON.stringify({
-        appid: appId,
-        method: method,
-        charset: charset,
-        signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        currency: currency,
-        ordertype: ordertype,
-        addrid: addrid,
-        goodsdetail: goodsdetail,
-        mergedetail: mergedetail,
-        coupondetail: coupondetail,
-        subject: subject,
-        remark: remark,
-      }
-    ));
+      appid: appId, 
+      method: method,
+      charset: charset,
+      signtype: signType,
+      encrypt: encrypt,
+      timestamp: timestamp,
+      version: version,
+      funid: funid,
+      page: page,
+      rows: rows,
+      status: status,
+    }));
 
     console.log(response);
     console.log(JSON.stringify(response));
@@ -128,9 +97,39 @@ export function* queryOrderListFetchWatchHandle(action) {
       return false;
     }
 
+    console.log(response.details.map((val, key) => {
+      return {
+        ...val,
+        goodList: val.goodList.map((val1, key1) => {
+          return {
+            ...val1,
+            imageUrl: val1.iconUrl,
+            price: val1.totalAmount,
+            propertiesIds: '',
+          }
+        }),
+      }
+    }));
+    
     yield put(queryOrderListFetchSuccess({
-      tradeNo: response.result.tradeNo,
-      orderNo: response.result.orderNo,
+      page,
+      index: scrollTabIndex,
+      count: response.count,
+      result: response.details.map((val, key) => {
+        return {
+          ...val,
+          goodList: val.goodList.map((val1, key1) => {
+            return {
+              ...val1,
+              imageUrl: val1.iconUrl,
+              price: val1.totalAmount,
+              propertiesIds: '',
+            }
+          }),
+        }
+      }),
+      // tradeNo: response.result.tradeNo,
+      // orderNo: response.result.orderNo,
     }));
   } catch (err) {
     yield put(queryOrderListFetchFailure());
@@ -142,14 +141,13 @@ export function* queryOrderListFetchWatch(res) {
   yield takeEvery(QUERY_ORDER_LIST.REQUEST, queryOrderListFetchWatchHandle);
 }
 
-
 export function* queryOrderListSuccessWatchHandle(action) {
   try {
-    const { tradeNo, orderNo } = action.payload;
-    yield NavigatorService.navigate(SCREENS.Pay, {
-      tradeNo,
-      orderNo,
-    });
+    // const { tradeNo, orderNo } = action.payload;
+    // yield NavigatorService.navigate(SCREENS.Pay, {
+    //   tradeNo,
+    //   orderNo,
+    // });
   } catch (err) {
     
   }
@@ -157,4 +155,26 @@ export function* queryOrderListSuccessWatchHandle(action) {
 
 export function* queryOrderListSuccessWatch() {
   yield takeEvery(QUERY_ORDER_LIST.SUCCESS, queryOrderListSuccessWatchHandle);
+}
+
+export function* queryOrderListIndexFetchWatchHandle(action) {
+  try {
+    const {
+      type,
+    } = action.payload;
+    console.log(type);
+    if (type !== 'open') return false;
+
+
+    // yield NavigatorService.navigate(SCREENS.Pay, {
+    //   tradeNo,
+    //   orderNo,
+    // });
+  } catch (err) {
+    
+  }
+}
+
+export function* queryOrderListIndexFetchWatch() {
+  yield takeEvery(QUERY_ORDER_LIST_INDEX.REQUEST, queryOrderListIndexFetchWatchHandle);
 }

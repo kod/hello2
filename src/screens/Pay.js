@@ -541,7 +541,7 @@ class OrderWrite extends React.Component {
           <Text style={styles.totalPrice} >{priceFormat(advance + couponValue)} VND</Text>
           <SeparateBar />
           <NavBar2 
-            onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')} 
+            onPress={() => tradeStatus === '10000' && this.handleOnPressToggleModal('isOpenActionSheet')} 
             valueLeft={'Order amount'} 
             valueMiddle={payWayButtons[payWayIndex]} 
           />

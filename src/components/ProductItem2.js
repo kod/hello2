@@ -92,6 +92,7 @@ class ProductItem2 extends Component {
       styleItemOpacity,
       styleItemLeft,
       stylePricePrice,
+      stylePricePeriods,
       itemLeft,
       itemRight,
       cartNumberRequest,
@@ -115,7 +116,7 @@ class ProductItem2 extends Component {
                   <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>
                   <View style={styles.itemRightRow3}>
                     <Text style={[styles.itemRightRow3Price, stylePricePrice]}>{priceFormat(parseInt(val.price / 12)) + ' ₫'}</Text>
-                    <Text style={styles.itemRightRow3Periods}>x12 Tháng</Text>
+                    <Text style={[styles.itemRightRow3Periods, stylePricePeriods]}>x12 Tháng</Text>
                     {isShowNumber && <Text style={styles.itemRightRow3Number}>x{val.number}</Text>}
                   </View>
                 </View>

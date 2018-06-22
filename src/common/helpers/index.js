@@ -32,6 +32,31 @@ export const tradeStatusCodes = (code = 10000, i18n) => {
   return codes[code];
 };
 
+export const buttonTextForTradeStatusCodes = (code = 10000, i18n) => {
+  const codes =  {
+    10000: 'Pay',
+    10001: 'View',
+    10002: 'View',
+    10003: 'View',
+    10004: 'View',
+    20000: 'View',
+    20001: 'View',
+    20002: 'View',
+    20003: 'View',
+    30000: 'View',
+    30001: 'evaluation',
+    30002: 'View',
+    30003: 'View',
+    40000: 'View', // 取消交易理由
+    40001: 'View', // 取消交易理由
+    40002: 'View', // 取消交易理由
+    40003: 'View', // 取消交易理由
+    40004: 'View', // 取消交易理由
+    40005: 'View', // 取消交易理由
+  };
+  return codes[code];
+};
+
 export const billStatusCodes = (code = 10000, i18n) => {
   const codes =  {
     10000: '未出账',
