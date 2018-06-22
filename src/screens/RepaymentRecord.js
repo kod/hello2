@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
+import moment from "moment";
 
 import { SCREENS } from "../common/constants";
 
@@ -10,7 +11,10 @@ import NavBar1 from "../components/NavBar1";
 import BYTouchable from "../components/BYTouchable";
 import { SIDEINTERVAL, RED_COLOR } from "../styles/variables";
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import priceFormat from "../common/helpers/priceFormat";
+import { payWayToText } from "../common/helpers";
+
+import * as repaymentRecordActionCreators from '../common/actions/repaymentRecord';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,11 +23,11 @@ const styles = StyleSheet.create({
   },
 });
 
-class Settings extends React.Component {
+class RepaymentRecord extends React.Component {
 
   componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
+    const { repaymentRecordFetch } = this.props;
+    repaymentRecordFetch();
   }
 
   renderHeaderTitle = () => {
@@ -90,9 +94,40 @@ class Settings extends React.Component {
         alignItems: 'center',
       },
     });
+
+    const {
+      repaymentRecordItems,
+    } = this.props;
+    console.log('repaymentRecordItemsrepaymentRecordItemsrepaymentRecordItemsrepaymentRecordItems');
+    console.log(repaymentRecordItems);
+    
     return (
       <View style={styles.container} >
-        <View style={styles.item} >
+        {
+          repaymentRecordItems.map((val, key) => {
+            return (
+              <View style={styles.item} key={key} >
+                <View style={styles.number} >
+                  <Text style={styles.textLeft} >number</Text>
+                  <Text style={styles.textRight} >{val.orderNo}</Text>
+                </View>
+                <View style={styles.cell} >
+                  <Text style={styles.textLeft} >sum</Text>
+                  <Text style={styles.textRight} >{priceFormat(val.amount)} VND</Text>
+                </View>
+                <View style={styles.cell} >
+                  <Text style={styles.textLeft} >date</Text>
+                  <Text style={styles.textRight} >{moment(val.createTime).format('L')}</Text>
+                </View>
+                <View style={styles.cell} >
+                  <Text style={styles.textLeft} >way</Text>
+                  <Text style={styles.textRight} >{payWayToText(val.payWay)}</Text>
+                </View>
+              </View>
+            )
+          })
+        }
+        {/* <View style={styles.item} >
           <View style={styles.number} >
             <Text style={styles.textLeft} >number</Text>
             <Text style={styles.textRight} >C0316011200001560047</Text>
@@ -135,29 +170,7 @@ class Settings extends React.Component {
             <Text style={styles.textLeft} >way</Text>
             <Text style={styles.textRight} >bank</Text>
           </View>
-        </View>
-        <View style={styles.item} >
-          <View style={styles.number} >
-            <Text style={styles.textLeft} >number</Text>
-            <Text style={styles.textRight} >C0316011200001560047</Text>
-          </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >sum</Text>
-            <Text style={styles.textRight} >8.000.500 VND</Text>
-          </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >date</Text>
-            <Text style={styles.textRight} >2018.04.25</Text>
-          </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >bank</Text>
-            <Text style={styles.textRight} >visa</Text>
-          </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >way</Text>
-            <Text style={styles.textRight} >bank</Text>
-          </View>
-        </View>
+        </View> */}
       </View>
     )
   }
@@ -177,13 +190,21 @@ class Settings extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
-export default connectLocalization(
-  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, })(Settings)
-);
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        repaymentRecord,
+      } = state;
+      // console.log(props.navigation.state.params);
+      // console.log(props.navigation.state.params.id);
+      return {
+        repaymentRecordItems: repaymentRecord.item.records ? repaymentRecord.item.records : [],
+      }
+    }
+  },
+  {
+    ...repaymentRecordActionCreators,
+  }
+)(RepaymentRecord);

@@ -244,7 +244,7 @@ const RouteConfigs = {
 
 const StackNavigatorConfig = {
   // initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.TransactionPasswordStepOne,
+  // initialRouteName: SCREENS.RepaymentRecord,
   initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {

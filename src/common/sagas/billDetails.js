@@ -2,17 +2,17 @@ import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
 import { SCREENS } from "../constants";
-import { searchMonthFetchSuccess, searchMonthFetchFailure } from '../actions/searchMonth';
+import { billDetailsFetchSuccess, billDetailsFetchFailure } from '../actions/billDetails';
 import { billPriceFetch, } from '../actions/bill';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
-import { SEARCH_MONTH } from '../constants/actionTypes';
+import { BILL_DETAILS } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import timeStrForm from "../../common/helpers/timeStrForm";
 
 import {
   getAuthUserFunid,
-  getSearchMonthItem,
+  getbillDetailsItem,
   getBillByYearItems,
   getBillNowYear,
   getBillNowMonth,
@@ -20,16 +20,17 @@ import {
 
 import NavigatorService from '../../navigations/NavigatorService';
 
-export function* searchMonthFetchWatchHandle(action) {
+export function* billDetailsFetchWatchHandle(action) {
   try {
     const {
-      date,
+      summaryid = 1,
+      date = '',
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
     let Key = 'settleKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.bill.searchMonth';
+    let method = 'fun.bill.details';
     let charset = 'utf-8';
     let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
     let version = '2.0';
@@ -41,6 +42,10 @@ export function* searchMonthFetchWatchHandle(action) {
         {
           key: 'funid',
           value: funid
+        },
+        {
+          key: 'summaryid',
+          value: summaryid
         },
         {
           key: 'date',
@@ -59,8 +64,10 @@ export function* searchMonthFetchWatchHandle(action) {
       timestamp: timestamp,
       version: version,
       funid: funid,
+      summaryid: summaryid,
       date: date,
     }));
+    
 
     const options = [
       {
@@ -72,66 +79,67 @@ export function* searchMonthFetchWatchHandle(action) {
         timestamp: timestamp,
         version: version,
         funid: funid,
+        summaryid: summaryid,
         date: date,
       }
     ];
 
-    const response = yield apply(buyoo, buyoo.searchMonth, options);
+    const response = yield apply(buyoo, buyoo.billDetails, options);
 
     console.log(response);
     console.log(JSON.stringify(response));
 
     if (response.code !== 10000) {
-      yield put(searchMonthFetchFailure());
+      yield put(billDetailsFetchFailure());
       yield put(addError(response.msg));
       return false;
     }
 
-    yield put(searchMonthFetchSuccess({
+    yield put(billDetailsFetchSuccess({
       result: response.result,
     }));
   } catch (err) {
     console.log(err);
-    yield put(searchMonthFetchFailure());
+    yield put(billDetailsFetchFailure());
     yield put(addError(err.toString()));
   }
 }
 
-export function* searchMonthFetchWatch(res) {
-  yield takeEvery(SEARCH_MONTH.REQUEST, searchMonthFetchWatchHandle);
+export function* billDetailsFetchWatch(res) {
+  yield takeEvery(BILL_DETAILS.REQUEST, billDetailsFetchWatchHandle);
 }
 
 
-export function* searchMonthSuccessWatchHandle(action) {
+export function* billDetailsSuccessWatchHandle(action) {
   try {
     // const {
     //   isHaveBill
     // } = action.payload;
-    // getSearchMonthItem,
+    // getbillDetailsItem,
     // getBillByYearItems,
     // getBillNowYear,
     // getBillNowMonth,
   
-    const searchMonthItem = yield select(getSearchMonthItem);
-    const billByYearItems = yield select(getBillByYearItems);
-    const billNowYear = yield select(getBillNowYear);
-    const billNowMonth = yield select(getBillNowMonth);
-    let result = 0;
-    if (searchMonthItem.totalWaitingAmount && billByYearItems[billNowYear]) {
-      if (billByYearItems[billNowYear][billNowMonth - 1].status && billByYearItems[billNowYear][billNowMonth - 1].status !== 10000) {
-        result = searchMonthItem.totalWaitingAmount + billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
-      } else {
-        result = searchMonthItem.totalWaitingAmount;
-      }
-    }
+    // const billDetailsItem = yield select(getbillDetailsItem);
+    // const billByYearItems = yield select(getBillByYearItems);
+    // const billNowYear = yield select(getBillNowYear);
+    // const billNowMonth = yield select(getBillNowMonth);
+    // let result = 0;
+    // if (billDetailsItem.totalWaitingAmount && billByYearItems[billNowYear]) {
+    //   if (billByYearItems[billNowYear][billNowMonth - 1].status !== 10000) {
+    //     result = billDetailsItem.totalWaitingAmount + billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
+    //   } else {
+    //     result = billDetailsItem.totalWaitingAmount;
+    //   }
+    // }
 
-    yield put(billPriceFetch(result.toString()));
+    // yield put(billPriceFetch(result.toString()));
 
   } catch (err) {
     
   }
 }
 
-export function* searchMonthSuccessWatch() {
-  yield takeEvery(SEARCH_MONTH.SUCCESS, searchMonthSuccessWatchHandle);
+export function* billDetailsSuccessWatch() {
+  yield takeEvery(BILL_DETAILS.SUCCESS, billDetailsSuccessWatchHandle);
 }

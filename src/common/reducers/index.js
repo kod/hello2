@@ -43,6 +43,9 @@ import updatePeriod from './updatePeriod';
 import billByYear from './billByYear';
 import searchMonth from './searchMonth';
 import bill from './bill';
+import repaymentRecord from './repaymentRecord';
+import billDetails from './billDetails';
+import queryGoods from './queryGoods';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -88,6 +91,9 @@ const rootReducer = combineReducers({
   billByYear,
   searchMonth,
   bill,
+  repaymentRecord,
+  billDetails,
+  queryGoods,
   form: formReducer,
 });
 

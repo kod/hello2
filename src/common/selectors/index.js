@@ -173,6 +173,21 @@ export const getAddressSelectedItem = createSelector(
 export const getBillMonthItem = createSelector(
   [getBillByYearItems, getBillActiveYear, getBillActiveMonth],
   (billByYearItems, billActiveYear, billActiveMonth) => {
+    // if (!billByYearItems[billActiveYear]) return defaultObject;
+    // const activeItem = billByYearItems[billActiveYear][billActiveMonth - 1];
+    // console.log('activeItemactiveItemactiveItemactiveItemactiveItem');
+    // console.log(activeItem);
+
+    // const getValidMonth = (array) => {
+    //   array = array.reverse();
+    //   for (let index = 0; index < array.length; index++) {
+    //     const element = array[index];
+    //     if (element.status) return element;
+    //   }
+    //   return defaultObjectZ;
+    // };
+    
+    // billMonthItem.status ? billMonthItem.status : getValidMonth(billByYearItems[billActiveYear]);
     return billByYearItems[billActiveYear] ? billByYearItems[billActiveYear][billActiveMonth - 1] : defaultObject;
   },
 );
@@ -182,7 +197,7 @@ export const getBillTotalMoney = createSelector(
   (searchMonthItem, billByYearItems, billNowYear, billNowMonth) => {
     if (!searchMonthItem.totalWaitingAmount) return 0;
     if (!billByYearItems[billNowYear]) return 0;
-    if (billByYearItems[billNowYear][billNowMonth - 1].status !== 10000) {
+    if (billByYearItems[billNowYear][billNowMonth - 1].status && billByYearItems[billNowYear][billNowMonth - 1].status !== 10000) {
       return searchMonthItem.totalWaitingAmount + billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
     } else {
       return searchMonthItem.totalWaitingAmount;

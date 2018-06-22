@@ -63,6 +63,7 @@ import {
 } from './queryOrderList';
 import {
   orderPayFetchWatch,
+  orderPaySuccessWatch,
 } from './orderPay';
 import {
   queryOrderFetchWatch,
@@ -78,7 +79,10 @@ import {
 } from './modifyPayPassword';
 import { returnMoneyFetchWatch } from './returnMoney';
 import { getUserInfoByIdFetchWatch } from './getUserInfoById';
-import { cardSubmitFetchWatch } from './cardSubmit';
+import {
+  cardSubmitFetchWatch,
+  cardSubmitSuccessWatch,
+} from './cardSubmit';
 import { cardQueryFetchWatch } from './cardQuery';
 import {
   updatePeriodFetchWatch,
@@ -96,6 +100,18 @@ import {
   searchMonthFetchWatch,
   searchMonthSuccessWatch,
 } from './searchMonth';
+import {
+  repaymentRecordFetchWatch,
+  repaymentRecordSuccessWatch,
+} from './repaymentRecord';
+import {
+  billDetailsFetchWatch,
+  billDetailsSuccessWatch,
+} from './billDetails';
+import {
+  queryGoodsFetchWatch,
+  queryGoodsSuccessWatch,
+} from './queryGoods';
 
 
 export default function* rootSaga() {
@@ -156,8 +172,10 @@ export default function* rootSaga() {
     orderCreateSuccessWatch(),
     queryOrderListFetchWatch(),
     orderPayFetchWatch(),
+    orderPaySuccessWatch(),
     queryOrderFetchWatch(),
     cardSubmitFetchWatch(),
+    cardSubmitSuccessWatch(),
     cardQueryFetchWatch(),
     registerFetchWatch(),
     registerSuccessWatch(),
@@ -167,5 +185,11 @@ export default function* rootSaga() {
     billByYearSuccessWatch(),
     searchMonthFetchWatch(),
     searchMonthSuccessWatch(),
+    repaymentRecordFetchWatch(),
+    repaymentRecordSuccessWatch(),
+    billDetailsFetchWatch(),
+    billDetailsSuccessWatch(),
+    queryGoodsFetchWatch(),
+    queryGoodsSuccessWatch(),
   ]);
 }

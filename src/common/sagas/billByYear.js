@@ -3,6 +3,7 @@ import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
 import { SCREENS } from "../constants";
 import { billByYearFetchSuccess, billByYearFetchFailure } from '../actions/billByYear';
+import { billDetailsFetch } from '../actions/billDetails';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { BILL_BY_YEAR } from '../constants/actionTypes';
@@ -160,6 +161,8 @@ export function* billByYearSuccessWatchHandle(action) {
           }
         ]
       )
+    } else {
+      // yield put(billDetailsFetch());
     }
 
   } catch (err) {

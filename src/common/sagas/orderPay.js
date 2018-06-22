@@ -3,6 +3,9 @@ import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
 import { SCREENS } from "../constants";
 import { orderPayFetchSuccess, orderPayFetchFailure } from '../actions/orderPay';
+import {
+  cardQueryFetch,
+} from '../actions/cardQuery';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { ORDER_PAY } from '../constants/actionTypes';
@@ -139,19 +142,6 @@ export function* orderPaySuccessWatchHandle(action) {
     //   tradeNo,
     //   orderNo,
     // });
-    // Alert.alert(
-    //   '',
-    //   '支付成功',
-    //   [
-    //     // { text: i18n.cancel, },
-    //     { 
-    //       text: '确定', 
-    //       onPress: () => {
-    //         // 根据入口。刷新及返回到相应页面
-    //       }
-    //     }
-    //   ]
-    // )
 
     switch (BYtype) {
       case 'billPay':
@@ -159,6 +149,20 @@ export function* orderPaySuccessWatchHandle(action) {
         break;
     
       default:
+        yield put(cardQueryFetch());
+        Alert.alert(
+          '',
+          '支付成功',
+          [
+            // { text: i18n.cancel, },
+            { 
+              text: '确定', 
+              onPress: () => {
+                NavigatorService.pop(3);
+              }
+            }
+          ]
+        )
         break;
     }
 

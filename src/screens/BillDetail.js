@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
+import moment from "moment";
 
 import { SCREENS } from "../common/constants";
 
@@ -12,8 +13,9 @@ import NavBar2 from "../components/NavBar2";
 import SeparateBar from "../components/SeparateBar";
 import { SIDEINTERVAL, APPBAR_HEIGHT, WINDOW_WIDTH, STATUSBAR_HEIGHT, PRIMARY_COLOR, } from "../styles/variables";
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import * as billDetailsActionCreators from '../common/actions/billDetails';
 import * as authActionCreators from '../common/actions/auth';
+import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +49,13 @@ const styles = StyleSheet.create({
 class BillDetail extends React.Component {
 
   componentDidMount() {
-    
+    const {
+      billDetailsFetch,
+      id,
+    } = this.props;
+    billDetailsFetch({
+      summaryid: id,
+    });
   }
 
   renderContent() {
@@ -90,26 +98,31 @@ class BillDetail extends React.Component {
         color: '#82bcf9',
       },
     });
+
+    const {
+      billDetailsItem,
+    } = this.props;
+
     return (
       <View style={styles.container} >
         <View style={styles.main} >
           <Text style={styles.title}>Payment in April.</Text>
-          <Text style={styles.price}>1.082.500 VND</Text>
+          <Text style={styles.price}>{priceFormat(billDetailsItem.amountBill)} VND</Text>
           <View style={styles.bill} >
             <View style={styles.billItem} >
-              <Text style={styles.billText} >6.205.000</Text>
+              <Text style={styles.billText} >{priceFormat(billDetailsItem.monthBill)}</Text>
               <Text style={styles.billText} >This month's bill</Text>
             </View>
             <View style={styles.billItem} >
-              <Text style={styles.billText} >6.205.000</Text>
-              <Text style={styles.billText} >This month's bill</Text>
+              <Text style={styles.billText} >{priceFormat(billDetailsItem.historicalBill)}</Text>
+              <Text style={styles.billText} >This history's bill</Text>
             </View>
           </View>
         </View>
         <View style={styles.items} >
           <NavBar2 
             valueLeft={'Principal'} 
-            valueMiddle={'884.000 VND'} 
+            valueMiddle={`${priceFormat(billDetailsItem.principal)} VND`} 
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
@@ -117,7 +130,7 @@ class BillDetail extends React.Component {
           />
           <NavBar2 
             valueLeft={'Interest'} 
-            valueMiddle={'600 VND'} 
+            valueMiddle={`${priceFormat(billDetailsItem.interest)} VND`} 
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
@@ -125,7 +138,7 @@ class BillDetail extends React.Component {
           />
           <NavBar2 
             valueLeft={'Accountant bill date'} 
-            valueMiddle={'2018-03-22'} 
+            valueMiddle={`${moment(billDetailsItem.billData).format('DD-MM')}`} 
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
@@ -133,7 +146,7 @@ class BillDetail extends React.Component {
           />
           <NavBar2 
             valueLeft={'Latest repayment date'} 
-            valueMiddle={'2018-04-05'} 
+            valueMiddle={`${moment(billDetailsItem.expireDate).format('DD-MM')}`} 
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
@@ -145,7 +158,7 @@ class BillDetail extends React.Component {
   }
 
   render() {
-    const { bannerHomeRecommend, navigation: { navigate, goBack }, i18n } = this.props;
+    const { bannerHomeRecommend, navigation: { navigate, goBack }, i18n, billDetailsItem, } = this.props;
 
     return (
       <View style={styles.container} >
@@ -159,19 +172,31 @@ class BillDetail extends React.Component {
           <Text style={styles.title}></Text>
         </View>
         <ScrollView >
-          {this.renderContent()}
+          {
+            !!billDetailsItem.amountBill && 
+            this.renderContent()
+          }
         </ScrollView>
       </View>
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
-export default connectLocalization(
-  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, ...authActionCreators })(BillDetail)
-);
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        billDetails,
+      } = state;
+      console.log(props.navigation.state.params);
+      console.log(props.navigation.state.params.id);
+      return {
+        id: props.navigation.state.params.id,
+        billDetailsItem: billDetails.item,
+      }
+    }
+  },
+  {
+    ...billDetailsActionCreators,
+  }
+)(BillDetail);

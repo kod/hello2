@@ -61,3 +61,23 @@ export const billInitDate = () => {
     month
   };
 };
+
+export const payWayToText = (payWay, i18n) => {
+  let result = '';
+  payWay += '';
+  switch (payWay) {
+    case '1':
+      result = '信用卡支付';
+      break;
+  
+    case '2':
+      result = '网银支付';
+      break;
+  
+    case '5':
+      result = '混合支付';
+      break;
+  }
+
+  return result;
+};

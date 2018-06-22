@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
   cardSubmitFetch,
@@ -19,6 +19,8 @@ import timeStrForm from "../../common/helpers/timeStrForm";
 import NavigatorService from '../../navigations/NavigatorService';
 
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
+
+import i18n from '../helpers/i18n';
 
 export function* cardSubmitFetchWatchHandle(action) {
   try {
@@ -69,6 +71,8 @@ export function* cardSubmitFetchWatchHandle(action) {
         msisdn: msisdn,
       }
     ]);
+    console.log(response);
+    console.log(JSON.stringify(response));
 
     if (response.code !== 10000) {
       yield put(cardSubmitFetchFailure());
@@ -103,7 +107,7 @@ export function* cardSubmitSuccessWatchHandle() {
     )
 
   } catch (error) {
-    
+    console.log(error);
   }
 }
 

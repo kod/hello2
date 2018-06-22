@@ -415,6 +415,24 @@ export const ADD_DETAIL_INFO = defineAction(
   appNamespace,
 );
 
+export const QUERY_GOODS = defineAction(
+  'QUERY_GOODS',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const BILL_DETAILS = defineAction(
+  'BILL_DETAILS',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const REPAYMENT_RECORD = defineAction(
+  'REPAYMENT_RECORD',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const SEARCH_MONTH = defineAction(
   'SEARCH_MONTH',
   [REQUEST, SUCCESS, FAILURE],

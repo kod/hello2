@@ -173,7 +173,8 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            payway: 2,
+            payway: 1,
+            paypassword: '123456',
             BYtype,
           })
         );

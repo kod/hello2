@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import moment from "moment";
 
 import { SCREENS } from "../common/constants";
 import priceFormat from "../common/helpers/priceFormat";
@@ -27,6 +28,7 @@ import * as searchMonthActionCreators from '../common/actions/searchMonth';
 import * as billActionCreators from '../common/actions/bill';
 import * as billByYearActionCreators from '../common/actions/billByYear';
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
+import * as queryGoodsActionCreators from '../common/actions/queryGoods';
 
 const styles = StyleSheet.create({
   container: {
@@ -65,6 +67,18 @@ class Bill extends React.Component {
   }
 
   componentDidMount() {
+    let {
+      queryGoodsFetch,
+      activeMonth,
+      activeYear,
+    } = this.props;
+    // let nowTimeStr = timeStrForm(parseInt(+new Date() / 1000), 3);
+    if (activeMonth < 10) activeMonth = '0' + activeMonth;
+    queryGoodsFetch({
+      createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
+    });
+    
+    
     this.billPayResult_addListener = DeviceEventEmitter.addListener(
       'billPayResult',
       (parmas) => {
@@ -366,9 +380,27 @@ class Bill extends React.Component {
         color: '#666',
       },
     });
+
+    const {
+      queryGoodsItems,
+    } = this.props;
+    
     return (
       <View style={styles.goods} >
-        <View style={styles.item} >
+        {
+          queryGoodsItems.map((val, key) => {
+            return (
+              <View style={styles.item} key={key} >
+                <Text style={styles.title} >{key + 1}. {val.name}</Text>
+                <View style={styles.bottom} >
+                  <Text style={styles.price} >{priceFormat(val.totalAmount)} VND</Text>
+                  <Text style={styles.date} >{moment(val.createTime).format('DD-MM')}</Text>
+                </View>
+              </View>
+            )
+          })
+        }
+        {/* <View style={styles.item} >
           <Text style={styles.title} >1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
            <View style={styles.bottom} >
             <Text style={styles.price} >666.000 VND</Text>
@@ -388,7 +420,7 @@ class Bill extends React.Component {
             <Text style={styles.price} >666.000 VND</Text>
             <Text style={styles.date} >16-05</Text>
            </View>
-        </View>
+        </View> */}
         <Ionicons style={styles.arrow} name={'ios-arrow-up'} onPress={() => this.setState({ isShowGoods: false })} />
       </View>
     )
@@ -501,7 +533,7 @@ class Bill extends React.Component {
             <View style={styles.topOne} >
               <Text style={styles.price} >{priceFormat(billMonthItem.waitingAmount)} VND</Text>
               <View style={styles.detailWrap} >
-                <Text style={styles.detail} onPress={() => navigate(SCREENS.BillDetail)} >query the detail</Text>
+                <Text style={styles.detail} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })} >query the detail</Text>
               </View>
               {
                 billMonthItem.status !== 10002 && billMonthItem.status !== 10000 &&
@@ -517,7 +549,7 @@ class Bill extends React.Component {
               <Text style={styles.topTwoTitle} >The bill has been paid off this month.</Text>
               <View style={styles.topTwoTextWrap} >
                 <Text style={styles.topTwoTextOne} >Has also {priceFormat(billMonthItem.waitingAmount)} VND</Text>
-                <Text style={styles.topTwoTextTwo} onPress={() => navigate(SCREENS.BillDetail)} >query the detail</Text>
+                <Text style={styles.topTwoTextTwo} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })} >query the detail</Text>
               </View>
             </View>
           }
@@ -596,11 +628,12 @@ export default connect(
       const {
         bill,
         billByYear,
+        queryGoods,
         searchMonth,
       } = state;
       return {
         billMonthItem: getBillMonthItem(state, props),
-        billTotalMoney: getBillTotalMoney(state, props),
+        // billTotalMoney: getBillTotalMoney(state, props),
         searchMonthItem: searchMonth.item,
         searchMonthLoading: searchMonth.loading,
         price: bill.price,
@@ -608,6 +641,7 @@ export default connect(
         activeMonth: bill.activeMonth,
         isOverdue: billByYear.isOverdue,
         billByYearItems: billByYear.items,
+        queryGoodsItems: queryGoods.items,
       }
     }
   },
@@ -615,6 +649,7 @@ export default connect(
     ...billActionCreators,
     ...billByYearActionCreators,
     ...orderCreateActionCreators,
+    ...queryGoodsActionCreators,
     ...searchMonthActionCreators,
   }
 )(Bill);

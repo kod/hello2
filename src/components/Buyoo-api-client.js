@@ -187,6 +187,40 @@ class ReactStore {
     return this.requestUrl(`:8183/fun/trade/queryOrder`, options);
   }
   
+  billDetails(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8184/fun/bill/billDetails`, options);
+  }
+  
+  repaymentRecord(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8184/fun/bill/repaymentRecord`, options);
+  }
+  
   searchMonth(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));
@@ -220,6 +254,48 @@ class ReactStore {
     
     return this.requestUrl(`:8184/fun/bill/billByYear`, options);
   }
+  
+  queryGoods(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8180/fun/user/consume/queryGoods`, options);
+  }
+
+  // queryGoods(options) {
+  //   if (!options) {
+  //     return Promise.reject(new Error('fields required'));
+  //   }
+  //   const data = qs.stringify(options);
+  //   options = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     data,
+  //   };
+
+  //   return axios(`http://192.168.7.99:8180/fun/user/consume/queryGoods`, options)
+  //     .then(res => {
+  //       if (res.data.status !== 10000) {
+  //         throw new Error(res.data.result);
+  //       }
+  //       return res.data;
+  //     })
+  //     .catch(err => {
+  //       throw err;
+  //     });
+  // }
 
   cardSubmit(options) {
     if (!options) {
