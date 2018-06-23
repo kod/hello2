@@ -17,7 +17,6 @@ export function* mergeGetInfoFetchWatchHandle(action) {
       pagesize = 4,
       currentpage = 1,
     } = action.payload;
-    console.log(action.payload);
     
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';

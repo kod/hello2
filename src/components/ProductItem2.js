@@ -101,7 +101,6 @@ class ProductItem2 extends Component {
       ...restProps
     } = this.props;
 
-    console.log(this.props);
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
         {data &&

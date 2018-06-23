@@ -45,18 +45,6 @@ export function* billByYearFetchWatchHandle(action) {
       Key
     );
 
-    console.log(JSON.stringify({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      year: year,
-    }));
-
     const options = [
       {
         appid: appId,
@@ -72,9 +60,6 @@ export function* billByYearFetchWatchHandle(action) {
     ];
 
     const response = yield apply(buyoo, buyoo.billByYear, options);
-
-    console.log(response);
-    console.log(JSON.stringify(response));
 
     let result = response.result;
     
@@ -116,7 +101,6 @@ export function* billByYearFetchWatchHandle(action) {
 
     result = result.length === 0 ? lengthNo() : lengthYes(result);
 
-    console.log(result);
     
     let isHaveBill = init ? result.length !== 0 : true;
 
@@ -134,7 +118,6 @@ export function* billByYearFetchWatchHandle(action) {
       isHaveBill,
     }));
   } catch (err) {
-    console.log(err);
     yield put(billByYearFetchFailure());
     yield put(addError(err.toString()));
   }

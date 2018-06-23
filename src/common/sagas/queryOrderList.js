@@ -74,43 +74,12 @@ export function* queryOrderListFetchWatchHandle(action) {
       }
     ]);
 
-    console.log(JSON.stringify({
-      appid: appId, 
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      page: page,
-      rows: rows,
-      status: status,
-    }));
-
-    console.log(response);
-    console.log(JSON.stringify(response));
-
     if (response.code !== 10000) {
       yield put(queryOrderListFetchFailure());
       yield put(addError(response.msg));
       return false;
     }
 
-    console.log(response.details.map((val, key) => {
-      return {
-        ...val,
-        goodList: val.goodList.map((val1, key1) => {
-          return {
-            ...val1,
-            imageUrl: val1.iconUrl,
-            price: val1.totalAmount,
-            propertiesIds: '',
-          }
-        }),
-      }
-    }));
-    
     yield put(queryOrderListFetchSuccess({
       page,
       index: scrollTabIndex,
@@ -162,7 +131,6 @@ export function* queryOrderListIndexFetchWatchHandle(action) {
     const {
       type,
     } = action.payload;
-    console.log(type);
     if (type !== 'open') return false;
 
 

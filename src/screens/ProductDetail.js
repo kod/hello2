@@ -259,8 +259,6 @@ class ProductDetail extends React.Component {
   }
 
   handleOnPressToggleMenuBottomSheet = type => {
-    console.log(type);
-    // console.log('888888888888888888');
     const newState = {
       isOpenMenuBottomSheet: !this.state.isOpenMenuBottomSheet,
       menuBottomSheetType: type,
@@ -280,8 +278,6 @@ class ProductDetail extends React.Component {
       navigation,
       navigation: {navigate},
     } = this.props;
-    console.log(navigation);
-    console.log(navigate(SCREENS.Login));
     // if (!authUser) return navigate(SCREENS.Login);
 
     const param = [{
@@ -290,7 +286,6 @@ class ProductDetail extends React.Component {
       itemId: parseInt(brandId),
     }];
 
-    console.log(JSON.stringify(param));
     cartAddRequest(JSON.stringify(param));
   }
 
@@ -362,9 +357,6 @@ class ProductDetail extends React.Component {
       authUser,
       navigation: {navigate},
     } = this.props;
-    console.log('============');
-    console.log(this.props);
-    console.log(id);
     if (mounting) {
       return <Loader />;
     }
@@ -586,9 +578,6 @@ class ProductDetail extends React.Component {
     // const {
     //   i18n,
     // } = this.props;
-    // console.log(this.state);
-    // console.log(this.props);
-    console.log('GGGGGGGGGGGGG');
     
     return (
       <View style={styles.container} >
@@ -608,12 +597,10 @@ class ProductDetail extends React.Component {
 export default connectLocalization(connect(
   () => {
     return (state, props) => {
-      console.log('tttttttttttttttttttttttttttttt');
       const { productDetail, productDetailInfo, mergeGetDetail, mergeGetMaster, mergeCheck } = state;
       const brandId = props.brandId || props.navigation.state.params.brandId;
       const groupon = props.navigation.state.params.groupon;
       let propertiesIds = props.propertiesIds || props.navigation.state.params.propertiesIds || '';
-      console.log(productDetailInfo);
       const item = groupon ? mergeGetDetail.item : productDetailInfo.item;
       return {
         ...item,

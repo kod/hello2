@@ -55,20 +55,6 @@ export function* billDetailsFetchWatchHandle(action) {
       Key
     );
 
-    console.log(JSON.stringify({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      summaryid: summaryid,
-      date: date,
-    }));
-    
-
     const options = [
       {
         appid: appId,
@@ -86,9 +72,6 @@ export function* billDetailsFetchWatchHandle(action) {
 
     const response = yield apply(buyoo, buyoo.billDetails, options);
 
-    console.log(response);
-    console.log(JSON.stringify(response));
-
     if (response.code !== 10000) {
       yield put(billDetailsFetchFailure());
       yield put(addError(response.msg));
@@ -99,7 +82,6 @@ export function* billDetailsFetchWatchHandle(action) {
       result: response.result,
     }));
   } catch (err) {
-    console.log(err);
     yield put(billDetailsFetchFailure());
     yield put(addError(err.toString()));
   }

@@ -55,19 +55,6 @@ export function* repaymentRecordFetchWatchHandle(action) {
       Key
     );
 
-    console.log(JSON.stringify({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      currentpage: currentpage,
-      pagesize: pagesize,
-    }));
-
     const options = [
       {
         appid: appId,
@@ -85,9 +72,6 @@ export function* repaymentRecordFetchWatchHandle(action) {
 
     const response = yield apply(buyoo, buyoo.repaymentRecord, options);
 
-    console.log(response);
-    console.log(JSON.stringify(response));
-
     if (response.code !== 10000) {
       yield put(repaymentRecordFetchFailure());
       yield put(addError(response.msg));
@@ -98,7 +82,6 @@ export function* repaymentRecordFetchWatchHandle(action) {
       result: response.result,
     }));
   } catch (err) {
-    console.log(err);
     yield put(repaymentRecordFetchFailure());
     yield put(addError(err.toString()));
   }

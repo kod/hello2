@@ -1,7 +1,6 @@
 import { BILL_BY_YEAR } from '../constants/actionTypes';
 
 export function billByYearFetchSuccess(params) {
-  console.log(params);
   return {
     type: BILL_BY_YEAR.SUCCESS,
     payload: {

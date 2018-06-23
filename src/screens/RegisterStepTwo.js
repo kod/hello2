@@ -59,12 +59,9 @@ const validate = (values, props) => {
   const { i18n } = props;
   const errors = {};
 
-  console.log(values);
-  console.log('-------------');
   if (!otp) {
     errors.otp = 'place enter the code';
   }
-  console.log(!PWDEXPR.test(password));
   if (!PWDEXPR.test(password)) {
     errors.password = '8-20 password';
   }
@@ -121,9 +118,6 @@ class RegisterStepTwo extends React.Component {
       navigation: { goBack, navigate },
       loading,
     } = this.props;
-    console.log('iiiiiiiiiiiiiii');
-    console.log(this.props);
-    console.log(loading);
     return (
       <View style={styles.container}>
         <BYHeader />
@@ -171,7 +165,6 @@ export default connect(
         form: { RegisterStepOne },
         register,
       } = state;
-      console.log(RegisterStepOne);
       return {
         registerStepOneValues: RegisterStepOne ? RegisterStepOne.values : '',
         loading: register.loading,

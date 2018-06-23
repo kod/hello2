@@ -45,7 +45,6 @@ export default (
     ...restProps,
   }
 ) => {
-  console.log(isShowRight);
   return (
     <BYTouchable delayPressIn={0} style={[styles.component, style]} {...restProps} >
       {

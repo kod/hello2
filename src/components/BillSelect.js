@@ -39,7 +39,6 @@ class BillSelect extends Component {
   }
 
   handleOnPressYear(year) {
-    console.log(year);
     const {
       billYearFetch,
       billByYearFetch,

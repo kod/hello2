@@ -154,13 +154,6 @@ class CertifiedInformation extends Component {
       birthday,
       isCertify,
     } = this.props;
-    console.log(this.props);
-    console.log(collegename.length === '');
-    console.log(!collegeaddr.length);
-    console.log(!department.length);
-    console.log(!specialty.length);
-    console.log(!admissiontime.length);
-    console.log(!graduationtime.length);
 
     const tips = (text) => Platform.OS === 'android' && ToastAndroid.show(text, ToastAndroid.SHORT);
 

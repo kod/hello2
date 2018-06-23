@@ -81,8 +81,6 @@ class AddressInput extends React.Component {
       input,
       ...restProps,
     } = this.props;
-    console.log(this.props);
-    console.log('XXXXXXXXXXX');
     return (
       <BYTextInput 
         onChangeText={input.onChange}
@@ -206,7 +204,6 @@ class AddressAdd extends React.Component {
       addressAddFetch,
       addressAddInfo: { values },
     } = this.props;
-    console.log(this.props);
 
     if (!values) {
       Platform.OS === 'android' && ToastAndroid.show('place entry name', ToastAndroid.SHORT)

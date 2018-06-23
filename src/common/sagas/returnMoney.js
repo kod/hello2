@@ -14,7 +14,6 @@ export function* returnMoneyFetchWatchHandle(action) {
       payrate,
       repaymentmonths,
     } = action.payload;
-    console.log(action.payload);
 
     let Key = 'settleKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
@@ -57,7 +56,7 @@ export function* returnMoneyFetchWatchHandle(action) {
         payrate: payrate
       }
     ]);
-    console.log(response);
+
     if (response.code !== 10000) {
       yield put(returnMoneyFetchFailure());
       yield put(addError(response.msg));
@@ -66,7 +65,6 @@ export function* returnMoneyFetchWatchHandle(action) {
 
     yield put(returnMoneyFetchSuccess(response.details));
   } catch (err) {
-    console.log(err);
     yield put(returnMoneyFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

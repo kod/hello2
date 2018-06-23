@@ -56,7 +56,6 @@ class SearchHeader extends Component {
       headerLeft,
       text,
     } = this.props;
-    console.log(this.props);
 
     return (
       <View style={styles.headerContainer}>

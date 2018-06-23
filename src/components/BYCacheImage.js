@@ -13,7 +13,6 @@ class PXCacheImage extends Component {
 
   componentDidMount() {
     const { uri, onFoundImageSize } = this.props;
-    console.log(uri);
     this.task = RNFetchBlob.config({
       fileCache: true,
       appendExt: 'png',

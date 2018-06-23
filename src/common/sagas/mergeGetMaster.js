@@ -17,7 +17,6 @@ export function* mergeGetMasterFetchWatchHandle(action) {
       currentpage = 1,
     } = action.payload;
     // const funid = yield select(getAuthUserFunid);
-    console.log(action.payload);
     
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
@@ -61,15 +60,11 @@ export function* mergeGetMasterFetchWatchHandle(action) {
       }
     ]);
 
-    console.log('kkkkkkkkkkkk');
-    console.log(JSON.stringify(response));
-
     if (response.code !== 10000) {
       yield put(mergeGetMasterFetchFailure());
       yield put(addError(response.msg));
       return false;
     }
-    console.log(response.details);
     yield put(mergeGetMasterFetchSuccess(response.details));
   } catch (err) {
     yield put(mergeGetMasterFetchFailure());

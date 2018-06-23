@@ -8,7 +8,6 @@ const initState = {
 };
 
 export default function searchMonth(state = initState, action) {
-  console.log(action);
   switch (action.type) {
     case SEARCH_MONTH.CLEAR:
       return {

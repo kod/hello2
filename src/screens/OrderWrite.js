@@ -171,7 +171,6 @@ class OrderWrite extends React.Component {
       //     couponProductInfoId: 0,
       // }],
     }
-    console.log(object);
     orderCreateFetch(object);
   }
 

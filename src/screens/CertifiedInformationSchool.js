@@ -170,7 +170,7 @@ class CertifiedInformationSchool extends Component {
                     fontSize: 16,
                   },
                 }}
-                onDateChange={val => {console.log(val); certifiedInformationEdit('admissiontime', val)}}
+                onDateChange={val => {certifiedInformationEdit('admissiontime', val)}}
               />
               <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'} ></MaterialIcons>
             </View>

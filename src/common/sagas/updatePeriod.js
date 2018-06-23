@@ -52,17 +52,7 @@ export function* updatePeriodFetchWatchHandle(action) {
       ],
       Key
     );
-    console.log({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      period: period,
-    });
+
     let response = yield apply(buyoo, buyoo.updatePeriod, [
       {
         appid: appId,
@@ -77,7 +67,6 @@ export function* updatePeriodFetchWatchHandle(action) {
       }
     ]);
 
-    console.log(response);
     if (response.code !== 10000) {
       yield put(updatePeriodFetchFailure());
       yield put(addError(response.msg));
@@ -100,7 +89,7 @@ export function* updatePeriodSuccessWatchHandle(action) {
     yield put(cardQueryFetch());
     NavigatorService.pop(1);
   } catch (error) {
-    console.log(error);
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

@@ -46,18 +46,6 @@ export function* queryGoodsFetchWatchHandle(action) {
       Key
     );
 
-    console.log(JSON.stringify({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      createtime: createtime,
-    }));
-
     const options = [
       {
         appid: appId,
@@ -73,9 +61,6 @@ export function* queryGoodsFetchWatchHandle(action) {
     ];
 
     const response = yield apply(buyoo, buyoo.queryGoods, options);
-
-    console.log(response);
-    console.log(JSON.stringify(response));
 
     if (response.code !== 10000) {
       yield put(queryGoodsFetchFailure());
@@ -94,7 +79,6 @@ export function* queryGoodsFetchWatchHandle(action) {
       result: items,
     }));
   } catch (err) {
-    console.log(err);
     yield put(queryGoodsFetchFailure());
     yield put(addError(err.toString()));
   }

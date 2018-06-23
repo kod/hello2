@@ -178,8 +178,6 @@ export const getBillMonthItem = createSelector(
   (billByYearItems, billActiveYear, billActiveMonth) => {
     // if (!billByYearItems[billActiveYear]) return defaultObject;
     // const activeItem = billByYearItems[billActiveYear][billActiveMonth - 1];
-    // console.log('activeItemactiveItemactiveItemactiveItemactiveItem');
-    // console.log(activeItem);
 
     // const getValidMonth = (array) => {
     //   array = array.reverse();

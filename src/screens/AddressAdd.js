@@ -117,9 +117,7 @@ class AddressAdd extends React.Component {
       cityInfosFetch,
       navigation: { state: { params } },
     } = this.props;
-    console.log(this.props);
     
-    console.log(params);
     if (params) {
       this.setState({
         addressIndex: 2,
@@ -222,7 +220,6 @@ class AddressAdd extends React.Component {
       addressModifyFetch,
       addressAddInfo: { values },
     } = this.props;
-    console.log(this.props);
     // return false;
 
     if (!values) {
@@ -255,7 +252,6 @@ class AddressAdd extends React.Component {
       return false;
     }
 
-    console.log(params);
     if(params) {
       addressModifyFetch({
         id: params.id,

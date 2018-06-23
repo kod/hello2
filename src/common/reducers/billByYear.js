@@ -9,7 +9,6 @@ const initState = {
 };
 
 export default function billByYear(state = initState, action) {
-  console.log(action);
   switch (action.type) {
     case BILL_BY_YEAR.CLEAR:
       return {

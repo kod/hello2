@@ -246,9 +246,6 @@ class ProductDetail extends React.Component {
         handleOnPressToggleMenuBottomSheet,
       },
     } = this.props;
-    console.log('ProductDetailMainProductDetailMainProductDetailMain');
-    console.log(this.state);
-    console.log(this.props);
     const WebViewImages = imageDesc.length === 0 ?
       '' :
       imageDesc.reduce((a, b, index) => {

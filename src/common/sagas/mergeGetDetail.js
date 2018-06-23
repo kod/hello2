@@ -116,8 +116,6 @@ export function* mergeGetDetailFetchWatchHandle(action) {
       return false;
     }
 
-    // console.log(JSON.stringify(response));
-
     const { propertydetails, branddetails } = response;
 
     const productdetails = response.productdetails.map((val, key) => {

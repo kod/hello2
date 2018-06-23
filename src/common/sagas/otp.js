@@ -50,8 +50,6 @@ export function* otpFetchWatchHandle(action) {
       }
     ]);
 
-    console.log(response);
-
     if (response.status !== 10000) {
       yield put(otpFetchFailure());
       yield put(addError(response.msg));

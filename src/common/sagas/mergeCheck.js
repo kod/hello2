@@ -15,7 +15,6 @@ export function* mergeCheckFetchWatchHandle(action) {
       brandId = 0,
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
-    console.log(action.payload);
     
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
@@ -53,10 +52,6 @@ export function* mergeCheckFetchWatchHandle(action) {
         funid: funid,
       }
     ]);
-
-    console.log('MMMMMM');
-    console.log(JSON.stringify(response));
-    
 
     if (response.code !== 10000) {
       yield put(mergeCheckFetchFailure());

@@ -63,7 +63,6 @@ class Settings extends React.Component {
       navigation: { navigate, state },
       i18n,
     } = this.props;
-    console.log(state.params.source);
     return <BYWebView source={{ uri: state.params.source }} />;
   }
 }

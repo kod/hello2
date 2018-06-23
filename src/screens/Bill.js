@@ -82,8 +82,6 @@ class Bill extends React.Component {
     this.billPayResult_addListener = DeviceEventEmitter.addListener(
       'billPayResult',
       (parmas) => {
-        console.log('billPayResultbillPayResultbillPayResultbillPayResult');
-        console.log(parmas);
         // goBack()
       },
     );
@@ -95,7 +93,6 @@ class Bill extends React.Component {
   }
 
   // async enterPasswordCallback(ret) {
-  //   console.log(ret);
   //   const {
   //     price,
   //     orderCreateFetch,
@@ -119,7 +116,6 @@ class Bill extends React.Component {
       navigation: { navigate }
     } = this.props;
 
-    console.log(ret);
     if (ret.buttonIndex === -1) return false;
     if (ret.buttonIndex === 0) navigate(SCREENS.RepaymentRecord);
   }
@@ -190,7 +186,6 @@ class Bill extends React.Component {
   }
 
   handleOnPressToggleModal = (key, val) => {
-    console.log(key);
     this.setState({
       [key]: typeof val !== 'boolean' ? !this.state[key] : val,
     });
@@ -224,7 +219,6 @@ class Bill extends React.Component {
       searchMonthFetch,
     } = this.props;
 
-    console.log(billMonthItem);
     if (billMonthItem.status === 10002) return false;
 
     searchMonthFetch({
@@ -523,8 +517,6 @@ class Bill extends React.Component {
       navigation: { navigate }
     } = this.props;
 
-    console.log(billMonthItem);
-    
     return (
       <View style={styles.container} >
         <View style={styles.main} >

@@ -188,8 +188,6 @@ export default connect(
       const {
         billDetails,
       } = state;
-      console.log(props.navigation.state.params);
-      console.log(props.navigation.state.params.id);
       return {
         id: props.navigation.state.params.id,
         billDetailsItem: billDetails.item,

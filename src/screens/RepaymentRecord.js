@@ -98,8 +98,6 @@ class RepaymentRecord extends React.Component {
     const {
       repaymentRecordItems,
     } = this.props;
-    console.log('repaymentRecordItemsrepaymentRecordItemsrepaymentRecordItemsrepaymentRecordItems');
-    console.log(repaymentRecordItems);
     
     return (
       <View style={styles.container} >
@@ -197,8 +195,6 @@ export default connect(
       const {
         repaymentRecord,
       } = state;
-      // console.log(props.navigation.state.params);
-      // console.log(props.navigation.state.params.id);
       return {
         repaymentRecordItems: repaymentRecord.item.records ? repaymentRecord.item.records : [],
       }

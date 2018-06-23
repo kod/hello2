@@ -33,7 +33,6 @@ class Card extends React.Component {
       cardQueryFetch,
       user,
     } = this.props;
-    // console.log(this.props);
     user && cardQueryFetch();
   }
 
@@ -167,7 +166,6 @@ class Card extends React.Component {
       user,
     } = this.props;
     if (loading) return <Loader />;
-    console.log(this.props);
 
     // return (
     //   this.renderApplyStatus({
@@ -247,8 +245,6 @@ class Card extends React.Component {
     const {
       navigation: { navigate },
     } = this.props;
-    console.log('cccccccccccc');
-    console.log(this.props);
     
     return (
       <View style={styles.container} >

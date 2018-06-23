@@ -43,7 +43,6 @@ class TransactionPasswordStepOne extends React.Component {
       otpFetch,
       navigation: { goBack, navigate, state },
     } = this.props;
-    console.log(formValue);
     if (!formValue) return false;
     if (!PHONEEXPR.test(formValue.phone)) return Platform.OS === 'android' && ToastAndroid.show('định dạng số điện thoại sai', ToastAndroid.SHORT);
     otpFetch(formValue.phone);

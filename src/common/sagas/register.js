@@ -76,19 +76,7 @@ export function* registerFetchWatchHandle(action) {
       ],
       Key
     );
-    console.log({
-      provider: provider,
-      msisdn: msisdn,
-      username: username,
-      password: password,
-      payPassword: payPassword,
-      otp: otp,
-      check: check,
-      appid: appid,
-      inviterno: inviterno,
-      encryption: encrypt,
-      version: version,
-    });
+    
     let response = yield apply(buyoo, buyoo.register, [
       {
         provider: provider,
@@ -105,7 +93,6 @@ export function* registerFetchWatchHandle(action) {
       }
     ]);
 
-    console.log(response);
     if (response.status !== 10000) {
       yield put(registerFetchFailure());
       yield put(addError(response.msg));
@@ -141,7 +128,7 @@ export function* registerSuccessWatchHandle(action) {
     )
 
   } catch (error) {
-    console.log(error);
+    yield put(addError(err.toString()));
   }
 }
 

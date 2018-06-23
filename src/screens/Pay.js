@@ -117,7 +117,6 @@ class OrderWrite extends React.Component {
       getUserInfoByIdFetch,
       navigation: { navigate },
     } = this.props;
-    console.log(authUser);
     if (authUser) {
       addressFetch();
       getUserInfoByIdFetch();
@@ -129,9 +128,6 @@ class OrderWrite extends React.Component {
       tradeNo,
     });
     
-    console.log(this.props);
-    console.log('11111111111111111');
-
     // setTimeout(() => {
       // navigate(SCREENS.TransactionPasswordStepOne);
       // this.handleOnPressToggleBottomSheet();
@@ -139,7 +135,6 @@ class OrderWrite extends React.Component {
   }
 
   actionSheetCallback(ret) {
-    console.log(ret);
     if (ret.buttonIndex === -1) return false;
     this.setState({
       payWayIndex: ret.buttonIndex,
@@ -147,7 +142,6 @@ class OrderWrite extends React.Component {
   }
 
   async enterPasswordCallback(ret) {
-    console.log(ret);
     // const {
     //   orderNo,
     //   tradeNo,
@@ -200,12 +194,6 @@ class OrderWrite extends React.Component {
 
       const alreadyPaypassword = () => {
         if (paypassword.length === 0) return this.handleOnPressToggleModal('isOpenEnterPassword')
-        console.log({
-          orderno: orderNo,
-          tradeno: tradeNo,
-          payway: paywayNow,
-          paypassword,
-        });
 
         if (paywayNow === 5) {
           Alert.alert(
@@ -228,7 +216,6 @@ class OrderWrite extends React.Component {
             ]
           )
         } else {
-          console.log(advance - cardQuery.item.availableBalance);
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
@@ -583,8 +570,6 @@ class OrderWrite extends React.Component {
         tradeStatus,
       },
     } = this.props;
-    console.log(this.props);
-    console.log('xxxxxxxx');
 
     return (
       <View style={styles.container} >

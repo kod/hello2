@@ -50,18 +50,6 @@ export function* searchMonthFetchWatchHandle(action) {
       Key
     );
 
-    console.log(JSON.stringify({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      date: date,
-    }));
-
     const options = [
       {
         appid: appId,
@@ -78,9 +66,6 @@ export function* searchMonthFetchWatchHandle(action) {
 
     const response = yield apply(buyoo, buyoo.searchMonth, options);
 
-    console.log(response);
-    console.log(JSON.stringify(response));
-
     if (response.code !== 10000) {
       yield put(searchMonthFetchFailure());
       yield put(addError(response.msg));
@@ -91,7 +76,6 @@ export function* searchMonthFetchWatchHandle(action) {
       result: response.result,
     }));
   } catch (err) {
-    console.log(err);
     yield put(searchMonthFetchFailure());
     yield put(addError(err.toString()));
   }

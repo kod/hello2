@@ -382,7 +382,6 @@ class ProductDetail extends Component {
       i18n,
       masterItems,
     } = this.props;
-    console.log(masterItems);
 
     const item = masterItems[0] || {};
     const createTime = item ? item.createTime : '';
@@ -751,9 +750,6 @@ class ProductDetail extends Component {
         handleOnPressToggleMenuBottomSheet,
       },
     } = this.props;
-    console.log('ProductDetailMainGrouponProductDetailMainGrouponProductDetailMainGroupon');
-    console.log(this.state);
-    console.log(this.props);
     return (
       <View style={styles.container} >
         <ScrollView onScroll={this.handleOnScroll}>

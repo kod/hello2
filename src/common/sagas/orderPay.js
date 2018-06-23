@@ -63,22 +63,6 @@ export function* orderPayFetchWatchHandle(action) {
       Key
     );
 
-    console.log(JSON.stringify({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      tradeno: tradeno,
-      orderno: orderno,
-      payway: payway,
-      paypassword: paypassword,
-      payvalue: payvalue,
-    }));
-
     const options = [
       {
         appid: appId,
@@ -98,7 +82,6 @@ export function* orderPayFetchWatchHandle(action) {
     ];
 
     if (payway !== 1) {
-      console.log(buyoo.orderPayInternetBank(options[0]) + '');
       NavigatorService.navigate(SCREENS.WebView, {
         source: buyoo.orderPayInternetBank(options[0]),
       });
@@ -106,9 +89,6 @@ export function* orderPayFetchWatchHandle(action) {
     }
 
     const response = yield apply(buyoo, buyoo.orderPay, options);
-
-    console.log(response);
-    console.log(JSON.stringify(response));
 
     if (response.code !== 10000) {
       yield put(orderPayFetchFailure());
@@ -121,7 +101,6 @@ export function* orderPayFetchWatchHandle(action) {
       BYtype,
     }));
   } catch (err) {
-    console.log(err);
     yield put(orderPayFetchFailure());
     yield put(addError(err.toString()));
   }

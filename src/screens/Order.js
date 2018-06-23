@@ -231,8 +231,6 @@ class Order extends React.Component {
       navigation: { navigate },
       i18n,
     } = this.props;
-    console.log('orderItemorderItemorderItem');
-    console.log(orderItem);
     const scrollableTabKeys = [
       {
         tabLabel: 'ALL',
@@ -276,8 +274,6 @@ export default connect(
       const {
         queryOrderList,
       } = state;
-      // console.log(props.navigation.state.params);
-      // console.log(props.navigation.state.params.id);
       return {
         orderItem: getOrderItem(state, props),
         queryOrderListItem: queryOrderList.item,

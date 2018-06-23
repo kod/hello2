@@ -135,8 +135,6 @@ class SchoolSelect extends React.Component {
       certifiedInformationEdit,
       navigation: { state, goBack },
     } = this.props;
-    console.log(item);
-    console.log(this.props);
     if (item.staging !== 1) return false;
     certifiedInformationEdit('collegename', item.id);
     goBack();

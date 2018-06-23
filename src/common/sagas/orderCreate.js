@@ -101,29 +101,6 @@ export function* orderCreateFetchWatchHandle(action) {
       }
     ]);
 
-    console.log(JSON.stringify({
-        appid: appId,
-        method: method,
-        charset: charset,
-        signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        currency: currency,
-        ordertype: ordertype,
-        addrid: addrid,
-        goodsdetail: goodsdetail,
-        mergedetail: mergedetail,
-        coupondetail: coupondetail,
-        subject: subject,
-        remark: remark,
-      }
-    ));
-
-    console.log(response);
-    console.log(JSON.stringify(response));
-
     if (response.code !== 10000) {
       yield put(orderCreateFetchFailure());
       yield put(addError(response.msg));
@@ -163,7 +140,6 @@ export function* orderCreateSuccessWatchHandle(action) {
 
       case 'billPay':
 
-    //   console.log('hahahahahahahahahahahahahaha');
     // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'billPayResult', {
     //   name: 'haha',
     //   age: 18

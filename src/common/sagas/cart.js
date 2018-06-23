@@ -331,18 +331,6 @@ export function* cartAddRequestWatchHandle(action) {
         Key
     );
 
-    console.log({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      cartitems: cartitems,
-    });
-
     const response = yield apply(buyoo, buyoo.cartGate, [
       {
         appid: appId,
@@ -378,7 +366,7 @@ export function* cartAddSuccessWatchHandle(action) {
   try {
     if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
   } catch (err) {
-    console.log(err);
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

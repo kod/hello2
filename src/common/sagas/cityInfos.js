@@ -59,7 +59,6 @@ export function* cityInfosFetchWatchHandle(action) {
       yield put(addError(response.msg));
       return false;
     }
-    console.log(response);
 
     yield put(cityInfosFetchSuccess(response.details, level));
   } catch (err) {

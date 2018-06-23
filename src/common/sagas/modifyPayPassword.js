@@ -66,8 +66,6 @@ export function* modifyPayPasswordFetchWatchHandle(action) {
       }
     ]);
 
-    console.log(response);
-
     switch (response.status) {
       case 10000:
         yield put(modifyPayPasswordFetchSuccess());
@@ -116,7 +114,7 @@ export function* modifyPayPasswordSuccessWatchHandle(action) {
     )
 
   } catch (error) {
-    console.log(error);
+    yield put(addError(err.toString()));
   }
 }
 

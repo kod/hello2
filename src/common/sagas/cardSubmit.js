@@ -71,8 +71,6 @@ export function* cardSubmitFetchWatchHandle(action) {
         msisdn: msisdn,
       }
     ]);
-    console.log(response);
-    console.log(JSON.stringify(response));
 
     if (response.code !== 10000) {
       yield put(cardSubmitFetchFailure());
@@ -106,8 +104,8 @@ export function* cardSubmitSuccessWatchHandle() {
       ]
     )
 
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

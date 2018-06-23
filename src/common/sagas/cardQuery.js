@@ -50,8 +50,6 @@ export function* cardQueryFetchWatchHandle(action) {
         funid: funid,
       }
     ]);
-    console.log(response);
-    console.log(JSON.stringify(response));
 
     if (response.code !== 10000) {
       yield put(cardQueryFetchFailure());
@@ -61,7 +59,6 @@ export function* cardQueryFetchWatchHandle(action) {
 
     yield put(cardQueryFetchSuccess(response.result));
   } catch (err) {
-    console.log(err);
     yield put(cardQueryFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

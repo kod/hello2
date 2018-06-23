@@ -92,7 +92,6 @@ class CertifiedInformationSchool extends Component {
     const {
       index,
     } = this.props;
-    console.log(this.props);
     return (
       <Text style={styles.title} >
         Emergency Contact Person {index}

@@ -16,7 +16,6 @@ export function* mergeGetSlaveFetchWatchHandle(action) {
       pagesize = 10,
       currentpage = 1,
     } = action.payload;
-    console.log(action.payload);
     
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
@@ -64,23 +63,6 @@ export function* mergeGetSlaveFetchWatchHandle(action) {
         currentpage: currentpage
       }
     ]);
-
-    console.log({
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      brandid: brandId,
-      mergemasterid: masterId,
-      pagesize: pagesize,
-      currentpage: currentpage
-    });
-
-    console.log(JSON.stringify(response));
-    
 
     if (response.code !== 10000) {
       yield put(mergeGetSlaveFetchFailure());

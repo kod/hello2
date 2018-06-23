@@ -66,8 +66,6 @@ class ProductDetailParam extends React.Component {
         goodsProperties,
       },
     } = this.props;
-    console.log('ProductDetailParamProductDetailParamProductDetailParam');
-    console.log(this.props);
 
     return (
       <WebView
