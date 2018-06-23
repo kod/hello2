@@ -22,7 +22,7 @@ import BillSelect from "../components/BillSelect";
 import ActionSheet from "../components/ActionSheet";
 // import EnterPassword from "../components/EnterPassword";
 
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from "../styles/variables";
+import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, APPBAR_HEIGHT, STATUSBAR_HEIGHT, BORDER_COLOR } from "../styles/variables";
 
 import * as searchMonthActionCreators from '../common/actions/searchMonth';
 import * as billActionCreators from '../common/actions/bill';
@@ -267,7 +267,7 @@ class Bill extends React.Component {
         position: 'relative',
         flexDirection: 'row',
         alignItems: 'center',
-        borderBottomColor: '#f5f5f5',
+        borderBottomColor: BORDER_COLOR,
         borderBottomWidth: 1,
         marginBottom: 15,
       },
@@ -474,7 +474,7 @@ class Bill extends React.Component {
         height: 50,
         lineHeight: 50,
         borderTopWidth: 1,
-        borderTopColor: '#f5f5f5',
+        borderTopColor: BORDER_COLOR,
         textAlign: 'center',
       },
       topTwo: {

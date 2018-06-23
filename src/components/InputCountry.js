@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, } from 'react-native';
 import { globalStyleVariables } from '../styles';
 import Error from "../components/Error";
 import BYTextInput from "../components/BYTextInput";
+import { BORDER_COLOR } from "../styles/variables";
 
 const styles = StyleSheet.create({
   componentWrap: {
@@ -12,9 +13,8 @@ const styles = StyleSheet.create({
   component: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 5,
-    // marginBottom: 10,
   },
   componentFlag: {
     width: 18,

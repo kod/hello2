@@ -14,12 +14,14 @@ import { SIDEINTERVAL, RED_COLOR } from "../styles/variables";
 import priceFormat from "../common/helpers/priceFormat";
 import { payWayToText } from "../common/helpers";
 
+import { BORDER_COLOR } from "../styles/variables";
+
 import * as repaymentRecordActionCreators from '../common/actions/repaymentRecord';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: BORDER_COLOR,
   },
 });
 

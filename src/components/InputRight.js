@@ -4,6 +4,8 @@ import { globalStyleVariables } from '../styles';
 import priceFormat from '../common/helpers/priceFormat';
 import Error from '../components/Error';
 
+import { BORDER_COLOR } from "../styles/variables";
+
 import BYTextInput from "../components/BYTextInput";
 
 const styles = StyleSheet.create({
@@ -14,7 +16,7 @@ const styles = StyleSheet.create({
   component: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 5,
   },
   componentInput: {

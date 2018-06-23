@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import { globalStyleVariables } from '../styles';
+
+import { BORDER_COLOR, SIDEINTERVAL } from "../styles/variables";
 
 const styles = StyleSheet.create({
   other: {
     position: 'absolute',
-    left: globalStyleVariables.SIDEINTERVAL,
-    right: globalStyleVariables.SIDEINTERVAL,
+    left: SIDEINTERVAL,
+    right: SIDEINTERVAL,
     bottom: 30
   },
   otherTitle: {
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   otherMain: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#f5f5f5'
+    borderColor: BORDER_COLOR,
   },
   otherFb: {
     flex: 1,

@@ -18,7 +18,7 @@ import Address from "../components/Address";
 import Loader from "../components/Loader";
 import SeparateBar from "../components/SeparateBar";
 
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, WINDOW_HEIGHT } from "../styles/variables";
+import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, BORDER_COLOR } from "../styles/variables";
 
 import { getAddressSelectedItem } from "../common/selectors";
 
@@ -292,7 +292,7 @@ class OrderWrite extends React.Component {
       nav: {
         flexDirection: 'row',
         borderTopWidth: 1,
-        borderTopColor: '#f5f5f5',
+        borderTopColor: BORDER_COLOR,
       },
       navLeft: {
         flex: 1,
@@ -383,7 +383,7 @@ class OrderWrite extends React.Component {
   //     },
   //     title: {
   //       flexDirection: 'row',
-  //       borderBottomColor: '#f5f5f5',
+  //       borderBottomColor: BORDER_COLOR,
   //       borderBottomWidth: 1,
   //     },
   //     titleItem: {
@@ -395,7 +395,7 @@ class OrderWrite extends React.Component {
   //     },
   //     item: {
   //       flexDirection: 'row',
-  //       borderBottomColor: '#f5f5f5',
+  //       borderBottomColor: BORDER_COLOR,
   //       borderBottomWidth: 1,
   //     },
   //     itemText: {

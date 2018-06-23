@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, Platform, StatusBar } from 'react-native';
 import { HeaderBackButton, withNavigation } from 'react-navigation';
-import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, SIDEINTERVAL, HEADER_BACKGROUND_COLOR } from '../styles/variables';
+import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, SIDEINTERVAL, HEADER_BACKGROUND_COLOR, BORDER_COLOR } from '../styles/variables';
 import CustomIcon from "../components/CustomIcon";
 import BYTouchable from "../components/BYTouchable";
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     // borderBottomWidth: 1,
-    // borderBottomColor: '#f5f5f5',
+    // borderBottomColor: BORDER_COLOR,
     // justifyContent: 'space-between',
   },
   headerBack: {
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     left: SIDEINTERVAL,
     right: 0,
     height: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: BORDER_COLOR,
   }
 });
 

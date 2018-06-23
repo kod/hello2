@@ -22,7 +22,7 @@ import {
   WINDOW_WIDTH,
   WINDOW_HEIGHT,
   APPBAR_HEIGHT,
-  STATUSBAR_HEIGHT,
+  BORDER_COLOR,
   SIDEINTERVAL,
   PRIMARY_COLOR, 
   RED_COLOR
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   operate: {
     flexDirection: 'row',
-    borderTopColor: '#f5f5f5',
+    borderTopColor: BORDER_COLOR,
     borderTopWidth: 1,
   },
   operateLeft: {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   paramImage: {
     height: 60,
     width: 60,
-    borderColor: '#f5f5f5',
+    borderColor: BORDER_COLOR,
     borderWidth: 1,
     marginRight: SIDEINTERVAL,
   },
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     marginRight: SIDEINTERVAL,
     marginBottom: SIDEINTERVAL,
     color: '#999',
-    borderColor: '#f5f5f5',
+    borderColor: BORDER_COLOR,
     borderWidth: 1,
     paddingLeft: WINDOW_WIDTH * 0.05,
     paddingRight: WINDOW_WIDTH * 0.05,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     color: '#999',
     backgroundColor: '#fff',
     fontWeight: '900',
-    borderColor: '#f5f5f5',
+    borderColor: BORDER_COLOR,
     borderWidth: 1,
   },
   paramNumberAddIcon: {
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     color: '#999',
     backgroundColor: '#fff',
     fontWeight: '900',
-    borderColor: '#f5f5f5',
+    borderColor: BORDER_COLOR,
     borderWidth: 1,
   },
   paramNumberIconDisable: {
@@ -207,8 +207,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 11,
     color: '#666',
-    borderTopColor: '#f5f5f5',
-    borderBottomColor: '#f5f5f5',
+    borderTopColor: BORDER_COLOR,
+    borderBottomColor: BORDER_COLOR,
     borderTopWidth: 1,
     borderBottomWidth: 1,
   },

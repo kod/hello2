@@ -1,24 +1,24 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
-import { globalStyleVariables } from '../styles';
-import priceFormat from '../common/helpers/priceFormat';
 
 import BYTextInput from "../components/BYTextInput";
 
+import { SIDEINTERVAL, BORDER_COLOR } from "../styles/variables";
+
 const styles = StyleSheet.create({
   componentWrap: {
-    paddingLeft: globalStyleVariables.SIDEINTERVAL,
-    paddingRight: globalStyleVariables.SIDEINTERVAL
+    paddingLeft: SIDEINTERVAL,
+    paddingRight: SIDEINTERVAL
   },
   component: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 5,
   },
   componentInput: {
     flex: 1,
-    marginLeft: globalStyleVariables.SIDEINTERVAL,
+    marginLeft: SIDEINTERVAL,
   }
 });
 

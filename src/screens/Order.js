@@ -14,7 +14,7 @@ import ScrollableTabView from '../components/ScrollableTabView';
 import SeparateBar from '../components/SeparateBar';
 import EmptyState from "../components/EmptyState";
 
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, WINDOW_HEIGHT } from "../styles/variables";
+import { SIDEINTERVAL, BORDER_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, WINDOW_HEIGHT } from "../styles/variables";
 import priceFormat from '../common/helpers/priceFormat';
 import { tradeStatusCodes, buttonTextForTradeStatusCodes } from '../common/helpers';
 
@@ -39,7 +39,7 @@ const stylesScrollable = StyleSheet.create({
     height: 40,
     lineHeight: 40,
     textAlign: 'right',
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 1,
     paddingRight: SIDEINTERVAL,
     color: '#666',

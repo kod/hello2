@@ -16,7 +16,7 @@ import BYTouchable from "../components/BYTouchable";
 import Address from "../components/Address";
 import Loader from "../components/Loader";
 
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, WINDOW_HEIGHT } from "../styles/variables";
+import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, BORDER_COLOR, WINDOW_HEIGHT } from "../styles/variables";
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';
@@ -179,7 +179,7 @@ class OrderWrite extends React.Component {
       nav: {
         flexDirection: 'row',
         borderTopWidth: 1,
-        borderTopColor: '#f5f5f5',
+        borderTopColor: BORDER_COLOR,
       },
       navLeft: {
         flex: 1,

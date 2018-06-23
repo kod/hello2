@@ -18,7 +18,7 @@ import { makegetSchoolName } from "../common/selectors";
 import { SCREENS } from '../common/constants';
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 
-import { SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../styles/variables';
+import { SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT, BORDER_COLOR } from '../styles/variables';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingRight: SIDEINTERVAL,
     borderBottomWidth: 1,
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: BORDER_COLOR,
   },
   label: {
     color: '#666',

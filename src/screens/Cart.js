@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, HEADER_BACKGROUND_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import CartItem from "../components/CartItem";
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   overview: {
     flexDirection: 'row',
     backgroundColor: '#fff',
-    borderTopColor: '#f5f5f5',
+    borderTopColor: BORDER_COLOR,
     borderTopWidth: 1,
   },
   overviewIconWrap: {
@@ -164,7 +164,7 @@ class Cart extends React.Component {
         {!isEmptyCart && <ScrollView>
           <CartItem
             data={cart}
-            styleItem={{marginBottom: 25, borderTopColor: '#f5f5f5', borderTopWidth: 1,}}
+            styleItem={{marginBottom: 25, borderTopColor: BORDER_COLOR, borderTopWidth: 1,}}
             styleItemLeft={{paddingLeft: 0, paddingTop: 15, paddingBottom: 15,}}
           />
         </ScrollView>}

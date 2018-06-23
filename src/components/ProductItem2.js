@@ -10,7 +10,7 @@ import { CARMAXNUMBER } from "../common/constants";
 import BYTouchable from "../components/BYTouchable";
 import { SCREENS } from "../common/constants";
 
-import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, PRIMARY_COLOR } from "../styles/variables";
+import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, BORDER_COLOR } from "../styles/variables";
 
 import BYTextInput from "../components/BYTextInput";
 
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 1,
   },
   itemLeft: {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     backgroundColor: '#0f0',
-    borderColor: '#f5f5f5',
+    borderColor: BORDER_COLOR,
     borderWidth: 1,
   },
   itemRight: {

@@ -12,7 +12,7 @@ import BYTouchable from "../components/BYTouchable";
 import EmptyState from "../components/EmptyState";
 import Loader from "../components/Loader";
 
-import { SIDEINTERVAL, WINDOW_WIDTH, RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
+import { SIDEINTERVAL, WINDOW_WIDTH, BORDER_COLOR, PRIMARY_COLOR } from "../styles/variables";
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     paddingBottom: 25,
     borderBottomWidth: 1,
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: BORDER_COLOR,
   },
   namePhone: {
     flexDirection: 'row',

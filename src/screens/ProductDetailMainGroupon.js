@@ -430,7 +430,7 @@ class ProductDetail extends Component {
         lineHeight: 40,
         textAlign: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: '#f5f5f5',
+        borderBottomColor: BORDER_COLOR,
         marginBottom: 15,
       },
       buttonWrap: {
@@ -498,7 +498,7 @@ class ProductDetail extends Component {
         lineHeight: 45,
         textAlign: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: '#f5f5f5',
+        borderBottomColor: BORDER_COLOR,
         marginBottom: 15,
         color: '#333',
         fontSize: 16,

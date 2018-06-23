@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, Modal } from 'react-native';
 import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR } from '../styles/variables';
 import BYTouchable from '../components/BYTouchable';
 
+import { BORDER_COLOR } from "../styles/variables";
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
   },
   buttonItem: {
     textAlign: 'center',
-    borderBottomColor: '#f5f5f5',
+    borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 1,
     height: 45,
     lineHeight: 45,

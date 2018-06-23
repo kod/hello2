@@ -15,15 +15,14 @@ import ProductItem1 from "../components/ProductItem1";
 import ProductItem2 from "../components/ProductItem2";
 import FloorTitle from "../components/FloorTitle";
 import NavImg1 from "../components/NavImg1";
-// import BYTextInput from "../components/BYTextInput";
-// import BYTouchable from "../components/BYTouchable";
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
 import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
 import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
-// import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+
+import { BORDER_COLOR } from "../styles/variables";
 
 const itemIntervalWidth = SIDEINTERVAL;
 const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
@@ -155,7 +154,7 @@ class Scrollable1 extends React.Component {
 
         <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
 
-        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: '#f5f5f5', borderBottomWidth: 1 }} />
+        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: BORDER_COLOR, borderBottomWidth: 1 }} />
 
         <ProductItem2 data={adverstInfoList} />
       </View>

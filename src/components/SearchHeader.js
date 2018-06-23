@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, View, Text, Platform, StatusBar } from 'react-native';
 import { HeaderBackButton, withNavigation } from 'react-navigation';
 
-import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, HEADER_BACKGROUND_COLOR } from '../styles/variables';
+import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, BORDER_COLOR, HEADER_BACKGROUND_COLOR } from '../styles/variables';
 
 import CustomIcon from "../components/CustomIcon";
 import BYTouchable from "../components/BYTouchable";
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: WINDOW_WIDTH * 0.03,
     height: 30,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: BORDER_COLOR,
     borderRadius: 1
   },
   headerMiddleIcon: {

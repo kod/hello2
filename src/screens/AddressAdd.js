@@ -5,9 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { globalStyleVariables, globalStyles } from '../styles';
-
-import { SIDEINTERVAL, WINDOW_WIDTH, PRIMARY_COLOR, WINDOW_HEIGHT } from "../styles/variables";
+import { SIDEINTERVAL, WINDOW_WIDTH, PRIMARY_COLOR, WINDOW_HEIGHT, BORDER_COLOR } from "../styles/variables";
 
 import BYHeader from '../components/BYHeader';
 import BYTextInput from "../components/BYTextInput";
@@ -295,7 +293,7 @@ class AddressAdd extends React.Component {
       nav: {
         flexDirection: 'row',
         paddingLeft: SIDEINTERVAL,
-        borderBottomColor: '#f5f5f5',
+        borderBottomColor: BORDER_COLOR,
         borderBottomWidth: 1,
       },
       navItem: {

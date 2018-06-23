@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 import BYTouchable from "../components/BYTouchable";
 import { SCREENS } from "../common/constants";
 
-import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR , BORDER_COLOR} from "../styles/variables";
 import priceFormat from "../common/helpers/priceFormat";
 
 const itemIntervalWidth = SIDEINTERVAL;
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     marginRight: SIDEINTERVAL,
     paddingTop: 4,
     backgroundColor: '#fff',
-    borderColor: '#f5f5f5',
+    borderColor: BORDER_COLOR,
     borderWidth: 1,
     marginBottom: itemIntervalWidth,
   },

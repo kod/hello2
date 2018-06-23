@@ -9,7 +9,7 @@ import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import BYButton from "../components/BYButton";
 import Loader from "../components/Loader";
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH } from "../styles/variables";
+import { SIDEINTERVAL, BORDER_COLOR, PRIMARY_COLOR, WINDOW_WIDTH } from "../styles/variables";
 
 import * as updatePeriodActionCreators from '../common/actions/updatePeriod';
 
@@ -101,7 +101,7 @@ class PeriodSelect extends React.Component {
       item: {
         width: (WINDOW_WIDTH - SIDEINTERVAL * 3) / 2,
         borderWidth: 1,
-        borderColor: '#f5f5f5',
+        borderColor: BORDER_COLOR,
         paddingTop: SIDEINTERVAL,
         paddingBottom: SIDEINTERVAL,
         marginRight: SIDEINTERVAL,
