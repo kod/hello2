@@ -189,6 +189,8 @@ export function* cartNumberRequestWatch() {
 
 export function* cartDeleteRequestWatchHandle(action) {
   try {
+    const funid = yield select(getAuthUserFunid);
+    
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.cart.remove';
@@ -196,7 +198,7 @@ export function* cartDeleteRequestWatchHandle(action) {
     let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
     let version = '2.0';
     
-    const { funid, cartitemids, orderno = '' } = action.payload;
+    const { cartitemids, orderno = '' } = action.payload;
     let signType = signType_MD5(appId, method, charset, Key, true);
 
     let encrypt = encrypt_MD5(
