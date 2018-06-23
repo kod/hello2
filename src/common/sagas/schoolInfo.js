@@ -60,7 +60,7 @@ export function* schoolInfoFetchWatchHandle(action) {
     yield put(schoolInfoFetchSuccess(response.details.filter((val) => val.staging !== 2)));
   } catch (err) {
     yield put(schoolInfoFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 export function* schoolInfoFetchWatch() {

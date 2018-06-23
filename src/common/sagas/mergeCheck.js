@@ -62,7 +62,7 @@ export function* mergeCheckFetchWatchHandle(action) {
     yield put(mergeCheckFetchSuccess(response.details));
   } catch (err) {
     yield put(mergeCheckFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

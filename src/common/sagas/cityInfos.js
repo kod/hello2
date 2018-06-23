@@ -63,7 +63,7 @@ export function* cityInfosFetchWatchHandle(action) {
     yield put(cityInfosFetchSuccess(response.details, level));
   } catch (err) {
     yield put(cityInfosFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 export function* cityInfosFetchWatch() {

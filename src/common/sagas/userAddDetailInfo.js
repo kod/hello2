@@ -225,7 +225,7 @@ export function* userAddDetailInfoFetchWatchHandle(action) {
     yield put(userAddDetailInfoFetchSuccess());
   } catch (err) {
     yield put(userAddDetailInfoFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

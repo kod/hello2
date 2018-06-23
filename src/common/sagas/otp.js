@@ -59,7 +59,7 @@ export function* otpFetchWatchHandle(action) {
     yield put(otpFetchSuccess());
   } catch (err) {
     yield put(otpFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 export function* otpFetchWatch() {

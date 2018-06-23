@@ -68,7 +68,7 @@ export function* mergeGetMasterFetchWatchHandle(action) {
     yield put(mergeGetMasterFetchSuccess(response.details));
   } catch (err) {
     yield put(mergeGetMasterFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

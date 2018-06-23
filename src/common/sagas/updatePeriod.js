@@ -76,7 +76,7 @@ export function* updatePeriodFetchWatchHandle(action) {
 
   } catch (err) {
     yield put(updatePeriodFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 export function* updatePeriodFetchWatch() {

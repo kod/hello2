@@ -77,7 +77,7 @@ export function* searchMonthFetchWatchHandle(action) {
     }));
   } catch (err) {
     yield put(searchMonthFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

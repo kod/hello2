@@ -83,7 +83,7 @@ export function* repaymentRecordFetchWatchHandle(action) {
     }));
   } catch (err) {
     yield put(repaymentRecordFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

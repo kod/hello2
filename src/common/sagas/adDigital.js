@@ -79,7 +79,7 @@ export function* adDigitalFetchWatchHandle(action) {
     yield put(adDigitalFetchSuccess(adDigitalList, adDigitalBanerList, classfyinfo));
   } catch (err) {
     yield put(adDigitalFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

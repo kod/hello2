@@ -87,7 +87,7 @@ export function* adverstInfoFetchWatchHandle(action) {
     yield put(adverstInfoFetchSuccess(result));
   } catch (err) {
     yield put(adverstInfoFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

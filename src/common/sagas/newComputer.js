@@ -76,7 +76,7 @@ export function* newComputerFetchWatchHandle(action) {
     yield put(newComputerFetchSuccess(computernewList, computernewBanerList));
   } catch (err) {
     yield put(newComputerFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

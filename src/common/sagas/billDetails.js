@@ -83,7 +83,7 @@ export function* billDetailsFetchWatchHandle(action) {
     }));
   } catch (err) {
     yield put(billDetailsFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

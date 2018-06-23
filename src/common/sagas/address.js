@@ -86,7 +86,7 @@ export function* addressFetchWatchHandle(action) {
     yield put(addressFetchSuccess(response.details, addressSelectedId));
   } catch (err) {
     yield put(addressFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
@@ -198,7 +198,7 @@ export function* addressAddFetchWatchHandle(action) {
     yield put(addressAddSuccess());
   } catch (err) {
     yield put(addressAddFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
@@ -263,7 +263,7 @@ export function* addressRemoveWatchHandle(action) {
     yield put(addressRemoveSuccess());
   } catch (err) {
     yield put(addressRemoveFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
@@ -389,7 +389,7 @@ export function* addressModifyWatchHandle(action) {
     yield put(addressModifySuccess());
   } catch (err) {
     yield put(addressModifyFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

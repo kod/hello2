@@ -88,7 +88,7 @@ export function* mergeGetInfoFetchWatchHandle(action) {
     yield put(mergeGetInfoFetchSuccess(result));
   } catch (err) {
     yield put(mergeGetInfoFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

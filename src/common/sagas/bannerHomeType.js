@@ -66,7 +66,7 @@ export function* bannerHomeTypeFetchWatchHandle(action) {
     );
   } catch (err) {
     yield put(bannerHomeTypeFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

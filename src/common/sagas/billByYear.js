@@ -119,7 +119,7 @@ export function* billByYearFetchWatchHandle(action) {
     }));
   } catch (err) {
     yield put(billByYearFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

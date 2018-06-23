@@ -83,7 +83,7 @@ export function* queryOrderFetchWatchHandle(action) {
     yield put(queryOrderFetchSuccess(response));
   } catch (err) {
     yield put(queryOrderFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

@@ -79,7 +79,7 @@ export function* adPhoneFetchWatchHandle(action) {
     yield put(adPhoneFetchSuccess(phoneAdList, phoneAdBanerList, classfyinfo));
   } catch (err) {
     yield put(adPhoneFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

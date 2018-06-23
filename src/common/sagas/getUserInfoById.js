@@ -54,7 +54,7 @@ export function* getUserInfoByIdFetchWatchHandle(action) {
     yield put(getUserInfoByIdFetchSuccess(response.details));
   } catch (err) {
     yield put(getUserInfoByIdFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 export function* getUserInfoByIdFetchWatch() {

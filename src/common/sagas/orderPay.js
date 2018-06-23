@@ -102,7 +102,7 @@ export function* orderPayFetchWatchHandle(action) {
     }));
   } catch (err) {
     yield put(orderPayFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

@@ -186,7 +186,7 @@ export function* productDetailInfoFetchWatchHandle(action) {
     // ));
   } catch (err) {
     yield put(productDetailInfoFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

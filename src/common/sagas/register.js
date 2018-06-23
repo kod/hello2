@@ -102,7 +102,7 @@ export function* registerFetchWatchHandle(action) {
 
   } catch (err) {
     yield put(registerFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 export function* registerFetchWatch() {
@@ -128,7 +128,7 @@ export function* registerSuccessWatchHandle(action) {
     )
 
   } catch (error) {
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

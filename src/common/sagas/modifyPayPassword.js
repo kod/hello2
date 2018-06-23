@@ -85,7 +85,7 @@ export function* modifyPayPasswordFetchWatchHandle(action) {
 
   } catch (err) {
     yield put(modifyPayPasswordFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 export function* modifyPayPasswordFetchWatch() {
@@ -114,7 +114,7 @@ export function* modifyPayPasswordSuccessWatchHandle(action) {
     )
 
   } catch (error) {
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

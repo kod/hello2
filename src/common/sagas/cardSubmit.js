@@ -81,7 +81,7 @@ export function* cardSubmitFetchWatchHandle(action) {
     yield put(cardSubmitFetchSuccess());
   } catch (err) {
     yield put(cardSubmitFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 export function* cardSubmitFetchWatch() {

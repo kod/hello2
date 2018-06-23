@@ -80,7 +80,7 @@ export function* queryGoodsFetchWatchHandle(action) {
     }));
   } catch (err) {
     yield put(queryGoodsFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

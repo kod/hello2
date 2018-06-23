@@ -73,7 +73,7 @@ export function* topComputerFetchWatchHandle(action) {
     yield put(topComputerFetchSuccess(computeradImgList, classfyinfo));
   } catch (err) {
     yield put(topComputerFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 

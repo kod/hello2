@@ -73,7 +73,7 @@ export function* mergeGetSlaveFetchWatchHandle(action) {
     yield put(mergeGetSlaveFetchSuccess(response));
   } catch (err) {
     yield put(mergeGetSlaveFetchFailure());
-    yield put(addError(err.toString()));
+    yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
