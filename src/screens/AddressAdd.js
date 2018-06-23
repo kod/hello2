@@ -417,7 +417,7 @@ class AddressAdd extends React.Component {
           {[division2ndItems, division3rdItems, division4thItems].map((val, key) => 
             renderScrollView(val, key)
           )}
-          {loading && <Loader absolutePosition={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0}} />}
+          {loading && <Loader absolutePosition />}
         </View>
       </View>
     )

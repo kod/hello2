@@ -241,7 +241,7 @@ class OrderWrite extends React.Component {
 
     return (
       <View style={styles.container} >
-        {(getUserInfoById.loading || orderCreate.loading) && <Loader absolutePosition={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, }} />}
+        {(getUserInfoById.loading || orderCreate.loading) && <Loader absolutePosition />}
         <BYHeader />
         <ScrollView>
           <Address
