@@ -3,7 +3,8 @@ import { View, Text, Animated, StyleSheet } from 'react-native';
 import { TabBarTop } from 'react-navigation';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, PRIMARY_COLOR, STATUSBAR_HEIGHT, SIDEINTERVAL } from '../styles/variables';
+import { PRIMARY_COLOR, } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import CustomIcon from '../components/CustomIcon.js';
 

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Text, Dimensions, Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 
-import { globalStyleVariables } from "../styles";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   child: {
-    height: globalStyleVariables.WINDOW_WIDTH / 2.25,
-    width: globalStyleVariables.WINDOW_WIDTH,
+    height: WINDOW_WIDTH / 2.25,
+    width: WINDOW_WIDTH,
     justifyContent: 'center',
   },
   text: {
@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     bottom: 10,
     left: 0,
-    right: globalStyleVariables.WINDOW_WIDTH * 0.03,
+    right: WINDOW_WIDTH * 0.03,
   },
   pagination: {
     width: 10,
     height: 3,
     borderRadius: 0,
-    marginHorizontal: globalStyleVariables.WINDOW_WIDTH * 0.010
+    marginHorizontal: WINDOW_WIDTH * 0.010
   }
 });
 

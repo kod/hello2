@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
-import { globalStyleVariables } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 import Error from "../components/Error";
 import BYTextInput from "../components/BYTextInput";
 import { BORDER_COLOR } from "../styles/variables";
 
 const styles = StyleSheet.create({
   componentWrap: {
-    paddingLeft: globalStyleVariables.SIDEINTERVAL,
-    paddingRight: globalStyleVariables.SIDEINTERVAL,
+    paddingLeft: SIDEINTERVAL,
+    paddingRight: SIDEINTERVAL,
   },
   component: {
     flexDirection: 'row',
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   componentFlag: {
     width: 18,
     resizeMode: Image.resizeMode.contain,
-    marginLeft: globalStyleVariables.SIDEINTERVAL
+    marginLeft: SIDEINTERVAL
   },
   componentCode: {
     marginLeft: 5,

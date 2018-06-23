@@ -3,7 +3,7 @@ import { View, WebView, StyleSheet } from 'react-native';
 import ProgressBar from 'react-native-progress/Bar';
 import Loader from './Loader';
 import BYHeader from './BYHeader';
-import { globalStyles, globalStyleVariables } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -50,7 +50,7 @@ class PXWebView extends Component {
           <ProgressBar
             indeterminate
             borderRadius={0}
-            width={globalStyleVariables.WINDOW_WIDTH}
+            width={WINDOW_WIDTH}
             height={3}
           />
         }

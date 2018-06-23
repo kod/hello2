@@ -18,15 +18,9 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {
-  WINDOW_WIDTH,
-  WINDOW_HEIGHT,
-  APPBAR_HEIGHT,
-  BORDER_COLOR,
-  SIDEINTERVAL,
-  PRIMARY_COLOR, 
-  RED_COLOR
-} from "../styles/variables";
+
+import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import * as productDetailActionCreators from '../common/actions/productDetail';
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';

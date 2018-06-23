@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import BYTouchable from './BYTouchable';
-import { globalStyleVariables } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 import CustomIcon from '../components/CustomIcon';
 import { connectLocalization } from "../components/Localization";
 
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     right: 0,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: globalStyleVariables.SIDEINTERVAL,
-    paddingRight: globalStyleVariables.SIDEINTERVAL
+    paddingLeft: SIDEINTERVAL,
+    paddingRight: SIDEINTERVAL
   },
   componentMoreText: {
     fontSize: 11,

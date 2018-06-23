@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal } from 'react-native';
-import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR } from '../styles/variables';
+import { RED_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 import BYTouchable from '../components/BYTouchable';
 
 import { BORDER_COLOR } from "../styles/variables";

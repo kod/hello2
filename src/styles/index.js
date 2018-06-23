@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import * as globalStyleVariables from './variables';
+import { HEADER_BACKGROUND_COLOR, } from "./variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from "../common/constants";
 
 const globalStyles = StyleSheet.create({
   container: {
@@ -9,7 +10,7 @@ const globalStyles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
+    backgroundColor: HEADER_BACKGROUND_COLOR,
   },
   headerWithoutShadow: {
     shadowOpacity: 0,
@@ -17,12 +18,12 @@ const globalStyles = StyleSheet.create({
       height: 0,
     },
     elevation: 0,
-    backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
+    backgroundColor: HEADER_BACKGROUND_COLOR,
   },
   scrollView: {
-    height: globalStyleVariables.WINDOW_HEIGHT - globalStyleVariables.APPBAR_HEIGHT - globalStyleVariables.STATUSBAR_HEIGHT + 1,
+    height: WINDOW_HEIGHT - APPBAR_HEIGHT - STATUSBAR_HEIGHT + 1,
     backgroundColor: '#fff',
   },
 });
 
-export { globalStyles, globalStyleVariables };
+export default globalStyles;

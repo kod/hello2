@@ -18,7 +18,8 @@ import Loader from "../components/Loader";
 import { makegetSchoolName } from "../common/selectors";
 import { SCREENS } from '../common/constants';
 
-import { SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT, BORDER_COLOR } from '../styles/variables';
+import { BORDER_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import * as userAddDetailInfoActionCreators from '../common/actions/userAddDetailInfo';
 import * as userCertificateInfoActionCreators from '../common/actions/userCertificateInfo';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image, InteractionManager } from 'react-native';
-import { WINDOW_WIDTH } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 class ImageGetSize extends Component {
   constructor(props) {

@@ -1,15 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
-import { globalStyleVariables } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { PRIMARY_COLOR } from "../styles/variables";
 import BYTouchable from '../components/BYTouchable';
 
 const styles = StyleSheet.create({
   componentWrap: {
-    paddingLeft: globalStyleVariables.SIDEINTERVAL, 
-    paddingRight: globalStyleVariables.SIDEINTERVAL,
+    paddingLeft: SIDEINTERVAL, 
+    paddingRight: SIDEINTERVAL,
   },
   component: {
-    backgroundColor: globalStyleVariables.PRIMARY_COLOR
+    backgroundColor: PRIMARY_COLOR
   },
   componentText: {
     textAlign: 'center',

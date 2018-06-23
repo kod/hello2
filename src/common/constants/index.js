@@ -1,3 +1,5 @@
+import { Dimensions, Platform, StatusBar } from 'react-native';
+
 export const SCREENS = {
   Address: 'Address',
   AddressAdd: 'AddressAdd',
@@ -49,3 +51,10 @@ export const CARMAXNUMBER = 50;
 
 export const PHONEEXPR = /^[0-9]{8,11}$/; //手机号
 export const PWDEXPR = /^.{8,20}$/; // 密码
+
+export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);
+export const WINDOW_HEIGHT = Math.floor(Dimensions.get('window').height);
+export const SIDEINTERVAL = Math.floor(Dimensions.get('window').width) * 0.04;
+
+export const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 44;
+export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;

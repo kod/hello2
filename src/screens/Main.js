@@ -2,7 +2,8 @@ import React from 'react';
 import { ScrollView, ListView, StyleSheet, View, Text, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
-import { globalStyleVariables } from '../styles';
+import { BACKGROUND_COLOR, HEADER_BACKGROUND_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 import { SCREENS } from '../common/constants';
 
@@ -38,14 +39,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: globalStyleVariables.BACKGROUND_COLOR
+    backgroundColor: BACKGROUND_COLOR
   },
   headerContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     height: 40 + STATUSBAR_HEIGHT,
-    backgroundColor: globalStyleVariables.HEADER_BACKGROUND_COLOR,
+    backgroundColor: HEADER_BACKGROUND_COLOR,
     paddingTop: STATUSBAR_HEIGHT,
   },
   headerMiddle: {
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   headerMiddleMain: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.03,
+    paddingLeft: WINDOW_WIDTH * 0.03,
     height: 30,
     backgroundColor: '#f5f5f5',
     borderRadius: 1
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   headerMiddleIcon: {
     fontSize: 12,
     color: '#ccc',
-    marginRight: globalStyleVariables.WINDOW_WIDTH * 0.02
+    marginRight: WINDOW_WIDTH * 0.02
   },
   headerMiddleText: {
     fontSize: 13,
@@ -71,8 +72,8 @@ const styles = StyleSheet.create({
   headerIcon: {
     height: 40,
     lineHeight: 40,
-    paddingLeft: globalStyleVariables.WINDOW_HEIGHT * 0.03,
-    paddingRight: globalStyleVariables.WINDOW_HEIGHT * 0.03,
+    paddingLeft: WINDOW_HEIGHT * 0.03,
+    paddingRight: WINDOW_HEIGHT * 0.03,
     color: '#999',
     fontSize: 18
   }

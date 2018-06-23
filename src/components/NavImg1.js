@@ -1,7 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Dimensions, } from 'react-native';
-import { globalStyleVariables } from "../styles";
-import priceFormat from "../common/helpers/priceFormat";
 
 const styles = StyleSheet.create({
   nav1: {

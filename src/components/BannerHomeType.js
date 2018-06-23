@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, Image, Dimensions } from 'react-native';
-import { globalStyleVariables } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 export default ({ data, style, ...restProps }) => {
-  const width = globalStyleVariables.WINDOW_WIDTH;
+  const width = WINDOW_WIDTH;
 
   const itemIntervalWidth = width * 0.02;
   const itemWidth = (width - itemIntervalWidth * 2) / 3;

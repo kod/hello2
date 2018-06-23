@@ -9,7 +9,9 @@ import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import BYButton from "../components/BYButton";
 import Loader from "../components/Loader";
-import { SIDEINTERVAL, BORDER_COLOR, PRIMARY_COLOR, WINDOW_WIDTH } from "../styles/variables";
+
+import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import * as updatePeriodActionCreators from '../common/actions/updatePeriod';
 

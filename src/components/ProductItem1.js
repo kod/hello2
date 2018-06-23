@@ -5,7 +5,8 @@ import { withNavigation } from 'react-navigation';
 import BYTouchable from "../components/BYTouchable";
 import { SCREENS } from "../common/constants";
 
-import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR , BORDER_COLOR} from "../styles/variables";
+import { RED_COLOR , BORDER_COLOR} from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 import priceFormat from "../common/helpers/priceFormat";
 
 const itemIntervalWidth = SIDEINTERVAL;

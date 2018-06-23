@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from "react-redux";
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { SIDEINTERVAL, PRIMARY_COLOR, WINDOW_WIDTH, APPBAR_HEIGHT } from '../styles/variables';
+import { PRIMARY_COLOR, } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT } from "../common/constants";
 
 import BYHeader from '../components/BYHeader';
 import NavBar2 from '../components/NavBar2';

@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
-import { globalStyleVariables } from '../styles';
-import priceFormat from '../common/helpers/priceFormat';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
-const marginWidth = globalStyleVariables.WINDOW_WIDTH * 0.015;
-const width = (globalStyleVariables.WINDOW_WIDTH - marginWidth * 2 * 4 - marginWidth * 2) / 4;
+const marginWidth = WINDOW_WIDTH * 0.015;
+const width = (WINDOW_WIDTH - marginWidth * 2 * 4 - marginWidth * 2) / 4;
 
 const styles = StyleSheet.create({
   itemWrap: {

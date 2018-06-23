@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { globalStyleVariables, globalStyles } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 import BYHeader from '../components/BYHeader';
 import BYButton from "../components/BYButton";
@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
   },
   second: {
     height: 20,
-    minWidth: globalStyleVariables.WINDOW_WIDTH * 0.1,
-    paddingLeft: globalStyleVariables.WINDOW_WIDTH * 0.02,
-    paddingRight: globalStyleVariables.WINDOW_WIDTH * 0.02,
+    minWidth: WINDOW_WIDTH * 0.1,
+    paddingLeft: WINDOW_WIDTH * 0.02,
+    paddingRight: WINDOW_WIDTH * 0.02,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 14,

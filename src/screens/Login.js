@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { StyleSheet, Text, View, ScrollView, Keyboard, DeviceEventEmitter, } from 'react-native';
 import OverlaySpinner from 'react-native-loading-spinner-overlay';
 
-import { globalStyleVariables, globalStyles } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 import { SCREENS } from '../common/constants';
 
@@ -18,8 +18,6 @@ import NavSidesText from '../components/NavSidesText';
 import OtherLogin from '../components/OtherLogin';
 
 import * as authActionCreators from "../common/actions/auth";
-
-import { WINDOW_HEIGHT } from '../styles/variables';
 
 const styles = StyleSheet.create({
   container: {
@@ -67,7 +65,7 @@ class Login extends React.Component {
     } = this.props;
 
     return (
-      <BYTouchable style={{ marginRight: globalStyleVariables.SIDEINTERVAL }} onPress={() => navigate(SCREENS.ForgotPasswordOne)}>
+      <BYTouchable style={{ marginRight: SIDEINTERVAL }} onPress={() => navigate(SCREENS.ForgotPasswordOne)}>
         <Text style={{ marginLeft: 0, color: '#666', fontSize: 11, borderBottomColor: '#666', borderBottomWidth: 1 }}>forgot password?</Text>
       </BYTouchable>
     );

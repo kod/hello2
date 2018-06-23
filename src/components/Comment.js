@@ -3,15 +3,10 @@ import { StyleSheet, View, Text, Image, } from 'react-native';
 import BYTouchable from '../components/BYTouchable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
-  WINDOW_WIDTH,
-  WINDOW_HEIGHT,
-  APPBAR_HEIGHT,
-  STATUSBAR_HEIGHT,
-  SIDEINTERVAL,
-  RED_COLOR,
   BORDER_COLOR,
   PRIMARY_COLOR,
 } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 const styles = StyleSheet.create({
   componentWrap: {

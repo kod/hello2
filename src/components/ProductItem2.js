@@ -10,7 +10,8 @@ import { CARMAXNUMBER } from "../common/constants";
 import BYTouchable from "../components/BYTouchable";
 import { SCREENS } from "../common/constants";
 
-import { SIDEINTERVAL, RED_COLOR, WINDOW_WIDTH, BORDER_COLOR } from "../styles/variables";
+import { RED_COLOR, BORDER_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 import BYTextInput from "../components/BYTextInput";
 

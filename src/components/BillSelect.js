@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { WINDOW_WIDTH, SIDEINTERVAL, RED_COLOR, APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_HEIGHT, PRIMARY_COLOR, } from '../styles/variables';
+import { RED_COLOR, PRIMARY_COLOR, } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import priceFormat from "../common/helpers/priceFormat";
 import { billStatusCodes } from "../common/helpers";

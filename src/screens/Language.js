@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import BYHeader from '../components/BYHeader';
-import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
 import BYTouchable from "../components/BYTouchable";
-import { globalStyleVariables } from "../styles";
-import { BACKGROUND_COLOR, WINDOW_WIDTH } from "../styles/variables";
+import { PRIMARY_COLOR } from "../styles/variables";
+import { BACKGROUND_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 import { connectLocalization } from "../components/Localization";
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as i18nActionCreators from "../common/actions/i18n";
 
 const styles = StyleSheet.create({
@@ -61,7 +60,7 @@ class Language extends React.Component {
           <BYTouchable delayPressIn={0} key={key} onPress={ () => this.handleOnPressListItem(val.id) }>
             <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: WINDOW_WIDTH * 0.04, paddingRight: WINDOW_WIDTH * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }} >
               <Text style={{ flex: 1, }} >{ val.title }</Text>
-              { val.id === lang && <MaterialIcons name="check-circle" style={{ fontSize: 26, color: globalStyleVariables.PRIMARY_COLOR }} /> }
+              { val.id === lang && <MaterialIcons name="check-circle" style={{ fontSize: 26, color: PRIMARY_COLOR }} /> }
             </View>
           </BYTouchable>
         )}

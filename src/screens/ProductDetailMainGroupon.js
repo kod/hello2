@@ -17,16 +17,9 @@ import Comment from "../components/Comment";
 import priceFormat from "../common/helpers/priceFormat";
 import { SCREENS } from "../common/constants";
 
-import {
-  WINDOW_WIDTH,
-  WINDOW_HEIGHT,
-  APPBAR_HEIGHT,
-  STATUSBAR_HEIGHT,
-  SIDEINTERVAL,
-  RED_COLOR,
-  BORDER_COLOR,
-  PRIMARY_COLOR,
-} from "../styles/variables";
+
+import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import { makegetIsCollection } from "../common/selectors";
 

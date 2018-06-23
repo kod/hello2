@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, Platform, StatusBar } from 'react-native';
 import { HeaderBackButton, withNavigation } from 'react-navigation';
-import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, SIDEINTERVAL, HEADER_BACKGROUND_COLOR, BORDER_COLOR } from '../styles/variables';
+import { HEADER_BACKGROUND_COLOR, BORDER_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from "../common/constants";
 import CustomIcon from "../components/CustomIcon";
 import BYTouchable from "../components/BYTouchable";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
-import { globalStyleVariables } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 import priceFormat from '../common/helpers/priceFormat';
 import Error from '../components/Error';
 
@@ -10,8 +10,8 @@ import BYTextInput from "../components/BYTextInput";
 
 const styles = StyleSheet.create({
   componentWrap: {
-    paddingLeft: globalStyleVariables.SIDEINTERVAL,
-    paddingRight: globalStyleVariables.SIDEINTERVAL,
+    paddingLeft: SIDEINTERVAL,
+    paddingRight: SIDEINTERVAL,
   },
   component: {
     flexDirection: 'row',
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   componentInput: {
     flex: 1,
-    marginLeft: globalStyleVariables.SIDEINTERVAL,
+    marginLeft: SIDEINTERVAL,
     paddingTop: 10,
     paddingBottom: 10,
   }

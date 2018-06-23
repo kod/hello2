@@ -9,15 +9,12 @@ import ImageGetSize from "../components/ImageGetSize";
 import BYCacheImage from "../components/BYCacheImage";
 
 import {
-  WINDOW_WIDTH,
-  WINDOW_HEIGHT,
-  APPBAR_HEIGHT,
-  STATUSBAR_HEIGHT,
-  SIDEINTERVAL,
   RED_COLOR,
   BORDER_COLOR,
   PRIMARY_COLOR,
 } from "../styles/variables";
+
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 
@@ -48,7 +45,7 @@ class ProductDetailParam extends React.Component {
       // <PXCacheImageTouchable
       //   key={item}
       //   uri={item}
-      //   initWidth={globalStyleVariables.WINDOW_HEIGHT}
+      //   initWidth={WINDOW_HEIGHT}
       //   initHeight={200}
       //   // style={styles.multiImageContainer}
       //   // imageStyle={styles.image}

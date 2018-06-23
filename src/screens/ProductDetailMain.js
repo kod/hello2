@@ -17,15 +17,12 @@ import priceFormat from "../common/helpers/priceFormat";
 import { SCREENS } from "../common/constants";
 
 import {
-  WINDOW_WIDTH,
-  WINDOW_HEIGHT,
-  APPBAR_HEIGHT,
-  STATUSBAR_HEIGHT,
-  SIDEINTERVAL,
   RED_COLOR,
   BORDER_COLOR,
   PRIMARY_COLOR,
 } from "../styles/variables";
+
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import { makegetIsCollection } from "../common/selectors";
 
@@ -217,7 +214,7 @@ class ProductDetail extends React.Component {
       // <PXCacheImageTouchable
       //   key={item}
       //   uri={item}
-      //   initWidth={globalStyleVariables.WINDOW_HEIGHT}
+      //   initWidth={WINDOW_HEIGHT}
       //   initHeight={200}
       //   // style={styles.multiImageContainer}
       //   // imageStyle={styles.image}

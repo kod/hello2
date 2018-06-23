@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { SCREENS } from '../common/constants';
-import { SIDEINTERVAL, WINDOW_WIDTH, RED_COLOR } from "../styles/variables";
+import { RED_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 import SwiperFlatList from '../components/SwiperFlatList';
 import BannerHomeType from '../components/BannerHomeType';

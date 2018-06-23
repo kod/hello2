@@ -3,7 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Keyboard } from 'react-native';
 import { connect } from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 
-import { globalStyleVariables, globalStyles } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
@@ -85,11 +85,11 @@ class RegisterStepOne extends React.Component {
             keyboardType={'phone-pad'}
             style={{marginBottom: 30}}
           />
-          <View style={{ paddingLeft: globalStyleVariables.SIDEINTERVAL, paddingRight: globalStyleVariables.SIDEINTERVAL }}>
+          <View style={{ paddingLeft: SIDEINTERVAL, paddingRight: SIDEINTERVAL }}>
             <Field 
               name="inviterno"
               component={InvitationInput}
-              style={{ flex: 1, paddingLeft: globalStyleVariables.SIDEINTERVAL, paddingTop: 10, paddingBottom: 10, backgroundColor: '#E0E3EF', marginBottom: 75 }} 
+              style={{ flex: 1, paddingLeft: SIDEINTERVAL, paddingTop: 10, paddingBottom: 10, backgroundColor: '#E0E3EF', marginBottom: 75 }} 
               placeholder={'Please enter the invitation code.(选填)'} 
               placeholderTextColor={'#6D7592'} 
             />

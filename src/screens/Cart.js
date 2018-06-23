@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { APPBAR_HEIGHT, STATUSBAR_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import CartItem from "../components/CartItem";

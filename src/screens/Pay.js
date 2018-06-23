@@ -18,7 +18,9 @@ import Address from "../components/Address";
 import Loader from "../components/Loader";
 import SeparateBar from "../components/SeparateBar";
 
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, BORDER_COLOR } from "../styles/variables";
+import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+
 
 import { getAddressSelectedItem } from "../common/selectors";
 

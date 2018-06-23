@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, Platform } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
-import { globalStyleVariables } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 class PXCacheImage extends Component {
   constructor(props) {
@@ -59,7 +59,7 @@ class PXCacheImage extends Component {
     return width && height
       ? <View
           style={{
-            width: globalStyleVariables.WINDOW_WIDTH,
+            width: WINDOW_WIDTH,
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
@@ -76,12 +76,12 @@ class PXCacheImage extends Component {
             style={[
               {
                 // width:
-                //   width > globalStyleVariables.WINDOW_WIDTH
-                //     ? globalStyleVariables.WINDOW_WIDTH
+                //   width > WINDOW_WIDTH
+                //     ? WINDOW_WIDTH
                 //     : width,
-                height: globalStyleVariables.WINDOW_WIDTH * height / width,
-                width: globalStyleVariables.WINDOW_WIDTH,
-                height: height / width * globalStyleVariables.WINDOW_WIDTH,
+                height: WINDOW_WIDTH * height / width,
+                width: WINDOW_WIDTH,
+                height: height / width * WINDOW_WIDTH,
                 resizeMode: 'contain',
               },
               style,

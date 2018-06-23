@@ -8,7 +8,8 @@ import ProductDetailComment from '../screens/ProductDetailComment';
 
 import { SCREENS } from '../common/constants';
 import CustomTabBarComponent from "../components/CustomTabBarComponent";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, PRIMARY_COLOR, STATUSBAR_HEIGHT, SIDEINTERVAL } from '../styles/variables';
+import { PRIMARY_COLOR, } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from "../common/constants";
 
 const RouteConfigs = {
   [SCREENS.ProductDetailMainGroupon]: {

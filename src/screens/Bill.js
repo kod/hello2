@@ -22,7 +22,8 @@ import BillSelect from "../components/BillSelect";
 import ActionSheet from "../components/ActionSheet";
 // import EnterPassword from "../components/EnterPassword";
 
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, APPBAR_HEIGHT, STATUSBAR_HEIGHT, BORDER_COLOR } from "../styles/variables";
+import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import * as searchMonthActionCreators from '../common/actions/searchMonth';
 import * as billActionCreators from '../common/actions/bill';

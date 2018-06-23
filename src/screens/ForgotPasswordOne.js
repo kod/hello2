@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image, Button } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
-import { globalStyleVariables, globalStyles } from '../styles';
-
 import { SCREENS } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';

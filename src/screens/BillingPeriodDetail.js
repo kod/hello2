@@ -10,7 +10,8 @@ import CustomIcon from "../components/CustomIcon";
 import BYTouchable from "../components/BYTouchable";
 import NavBar2 from "../components/NavBar2";
 import SeparateBar from "../components/SeparateBar";
-import { SIDEINTERVAL, APPBAR_HEIGHT, WINDOW_WIDTH, STATUSBAR_HEIGHT, PRIMARY_COLOR, } from "../styles/variables";
+import { PRIMARY_COLOR, } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from "../common/constants";
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as authActionCreators from '../common/actions/auth';

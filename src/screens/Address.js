@@ -12,7 +12,8 @@ import BYTouchable from "../components/BYTouchable";
 import EmptyState from "../components/EmptyState";
 import Loader from "../components/Loader";
 
-import { SIDEINTERVAL, WINDOW_WIDTH, BORDER_COLOR, PRIMARY_COLOR } from "../styles/variables";
+import { BORDER_COLOR, PRIMARY_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';

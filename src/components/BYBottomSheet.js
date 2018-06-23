@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   Animated,
 } from 'react-native';
-import { globalStyleVariables } from '../styles';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from "../common/constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -25,9 +25,9 @@ class PXBottomSheet extends Component {
   static defaultProps = {
     duration: 300,
     height:
-      globalStyleVariables.WINDOW_HEIGHT -
-      globalStyleVariables.APPBAR_HEIGHT -
-      globalStyleVariables.STATUSBAR_HEIGHT,
+      WINDOW_HEIGHT -
+      APPBAR_HEIGHT -
+      STATUSBAR_HEIGHT,
   };
 
   constructor(props) {

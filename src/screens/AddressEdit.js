@@ -5,7 +5,8 @@ import { Field, reduxForm } from 'redux-form';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { SIDEINTERVAL, WINDOW_WIDTH, PRIMARY_COLOR, WINDOW_HEIGHT, BORDER_COLOR } from "../styles/variables";
+import { PRIMARY_COLOR, BORDER_COLOR } from "../styles/variables";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
 
 import BYHeader from '../components/BYHeader';
 import BYTextInput from "../components/BYTextInput";

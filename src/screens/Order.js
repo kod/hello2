@@ -14,7 +14,8 @@ import ScrollableTabView from '../components/ScrollableTabView';
 import SeparateBar from '../components/SeparateBar';
 import EmptyState from "../components/EmptyState";
 
-import { SIDEINTERVAL, BORDER_COLOR, PRIMARY_COLOR, WINDOW_WIDTH, WINDOW_HEIGHT } from "../styles/variables";
+import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 import priceFormat from '../common/helpers/priceFormat';
 import { tradeStatusCodes, buttonTextForTradeStatusCodes } from '../common/helpers';
 

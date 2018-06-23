@@ -17,7 +17,8 @@ import { makegetSchoolName } from "../common/selectors";
 import { SCREENS } from '../common/constants';
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 
-import { SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT, BORDER_COLOR } from '../styles/variables';
+import { BORDER_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 
 const styles = StyleSheet.create({
   container: {
