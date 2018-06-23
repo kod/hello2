@@ -4169,6 +4169,10 @@ react-native-spinkit@^1.1.1:
   dependencies:
     prop-types "^15.5.8"
 
+react-native-splash-screen@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.npmjs.org/react-native-splash-screen/-/react-native-splash-screen-3.0.9.tgz#5cdd026ae414d60cd86bcaa897bffacd16395bed"
+
 react-native-swiper-flatlist@^1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/react-native-swiper-flatlist/-/react-native-swiper-flatlist-1.0.5.tgz#3af2d264e4bbda553129f1b9372c2e605f49631e"

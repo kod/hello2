@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, DeviceEventEmitter } from 'react-native';
 import { connect } from "react-redux";
+import SplashScreen from 'react-native-splash-screen';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { connectLocalization } from '../../components/Localization';
 import BYStatusBar from '../../components/BYStatusBar';
@@ -24,6 +25,20 @@ class App extends Component {
         this.toast.show(text);
       },
     );
+
+    const { rehydrated } = this.props;
+    if (rehydrated) {
+      // call when reopen app after exit by back button on android
+      SplashScreen.hide();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { rehydrated: prevRehydrated } = this.props;
+    const { rehydrated } = nextProps;
+    if (!prevRehydrated && rehydrated) {
+      SplashScreen.hide();
+    }
   }
 
   componentWillUnmount() {
