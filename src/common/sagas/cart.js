@@ -47,7 +47,7 @@ import Schemas from "../constants/schemas";
 
 export function* cartFetchWatchHandle(action) {
   try {
-    const funid = action.payload.funid;
+    const funid = yield select(getAuthUserFunid);
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.cart.query';
@@ -116,6 +116,8 @@ export function* cartFetchWatch() {
 
 export function* cartNumberRequestWatchHandle(action) {
   try {
+    const funid = yield select(getAuthUserFunid);
+    
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.cart.change';
@@ -123,7 +125,6 @@ export function* cartNumberRequestWatchHandle(action) {
     let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
     let version = '2.0';
     
-    const funid = action.payload.funid;
     var cartitemid = action.payload.cartitemid;
     var quetity = action.payload.quetity;
   
