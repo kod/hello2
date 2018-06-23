@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { normalize } from 'normalizr';
 import { takeEvery, apply, put } from 'redux-saga/effects';
 import { productDetailInfoFetchSuccess, productDetailInfoFetchFailure } from '../actions/productDetailInfo';
@@ -7,7 +7,8 @@ import buyoo from '../helpers/apiClient';
 import { PRODUCT_DETAIL_INFO } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
-import Schemas from "../../common/constants/schemas";
+import NavigatorService from '../../navigations/NavigatorService';
+import i18n from '../helpers/i18n';
 
 export function* productDetailInfoFetchWatchHandle(action) {
 
@@ -115,7 +116,18 @@ export function* productDetailInfoFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(productDetailInfoFetchFailure());
-      yield put(addError(response.msg));
+      // yield put(addError(response.msg));
+      Alert.alert(
+        '',
+        response.msg,
+        [
+          { 
+            text: i18n.confirm, 
+            onPress: () => { NavigatorService.pop(1); }
+          }
+        ]
+      )
+
       return false;
     }
 
@@ -145,45 +157,6 @@ export function* productDetailInfoFetchWatchHandle(action) {
       imageDesc,
     ));
 
-    // response = {
-    //   ...brand_detail,
-    //   product_detail,
-    //   properties_detail,
-    // }
-
-    // let edited = {
-    //   product_color: [],
-    //   product_version: [],
-    //   productDetailJson: {},
-    //   propertiesIds: '',
-    // };
-
-    // edited.propertiesIds = product_detail[0] ? product_detail[0].propertiesIds : '';
-
-    // edited.productDetailJson = product_detail.reduce((a, b, index) => {
-    //   if (index === 1) {
-    //       return {
-    //           [a.propertiesIds]: a,
-    //           [b.propertiesIds]: b,
-    //       }
-    //   } else {
-    //       return {
-    //           ...a,
-    //           [b.propertiesIds]: b,
-    //       }
-    //   }
-    // });
-
-    // const normalized = normalize(
-    //   response, 
-    //   Schemas.PRODUCTDETAIL,
-    // );
-
-    // yield put(productDetailInfoFetchSuccess(
-    //   normalized.entities,
-    //   normalized.result,
-    //   brand_id,
-    // ));
   } catch (err) {
     yield put(productDetailInfoFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));

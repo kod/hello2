@@ -1,14 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Text, Dimensions, Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
+import { withNavigation } from 'react-navigation';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import BYTouchable from "../components/BYTouchable";
 
-const { width, height } = Dimensions.get('window');
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from "../common/constants";
 
 const styles = StyleSheet.create({
   container: {
-    width,
+    width: WINDOW_WIDTH,
     backgroundColor: '#fff',
   },
   child: {
@@ -57,7 +58,7 @@ const Pagination = ({ data, paginationIndex, scrollToIndex, paginationDefaultCol
   )
 }
 
-export default class App extends PureComponent {
+class App extends Component {
 
   render() {
     const { 
@@ -65,6 +66,7 @@ export default class App extends PureComponent {
       styleWrap,
       style,
       stylePaginationContainer,
+      navigation: { navigate },
       ...restProps,
     } = this.props;
     stylePaginationContainerparam = stylePaginationContainer;
@@ -82,15 +84,22 @@ export default class App extends PureComponent {
           {...restProps}
         >
             {
-              data && data.map((val, index) => {
-                return (<Image
-                  key={index} 
-                  source={{uri: `${val}?x-oss-process=image/quality,Q_1`}}
-                  style={ [
-                    styles.child,
-                    style
-                  ]}
-                />)
+              data && data.map((val, key) => {
+                return (
+                <BYTouchable 
+                  key={key} 
+                  backgroundColor={'transparent'} 
+                  onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, })}
+                >
+                  <Image
+                    source={{uri: `${val.imageUrl}?x-oss-process=image/quality,Q_1`}}
+                    style={ [
+                      styles.child,
+                      style
+                    ]}
+                  />
+                </BYTouchable>
+                )
               })
             }
         </SwiperFlatList>
@@ -98,3 +107,5 @@ export default class App extends PureComponent {
     );
   }
 }
+
+export default withNavigation(App);

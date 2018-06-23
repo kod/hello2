@@ -72,11 +72,7 @@ export function* bannerSwiperFetchWatchHandle(action) {
             currentPage: currentPage,
           }
         ]);
-        let array = item.details;
-        for (let index = 0; index < array.length; index++) {
-          const element = array[index];
-          response.push(element.imageUrl);
-        }
+        response = item.details;
         break;
 
       case 'two':
@@ -120,11 +116,12 @@ export function* bannerSwiperFetchWatchHandle(action) {
                 currentpage: currentpage,
               }
             ]);
+            response = item.topadinfo;
 
-            for (let index = 0; index < item.topadinfo.length; index++) {
-              const element = item.topadinfo[index];
-              response.push(element.imageUrl);
-            }
+            // for (let index = 0; index < item.topadinfo.length; index++) {
+            //   const element = item.topadinfo[index];
+            //   response.push(element.imageUrl);
+            // }
           }
 
         break;
@@ -171,10 +168,12 @@ export function* bannerSwiperFetchWatchHandle(action) {
             }
           ]);
 
-          for (let index = 0; index < item.computerltopadinfo.length; index++) {
-            const element = item.computerltopadinfo[index];
-            response.push(element.imageUrl);
-          }
+          response = item.computerltopadinfo;
+
+          // for (let index = 0; index < item.computerltopadinfo.length; index++) {
+          //   const element = item.computerltopadinfo[index];
+          //   response.push(element.imageUrl);
+          // }
         }
         break;
 
@@ -220,10 +219,12 @@ export function* bannerSwiperFetchWatchHandle(action) {
             }
           ]);
 
-          for (let index = 0; index < item.digitaltopadinfo.length; index++) {
-            const element = item.digitaltopadinfo[index];
-            response.push(element.imageUrl);
-          }
+          response = item.digitaltopadinfo;
+
+          // for (let index = 0; index < item.digitaltopadinfo.length; index++) {
+          //   const element = item.digitaltopadinfo[index];
+          //   response.push(element.imageUrl);
+          // }
         }
         break;
         

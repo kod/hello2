@@ -53,9 +53,9 @@ export default function productDetailInfo(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        [action.payload.brand_id]: {
-          ...state[action.payload.brand_id],
-        },
+        // [action.payload.brand_id]: {
+        //   ...state[action.payload.brand_id],
+        // },
       };
     case PRODUCT_DETAIL_SELECT.REQUEST:
       return {
