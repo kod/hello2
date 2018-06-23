@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import moment from "moment";
-
 import { SCREENS } from "../common/constants";
 import priceFormat from "../common/helpers/priceFormat";
 import moment from "moment";
