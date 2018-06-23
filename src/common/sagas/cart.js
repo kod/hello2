@@ -41,7 +41,7 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import i18n from '../helpers/i18n';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import timeStrForm from "../../common/helpers/timeStrForm";
+import moment from "moment";
 import { getAuthUserFunid, getCartItems, getCart } from '../selectors';
 import Schemas from "../constants/schemas";
 
@@ -52,7 +52,7 @@ export function* cartFetchWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.cart.query';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
 
     let signType = signType_MD5(appId, method, charset, Key, true);
@@ -122,7 +122,7 @@ export function* cartNumberRequestWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.cart.change';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
     
     var cartitemid = action.payload.cartitemid;
@@ -195,7 +195,7 @@ export function* cartDeleteRequestWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.cart.remove';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
     
     const { cartitemids, orderno = '' } = action.payload;
@@ -315,7 +315,7 @@ export function* cartAddRequestWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.cart.gate';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
     
     let signType = signType_MD5(appId, method, charset, Key, true);

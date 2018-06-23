@@ -5,7 +5,7 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { COMMENT } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import timeStrForm from "../../common/helpers/timeStrForm";
+import moment from "moment";
 
 
 export function* commentFetchWatchHandle(action) {
@@ -22,7 +22,7 @@ export function* commentFetchWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.evaluation.query';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '1.0';
   
     let signType = signType_MD5(appId, method, charset, Key, false);

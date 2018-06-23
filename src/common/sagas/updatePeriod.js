@@ -15,7 +15,7 @@ import {
   UPDATE_PERIOD,
 } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import timeStrForm from "../../common/helpers/timeStrForm";
+import moment from "moment";
 
 import NavigatorService from '../../navigations/NavigatorService';
 
@@ -34,7 +34,7 @@ export function* updatePeriodFetchWatchHandle(action) {
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.account.period';
     const charset = 'utf-8';
-    const timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '2.0';
 
     const signType = signType_MD5(appId, method, charset, Key, true);

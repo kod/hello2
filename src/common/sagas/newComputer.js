@@ -5,7 +5,7 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { NEW_COMPUTER } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import timeStrForm from "../../common/helpers/timeStrForm";
+import moment from "moment";
 
 export function* newComputerFetchWatchHandle(action) {
   try {
@@ -14,7 +14,7 @@ export function* newComputerFetchWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.computer.newest';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '1.0';
 
     let typeid = '2';

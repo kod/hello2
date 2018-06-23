@@ -22,7 +22,7 @@ import {
   ADDRESS_MODIFY,
 } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import timeStrForm from "../../common/helpers/timeStrForm";
+import moment from "moment";
 import i18n from '../helpers/i18n';
 
 import NavigatorService from '../../navigations/NavigatorService';
@@ -38,7 +38,7 @@ export function* addressFetchWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.uc.userviewaddr';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '1.0';
   
     let signType = signType_MD5(appId, method, charset, Key, false);
@@ -111,7 +111,7 @@ export function* addressAddFetchWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.uc.useraddaddr';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
   
     let signType = signType_MD5(appId, method, charset, Key, false);
@@ -221,7 +221,7 @@ export function* addressRemoveWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.uc.userDelAddrs';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '1.0';
   
     let signType = signType_MD5(appId, method, charset, Key, true);
@@ -297,7 +297,7 @@ export function* addressModifyWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.uc.usermodifyaddr';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
   
     let signType = signType_MD5(appId, method, charset, Key, false);

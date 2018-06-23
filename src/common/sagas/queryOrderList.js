@@ -7,7 +7,7 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { QUERY_ORDER_LIST, QUERY_ORDER_LIST_INDEX } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import timeStrForm from "../../common/helpers/timeStrForm";
+import moment from "moment";
 
 import NavigatorService from '../../navigations/NavigatorService';
 
@@ -31,7 +31,7 @@ export function* queryOrderListFetchWatchHandle(action) {
     let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.trade.queryList';
     let charset = 'utf-8';
-    let timestamp = timeStrForm(parseInt(+new Date() / 1000), 3);
+    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.1';
 
     let signType = signType_MD5(appId, method, charset, Key, true);

@@ -11,7 +11,7 @@ import {
   OTP,
 } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import timeStrForm from "../../common/helpers/timeStrForm";
+import moment from "moment";
 
 export function* otpFetchWatchHandle(action) {
   try {

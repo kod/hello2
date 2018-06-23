@@ -8,7 +8,7 @@ import moment from "moment";
 
 import { SCREENS } from "../common/constants";
 import priceFormat from "../common/helpers/priceFormat";
-import timeStrForm from "../common/helpers/timeStrForm";
+import moment from "moment";
 import { getBillMonthItem, getBillTotalMoney } from "../common/selectors";
 
 import { connectLocalization } from "../components/Localization";
@@ -73,7 +73,7 @@ class Bill extends React.Component {
       activeMonth,
       activeYear,
     } = this.props;
-    // let nowTimeStr = timeStrForm(parseInt(+new Date() / 1000), 3);
+    // let nowTimeStr = moment().format('YYYY-MM-DD HH:mm:ss');
     if (activeMonth < 10) activeMonth = '0' + activeMonth;
     queryGoodsFetch({
       createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
@@ -223,7 +223,7 @@ class Bill extends React.Component {
     if (billMonthItem.status === 10002) return false;
 
     searchMonthFetch({
-      date: timeStrForm(parseInt(+new Date() / 1000), 3),
+      date: moment().format('YYYY-MM-DD HH:mm:ss'),
     });
 
     this.handleOnPressToggleModal('isOpenPay')
