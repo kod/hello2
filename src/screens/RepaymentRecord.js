@@ -9,10 +9,10 @@ import { connectLocalization } from "../components/Localization";
 import BYHeader from '../components/BYHeader';
 import NavBar1 from "../components/NavBar1";
 import BYTouchable from "../components/BYTouchable";
-import { SIDEINTERVAL, RED_COLOR } from "../styles/variables";
 
 import priceFormat from "../common/helpers/priceFormat";
 import { payWayToText } from "../common/helpers";
+import { SIDEINTERVAL } from "../common/constants";
 
 import { BORDER_COLOR } from "../styles/variables";
 

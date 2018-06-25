@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
-import { BORDER_COLOR, SIDEINTERVAL } from "../styles/variables";
+import { BORDER_COLOR } from "../styles/variables";
+import { SIDEINTERVAL } from "../common/constants";
 
 const styles = StyleSheet.create({
   other: {

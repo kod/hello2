@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, } from 'react-native';
-import { SIDEINTERVAL } from "../styles/variables";
+import { SIDEINTERVAL } from "../common/constants";
 import CustomIcon from "../components/CustomIcon";
 import BYTouchable from '../components/BYTouchable';
 
