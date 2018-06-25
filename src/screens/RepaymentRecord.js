@@ -28,7 +28,13 @@ const styles = StyleSheet.create({
 class RepaymentRecord extends React.Component {
 
   componentDidMount() {
-    const { repaymentRecordFetch } = this.props;
+    const {
+      repaymentRecordFetch,
+      isAuthUser,
+      navigation: { navigate },
+    } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    
     repaymentRecordFetch();
   }
 
@@ -199,6 +205,7 @@ export default connect(
       } = state;
       return {
         repaymentRecordItems: repaymentRecord.item.records ? repaymentRecord.item.records : [],
+        isAuthUser: !!state.auth.user,
       }
     }
   },

@@ -237,14 +237,13 @@ class ProductDetail extends Component {
       mergeGetDetailClear,
       propertiesIds,
       brandId,
-      authUser,
+      isAuthUser,
     } = this.props;
-    if (authUser) {
-      collectionFetch();
-      mergeCheckFetch({
-        brandId,
-      });
-    }
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    collectionFetch();
+    mergeCheckFetch({
+      brandId,
+    });
 
     mergeGetDetailClear(brandId);
     mergeGetDetailFetch(brandId, propertiesIds);
@@ -278,13 +277,13 @@ class ProductDetail extends Component {
       collectionAddFetch,
       collectionRemoveFetch,
       isCollection,
-      authUser,
+      isAuthUser,
       navigation,
       brandId,
       screenProps: { mainNavigation },
     } = this.props;
     const { navigate } = mainNavigation;
-    if (!authUser) return navigate(SCREENS.Login);
+    if (!isAuthUser) return navigate(SCREENS.Login);
     isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
   }
 
@@ -680,7 +679,6 @@ class ProductDetail extends Component {
     const {
       i18n,
       isMaster,
-      authUser,
       masterItems,
       screenProps: {
         handleOnPressToggleMenuBottomSheet,
@@ -820,7 +818,7 @@ export default connectLocalization(connect(
         masterItems: mergeGetMaster.items,
         comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
         isCollection: getIsCollection(state, props),
-        authUser: !!state.auth.user,
+        isAuthUser: !!state.auth.user,
         isMaster: !!mergeCheck.item.mergeMasterId
       }
     }

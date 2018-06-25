@@ -267,12 +267,12 @@ class ProductDetail extends React.Component {
     const {
       name,
       brandId,
-      authUser,
+      isAuthUser,
       cartAddRequest,
       navigation,
       navigation: {navigate},
     } = this.props;
-    // if (!authUser) return navigate(SCREENS.Login);
+    if (!isAuthUser) return navigate(SCREENS.Login);
 
     const param = [{
       quantity: 1,
@@ -348,7 +348,7 @@ class ProductDetail extends React.Component {
       groupon,
       masterItems,
       isMaster,
-      authUser,
+      isAuthUser,
       navigation: {navigate},
     } = this.props;
     if (mounting) {
@@ -356,7 +356,7 @@ class ProductDetail extends React.Component {
     }
     
     let operateGroupRightText = '';
-    if (authUser) {
+    if (isAuthUser) {
       operateGroupRightText = '';
     } else {
       operateGroupRightText = 'Start Group buying';
@@ -606,7 +606,7 @@ export default connectLocalization(connect(
         isMaster: !!mergeCheck.item.mergeMasterId,
         propertiesIds,
         masterItems: mergeGetMaster.items,
-        authUser: state.auth.user,
+        isAuthUser: !!state.auth.user,
       };
     };
   }, 

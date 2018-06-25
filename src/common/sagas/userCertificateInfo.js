@@ -24,11 +24,7 @@ import NavigatorService from '../../navigations/NavigatorService';
 export function* userCertificateInfoFetchWatchHandle(action) {
   try {
     // const { user: { result } } = action.payload;
-    const {
-      user,
-      type,
-    } = action.payload;
-    const funid = user.result;
+    const funid = yield select(getAuthUserFunid);
 
     let Key = 'userKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';

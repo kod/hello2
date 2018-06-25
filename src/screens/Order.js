@@ -137,8 +137,14 @@ class Order extends React.Component {
   }
 
   componentDidMount() {
-    // const { queryOrderListFetch } = this.props;
+    const {
+      queryOrderListFetch,
+      isAuthUser,
+      navigation: { navigate },
+    } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
     // queryOrderListFetch();
+
    this._onRefresh();
   }
 
@@ -279,6 +285,7 @@ export default connect(
         orderItem: getOrderItem(state, props),
         queryOrderListItem: queryOrderList.item,
         scrollTabIndex: queryOrderList.scrollTabIndex,
+        isAuthUser: !!state.auth.user,
       }
     }
   },

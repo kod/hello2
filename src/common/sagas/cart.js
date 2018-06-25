@@ -190,6 +190,7 @@ export function* cartNumberRequestWatch() {
 export function* cartDeleteRequestWatchHandle(action) {
   try {
     const funid = yield select(getAuthUserFunid);
+    const { cartitemids, orderno = '' } = action.payload;
     
     let Key = 'commodityKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
@@ -198,7 +199,6 @@ export function* cartDeleteRequestWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
     
-    const { cartitemids, orderno = '' } = action.payload;
     let signType = signType_MD5(appId, method, charset, Key, true);
 
     let encrypt = encrypt_MD5(
@@ -253,8 +253,7 @@ export function* cartDeleteRequestWatch() {
 
 export function* cartNumberSuccessWatchHandle(action) {
   try {
-    const authUserFunid = yield select(getAuthUserFunid);
-    yield put(cartRequest(authUserFunid));
+    yield put(cartRequest());
     
   } catch (err) {
     // yield put(cartNumberFailure());
@@ -268,8 +267,7 @@ export function* cartNumberSuccessWatch() {
 
 export function* cartDeleteSuccessWatchHandle(action) {
   try {
-    const authUserFunid = yield select(getAuthUserFunid);
-    yield put(cartRequest(authUserFunid));
+    yield put(cartRequest());
   } catch (err) {
     // yield put(cartDeleteFailure());
     // yield put(addError(typeof err === 'string' ? err : err.toString()));

@@ -110,7 +110,7 @@ class OrderWrite extends React.Component {
 
   componentDidMount() {
     const {
-      authUser,
+      isAuthUser,
       addressFetch,
       orderNo,
       tradeNo,
@@ -119,11 +119,11 @@ class OrderWrite extends React.Component {
       getUserInfoByIdFetch,
       navigation: { navigate },
     } = this.props;
-    if (authUser) {
-      addressFetch();
-      getUserInfoByIdFetch();
-      cardQueryFetch();
-    }
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
+    addressFetch();
+    getUserInfoByIdFetch();
+    cardQueryFetch();
 
     queryOrderFetch({
       orderNo,
@@ -168,7 +168,7 @@ class OrderWrite extends React.Component {
     } = this.state;
     const {
       i18n,
-      authUser,
+      isAuthUser,
       initPassword,
       userType,
       orderNo,
@@ -182,7 +182,7 @@ class OrderWrite extends React.Component {
         advance,
       },
     } = this.props;
-    if (!authUser) return navigate(SCREENS.Login);
+    if (!isAuthUser) return navigate(SCREENS.Login);
     if (!userType) return getUserInfoByIdFetch();
 
     const payway = payWayIndex === 0 ? 1 : 2;
@@ -618,7 +618,7 @@ export default connectLocalization(
         return {
           addressSelectedItem: getAddressSelectedItem(state, props),
           addressItems: address.items,
-          authUser: !!state.auth.user,
+          isAuthUser: !!state.auth.user,
           queryOrderItem: queryOrder.item,
           orderNo,
           tradeNo,

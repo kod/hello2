@@ -32,9 +32,9 @@ class Card extends React.Component {
   componentDidMount() {
     const {
       cardQueryFetch,
-      user,
+      isAuthUser,
     } = this.props;
-    user && cardQueryFetch();
+    isAuthUser && cardQueryFetch();
   }
 
   renderHeaderTitle = () => {
@@ -164,7 +164,7 @@ class Card extends React.Component {
       navigation: { navigate },
       status,
       periodHobbit,
-      user,
+      isAuthUser,
     } = this.props;
     if (loading) return <Loader />;
 
@@ -173,7 +173,7 @@ class Card extends React.Component {
     //     backgroundColor: '#18a873',
     //     text: '激活 >',
     //     onPress: () => {
-    //       navigate( user ? SCREENS.TransactionPasswordStepOne : SCREENS.Login, { from: 'card', msisdn })
+    //       navigate( isAuthUser ? SCREENS.TransactionPasswordStepOne : SCREENS.Login, { from: 'card', msisdn })
     //     }
     //   })
     // )
@@ -194,7 +194,7 @@ class Card extends React.Component {
           this.renderCard()
         }
         {
-          (!user || status === 1)
+          (!isAuthUser || status === 1)
           &&
           this.renderApplyStatus({
             backgroundColor: '#147af3',
@@ -218,7 +218,7 @@ class Card extends React.Component {
             backgroundColor: '#18a873',
             text: '激活 >',
             onPress: () => {
-              navigate( user ? SCREENS.TransactionPasswordStepOne : SCREENS.Login, { from: 'card', msisdn })
+              navigate( isAuthUser ? SCREENS.TransactionPasswordStepOne : SCREENS.Login, { from: 'card', msisdn })
             }
           })
         }
@@ -258,7 +258,6 @@ export default connect(
   () => {
     return (state, props) => {
       const {
-        auth,
         cardQuery,
       } = state;
       return {
@@ -267,7 +266,7 @@ export default connect(
         item: cardQuery.item,
         status: cardQuery.item.status,
         periodHobbit: cardQuery.item.periodHobbit,
-        user: auth.user,
+        isAuthUser: !!state.auth.user,
         msisdn: auth.user ? auth.user.msisdn : '',
       }
     }

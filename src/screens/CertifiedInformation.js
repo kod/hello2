@@ -91,12 +91,15 @@ class CertifiedInformation extends Component {
 
   componentDidMount() {
     const {
-      authUser,
+      isAuthUser,
+      navigation: { navigate },
       schoolInfoFetch,
       schoolInfoItems,
       userCertificateInfoFetch,
     } = this.props;
-    authUser && userCertificateInfoFetch(authUser);
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    
+    isAuthUser && userCertificateInfoFetch();
     schoolInfoItems.length === 0 && schoolInfoFetch();
   }
   
@@ -471,7 +474,7 @@ export default connect(
         addLoading: userAddDetailInfo.loading,
         cardSubmitLoading: cardSubmit.loading,
         isCertify,
-        authUser: auth.user,
+        isAuthUser: !!state.auth.user,
         schoolInfoItems: schoolInfo.items,
         schoolName: getSchoolName(state, props),
       }

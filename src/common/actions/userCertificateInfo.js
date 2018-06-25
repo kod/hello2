@@ -21,7 +21,7 @@ export function userCertificateInfoFetchFailure() {
   };
 }
 
-export function userCertificateInfoFetch(user, type = 'userCertificateInfo') {
+export function userCertificateInfoFetch(type = 'userCertificateInfo') {
   return {
     type: USER_CERTIFICATE_INFO.REQUEST,
     payload: {

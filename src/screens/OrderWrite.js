@@ -51,11 +51,12 @@ class OrderWrite extends React.Component {
       isAuthUser,
       addressFetch,
       getUserInfoByIdFetch,
+      navigation: { navigate },
     } = this.props;
-    if (isAuthUser) {
-      addressFetch();
-      getUserInfoByIdFetch();
-    }
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
+    addressFetch();
+    getUserInfoByIdFetch();
 
   }
 

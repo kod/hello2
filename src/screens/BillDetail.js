@@ -53,7 +53,11 @@ class BillDetail extends React.Component {
     const {
       billDetailsFetch,
       id,
+      isAuthUser,
+      navigation: { navigate },
     } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
     billDetailsFetch({
       summaryid: id,
     });
@@ -190,6 +194,7 @@ export default connect(
         billDetails,
       } = state;
       return {
+        isAuthUser: !!state.auth.user,
         id: props.navigation.state.params.id,
         billDetailsItem: billDetails.item,
       }

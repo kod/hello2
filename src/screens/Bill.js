@@ -70,9 +70,14 @@ class Bill extends React.Component {
       queryGoodsFetch,
       activeMonth,
       activeYear,
+      isAuthUser,
+      navigation: { navigate },
     } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
     // let nowTimeStr = moment().format('YYYY-MM-DD HH:mm:ss');
     if (activeMonth < 10) activeMonth = '0' + activeMonth;
+
     queryGoodsFetch({
       createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
     });
@@ -194,8 +199,13 @@ class Bill extends React.Component {
     const {
       price,
       orderCreateFetch,
+      isAuthUser,
+      navigation: { navigate },
     } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
     this.handleOnPressToggleModal('isOpenPay')
+
     orderCreateFetch({
       // BYPayPassword: ret.val,
       BYtype: 'billPay',
@@ -216,7 +226,10 @@ class Bill extends React.Component {
     const {
       billMonthItem,
       searchMonthFetch,
+      isAuthUser,
+      navigation: { navigate },
     } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
 
     if (billMonthItem.status === 10002) return false;
 
@@ -633,6 +646,7 @@ export default connect(
         isOverdue: billByYear.isOverdue,
         billByYearItems: billByYear.items,
         queryGoodsItems: queryGoods.items,
+        isAuthUser: !!state.auth.user,
       }
     }
   },

@@ -50,7 +50,11 @@ class PeriodSelect extends React.Component {
   handleOnPressSubmit() {
     const {
       updatePeriodFetch,
+      isAuthUser,
+      navigation: { navigate },
     } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    
     updatePeriodFetch({
       period: this.state.period,
     });
@@ -220,7 +224,7 @@ export default connect(
         initPassword: cardQuery.item.initPassword,
         status: cardQuery.item.status,
         periodHobbit: cardQuery.item.periodHobbit,
-        // user: auth.user,
+        isAuthUser: !!state.auth.user,
       }
     }
   },

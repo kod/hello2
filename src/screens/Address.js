@@ -99,11 +99,11 @@ const styles = StyleSheet.create({
 class Address extends React.Component {
   componentDidMount() {
     const {
-      authUser,
+      isAuthUser,
       addressFetch,
       items,
     } = this.props;
-    if (authUser) {
+    if (isAuthUser) {
       items.length === 0 && addressFetch();
     }
   }
@@ -235,7 +235,7 @@ class Address extends React.Component {
 function mapStateToProps(state, props) {
   const { address, } = state;
   return {
-    authUser: !!state.auth.user,
+    isAuthUser: !!state.auth.user,
     items: address.items,
     loading: address.loading,
     refreshing: address.refreshing,

@@ -140,11 +140,9 @@ export function* watchLoginSuccess() {
     try {
       yield take(AUTH_LOGIN.SUCCESS);
 
-      const authUser = yield select(getAuthUser);
-      yield put(userCertificateInfoFetch(authUser));
+      yield put(userCertificateInfoFetch());
 
-      const authUserFunid = yield select(getAuthUserFunid);
-      yield put(cartRequest(authUserFunid));
+      yield put(cartRequest());
       yield put(cardQueryFetch());
 
       yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'closeLoginScreen' ]);

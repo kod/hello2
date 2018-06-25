@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
 
 class Cart extends React.Component {
   componentDidMount() {
-    const { cartRequest, user } = this.props;
-    user && cartRequest(user.result);
+    const { cartRequest, isAuthUser } = this.props;
+    isAuthUser && cartRequest();
   }
   
   renderHeaderRight = () => {
@@ -118,7 +118,7 @@ class Cart extends React.Component {
   }
 
   onPressSubmitHandle = () => {
-    const { isEdit, cart, cartDeleteRequest, authUserToken, i18n } = this.props;
+    const { isEdit, cart, cartDeleteRequest, i18n } = this.props;
 
     const getSelectedDelId = (cart) => {
       const { items, products, details } = cart;
@@ -145,7 +145,7 @@ class Cart extends React.Component {
           {
             text: i18n.delete,
             onPress: () => {
-               cartDeleteRequest(authUserToken, selectedDelIdStr);
+               cartDeleteRequest(selectedDelIdStr);
             }
           }
         ]
@@ -195,12 +195,11 @@ class Cart extends React.Component {
 export default connectLocalization(
   connect(state => {
     return {
-      user: state.auth.user,
+      isAuthUser: !!state.auth.user,
       cart: state.cart,
       allSelected: state.cart.allSelected,
       allSelectedDel: state.cart.allSelectedDel,
       isEdit: state.cart.isEdit,
-      authUserToken: state.auth.user ? state.auth.user.result : null,
     };
   }, {
     ...cartActionCreators

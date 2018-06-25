@@ -166,9 +166,11 @@ class ProductDetail extends React.Component {
       productDetailInfoClear,
       propertiesIds,
       brandId,
-      authUser,
+      isAuthUser,
     } = this.props;
-    authUser && collectionFetch();
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
+    collectionFetch();
     productDetailInfoClear(brandId);
     productDetailInfoFetch(brandId, propertiesIds);
     commentFetch(brandId);
@@ -191,13 +193,13 @@ class ProductDetail extends React.Component {
       collectionAddFetch,
       collectionRemoveFetch,
       isCollection,
-      authUser,
+      isAuthUser,
       navigation,
       brandId,
       screenProps: { mainNavigation },
     } = this.props;
     const { navigate } = mainNavigation;
-    if (!authUser) return navigate(SCREENS.Login);
+    if (!isAuthUser) return navigate(SCREENS.Login);
     isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
   }
   
@@ -348,7 +350,7 @@ export default connectLocalization(connect(
         propertiesIds,
         comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
         isCollection: getIsCollection(state, props),
-        authUser: state.auth.user,
+        isAuthUser: !!state.auth.user,
       }
     }
   },

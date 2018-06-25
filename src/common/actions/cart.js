@@ -48,11 +48,10 @@ export function cartDeleteFailure() {
   };
 }
 
-export function cartDeleteRequest(funid, cartitemids) {
+export function cartDeleteRequest(cartitemids) {
   return {
     type: CART_DELETE.REQUEST,
     payload: {
-      funid,
       cartitemids,
     }
   };
@@ -215,11 +214,10 @@ export function cartFailure(rankingMode) {
   };
 }
 
-export function cartRequest(funid) {
+export function cartRequest() {
   return {
     type: CART.REQUEST,
     payload: {
-      funid
     }
   };
 }

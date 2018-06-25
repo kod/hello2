@@ -31,8 +31,11 @@ class BillSelect extends Component {
     const {
       activeYear,
       billByYearFetch,
+      navigation: { navigate },
     } = this.props;
 
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    
     billByYearFetch({
       year: activeYear,
       init: true,
@@ -201,6 +204,7 @@ export default connect(
         billByYear,
       } = state;
       return {
+        isAuthUser: !!state.auth.user,
         activeYear: bill.activeYear,
         activeMonth: bill.activeMonth,
         billByYearItems: billByYear.items,
