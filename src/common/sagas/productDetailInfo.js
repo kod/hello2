@@ -134,7 +134,11 @@ export function* productDetailInfoFetchWatchHandle(action) {
     const { properties_detail, brand_detail } = response;
 
     const product_detail = response.product_detail.map((val, key) => {
-      val.imageUrls = val.imageUrls.split('|');
+      val.imageUrls = val.imageUrls.split('|').map((val, key) => {
+        const result = {}
+        result.imageUrl = val;
+        return result;
+      });
       val.goodsProperties = val.goodsProperties.split('|');
       return val;
     });

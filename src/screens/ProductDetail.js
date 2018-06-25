@@ -449,7 +449,10 @@ class ProductDetail extends React.Component {
           <EvilIcons style={styles.paramCloseIcon} name={'close'} onPress={() => this.handleOnPressToggleMenuBottomSheet()} />
         </View>
         <View style={styles.paramInfo} >
-          <Image style={styles.paramImage} source={{uri: imageUrls[0]}} />
+          {
+            imageUrls[0] && 
+            <Image style={styles.paramImage} source={{uri: imageUrls[0].imageUrl}} />
+          }
           <View style={styles.paramInfoLeft} >
             <Text style={styles.paramPrice} >{priceFormat(price)} VND</Text>
             <Text style={styles.paramHave} >{i18n.warehouse}: {numbers > 0 ? i18n.inStock : i18n.soldOut}</Text>

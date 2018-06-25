@@ -46,8 +46,6 @@
 //       }
 //     ]);
 
-//     console.log(response);
-
 //     if (response.code !== 10000) {
 //       yield put(productDetailInfoFetchFailure());
 //       // yield put(addError(response.msg));
@@ -64,7 +62,6 @@
 //       return false;
 //     }
 
-//     console.log(response);
 //     const { product_detail, properties_detail, brand_detail } = response;
 
 //     response = {
@@ -107,7 +104,6 @@
 //       brand_id,
 //     ));
 //   } catch (err) {
-//     console.log(err);
 //     yield put(productDetailInfoFetchFailure());
 //     yield put(addError(typeof err === 'string' ? err : err.toString()));
 //   }
