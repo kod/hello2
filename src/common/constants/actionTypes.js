@@ -333,7 +333,7 @@ export const CARD_SUBMIT = defineAction(
 
 export const CARD_QUERY = defineAction(
   'CARD_QUERY',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 

@@ -148,6 +148,7 @@ export function* watchLoginSuccess() {
       yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'closeLoginScreen' ]);
     } catch (err) {
       // todo logout user
+      console.log(err);
     }
   }
 }

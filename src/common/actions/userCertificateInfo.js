@@ -25,17 +25,15 @@ export function userCertificateInfoFetch(type = 'userCertificateInfo') {
   return {
     type: USER_CERTIFICATE_INFO.REQUEST,
     payload: {
-      user,
       type,
     },
   };
 }
 
-export function userCertificateInfoClear(user) {
+export function userCertificateInfoClear() {
   return {
     type: USER_CERTIFICATE_INFO.CLEAR,
     payload: {
-      user,
     },
   };
 }

@@ -17,7 +17,6 @@ export default function userCertificateInfo(state = initState, action) {
       return {
         ...state,
         loading: true,
-        funid: action.payload.user.result,
       };
     case USER_CERTIFICATE_INFO.SUCCESS:
       return {

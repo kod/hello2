@@ -23,7 +23,7 @@ import NavigatorService from '../../navigations/NavigatorService';
 
 export function* userCertificateInfoFetchWatchHandle(action) {
   try {
-    // const { user: { result } } = action.payload;
+    // const {  } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
     let Key = 'userKey';
