@@ -13,6 +13,7 @@ export const SCREENS = {
   CertifiedInformation: 'CertifiedInformation',
   CertifiedInformationContact: 'CertifiedInformationContact',
   CertifiedInformationSchool: 'CertifiedInformationSchool',
+  Evalution: 'Evalution',
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',
   Index: 'Index',
