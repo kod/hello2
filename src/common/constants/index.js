@@ -9,7 +9,7 @@ export const SCREENS = {
   BillingPeriodDetail: 'BillingPeriodDetail',
   Card: 'Card',
   Cart: 'Cart',
-  Category: 'Category',
+  Categories: 'Categories',
   CertifiedInformation: 'CertifiedInformation',
   CertifiedInformationContact: 'CertifiedInformationContact',
   CertifiedInformationSchool: 'CertifiedInformationSchool',

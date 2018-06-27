@@ -47,6 +47,7 @@ import repaymentRecord from './repaymentRecord';
 import billDetails from './billDetails';
 import queryGoods from './queryGoods';
 import collectFiles from './collectFiles';
+import getMenu from './getMenu';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -96,6 +97,7 @@ const rootReducer = combineReducers({
   billDetails,
   queryGoods,
   collectFiles,
+  getMenu,
   form: formReducer,
 });
 

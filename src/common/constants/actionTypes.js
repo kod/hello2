@@ -289,6 +289,18 @@ export const COMMENT = defineAction(
   appNamespace,
 );
 
+export const GET_MENU = defineAction(
+  'GET_MENU',
+  [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
+  appNamespace,
+);
+
+export const GET_MENU_INDEX = defineAction(
+  'GET_MENU_INDEX',
+  [REQUEST],
+  appNamespace,
+);
+
 export const ADDRESS = defineAction(
   'ADDRESS',
   [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],

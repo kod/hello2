@@ -7,6 +7,7 @@ import AppTabNavigator from './AppTabNavigator';
 import Bill from '../screens/Bill';
 import BillDetail from '../screens/BillDetail';
 import BillingPeriodDetail from '../screens/BillingPeriodDetail';
+import Categories from '../screens/Categories';
 import CertifiedInformation from '../screens/CertifiedInformation';
 import CertifiedInformationSchool from '../screens/CertifiedInformationSchool';
 import CertifiedInformationContact from '../screens/CertifiedInformationContact';
@@ -246,12 +247,18 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.Categories]: {
+    screen: Categories,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
   // initialRouteName: SCREENS.Index,
-  initialRouteName: SCREENS.Evalution,
+  initialRouteName: SCREENS.Categories,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {

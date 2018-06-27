@@ -16,21 +16,21 @@ const TabContainer = TabNavigator(
       screen: Main,
       navigationOptions: ({ screenProps: { i18n } }) => ({
         tabBarLabel: i18n.home,
-        tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={16} color={tintColor} />
-      })
-    },
-    [SCREENS.Card]: {
-      screen: Card,
-      navigationOptions: ({ screenProps: { i18n } }) => ({
-      tabBarLabel: i18n.card,
-        tabBarIcon: ({ tintColor }) => <CustomIcon name="card" size={14} color={tintColor} />
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={15} color={tintColor} />
       })
     },
     [SCREENS.Cart]: {
       screen: Cart,
       navigationOptions: ({ screenProps: { i18n } }) => ({
-        tabBarLabel: i18n.cart,
-        tabBarIcon: ({ tintColor }) => <CustomIcon name="cart" size={17} color={tintColor} />
+      tabBarLabel: i18n.categories,
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="classify" size={16} color={tintColor} />
+      })
+    },
+    [SCREENS.Card]: {
+      screen: Card,
+      navigationOptions: ({ screenProps: { i18n } }) => ({
+        tabBarLabel: i18n.card,
+        tabBarIcon: ({ tintColor }) => <CustomIcon name="card" size={14} color={tintColor} />
       })
     },
     [SCREENS.Me]: {

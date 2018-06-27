@@ -759,6 +759,23 @@ class ReactStore {
     return this.requestUrl(`:8185/fun/commodity/getEvaluationInfo`, options);
   }
 
+  getMenu(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8185/fun/commodity/getMenu`, options);
+  }
+
   getProductDetailInfo(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));
