@@ -238,6 +238,7 @@ class ProductDetail extends Component {
       propertiesIds,
       brandId,
       isAuthUser,
+      screenProps: { mainNavigation: { navigate } },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
     collectionFetch();
@@ -278,11 +279,10 @@ class ProductDetail extends Component {
       collectionRemoveFetch,
       isCollection,
       isAuthUser,
-      navigation,
       brandId,
-      screenProps: { mainNavigation },
+      screenProps: { mainNavigation: { navigate } },
     } = this.props;
-    const { navigate } = mainNavigation;
+    // const { navigate } = mainNavigation;
     if (!isAuthUser) return navigate(SCREENS.Login);
     isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
   }
