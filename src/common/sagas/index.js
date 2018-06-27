@@ -119,6 +119,9 @@ import {
 import {
   getMenuFetchWatch,
 } from './getMenu';
+import {
+  getAllProductInfoFetchWatch,
+} from './getAllProductInfo';
 
 
 export default function* rootSaga() {
@@ -201,5 +204,6 @@ export default function* rootSaga() {
     queryGoodsSuccessWatch(),
     collectFilesFetchWatch(),
     getMenuFetchWatch(),
+    getAllProductInfoFetchWatch(),
   ]);
 }

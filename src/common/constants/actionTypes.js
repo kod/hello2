@@ -55,6 +55,12 @@ export const ADVERST_INFO = defineAction(
   appNamespace,
 );
 
+export const GET_ALL_PRODUCT_INFO = defineAction(
+  'GET_ALL_PRODUCT_INFO',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const AD_PHONE = defineAction(
   'AD_PHONE',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

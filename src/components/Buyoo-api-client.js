@@ -895,6 +895,23 @@ class ReactStore {
     return this.requestUrl(`:8185/fun/commodity/getAdverstInfo?${queryString}`);
   }
 
+  getAllProductInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options
+      )
+    );
+    
+    return this.requestUrl(`:8185/fun/commodity/getAllProductInfo?${queryString}`);
+  }
+
   getPromotionInfo(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));

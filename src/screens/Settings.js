@@ -81,7 +81,11 @@ class Settings extends React.Component {
   }
 
   render() {
-    const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
+    const {
+      bannerHomeRecommend,
+      navigation: { navigate },
+      i18n 
+    } = this.props;
 
     const navBar1List = [
       {

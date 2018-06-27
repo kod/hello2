@@ -3,7 +3,7 @@ import { TabNavigator } from 'react-navigation';
 
 import Card from '../screens/Card';
 import Main from '../screens/Main';
-import Cart from '../screens/Cart';
+import Categories from '../screens/Categories';
 import Me from '../screens/Me';
 import Login from '../screens/Login';
 import { SCREENS } from '../common/constants';
@@ -19,8 +19,8 @@ const TabContainer = TabNavigator(
         tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={15} color={tintColor} />
       })
     },
-    [SCREENS.Cart]: {
-      screen: Cart,
+    [SCREENS.Categories]: {
+      screen: Categories,
       navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.categories,
         tabBarIcon: ({ tintColor }) => <CustomIcon name="classify" size={16} color={tintColor} />
@@ -45,8 +45,8 @@ const TabContainer = TabNavigator(
     lazy: true,
     swipeEnabled: false,
     animationEnabled: false,
-    initialRouteName: SCREENS.Main,
-    // initialRouteName: SCREENS.Me,
+    // initialRouteName: SCREENS.Main,
+    initialRouteName: SCREENS.Categories,
     // initialRouteName: SCREENS.Card,
     tabBarPosition: 'bottom',
     tabBarOptions: {

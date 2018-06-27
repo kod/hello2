@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { connectLocalization } from "../components/Localization";
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
+import Loader from "../components/Loader";
 import { RED_COLOR, BORDER_COLOR, PRIMARY_COLOR } from "../styles/variables";
 import { SCREENS, SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from "../common/constants";
 
@@ -91,6 +92,7 @@ class Categories extends React.Component {
       levelOne,
       levelTwo,
       levelOneIndex,
+      navigation: { navigate },
     } = this.props;
 
     return (
@@ -107,10 +109,14 @@ class Categories extends React.Component {
                       levelTwo.length !== 0 && 
                       val.map((val1, key1) => {
                         return (
-                          <View style={styles.rightItemSubItem} key={key1} >
+                          <BYTouchable 
+                            style={styles.rightItemSubItem} 
+                            key={key1} 
+                            onPress={() => navigate(SCREENS.CateList, { parent_id: val1.parentId, classfy_id: val1.id })}
+                          >
                             <Image style={styles.rightItemSubItemImage} source={{ uri: val1.imageUrl }} />
                             <Text style={styles.rightItemSubItemText} >{val1.name}</Text>
-                          </View>
+                          </BYTouchable>
                         )
                       })
                     }
@@ -170,7 +176,11 @@ class Categories extends React.Component {
       levelOne,
       getMenuIndexFetch,
       levelOneIndex,
+      loading,
     } = this.props;
+
+    if (loading) return <Loader />;
+    
     return (
       <View style={styles.content} >
         <ScrollView style={styles.scrollViewLeft} >
@@ -217,6 +227,7 @@ class Categories extends React.Component {
 function mapStateToProps(state, props) {
   const { getMenu } = state;
   return {
+    loading: getMenu.loading,
     levelOne: getMenu.levelOne,
     levelTwo: getMenu.levelTwo,
     levelOneIndex: getMenu.levelOneIndex,

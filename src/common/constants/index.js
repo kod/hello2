@@ -10,6 +10,7 @@ export const SCREENS = {
   Card: 'Card',
   Cart: 'Cart',
   Categories: 'Categories',
+  CateList: 'CateList',
   CertifiedInformation: 'CertifiedInformation',
   CertifiedInformationContact: 'CertifiedInformationContact',
   CertifiedInformationSchool: 'CertifiedInformationSchool',

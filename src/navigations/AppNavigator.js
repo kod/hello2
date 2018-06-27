@@ -36,6 +36,7 @@ import TransactionPasswordStepTwo from '../screens/TransactionPasswordStepTwo';
 import ProductDetailImages from '../screens/ProductDetailImages';
 import WebView from '../screens/WebView';
 import Evalution from '../screens/Evalution';
+import CateList from '../screens/CateList';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -253,12 +254,18 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.CateList]: {
+    screen: CateList,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
-  initialRouteName: SCREENS.Categories,
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.CateList,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {
