@@ -259,6 +259,7 @@ export default connect(
     return (state, props) => {
       const {
         cardQuery,
+        auth,
       } = state;
       return {
         loading: cardQuery.loading,
