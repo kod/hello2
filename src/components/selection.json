@@ -4,6 +4,76 @@
     {
       "icon": {
         "paths": [
+          "M0 0.366h438.7v438.7h-438.7z",
+          "M1024.183 0v439.432h-439.761v-439.432h439.761z",
+          "M584.934 585.3h438.7v438.7h-438.7z",
+          "M0 585.3h438.7v438.7h-438.7z"
+        ],
+        "attrs": [
+          {
+            "fill": "rgb(0, 118, 247)"
+          },
+          {
+            "fill": "rgb(0, 118, 247)"
+          },
+          {
+            "fill": "rgb(0, 118, 247)"
+          },
+          {
+            "fill": "rgb(0, 118, 247)"
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "cate"
+        ],
+        "colorPermutations": {
+          "102102102111824711531531531204204204124524524512552552551": [
+            {
+              "f": 1
+            },
+            {
+              "f": 1
+            },
+            {
+              "f": 1
+            },
+            {
+              "f": 1
+            }
+          ]
+        }
+      },
+      "attrs": [
+        {
+          "fill": "rgb(0, 118, 247)"
+        },
+        {
+          "fill": "rgb(0, 118, 247)"
+        },
+        {
+          "fill": "rgb(0, 118, 247)"
+        },
+        {
+          "fill": "rgb(0, 118, 247)"
+        }
+      ],
+      "properties": {
+        "order": 65,
+        "id": 17,
+        "name": "classify",
+        "prevSize": 32,
+        "code": 59666
+      },
+      "setIdx": 0,
+      "setId": 0,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
           "M640.057 512.301l-426.375-426.375 85.263-85.263 511.699 511.638-511.699 511.699-85.263-85.323z"
         ],
         "attrs": [
@@ -39,7 +109,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 0
+      "iconIdx": 1
     },
     {
       "icon": {
@@ -73,7 +143,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 1
+      "iconIdx": 2
     },
     {
       "icon": {
@@ -114,7 +184,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 2
+      "iconIdx": 3
     },
     {
       "icon": {
@@ -155,7 +225,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 3
+      "iconIdx": 4
     },
     {
       "icon": {
@@ -196,7 +266,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 4
+      "iconIdx": 5
     },
     {
       "icon": {
@@ -250,7 +320,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 5
+      "iconIdx": 6
     },
     {
       "icon": {
@@ -290,7 +360,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 6
+      "iconIdx": 7
     },
     {
       "icon": {
@@ -331,7 +401,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 7
+      "iconIdx": 8
     },
     {
       "icon": {
@@ -371,7 +441,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 8
+      "iconIdx": 9
     },
     {
       "icon": {
@@ -411,7 +481,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 9
+      "iconIdx": 10
     },
     {
       "icon": {
@@ -451,7 +521,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 10
+      "iconIdx": 11
     },
     {
       "icon": {
@@ -492,7 +562,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 11
+      "iconIdx": 12
     },
     {
       "icon": {
@@ -532,7 +602,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 12
+      "iconIdx": 13
     },
     {
       "icon": {
@@ -573,7 +643,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 13
+      "iconIdx": 14
     },
     {
       "icon": {
@@ -614,7 +684,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 14
+      "iconIdx": 15
     },
     {
       "icon": {
@@ -654,7 +724,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 15
+      "iconIdx": 16
     },
     {
       "icon": {
@@ -695,7 +765,7 @@
       },
       "setIdx": 0,
       "setId": 0,
-      "iconIdx": 16
+      "iconIdx": 17
     }
   ],
   "height": 1024,
