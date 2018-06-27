@@ -983,6 +983,24 @@ class ReactStore {
     return this.requestUrl(`:8185/fun/commodity/cart/gate`, options);
   }
 
+  collectFiles(options) {
+    console.log(options);
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    // const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'multipart/form-data'
+      },
+      data: options,
+    };
+    return this.requestUrl(`:8180/fun/userfile/collectFiles`, options);
+  }
+
   requestUrl(url, options) {
     if (!url) {
       return Promise.reject("Url cannot be empty");

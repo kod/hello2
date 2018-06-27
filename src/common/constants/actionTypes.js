@@ -463,4 +463,10 @@ export const BILL_PRICE = defineAction(
   appNamespace,
 );
 
+export const COLLECT_FILES = defineAction(
+  'COLLECT_FILES',
+  [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
 export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);

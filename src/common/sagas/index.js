@@ -113,6 +113,10 @@ import {
   queryGoodsFetchWatch,
   queryGoodsSuccessWatch,
 } from './queryGoods';
+import {
+  collectFilesFetchWatch,
+  // collectFilesSuccessWatch,
+} from './collectFiles';
 
 
 export default function* rootSaga() {
@@ -193,5 +197,7 @@ export default function* rootSaga() {
     billDetailsSuccessWatch(),
     queryGoodsFetchWatch(),
     queryGoodsSuccessWatch(),
+    collectFilesFetchWatch(),
+    // collectFilesSuccessWatch(),
   ]);
 }

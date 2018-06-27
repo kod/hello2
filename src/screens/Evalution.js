@@ -2,7 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
+import ImageResizer from 'react-native-image-resizer';
 
 import { SCREENS, WINDOW_WIDTH } from "../common/constants";
 
@@ -11,10 +13,12 @@ import BYHeader from '../components/BYHeader';
 import BYTextInput from "../components/BYTextInput";
 import BYButton from "../components/BYButton";
 import BYTouchable from "../components/BYTouchable";
+import ActionSheet from "../components/ActionSheet";
+import Loader from "../components/Loader";
 import { RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
 import { SIDEINTERVAL } from "../common/constants";
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import * as collectFilesActionCreators from '../common/actions/collectFiles';
 import * as authActionCreators from '../common/actions/auth';
 
 const styles = StyleSheet.create({
@@ -29,31 +33,103 @@ class Evalution extends React.Component {
     super(props);
 
     this.state = {
+      isOpenActionSheet: false,
+      payWayButtons: ['相册', '拍照'],
       starNumber: 3,
       textValue: '',
     };
+
+    this.actionSheetCallback = this.actionSheetCallback.bind(this);
   }
 
   componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
+    // const { collectFilesFetch } = this.props;
+    // collectFilesFetch();
   }
 
-  handleOnPressSelectPics() {
-    // ImagePicker.openPicker({
-    //   width: 300,
-    //   height: 400,
-    //   // cropping: true
-    // }).then(image => {
-    //   console.log(image);
-    // });
-    ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      // cropping: true
-    }).then(image => {
-      console.log(image);
+  createResizedImageImageResizer({ uri, width, height}) {
+    const {
+      collectFilesFetch 
+    } = this.props;
+
+    ImageResizer.createResizedImage(uri, width, height, 'JPEG', 50).then((response) => {
+      console.log(response);
+        collectFilesFetch({
+          files: {
+            // uri: uri,
+            uri: response.uri,
+            name: response.name,
+          }
+        });
+
+    }).catch((err) => {
+      console.log(err);
     });
+
+  }
+
+  actionSheetCallback(ret) {
+    const {
+      navigation: { navigate }
+    } = this.props;
+    if (ret.buttonIndex === -1) return false;
+
+
+    if (ret.buttonIndex === 0) {
+      // 相册
+      ImagePicker.openPicker({
+        // width: 300,
+        // height: 400,
+        // cropping: true
+      }).then(image => {
+        console.log(image);
+        this.createResizedImageImageResizer({
+          uri: image.path,
+          width: image.width,
+          height: image.height,
+        })
+      });
+    } else {
+      // 拍照
+      ImagePicker.openCamera({
+        // width: 300,
+        // height: 400,
+        // cropping: true
+      }).then(image => {
+        console.log(image);
+        this.createResizedImageImageResizer({
+          uri: image.path,
+          width: image.width,
+          height: image.height,
+        })
+      });
+    }
+  }
+
+  handleOnPressToggleModal = (key, val) => {
+    this.setState({
+      [key]: typeof val !== 'boolean' ? !this.state[key] : val,
+    });
+  };
+
+  handleOnPressStar(index) {
+    this.setState({
+      starNumber: index,
+    })
+  }
+
+  handleOnLongPressImgDel(index) {
+    const {
+      collectFilesRemove,
+    } = this.props;
+    collectFilesRemove(index);
+    // this.setState({
+    //   images: this.state.images.splice(index, 1),
+    // })
+  }
+  
+  handleOnPressSelectPics() {
+    this.handleOnPressToggleModal('isOpenActionSheet')
   }
 
   renderContent() {
@@ -99,11 +175,27 @@ class Evalution extends React.Component {
         paddingRight: SIDEINTERVAL,
         paddingBottom: SIDEINTERVAL,
       },
-      imagePlaceHolder: {
+      imageItem: {
+        position: 'relative',
         height: (WINDOW_WIDTH - SIDEINTERVAL * 9) / 6,
         width: (WINDOW_WIDTH - SIDEINTERVAL * 9) / 6,
         backgroundColor: '#e5e5e5',
         marginRight: SIDEINTERVAL,
+      },
+      imageItemOnLongPress: {
+        position: 'absolute',
+        // top: 0,
+        // bottom: 0,
+        // left: 0,
+        // right: 0,
+        height: (WINDOW_WIDTH - SIDEINTERVAL * 9) / 6,
+        width: (WINDOW_WIDTH - SIDEINTERVAL * 9) / 6,
+        // backgroundColor: '#ff0',
+        zIndex: 888,
+      },
+      imageItemImage: {
+        height: (WINDOW_WIDTH - SIDEINTERVAL * 9) / 6,
+        width: (WINDOW_WIDTH - SIDEINTERVAL * 9) / 6,
       },
       selectPics: {
         alignItems: 'center',
@@ -125,6 +217,7 @@ class Evalution extends React.Component {
       tips: {
         fontSize: 11,
         color: '#ccc',
+        lineHeight: 11 * 1.618,
       },
     });
 
@@ -132,13 +225,24 @@ class Evalution extends React.Component {
       starNumber,
       textValue,
     } = this.state;
+
+    const {
+      loading,
+      images,
+    } = this.props;
+    console.log(loading);
     
     return (
       <View style={styles.container} >
         <View style={styles.startWrap} >
           {
             [0,1,2,3,4].map((val) => 
-              <FontAwesome  style={starNumber > val ? styles.starIconActive : styles.starIcon } name="star" key={val} />
+              <FontAwesome 
+                style={starNumber > val ? styles.starIconActive : styles.starIcon } 
+                name="star" 
+                key={val}
+                onPress={() => this.handleOnPressStar(val + 1)}
+              />
             )
           }
         </View>
@@ -155,11 +259,17 @@ class Evalution extends React.Component {
               multiline={true}
             />
             <View style={styles.pics} >
-              <View style={styles.imagePlaceHolder}></View>
-              <View style={styles.imagePlaceHolder}></View>
-              <View style={styles.imagePlaceHolder}></View>
-              <View style={styles.imagePlaceHolder}></View>
-              <View style={styles.imagePlaceHolder}></View>
+              {
+                images.map((val, key) => {
+                  return (
+                    <View style={styles.imageItem} key={key} >
+                      <Text style={styles.imageItemOnLongPress} onLongPress={() => this.handleOnLongPressImgDel(key)} ></Text>
+                      <Image style={styles.imageItemImage} source={{ uri: val }} />
+                      {/* <Image style={styles.imageItemImage} source={require('../images/viemnam.png')} /> */}
+                    </View>
+                  )
+                })
+              }
               <BYTouchable style={styles.selectPics} onPress={() => this.handleOnPressSelectPics()} >
                 <FontAwesome  style={ styles.cameraIcon } name="camera" />
                 <Text style={styles.cameraText} >0/5</Text>
@@ -167,6 +277,7 @@ class Evalution extends React.Component {
             </View>
           </View>
           <Text style={styles.tips} >your comment will be anonymous</Text>
+          <Text style={styles.tips} >长按删除图片</Text>
         </View>
         <BYButton text={'publish'} styleWrap={styles.button} onPress={() => {}} />
       </View>
@@ -174,7 +285,17 @@ class Evalution extends React.Component {
   }
   
   render() {
-    const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
+    const {
+      isOpenActionSheet,
+      payWayButtons,
+    } = this.state;
+
+    const {
+      collectFiles,
+      navigation: { navigate },
+      loading,
+      i18n,
+    } = this.props;
 
     return (
       <View style={styles.container} >
@@ -182,17 +303,26 @@ class Evalution extends React.Component {
         <ScrollView>
           {this.renderContent()}
         </ScrollView>
+        <ActionSheet 
+          visible={isOpenActionSheet}
+          onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
+          buttons={payWayButtons}
+          callback={this.actionSheetCallback}
+        />
+        {loading && <Loader absolutePosition />}
       </View>
     );
   }
 }
 function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
+  const { collectFiles } = state;
   return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
+    collectFiles: collectFiles,
+    loading: collectFiles.loading,
+    images: collectFiles.images,
   };
 }
 
 export default connectLocalization(
-  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, ...authActionCreators })(Evalution)
+  connect(mapStateToProps, { ...collectFilesActionCreators, ...authActionCreators })(Evalution)
 );
