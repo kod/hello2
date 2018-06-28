@@ -349,6 +349,13 @@ export const CARD_SUBMIT = defineAction(
   appNamespace,
 );
 
+
+export const RECEIVE_VOUCHER = defineAction(
+  'RECEIVE_VOUCHER',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const CARD_QUERY = defineAction(
   'CARD_QUERY',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

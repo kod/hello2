@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { RED_COLOR } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, } from "../common/constants";
 
 import SwiperFlatList from '../components/SwiperFlatList';
 import BannerHomeType from '../components/BannerHomeType';
@@ -100,7 +100,15 @@ class Scrollable1 extends React.Component {
   }
 
   render() {
-    const { bannerSwiper, bannerHomeType, promotionInfo, mergeGetInfo, adverstInfo, navigation: { navigate }, i18n } = this.props;
+    const {
+      bannerSwiper,
+      bannerHomeType,
+      promotionInfo,
+      mergeGetInfo,
+      adverstInfo,
+      navigation: { navigate },
+      i18n 
+    } = this.props;
     const mergeGetInfoList = mergeGetInfo.items;
     const bannerSwiperList = bannerSwiper.items;
     const adverstInfoList = adverstInfo.items;
@@ -110,14 +118,17 @@ class Scrollable1 extends React.Component {
       {
         imageSource: require('../images/coupon.png'), 
         text: i18n.coupon,
+        onPress: () => { console.log(11111); navigate(SCREENS.Coupon) },
       },
       {
         imageSource: require('../images/recharge.png'), 
         text: i18n.recharge,
+        onPress: () => { navigate(SCREENS.Coupon) },
       },
       {
         imageSource: require('../images/buyhelp.png'), 
         text: i18n.howToBuy,
+        onPress: () => { navigate(SCREENS.Coupon) },
         styleImg: {
           height: 32,
           width: 32,
@@ -127,6 +138,7 @@ class Scrollable1 extends React.Component {
       {
         imageSource: require('../images/grouphelp.png'), 
         text: i18n.groupBuyHelp,
+        onPress: () => { navigate(SCREENS.Coupon) },
       },
     ]
     

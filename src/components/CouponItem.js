@@ -86,6 +86,7 @@ class CouponItem extends Component {
   render() {
     const {
       data, 
+      onPress,
       navigation: { navigate },
       ...restProps
     } = this.props;
@@ -96,7 +97,12 @@ class CouponItem extends Component {
           return (
               val.voucherType === 1 
               ?
-              <View style={styles.item} key={key} >
+              <BYTouchable 
+                style={[styles.item, val.status !== 1 && styles.itemDisable]} 
+                key={key} 
+                onPress={() => onPress(val)} 
+                backgroundColor={'transparent'}
+              >
                 <Image style={styles.image} source={require('../images/couponBlue.png')} />
                 <View style={styles.bottom} >
                   <View style={styles.left} >
@@ -104,12 +110,20 @@ class CouponItem extends Component {
                     <Text style={styles.text1} >{val.voucherName}</Text>
                     <Text style={styles.text2} >{val.voucherDesc}</Text>
                   </View>
-                  <CustomIcon style={styles.arrow} name={'arrowright'} />
+                  {
+                    onPress && 
+                    <CustomIcon style={styles.arrow} name={'arrowright'} />
+                  }
                   <Text style={styles.date} >{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
                 </View>
-              </View>
+              </BYTouchable>
               :
-              <View style={[styles.item, styles.itemDisable]} key={key} >
+              <BYTouchable 
+                style={[styles.item, val.status !== 1 && styles.itemDisable]} 
+                key={key} 
+                onPress={() => onPress(val)} 
+                backgroundColor={'transparent'}
+              >
                 <Image style={styles.image} source={require('../images/couponRed.png')} />
                 <View style={[styles.bottom, styles.bottomRed]} >
                   <View style={styles.left} >
@@ -117,10 +131,13 @@ class CouponItem extends Component {
                     <Text style={styles.text1} >{val.voucherName}</Text>
                     <Text style={styles.text2} >{val.voucherDesc}</Text>
                   </View>
-                  <CustomIcon style={styles.arrow} name={'arrowright'} />
+                  {
+                    onPress && 
+                    <CustomIcon style={styles.arrow} name={'arrowright'} />
+                  }
                   <Text style={styles.date} >{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
                 </View>
-              </View>
+              </BYTouchable>
           );
         })}
     </View>

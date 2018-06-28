@@ -125,7 +125,10 @@ import {
 import {
   getVoucherFetchWatch,
 } from './getVoucher';
-
+import {
+  receiveVoucherFetchWatch,
+  receiveVoucherSuccessWatch,
+} from './receiveVoucher';
 
 export default function* rootSaga() {
   yield all([
@@ -209,5 +212,7 @@ export default function* rootSaga() {
     getMenuFetchWatch(),
     getAllProductInfoFetchWatch(),
     getVoucherFetchWatch(),
+    receiveVoucherFetchWatch(),
+    receiveVoucherSuccessWatch(),
   ]);
 }

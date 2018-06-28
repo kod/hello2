@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 
 import { SCREENS, WINDOW_WIDTH } from "../common/constants";
@@ -13,7 +13,7 @@ import { RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
 import { SIDEINTERVAL } from "../common/constants";
 
 import * as getVoucherActionCreators from '../common/actions/getVoucher';
-import * as authActionCreators from '../common/actions/auth';
+import * as receiveVoucherActionCreators from '../common/actions/receiveVoucher';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,12 +23,44 @@ const styles = StyleSheet.create({
 })
 
 class Coupon extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handlerOnPress = this.handlerOnPress.bind(this);
+  }
 
   componentDidMount() {
     const { getVoucherFetch } = this.props;
     getVoucherFetch();
   }
 
+  handlerOnPress(val) {
+    const {
+      receiveVoucherFetch,
+      isAuthUser,
+      navigation: { navigate },
+    } = this.props;
+    console.log(val);
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
+    if (val.status !== 1) {
+      const title = val.status === 0 ? '已领取' : '已领完';
+      Alert.alert(
+        '',
+        title,
+        [{ 
+            text: '确定', 
+            onPress: () => {}
+        }]
+      )
+      return false;
+    }
+
+    receiveVoucherFetch({
+      voucherid: val.id
+    });
+  }
+  
   renderHeaderTitle = () => {
     const styles = StyleSheet.create({
       container: {
@@ -67,7 +99,7 @@ class Coupon extends React.Component {
           headerTitle={this.renderHeaderTitle()}
         />
         <ScrollView>
-          <CouponItem data={items} />
+          <CouponItem data={items} onPress={this.handlerOnPress} />
         </ScrollView>
       </View>
     );
@@ -87,11 +119,12 @@ export default connectLocalization(connect(
 
       return {
         items: getVoucher.items,
+        isAuthUser: !!state.auth.user,
       }
     }
   },
   {
     ...getVoucherActionCreators,
-    ...authActionCreators,
+    ...receiveVoucherActionCreators,
   }
 )(Coupon));

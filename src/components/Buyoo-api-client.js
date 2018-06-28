@@ -348,6 +348,23 @@ class ReactStore {
     return this.requestUrl(`:8180/fun/usercenter/userViewDetailInfo`, options);
   }
 
+  receiveVoucher(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8180/fun/usercenter/receiveVoucher`, options);
+  }
+
   userAddDetailInfo(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));
