@@ -1034,6 +1034,22 @@ class ReactStore {
     return this.requestUrl(`:8180/fun/userfile/collectFiles`, options);
   }
 
+  getVoucher(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    return this.requestUrl(`:8187/fun/market/getVoucher`, options);
+  }
+
   requestUrl(url, options) {
     if (!url) {
       return Promise.reject("Url cannot be empty");

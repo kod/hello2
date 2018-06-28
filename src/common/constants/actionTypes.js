@@ -409,6 +409,12 @@ export const SCHOOL_INFOS = defineAction(
   appNamespace,
 );
 
+export const GET_VOUCHER = defineAction(
+  'GET_VOUCHER',
+  [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
+  appNamespace,
+);
+
 export const COLLECTION = defineAction(
   'COLLECTION',
   [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],

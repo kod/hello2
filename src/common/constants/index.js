@@ -14,6 +14,7 @@ export const SCREENS = {
   CertifiedInformation: 'CertifiedInformation',
   CertifiedInformationContact: 'CertifiedInformationContact',
   CertifiedInformationSchool: 'CertifiedInformationSchool',
+  Coupon: 'Coupon',
   Evalution: 'Evalution',
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',

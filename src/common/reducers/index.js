@@ -49,6 +49,7 @@ import queryGoods from './queryGoods';
 import collectFiles from './collectFiles';
 import getMenu from './getMenu';
 import getAllProductInfo from './getAllProductInfo';
+import getVoucher from './getVoucher';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -100,6 +101,7 @@ const rootReducer = combineReducers({
   collectFiles,
   getMenu,
   getAllProductInfo,
+  getVoucher,
   form: formReducer,
 });
 

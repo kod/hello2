@@ -122,6 +122,9 @@ import {
 import {
   getAllProductInfoFetchWatch,
 } from './getAllProductInfo';
+import {
+  getVoucherFetchWatch,
+} from './getVoucher';
 
 
 export default function* rootSaga() {
@@ -205,5 +208,6 @@ export default function* rootSaga() {
     collectFilesFetchWatch(),
     getMenuFetchWatch(),
     getAllProductInfoFetchWatch(),
+    getVoucherFetchWatch(),
   ]);
 }
