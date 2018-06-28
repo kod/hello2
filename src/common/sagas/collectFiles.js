@@ -13,7 +13,6 @@ export function* collectFilesFetchWatchHandle(action) {
       productid = '1',
       files,
     } = action.payload;
-    console.log(action.payload);
     const formData = new FormData();
     formData.append('files', {
       uri: files.uri,
@@ -22,13 +21,9 @@ export function* collectFilesFetchWatchHandle(action) {
     });
     formData.append('productid', productid);
 
-    console.log(formData);
-    
     const response = yield apply(buyoo, buyoo.collectFiles, [
       formData
     ]);
-
-    console.log(response);
 
     if (response.code !== 10000) {
       yield put(collectFilesFetchFailure());
@@ -37,7 +32,6 @@ export function* collectFilesFetchWatchHandle(action) {
     }
     yield put(collectFilesFetchSuccess(response.url));
   } catch (err) {
-    console.log(err);
     yield put(collectFilesFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

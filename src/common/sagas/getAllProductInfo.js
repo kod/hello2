@@ -74,8 +74,6 @@ export function* getAllProductInfoFetchWatchHandle(action) {
       }
     ]);
 
-    console.log(response);
-    
     if (response.code !== 10000) {
       yield put(getAllProductInfoFetchFailure());
       yield put(addError(response.msg));

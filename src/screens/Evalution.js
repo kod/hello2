@@ -53,7 +53,6 @@ class Evalution extends React.Component {
     } = this.props;
 
     ImageResizer.createResizedImage(uri, width, height, 'JPEG', 50).then((response) => {
-      console.log(response);
         collectFilesFetch({
           files: {
             // uri: uri,
@@ -63,7 +62,7 @@ class Evalution extends React.Component {
         });
 
     }).catch((err) => {
-      console.log(err);
+      console.dir(err);
     });
 
   }
@@ -82,7 +81,6 @@ class Evalution extends React.Component {
         // height: 400,
         // cropping: true
       }).then(image => {
-        console.log(image);
         this.createResizedImageImageResizer({
           uri: image.path,
           width: image.width,
@@ -96,7 +94,6 @@ class Evalution extends React.Component {
         // height: 400,
         // cropping: true
       }).then(image => {
-        console.log(image);
         this.createResizedImageImageResizer({
           uri: image.path,
           width: image.width,
@@ -230,7 +227,6 @@ class Evalution extends React.Component {
       loading,
       images,
     } = this.props;
-    console.log(loading);
     
     return (
       <View style={styles.container} >

@@ -82,8 +82,6 @@ function mapStateToProps(state, props) {
     navigation,
    } = props;
   
-   console.log(navigation);
-   
   return {
     loading: getAllProductInfo.loading,
     items: getAllProductInfo.items,

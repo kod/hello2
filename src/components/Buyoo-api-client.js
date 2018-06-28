@@ -1018,7 +1018,6 @@ class ReactStore {
   }
 
   collectFiles(options) {
-    console.log(options);
     if (!options) {
       return Promise.reject(new Error('fields required'));
     }

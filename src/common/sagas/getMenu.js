@@ -50,8 +50,6 @@ export function* getMenuFetchWatchHandle(action) {
       Key
     );
 
-    console.log();
-
     const response = yield apply(buyoo, buyoo.getMenu, [
       {
         appid: appId,
@@ -67,8 +65,6 @@ export function* getMenuFetchWatchHandle(action) {
         thirdclassfyid: thirdclassfyid
       }
     ]);
-    console.log(JSON.stringify(response.result));
-    
 
     if (response.code !== 10000) {
       yield put(getMenuFetchFailure());
@@ -83,7 +79,6 @@ export function* getMenuFetchWatchHandle(action) {
       }),
     }));
   } catch (err) {
-    console.log(err);
     yield put(getMenuFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
