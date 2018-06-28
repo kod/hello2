@@ -224,17 +224,47 @@ class Categories extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { getMenu } = state;
-  return {
-    loading: getMenu.loading,
-    levelOne: getMenu.levelOne,
-    levelTwo: getMenu.levelTwo,
-    levelOneIndex: getMenu.levelOneIndex,
-    levelTwoIndex: getMenu.levelTwoIndex,
-  };
-}
 
 export default connectLocalization(
-  connect(mapStateToProps, { ...getMenuActionCreators, ...authActionCreators })(Categories)
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          getMenu,
+        } = state;
+
+        const {
+
+        } = props;
+
+        return {
+          loading: getMenu.loading,
+          levelOne: getMenu.levelOne,
+          levelTwo: getMenu.levelTwo,
+          levelOneIndex: getMenu.levelOneIndex,
+          levelTwoIndex: getMenu.levelTwoIndex,
+        }
+      }
+    },
+    {
+      ...getMenuActionCreators,
+      ...authActionCreators,
+    }
+  )(Categories)
 );
+
+
+// function mapStateToProps(state, props) {
+//   const { getMenu } = state;
+//   return {
+//     loading: getMenu.loading,
+//     levelOne: getMenu.levelOne,
+//     levelTwo: getMenu.levelTwo,
+//     levelOneIndex: getMenu.levelOneIndex,
+//     levelTwoIndex: getMenu.levelTwoIndex,
+//   };
+// }
+
+// export default connectLocalization(
+//   connect(mapStateToProps, { ...getMenuActionCreators, ...authActionCreators })(Categories)
+// );

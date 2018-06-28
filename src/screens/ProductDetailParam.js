@@ -100,11 +100,32 @@ class ProductDetailParam extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { bannerSwiper } = state;
-  return {
-    bannerSwiper: bannerSwiper['one'] || {}
-  };
-}
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        bannerSwiper,
+      } = state;
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetailParam);
+      const {
+
+      } = props;
+
+      return {
+        bannerSwiper: bannerSwiper['one'] || {}
+      }
+    }
+  },
+  {
+    ...bannerSwiperActionCreators,
+  }
+)(ProductDetailParam);
+
+// function mapStateToProps(state, props) {
+//   const { bannerSwiper } = state;
+//   return {
+//     bannerSwiper: bannerSwiper['one'] || {}
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetailParam);

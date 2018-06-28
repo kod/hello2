@@ -99,14 +99,42 @@ class Scrollable2 extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { bannerSwiper, bannerHomeRecommend, adPhone } = state;
-  return {
-    bannerSwiper: bannerSwiper['two'] || {},
-    adPhone: adPhone,
-    // promotionInfo: promotionInfo || {},
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        bannerSwiper,
+        bannerHomeRecommend,
+        adPhone
+      } = state;
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeRecommendActionCreators, ...adPhoneActionCreators })(Scrollable2);
+      const {
+
+      } = props;
+
+      return {
+        bannerSwiper: bannerSwiper['two'] || {},
+        adPhone: adPhone,
+        // promotionInfo: promotionInfo || {},
+        bannerHomeRecommend: bannerHomeRecommend || {}
+      }
+    }
+  },
+  {
+    ...bannerSwiperActionCreators,
+    ...bannerHomeRecommendActionCreators,
+    ...adPhoneActionCreators
+  }
+)(Scrollable2);
+
+// function mapStateToProps(state, props) {
+//   const { bannerSwiper, bannerHomeRecommend, adPhone } = state;
+//   return {
+//     bannerSwiper: bannerSwiper['two'] || {},
+//     adPhone: adPhone,
+//     // promotionInfo: promotionInfo || {},
+//     bannerHomeRecommend: bannerHomeRecommend || {}
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeRecommendActionCreators, ...adPhoneActionCreators })(Scrollable2);

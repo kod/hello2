@@ -264,8 +264,8 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.CateList,
+  // initialRouteName: SCREENS.Index,
+  initialRouteName: SCREENS.Settings,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {

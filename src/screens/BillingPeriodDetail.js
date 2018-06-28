@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class BillDetail extends React.Component {
+class BillingPeriodDetail extends React.Component {
 
   componentDidMount() {
     
@@ -143,13 +143,38 @@ class BillDetail extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
 export default connectLocalization(
-  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, ...authActionCreators })(BillDetail)
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          bannerHomeRecommend,
+        } = state;
+
+        const {
+
+        } = props;
+
+        return {
+          bannerHomeRecommend: bannerHomeRecommend || {}
+        }
+      }
+    },
+    {
+      ...bannerHomeRecommendActionCreators,
+      ...authActionCreators,
+    }
+  )(BillingPeriodDetail)
 );
+
+// function mapStateToProps(state, props) {
+//   const { bannerHomeRecommend } = state;
+//   return {
+//     bannerHomeRecommend: bannerHomeRecommend || {}
+//   };
+// }
+
+// export default connectLocalization(
+//   connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, ...authActionCreators })(BillingPeriodDetail)
+// );

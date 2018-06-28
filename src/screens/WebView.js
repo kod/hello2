@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class Settings extends React.Component {
+class WebView extends React.Component {
   componentDidMount() {
     const { bannerHomeRecommendFetch } = this.props;
     // bannerHomeRecommendFetch();
@@ -66,16 +66,41 @@ class Settings extends React.Component {
     return <BYWebView source={{ uri: state.params.source }} />;
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
 export default connectLocalization(
   connect(
-    mapStateToProps,
-    { ...bannerHomeRecommendActionCreators, ...authActionCreators }
-  )(Settings)
+    () => {
+      return (state, props) => {
+        const {
+          bannerHomeRecommend,
+        } = state;
+
+        const {
+
+        } = props;
+
+        return {
+          bannerHomeRecommend: bannerHomeRecommend || {}
+        }
+      }
+    },
+    {
+      ...bannerHomeRecommendActionCreators,
+      ...authActionCreators,
+    }
+  )(WebView)
 );
+
+// function mapStateToProps(state, props) {
+//   const { bannerHomeRecommend } = state;
+//   return {
+//     bannerHomeRecommend: bannerHomeRecommend || {}
+//   };
+// }
+
+// export default connectLocalization(
+//   connect(
+//     mapStateToProps,
+//     { ...bannerHomeRecommendActionCreators, ...authActionCreators }
+//   )(WebView)
+// );

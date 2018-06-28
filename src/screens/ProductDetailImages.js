@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProductDetailParam extends React.Component {
+class ProductDetailImages extends React.Component {
   componentDidMount() {
     const { bannerSwiperFetch } = this.props;
     // bannerSwiperFetch('one');
@@ -50,11 +50,32 @@ class ProductDetailParam extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { bannerSwiper } = state;
-  return {
-    bannerSwiper: bannerSwiper['one'] || {}
-  };
-}
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        bannerSwiper,
+      } = state;
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetailParam);
+      const {
+
+      } = props;
+
+      return {
+        bannerSwiper: bannerSwiper['one'] || {}
+      }
+    }
+  },
+  {
+    ...bannerSwiperActionCreators,
+  }
+)(ProductDetailImages);
+
+// function mapStateToProps(state, props) {
+//   const { bannerSwiper } = state;
+//   return {
+//     bannerSwiper: bannerSwiper['one'] || {}
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetailImages);

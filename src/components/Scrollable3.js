@@ -13,7 +13,7 @@ import * as newComputerActionCreators from '../common/actions/newComputer';
 
 const { width, height } = Dimensions.get('window');
 
-class Scrollable2 extends React.Component {
+class Scrollable3 extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -47,12 +47,37 @@ class Scrollable2 extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { topComputer, newComputer } = state;
-  return {
-    topComputer: topComputer,
-    newComputer: newComputer,
-  };
-}
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        topComputer,
+        newComputer
+      } = state;
 
-export default connect(mapStateToProps, { ...topComputerActionCreators, ...newComputerActionCreators })(Scrollable2);
+      const {
+
+      } = props;
+
+      return {
+        topComputer: topComputer,
+        newComputer: newComputer,
+      }
+    }
+  },
+  {
+    ...topComputerActionCreators,
+    ...newComputerActionCreators
+  }
+)(Scrollable3);
+
+
+// function mapStateToProps(state, props) {
+//   const { topComputer, newComputer } = state;
+//   return {
+//     topComputer: topComputer,
+//     newComputer: newComputer,
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...topComputerActionCreators, ...newComputerActionCreators })(Scrollable3);

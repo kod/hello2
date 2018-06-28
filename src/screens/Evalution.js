@@ -310,15 +310,43 @@ class Evalution extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { collectFiles } = state;
-  return {
-    collectFiles: collectFiles,
-    loading: collectFiles.loading,
-    images: collectFiles.images,
-  };
-}
 
 export default connectLocalization(
-  connect(mapStateToProps, { ...collectFilesActionCreators, ...authActionCreators })(Evalution)
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          collectFiles,
+        } = state;
+
+        const {
+
+        } = props;
+
+        return {
+          collectFiles: collectFiles,
+          loading: collectFiles.loading,
+          images: collectFiles.images,
+        }
+      }
+    },
+    {
+      ...collectFilesActionCreators,
+      ...authActionCreators,
+    }
+  )(Evalution)
 );
+
+
+// function mapStateToProps(state, props) {
+//   const { collectFiles } = state;
+//   return {
+//     collectFiles: collectFiles,
+//     loading: collectFiles.loading,
+//     images: collectFiles.images,
+//   };
+// }
+
+// export default connectLocalization(
+//   connect(mapStateToProps, { ...collectFilesActionCreators, ...authActionCreators })(Evalution)
+// );

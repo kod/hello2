@@ -68,12 +68,33 @@ class ProductDetailComment extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { comment } = state;
-  return {
-    comment: comment.items.detail ? comment.items.detail : [],
-    // bannerSwiper: bannerSwiper['one'] || {}
-  };
-}
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        comment,
+      } = state;
 
-export default connect(mapStateToProps, { ...productDetailInfoActionCreators, })(ProductDetailComment);
+      const {
+
+      } = props;
+
+      return {
+        comment: comment.items.detail ? comment.items.detail : [],
+      }
+    }
+  },
+  {
+    ...productDetailInfoActionCreators,
+  }
+)(ProductDetailComment);
+
+// function mapStateToProps(state, props) {
+//   const { comment } = state;
+//   return {
+//     comment: comment.items.detail ? comment.items.detail : [],
+//     // bannerSwiper: bannerSwiper['one'] || {}
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...productDetailInfoActionCreators, })(ProductDetailComment);

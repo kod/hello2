@@ -101,13 +101,37 @@ class Language extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
 export default connectLocalization(
-  connect(mapStateToProps, { ...i18nActionCreators })(Language)
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          bannerHomeRecommend,
+        } = state;
+
+        const {
+
+        } = props;
+
+        return {
+          bannerHomeRecommend: bannerHomeRecommend || {}
+        }
+      }
+    },
+    {
+      ...i18nActionCreators,
+    }
+  )(Language)
 );
+
+// function mapStateToProps(state, props) {
+//   const { bannerHomeRecommend } = state;
+//   return {
+//     bannerHomeRecommend: bannerHomeRecommend || {}
+//   };
+// }
+
+// export default connectLocalization(
+//   connect(mapStateToProps, { ...i18nActionCreators })(Language)
+// );

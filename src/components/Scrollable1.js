@@ -162,15 +162,48 @@ class Scrollable1 extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { bannerSwiper, bannerHomeType, promotionInfo, adverstInfo, mergeGetInfo } = state;
-  return {
-    bannerSwiper: bannerSwiper['one'] || {},
-    bannerHomeType: bannerHomeType || {},
-    promotionInfo: promotionInfo || {},
-    adverstInfo: adverstInfo || {},
-    mergeGetInfo: mergeGetInfo || {},
-  };
-}
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        bannerSwiper,
+        bannerHomeType,
+        promotionInfo,
+        adverstInfo,
+        mergeGetInfo,
+      } = state;
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators, ...promotionInfoActionCreators, ...mergeGetInfoActionCreators, ...adverstInfoActionCreators })(Scrollable1);
+      const {
+
+      } = props;
+
+      return {
+        bannerSwiper: bannerSwiper['one'] || {},
+        bannerHomeType: bannerHomeType || {},
+        promotionInfo: promotionInfo || {},
+        adverstInfo: adverstInfo || {},
+        mergeGetInfo: mergeGetInfo || {},
+      }
+    }
+  },
+  {
+    ...bannerSwiperActionCreators,
+    ...bannerHomeTypeActionCreators,
+    ...promotionInfoActionCreators,
+    ...mergeGetInfoActionCreators,
+    ...adverstInfoActionCreators,
+  }
+)(Scrollable1);
+
+// function mapStateToProps(state, props) {
+//   const { bannerSwiper, bannerHomeType, promotionInfo, adverstInfo, mergeGetInfo } = state;
+//   return {
+//     bannerSwiper: bannerSwiper['one'] || {},
+//     bannerHomeType: bannerHomeType || {},
+//     promotionInfo: promotionInfo || {},
+//     adverstInfo: adverstInfo || {},
+//     mergeGetInfo: mergeGetInfo || {},
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators, ...promotionInfoActionCreators, ...mergeGetInfoActionCreators, ...adverstInfoActionCreators })(Scrollable1);

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class Settings extends React.Component {
+class SecurityCenter extends React.Component {
 
   componentDidMount() {
     const { bannerHomeRecommendFetch } = this.props;
@@ -47,7 +47,7 @@ class Settings extends React.Component {
   // renderHeaderTitle = () => {
   //   return (
   //     <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
-  //       <Text style={{ fontSize: 18, color: '#fff' }}>Settings</Text>
+  //       <Text style={{ fontSize: 18, color: '#fff' }}>SecurityCenter</Text>
   //     </View>
   //   )
   // }
@@ -105,13 +105,37 @@ class Settings extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
 export default connectLocalization(
-  connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, })(Settings)
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          bannerHomeRecommend,
+        } = state;
+
+        const {
+
+        } = props;
+
+        return {
+          bannerHomeRecommend: bannerHomeRecommend || {}
+        }
+      }
+    },
+    {
+      ...bannerHomeRecommendActionCreators,
+    }
+  )(SecurityCenter)
 );
+
+// function mapStateToProps(state, props) {
+//   const { bannerHomeRecommend } = state;
+//   return {
+//     bannerHomeRecommend: bannerHomeRecommend || {}
+//   };
+// }
+
+// export default connectLocalization(
+//   connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, })(SecurityCenter)
+// );

@@ -56,11 +56,33 @@ class MyCollection extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
-export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(MyCollection);
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        bannerHomeRecommend,
+      } = state;
+
+      const {
+
+      } = props;
+
+      return {
+        bannerHomeRecommend: bannerHomeRecommend || {}
+      }
+    }
+  },
+  {
+    ...bannerHomeRecommendActionCreators,
+  }
+)(MyCollection);
+
+// function mapStateToProps(state, props) {
+//   const { bannerHomeRecommend } = state;
+//   return {
+//     bannerHomeRecommend: bannerHomeRecommend || {}
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(MyCollection);

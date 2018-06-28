@@ -11,7 +11,7 @@ import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHome
 
 const { width, height } = Dimensions.get('window');
 
-class Feedback extends React.Component {
+class SearchResult extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -61,11 +61,33 @@ class Feedback extends React.Component {
     );
   }
 }
-function mapStateToProps(state, props) {
-  const { bannerHomeRecommend } = state;
-  return {
-    bannerHomeRecommend: bannerHomeRecommend || {}
-  };
-}
 
-export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(Feedback);
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        bannerHomeRecommend,
+      } = state;
+
+      const {
+
+      } = props;
+
+      return {
+        bannerHomeRecommend: bannerHomeRecommend || {}
+      }
+    }
+  },
+  {
+    ...bannerHomeRecommendActionCreators,
+  }
+)(SearchResult);
+
+// function mapStateToProps(state, props) {
+//   const { bannerHomeRecommend } = state;
+//   return {
+//     bannerHomeRecommend: bannerHomeRecommend || {}
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(SearchResult);

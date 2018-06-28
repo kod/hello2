@@ -245,16 +245,23 @@ class Main extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { scrollableTabView } = state;
-  return {
-    scrollTabIndex: scrollableTabView.index
-  };
-}
-
 export default connectLocalization(
   connect(
-    mapStateToProps, 
+    () => {
+      return (state, props) => {
+        const {
+          scrollableTabView,
+        } = state;
+
+        const {
+
+        } = props;
+
+        return {
+          scrollTabIndex: scrollableTabView.index
+        }
+      }
+    },
     {
       ...i18nActionCreators,
       ...scrollableTabViewActionCreators,
@@ -270,3 +277,29 @@ export default connectLocalization(
     }
   )(Main)
 );
+
+// function mapStateToProps(state, props) {
+//   const { scrollableTabView } = state;
+//   return {
+//     scrollTabIndex: scrollableTabView.index
+//   };
+// }
+
+// export default connectLocalization(
+//   connect(
+//     mapStateToProps, 
+//     {
+//       ...i18nActionCreators,
+//       ...scrollableTabViewActionCreators,
+//       ...bannerSwiperActionCreators,
+//       ...bannerHomeTypeActionCreators,
+//       ...promotionInfoActionCreators,
+//       ...mergeGetInfoActionCreators,
+//       ...adverstInfoActionCreators,
+//       ...adPhoneActionCreators,
+//       ...topComputerActionCreators,
+//       ...newComputerActionCreators,
+//       ...adDigitalActionCreators,
+//     }
+//   )(Main)
+// );

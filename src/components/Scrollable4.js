@@ -13,7 +13,7 @@ import * as adDigitalActionCreators from '../common/actions/adDigital';
 
 const { width, height } = Dimensions.get('window');
 
-class Scrollable2 extends React.Component {
+class Scrollable4 extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -45,12 +45,37 @@ class Scrollable2 extends React.Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  const { bannerSwiper, adDigital } = state;
-  return {
-    bannerSwiper: bannerSwiper['four'] || {},
-    adDigital,
-  };
-}
+export default connect(
+  () => {
+    return (state, props) => {
+      const {
+        bannerSwiper,
+        adDigital
+      } = state;
 
-export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...adDigitalActionCreators })(Scrollable2);
+      const {
+
+      } = props;
+
+      return {
+        bannerSwiper: bannerSwiper['four'] || {},
+        adDigital,
+      }
+    }
+  },
+  {
+    ...bannerSwiperActionCreators,
+    ...adDigitalActionCreators
+  }
+)(Scrollable4);
+
+
+// function mapStateToProps(state, props) {
+//   const { bannerSwiper, adDigital } = state;
+//   return {
+//     bannerSwiper: bannerSwiper['four'] || {},
+//     adDigital,
+//   };
+// }
+
+// export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...adDigitalActionCreators })(Scrollable4);
