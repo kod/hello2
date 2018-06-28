@@ -119,7 +119,11 @@ export function* mergeGetDetailFetchWatchHandle(action) {
     const { propertydetails, branddetails } = response;
 
     const productdetails = response.productdetails.map((val, key) => {
-      val.imageUrls = val.imageUrls.split('|');
+      val.imageUrls = val.imageUrls.split('|').map((val, key) => {
+        const result = {}
+        result.imageUrl = val;
+        return result;
+      });
       val.goodsProperties = val.goodsProperties.split('|');
       return val;
     });

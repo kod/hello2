@@ -9,7 +9,6 @@ import CustomIcon from "../components/CustomIcon";
 import HeaderShareButton from '../components/HeaderShareButton';
 import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
-import ImageGetSize from "../components/ImageGetSize";
 import BYTouchable from "../components/BYTouchable";
 import BYCacheImage from "../components/BYCacheImage";
 import Comment from "../components/Comment";
@@ -325,12 +324,6 @@ class ProductDetail extends React.Component {
             scrollEventThrottle={16}
             bounces={false}
           /> */}
-
-          {/* {
-            imageDesc.map((val, key) => {
-              return <ImageGetSize uri={val} key={key} />
-            })
-          } */}
         </ScrollView>
       </View>
     );

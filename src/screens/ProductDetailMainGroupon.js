@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Image, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, Image, WebView } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -152,6 +152,9 @@ const styles = StyleSheet.create({
     height: 800,
     resizeMode: 'contain',
   },
+  WebView: {
+    height: WINDOW_HEIGHT,
+  },
 });
 
 class GrouponList extends Component {
@@ -238,10 +241,11 @@ class ProductDetail extends Component {
       propertiesIds,
       brandId,
       isAuthUser,
-      screenProps: { mainNavigation: { navigate } },
     } = this.props;
-    if (!isAuthUser) return navigate(SCREENS.Login);
-    collectionFetch();
+    if (isAuthUser) {
+      collectionFetch();
+    }
+    
     mergeCheckFetch({
       brandId,
     });
@@ -737,10 +741,38 @@ class ProductDetail extends Component {
       imageDesc,
       propertiesIdsObject,
       navigation: { navigate },
+      screenProps: { mainNavigation },
       screenProps: {
         handleOnPressToggleMenuBottomSheet,
       },
     } = this.props;
+
+    let WebViewImages;
+    switch (imageDesc.length) {
+      case 0:
+        WebViewImages = '';
+        break;
+    
+      case 1:
+        WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_70" alt="image">`;
+        break;
+    
+      default:
+        WebViewImages = imageDesc.reduce((a, b, index) => {
+          if (index === 1) {
+            let resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            return resultStr;
+          } else {
+            let resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            return a + resultStr;
+          }
+        });
+        break;
+    }
+
+    const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${WebViewImages}</body></html>`
+    
     return (
       <View style={styles.container} >
         <ScrollView onScroll={this.handleOnScroll}>
@@ -784,11 +816,22 @@ class ProductDetail extends Component {
               <Text style={styles.commentMoreText} onPress={() => navigate(SCREENS.ProductDetailComment)} >{i18n.more}</Text>
             </View>
           }
-          {
+          <WebView
+            source={
+              {
+                html: WebViewHTML,
+              }
+            }
+            style={styles.WebView}
+          />
+          <View style={[styles.commentMore, {paddingTop: SIDEINTERVAL}]} >
+            <Text style={styles.commentMoreText} onPress={() => mainNavigation.navigate(SCREENS.ProductDetailImages, { html: WebViewHTML })} >{i18n.more}</Text>
+          </View>
+          {/* {
             imageDesc.map((val, key) => {
               return <ImageGetSize uri={`${val}?x-oss-process=image/quality,Q_10`} key={key} />
             })
-          }
+          } */}
         </ScrollView>
         <BYBottomSheet
           containerStyle={{justifyContent: 'center',}}
