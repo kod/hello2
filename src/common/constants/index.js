@@ -38,6 +38,7 @@ export const SCREENS = {
   ProductDetailMain: 'ProductDetailMain',
   ProductDetailMainGroupon: 'ProductDetailMainGroupon',
   ProductDetailParam: 'ProductDetailParam',
+  QrCodeScanner: 'QrCodeScanner',
   Recharge: 'Recharge',
   RegisterFastStepOne: 'RegisterFastStepOne',
   RegisterFastStepTwo: 'RegisterFastStepTwo',

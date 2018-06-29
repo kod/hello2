@@ -226,7 +226,10 @@ class Main extends React.Component {
 
     return (
       <View style={styles.container}>
-        <SearchHeader text={'XiaoMi 5A'} />
+        <SearchHeader 
+          text={'XiaoMi 5A'} 
+          onPress={() => navigate(SCREENS.QrCodeScanner)}
+        />
         {/* <View style={styles.headerContainer}>
           <BYTouchable>
             <CustomIcon name="notice" style={styles.headerIcon} />

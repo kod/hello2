@@ -56,6 +56,7 @@ class SearchHeader extends Component {
       headerRight,
       headerLeft,
       text,
+      onPress = () => {},
     } = this.props;
 
     return (
@@ -80,7 +81,7 @@ class SearchHeader extends Component {
           ?
           headerRight
           :
-          <CustomIcon name="qrcode" style={styles.headerIcon} />
+          <CustomIcon name="qrcode" style={styles.headerIcon} onPress={onPress} />
         }
       </View>
     );
