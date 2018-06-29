@@ -285,8 +285,8 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
-  initialRouteName: SCREENS.QrCodeScanner,
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.QrCodeScanner,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {

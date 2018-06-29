@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Linking, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import QRCodeScanner from 'react-native-qrcode-scanner';
 
 import { SCREENS } from "../common/constants";
 
@@ -19,17 +20,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  logout: {
-    paddingRight: SIDEINTERVAL,
-    paddingLeft: SIDEINTERVAL,
+  textBold: {
+    fontWeight: '500',
+    color: '#000',
   },
-  logoutText: {
-    height: 50,
-    lineHeight: 50,
-    textAlign: 'center',
-    backgroundColor: '#F5F5F5',
-    color: RED_COLOR,
-    fontSize: 14,
+  buttonText: {
+    fontSize: 21,
+    color: 'rgb(0,122,255)',
+  },
+  buttonTouchable: {
+    padding: 16,
   },
 })
 
@@ -38,6 +38,49 @@ class QrCodeScanner extends React.Component {
   componentDidMount() {
     const { bannerHomeRecommendFetch } = this.props;
     // bannerHomeRecommendFetch();
+  }
+
+  onSuccess(e) {
+    console.log(e);
+    Alert.alert(
+      '',
+      e.data,
+      [
+        { 
+          text: '确定', 
+          onPress: () => {}
+        }
+      ]
+    )
+
+    // Linking
+    //   .openURL(e.data)
+    //   .catch(err => console.error('An error occured', err));
+  }
+
+  renderHeaderTitle = () => {
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingRight: 40,
+        flexDirection: 'row',
+      },
+      title: {
+        fontSize: 16,
+        color: '#333',
+        marginRight: 5,
+      },
+    });
+    return (
+      <BYTouchable 
+        style={styles.container} 
+        backgroundColor={'transparent'} 
+      >
+        <Text style={styles.title}>Scan QR Code</Text>
+      </BYTouchable>
+    )
   }
 
   render() {
@@ -49,10 +92,21 @@ class QrCodeScanner extends React.Component {
     
     return (
       <View style={styles.container} >
-        <BYHeader />
-        <ScrollView style={styles.container} >
-          
-        </ScrollView>
+        <BYHeader  
+          headerTitle={this.renderHeaderTitle()}
+        />
+        <QRCodeScanner
+          onRead={this.onSuccess.bind(this)}
+          showMarker={true}
+          // topContent={
+          //   <Text style={styles.centerText}></Text>
+          // }
+          // bottomContent={
+          //   <TouchableOpacity style={styles.buttonTouchable}>
+          //     <Text style={styles.buttonText}>OK. Got it!</Text>
+          //   </TouchableOpacity>
+          // }
+        />
       </View>
     );
   }

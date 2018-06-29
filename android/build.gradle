@@ -3,9 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -14,11 +15,12 @@ buildscript {
 
 allprojects {
     repositories {
-				// Add jitpack repository (added by react-native-spinkit)
-				maven { url "https://jitpack.io" }
+        // Add jitpack repository (added by react-native-spinkit)
+        maven { url "https://jitpack.io" }
         maven { url "https://maven.google.com" }
         mavenLocal()
         jcenter()
+        google()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
@@ -27,10 +29,16 @@ allprojects {
 }
 
 ext {
-    ANDROID_BUILD_MIN_SDK_VERSION=15
-    ANDROID_BUILD_TARGET_SDK_VERSION=26
-    ANDROID_BUILD_TOOLS_VERSION='25.4.0'
-    ANDROID_BUILD_SDK_VERSION=26
+    // ANDROID_BUILD_MIN_SDK_VERSION=15
+    // ANDROID_BUILD_TARGET_SDK_VERSION=26
+    // ANDROID_BUILD_TOOLS_VERSION='25.4.0'
+    // ANDROID_BUILD_SDK_VERSION=26
 
-    SUPPORT_VERSION='25.4.0'
+    // SUPPORT_VERSION='25.4.0'
+
+    COMPILE_SDK_VERSION             = 27
+    BUILD_TOOLS_VERSION             = "27.0.3"
+    TARGET_SDK_VERSION              = 22
+    GOOGLE_PLAY_SERVICES_VERSION    = "12.0.1"
+    SUPPORT_LIBRARY_VERSION         = "27.1.0"
 }
