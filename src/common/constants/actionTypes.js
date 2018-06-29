@@ -356,6 +356,12 @@ export const RECEIVE_VOUCHER = defineAction(
   appNamespace,
 );
 
+export const GET_VOUCHER_LIST = defineAction(
+  'GET_VOUCHER_LIST',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const CARD_QUERY = defineAction(
   'CARD_QUERY',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

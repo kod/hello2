@@ -15,6 +15,10 @@ export const SCREENS = {
   CertifiedInformationContact: 'CertifiedInformationContact',
   CertifiedInformationSchool: 'CertifiedInformationSchool',
   Coupon: 'Coupon',
+  CouponMy: 'CouponMy',
+  CouponMyUsed: 'CouponMyUsed',
+  CouponMyUnused: 'CouponMyUnused',
+  CouponMyPast: 'CouponMyPast',
   Evalution: 'Evalution',
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',
@@ -47,7 +51,7 @@ export const SCREENS = {
   Test: 'Test',
   TransactionPasswordStepOne: 'TransactionPasswordStepOne',
   TransactionPasswordStepTwo: 'TransactionPasswordStepTwo',
-  WebView: 'WebView',
+  WebView: 'WebView'
 };
 
 export const CARMAXNUMBER = 50;
@@ -61,3 +65,12 @@ export const SIDEINTERVAL = Math.floor(Dimensions.get('window').width) * 0.04;
 
 export const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 44;
 export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+
+export const COUPONMY_TABNAVIGATOR_MAP = {
+  CouponMyUnused: 1,
+  CouponMyUsed: 2,
+  CouponMyPast: 0,
+  1: 'CouponMyUnused',
+  2: 'CouponMyUsed',
+  0: 'CouponMyPast'
+};

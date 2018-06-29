@@ -129,6 +129,10 @@ import {
   receiveVoucherFetchWatch,
   receiveVoucherSuccessWatch,
 } from './receiveVoucher';
+import {
+  getVoucherListFetchWatch,
+  // getVoucherListSuccessWatch,
+} from './getVoucherList';
 
 export default function* rootSaga() {
   yield all([
@@ -214,5 +218,6 @@ export default function* rootSaga() {
     getVoucherFetchWatch(),
     receiveVoucherFetchWatch(),
     receiveVoucherSuccessWatch(),
+    getVoucherListFetchWatch(),
   ]);
 }
