@@ -228,7 +228,8 @@ class Main extends React.Component {
       <View style={styles.container}>
         <SearchHeader 
           text={'XiaoMi 5A'} 
-          onPress={() => navigate(SCREENS.QrCodeScanner)}
+          leftOnPress={() => navigate(SCREENS.QrCodeScanner)}
+          middleOnPress={() => navigate(SCREENS.SearchResult)}
         />
         {/* <View style={styles.headerContainer}>
           <BYTouchable>

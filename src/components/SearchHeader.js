@@ -56,7 +56,8 @@ class SearchHeader extends Component {
       headerRight,
       headerLeft,
       text,
-      onPress = () => {},
+      middleOnPress = () => {},
+      leftOnPress = () => {},
     } = this.props;
 
     return (
@@ -70,7 +71,7 @@ class SearchHeader extends Component {
             <CustomIcon name="notice" style={styles.headerIcon} />
           </BYTouchable>
         }
-        <BYTouchable style={styles.headerMiddle} onPress={() => navigate(SCREENS.SearchResult)}>
+        <BYTouchable style={styles.headerMiddle} onPress={middleOnPress}>
           <View style={styles.headerMiddleMain}>
             <CustomIcon name="search" style={styles.headerMiddleIcon} />
             <Text style={styles.headerMiddleText}>{text}</Text>
@@ -81,7 +82,7 @@ class SearchHeader extends Component {
           ?
           headerRight
           :
-          <CustomIcon name="qrcode" style={styles.headerIcon} onPress={onPress} />
+          <CustomIcon name="qrcode" style={styles.headerIcon} onPress={leftOnPress} />
         }
       </View>
     );
