@@ -233,9 +233,9 @@ export default connectLocalization(
           getMenu,
         } = state;
 
-        const {
+        // const {
 
-        } = props;
+        // } = props;
 
         return {
           loading: getMenu.loading,

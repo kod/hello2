@@ -257,9 +257,9 @@ export default connectLocalization(
           scrollableTabView,
         } = state;
 
-        const {
+        // const {
 
-        } = props;
+        // } = props;
 
         return {
           scrollTabIndex: scrollableTabView.index

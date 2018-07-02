@@ -57,9 +57,9 @@ export default connect(
         bannerSwiper,
       } = state;
 
-      const {
+      // const {
 
-      } = props;
+      // } = props;
 
       return {
         bannerSwiper: bannerSwiper['one'] || {}

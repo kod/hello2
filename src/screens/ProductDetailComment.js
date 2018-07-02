@@ -75,9 +75,9 @@ export default connect(
         comment,
       } = state;
 
-      const {
+      // const {
 
-      } = props;
+      // } = props;
 
       return {
         comment: comment.items.detail ? comment.items.detail : [],

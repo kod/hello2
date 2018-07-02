@@ -319,9 +319,9 @@ export default connectLocalization(
           collectFiles,
         } = state;
 
-        const {
+        // const {
 
-        } = props;
+        // } = props;
 
         return {
           collectFiles: collectFiles,

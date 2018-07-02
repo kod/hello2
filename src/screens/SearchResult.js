@@ -157,9 +157,9 @@ export default connect(
         bannerHomeRecommend,
       } = state;
 
-      const {
+      // const {
 
-      } = props;
+      // } = props;
 
       return {
         bannerHomeRecommend: bannerHomeRecommend || {}

@@ -242,9 +242,9 @@ export default withNavigation(
             address,
           } = state;
 
-          const {
+          // const {
 
-          } = props;
+          // } = props;
 
           return {
             isAuthUser: !!state.auth.user,

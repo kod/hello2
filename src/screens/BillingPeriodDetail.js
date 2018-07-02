@@ -152,9 +152,9 @@ export default connectLocalization(
           bannerHomeRecommend,
         } = state;
 
-        const {
+        // const {
 
-        } = props;
+        // } = props;
 
         return {
           bannerHomeRecommend: bannerHomeRecommend || {}

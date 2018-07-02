@@ -185,9 +185,9 @@ export default connect(
         mergeGetInfo,
       } = state;
 
-      const {
+      // const {
 
-      } = props;
+      // } = props;
 
       return {
         bannerSwiper: bannerSwiper['one'] || {},

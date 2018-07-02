@@ -108,9 +108,9 @@ export default connect(
         adPhone
       } = state;
 
-      const {
+      // const {
 
-      } = props;
+      // } = props;
 
       return {
         bannerSwiper: bannerSwiper['two'] || {},

@@ -113,9 +113,9 @@ export default connectLocalization(connect(
         getVoucher,
       } = state;
 
-      const {
+      // const {
 
-      } = props;
+      // } = props;
 
       return {
         items: getVoucher.items,
