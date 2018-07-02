@@ -238,7 +238,7 @@ export function* cartDeleteRequestWatchHandle(action) {
       yield put(cartDeleteSuccess());
     } else {
       yield put(cartDeleteFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
     }
 
   } catch (err) {
@@ -348,7 +348,7 @@ export function* cartAddRequestWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(cartAddFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 

@@ -116,7 +116,7 @@ export function* productDetailInfoFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(productDetailInfoFetchFailure());
-      // yield put(addError(response.msg));
+      // yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       Alert.alert(
         '',
         response.msg,

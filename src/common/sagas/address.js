@@ -72,7 +72,7 @@ export function* addressFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(addressFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 
@@ -191,7 +191,7 @@ export function* addressAddFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(addressAddFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 
@@ -256,7 +256,7 @@ export function* addressRemoveWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(addressRemoveFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 
@@ -382,7 +382,7 @@ export function* addressModifyWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(addressModifyFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 

@@ -53,7 +53,7 @@ export function* schoolInfoFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(schoolInfoFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 

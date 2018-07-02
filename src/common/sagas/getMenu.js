@@ -68,7 +68,7 @@ export function* getMenuFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(getMenuFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 

@@ -77,7 +77,7 @@ export function* collectionFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(collectionFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 
@@ -132,7 +132,7 @@ export function* collectionAddFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(collectionAddFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 
@@ -201,7 +201,7 @@ export function* collectionRemoveFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(collectionRemoveFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 

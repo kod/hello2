@@ -52,7 +52,7 @@ export function* otpFetchWatchHandle(action) {
 
     if (response.status !== 10000) {
       yield put(otpFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 

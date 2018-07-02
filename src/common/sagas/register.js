@@ -95,7 +95,7 @@ export function* registerFetchWatchHandle(action) {
 
     if (response.status !== 10000) {
       yield put(registerFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
     yield put(registerFetchSuccess());

@@ -69,7 +69,7 @@ export function* updatePeriodFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(updatePeriodFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
     yield put(updatePeriodFetchSuccess());

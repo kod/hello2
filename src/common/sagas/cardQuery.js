@@ -53,7 +53,7 @@ export function* cardQueryFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(cardQueryFetchFailure());
-      yield put(addError(response.msg));
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
       return false;
     }
 
