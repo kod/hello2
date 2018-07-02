@@ -7,7 +7,7 @@ import ProductDetailParam from '../screens/ProductDetailParam';
 import ProductDetailComment from '../screens/ProductDetailComment';
 
 import { SCREENS } from '../common/constants';
-import CustomTabBarComponent from "../components/CustomTabBarComponent";
+import ProductDetailCustomTabBarComponent from "../components/ProductDetailCustomTabBarComponent";
 import { PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from "../common/constants";
 
@@ -36,7 +36,7 @@ const RouteConfigs = {
 };
 
 const TabNavigatorConfig = {
-  tabBarComponent: CustomTabBarComponent,
+  tabBarComponent: ProductDetailCustomTabBarComponent,
   lazy: true,
   swipeEnabled: true,
   animationEnabled: false,

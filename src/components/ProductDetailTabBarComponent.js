@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class CustomTabBarComponent extends Component {
+export default class ProductDetailTabBarComponent extends Component {
 
   renderMain(style, opacity, type) {
     const {
