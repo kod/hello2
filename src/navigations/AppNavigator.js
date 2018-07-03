@@ -40,6 +40,7 @@ import CateList from '../screens/CateList';
 import Coupon from '../screens/Coupon';
 import CouponMy from '../screens/CouponMy';
 import QrCodeScanner from '../screens/QrCodeScanner';
+import Prepaid from '../screens/Prepaid';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -281,12 +282,18 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.Prepaid]: {
+    screen: Prepaid,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.SearchResult,
+  // initialRouteName: SCREENS.Index,
+  initialRouteName: SCREENS.Prepaid,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {
