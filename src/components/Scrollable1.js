@@ -123,12 +123,12 @@ class Scrollable1 extends React.Component {
       {
         imageSource: require('../images/recharge.png'), 
         text: i18n.recharge,
-        onPress: () => { navigate(SCREENS.Coupon) },
+        onPress: () => { navigate(SCREENS.Prepaid) },
       },
       {
         imageSource: require('../images/buyhelp.png'), 
         text: i18n.howToBuy,
-        onPress: () => { navigate(SCREENS.Coupon) },
+        onPress: () => { navigate(SCREENS.WebView, { source: 'https://buyoo.vn/html/paystepM.html' }) },
         styleImg: {
           height: 32,
           width: 32,
@@ -138,7 +138,7 @@ class Scrollable1 extends React.Component {
       {
         imageSource: require('../images/grouphelp.png'), 
         text: i18n.groupBuyHelp,
-        onPress: () => { navigate(SCREENS.Coupon) },
+        onPress: () => { navigate(SCREENS.WebView, { source: 'https://buyoo.vn/html/grouponhelpM.html' }) },
       },
     ]
     
