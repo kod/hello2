@@ -79,3 +79,12 @@ export const COUPONMY_TABNAVIGATOR_MAP = {
   2: 'CouponMyUsed',
   0: 'CouponMyPast'
 };
+
+export const PROVIDER_TYPE_MAP = {
+  recharge: 32,
+  phoneCard: 33,
+  scratchCards: 34,
+  32: 'recharge',
+  33: 'phoneCard',
+  34: 'scratchCards',
+};

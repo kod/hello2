@@ -69,6 +69,74 @@ class ReactStore {
     return this.requestUrl(`:8183/fun/trade/order/create`, options);
   }
 
+  getPhoneRecharge(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8185/fun/virtual/getPhoneRecharge`, options);
+  }
+
+  getProvidersCard(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8185/fun/virtual/getProvidersCard`, options);
+  }
+
+  get3GProvidersCard(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8185/fun/virtual/get3GProvidersCard`, options);
+  }
+
+  getProvidersValue(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8185/fun/virtual/getProvidersValue`, options);
+  }
+
   queryOrderList(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));

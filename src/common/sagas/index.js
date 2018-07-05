@@ -133,6 +133,22 @@ import {
   getVoucherListFetchWatch,
   // getVoucherListSuccessWatch,
 } from './getVoucherList';
+import {
+  getPhoneRechargeFetchWatch,
+  // getPhoneRechargeSuccessWatch,
+} from './getPhoneRecharge';
+import {
+  getProvidersCardFetchWatch,
+  getProvidersCardSuccessWatch,
+} from './getProvidersCard';
+import {
+  get3GProvidersCardFetchWatch,
+  get3GProvidersCardSuccessWatch,
+} from './get3GProvidersCard';
+import {
+  getProvidersValueFetchWatch,
+  // getProvidersValueSuccessWatch,
+} from './getProvidersValue';
 
 export default function* rootSaga() {
   yield all([
@@ -219,5 +235,11 @@ export default function* rootSaga() {
     receiveVoucherFetchWatch(),
     receiveVoucherSuccessWatch(),
     getVoucherListFetchWatch(),
+    getPhoneRechargeFetchWatch(),
+    getProvidersCardFetchWatch(),
+    getProvidersCardSuccessWatch(),
+    get3GProvidersCardFetchWatch(),
+    get3GProvidersCardSuccessWatch(),
+    getProvidersValueFetchWatch(),
   ]);
 }

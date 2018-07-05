@@ -52,6 +52,11 @@ import getAllProductInfo from './getAllProductInfo';
 import getVoucher from './getVoucher';
 import receiveVoucher from './receiveVoucher';
 import getVoucherList from './getVoucherList';
+import getPhoneRecharge from './getPhoneRecharge';
+import prepaid from './prepaid';
+import getProvidersCard from './getProvidersCard';
+import getProvidersValue from './getProvidersValue';
+import get3GProvidersCard from './get3GProvidersCard';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -106,6 +111,11 @@ const rootReducer = combineReducers({
   getVoucher,
   receiveVoucher,
   getVoucherList,
+  getPhoneRecharge,
+  prepaid,
+  getProvidersCard,
+  getProvidersValue,
+  get3GProvidersCard,
   form: formReducer,
 });
 

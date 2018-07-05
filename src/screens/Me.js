@@ -202,12 +202,12 @@ class Me extends React.Component {
       },
       {
         name: i18n.myCoupon,
-        navigate: SCREENS.Settings,
+        navigate: SCREENS.CouponMy,
         tips: '',
       },
       {
         name: i18n.securityCenter,
-        navigate: SCREENS.Settings,
+        navigate: SCREENS.SecurityCenter,
         tips: '',
       },
       {

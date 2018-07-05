@@ -18,6 +18,7 @@ export function* orderCreateFetchWatchHandle(action) {
   try {
     const {
       BYtype = 'normal',
+      BYpayway = '1',
       currency = 'VN',
       ordertype = '1',
       addrid = '',
@@ -79,6 +80,25 @@ export function* orderCreateFetchWatchHandle(action) {
       ],
       Key
     );
+    console.log(JSON.stringify(      {
+      appid: appId,
+      method: method,
+      charset: charset,
+      signtype: signType,
+      encrypt: encrypt,
+      timestamp: timestamp,
+      version: version,
+      funid: funid,
+      currency: currency,
+      ordertype: ordertype,
+      addrid: addrid,
+      goodsdetail: goodsdetail,
+      mergedetail: mergedetail,
+      coupondetail: coupondetail,
+      subject: subject,
+      remark: remark,
+    }
+));
 
     const response = yield apply(buyoo, buyoo.orderCreate, [
       {
@@ -101,6 +121,8 @@ export function* orderCreateFetchWatchHandle(action) {
       }
     ]);
 
+    console.log(response);
+
     if (response.code !== 10000) {
       yield put(orderCreateFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
@@ -109,6 +131,7 @@ export function* orderCreateFetchWatchHandle(action) {
 
     yield put(orderCreateFetchSuccess({
       BYtype,
+      BYpayway,
       tradeNo: response.result.tradeNo,
       orderNo: response.result.orderNo,
     }));
@@ -129,7 +152,9 @@ export function* orderCreateSuccessWatchHandle(action) {
       tradeNo,
       orderNo,
       BYtype,
+      BYpayway,
     } = action.payload;
+    console.log(BYtype);
     switch (BYtype) {
       case 'normal':
         yield NavigatorService.navigate(SCREENS.Pay, {
@@ -149,7 +174,21 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            payway: 1,
+            payway: BYpayway,
+            paypassword: '123456',
+            BYtype,
+          })
+        );
+  
+        break;
+
+      case 'Prepaid':
+
+        yield put(
+          orderPayFetch({
+            orderno: orderNo,
+            tradeno: tradeNo,
+            payway: BYpayway,
             paypassword: '123456',
             BYtype,
           })
@@ -161,7 +200,7 @@ export function* orderCreateSuccessWatchHandle(action) {
         break;
     }
   } catch (err) {
-    
+    console.log(err);
   }
 }
 

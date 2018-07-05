@@ -9,12 +9,18 @@ import CustomIcon from "../components/CustomIcon";
 import BYButton from "../components/BYButton";
 import BYTouchable from "../components/BYTouchable";
 import ActionSheet from "../components/ActionSheet";
+import Loader from "../components/Loader";
+
+import priceFormat from "../common/helpers/priceFormat";
+import { PROVIDER_TYPE_MAP } from "../common/constants";
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
 
 
-import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
+import * as get3GProvidersCardActionCreators from '../common/actions/get3GProvidersCard';
+import * as getProvidersValueActionCreators from '../common/actions/getProvidersValue';
+import * as orderCreateActionCreators from '../common/actions/orderCreate';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,25 +31,101 @@ const styles = StyleSheet.create({
   },
 });
 
-class PrepaidScratchCards extends React.Component {
+class PrepaidPhoneCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpenActionSheet: false,
-      payWayButtons: ['信用卡', '网银'],
+      priceIndex: 0,
+      payWayIndex: 0,
+      numberItemIndex: 0,
+      buttonSelectNumber: [
+        {
+          text: 1,
+        },
+        {
+          text: 2,
+        },
+        {
+          text: 3,
+        },
+        {
+          text: 4,
+        },
+        {
+          text: 5,
+        },
+      ],
     }
 
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
+    this.prepaidBrandCallback = this.prepaidBrandCallback.bind(this);
+    this.buttonSelectPriceCallback = this.buttonSelectPriceCallback.bind(this);
+    this.buttonSelectNumberCallback = this.buttonSelectNumberCallback.bind(this);
   }
   
   componentDidMount() {
-    const { bannerSwiperFetch } = this.props;
-    
+    const { get3GProvidersCardFetch } = this.props;
+    get3GProvidersCardFetch()
   }
 
   buttonSelectPriceCallback(val, key) {
     console.log(val);
     console.log(key);
+    this.setState({
+      priceIndex: key,
+    });
+  }
+  
+  buttonSelectNumberCallback(val, key) {
+    console.log(val);
+    console.log(key);
+    this.setState({
+      numberItemIndex: key,
+    });
+  }
+  
+  prepaidBrandCallback(val, key) {
+    const {
+      getProvidersValueFetch,
+    } = this.props;
+    console.log(val);
+    console.log(key);
+
+    getProvidersValueFetch({
+      providerName: val.providerName,
+      providerCode: val.providerCode,
+      providerType: PROVIDER_TYPE_MAP['scratchCards'],
+    })
+  }
+
+  isProcessSubmit() {
+    const {
+      priceIndex,
+      payWayIndex,
+      numberItemIndex,
+      buttonSelectNumber,
+    } = this.state;
+
+    const {
+      loading,
+      payWayButtons,
+      ProvidersValueItems,
+    } = this.props;
+
+    if (
+      buttonSelectNumber[numberItemIndex] && 
+      buttonSelectNumber[numberItemIndex].text > 0 && 
+      loading === false && 
+      payWayButtons[payWayIndex] &&
+      ProvidersValueItems[priceIndex] &&
+      ProvidersValueItems[priceIndex].price > 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
   
   handleOnPressToggleModal = (key, val) => {
@@ -52,8 +134,44 @@ class PrepaidScratchCards extends React.Component {
     });
   };
 
+  handleOnPressSubmit() {
+    const {
+      priceIndex,
+      payWayIndex,
+      numberItemIndex,
+      buttonSelectNumber,
+    } = this.state;
+
+    const {
+      payWayButtons,
+      ProvidersValueItems,
+      orderCreateFetch,
+      providerCode,
+    } = this.props;
+
+    if (this.isProcessSubmit()) {
+      orderCreateFetch({
+        BYtype: 'Prepaid',
+        BYpayway: payWayButtons[payWayIndex].payway,
+        ordertype: '7',
+        goodsdetail: JSON.stringify([{
+          number: buttonSelectNumber[numberItemIndex].text,
+          cartitemid: 0,
+          productid: ProvidersValueItems[priceIndex].id,
+          rechargeaccount: '',
+          rechargecode: providerCode,
+          repaymentamount: '',
+        }])
+      });
+    }
+  }
+
   actionSheetCallback(ret) {
     console.log(ret);
+    if (ret.buttonIndex < 0) return false;
+    this.setState({
+      payWayIndex: ret.buttonIndex
+    });
   }
   
   renderContent() {
@@ -114,63 +232,57 @@ class PrepaidScratchCards extends React.Component {
         fontSize: 10,
         paddingTop: 9,
       },
+      byButton: {
+        backgroundColor: 'rgba(0, 118, 247, 0.5)',
+      },
     });
 
-    const buttonSelectPrice = [
-      {
-        text: '50,000 vnd',
-      },
-      {
-        text: '60,000 vnd',
-      },
-      {
-        text: '70,000 vnd',
-      },
-      {
-        text: '80,000 vnd',
-      },
-    ]
+    const {
+      payWayIndex,
+      priceIndex,
+      numberItemIndex,
+      buttonSelectNumber,
+    } = this.state;
+    
+    const {
+      providersItems,
+      ProvidersValueItems,
+      payWayButtons,
+    } = this.props;
 
-    const buttonSelectNumber = [
-      {
-        text: 1,
-      },
-      {
-        text: 2,
-      },
-      {
-        text: 3,
-      },
-      {
-        text: 4,
-      },
-      {
-        text: 5,
-      },
-    ]
+    const number = buttonSelectNumber[numberItemIndex].text;
     
     return (
       <View style={styles.container} >
         <View style={{ height: 20 }} ></View>
         <Text style={styles.title} >Chọn nhà mạng</Text>
-        <PrepaidBrand />
+        <PrepaidBrand data={providersItems} callback={this.prepaidBrandCallback} />
         <Text style={styles.title} >Chọn nhà mạng</Text>
-        <ButtonSelect data={buttonSelectPrice} callback={this.buttonSelectPriceCallback} />
+        <ButtonSelect data={ProvidersValueItems} callback={this.buttonSelectPriceCallback} />
         <Text style={styles.title} >Chọn mệnh giá và số lượng thẻ</Text>
-        <ButtonSelect data={buttonSelectNumber} style={{ marginBottom: 10 }} />
+        <ButtonSelect data={buttonSelectNumber} style={{ marginBottom: 10 }} callback={this.buttonSelectNumberCallback} />
         <BYTouchable style={styles.payMethod} onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')} >
           <Text style={styles.payMethodLeft} >Payment method</Text>
-          <Text style={styles.payMethodMiddle} >Balance</Text>
+          <Text style={styles.payMethodMiddle} >{payWayButtons[payWayIndex].text}</Text>
           <CustomIcon style={styles.payMethodRight} name={'arrowright'} />
         </BYTouchable>
         <View style={styles.price} >
           <Text style={styles.priceTitle} >金额</Text>
           <View style={styles.priceMain} >
-            <Text style={styles.priceRed} >49.000 VND</Text>
-            <Text style={styles.priceGrey} >(已优惠1000VND)</Text>
+            <Text style={styles.priceRed} >{ProvidersValueItems[priceIndex] && priceFormat(ProvidersValueItems[priceIndex].price * number)} VND</Text>
+            {
+              ProvidersValueItems[priceIndex] && 
+              (ProvidersValueItems[priceIndex].price - ProvidersValueItems[priceIndex].orgPrice) !== 0 &&
+              <Text style={styles.priceGrey} >(已优惠{priceFormat(ProvidersValueItems[priceIndex].orgPrice * number - ProvidersValueItems[priceIndex].price * number)} VND)</Text>
+            }
           </View>
         </View>
-        <BYButton text={'支付'} styleWrap={{ marginBottom: 50 }} />
+        <BYButton 
+          text={'支付'} 
+          styleWrap={{ marginBottom: 50 }} 
+          style={!this.isProcessSubmit() && styles.byButton} 
+          onPress={() => this.handleOnPressSubmit()} 
+        />
       </View>
     )
   }
@@ -178,11 +290,12 @@ class PrepaidScratchCards extends React.Component {
   render() {
     const {
       isOpenActionSheet,
-      payWayButtons,
     } = this.state;
     
     const {
       screenProps: {i18n},
+      payWayButtons,
+      loading,
     } = this.props;
 
     return (
@@ -193,9 +306,10 @@ class PrepaidScratchCards extends React.Component {
         <ActionSheet 
           visible={isOpenActionSheet}
           onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
-          buttons={payWayButtons}
+          buttons={payWayButtons.map((val, key) => val.text)}
           callback={this.actionSheetCallback}
         />
+        {loading && <Loader absolutePosition />}
       </View>
     );
   }
@@ -205,7 +319,8 @@ export default connect(
   () => {
     return (state, props) => {
       const {
-        comment,
+        get3GProvidersCard,
+        getProvidersValue,
       } = state;
 
       // const {
@@ -213,11 +328,17 @@ export default connect(
       // } = props;
 
       return {
-        comment: comment.items.detail ? comment.items.detail : [],
+        providersItems: get3GProvidersCard.items,
+        loading: getProvidersValue.loading,
+        providerCode: getProvidersValue['scratchCards'].providerCode,
+        ProvidersValueItems: getProvidersValue['scratchCards'].items,
+        payWayButtons: getProvidersValue['scratchCards'].payWayButtons,
       }
     }
   },
   {
-    ...productDetailInfoActionCreators,
+    ...get3GProvidersCardActionCreators,
+    ...getProvidersValueActionCreators,
+    ...orderCreateActionCreators,
   }
-)(PrepaidScratchCards);
+)(PrepaidPhoneCard);

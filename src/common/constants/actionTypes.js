@@ -506,4 +506,34 @@ export const COLLECT_FILES = defineAction(
   appNamespace,
 );
 
+export const PREPAID = defineAction(
+  'PREPAID',
+  [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
+export const GET_PHONE_RECHARGE = defineAction(
+  'GET_PHONE_RECHARGE',
+  [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
+export const GET_PROVIDERS_CARD = defineAction(
+  'GET_PROVIDERS_CARD',
+  [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
+export const GET_3GPROVIDERS_CARD = defineAction(
+  'GET_3GPROVIDERS_CARD',
+  [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
+export const GET_PROVIDERS_VALUE = defineAction(
+  'GET_PROVIDERS_VALUE',
+  [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
 export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);
