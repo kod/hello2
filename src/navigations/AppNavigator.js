@@ -28,6 +28,7 @@ import RegisterFastStepTwo from '../screens/RegisterFastStepTwo';
 import RepaymentRecord from '../screens/RepaymentRecord';
 import SchoolSelect from '../screens/SchoolSelect';
 import SearchResult from '../screens/SearchResult';
+import SearchResultList from '../screens/SearchResultList';
 import SecurityCenter from '../screens/SecurityCenter';
 import Settings from '../screens/Settings';
 import Test from '../screens/Test';
@@ -288,12 +289,18 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.SearchResultList]: {
+    screen: SearchResultList,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.Prepaid,
+  // initialRouteName: SCREENS.Index,
+  initialRouteName: SCREENS.SearchResult,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {

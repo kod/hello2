@@ -51,6 +51,7 @@ export const SCREENS = {
   RepaymentRecord: 'RepaymentRecord',
   SchoolSelect: 'SchoolSelect',
   SearchResult: 'SearchResult',
+  SearchResultList: 'SearchResultList',
   SecurityCenter: 'SecurityCenter',
   Settings: 'Settings',
   Test: 'Test',

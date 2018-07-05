@@ -7,8 +7,8 @@ import BYHeader from '../components/BYHeader';
 import BYTextInput from '../components/BYTextInput';
 import BYTouchable from "../components/BYTouchable";
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
-import { SIDEINTERVAL } from '../common/constants';
+import * as searchHistoryActionCreators from '../common/actions/searchHistory';
+import { SIDEINTERVAL, SCREENS } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderBottomColor: '#f5f5f5',
     borderBottomWidth: 1,
-    paddingRight: SIDEINTERVAL,
   },
   historyTitle: {
     fontSize: 11,
@@ -53,6 +52,10 @@ const styles = StyleSheet.create({
   },
   historyCloseIcon: {
     fontSize: 14,
+    height: 40,
+    lineHeight: 40,
+    paddingLeft: SIDEINTERVAL,
+    paddingRight: SIDEINTERVAL,
   },
 });
 
@@ -66,20 +69,9 @@ class SearchResult extends React.Component {
   }
 
   componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
+    const { searchHistoryFetch } = this.props;
+    // searchHistoryFetch();
   }
-
-  // renderHeaderTitle = () => {
-  //   return (
-  //     <View style={{ flex: 1, paddingRight: width * 0.07, }} >
-  //       <View style={{ flexDirection: 'row', alignItems: 'center', height: 30, backgroundColor: '#1c62da', borderRadius: 14, paddingLeft: width * 0.03 }} >
-  //         <MaterialIcons name="search" style={{ fontSize: 18, color: 'rgba(255,255,255,.5)', marginRight: width * 0.01 }} />
-  //         <BYTextInput autoFocus={true} underlineColorAndroid={'rgba(0,0,0,.0)'} placeholder={'Search'} placeholderTextColor={'rgba(255,255,255,.5)'} style={{ color: '#fff', flex: 1, height: 30, paddingTop: 0, paddingBottom: 0, }} />
-  //       </View>
-  //     </View>
-  //   )
-  // }
 
   renderHeaderTitle = () => {
     const styles = StyleSheet.create({
@@ -108,7 +100,14 @@ class SearchResult extends React.Component {
   }
 
   render() {
-    const { bannerHomeRecommend, navigation: { navigate } } = this.props;
+    const {
+      items,
+      navigation: { navigate },
+      searchHistoryRemove,
+    } = this.props;
+
+    console.log(items);
+    
     return (
       <View style={styles.container} >
         <BYHeader
@@ -124,27 +123,23 @@ class SearchResult extends React.Component {
             onChangeText={(text) => this.setState({ searchText: text })}
           />
         </View>
-        <ScrollView>
+        {/* <ScrollView> */}
           <Text style={styles.title} >popular searches</Text>
           <View style={styles.history} >
-            <BYTouchable style={styles.historyItem} >
-              <Text style={styles.historyTitle} >VIVO v9</Text>
-              <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => {}} />
-            </BYTouchable>
-            <BYTouchable style={styles.historyItem} >
-              <Text style={styles.historyTitle} >VIVO v9</Text>
-              <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => {}} />
-            </BYTouchable>
-            <BYTouchable style={styles.historyItem} >
-              <Text style={styles.historyTitle} >VIVO v9</Text>
-              <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => {}} />
-            </BYTouchable>
-            <BYTouchable style={styles.historyItem} >
-              <Text style={styles.historyTitle} >VIVO v9</Text>
-              <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => {}} />
-            </BYTouchable>
+            {
+              items.map((val, key) => (
+                <BYTouchable 
+                  style={styles.historyItem} 
+                  onPress={() => navigate(SCREENS.SearchResultList, { findcontent: val })} 
+                  key={key} 
+                >
+                  <Text style={styles.historyTitle} >{val}</Text>
+                  <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => searchHistoryRemove(val)} />
+                </BYTouchable>
+              ))
+            }
           </View>
-        </ScrollView>
+        {/* </ScrollView> */}
       </View>
     );
   }
@@ -154,7 +149,7 @@ export default connect(
   () => {
     return (state, props) => {
       const {
-        bannerHomeRecommend,
+        searchHistory,
       } = state;
 
       // const {
@@ -162,20 +157,11 @@ export default connect(
       // } = props;
 
       return {
-        bannerHomeRecommend: bannerHomeRecommend || {}
+        items: searchHistory.items
       }
     }
   },
   {
-    ...bannerHomeRecommendActionCreators,
+    ...searchHistoryActionCreators,
   }
 )(SearchResult);
-
-// function mapStateToProps(state, props) {
-//   const { bannerHomeRecommend } = state;
-//   return {
-//     bannerHomeRecommend: bannerHomeRecommend || {}
-//   };
-// }
-
-// export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(SearchResult);

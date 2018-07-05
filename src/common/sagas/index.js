@@ -149,6 +149,10 @@ import {
   getProvidersValueFetchWatch,
   // getProvidersValueSuccessWatch,
 } from './getProvidersValue';
+import {
+  findProductsFetchWatch,
+  // findProductsSuccessWatch,
+} from './findProducts';
 
 export default function* rootSaga() {
   yield all([
@@ -241,5 +245,6 @@ export default function* rootSaga() {
     get3GProvidersCardFetchWatch(),
     get3GProvidersCardSuccessWatch(),
     getProvidersValueFetchWatch(),
+    findProductsFetchWatch(),
   ]);
 }

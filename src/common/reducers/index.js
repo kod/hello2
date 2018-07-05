@@ -49,6 +49,7 @@ import queryGoods from './queryGoods';
 import collectFiles from './collectFiles';
 import getMenu from './getMenu';
 import getAllProductInfo from './getAllProductInfo';
+import findProducts from './findProducts';
 import getVoucher from './getVoucher';
 import receiveVoucher from './receiveVoucher';
 import getVoucherList from './getVoucherList';
@@ -57,6 +58,7 @@ import prepaid from './prepaid';
 import getProvidersCard from './getProvidersCard';
 import getProvidersValue from './getProvidersValue';
 import get3GProvidersCard from './get3GProvidersCard';
+import searchHistory from './searchHistory';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -108,6 +110,7 @@ const rootReducer = combineReducers({
   collectFiles,
   getMenu,
   getAllProductInfo,
+  findProducts,
   getVoucher,
   receiveVoucher,
   getVoucherList,
@@ -116,6 +119,7 @@ const rootReducer = combineReducers({
   getProvidersCard,
   getProvidersValue,
   get3GProvidersCard,
+  searchHistory,
   form: formReducer,
 });
 

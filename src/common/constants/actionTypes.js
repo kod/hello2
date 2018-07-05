@@ -61,6 +61,12 @@ export const GET_ALL_PRODUCT_INFO = defineAction(
   appNamespace,
 );
 
+export const FIND_PRODUCTS = defineAction(
+  'FIND_PRODUCTS',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const AD_PHONE = defineAction(
   'AD_PHONE',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
@@ -533,6 +539,12 @@ export const GET_3GPROVIDERS_CARD = defineAction(
 export const GET_PROVIDERS_VALUE = defineAction(
   'GET_PROVIDERS_VALUE',
   [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
+export const SEARCH_HISTORY = defineAction(
+  'SEARCH_HISTORY',
+  [ADD, REMOVE],
   appNamespace,
 );
 
