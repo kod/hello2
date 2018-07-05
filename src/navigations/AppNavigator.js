@@ -292,8 +292,8 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
-  initialRouteName: SCREENS.Prepaid,
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.Prepaid,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {
