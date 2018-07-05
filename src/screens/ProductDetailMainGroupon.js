@@ -829,7 +829,7 @@ class ProductDetail extends Component {
           </View>
           {/* {
             imageDesc.map((val, key) => {
-              return <ImageGetSize uri={`${val}?x-oss-process=image/quality,Q_10`} key={key} />
+              return <ImageGetSize uri={`${val}?x-oss-process=image/quality,Q_70`} key={key} />
             })
           } */}
         </ScrollView>

@@ -92,7 +92,7 @@ class App extends Component {
                   onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, })}
                 >
                   <Image
-                    source={{uri: `${val.imageUrl}?x-oss-process=image/quality,Q_1`}}
+                    source={{uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`}}
                     style={ [
                       styles.child,
                       style

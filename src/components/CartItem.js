@@ -238,7 +238,7 @@ class CartItem extends Component {
               <View style={[styles.item, styleItem]} key={key}>
                 {this.renderCartItemLeft(val, isEdit ? products[val].selectedDel : products[val].selected)}
                 <View style={[styles.itemLeft, styleItemLeft]}>
-                  <Image style={styles.itemImage} source={{ uri: `${details[products[val].detail].iconUrl}?x-oss-process=image/quality,Q_10` }} />
+                  <Image style={styles.itemImage} source={{ uri: `${details[products[val].detail].iconUrl}?x-oss-process=image/quality,Q_70` }} />
                 </View>
                 <View style={styles.itemRight}>
                   <Text style={styles.itemTitle} numberOfLines={1}>{products[val].subject}</Text>

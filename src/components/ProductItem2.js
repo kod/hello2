@@ -109,7 +109,7 @@ class ProductItem2 extends Component {
             return (
               <BYTouchable style={[styles.item, styleItem]} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, propertiesIds: val.propertiesIds, })} >
                 <View style={[styles.itemLeft, styleItemLeft]}>
-                  <Image style={styles.itemImage} source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_10` }} />
+                  <Image style={styles.itemImage} source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} />
                 </View>
                 <View style={styles.itemRight}>
                   <Text style={styles.itemTitle} numberOfLines={1}>{val.name}</Text>

@@ -36,7 +36,7 @@ class ProductDetailParam extends React.Component {
     // const { onPressImage, onLongPressImage } = this.props;
     return (
       <BYCacheImage
-        uri={`${item}?x-oss-process=image/quality,Q_10`}
+        uri={`${item}?x-oss-process=image/quality,Q_70`}
         key={item}
         // style={imageStyle}
         // onFoundImageSize={this.handleOnFoundImageSize}
