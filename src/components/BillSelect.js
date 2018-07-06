@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { RED_COLOR, PRIMARY_COLOR, } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+import { withNavigation } from 'react-navigation';
 
 import priceFormat from "../common/helpers/priceFormat";
 import { billStatusCodes } from "../common/helpers";
@@ -32,6 +33,7 @@ class BillSelect extends Component {
       activeYear,
       billByYearFetch,
       navigation: { navigate },
+      isAuthUser,
     } = this.props;
 
     if (!isAuthUser) return navigate(SCREENS.Login);
@@ -196,23 +198,25 @@ class BillSelect extends Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        bill,
-        billByYear,
-      } = state;
-      return {
-        isAuthUser: !!state.auth.user,
-        activeYear: bill.activeYear,
-        activeMonth: bill.activeMonth,
-        billByYearItems: billByYear.items,
+export default withNavigation(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          bill,
+          billByYear,
+        } = state;
+        return {
+          isAuthUser: !!state.auth.user,
+          activeYear: bill.activeYear,
+          activeMonth: bill.activeMonth,
+          billByYearItems: billByYear.items,
+        }
       }
+    },
+    {
+      ...billActionCreators,
+      ...billByYearActionCreators,
     }
-  },
-  {
-    ...billActionCreators,
-    ...billByYearActionCreators,
-  }
-)(BillSelect);
+  )(BillSelect)
+);
