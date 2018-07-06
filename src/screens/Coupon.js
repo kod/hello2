@@ -8,6 +8,7 @@ import { connectLocalization } from "../components/Localization";
 import BYHeader from '../components/BYHeader';
 import CouponItem from "../components/CouponItem";
 import BYTouchable from "../components/BYTouchable";
+import EmptyState from "../components/EmptyState";
 
 import { RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
 import { SIDEINTERVAL } from "../common/constants";
@@ -98,9 +99,15 @@ class Coupon extends React.Component {
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
         />
-        <ScrollView>
-          <CouponItem data={items} onPress={this.handlerOnPress} />
-        </ScrollView>
+        {
+          items.length > 0 
+          ?
+          <ScrollView>
+            <CouponItem data={items} onPress={this.handlerOnPress} />
+          </ScrollView>
+          :
+          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
+        }
       </View>
     );
   }
