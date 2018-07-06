@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     height: 40 + STATUSBAR_HEIGHT,
     backgroundColor: HEADER_BACKGROUND_COLOR,
     paddingTop: STATUSBAR_HEIGHT,
+    paddingLeft: SIDEINTERVAL,
   },
   headerMiddle: {
     flex: 8
@@ -62,7 +63,7 @@ class SearchHeader extends Component {
 
     return (
       <View style={styles.headerContainer}>
-        {
+        {/* {
           headerLeft 
           ?
           headerLeft
@@ -70,7 +71,7 @@ class SearchHeader extends Component {
           <BYTouchable>
             <CustomIcon name="notice" style={styles.headerIcon} />
           </BYTouchable>
-        }
+        } */}
         <BYTouchable style={styles.headerMiddle} onPress={middleOnPress}>
           <View style={styles.headerMiddleMain}>
             <CustomIcon name="search" style={styles.headerMiddleIcon} />

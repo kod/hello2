@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Keyboard, } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -12,7 +12,7 @@ import BYTouchable from "../components/BYTouchable";
 import { RED_COLOR } from "../styles/variables";
 import { SIDEINTERVAL, WINDOW_WIDTH } from "../common/constants";
 
-import BYTextInput from "../components/BYTextInput";
+import EmptyState from "../components/EmptyState";
 import ProductItem3 from "../components/ProductItem3";
 
 import * as findProductsActionCreators from '../common/actions/findProducts';
@@ -32,6 +32,7 @@ class Settings extends React.Component {
       findProductsFetch,
       findcontent,
     } = this.props;
+    Keyboard.dismiss();
     findProductsFetch({
       findcontent,
     });
@@ -62,7 +63,7 @@ class Settings extends React.Component {
       },
       textInput: {
         flex: 1,
-        color: '#fff',
+        color: '#333',
         backgroundColor: '#f5f5f5',
         height: 40,
         lineHeight: 40,
@@ -70,6 +71,11 @@ class Settings extends React.Component {
         paddingRight: SIDEINTERVAL * 0.8,    
       },
     });
+
+    const {
+      findcontent,
+      navigation: { goBack },
+    } = this.props;
     
     return (
       <View style={styles.container} >
@@ -78,13 +84,16 @@ class Settings extends React.Component {
             name="search" 
             style={styles.headerIcon} 
           />
-          <BYTextInput 
-            autoFocus={true} 
+          <Text style={styles.textInput} onPress={() => goBack()} >{findcontent}</Text>
+          {/* <BYTextInput 
             underlineColorAndroid={'rgba(0,0,0,.0)'} 
             placeholder={'Search'} 
             placeholderTextColor={'#ccc'} 
             style={styles.textInput} 
-          />
+            value={findcontent}
+            editable={false}
+            onPress={() => {}}
+          /> */}
         </View>
       </View>
     )
@@ -103,25 +112,15 @@ class Settings extends React.Component {
 
     return (
       <View style={styles.container} >
-        <BYHeader
+        <BYHeader 
           headerTitle={this.renderHeaderTitle()}
         />
-          {/* <FlatList
-            data={items}
-            keyExtractor={page => page}
-            renderItem={<ProductItem3 />}
-            // removeClippedSubviews={gfalse}
-            // ListFooterComponent={this.renderFooter}
-            // onScroll={this.handleOnScroll}
-            // onViewableItemsChanged={this.handleOnViewableItemsChanged}
-            // scrollEventThrottle={16}
-            // bounces={false}
-          /> */}
-        {/* <ScrollView style={styles.container} > */}
-        {/* </ScrollView> */}
         {
-          items.length > 0 &&
+          items.length > 0 
+          ?
           <ProductItem3 data={items} style={{ backgroundColor: '#fff' }} />
+          :
+          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
         }
       </View>
     );

@@ -62,6 +62,11 @@ const styles = StyleSheet.create({
 
 class ProductItem3 extends Component {
   renderItem = ({ item, key }) => {
+    const {
+      groupon = true,
+      navigation: { navigate },
+    } = this.props;
+    
     return (
       <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.ProductDetail, { brandId: item.brandId, groupon })}>
         <Image style={styles.itemImg} source={{ uri: `${item.imageUrl}?x-oss-process=image/quality,Q_70` }} />
@@ -76,10 +81,8 @@ class ProductItem3 extends Component {
 
   render() {
     const {
-      groupon = true,
       data,
       style,
-      navigation: { navigate },
       ...restProps
     } = this.props;
 

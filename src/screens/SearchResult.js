@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TextInput, } from 'react-native';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import BYHeader from '../components/BYHeader';
-import BYTextInput from '../components/BYTextInput';
 import BYTouchable from "../components/BYTouchable";
 
 import * as searchHistoryActionCreators from '../common/actions/searchHistory';
@@ -24,7 +23,6 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: '#f5f5f5',
     height: 40,
-    lineHeight: 40,
     paddingLeft: SIDEINTERVAL * 0.8,
     paddingRight: SIDEINTERVAL * 0.8,
   },
@@ -66,13 +64,48 @@ class SearchResult extends React.Component {
     this.state = {
       searchText: '',
     }
+
+    this.handleOnPressSubmit = this.handleOnPressSubmit.bind(this);
   }
 
   componentDidMount() {
     const { searchHistoryFetch } = this.props;
-    // searchHistoryFetch();
+    this.didBlurSubscription = this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        this.searchTextInput.focus();
+      }
+    );
   }
 
+  componentWillUnmount() {
+    this.didBlurSubscription.remove();
+  }
+
+  handleOnPressSubmit() {
+    const {
+      searchText,
+    } = this.state;
+
+    const {
+      searchHistoryAdd,
+      navigation: { navigate },
+    } = this.props;
+
+    if (searchText.length > 0) {
+      searchHistoryAdd([searchText])
+      navigate(SCREENS.SearchResultList, { findcontent: searchText })
+    }
+  }
+
+  handleOnPressHistoryItem(val) {
+    const {
+      navigation: { navigate },
+    } = this.props;
+    this.setState({ searchText: val })
+    navigate(SCREENS.SearchResultList, { findcontent: val })
+  }
+  
   renderHeaderTitle = () => {
     const styles = StyleSheet.create({
       container: {
@@ -114,23 +147,27 @@ class SearchResult extends React.Component {
           headerTitle={this.renderHeaderTitle()}
         />
         <View style={styles.search} >
-          <BYTextInput 
+          <TextInput 
             style={styles.textInput} 
-            autoFocus={true}
+            underlineColorAndroid={'rgba(0,0,0,.0)'} 
             placeholder={'XiaoMi 5A'}
             placeholderTextColor={'#ccc'}
             value={this.state.searchText} 
             onChangeText={(text) => this.setState({ searchText: text })}
+            returnKeyType={'search'}
+            blurOnSubmit={true}
+            onSubmitEditing={this.handleOnPressSubmit}
+            ref={(input) => { this.searchTextInput = input; }} 
           />
         </View>
         {/* <ScrollView> */}
-          <Text style={styles.title} >popular searches</Text>
+          <Text style={styles.title} >historical search</Text>
           <View style={styles.history} >
             {
               items.map((val, key) => (
                 <BYTouchable 
                   style={styles.historyItem} 
-                  onPress={() => navigate(SCREENS.SearchResultList, { findcontent: val })} 
+                  onPress={() => this.handleOnPressHistoryItem(val)} 
                   key={key} 
                 >
                   <Text style={styles.historyTitle} >{val}</Text>
