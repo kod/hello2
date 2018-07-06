@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   itemImage: {
     width: 60,
     height: 60,
-    backgroundColor: '#0f0',
+    // backgroundColor: '#0f0',
     borderColor: BORDER_COLOR,
     borderWidth: 1,
   },
