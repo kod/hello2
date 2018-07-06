@@ -1,7 +1,7 @@
 import { SEARCH_HISTORY } from '../constants/actionTypes';
 
 const initState = {
-  items: ['OPPO', 'mi', 'huawei'],
+  items: [],
 };
 
 export default function searchHistory(state = initState, action) {

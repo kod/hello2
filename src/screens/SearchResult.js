@@ -150,7 +150,7 @@ class SearchResult extends React.Component {
           <TextInput 
             style={styles.textInput} 
             underlineColorAndroid={'rgba(0,0,0,.0)'} 
-            placeholder={'XiaoMi 5A'}
+            placeholder={'search'}
             placeholderTextColor={'#ccc'}
             value={this.state.searchText} 
             onChangeText={(text) => this.setState({ searchText: text })}
@@ -160,23 +160,24 @@ class SearchResult extends React.Component {
             ref={(input) => { this.searchTextInput = input; }} 
           />
         </View>
-        {/* <ScrollView> */}
+        {
+          items.length > 0 && 
           <Text style={styles.title} >historical search</Text>
-          <View style={styles.history} >
-            {
-              items.map((val, key) => (
-                <BYTouchable 
-                  style={styles.historyItem} 
-                  onPress={() => this.handleOnPressHistoryItem(val)} 
-                  key={key} 
-                >
-                  <Text style={styles.historyTitle} >{val}</Text>
-                  <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => searchHistoryRemove(val)} />
-                </BYTouchable>
-              ))
-            }
-          </View>
-        {/* </ScrollView> */}
+        }
+        <View style={styles.history} >
+          {
+            items.map((val, key) => (
+              <BYTouchable 
+                style={styles.historyItem} 
+                onPress={() => this.handleOnPressHistoryItem(val)} 
+                key={key} 
+              >
+                <Text style={styles.historyTitle} >{val}</Text>
+                <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => searchHistoryRemove(val)} />
+              </BYTouchable>
+            ))
+          }
+        </View>
       </View>
     );
   }
