@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PXBottomSheet extends Component {
+class BYBottomSheet extends Component {
   static defaultProps = {
     duration: 300,
     height:
@@ -116,4 +116,4 @@ class PXBottomSheet extends Component {
   }
 }
 
-export default PXBottomSheet;
+export default BYBottomSheet;
