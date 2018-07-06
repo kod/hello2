@@ -59,9 +59,9 @@ class Prepaid extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      brandId,
-    } = this.props;
+    // const {
+    //   brandId,
+    // } = this.props;
 
     // InteractionManager.runAfterInteractions(() => {
     //   this.setState({ mounting: false });
@@ -81,7 +81,6 @@ class Prepaid extends React.Component {
     const {
       i18n,
       screenProps,
-      brandId,
       navigation,
     } = this.props;
     // if (mounting) {
@@ -92,8 +91,7 @@ class Prepaid extends React.Component {
       <View style={styles.container} >
           <PrepaidTabNavigator screenProps={{
             ...screenProps,
-            // brandId,
-            // mainNavigation: navigation,
+            mainNavigation: navigation,
             // handleOnPressToggleMenuBottomSheet: this.handleOnPressToggleMenuBottomSheet,
           }} 
         />
