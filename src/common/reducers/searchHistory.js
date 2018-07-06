@@ -4,7 +4,7 @@ const initState = {
   items: ['OPPO', 'mi', 'huawei'],
 };
 
-export default function searchHistory(state = {}, action) {
+export default function searchHistory(state = initState, action) {
   switch (action.type) {
     case SEARCH_HISTORY.CLEAR:
       return {
@@ -13,8 +13,8 @@ export default function searchHistory(state = {}, action) {
     case SEARCH_HISTORY.ADD:
       return {
         items: [
+          ...action.payload.item,
           ...state.items,
-          ...action.payload.items,
         ].filter((val, key) => {
           return key < 10;
         }),
@@ -26,6 +26,6 @@ export default function searchHistory(state = {}, action) {
         }),
       };
     default:
-      return initState;
+      return state;
   }
 }
