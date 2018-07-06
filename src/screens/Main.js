@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
 });
 
 class Main extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.onChangeTab = this.onChangeTab.bind(this);
 
@@ -227,22 +227,10 @@ class Main extends React.Component {
     return (
       <View style={styles.container}>
         <SearchHeader 
-          text={'XiaoMi 5A'} 
+          text={'search'} 
           leftOnPress={() => navigate(SCREENS.QrCodeScanner)}
           middleOnPress={() => navigate(SCREENS.SearchResult)}
         />
-        {/* <View style={styles.headerContainer}>
-          <BYTouchable>
-            <CustomIcon name="notice" style={styles.headerIcon} />
-          </BYTouchable>
-          <BYTouchable style={styles.headerMiddle} onPress={() => navigate(SCREENS.SearchResult)}>
-            <View style={styles.headerMiddleMain}>
-              <CustomIcon name="search" style={styles.headerMiddleIcon} />
-              <Text style={styles.headerMiddleText}>XiaoMi 5A</Text>
-            </View>
-          </BYTouchable>
-          <CustomIcon name="qrcode" style={styles.headerIcon} />
-        </View> */}
         <ScrollableTabView content={content} onChangeTab={this.onChangeTab} />
       </View>
     );
