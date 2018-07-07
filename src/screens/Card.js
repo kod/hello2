@@ -11,6 +11,7 @@ import SeparateBar from "../components/SeparateBar";
 import BYButton from "../components/BYButton";
 import Loader from "../components/Loader";
 import priceFormat from "../common/helpers/priceFormat";
+import { judge } from "../common/helpers";
 
 
 import { SCREENS } from '../common/constants';
@@ -223,18 +224,18 @@ class Card extends React.Component {
           })
         }
         <NavBar2 
-          onPress={() => navigate(SCREENS.Bill)}
+          onPress={() => judge(status === 3 && initPassword === 1, () => navigate(SCREENS.Bill))}
           valueLeft={'Bill'} 
           // valueMiddle={'on the 5th of each month'} 
         />
         <NavBar2 
-          onPress={() => navigate(SCREENS.PeriodSelect)}
+          onPress={() => judge(status === 3 && initPassword === 1, () => navigate(SCREENS.PeriodSelect))}
           valueLeft={'Stage setting'} 
           valueMiddle={`${periodHobbit} period`} 
         />
         <SeparateBar />
         <NavBar2 
-          onPress={() => navigate(SCREENS.SecurityCenter)}
+          onPress={() => judge(status === 3 && initPassword === 1, () => navigate(SCREENS.SecurityCenter))}
           valueLeft={'Security Settings'} 
           // valueMiddle={'3 period'} 
         />

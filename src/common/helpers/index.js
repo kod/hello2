@@ -106,3 +106,7 @@ export const payWayToText = (payWay, i18n) => {
 
   return result;
 };
+
+export const judge = (boolean, trueFunc, falseFunc = () => {}) => {
+  boolean ? trueFunc() : falseFunc();
+}
