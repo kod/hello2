@@ -51,8 +51,6 @@ export function* getPhoneRechargeFetchWatchHandle(action) {
       }
     ]);
 
-    console.log(response);
-
     if (response.code !== 10000) {
       yield put(getPhoneRechargeFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));

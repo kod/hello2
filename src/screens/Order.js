@@ -292,8 +292,6 @@ export default connect(
       const {
         queryOrderList,
       } = state;
-      console.log('navigationnavigationnavigationnavigation');
-      console.log(props.navigation);
       return {
         initIndex: props.navigation.state.params ? props.navigation.state.params.index : 0,
         orderItem: getOrderItem(state, props),

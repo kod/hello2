@@ -41,7 +41,6 @@ class Coupon extends React.Component {
       isAuthUser,
       navigation: { navigate },
     } = this.props;
-    console.log(val);
     if (!isAuthUser) return navigate(SCREENS.Login);
 
     if (val.status !== 1) {

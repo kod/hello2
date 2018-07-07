@@ -55,8 +55,6 @@ class PrepaidRecharge extends React.Component {
     this.setState({
       buttonIndex: key,
     })
-    console.log(val);
-    console.log(key);
   }
   
   handleOnPressToggleModal = (key, val) => {
@@ -66,7 +64,6 @@ class PrepaidRecharge extends React.Component {
   };
 
   actionSheetCallback(ret) {
-    console.log(ret);
     if (ret.buttonIndex < 0) return false;
     this.setState({
       payWayIndex: ret.buttonIndex
@@ -115,7 +112,6 @@ class PrepaidRecharge extends React.Component {
       payWayButtons,
     } = this.props;
     
-    console.log(this.isProcessSubmit());
     if (this.isProcessSubmit()) {
 
       orderCreateFetch({

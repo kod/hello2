@@ -70,16 +70,12 @@ class PrepaidPhoneCard extends React.Component {
   }
 
   buttonSelectPriceCallback(val, key) {
-    console.log(val);
-    console.log(key);
     this.setState({
       priceIndex: key,
     });
   }
   
   buttonSelectNumberCallback(val, key) {
-    console.log(val);
-    console.log(key);
     this.setState({
       numberItemIndex: key,
     });
@@ -89,8 +85,6 @@ class PrepaidPhoneCard extends React.Component {
     const {
       getProvidersValueFetch,
     } = this.props;
-    console.log(val);
-    console.log(key);
 
     getProvidersValueFetch({
       providerName: val.providerName,
@@ -167,7 +161,6 @@ class PrepaidPhoneCard extends React.Component {
   }
 
   actionSheetCallback(ret) {
-    console.log(ret);
     if (ret.buttonIndex < 0) return false;
     this.setState({
       payWayIndex: ret.buttonIndex

@@ -39,8 +39,6 @@ class Coupon extends React.Component {
     // this.didFocusSubscription = this.props.navigation.addListener(
     //   'didFocus',
     //   payload => {
-    //     console.log('UUUUUUUUUUUUUUUUUUUUUUUUUUU');
-    //     console.log(JSON.stringify(payload));
     //     getVoucherListIndexFetch(COUPONMY_TABNAVIGATOR_MAP[payload.state.routeName])
     //   }
     // );
@@ -60,7 +58,6 @@ class Coupon extends React.Component {
       isAuthUser,
       navigation: { navigate },
     } = this.props;
-    console.log(val);
     if (!isAuthUser) return navigate(SCREENS.Login);
 
     if (val.status !== 1) {
@@ -142,7 +139,6 @@ export default connectLocalization(connect(
         navigation,
       } = props;
 
-      console.log(props);
       const routeName = navigation.state.routeName;
       return {
         items: getVoucherList[routeName],

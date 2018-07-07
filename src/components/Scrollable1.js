@@ -118,7 +118,7 @@ class Scrollable1 extends React.Component {
       {
         imageSource: require('../images/coupon.png'), 
         text: i18n.coupon,
-        onPress: () => { console.log(11111); navigate(SCREENS.Coupon) },
+        onPress: () => { navigate(SCREENS.Coupon) },
       },
       {
         imageSource: require('../images/recharge.png'), 

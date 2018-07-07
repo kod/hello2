@@ -81,8 +81,6 @@ export function* orderPayFetchWatchHandle(action) {
       }
     ];
 
-    console.log(options);
-
     if (payway !== 1) {
       NavigatorService.navigate(SCREENS.WebView, {
         source: buyoo.orderPayInternetBank(options[0]),

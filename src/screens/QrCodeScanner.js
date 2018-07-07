@@ -41,7 +41,6 @@ class QrCodeScanner extends React.Component {
   }
 
   onSuccess(e) {
-    console.log(e);
     Alert.alert(
       '',
       e.data,

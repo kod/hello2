@@ -139,8 +139,6 @@ class SearchResult extends React.Component {
       searchHistoryRemove,
     } = this.props;
 
-    console.log(items);
-    
     return (
       <View style={styles.container} >
         <BYHeader

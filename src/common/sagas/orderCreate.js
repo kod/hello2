@@ -80,25 +80,6 @@ export function* orderCreateFetchWatchHandle(action) {
       ],
       Key
     );
-    console.log(JSON.stringify(      {
-      appid: appId,
-      method: method,
-      charset: charset,
-      signtype: signType,
-      encrypt: encrypt,
-      timestamp: timestamp,
-      version: version,
-      funid: funid,
-      currency: currency,
-      ordertype: ordertype,
-      addrid: addrid,
-      goodsdetail: goodsdetail,
-      mergedetail: mergedetail,
-      coupondetail: coupondetail,
-      subject: subject,
-      remark: remark,
-    }
-));
 
     const response = yield apply(buyoo, buyoo.orderCreate, [
       {
@@ -120,8 +101,6 @@ export function* orderCreateFetchWatchHandle(action) {
         remark: remark,
       }
     ]);
-
-    console.log(response);
 
     if (response.code !== 10000) {
       yield put(orderCreateFetchFailure());
@@ -154,7 +133,6 @@ export function* orderCreateSuccessWatchHandle(action) {
       BYtype,
       BYpayway,
     } = action.payload;
-    console.log(BYtype);
     switch (BYtype) {
       case 'normal':
         yield NavigatorService.navigate(SCREENS.Pay, {

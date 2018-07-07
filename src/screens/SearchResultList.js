@@ -36,7 +36,6 @@ class Settings extends React.Component {
     findProductsFetch({
       findcontent,
     });
-    console.log(findcontent);
   }
 
   // handleOnPressHeaderBackButton = () => {
@@ -105,10 +104,6 @@ class Settings extends React.Component {
       navigation: { navigate },
       i18n 
     } = this.props;
-
-    console.log('=============');
-    console.log(items);
-    console.log(items.length);
 
     return (
       <View style={styles.container} >

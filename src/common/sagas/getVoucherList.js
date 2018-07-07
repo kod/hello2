@@ -107,7 +107,6 @@ export function* getVoucherListFetchWatchHandle(action) {
         pagesize: pagesize
       }
     ]);
-    console.log(response);
 
     if (response.code !== 10000) {
       yield put(getVoucherListFetchFailure());

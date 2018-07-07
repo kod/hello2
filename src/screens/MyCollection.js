@@ -32,8 +32,6 @@ class MyCollection extends React.Component {
       navigation: { navigate },
     } = this.props;
 
-    console.log(items);
-
     return (
       <View style={styles.container} >
         <ProductItem2 data={items} />
@@ -47,8 +45,6 @@ class MyCollection extends React.Component {
       loading, 
       navigation: { navigate },
     } = this.props;
-
-    console.log(items);
 
     return (
       <View style={styles.container} >
