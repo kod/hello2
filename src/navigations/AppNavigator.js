@@ -13,6 +13,7 @@ import CertifiedInformationSchool from '../screens/CertifiedInformationSchool';
 import CertifiedInformationContact from '../screens/CertifiedInformationContact';
 import ForgotPasswordOne from '../screens/ForgotPasswordOne';
 import ForgotPasswordTwo from '../screens/ForgotPasswordTwo';
+import Invite from '../screens/Invite';
 import Language from '../screens/Language';
 import Login from '../screens/Login';
 import MyCollection from '../screens/MyCollection';
@@ -42,6 +43,7 @@ import Coupon from '../screens/Coupon';
 import CouponMy from '../screens/CouponMy';
 import QrCodeScanner from '../screens/QrCodeScanner';
 import Prepaid from '../screens/Prepaid';
+import Cart from '../screens/Cart';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -295,12 +297,24 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.Invite]: {
+    screen: Invite,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.Cart]: {
+    screen: Cart,
+    navigationOptions: {
+      header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
-  initialRouteName: SCREENS.SearchResult,
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.MyCollection,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {
