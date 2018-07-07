@@ -230,6 +230,11 @@ class Me extends React.Component {
 
     const renderCellItem1List2 = [
       {
+        name: i18n.cart,
+        navigate: SCREENS.Cart,
+        tips: '',
+      },
+      {
         name: i18n.myCollection,
         navigate: SCREENS.MyCollection,
         tips: '',
