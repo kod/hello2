@@ -256,7 +256,7 @@ class Me extends React.Component {
       },
       {
         name: i18n.inviteFriends,
-        navigate: SCREENS.Settings,
+        navigate: SCREENS.Invite,
         tips: '',
       },
       {
