@@ -59,6 +59,8 @@ export default function queryOrderList(state = initState, action) {
           ...state.item,
           [action.payload.index]: {
             ...state.item[action.payload.index],
+            loading: false,
+            loaded: true,      
             page: action.payload.page,
             items: [ ...state.item[action.payload.index].items, ...action.payload.result ]
           }
@@ -67,14 +69,13 @@ export default function queryOrderList(state = initState, action) {
     case QUERY_ORDER_LIST.FAILURE:
       return {
         ...state,
-        loading: false,
-        loaded: true,
         item: {
           ...state.item,
           [action.payload.index]: {
             ...state.item[action.payload.index],
             loading: false,
-            loaded: true,
+            loaded: true,      
+            page: action.payload.page,
           }
         },
       };
