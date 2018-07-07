@@ -12,22 +12,22 @@ const TabContainer = TabNavigator(
   {
     [SCREENS.CouponMyUnused]: {
       screen: CouponMyItem,
-      navigationOptions: ({ screenProps: { i18n } }) => ({
-        tabBarLabel: '未使用(15)',
+      navigationOptions: ({ screenProps: { i18n, couponMyUnused } }) => ({
+        tabBarLabel: `未使用(${couponMyUnused})`,
         // tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={15} color={tintColor} />
       })
     },
     [SCREENS.CouponMyUsed]: {
       screen: CouponMyItem,
-      navigationOptions: ({ screenProps: { i18n } }) => ({
-      tabBarLabel: '已使用(0)',
+      navigationOptions: ({ screenProps: { i18n, couponMyUsed } }) => ({
+      tabBarLabel: `已使用(${couponMyUsed})`,
         // tabBarIcon: ({ tintColor }) => <CustomIcon name="classify" size={16} color={tintColor} />
       })
     },
     [SCREENS.CouponMyPast]: {
       screen: CouponMyItem,
-      navigationOptions: ({ screenProps: { i18n } }) => ({
-        tabBarLabel: '已过期(0)',
+      navigationOptions: ({ screenProps: { i18n, couponMyPast } }) => ({
+        tabBarLabel: `已过期(${couponMyPast})`,
         // tabBarIcon: ({ tintColor }) => <CustomIcon name="card" size={14} color={tintColor} />
       })
     }

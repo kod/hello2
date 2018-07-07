@@ -16,6 +16,8 @@ import { SIDEINTERVAL } from "../common/constants";
 
 import * as getVoucherActionCreators from '../common/actions/getVoucher';
 import * as receiveVoucherActionCreators from '../common/actions/receiveVoucher';
+import * as getVoucherListActionCreators from '../common/actions/getVoucherList';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -32,8 +34,19 @@ class Coupon extends React.Component {
   }
 
   componentDidMount() {
-    // const { getVoucherFetch } = this.props;
-    // getVoucherFetch();
+    const {
+      getVoucherListFetch,
+    } = this.props;
+    getVoucherListFetch({
+      status: 0,
+    });
+    getVoucherListFetch({
+      status: 1,
+    });
+    getVoucherListFetch({
+      status: 2,
+    });
+
   }
 
   handlerOnPress(val) {
@@ -92,7 +105,10 @@ class Coupon extends React.Component {
     const {
       items,
       navigation,
-      i18n 
+      i18n,
+      couponMyPast,
+      couponMyUnused,
+      couponMyUsed,
     } = this.props;
 
     return (
@@ -103,6 +119,9 @@ class Coupon extends React.Component {
         <CouponMyTabNavigator  
           screenProps={{
             mainNavigation: navigation,
+            couponMyPast,
+            couponMyUnused,
+            couponMyUsed,      
           }}
         />
       </View>
@@ -115,6 +134,7 @@ export default connectLocalization(connect(
     return (state, props) => {
       const {
         getVoucher,
+        getVoucherList,
       } = state;
 
       // const {
@@ -122,6 +142,9 @@ export default connectLocalization(connect(
       // } = props;
 
       return {
+        couponMyPast: getVoucherList.CouponMyPast.length,
+        couponMyUnused: getVoucherList.CouponMyUnused.length,
+        couponMyUsed: getVoucherList.CouponMyUsed.length,
         items: getVoucher.items,
         isAuthUser: !!state.auth.user,
       }
@@ -130,5 +153,6 @@ export default connectLocalization(connect(
   {
     ...getVoucherActionCreators,
     ...receiveVoucherActionCreators,
+    ...getVoucherListActionCreators,
   }
 )(Coupon));

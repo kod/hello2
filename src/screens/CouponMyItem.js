@@ -8,6 +8,7 @@ import { connectLocalization } from "../components/Localization";
 import Loader from '../components/Loader';
 import CouponItem from "../components/CouponItem";
 import BYTouchable from "../components/BYTouchable";
+import EmptyState from "../components/EmptyState";
 
 import { RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
 import { SIDEINTERVAL } from "../common/constants";
@@ -44,10 +45,9 @@ class Coupon extends React.Component {
     //   }
     // );
 
-    console.log(routeName);
-    getVoucherListFetch({
-      status: COUPONMY_TABNAVIGATOR_MAP[routeName] || 1,
-    });
+    // getVoucherListFetch({
+    //   status: COUPONMY_TABNAVIGATOR_MAP[routeName],
+    // });
   }
 
   componentWillUnmount() {
@@ -117,9 +117,15 @@ class Coupon extends React.Component {
     return (
       <View style={styles.container} >
         {loading && <Loader absolutePosition />}
-        <ScrollView>
-          <CouponItem data={items} />
-        </ScrollView>
+        {
+          items.length > 0 
+          ?
+          <ScrollView>
+            <CouponItem data={items} />
+          </ScrollView>
+          :
+          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
+        }
       </View>
     );
   }
