@@ -81,6 +81,16 @@ export function* collectionFetchWatchHandle(action) {
       return false;
     }
 
+    response = {
+      ...response,
+      details: response.details.map((val, key) => {
+        val.imageUrl = val.brandImage;
+        val.name = val.brandName;
+        val.price = val.brandPrice;
+        return val;
+      })
+    }
+
     yield put(collectionFetchSuccess(response));
   } catch (err) {
     yield put(collectionFetchFailure());

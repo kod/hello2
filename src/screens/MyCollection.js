@@ -3,11 +3,18 @@ import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 import BYHeader from '../components/BYHeader';
-import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
+import ProductItem2 from '../components/ProductItem2';
+import EmptyState from '../components/EmptyState';
+import Loader from '../components/Loader';
 
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import * as collectionActionCreators from '../common/actions/collection';
 
-const { width, height } = Dimensions.get('window');
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: 'relative',
+  },
+})
 
 class MyCollection extends React.Component {
   constructor(props) {
@@ -15,43 +22,47 @@ class MyCollection extends React.Component {
   }
 
   componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
+    const { collectionFetch } = this.props;
+    collectionFetch();
   }
 
-  handleOnPressHeaderBackButton = () => {
-    const { goBack } = this.props.navigation;
-    goBack();
-  };
+  renderContenr() {
+    const {
+      items, 
+      navigation: { navigate },
+    } = this.props;
 
-  renderHeaderTitle = () => {
+    console.log(items);
+
     return (
-      <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
-        <Text style={{ fontSize: 18, color: '#fff' }}>My collection</Text>
+      <View style={styles.container} >
+        <ProductItem2 data={items} />
       </View>
     )
   }
-
-  renderHeaderRight = () => {
-    return (
-      <View></View>
-    )
-  }
-
+  
   render() {
-    const { bannerHomeRecommend, navigation: { navigate } } = this.props;
+    const {
+      items, 
+      loading, 
+      navigation: { navigate },
+    } = this.props;
+
+    console.log(items);
+
     return (
-      <View>
-        <BYHeader
-          headerTitle={this.renderHeaderTitle()}
-          headerRight={this.renderHeaderRight()}
-          darkTheme
-          showBackButton
-          onPressBackButton={this.handleOnPressHeaderBackButton}
-        />
-        <ScrollView style={{ height: height - 25 - 55 }} >
-          <FeaturedGoodsItem data={bannerHomeRecommend} />
-        </ScrollView>
+      <View style={styles.container} >
+        <BYHeader />
+        {loading && <Loader absolutePosition />}
+        {
+          items.length > 0 
+          ?
+          <ScrollView>
+            {this.renderContenr()}
+          </ScrollView>
+          :
+          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
+        }
       </View>
     );
   }
@@ -61,7 +72,7 @@ export default connect(
   () => {
     return (state, props) => {
       const {
-        bannerHomeRecommend,
+        collection,
       } = state;
 
       // const {
@@ -69,20 +80,12 @@ export default connect(
       // } = props;
 
       return {
-        bannerHomeRecommend: bannerHomeRecommend || {}
+        loading: collection.loading,
+        items: collection.items.details ? collection.items.details : [],
       }
     }
   },
   {
-    ...bannerHomeRecommendActionCreators,
+    ...collectionActionCreators,
   }
 )(MyCollection);
-
-// function mapStateToProps(state, props) {
-//   const { bannerHomeRecommend } = state;
-//   return {
-//     bannerHomeRecommend: bannerHomeRecommend || {}
-//   };
-// }
-
-// export default connect(mapStateToProps, { ...bannerHomeRecommendActionCreators })(MyCollection);
