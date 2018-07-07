@@ -21,9 +21,10 @@ export function* queryOrderListFetchWatchHandle(action) {
   try {
     const {
       page = 1,
+      index = 0,
       status,
     } = action.payload;
-    const scrollTabIndex = yield select(getQueryOrderListScrollTabIndex);
+    // const scrollTabIndex = yield select(getQueryOrderListScrollTabIndex);
     const rows = yield select(getQueryOrderListRows);
     const funid = yield select(getAuthUserFunid);
 
@@ -82,7 +83,7 @@ export function* queryOrderListFetchWatchHandle(action) {
 
     yield put(queryOrderListFetchSuccess({
       page,
-      index: scrollTabIndex,
+      index,
       count: response.count,
       result: response.details.map((val, key) => {
         return {
