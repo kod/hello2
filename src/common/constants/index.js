@@ -23,6 +23,7 @@ export const SCREENS = {
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',
   Index: 'Index',
+  Invite: 'Invite',
   Language: 'Language',
   Login: 'Login',
   Main: 'Main',
