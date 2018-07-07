@@ -13,6 +13,7 @@ import ProductItem2 from "../components/ProductItem2";
 import ScrollableTabView from '../components/ScrollableTabView';
 import SeparateBar from '../components/SeparateBar';
 import EmptyState from "../components/EmptyState";
+import Loader from "../components/Loader";
 
 import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
@@ -33,6 +34,9 @@ const styles = StyleSheet.create({
 });
 
 const stylesScrollable = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   totalPrice: {
     paddingLeft: SIDEINTERVAL,
   },
@@ -84,12 +88,13 @@ class Scrollable extends React.Component {
       // orderItem: { items },
       navigation: { navigate },
     } = this.props;
-    const items = queryOrderListItem[itemKey].items;
+    const module = queryOrderListItem[itemKey];
+    const items = module.items;
 
-    if (items.length === 0) return (
+    if (items.length === 0 && module.loading === false) return (
       <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'暂无相关订单'} style={{ paddingTop: WINDOW_HEIGHT * 0.1 }} />
     ) 
-    
+
     return (
       <View style={stylesScrollable.container} >
         {
@@ -234,8 +239,8 @@ class Order extends React.Component {
 
   render() {
     const {
-      orderItem,
       navigation: { navigate },
+      initIndex,
       i18n,
     } = this.props;
     const scrollableTabKeys = [
@@ -256,6 +261,7 @@ class Order extends React.Component {
     const content = scrollableTabKeys.map((val, key) => {
       return (
         <View tabLabel={val.tabLabel} style={styles.base} key={key}>
+          {this.props.queryOrderListItem[key].loading && <Loader absolutePosition />}
           <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />}>
             <Scrollable {...this.props} itemKey={key} />
           </ScrollView>
@@ -268,7 +274,12 @@ class Order extends React.Component {
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
         />
-        <ScrollableTabView content={content} onChangeTab={this.onChangeTab} styleTab={styles.tab} />
+        <ScrollableTabView 
+          content={content} 
+          onChangeTab={this.onChangeTab} 
+          styleTab={styles.tab} 
+          initialPage={initIndex}
+        />
       </View>
     );
   }
@@ -281,7 +292,10 @@ export default connect(
       const {
         queryOrderList,
       } = state;
+      console.log('navigationnavigationnavigationnavigation');
+      console.log(props.navigation);
       return {
+        initIndex: props.navigation.state.params ? props.navigation.state.params.index : 0,
         orderItem: getOrderItem(state, props),
         queryOrderListItem: queryOrderList.item,
         scrollTabIndex: queryOrderList.scrollTabIndex,
@@ -293,17 +307,3 @@ export default connect(
     ...queryOrderListActionCreators,
   }
 )(Order);
-
-
-// function mapStateToProps(state, props) {
-//   const {
-//     queryOrderList,
-//   } = state;
-//   return {
-//     scrollTabIndex: queryOrderList.scrollTabIndex,
-//   };
-// }
-
-// export default connectLocalization(
-//   connect(mapStateToProps, { ...queryOrderListActionCreators, })(Order)
-// );

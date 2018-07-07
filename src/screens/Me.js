@@ -9,6 +9,8 @@ import BYTouchable from '../components/BYTouchable';
 import CustomIcon from "../components/CustomIcon";
 import NavBar1 from "../components/NavBar1";
 
+import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -20,6 +22,7 @@ const styles = StyleSheet.create({
   headerIcon: {
     alignItems: 'center',
     paddingTop: 40,
+    marginBottom: 30,
   },
   headerIconImg: {
     height: 40,
@@ -73,12 +76,10 @@ const styles = StyleSheet.create({
     paddingLeft: WINDOW_WIDTH * 0.01,
     paddingRight: WINDOW_WIDTH * 0.01,
   },
-  // nav1ItemBadge: {
-  // },
   nav1ItemBadge: {
     position: 'absolute',
     top: 5,
-    right: 18,
+    right: WINDOW_WIDTH * 0.1,
     backgroundColor: RED_COLOR,
     color: '#fff',
     fontSize: 10,
@@ -92,12 +93,39 @@ const styles = StyleSheet.create({
 class Me extends React.Component {
 
   componentDidMount() {
-    // const { navigation: { navigate }, authUser } = this.props;
-    // setTimeout(() => {
-    //   navigate(SCREENS.Login)
-    // }, 700);
+    const { 
+      queryOrderListFetch,
+    } = this.props;
+
+    queryOrderListFetch({
+      index: 0,
+      status: '99999',
+    });
+    queryOrderListFetch({
+      index: 1,
+      status: '10000',
+    });
+    queryOrderListFetch({
+      index: 2,
+      status: '30000',
+    });
+    queryOrderListFetch({
+      index: 3,
+      status: '30001',
+    });
   }
 
+  async handleOnPressOrderNav(index) {
+    const { 
+      queryOrderListIndexFetch,
+      navigation: { navigate }
+    } = this.props;
+    // await queryOrderListIndexFetch({
+    //   scrollTabIndex: index,
+    // });
+    navigate(SCREENS.Order, { index })
+  }
+  
   renderHeaderBottom() {
     const { authUser } = this.props;
     
@@ -124,9 +152,13 @@ class Me extends React.Component {
     );
   }
 
-  renderNav1() {
-    const { screenProps: { i18n } } = this.props;
-    
+  renderNav1() {    
+    const {
+      screenProps: { i18n },
+      orderItem,
+      navigation: { navigate }
+    } = this.props;
+
     const list = [
       {
         text: i18n.pendingPayment,
@@ -143,21 +175,28 @@ class Me extends React.Component {
         iconName: 'beEvaluated',
         styleIcon: { fontSize: 22, paddingTop: 3 },
       },
-      {
-        text: i18n.afterSalesService,
-        iconName: 'returns',
-        styleIcon: { fontSize: 23, paddingTop: 2 },
-      },
+      // {
+      //   text: i18n.afterSalesService,
+      //   iconName: 'returns',
+      //   styleIcon: { fontSize: 23, paddingTop: 2 },
+      // },
     ];
 
     return (
       <View style={styles.nav1} >
         {list.map((val, key) => 
-          <View style={styles.nav1Item} key={key} >
+          <BYTouchable 
+            style={styles.nav1Item} 
+            key={key} 
+            onPress={() => this.handleOnPressOrderNav(key + 1)}
+          >
             <CustomIcon style={[styles.nav1ItemIcon, val.styleIcon]} name={val.iconName} ></CustomIcon>
             <Text style={styles.nav1ItemText}>{val.text}</Text>
-            <Text style={styles.nav1ItemBadge} >5</Text>
-          </View>
+            {
+              orderItem[key + 1].items.length > 0 && 
+              <Text style={styles.nav1ItemBadge} >{ orderItem[key + 1].items.length > 0 && orderItem[key + 1].items.length}</Text>
+            }
+          </BYTouchable>
       )}
       </View>
     );
@@ -246,7 +285,7 @@ class Me extends React.Component {
                 <Image style={styles.headerIconImg} source={headerIconImgSource} />
                 <Text style={styles.headerIconText} >{username}</Text>
               </BYTouchable>
-              {this.renderHeaderBottom()}
+              {/* {this.renderHeaderBottom()} */}
             </View>
             <NavBar1 list={renderCellItem1List1} navigate={navigate} />
             {this.renderNav1()}
@@ -257,9 +296,23 @@ class Me extends React.Component {
     );
   }
 }
+
 export default connect(
-  state => ({
-    certUser: state.userCertificateInfo.certUser,
-    authUser: state.auth.user,
-  })
+  () => {
+    return (state, props) => {
+      const {
+        userCertificateInfo,
+        auth,
+        queryOrderList,
+      } = state;
+      return {
+        orderItem: queryOrderList.item,
+        certUser: userCertificateInfo.certUser,
+        authUser: auth.user,
+      }
+    }
+  },
+  {
+    ...queryOrderListActionCreators,
+  }
 )(Me);
