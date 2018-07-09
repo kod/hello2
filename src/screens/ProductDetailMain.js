@@ -167,9 +167,11 @@ class ProductDetail extends React.Component {
       brandId,
       isAuthUser,
     } = this.props;
-    if (!isAuthUser) return navigate(SCREENS.Login);
 
-    collectionFetch();
+    if (isAuthUser) {
+      collectionFetch();
+    }
+
     productDetailInfoClear(brandId);
     productDetailInfoFetch(brandId, propertiesIds);
     commentFetch(brandId);
@@ -324,18 +326,6 @@ class ProductDetail extends React.Component {
           <View style={[styles.commentMore, {paddingTop: SIDEINTERVAL}]} >
             <Text style={styles.commentMoreText} onPress={() => mainNavigation.navigate(SCREENS.ProductDetailImages, { html: WebViewHTML })} >{i18n.more}</Text>
           </View>
-
-          {/* <FlatList
-            data={imageDesc}
-            keyExtractor={page => page}
-            renderItem={this.renderItem}
-            removeClippedSubviews={false}
-            // ListFooterComponent={this.renderFooter}
-            // onScroll={this.handleOnScroll}
-            // onViewableItemsChanged={this.handleOnViewableItemsChanged}
-            scrollEventThrottle={16}
-            bounces={false}
-          /> */}
         </ScrollView>
       </View>
     );

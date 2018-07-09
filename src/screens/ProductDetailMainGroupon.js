@@ -242,13 +242,14 @@ class ProductDetail extends Component {
       brandId,
       isAuthUser,
     } = this.props;
+
     if (isAuthUser) {
       collectionFetch();
+      
+      mergeCheckFetch({
+        brandId,
+      });
     }
-    
-    mergeCheckFetch({
-      brandId,
-    });
 
     mergeGetDetailClear(brandId);
     mergeGetDetailFetch(brandId, propertiesIds);
