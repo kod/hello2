@@ -10,6 +10,7 @@ import CustomIcon from "../components/CustomIcon";
 import NavBar1 from "../components/NavBar1";
 
 import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
+import * as cardQueryActionCreators from '../common/actions/cardQuery';
 
 const styles = StyleSheet.create({
   container: {
@@ -94,8 +95,11 @@ class Me extends React.Component {
 
   componentDidMount() {
     const { 
+      authUser,
       queryOrderListFetch,
+      cardQueryFetch,
     } = this.props;
+    authUser && cardQueryFetch();
 
     queryOrderListFetch({
       index: 0,
@@ -209,7 +213,14 @@ class Me extends React.Component {
   }
   
   render() {
-    const { navigation, navigation: { navigate }, screenProps: { i18n }, certUser, authUser } = this.props;
+    const {
+      navigation: { navigate },
+      screenProps: { i18n },
+      certUser,
+      authUser,
+      initPassword,
+      status,
+    } = this.props;
 
     const headerIconImgSource = (authUser && certUser.headimage) ?  {uri: certUser.headimage} : require('../images/aioru09230f.png');
     
@@ -237,11 +248,6 @@ class Me extends React.Component {
       {
         name: i18n.myCollection,
         navigate: SCREENS.MyCollection,
-        tips: '',
-      },
-      {
-        name: i18n.certifiedInformation,
-        navigate: SCREENS.CertifiedInformation,
         tips: '',
       },
       {
@@ -281,6 +287,16 @@ class Me extends React.Component {
       },
     ];
 
+    if (status !== undefined && status !== 3) {
+      renderCellItem1List2.unshift(
+        {
+          name: i18n.certifiedInformation,
+          navigate: SCREENS.CertifiedInformation,
+          tips: '',
+        },
+      );
+    }
+
     return (
       <View style={styles.container} >
         <ScrollView style={styles.container} >
@@ -309,15 +325,19 @@ export default connect(
         userCertificateInfo,
         auth,
         queryOrderList,
+        cardQuery,
       } = state;
       return {
         orderItem: queryOrderList.item,
         certUser: userCertificateInfo.certUser,
         authUser: auth.user,
+        initPassword: cardQuery.item.initPassword,
+        status: cardQuery.item.status,
       }
     }
   },
   {
     ...queryOrderListActionCreators,
+    ...cardQueryActionCreators,
   }
 )(Me);
