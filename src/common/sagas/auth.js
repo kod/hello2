@@ -37,6 +37,10 @@ import {
   cardQueryClear, 
 } from "../actions/cardQuery";
 import {
+  // queryOrderListFetch, 
+  queryOrderListClear, 
+} from "../actions/queryOrderList";
+import {
   cartRequest,
   cartClear,
 } from "../actions/cart";
@@ -179,6 +183,7 @@ export function* watchRehydrate() {
 export function* logoutWatchHandle(action) {
   yield put(cartClear());
   yield put(cardQueryClear());
+  yield put(queryOrderListClear());
   yield put(userCertificateInfoClear());
 }
 
