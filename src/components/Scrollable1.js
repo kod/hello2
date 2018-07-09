@@ -95,7 +95,7 @@ class Scrollable1 extends React.Component {
       type_id: '5',
     });
     mergeGetInfoFetch({
-      pagesize: 20
+      pagesize: 4
     });
   }
 
@@ -155,16 +155,16 @@ class Scrollable1 extends React.Component {
           <View style={styles.groupBuyTitle}>
             <Text style={styles.groupBuyTitleText}>{i18n.groupBuy}</Text>
             <View style={styles.groupBuyTitleRight}>
-              <Text style={styles.groupBuyTitleMore}>{i18n.more}</Text>
+              <Text style={styles.groupBuyTitleMore} onPress={() => navigate(SCREENS.GroupBuyList)} >{i18n.more}</Text>
               <CustomIcon name="arrowright" style={styles.groupBuyTitleMoreIcon} />
             </View>
           </View>
           <ProductItem1 data={mergeGetInfoList} />
         </View>
 
-        <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={true} style={{ paddingTop: 15, backgroundColor: '#fff', }} />
+        {/* <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={false} style={{ paddingTop: 15, backgroundColor: '#fff', }} /> */}
 
-        <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
+        {/* <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} /> */}
 
         <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: BORDER_COLOR, borderBottomWidth: 1 }} />
 
