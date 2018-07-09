@@ -12,6 +12,7 @@ import moment from "moment";
 import NavigatorService from '../../navigations/NavigatorService';
 
 import {
+  getAuthUser,
   getAuthUserFunid,
   getQueryOrderListScrollTabIndex,
   getQueryOrderListRows,
@@ -24,9 +25,11 @@ export function* queryOrderListFetchWatchHandle(action) {
       index = 0,
       status,
     } = action.payload;
-    // const scrollTabIndex = yield select(getQueryOrderListScrollTabIndex);
+    // const scrollTabIndex =  yield select(getQueryOrderListScrollTabIndex);
     const rows = yield select(getQueryOrderListRows);
-    const funid = yield select(getAuthUserFunid);
+    const authUser = yield select(getAuthUser);
+    
+    const funid = authUser ? yield select(getAuthUserFunid) : '';
 
     let Key = 'tradeKey';
     let appId = Platform.OS === 'ios' ? '1' : '2';
