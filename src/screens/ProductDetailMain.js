@@ -244,18 +244,30 @@ class ProductDetail extends React.Component {
         handleOnPressToggleMenuBottomSheet,
       },
     } = this.props;
-    const WebViewImages = imageDesc.length === 0 ?
-      '' :
-      imageDesc.reduce((a, b, index) => {
-        if (index === 1) {
-          let resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
-          resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
-          return resultStr;
-        } else {
-          let resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
-          return a + resultStr;
-        }
-      });
+
+    let WebViewImages;
+    switch (imageDesc.length) {
+      case 0:
+        WebViewImages = '';
+        break;
+    
+      case 1:
+        WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_70" alt="image">`;
+        break;
+    
+      default:
+        WebViewImages = imageDesc.reduce((a, b, index) => {
+          if (index === 1) {
+            let resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            return resultStr;
+          } else {
+            let resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            return a + resultStr;
+          }
+        });
+        break;
+    }
 
     const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${WebViewImages}</body></html>`
     
