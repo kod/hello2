@@ -225,6 +225,7 @@ class Me extends React.Component {
     const headerIconImgSource = (authUser && certUser.headimage) ?  {uri: certUser.headimage} : require('../images/aioru09230f.png');
     
     const username = authUser ? certUser.username : i18n.loginRegister;
+    const phone = authUser ? authUser.msisdn : '';
 
     const renderCellItem1List1 = [
       // {
@@ -287,15 +288,15 @@ class Me extends React.Component {
       },
     ];
 
-    if (status !== undefined && status !== 3) {
-      renderCellItem1List2.unshift(
-        {
-          name: i18n.certifiedInformation,
-          navigate: SCREENS.CertifiedInformation,
-          tips: '',
-        },
-      );
-    }
+    // if (status !== undefined && status !== 3) {
+    //   renderCellItem1List2.unshift(
+    //     {
+    //       name: i18n.certifiedInformation,
+    //       navigate: SCREENS.CertifiedInformation,
+    //       tips: '',
+    //     },
+    //   );
+    // }
 
     return (
       <View style={styles.container} >
@@ -304,7 +305,7 @@ class Me extends React.Component {
             <View style={styles.header} >
               <BYTouchable style={styles.headerIcon} onPress={() => this.handleOnPressUser()}>
                 <Image style={styles.headerIconImg} source={headerIconImgSource} />
-                <Text style={styles.headerIconText} >{username}</Text>
+                <Text style={styles.headerIconText} >{username || phone}</Text>
               </BYTouchable>
               {/* {this.renderHeaderBottom()} */}
             </View>
