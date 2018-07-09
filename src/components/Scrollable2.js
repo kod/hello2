@@ -39,7 +39,7 @@ class Scrollable2 extends React.Component {
 
         <PhoneAdBaner data={phoneAdBanerList}  />
 
-        <FloorTitle title={`/${i18n.goodOnesRecommendation}/`} isMore={true} style={{ paddingTop: 10, backgroundColor: '#fff', }} />
+        <FloorTitle title={`/${i18n.goodOnesRecommendation}/`} isMore={false} style={{ paddingTop: 10, backgroundColor: '#fff', }} />
 
         <ProductItem1 data={phoneAdList} style={{ backgroundColor: '#fff' }} />
 

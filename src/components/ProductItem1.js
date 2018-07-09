@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 class ProductItem1 extends Component {
   render() {
     const {
-      groupon = true,
+      groupon = false,
       data, 
       style,
       navigation: { navigate },

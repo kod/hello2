@@ -159,7 +159,7 @@ class Scrollable1 extends React.Component {
               <CustomIcon name="arrowright" style={styles.groupBuyTitleMoreIcon} />
             </View>
           </View>
-          <ProductItem1 data={mergeGetInfoList} />
+          <ProductItem1 data={mergeGetInfoList} groupon={true} />
         </View>
 
         {/* <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={false} style={{ paddingTop: 15, backgroundColor: '#fff', }} /> */}
