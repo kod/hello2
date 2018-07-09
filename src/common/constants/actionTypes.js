@@ -333,7 +333,7 @@ export const ORDER_CREATE = defineAction(
 
 export const QUERY_ORDER_LIST = defineAction(
   'QUERY_ORDER_LIST',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 
