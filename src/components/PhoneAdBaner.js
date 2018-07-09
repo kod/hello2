@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { withNavigation } from 'react-navigation';
+
+import { WINDOW_WIDTH, SCREENS, SIDEINTERVAL, } from "../common/constants";
+
+import BYTouchable from "../components/BYTouchable";
 
 const styles = StyleSheet.create({
   itemWrap: {
@@ -14,12 +18,31 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ({ data, style, ...restProps }) => {
-  return (
-    <View style={[styles.itemWrap, style]} {...restProps}>
-      {data.map((val, key) => {
-        return <Image source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} style={styles.itemImg} key={key} />;
-      })}
-    </View>
-  );
-};
+class PhoneAdBaner extends Component {
+  render() {
+    const {
+      groupon = false,
+      data, 
+      style,
+      navigation: { navigate },
+      ...restProps
+    } = this.props;
+    
+    return (
+      <View style={[styles.itemWrap, style]} {...restProps}>
+        {data.map((val, key) => (
+          <BYTouchable 
+          style={styles.touchable} 
+            backgroundColor={'transparent'}
+            key={key} 
+            onPress={() => navigate(SCREENS.ProductDetail,  { brandId: val.brandId, groupon })}
+          >
+            <Image source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} style={styles.itemImg} />
+          </BYTouchable>
+        ))}
+      </View>
+    );
+  }
+}
+
+export default withNavigation(PhoneAdBaner);

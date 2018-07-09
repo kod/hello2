@@ -32,56 +32,6 @@ class Scrollable2 extends React.Component {
     const bannerSwiperList = bannerSwiper.items;
     return (
       <View>
-
-        {/* <View style={{ flexDirection: 'row', paddingTop: 15, paddingBottom: 10 }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Image source={require('../images/1512372670238_mobile_Android.png')} style={{ width: 60, height: 60, marginBottom: 5 }} />
-            <Text style={{ textAlign: 'center', fontSize: 12 }}>Android</Text>
-          </View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Image source={require('../images/1512372658062_mobile_IOS.png')} style={{ width: 60, height: 60, marginBottom: 5 }} />
-            <Text style={{ textAlign: 'center', fontSize: 12 }}>IOS</Text>
-          </View>
-        </View> */}
-
-        {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingTop: 10 }}>
-          <View style={{ width: width / 2, flexDirection: 'row', paddingLeft: width * 0.03, paddingBottom: 10 }}>
-            <Image source={require('../images/1516440780730_F5_b01.jpg')} style={{ height: 70, width: 70 }} />
-            <View>
-              <Image source={require('../images/1509607385148_oppo.jpg')} style={{ height: 50, width: 50 }} />
-              <Text style={{ color: '#999', lineHeight: 16, width: width / 2 - 80 }} numberOfLines={1}>
-                OPPO F5
-              </Text>
-            </View>
-          </View>
-          <View style={{ width: width / 2, flexDirection: 'row', paddingLeft: width * 0.03, paddingBottom: 10 }}>
-            <Image source={require('../images/1516440780730_F5_b01.jpg')} style={{ height: 70, width: 70 }} />
-            <View>
-              <Image source={require('../images/1509607385148_oppo.jpg')} style={{ height: 50, width: 50 }} />
-              <Text style={{ color: '#999', lineHeight: 16, width: width / 2 - 80 }} numberOfLines={1}>
-                OPPO F5
-              </Text>
-            </View>
-          </View>
-          <View style={{ width: width / 2, flexDirection: 'row', paddingLeft: width * 0.03, paddingBottom: 10 }}>
-            <Image source={require('../images/1516440780730_F5_b01.jpg')} style={{ height: 70, width: 70 }} />
-            <View>
-              <Image source={require('../images/1509607385148_oppo.jpg')} style={{ height: 50, width: 50 }} />
-              <Text style={{ color: '#999', lineHeight: 16, width: width / 2 - 80 }} numberOfLines={1}>
-                OPPO F5
-              </Text>
-            </View>
-          </View>
-          <View style={{ width: width / 2, flexDirection: 'row', paddingLeft: width * 0.03, paddingBottom: 10 }}>
-            <Image source={require('../images/1516440780730_F5_b01.jpg')} style={{ height: 70, width: 70 }} />
-            <View>
-              <Image source={require('../images/1509607385148_oppo.jpg')} style={{ height: 50, width: 50 }} />
-              <Text style={{ color: '#999', lineHeight: 16, width: width / 2 - 80 }} numberOfLines={1}>
-                OPPO F5OPPO F5OPPO F5
-              </Text>
-            </View>
-          </View>
-        </View> */}
         
         <SwiperFlatList data={bannerSwiperList} />
 
