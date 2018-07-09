@@ -100,24 +100,3 @@ export default connectLocalization(
     }
   )(CateList)
 );
-
-// function mapStateToProps(state, props) {
-//   const { 
-//     getAllProductInfo
-//    } = state;
-
-//    const {
-//     navigation,
-//    } = props;
-  
-//   return {
-//     loading: getAllProductInfo.loading,
-//     items: getAllProductInfo.items,
-//     parent_id: navigation.state.params.parent_id,
-//     classfy_id: navigation.state.params.classfy_id,
-//   };
-// }
-
-// export default connectLocalization(
-//   connect(mapStateToProps, { ...getAllProductInfoActionCreators, ...authActionCreators })(CateList)
-// );
