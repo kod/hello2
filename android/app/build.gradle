@@ -98,11 +98,11 @@ android {
     buildToolsVersion rootProject.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId "com.reactstore"
-        minSdkVersion 16
+        applicationId rootProject.APPLICATION_ID
+        minSdkVersion rootProject.MIN_SDK_VERSION
         targetSdkVersion rootProject.TARGET_SDK_VERSION
-        versionCode 106
-        versionName "1.0.6"
+        versionCode rootProject.VERSION_CODE
+        versionName rootProject.VERSION_NAME
         multiDexEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
