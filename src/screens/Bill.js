@@ -73,7 +73,7 @@ class Bill extends React.Component {
       isAuthUser,
       navigation: { navigate },
     } = this.props;
-    if (!isAuthUser) return navigate(SCREENS.Login);
+    // if (!isAuthUser) return navigate(SCREENS.Login);
 
     // let nowTimeStr = moment().format('YYYY-MM-DD HH:mm:ss');
     if (activeMonth < 10) activeMonth = '0' + activeMonth;

@@ -36,7 +36,7 @@ class BillSelect extends Component {
       isAuthUser,
     } = this.props;
 
-    if (!isAuthUser) return navigate(SCREENS.Login);
+    // if (!isAuthUser) return navigate(SCREENS.Login);
     
     billByYearFetch({
       year: activeYear,

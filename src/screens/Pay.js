@@ -119,7 +119,7 @@ class OrderWrite extends React.Component {
       getUserInfoByIdFetch,
       navigation: { navigate },
     } = this.props;
-    if (!isAuthUser) return navigate(SCREENS.Login);
+    // if (!isAuthUser) return navigate(SCREENS.Login);
 
     addressFetch();
     getUserInfoByIdFetch();

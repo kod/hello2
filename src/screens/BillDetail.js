@@ -56,7 +56,7 @@ class BillDetail extends React.Component {
       isAuthUser,
       navigation: { navigate },
     } = this.props;
-    if (!isAuthUser) return navigate(SCREENS.Login);
+    // if (!isAuthUser) return navigate(SCREENS.Login);
 
     billDetailsFetch({
       summaryid: id,

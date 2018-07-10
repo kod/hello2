@@ -97,7 +97,7 @@ class CertifiedInformation extends Component {
       schoolInfoItems,
       userCertificateInfoFetch,
     } = this.props;
-    if (!isAuthUser) return navigate(SCREENS.Login);
+    // if (!isAuthUser) return navigate(SCREENS.Login);
     
     isAuthUser && userCertificateInfoFetch();
     schoolInfoItems.length === 0 && schoolInfoFetch();
