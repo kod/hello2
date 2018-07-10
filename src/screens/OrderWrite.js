@@ -79,7 +79,7 @@ class OrderWrite extends React.Component {
     
     if (!isAuthUser) return navigate(SCREENS.Login);
 
-    navigate(SCREENS.Settings, { isSelect: true })
+    navigate(SCREENS.CouponMy, { isSelect: true })
   }
   
   handleOnPressSubmit() {
@@ -149,28 +149,6 @@ class OrderWrite extends React.Component {
       mergedetail: '',
       coupondetail: getCoupondetail(),
       subject: detailItem.name,
-
-      // orderdetails: [{
-      //     payRate: returnMoneyPayrateValue,
-      //     orderNo: createOrderno(funid),
-      //     totalAmount: detailItem.price * detailItem.productDetailNumber,
-      //     orgAmount: detailItem.orgPrice * detailItem.productDetailNumber,
-      //     advance: detailItem.price * detailItem.productDetailNumber * returnMoneyPayrateValue,
-      //     subject: detailItem.name,
-      //     goodsDetail: JSON.stringify([{
-      //         number: detailItem.productDetailNumber,
-      //         cartitemid: '',
-      //         productInfoId: detailItem.id
-      //     }]),
-      //     repaymentMonth: returnMoneyRepaymentmonthsValue,
-      //     couponCard: '',
-      //     couponPassword: '',
-      //     couponType: 0,
-      //     couponValue: 0,
-      //     couponBrandId: 0,
-      //     couponTypeId: 0,
-      //     couponProductInfoId: 0,
-      // }],
     }
     orderCreateFetch(object);
   }
@@ -231,10 +209,12 @@ class OrderWrite extends React.Component {
       getUserInfoById,
       orderCreate,
     } = this.props;
+    console.log('detailItemdetailItemdetailItemdetailItem');
+    console.log(detailItem);
     const adverstInfo = [{
       brandId: detailItem.brandId,
       propertiesIds: detailItem.propertiesIds,
-      imageUrl: detailItem.imageUrls[0],
+      imageUrl: detailItem.imageUrls[0] && detailItem.imageUrls[0].imageUrl,
       name: detailItem.name,
       price: detailItem.price,
       number: detailItem.productDetailNumber,
