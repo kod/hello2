@@ -22,6 +22,7 @@ import OrderWrite from '../screens/OrderWrite';
 import Pay from '../screens/Pay';
 import PeriodSelect from '../screens/PeriodSelect';
 import ProductDetail from '../screens/ProductDetail';
+import GroupBuyList from '../screens/GroupBuyList';
 import RegisterStepOne from '../screens/RegisterStepOne';
 import RegisterStepTwo from '../screens/RegisterStepTwo';
 import RegisterFastStepOne from '../screens/RegisterFastStepOne';
@@ -306,6 +307,12 @@ const RouteConfigs = {
   },
   [SCREENS.Cart]: {
     screen: Cart,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  [SCREENS.GroupBuyList]: {
+    screen: GroupBuyList,
     navigationOptions: {
       header: null,
     }
