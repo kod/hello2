@@ -95,6 +95,7 @@ class Me extends React.Component {
   constructor(props) {
     super(props);
     this.handleOnNavBar1Callback = this.handleOnNavBar1Callback.bind(this)
+    // this.didFocusAddListener = this.didFocusAddListener.bind(this)
   }
 
   componentDidMount() {
@@ -103,24 +104,45 @@ class Me extends React.Component {
       queryOrderListFetch,
       cardQueryFetch,
     } = this.props;
+
+    this.didBlurSubscription = this.props.navigation.addListener(
+      'didFocus',
+      payload => this.didFocusAddListener()
+    );
+    
     authUser && cardQueryFetch();
 
-    queryOrderListFetch({
-      index: 0,
-      status: '99999',
-    });
-    queryOrderListFetch({
-      index: 1,
-      status: '10000',
-    });
-    queryOrderListFetch({
-      index: 2,
-      status: '30000',
-    });
-    queryOrderListFetch({
-      index: 3,
-      status: '30001',
-    });
+  }
+
+  componentWillUnmount() {
+    this.didBlurSubscription.remove();
+  }
+
+  didFocusAddListener() {
+    const { 
+      authUser,
+      queryOrderListFetch,
+      cardQueryFetch,
+    } = this.props;
+
+    if (authUser) {
+      queryOrderListFetch({
+        index: 0,
+        status: '99999',
+      });
+      queryOrderListFetch({
+        index: 1,
+        status: '10000',
+      });
+      queryOrderListFetch({
+        index: 2,
+        status: '30000',
+      });
+      queryOrderListFetch({
+        index: 3,
+        status: '30001',
+      });
+    }
   }
 
   async handleOnPressOrderNav(index) {
