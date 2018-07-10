@@ -231,7 +231,7 @@ class Card extends React.Component {
         <NavBar2 
           onPress={() => judge(status === 3 && initPassword === 1, () => navigate(SCREENS.PeriodSelect))}
           valueLeft={'Stage setting'} 
-          valueMiddle={`${periodHobbit} period`} 
+          valueMiddle={ periodHobbit ? `${periodHobbit} period` : ''} 
         />
         <SeparateBar />
         <NavBar2 
