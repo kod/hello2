@@ -62,7 +62,8 @@ export default function queryOrderList(state = initState, action) {
             loading: false,
             loaded: true,      
             page: action.payload.page,
-            items: [ ...state.item[action.payload.index].items, ...action.payload.result ]
+            items: action.payload.result
+            // items: [ ...state.item[action.payload.index].items, ...action.payload.result ]
           }
         },
       };
