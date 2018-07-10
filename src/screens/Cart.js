@@ -154,37 +154,54 @@ class Cart extends React.Component {
   }
 
   render() {
-    const { cart, allSelected, allSelectedDel, i18n, isEdit } = this.props;
+    const {
+      cart,
+      allSelected,
+      allSelectedDel,
+      i18n,
+      isEdit,
+      navigation,
+    } = this.props;
     const isEmptyCart = cart.items.length === 0 ? true : false;
     return (
       <View style={styles.container}>
-        {!isEmptyCart && <BYHeader 
-          showBackButton={false}
-          headerRight={this.renderHeaderRight()}
-        />}
-        {!isEmptyCart && <ScrollView>
-          <CartItem
-            data={cart}
-            styleItem={{marginBottom: 25, borderTopColor: BORDER_COLOR, borderTopWidth: 1,}}
-            styleItemLeft={{paddingLeft: 0, paddingTop: 15, paddingBottom: 15,}}
+        {
+          !isEmptyCart && 
+          <BYHeader 
+            showBackButton={false}
+            headerRight={this.renderHeaderRight()}
           />
-        </ScrollView>}
-        {!isEmptyCart && <View style={styles.overview} >
-          <BYTouchable style={styles.overviewSelectAll} onPress={() => this.onPressSelectAllHandle()} >
-            <View style={styles.overviewIconWrap} >
-              {
-                isEdit
-                ? <Ionicons name={ allSelectedDel ? 'ios-radio-button-on-outline' : 'ios-radio-button-off-outline'} style={[styles.overviewIcon, allSelectedDel && styles.overviewIconSelectedDel]} />
-                : <Ionicons name={ allSelected ? 'ios-radio-button-on-outline' : 'ios-radio-button-off-outline'} style={[styles.overviewIcon, allSelected && styles.overviewIconSelected]} />
-              }
-            </View>
-            <Text style={styles.overviewSelect} >{i18n.selectAll}</Text>
-          </BYTouchable>
-          <Text style={styles.overviewPrice} >{!isEdit && (priceFormat(cart.totalMoney) + ' VND')}</Text>
-          <BYTouchable style={styles.overviewSubmit} onPress={() => this.onPressSubmitHandle()} >
-            <Text style={[styles.overviewSubmitText, isEdit && styles.overviewSubmitTextDel]} >{isEdit ? i18n.delete : i18n.buy}</Text>
-          </BYTouchable>
-        </View>}
+        }
+        {
+          !isEmptyCart && 
+          <ScrollView>
+            <CartItem
+              data={cart}
+              navigation={navigation}
+              styleItem={{marginBottom: 25, borderTopColor: BORDER_COLOR, borderTopWidth: 1,}}
+              styleItemLeft={{paddingLeft: 0, paddingTop: 15, paddingBottom: 15,}}
+            />
+          </ScrollView>
+        }
+        {
+          !isEmptyCart && 
+          <View style={styles.overview} >
+            <BYTouchable style={styles.overviewSelectAll} onPress={() => this.onPressSelectAllHandle()} >
+              <View style={styles.overviewIconWrap} >
+                {
+                  isEdit
+                  ? <Ionicons name={ allSelectedDel ? 'ios-radio-button-on-outline' : 'ios-radio-button-off-outline'} style={[styles.overviewIcon, allSelectedDel && styles.overviewIconSelectedDel]} />
+                  : <Ionicons name={ allSelected ? 'ios-radio-button-on-outline' : 'ios-radio-button-off-outline'} style={[styles.overviewIcon, allSelected && styles.overviewIconSelected]} />
+                }
+              </View>
+              <Text style={styles.overviewSelect} >{i18n.selectAll}</Text>
+            </BYTouchable>
+            <Text style={styles.overviewPrice} >{!isEdit && (priceFormat(cart.totalMoney) + ' VND')}</Text>
+            <BYTouchable style={styles.overviewSubmit} onPress={() => this.onPressSubmitHandle()} >
+              <Text style={[styles.overviewSubmitText, isEdit && styles.overviewSubmitTextDel]} >{isEdit ? i18n.delete : i18n.buy}</Text>
+            </BYTouchable>
+          </View>
+        }
         {
           isEmptyCart && <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
         }

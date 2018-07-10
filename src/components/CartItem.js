@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, } from "../common/constants";
 import priceFormat from '../common/helpers/priceFormat';
 import { CARMAXNUMBER } from "../common/constants";
 import BYTouchable from "../components/BYTouchable";
@@ -215,27 +215,30 @@ class CartItem extends Component {
   };
   
   render() {
-    const 
-      {
-        data,
-        style,
-        styleItem,
-        styleItemOpacity,
-        styleItemLeft,
-        itemLeft,
-        itemRight,
-        cartNumberRequest,
-        ...restProps
-      } = this.props;
-    
+    const {
+      data,
+      style,
+      styleItem,
+      styleItemOpacity,
+      styleItemLeft,
+      itemLeft,
+      itemRight,
+      cartNumberRequest,
+      navigation: { navigate },
+      ...restProps
+    } = this.props;
     const { items, products, details, isEdit } = data;
-    // 
+
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
         {items &&
-          items.map((val, key) => {
-            return (
-              <View style={[styles.item, styleItem]} key={key}>
+          items.map((val, key) => 
+            (
+              <BYTouchable 
+                style={[styles.item, styleItem]} 
+                key={key} 
+                onPress={() => navigate(SCREENS.ProductDetail, { brandId: details[products[val].detail].brandId })}
+              >
                 {this.renderCartItemLeft(val, isEdit ? products[val].selectedDel : products[val].selected)}
                 <View style={[styles.itemLeft, styleItemLeft]}>
                   <Image style={styles.itemImage} source={{ uri: `${details[products[val].detail].iconUrl}?x-oss-process=image/quality,Q_70` }} />
@@ -249,9 +252,9 @@ class CartItem extends Component {
                   </View>
                 </View>
                 {this.renderCartItemRight(val, products[val].quantity)}
-              </View>
-            );
-          })}
+              </BYTouchable>
+            )
+          )}
       </View>
     );
   }
