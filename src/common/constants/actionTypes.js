@@ -349,6 +349,12 @@ export const ORDER_PAY = defineAction(
   appNamespace,
 );
 
+export const ORDER_CANCEL = defineAction(
+  'ORDER_CANCEL',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const CARD_SUBMIT = defineAction(
   'CARD_SUBMIT',
   [REQUEST, SUCCESS, FAILURE],

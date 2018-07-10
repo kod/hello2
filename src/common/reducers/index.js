@@ -59,6 +59,7 @@ import getProvidersCard from './getProvidersCard';
 import getProvidersValue from './getProvidersValue';
 import get3GProvidersCard from './get3GProvidersCard';
 import searchHistory from './searchHistory';
+import orderCancel from './orderCancel';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -120,6 +121,7 @@ const rootReducer = combineReducers({
   getProvidersValue,
   get3GProvidersCard,
   searchHistory,
+  orderCancel,
   form: formReducer,
 });
 
