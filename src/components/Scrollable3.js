@@ -55,9 +55,9 @@ export default connect(
         newComputer
       } = state;
 
-      const {
+      // const {
 
-      } = props;
+      // } = props;
 
       return {
         topComputer: topComputer,

@@ -53,9 +53,9 @@ export default connect(
         adDigital
       } = state;
 
-      const {
+      // const {
 
-      } = props;
+      // } = props;
 
       return {
         bannerSwiper: bannerSwiper['four'] || {},
