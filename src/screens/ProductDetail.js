@@ -327,6 +327,19 @@ class ProductDetail extends React.Component {
     productDetailNumberFetch(number);
   }
 
+  handleOnPressBuy() {
+    const {
+      groupon,
+      isAuthUser,
+      navigation: { navigate },
+    } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    
+    navigate(SCREENS.OrderWrite, {
+      groupon,
+    });
+  }
+
   renderMainContent() {
     const { mounting } = this.state;
     const {
@@ -409,17 +422,7 @@ class ProductDetail extends React.Component {
           <View style={styles.operate} >
             <Text style={styles.operateLeft} onPress={() => this.handleOnPressAddCart()} >{i18n.addToCart}</Text>
             <Text style={styles.operateRight} 
-              onPress={() => navigate(SCREENS.OrderWrite, {
-                // productInfoId: id, 
-                // orgPrice, 
-                // price, 
-                // name, 
-                // productDetailNumber, 
-                // propertiesIds, 
-                // brandId, 
-                groupon,
-                // imageUrl: imageUrls[0], 
-              })} 
+              onPress={() => this.handleOnPressBuy()} 
             >
               {i18n.buy}
             </Text>
