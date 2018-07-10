@@ -265,8 +265,8 @@ class ProductDetail extends React.Component {
 
   handleOnPressAddCart = () => {
     const {
+      id,
       name,
-      brandId,
       isAuthUser,
       cartAddRequest,
       navigation,
@@ -274,10 +274,12 @@ class ProductDetail extends React.Component {
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
+    if (!id) return false;
+
     const param = [{
       quantity: 1,
       subject: name,
-      itemId: parseInt(brandId),
+      itemId: id,
     }];
 
     cartAddRequest(JSON.stringify(param));
