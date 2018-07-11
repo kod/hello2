@@ -105,7 +105,7 @@ class Coupon extends React.Component {
             <CouponItem data={items} onPress={this.handlerOnPress} />
           </ScrollView>
           :
-          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
+          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'暂无优惠券可领'} styleText={{marginBottom: 0}} />
         }
       </View>
     );

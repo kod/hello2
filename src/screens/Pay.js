@@ -31,6 +31,7 @@ import * as orderPayActionCreators from '../common/actions/orderPay';
 import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
 import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
 import * as cardQueryActionCreators from "../common/actions/cardQuery";
+import * as orderCancelActionCreators from "../common/actions/orderCancel";
 
 import { addressJoin, tradeStatusCodes } from "../common/helpers";
 import priceFormat from "../common/helpers/priceFormat";
@@ -289,6 +290,35 @@ class OrderWrite extends React.Component {
     }
   }
 
+  handleOnPressCancel() {
+    const {
+      orderCancelFetch,
+      orderNo,
+      tradeNo,
+    } = this.props;
+
+    Alert.alert(
+      '',
+      'Xác nhận？',
+      [
+        { 
+          text: 'Hủy', 
+          onPress: () => {}
+        },
+        { 
+          text: 'Xác nhận', 
+          onPress: () => {
+            orderCancelFetch({
+              orderno: orderNo,
+              tradeno: tradeNo,
+              status: '40000',
+            })
+          }
+        }
+      ]
+    )
+  }
+
   renderBottom() {
     const styles = StyleSheet.create({
       nav: {
@@ -355,7 +385,7 @@ class OrderWrite extends React.Component {
         </View>
         {
           tradeStatus === '10000' &&
-          <Text style={styles.navCancel} >Cancel Order</Text>
+          <Text style={styles.navCancel} onPress={() => this.handleOnPressCancel()} >Cancel Order</Text>
         }
         {
           tradeStatus === '10000' &&
@@ -637,6 +667,7 @@ export default connectLocalization(
       ...getUserInfoByIdActionCreators,
       ...cardSubmitActionCreators,
       ...cardQueryActionCreators,
+      ...orderCancelActionCreators,
     }
   )(OrderWrite)
 );

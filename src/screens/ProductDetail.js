@@ -265,8 +265,8 @@ class ProductDetail extends React.Component {
 
   handleOnPressAddCart = () => {
     const {
+      id,
       name,
-      brandId,
       isAuthUser,
       cartAddRequest,
       navigation,
@@ -274,10 +274,12 @@ class ProductDetail extends React.Component {
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
+    if (!id) return false;
+
     const param = [{
       quantity: 1,
       subject: name,
-      itemId: parseInt(brandId),
+      itemId: id,
     }];
 
     cartAddRequest(JSON.stringify(param));
@@ -325,6 +327,19 @@ class ProductDetail extends React.Component {
     const { productDetailNumberFetch, numbers } = this.props;
     if (number < 1 || number > numbers) return false;
     productDetailNumberFetch(number);
+  }
+
+  handleOnPressBuy() {
+    const {
+      groupon,
+      isAuthUser,
+      navigation: { navigate },
+    } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    
+    navigate(SCREENS.OrderWrite, {
+      groupon,
+    });
   }
 
   renderMainContent() {
@@ -409,17 +424,7 @@ class ProductDetail extends React.Component {
           <View style={styles.operate} >
             <Text style={styles.operateLeft} onPress={() => this.handleOnPressAddCart()} >{i18n.addToCart}</Text>
             <Text style={styles.operateRight} 
-              onPress={() => navigate(SCREENS.OrderWrite, {
-                // productInfoId: id, 
-                // orgPrice, 
-                // price, 
-                // name, 
-                // productDetailNumber, 
-                // propertiesIds, 
-                // brandId, 
-                groupon,
-                // imageUrl: imageUrls[0], 
-              })} 
+              onPress={() => this.handleOnPressBuy()} 
             >
               {i18n.buy}
             </Text>

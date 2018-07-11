@@ -92,6 +92,11 @@ const styles = StyleSheet.create({
 });
 
 class Me extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleOnNavBar1Callback = this.handleOnNavBar1Callback.bind(this)
+    // this.didFocusAddListener = this.didFocusAddListener.bind(this)
+  }
 
   componentDidMount() {
     const { 
@@ -99,24 +104,45 @@ class Me extends React.Component {
       queryOrderListFetch,
       cardQueryFetch,
     } = this.props;
+
+    this.didBlurSubscription = this.props.navigation.addListener(
+      'didFocus',
+      payload => this.didFocusAddListener()
+    );
+    
     authUser && cardQueryFetch();
 
-    queryOrderListFetch({
-      index: 0,
-      status: '99999',
-    });
-    queryOrderListFetch({
-      index: 1,
-      status: '10000',
-    });
-    queryOrderListFetch({
-      index: 2,
-      status: '30000',
-    });
-    queryOrderListFetch({
-      index: 3,
-      status: '30001',
-    });
+  }
+
+  componentWillUnmount() {
+    this.didBlurSubscription.remove();
+  }
+
+  didFocusAddListener() {
+    const { 
+      authUser,
+      queryOrderListFetch,
+      cardQueryFetch,
+    } = this.props;
+
+    if (authUser) {
+      queryOrderListFetch({
+        index: 0,
+        status: '99999',
+      });
+      queryOrderListFetch({
+        index: 1,
+        status: '10000',
+      });
+      queryOrderListFetch({
+        index: 2,
+        status: '30000',
+      });
+      queryOrderListFetch({
+        index: 3,
+        status: '30001',
+      });
+    }
   }
 
   async handleOnPressOrderNav(index) {
@@ -207,9 +233,31 @@ class Me extends React.Component {
   }
 
   handleOnPressUser() {
-    const { navigation: { navigate }, authUser } = this.props;
+    const {
+      navigation: { navigate },
+      authUser,
+    } = this.props;
 
     authUser ? navigate(SCREENS.Settings) : navigate(SCREENS.Login);
+  }
+
+  handleOnNavBar1Callback(SCREENS_name) {
+    console.log(SCREENS_name);
+    const {
+      navigation: { navigate },
+      authUser,
+    } = this.props;
+
+    switch (SCREENS_name) {
+      case SCREENS.Settings:
+      case SCREENS.Invite:
+        navigate(SCREENS_name)
+        break;
+    
+      default:
+        authUser ? navigate(SCREENS_name) : navigate(SCREENS.Login);
+        break;
+    }
   }
   
   render() {
@@ -308,9 +356,9 @@ class Me extends React.Component {
               </BYTouchable>
               {/* {this.renderHeaderBottom()} */}
             </View>
-            <NavBar1 list={renderCellItem1List1} navigate={navigate} />
+            <NavBar1 list={renderCellItem1List1} callback={this.handleOnNavBar1Callback} />
             {this.renderNav1()}
-            <NavBar1 list={renderCellItem1List2} navigate={navigate} styleItemLeft={{flex: 3}} />
+            <NavBar1 list={renderCellItem1List2} callback={this.handleOnNavBar1Callback} styleItemLeft={{flex: 3}} />
           </View>
         </ScrollView>
       </View>

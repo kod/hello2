@@ -196,6 +196,23 @@ class ReactStore {
     return this.requestUrl(`:8183/fun/trade/order/pay`, options);
   }
 
+  orderCancel(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`:8183/fun/trade/orderCancel`, options);
+  }
+
   orderPayInternetBank(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));
