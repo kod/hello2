@@ -4,6 +4,7 @@ export const SCREENS = {
   Address: 'Address',
   AddressAdd: 'AddressAdd',
   AddressEdit: 'AddressEdit',
+  AboutAs: 'AboutAs',
   Bill: 'Bill',
   BillDetail: 'BillDetail',
   BillingPeriodDetail: 'BillingPeriodDetail',

@@ -45,6 +45,7 @@ import CouponMy from '../screens/CouponMy';
 import QrCodeScanner from '../screens/QrCodeScanner';
 import Prepaid from '../screens/Prepaid';
 import Cart from '../screens/Cart';
+import AboutAs from '../screens/AboutAs';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -316,6 +317,12 @@ const RouteConfigs = {
     navigationOptions: {
       header: null,
     }
+  },
+  [SCREENS.AboutAs]: {
+      screen: AboutAs,
+      navigationOptions: {
+          header: null,
+      }
   }
 };
 

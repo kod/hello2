@@ -239,7 +239,6 @@ class Me extends React.Component {
         tips: '',
       },
     ];
-
     const renderCellItem1List2 = [
       {
         name: i18n.cart,
@@ -273,7 +272,7 @@ class Me extends React.Component {
       },
       {
         name: i18n.about,
-        navigate: SCREENS.Settings,
+        navigate: SCREENS.AboutAs,
         tips: '',
       },
       {
