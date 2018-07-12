@@ -374,6 +374,12 @@ export const GET_VOUCHER_LIST = defineAction(
   appNamespace,
 );
 
+export const JUDGE_VOUCHER = defineAction(
+  'JUDGE_VOUCHER',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const CARD_QUERY = defineAction(
   'CARD_QUERY',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
@@ -551,6 +557,12 @@ export const GET_PROVIDERS_VALUE = defineAction(
 export const SEARCH_HISTORY = defineAction(
   'SEARCH_HISTORY',
   [ADD, REMOVE],
+  appNamespace,
+);
+
+export const COUPON_SELECT = defineAction(
+  'COUPON_SELECT',
+  [REQUEST, CLEAR],
   appNamespace,
 );
 

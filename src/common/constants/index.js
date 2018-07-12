@@ -20,6 +20,7 @@ export const SCREENS = {
   CouponMyUsed: 'CouponMyUsed',
   CouponMyUnused: 'CouponMyUnused',
   CouponMyPast: 'CouponMyPast',
+  CouponSelect: 'CouponSelect',
   Evalution: 'Evalution',
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',

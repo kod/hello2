@@ -46,6 +46,7 @@ import QrCodeScanner from '../screens/QrCodeScanner';
 import Prepaid from '../screens/Prepaid';
 import Cart from '../screens/Cart';
 import AboutAs from '../screens/AboutAs';
+import CouponSelect from '../screens/CouponSelect';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -319,16 +320,22 @@ const RouteConfigs = {
     }
   },
   [SCREENS.AboutAs]: {
-      screen: AboutAs,
-      navigationOptions: {
-          header: null,
-      }
+    screen: AboutAs,
+    navigationOptions: {
+        header: null,
+    }
+  },
+  [SCREENS.CouponSelect]: {
+    screen: CouponSelect,
+    navigationOptions: {
+        header: null,
+    }
   }
 };
 
 const StackNavigatorConfig = {
   initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.MyCollection,
+  // initialRouteName: SCREENS.CouponSelect,
   // initialRouteName: SCREENS.Bill,
   headerMode: 'screen',
   navigationOptions: {

@@ -80,7 +80,7 @@ export function* orderCreateFetchWatchHandle(action) {
       ],
       Key
     );
-
+    
     const response = yield apply(buyoo, buyoo.orderCreate, [
       {
         appid: appId,
@@ -135,18 +135,16 @@ export function* orderCreateSuccessWatchHandle(action) {
     } = action.payload;
     switch (BYtype) {
       case 'normal':
-        yield NavigatorService.navigate(SCREENS.Pay, {
-          tradeNo,
-          orderNo,
-        });
+        yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'orderWriteCallBack', {
+          type: 'orderCreateSuccess',
+          params: {
+            tradeNo,
+            orderNo,
+          },
+        }]);
         break;
 
       case 'billPay':
-
-    // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'billPayResult', {
-    //   name: 'haha',
-    //   age: 18
-    // }]);
 
         yield put(
           orderPayFetch({

@@ -157,6 +157,10 @@ import {
   orderCancelFetchWatch,
   orderCancelSuccessWatch,
 } from './orderCancel';
+import {
+  judgeVoucherFetchWatch,
+  // judgeVoucherSuccessWatch,
+} from './judgeVoucher';
 
 export default function* rootSaga() {
   yield all([
@@ -252,5 +256,6 @@ export default function* rootSaga() {
     findProductsFetchWatch(),
     orderCancelFetchWatch(),
     orderCancelSuccessWatch(),
+    judgeVoucherFetchWatch(),
   ]);
 }

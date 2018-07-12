@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, ToastAndroid, Platform } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, DeviceEventEmitter, ToastAndroid, Platform } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
@@ -22,6 +23,7 @@ import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';
 import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
+import * as couponSelectActionCreators from '../common/actions/couponSelect';
 
 import { getAddressSelectedItem } from "../common/selectors";
 import { addressJoin } from "../common/helpers";
@@ -58,6 +60,37 @@ class OrderWrite extends React.Component {
     addressFetch();
     getUserInfoByIdFetch();
 
+    this.orderWriteCallBack = DeviceEventEmitter.addListener(
+      'orderWriteCallBack',
+      ({ type = '', params = {} }) => {
+        switch (type) {
+          case 'orderCreateSuccess':
+            const resetAction = NavigationActions.reset({
+              index: 1,
+              actions: [
+                NavigationActions.navigate({ routeName: SCREENS.Index }),
+                NavigationActions.navigate({ routeName: SCREENS.Pay, params })
+              ]
+            })
+
+            this.props.navigation.dispatch(resetAction);
+            break;
+        
+          default:
+            break;
+        }
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    const {
+      couponSelectClear,
+    } = this.props;
+
+    couponSelectClear();
+
+    this.orderWriteCallBack.remove();
   }
 
   handleOnPressAddress() {
@@ -73,13 +106,29 @@ class OrderWrite extends React.Component {
 
   handleOnPressCoupon() {
     const {
+      isCart,
       isAuthUser,
+      detailItem,
       navigation: { navigate },
     } = this.props;
     
     if (!isAuthUser) return navigate(SCREENS.Login);
 
-    navigate(SCREENS.CouponMy, { isSelect: true })
+    let products; // 请求judgeVoucher接口所需参数
+
+    if (isCart) {
+
+    } else {
+      products = [{
+        id: detailItem.id,
+        // typeId: detailItem.typeId,
+        // brandId: detailItem.brandId,
+        // classfyId: detailItem.classfyId,
+        amount: detailItem.price * detailItem.productDetailNumber,
+      }]
+    }
+
+    navigate(SCREENS.CouponSelect, { products: JSON.stringify(products) })
   }
   
   handleOnPressSubmit() {
@@ -126,16 +175,20 @@ class OrderWrite extends React.Component {
     }
 
     const getCoupondetail = () => {
-      return '';
-      // return [{
-      //   couponcard: '',
-      //   couponpassword: '',
-      //   couponbrandid: '',
-      //   coupontypeid: '',
-      //   couponproductid: '',
-      //   coupontype: '',
-      //   couponvalue: '',
-      // }];
+      const {
+        couponSelectItem,
+      } = this.props;
+
+      if (!couponSelectItem.id) return '';
+      return JSON.stringify({
+        couponcard: couponSelectItem.cardno,
+        couponpassword: couponSelectItem.pincode,
+        couponbrandid: couponSelectItem.brandId,
+        coupontypeid: couponSelectItem.typeId,
+        couponproductid: couponSelectItem.productId,
+        coupontype: couponSelectItem.voucherType,
+        couponvalue: couponSelectItem.voucherValue,
+      });
     }
     
     if (addressSelectedId === 0) {
@@ -150,7 +203,27 @@ class OrderWrite extends React.Component {
       coupondetail: getCoupondetail(),
       subject: detailItem.name,
     }
+
     orderCreateFetch(object);
+  }
+
+  calcMoney() {
+    const {
+      detailItem: { price, productDetailNumber },
+      couponSelectItem,
+    } = this.props;
+    let money = productDetailNumber * price;
+
+    if (couponSelectItem.id) {
+      if (couponSelectItem.voucherType === 0) {
+        // 打折券
+        money = money * couponSelectItem.voucherValue * 0.01
+      } else {
+        money = money - couponSelectItem.voucherValue
+      }
+    }
+
+    return priceFormat(money)
   }
 
   renderBottom() {
@@ -185,14 +258,16 @@ class OrderWrite extends React.Component {
       },
     });
 
-    const {
-      detailItem: { price, productDetailNumber },
-    } = this.props;
+    // const {
+    //   detailItem: { price, productDetailNumber },
+    //   couponSelectItem,
+    // } = this.props;
+    
     return (
       <View style={styles.nav} >
         <View style={styles.navLeft} >
           <Text style={styles.navLeftTop} >Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom} >{priceFormat(productDetailNumber * price)} VND</Text>
+          <Text style={styles.navLeftBottom} >{this.calcMoney()} VND</Text>
         </View>
         <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()} >Submit</Text>
       </View>
@@ -208,9 +283,9 @@ class OrderWrite extends React.Component {
       detailItem,
       getUserInfoById,
       orderCreate,
+      couponSelectItem,
     } = this.props;
-    console.log('detailItemdetailItemdetailItemdetailItem');
-    console.log(detailItem);
+
     const adverstInfo = [{
       brandId: detailItem.brandId,
       propertiesIds: detailItem.propertiesIds,
@@ -238,7 +313,7 @@ class OrderWrite extends React.Component {
           <NavBar2 
             onPress={() => this.handleOnPressCoupon()} 
             valueLeft={'Sử dụng voucher'} 
-            valueMiddle={'không thể sử dụng voucher'} 
+            valueMiddle={ couponSelectItem.id ? couponSelectItem.voucherName : 'không thể sử dụng voucher'} 
           />
         </ScrollView>
         {this.renderBottom()}
@@ -257,11 +332,13 @@ export default connectLocalization(
           mergeGetDetail,
           orderCreate,
           productDetailInfo,
+          couponSelect,
         } = state;
         const groupon = props.navigation.state.params.groupon;
         const isCart = props.navigation.state.params.isCart;
         const detailItem = groupon ? mergeGetDetail.item : productDetailInfo.item;
         return {
+          couponSelectItem: couponSelect.item,
           isCart,
           detailItem,
           orderCreate,
@@ -280,6 +357,7 @@ export default connectLocalization(
       ...authActionCreators,
       ...getUserInfoByIdActionCreators,
       ...orderCreateActionCreators,
+      ...couponSelectActionCreators,
     }
   )(OrderWrite)
 );

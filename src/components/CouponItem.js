@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
 class CouponItem extends Component {
   render() {
     const {
+      isCouponCenter = true,
       data, 
       onPress,
       ...restProps
@@ -96,7 +97,7 @@ class CouponItem extends Component {
           val.voucherType === 1 
           ?
           <BYTouchable 
-            style={[styles.item, val.status !== 1 && styles.itemDisable]} 
+            style={[styles.item, isCouponCenter && val.status !== 1 && styles.itemDisable]} 
             key={key} 
             onPress={() => onPress && onPress(val)} 
             backgroundColor={'transparent'}
@@ -117,7 +118,7 @@ class CouponItem extends Component {
           </BYTouchable>
           :
           <BYTouchable 
-            style={[styles.item, val.status !== 1 && styles.itemDisable]} 
+            style={[styles.item, isCouponCenter && val.status !== 1 && styles.itemDisable]} 
             key={key} 
             onPress={() => onPress && onPress(val)} 
             backgroundColor={'transparent'}
