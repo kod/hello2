@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, ScrollView, Linking,  DeviceEventEmitter} from 'react-native';
 // import DeviceInfo from 'react-native-device-info';
 // import { PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
 // import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
@@ -57,8 +57,50 @@ const styles = StyleSheet.create({
 // 我_关于我们
 class AboutAs extends React.Component {
 
+  constructor(props) {
+    super()
+    this.handleOnNavBar1Callback = this.handleOnNavBar1Callback.bind(this);
+  }
+
   componentDidMount() {
 
+  }
+
+  // navbar点击回调事件
+  // SCREENS_name 路由名
+  handleOnNavBar1Callback(screen) {
+    const {
+      navigation: { navigate },
+      authUser,
+    } = this.props;
+  
+    // 邮箱事件
+    switch(screen.name) {
+      case 'Business E-mail': 
+      case 'Service E-mail': 
+        this.handleOpenPhoneMailFunc(screen.tips)
+      break;
+    }
+
+    if(screen.navigate) {
+        navigate(screen.navigate, screen.navigateArgs);
+    }
+    
+  }
+
+  // 打开手机上对应邮箱的应用
+  // url: 邮箱链接
+  handleOpenPhoneMailFunc(url) {
+    //启动一个链接相对应的应用（打开浏览器、邮箱或者其它的应用）
+    url = 'mailto:' + url
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+        DeviceEventEmitter.emit('showToast', '无法打开邮箱')
+        console.log('Can\'t handle url: ' + url);
+      } else {
+        return Linking.openURL(url);
+      }
+    }).catch(err => console.error('An error occurred', err));
   }
 
   render() {
@@ -70,28 +112,23 @@ class AboutAs extends React.Component {
     const navBar1List = [
       {
         name: 'Support center',
-        navigate: SCREENS.Login,
+        navigate: SCREENS.WebView,
         tips: '',
+        navigateArgs: { source: 'https://buyoo.vn/html/paystepM.html'}
       },
       {
         name: 'How to buy',
-        navigate: SCREENS.Login,
+        navigate: SCREENS.WebView,
         tips: '',
+        navigateArgs: { source: 'https://buyoo.vn/html/paystepM.html'}
       },
       {
         name: 'Business E-mail',
-        navigate: SCREENS.Login,
         tips: 'business.vn@buyoo.aisa',
       },
       {
         name: 'Service E-mail',
-        navigate: SCREENS.Login,
         tips: 'service@buyoo.aisa',
-      },
-      {
-        name: 'Online service',
-        navigate: SCREENS.Login,
-        tips: '',
       },
       {
         name: 'Hotline',
@@ -99,7 +136,7 @@ class AboutAs extends React.Component {
         tips: '1900-5555-06',
       },
     ];
-
+//navigate(SCREENS.WebView, { source: 'https://buyoo.vn/html/paystepM.html' })
     return (
       <View style={styles.WrapContainer}>
         <View style={{ flex:1 }}>
@@ -112,7 +149,7 @@ class AboutAs extends React.Component {
           </View>
           <SeparateBar />
           <ScrollView style={styles.container}>
-            <NavBar1 list={navBar1List} navigate={navigate} style={{marginBottom: 30}} styleItemLeft={{flex: 3}}/>
+            <NavBar1 list={navBar1List} navigate={navigate} callback={this.handleOnNavBar1Callback} style={{marginBottom: 30}} styleItemLeft={{flex: 3}}/>
           </ScrollView>
         </View>
         <Text style={styles.copyright}>Copyright 2017BUYoo.vn ALL Rights REserved</Text>

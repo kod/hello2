@@ -241,14 +241,15 @@ class Me extends React.Component {
     authUser ? navigate(SCREENS.Settings) : navigate(SCREENS.Login);
   }
 
-  handleOnNavBar1Callback(SCREENS_name) {
-    console.log(SCREENS_name);
+  handleOnNavBar1Callback(screens) {
+    var SCREENS_name = screens.navigate;
     const {
       navigation: { navigate },
       authUser,
     } = this.props;
 
     switch (SCREENS_name) {
+      case SCREENS.AboutAs:
       case SCREENS.Settings:
       case SCREENS.Invite:
         navigate(SCREENS_name)
@@ -319,7 +320,7 @@ class Me extends React.Component {
         tips: '',
       },
       {
-        name: i18n.about,
+        name: i18n.aboutAs,
         navigate: SCREENS.AboutAs,
         tips: '',
       },

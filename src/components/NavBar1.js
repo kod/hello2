@@ -45,7 +45,7 @@ export default ({list, style, styleItem, styleItemLeft, styleIconImg, callback})
   return (
     <View style={[styles.cellItem1Wrap, style]} >
       {list.map((val, key) => 
-        <BYTouchable delayPressIn={0} style={[styles.cellItem1, styleItem]} key={key} onPress={() => callback(val.navigate)} >
+        <BYTouchable delayPressIn={0} style={[styles.cellItem1, styleItem]} key={key} onPress={() => callback(val)} >
           { !!val.iconName && <CustomIcon style={styles.cellItem1Icon} name={val.iconName}></CustomIcon>}
           { !!val.iconImg && <Image style={[styles.cellItem1IconImg, styleIconImg]} source={val.iconImg} />}
           <Text style={[styles.cellItem1Left, styleItemLeft]} numberOfLines={1}>{val.name}</Text>
