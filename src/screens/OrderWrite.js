@@ -107,6 +107,7 @@ class OrderWrite extends React.Component {
   handleOnPressCoupon() {
     const {
       isCart,
+      cartProducts,
       isAuthUser,
       detailItem,
       navigation: { navigate },
@@ -117,13 +118,10 @@ class OrderWrite extends React.Component {
     let products; // 请求judgeVoucher接口所需参数
 
     if (isCart) {
-
+      products = cartProducts;
     } else {
       products = [{
         id: detailItem.id,
-        // typeId: detailItem.typeId,
-        // brandId: detailItem.brandId,
-        // classfyId: detailItem.classfyId,
         amount: detailItem.price * detailItem.productDetailNumber,
       }]
     }
@@ -136,7 +134,7 @@ class OrderWrite extends React.Component {
       addressSelectedId,
       isAuthUser,
       detailItem,
-      funid,
+      cartAdverstInfo,
       isCart,
       orderCreateFetch,
       navigation: { navigate },
@@ -154,14 +152,20 @@ class OrderWrite extends React.Component {
     
     const getGoodsdetail = (isCart) => {
       if (isCart) {
-        // return [{
-        //   number: '',
-        //   cartitemid: '',
-        //   productid: detailItem.id,
-        //   rechargeaccount: '',
-        //   rechargecode: '',
-        //   repaymentamount: 0,
-        // }]
+        return cartAdverstInfo.map(val => {
+          val.number = val.number
+          val.rechargeaccount = ''
+          val.rechargecode = ''
+          val.repaymentamount = 0
+          return {
+            number: val.number,
+            cartitemid: val.cartitemid,
+            productid: val.productid,
+            rechargeaccount: '',
+            rechargecode: '',
+            repaymentamount: 0,
+          }
+        })
       } else {
         return [{
           number: detailItem.productDetailNumber,
@@ -172,6 +176,18 @@ class OrderWrite extends React.Component {
           repaymentamount: 0,
         }];
       }
+    }
+
+    const getSubject = (isCart) => {
+      let result = '';
+      if (isCart) {
+        result = cartAdverstInfo.map(val => {
+          return val.name
+        }).join('_')
+      } else {
+        result = detailItem.name
+      }
+      return result;
     }
 
     const getCoupondetail = () => {
@@ -198,21 +214,42 @@ class OrderWrite extends React.Component {
     const object = {
       ordertype: isCart ? '3' : '2',
       addrid: addressSelectedId + '',
-      goodsdetail: JSON.stringify(getGoodsdetail(false)),
+      goodsdetail: JSON.stringify(getGoodsdetail(isCart)),
       mergedetail: '',
       coupondetail: getCoupondetail(),
-      subject: detailItem.name,
+      subject: getSubject(isCart),
     }
+
+    console.log(object);
+    console.log(JSON.stringify(object));
 
     orderCreateFetch(object);
   }
 
   calcMoney() {
     const {
+      isCart,
+      cartAdverstInfo,
       detailItem: { price, productDetailNumber },
       couponSelectItem,
     } = this.props;
-    let money = productDetailNumber * price;
+    let money = 0;
+
+    if (isCart) {
+      // money
+      money = cartAdverstInfo.reduce((a, b, index) => {
+        if (index === 1) {
+          const aTotalMoney = a.price * a.number;
+          const bTotalMoney = b.price * b.number;
+          return aTotalMoney + bTotalMoney
+        } else {
+          const bTotalMoney = b.price * b.number;
+          return a + bTotalMoney
+        }
+      })
+    } else {
+      money = productDetailNumber * price
+    }
 
     if (couponSelectItem.id) {
       if (couponSelectItem.voucherType === 0) {
@@ -278,15 +315,19 @@ class OrderWrite extends React.Component {
     const {
       navigation: { navigate },
       i18n,
-      addressItems,
+      isCart,
+      cartAdverstInfo,
       addressSelectedItem,
       detailItem,
       getUserInfoById,
       orderCreate,
       couponSelectItem,
     } = this.props;
-
-    const adverstInfo = [{
+    console.log('this.propsthis.propsthis.propsthis.props');
+    console.log(this.props);
+    const adverstInfo = isCart ? 
+    cartAdverstInfo : 
+    [{
       brandId: detailItem.brandId,
       propertiesIds: detailItem.propertiesIds,
       imageUrl: detailItem.imageUrls[0] && detailItem.imageUrls[0].imageUrl,
@@ -335,11 +376,15 @@ export default connectLocalization(
           couponSelect,
         } = state;
         const groupon = props.navigation.state.params.groupon;
-        const isCart = props.navigation.state.params.isCart;
         const detailItem = groupon ? mergeGetDetail.item : productDetailInfo.item;
+        const isCart = props.navigation.state.params.isCart;
+        const cartProducts = props.navigation.state.params.products;
+        const cartAdverstInfo = props.navigation.state.params.adverstInfo;
         return {
           couponSelectItem: couponSelect.item,
           isCart,
+          cartProducts,
+          cartAdverstInfo,
           detailItem,
           orderCreate,
           addressSelectedItem: getAddressSelectedItem(state, props),

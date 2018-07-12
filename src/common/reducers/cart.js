@@ -17,7 +17,7 @@ const initState = {
   allSelected: false,
   allSelectedDel: false,
   isEdit: false,
-  totalMoney: 0,
+  // totalMoney: 0,
   items: [],
   products: {},
   details: {},
@@ -39,7 +39,7 @@ export default function cart(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        totalMoney: 0,
+        // totalMoney: 0,
         items: action.payload.items,
         products: action.payload.products,
         details: action.payload.details,
@@ -63,6 +63,7 @@ export default function cart(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
+        allSelected: false,
         // items: action.payload.cart,
       };
     case CART_NUMBER.FAILURE:
@@ -90,17 +91,17 @@ export default function cart(state = initState, action) {
         allSelected: state.items.every((elem, index, arr) => {
           return state.products[elem].selected;
         }), 
-        totalMoney: state.items.reduce((a, b, index) => {
-          if (index === 1) {
-            const aPrice = state.products[a].selected ? state.details[state.products[a].detail].price * state.products[a].quantity : 0;
-            const bPrice = state.products[b].selected ? state.details[state.products[b].detail].price * state.products[b].quantity : 0;
-            return aPrice + bPrice;
-          } else {
-            const bPrice = state.products[b].selected ? state.details[state.products[b].detail].price * state.products[b].quantity : 0;
-            return a + bPrice;
-          }
-          return a + b;
-        }),
+        // totalMoney: state.items.reduce((a, b, index) => {
+        //   if (index === 1) {
+        //     const aPrice = state.products[a].selected ? state.details[state.products[a].detail].price * state.products[a].quantity : 0;
+        //     const bPrice = state.products[b].selected ? state.details[state.products[b].detail].price * state.products[b].quantity : 0;
+        //     return aPrice + bPrice;
+        //   } else {
+        //     const bPrice = state.products[b].selected ? state.details[state.products[b].detail].price * state.products[b].quantity : 0;
+        //     return a + bPrice;
+        //   }
+        //   return a + b;
+        // }),
       };
     case CART_SELECT.FAILURE:
       return {
@@ -167,17 +168,17 @@ export default function cart(state = initState, action) {
     case CART_SELECTALL.SUCCESS:
       return {
         ...state,
-        totalMoney: state.items.reduce((a, b, index) => {
-          if (index === 1) {
-            const aPrice = state.products[a].selected ? state.details[state.products[a].detail].price * state.products[a].quantity : 0;
-            const bPrice = state.products[b].selected ? state.details[state.products[b].detail].price * state.products[b].quantity : 0;
-            return aPrice + bPrice;
-          } else {
-            const bPrice = state.products[b].selected ? state.details[state.products[b].detail].price * state.products[b].quantity : 0;
-            return a + bPrice;
-          }
-          return a + b;
-        }),
+        // totalMoney: state.items.reduce((a, b, index) => {
+        //   if (index === 1) {
+        //     const aPrice = state.products[a].selected ? state.details[state.products[a].detail].price * state.products[a].quantity : 0;
+        //     const bPrice = state.products[b].selected ? state.details[state.products[b].detail].price * state.products[b].quantity : 0;
+        //     return aPrice + bPrice;
+        //   } else {
+        //     const bPrice = state.products[b].selected ? state.details[state.products[b].detail].price * state.products[b].quantity : 0;
+        //     return a + bPrice;
+        //   }
+        //   return a + b;
+        // }),
       }
     case CART_EDIT.REQUEST: 
       return {

@@ -18,6 +18,8 @@ export const getAuthUserMsisdn = state => state.auth.user.msisdn;
 export const getLang = state => state.i18n.lang;
 export const getCart = state => state.cart;
 export const getCartItems = state => state.cart.items;
+export const getCartDetails = state => state.cart.details;
+export const getCartProducts = state => state.cart.products;
 export const getProductDetailInfoItem = state => state.productDetailInfo.item;
 export const getCollectionItems = state => state.collection.items;
 export const getSchoolInfoItems = state => state.schoolInfo.items;
@@ -210,5 +212,28 @@ export const getOrderItem = createSelector(
   [getQueryOrderListItem, getQueryOrderListScrollTabIndex],
   (queryOrderListItem, queryOrderListScrollTabIndex) => {
     return queryOrderListItem[queryOrderListScrollTabIndex];
+  },
+);
+
+export const getCartTotalMoney = createSelector(
+  [getCartItems, getCartProducts, getCartDetails],
+  (items, products, details) => {
+    if (items.length === 0) {
+      return 0;
+    } else if (items.length === 1) {
+      return products[items[0]].selected ? details[products[items[0]].detail].price * products[items[0]].quantity : 0;
+    } else {
+      return items.reduce((a, b, index) => {
+        if (index === 1) {
+          const aPrice = products[a].selected ? details[products[a].detail].price * products[a].quantity : 0;
+          const bPrice = products[b].selected ? details[products[b].detail].price * products[b].quantity : 0;
+          return aPrice + bPrice;
+        } else {
+          const bPrice = products[b].selected ? details[products[b].detail].price * products[b].quantity : 0;
+          return a + bPrice;
+        }
+        return a + b;
+      });
+    }
   },
 );
