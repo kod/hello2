@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff0',
   },
   headerRight: {
-    fontSize: 16,
+    fontSize: 0,
+    // fontSize: 16,
     width: 40,
     height: 40,
     lineHeight: 40,

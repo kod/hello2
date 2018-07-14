@@ -34,7 +34,7 @@ class ForgotPasswordOne extends React.Component {
         />
         <BYButton text={'Next'} onPress={() => navigate(SCREENS.ForgotPasswordTwo)} />
         <View style={{flex: 1, minHeight: WINDOW_HEIGHT * 0.2}} ></View>
-        <OtherLogin />
+        {/* <OtherLogin /> */}
       </View>
     );
   }

@@ -314,11 +314,11 @@ class Me extends React.Component {
         navigate: SCREENS.Address,
         tips: '',
       },
-      {
-        name: i18n.inviteFriends,
-        navigate: SCREENS.Invite,
-        tips: '',
-      },
+      // {
+      //   name: i18n.inviteFriends,
+      //   navigate: SCREENS.Invite,
+      //   tips: '',
+      // },
       {
         name: i18n.aboutAs,
         navigate: SCREENS.AboutAs,

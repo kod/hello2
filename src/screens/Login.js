@@ -115,7 +115,7 @@ class Login extends React.Component {
           navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} 
         />
         <View style={{flex: 1}} ></View>
-        <OtherLogin />
+        {/* <OtherLogin /> */}
         <OverlaySpinner visible={loading} />
       </View>
     );
