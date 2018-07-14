@@ -6,10 +6,9 @@ import { SIDEINTERVAL } from "../common/constants";
 
 const styles = StyleSheet.create({
   other: {
-    position: 'absolute',
-    left: SIDEINTERVAL,
-    right: SIDEINTERVAL,
-    bottom: 30
+    paddingBottom: 30,
+    paddingLeft: SIDEINTERVAL,
+    paddingRight: SIDEINTERVAL,
   },
   otherTitle: {
     textAlign: 'center',
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
 
 export default ({ style, ...restProps }) => {
   return (
-    <View style={styles.other} {...restProps} >
+    <View style={[styles.other, style]} {...restProps} >
       <Text style={styles.otherTitle}>第三方登录</Text>
       <View style={styles.otherMain}>
         <View style={styles.otherFb}>

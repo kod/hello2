@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    position: 'relative',
+    // position: 'relative',
   },
 });
 
@@ -91,28 +91,31 @@ class Login extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
+        <Field
+          name="phone"
+          component={InputCountry}
+          placeholder={i18n.pleaseEnterYourPhoneNumber}
+          keyboardType={'phone-pad'}
+          returnKeyType={'next'}
+        />
+        <Field
+          name="password"
+          component={InputRight}
+          inputRight={this.renderInputRight()} 
+          styleWrap={{ marginBottom: 75 }}
+          placeholder={i18n.pleaseEnterThePassword}
+          returnKeyType={'done'}
+          secureTextEntry={true}
+        />
+        <BYButton text={i18n.login} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
+        <NavSidesText 
+          textLeft={'Register now?'} 
+          textRight={'Log in via SMS?'} 
+          navigateLeft={() => navigate(SCREENS.RegisterStepOne)} 
+          navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} 
+        />
+        <View style={{flex: 1}} ></View>
         <OtherLogin />
-
-        <ScrollView keyboardShouldPersistTaps={'always'}>
-          <Field
-            name="phone"
-            component={InputCountry}
-            placeholder={i18n.pleaseEnterYourPhoneNumber}
-            keyboardType={'phone-pad'}
-            returnKeyType={'next'}
-          />
-          <Field
-            name="password"
-            component={InputRight}
-            inputRight={this.renderInputRight()} 
-            styleWrap={{ marginBottom: 75 }}
-            placeholder={i18n.pleaseEnterThePassword}
-            returnKeyType={'done'}
-            secureTextEntry={true}
-          />
-          <BYButton text={i18n.login} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
-          <NavSidesText textLeft={'Register now?'} textRight={'Log in via SMS?'} navigateLeft={() => navigate(SCREENS.RegisterStepOne)} navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} />
-        </ScrollView>
         <OverlaySpinner visible={loading} />
       </View>
     );

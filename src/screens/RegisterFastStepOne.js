@@ -2,22 +2,19 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image, Button } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
-import { globalStyles } from '../styles';
-import { WINDOW_HEIGHT } from '../styles/variables';
+import { PRIMARY_COLOR } from '../styles/variables';
 
-import { SCREENS } from '../common/constants';
+import { SCREENS, WINDOW_HEIGHT } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import BYButton from '../components/BYButton';
 import OtherLogin from '../components/OtherLogin';
-import {  } from "../components/Error";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    position: 'relative',
   },
 });
 
@@ -30,15 +27,14 @@ class RegisterFastStepOne extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
+        <Field 
+          name="phone"
+          component={InputCountry}
+          style={{marginBottom: 70}}
+        />
+        <BYButton text={'Next'} onPress={() => navigate(SCREENS.RegisterFastStepTwo)} />
+        <View style={{flex: 1, minHeight: WINDOW_HEIGHT * 0.2}} ></View>
         <OtherLogin />
-        <ScrollView keyboardShouldPersistTaps={'always'}>
-          <Field 
-            name="phone"
-            component={InputCountry}
-            style={{marginBottom: 70}}
-          />
-          <BYButton text={'Next'} onPress={() => navigate(SCREENS.RegisterFastStepTwo)} />
-        </ScrollView>
       </View>
     );
   }
