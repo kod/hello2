@@ -7,11 +7,12 @@ import { FIND_PRODUCTS } from '../constants/actionTypes';
 import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
-import { getAuthUserFunid, } from '../selectors';
+import { getAuthUserFunid, getAuthUser } from '../selectors';
 
 export function* findProductsFetchWatchHandle(action) {
   try {
-    const funid = yield select(getAuthUserFunid);
+    const authUser = yield select(getAuthUser) || '';
+    const funid = authUser ? yield select(getAuthUserFunid) : '';
     const {
       findcontent,
       pagesize = 50,

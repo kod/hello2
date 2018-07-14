@@ -14,6 +14,7 @@ import { SIDEINTERVAL, WINDOW_WIDTH } from "../common/constants";
 
 import EmptyState from "../components/EmptyState";
 import ProductItem3 from "../components/ProductItem3";
+import Loader from "../components/Loader";
 
 import * as findProductsActionCreators from '../common/actions/findProducts';
 import * as authActionCreators from '../common/actions/auth';
@@ -36,6 +37,12 @@ class Settings extends React.Component {
     findProductsFetch({
       findcontent,
     });
+  }
+
+  componentWillUnmount() {
+    const {
+      findProductsClear,
+    } = this.props;
   }
 
   // handleOnPressHeaderBackButton = () => {
@@ -102,7 +109,7 @@ class Settings extends React.Component {
     const {
       items,
       navigation: { navigate },
-      i18n 
+      loading,
     } = this.props;
 
     return (
@@ -110,12 +117,13 @@ class Settings extends React.Component {
         <BYHeader 
           headerTitle={this.renderHeaderTitle()}
         />
+        {loading && <Loader absolutePosition />}
         {
           items.length > 0 
           ?
           <ProductItem3 data={items} style={{ backgroundColor: '#fff' }} />
           :
-          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
+          !loading && <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
         }
       </View>
     );
@@ -134,6 +142,7 @@ export default connectLocalization(connect(
       } = props;
 
       return {
+        loading: findProducts.loading,
         items: findProducts.items,
         findcontent: navigation.state.params.findcontent,
       }
