@@ -47,7 +47,7 @@ class CateList extends React.Component {
     
     return (
       <View style={styles.container} >
-        <ProductItem1 data={items} groupon={false} />
+        <ProductItem1 data={items} groupon={true} />
       </View>
     )
   }
