@@ -5,11 +5,16 @@
 const axios = require("axios");
 const qs = require("qs");
 
-const BASE_URL = "http://14.162.145.248";
-const DEBUG = false;
-// const CLIENT_ID = "KzEZED7aC0vird8jWyHM38mXjNTY";
-// const CLIENT_SECRET = "W9JZoJe00qPvJsiyCGT3CCtC6ZUtdpKpzMbNlUGP";
-// const filter = "for_ios";
+const DEBUG = true;
+
+const BASE_URL = DEBUG ? 'http://14.162.145.248' : '';
+
+const PORT_80 = DEBUG ? ':8180' : 'https://uc.buyoo.vn';
+const PORT_81 = DEBUG ? ':8181' : 'https://payment.buyoo.vn';
+const PORT_83 = DEBUG ? ':8183' : 'https://trade.buyoo.vn';
+const PORT_84 = DEBUG ? ':8184' : 'https://settlement.buyoo.vn';
+const PORT_85 = DEBUG ? ':8185' : 'https://commodity.buyoo.vn';
+const PORT_87 = DEBUG ? ':8187' : 'https://market.buyoo.vn';
 
 function callApi(url, options) {
   const finalUrl = /^https?:\/\//i.test(url) ? url : BASE_URL + url;
@@ -49,7 +54,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8184/fun/installment/returnMoney`, options);
+    return this.requestUrl(`${PORT_84}/fun/installment/returnMoney`, options);
   }
 
   orderCreate(options) {
@@ -66,7 +71,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8183/fun/trade/order/create`, options);
+    return this.requestUrl(`${PORT_83}/fun/trade/order/create`, options);
   }
 
   getPhoneRecharge(options) {
@@ -83,7 +88,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/virtual/getPhoneRecharge`, options);
+    return this.requestUrl(`${PORT_85}/fun/virtual/getPhoneRecharge`, options);
   }
 
   getProvidersCard(options) {
@@ -100,7 +105,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/virtual/getProvidersCard`, options);
+    return this.requestUrl(`${PORT_85}/fun/virtual/getProvidersCard`, options);
   }
 
   get3GProvidersCard(options) {
@@ -117,7 +122,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/virtual/get3GProvidersCard`, options);
+    return this.requestUrl(`${PORT_85}/fun/virtual/get3GProvidersCard`, options);
   }
 
   getProvidersValue(options) {
@@ -134,7 +139,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/virtual/getProvidersValue`, options);
+    return this.requestUrl(`${PORT_85}/fun/virtual/getProvidersValue`, options);
   }
 
   queryOrderList(options) {
@@ -151,7 +156,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8183/fun/trade/queryOrderList`, options);
+    return this.requestUrl(`${PORT_83}/fun/trade/queryOrderList`, options);
   }
 
   // orderPay(options) {
@@ -167,7 +172,7 @@ class ReactStore {
   //     data,
   //   };
 
-  //   return axios(`http://192.168.7.99:8183/fun/trade/order/pay`, options)
+  //   return axios(`http://192.168.7.99${PORT_83}/fun/trade/order/pay`, options)
   //     .then(res => {
   //       if (res.data.status !== 10000) {
   //         throw new Error(res.data.result);
@@ -193,7 +198,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8183/fun/trade/order/pay`, options);
+    return this.requestUrl(`${PORT_83}/fun/trade/order/pay`, options);
   }
 
   orderCancel(options) {
@@ -210,7 +215,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8183/fun/trade/orderCancel`, options);
+    return this.requestUrl(`${PORT_83}/fun/trade/orderCancel`, options);
   }
 
   orderPayInternetBank(options) {
@@ -226,7 +231,7 @@ class ReactStore {
         options
       )
     );
-    return `${BASE_URL}:8183/fun/trade/order/pay?${queryString}`;
+    return `${BASE_URL}${PORT_83}/fun/trade/order/pay?${queryString}`;
   }
 
   // queryOrder(options) {
@@ -242,7 +247,7 @@ class ReactStore {
   //     data,
   //   };
 
-  //   return axios(`http://192.168.7.99:8183/fun/trade/queryOrder`, options)
+  //   return axios(`http://192.168.7.99${PORT_83}/fun/trade/queryOrder`, options)
   //     .then(res => {
   //       if (res.data.status !== 10000) {
   //         throw new Error(res.data.result);
@@ -269,7 +274,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8183/fun/trade/queryOrder`, options);
+    return this.requestUrl(`${PORT_83}/fun/trade/queryOrder`, options);
   }
   
   billDetails(options) {
@@ -286,7 +291,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8184/fun/bill/billDetails`, options);
+    return this.requestUrl(`${PORT_84}/fun/bill/billDetails`, options);
   }
   
   repaymentRecord(options) {
@@ -303,7 +308,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8184/fun/bill/repaymentRecord`, options);
+    return this.requestUrl(`${PORT_84}/fun/bill/repaymentRecord`, options);
   }
   
   searchMonth(options) {
@@ -320,7 +325,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8184/fun/bill/searchMonth`, options);
+    return this.requestUrl(`${PORT_84}/fun/bill/searchMonth`, options);
   }
 
   billByYear(options) {
@@ -337,7 +342,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8184/fun/bill/billByYear`, options);
+    return this.requestUrl(`${PORT_84}/fun/bill/billByYear`, options);
   }
   
   queryGoods(options) {
@@ -354,7 +359,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/user/consume/queryGoods`, options);
+    return this.requestUrl(`${PORT_80}/fun/user/consume/queryGoods`, options);
   }
 
   // queryGoods(options) {
@@ -370,7 +375,7 @@ class ReactStore {
   //     data,
   //   };
 
-  //   return axios(`http://192.168.7.99:8180/fun/user/consume/queryGoods`, options)
+  //   return axios(`http://192.168.7.99${PORT_80}/fun/user/consume/queryGoods`, options)
   //     .then(res => {
   //       if (res.data.status !== 10000) {
   //         throw new Error(res.data.result);
@@ -396,7 +401,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/userCenter/card/submit`, options);
+    return this.requestUrl(`${PORT_80}/fun/userCenter/card/submit`, options);
   }
 
   cardQuery(options) {
@@ -413,7 +418,7 @@ class ReactStore {
       data,
     };
 
-    return this.requestUrl(`:8180/fun/userCenter/card/query`, options);
+    return this.requestUrl(`${PORT_80}/fun/userCenter/card/query`, options);
   }
 
   userCertificateInfo(options) {
@@ -430,7 +435,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userViewDetailInfo`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userViewDetailInfo`, options);
   }
 
   receiveVoucher(options) {
@@ -447,7 +452,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/receiveVoucher`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/receiveVoucher`, options);
   }
 
   getVoucherList(options) {
@@ -464,7 +469,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/getVoucherList`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/getVoucherList`, options);
   }
 
   judgeVoucher(options) {
@@ -481,7 +486,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/judgeVoucher`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/judgeVoucher`, options);
   }
 
   userAddDetailInfo(options) {
@@ -498,7 +503,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userAddDetailInfo`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userAddDetailInfo`, options);
   }
 
   userGetCollection(options) {
@@ -515,7 +520,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userGetCollection`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userGetCollection`, options);
   }
 
   userViewAddr(options) {
@@ -532,7 +537,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userViewAddr`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userViewAddr`, options);
   }
 
   useraddaddr(options) {
@@ -549,7 +554,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userAddAddr`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userAddAddr`, options);
   }
 
   userDelAddrs(options) {
@@ -566,7 +571,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userDelAddrs`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userDelAddrs`, options);
   }
 
   userModifyAddr(options) {
@@ -583,7 +588,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userModifyAddr`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userModifyAddr`, options);
   }
 
   getCityInfos(options) {
@@ -600,7 +605,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/getCityInfos`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/getCityInfos`, options);
   }
 
   getSchoolInfo(options) {
@@ -617,7 +622,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/getSchoolInfo`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/getSchoolInfo`, options);
   }
 
   userBatchCollection(options) {
@@ -634,7 +639,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userBatchCollection`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userBatchCollection`, options);
   }
 
   userCancelCollection(options) {
@@ -651,7 +656,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/usercenter/userCancelCollection`, options);
+    return this.requestUrl(`${PORT_80}/fun/usercenter/userCancelCollection`, options);
   }
 
   otp(options) {
@@ -668,7 +673,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/userCenter/userAction/otp`, options);
+    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/otp`, options);
   }
 
   updatePeriod(options) {
@@ -685,7 +690,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/userCenter/userAction/updatePeriod`, options);
+    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/updatePeriod`, options);
   }
 
   register(options) {
@@ -702,7 +707,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/userCenter/userAction/register`, options);
+    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/register`, options);
   }
 
   modifyPayPassword(options) {
@@ -719,7 +724,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/userCenter/userAction/modifyPayPassword`, options);
+    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/modifyPayPassword`, options);
   }
 
   getUserInfoById(options) {
@@ -736,7 +741,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8180/fun/userCenter/userAction/getUserInfoById`, options);
+    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/getUserInfoById`, options);
   }
 
   login(options) {
@@ -762,7 +767,7 @@ class ReactStore {
       data,
     };
 
-    return axios(`${BASE_URL}:8180/fun/userCenter/userAction/login`, options)
+    return axios(`${BASE_URL}${PORT_80}/fun/userCenter/userAction/login`, options)
       .then(res => {
         if (res.data.status !== 10000) {
           throw new Error(res.data.result);
@@ -779,7 +784,7 @@ class ReactStore {
       });
 
     
-    // return this.requestUrl(`:8180/fun/userCenter/userAction/login`, options);
+    // return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/login`, options);
   }
 
   initTopDigital(options) {
@@ -795,7 +800,7 @@ class ReactStore {
         options
       )
     );
-    return this.requestUrl(`:8185/fun/digital/initTopDigital?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/digital/initTopDigital?${queryString}`);
   }
 
   initAdDigital(options) {
@@ -811,7 +816,7 @@ class ReactStore {
         options
       )
     );
-    return this.requestUrl(`:8185/fun/digital/initAdDigital?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/digital/initAdDigital?${queryString}`);
   }
 
   initNewComputer(options) {
@@ -827,7 +832,7 @@ class ReactStore {
         options
       )
     );
-    return this.requestUrl(`:8185/fun/computer/initNewComputer?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/computer/initNewComputer?${queryString}`);
   }
 
   initTopComputer(options) {
@@ -843,7 +848,7 @@ class ReactStore {
         options
       )
     );
-    return this.requestUrl(`:8185/fun/computer/initTopComputer?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/computer/initTopComputer?${queryString}`);
   }
 
   initTopCellphone(options) {
@@ -859,7 +864,7 @@ class ReactStore {
         options
       )
     );
-    return this.requestUrl(`:8185/fun/cellphone/initTopCellphone?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/cellphone/initTopCellphone?${queryString}`);
   }
 
   initAdCellphone(options) {
@@ -875,7 +880,7 @@ class ReactStore {
         options
       )
     );
-    return this.requestUrl(`:8185/fun/cellphone/initAdCellphone?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/cellphone/initAdCellphone?${queryString}`);
   }
 
   getEvaluationInfo(options) {
@@ -892,7 +897,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/commodity/getEvaluationInfo`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/getEvaluationInfo`, options);
   }
 
   getMenu(options) {
@@ -909,7 +914,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/commodity/getMenu`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/getMenu`, options);
   }
 
   getProductDetailInfo(options) {
@@ -926,7 +931,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/commodity/getProductDetailInfo`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/getProductDetailInfo`, options);
   }
 
   mergeGetInfo(options) {
@@ -943,7 +948,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/commodity/merge/getInfo`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/merge/getInfo`, options);
   }
 
   mergeGetDetail(options) {
@@ -960,7 +965,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/commodity/merge/getDetail`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/merge/getDetail`, options);
   }
 
   mergeGetSlave(options) {
@@ -977,7 +982,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/commodity/merge/getSlave`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/merge/getSlave`, options);
   }
 
   mergeCheck(options) {
@@ -994,7 +999,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/commodity/merge/check`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/merge/check`, options);
   }
 
   mergeGetMaster(options) {
@@ -1011,7 +1016,7 @@ class ReactStore {
       data,
     };
     
-    return this.requestUrl(`:8185/fun/commodity/merge/getMaster`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/merge/getMaster`, options);
   }
 
   getAdverstInfo(options) {
@@ -1028,7 +1033,7 @@ class ReactStore {
       )
     );
     
-    return this.requestUrl(`:8185/fun/commodity/getAdverstInfo?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/commodity/getAdverstInfo?${queryString}`);
   }
 
   getAllProductInfo(options) {
@@ -1045,7 +1050,7 @@ class ReactStore {
       )
     );
     
-    return this.requestUrl(`:8185/fun/commodity/getAllProductInfo?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/commodity/getAllProductInfo?${queryString}`);
   }
 
   findProducts(options) {
@@ -1062,7 +1067,7 @@ class ReactStore {
       )
     );
     
-    return this.requestUrl(`:8185/fun/commodity/findProducts?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/commodity/findProducts?${queryString}`);
   }
 
   getPromotionInfo(options) {
@@ -1078,7 +1083,7 @@ class ReactStore {
         options
       )
     );
-    return this.requestUrl(`:8185/fun/commodity/getPromotionInfo?${queryString}`);
+    return this.requestUrl(`${PORT_85}/fun/commodity/getPromotionInfo?${queryString}`);
   }
 
   getNewestInfo(options) {
@@ -1103,7 +1108,7 @@ class ReactStore {
       },
       data,
     };
-    return this.requestUrl(`:8185/fun/commodity/getNewestInfo`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/getNewestInfo`, options);
   }
 
   cartGetInfo(options) {
@@ -1119,7 +1124,7 @@ class ReactStore {
       },
       data,
     };
-    return this.requestUrl(':8185/fun/commodity/cart/getInfo', options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/cart/getInfo`, options);
   }
 
   cartRemove(options) {
@@ -1135,7 +1140,7 @@ class ReactStore {
       },
       data,
     };
-    return this.requestUrl(':8185/fun/commodity/cart/remove', options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/cart/remove`, options);
   }
 
   cartChangeNum(options) {
@@ -1151,7 +1156,7 @@ class ReactStore {
       },
       data,
     };
-    return this.requestUrl(`:8185/fun/commodity/cart/changeNum`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/cart/changeNum`, options);
   }
 
   cartGate(options) {
@@ -1167,7 +1172,7 @@ class ReactStore {
       },
       data,
     };
-    return this.requestUrl(`:8185/fun/commodity/cart/gate`, options);
+    return this.requestUrl(`${PORT_85}/fun/commodity/cart/gate`, options);
   }
 
   collectFiles(options) {
@@ -1184,7 +1189,7 @@ class ReactStore {
       },
       data: options,
     };
-    return this.requestUrl(`:8180/fun/userfile/collectFiles`, options);
+    return this.requestUrl(`${PORT_80}/fun/userfile/collectFiles`, options);
   }
 
   getVoucher(options) {
@@ -1200,7 +1205,7 @@ class ReactStore {
       },
       data,
     };
-    return this.requestUrl(`:8187/fun/market/getVoucher`, options);
+    return this.requestUrl(`${PORT_87}/fun/market/getVoucher`, options);
   }
 
   requestUrl(url, options) {
