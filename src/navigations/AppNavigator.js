@@ -337,6 +337,7 @@ const StackNavigatorConfig = {
   initialRouteName: SCREENS.Index,
   // initialRouteName: SCREENS.CouponSelect,
   // initialRouteName: SCREENS.Bill,
+  // initialRouteName: SCREENS.GroupBuyList,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

@@ -15,7 +15,7 @@ export function* mergeGetInfoFetchWatchHandle(action) {
       classfyid = 0,
       position = 0,
       pagesize = 4,
-      currentpage = 1,
+      currentpage,
     } = action.payload;
     
     let Key = 'commodityKey';
@@ -85,7 +85,7 @@ export function* mergeGetInfoFetchWatchHandle(action) {
       result.push(element);
     }
 
-    yield put(mergeGetInfoFetchSuccess(result));
+    yield put(mergeGetInfoFetchSuccess(result, currentpage));
   } catch (err) {
     yield put(mergeGetInfoFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));

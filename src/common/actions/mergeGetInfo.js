@@ -1,10 +1,11 @@
 import { MERGE_GETINFO } from '../constants/actionTypes';
 
-export function mergeGetInfoFetchSuccess(items) {
+export function mergeGetInfoFetchSuccess(items, currentpage) {
   return {
     type: MERGE_GETINFO.SUCCESS,
     payload: {
       items,
+      currentpage
     },
   };
 }
