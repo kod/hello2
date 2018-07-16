@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
 import { promotionInfoFetchSuccess, promotionInfoFetchFailure } from '../actions/promotionInfo';
 import { addError } from '../actions/error';
@@ -8,7 +9,7 @@ import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
 export function* promotionInfoFetchWatchHandle(action) {
   try {
     let Key = 'commodityKey';
-    let appId = '';
+    let appId = Platform.OS === 'ios' ? '1' : '2';
     let method = 'fun.promotion.query';
     let charset = 'utf-8';
     let timestamp = (Date.now() + '').slice(3);
