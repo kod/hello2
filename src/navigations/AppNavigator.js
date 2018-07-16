@@ -335,8 +335,8 @@ const RouteConfigs = {
 
 const StackNavigatorConfig = {
   initialRouteName: SCREENS.Index,
-  // initialRouteName: SCREENS.CouponSelect,
-  // initialRouteName: SCREENS.Bill,
+  // initialRouteName: SCREENS.RegisterFastStepOne,
+  // initialRouteName: SCREENS.Login,
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {

@@ -115,6 +115,12 @@ export const MERGE_GETMASTER = defineAction(
   appNamespace,
 );
 
+export const MERGE_GATE = defineAction(
+  'MERGE_GATE',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const PROMOTION_INFO = defineAction(
   'PROMOTION_INFO',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

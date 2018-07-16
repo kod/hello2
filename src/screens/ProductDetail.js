@@ -263,6 +263,16 @@ class ProductDetail extends React.Component {
     this.setState(newState);
   };
 
+  handleOnPressGroupBuy = () => {
+    const {
+      isAuthUser,
+      navigation: { navigate },
+    } = this.props;
+
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
+  }
+
   handleOnPressAddCart = () => {
     const {
       id,
@@ -270,7 +280,7 @@ class ProductDetail extends React.Component {
       isAuthUser,
       cartAddRequest,
       navigation,
-      navigation: {navigate},
+      navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
@@ -336,7 +346,7 @@ class ProductDetail extends React.Component {
       navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
-    
+
     navigate(SCREENS.OrderWrite, {
       groupon,
     });
@@ -356,6 +366,7 @@ class ProductDetail extends React.Component {
       propertiesIdsObject,
       imageUrls,
       price,
+      mergePrice,
       imageDesc,
       goodsProperties,
       brandId,
@@ -364,7 +375,7 @@ class ProductDetail extends React.Component {
       masterItems,
       isMaster,
       isAuthUser,
-      navigation: {navigate},
+      navigation: { navigate },
     } = this.props;
     if (mounting) {
       return <Loader />;
@@ -414,11 +425,11 @@ class ProductDetail extends React.Component {
           groupon
           ?
           <View style={styles.operate} >
-            <View style={styles.operateGroupLeft} onPress={() => this.handleOnPressAddCart()} >
-              <Text style={styles.operateGroupLeftOldPrice} >Price before: 650 VND</Text>
-              <Text style={styles.operateGroupLeftPrice} >650 VND</Text>
+            <View style={styles.operateGroupLeft}>
+              <Text style={styles.operateGroupLeftOldPrice} >Price before: {priceFormat(price || 0)} VND</Text>
+              <Text style={styles.operateGroupLeftPrice} >{priceFormat(mergePrice || 0)} VND</Text>
             </View>
-            <Text style={styles.operateGroupRight} onPress={() => {}} >{ isMaster ? i18n.inviteFriends : i18n.startGroupBuy }</Text>
+            <Text style={styles.operateGroupRight} onPress={() => this.handleOnPressGroupBuy()} >{ isMaster ? i18n.inviteFriends : i18n.startGroupBuy }</Text>
           </View>
           :
           <View style={styles.operate} >

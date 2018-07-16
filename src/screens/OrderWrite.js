@@ -139,17 +139,19 @@ class OrderWrite extends React.Component {
       orderCreateFetch,
       navigation: { navigate },
       userType,
+      groupon,
+      mergeMasterInfo,
     } = this.props;
 
     if (!isAuthUser) return navigate(SCREENS.Login);
-    
-    if (userType === 3) {
-      // 已开通信用卡
 
-    } else {
-      
-    }
-    
+    // if (userType === 3) {
+    //   // 已开通信用卡
+
+    // } else {
+
+    // }
+
     const getGoodsdetail = (isCart) => {
       if (isCart) {
         return cartAdverstInfo.map(val => {
@@ -206,24 +208,47 @@ class OrderWrite extends React.Component {
         couponvalue: couponSelectItem.voucherValue,
       });
     }
+
+    const getObject = (groupon) => {
+      let result;
+      if (groupon) {
+        result = {
+          ordertype: isCart ? '3' : '2',
+          addrid: addressSelectedId + '',
+          goodsdetail: '',
+          mergedetail: JSON.stringify({
+            mergeorderid: '',
+            mergemasterid: '',
+            mergename: '',
+            mergepersonnum: '',
+            mergeheadimage: '',
+            mergedesc: '',
+            mergeusername: '',
+          }),
+          coupondetail: getCoupondetail(),
+          subject: getSubject(isCart),
+        }  
+      } else {
+        result = {
+          ordertype: isCart ? '3' : '2',
+          addrid: addressSelectedId + '',
+          goodsdetail: JSON.stringify(getGoodsdetail(isCart)),
+          mergedetail: '',
+          coupondetail: getCoupondetail(),
+          subject: getSubject(isCart),
+        }  
+      }
+      return result;
+    }
     
     if (addressSelectedId === 0) {
       if(Platform.OS === 'android') return ToastAndroid.show('请选择收货地址', ToastAndroid.SHORT);
     }
     
-    const object = {
-      ordertype: isCart ? '3' : '2',
-      addrid: addressSelectedId + '',
-      goodsdetail: JSON.stringify(getGoodsdetail(isCart)),
-      mergedetail: '',
-      coupondetail: getCoupondetail(),
-      subject: getSubject(isCart),
-    }
+    // console.log(object);
+    // console.log(JSON.stringify(object));
 
-    console.log(object);
-    console.log(JSON.stringify(object));
-
-    orderCreateFetch(object);
+    orderCreateFetch(getObject(groupon));
   }
 
   calcMoney() {
@@ -376,12 +401,17 @@ export default connectLocalization(
           couponSelect,
         } = state;
         const groupon = props.navigation.state.params.groupon;
+        const mergeMasterInfo = props.navigation.state.params.mergeMasterInfo;
         const detailItem = groupon ? mergeGetDetail.item : productDetailInfo.item;
         const isCart = props.navigation.state.params.isCart;
         const cartProducts = props.navigation.state.params.products;
         const cartAdverstInfo = props.navigation.state.params.adverstInfo;
+        console.log(groupon);
+        console.log(mergeMasterInfo);
         return {
           couponSelectItem: couponSelect.item,
+          groupon,
+          mergeMasterInfo,
           isCart,
           cartProducts,
           cartAdverstInfo,

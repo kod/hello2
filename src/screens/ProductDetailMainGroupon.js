@@ -27,6 +27,7 @@ import * as mergeGetDetailActionCreators from '../common/actions/mergeGetDetail'
 import * as mergeGetMasterActionCreators from '../common/actions/mergeGetMaster';
 import * as mergeGetSlaveActionCreators from '../common/actions/mergeGetSlave';
 import * as mergeCheckActionCreators from '../common/actions/mergeCheck';
+import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as collectionActionCreators from '../common/actions/collection';
 import * as commentActionCreators from '../common/actions/comment';
 
@@ -293,6 +294,13 @@ class ProductDetail extends Component {
   }
 
   handleOnPressToggleGroup = (type, val = '') => {
+    const {
+      screenProps: { mainNavigation: { navigate } },
+      isAuthUser,
+    } = this.props;
+    
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    
     let isShow = false;
     switch (type) {
       case 'self':
@@ -310,6 +318,23 @@ class ProductDetail extends Component {
       value: val,
     });
   };
+
+  handleOnPressJoinInGroupBuy() {
+    const {
+      value,
+    } = this.state;
+
+    const {
+      screenProps: { mainNavigation: { navigate } },
+    } = this.props;
+
+    this.handleOnPressToggleGroup()
+    
+    navigate(SCREENS.OrderWrite, {
+      groupon: true,
+      mergeMasterInfo: value,
+    });
+  }
 
   renderBottomSheetGroupSelf() {
     const styles = StyleSheet.create({
@@ -470,7 +495,7 @@ class ProductDetail extends Component {
           <Text style={styles.title} >{i18n.joinInGroupBuy} {value.username ? value.username : value.msisdn}</Text>
           <GrouponList item={value} />
           <View style={styles.buttonWrap} >
-            <Text style={styles.button} >{i18n.joinInGroupBuy}</Text>
+            <Text style={styles.button} onPress={() => this.handleOnPressJoinInGroupBuy()} >{i18n.joinInGroupBuy}</Text>
           </View>
           <EvilIcons name={'close'} style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
         </View>
@@ -870,6 +895,7 @@ export default connectLocalization(connect(
   {
     ...commentActionCreators,
     ...collectionActionCreators,
+    ...orderCreateActionCreators,
     ...mergeCheckActionCreators,
     ...mergeGetSlaveActionCreators,
     ...mergeGetDetailActionCreators,

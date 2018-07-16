@@ -1019,6 +1019,23 @@ class ReactStore {
     return this.requestUrl(`${PORT_85}/fun/commodity/merge/getMaster`, options);
   }
 
+  mergeGate(options) {
+    if (!options) {
+      return Promise.reject(new Error("fields required"));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    
+    return this.requestUrl(`${PORT_85}/fun/commodity/merge/gate`, options);
+  }
+
   getAdverstInfo(options) {
     if (!options) {
       return Promise.reject(new Error("fields required"));
