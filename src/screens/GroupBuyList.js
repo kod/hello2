@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 
 import { SCREENS } from "../common/constants";
@@ -13,6 +13,7 @@ import { SIDEINTERVAL } from "../common/constants";
 
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
 import * as authActionCreators from '../common/actions/auth';
+import { PULLUPLOAD, ScrollViewPullUp } from "../components/ScrollViewPullUp";
 
 const styles = StyleSheet.create({
   container: {
@@ -21,17 +22,59 @@ const styles = StyleSheet.create({
   },
 })
 
-class CateList extends React.Component {
+class GroupBuyList extends React.Component {
 
   componentDidMount() {
     const {
       mergeGetInfoFetch,
     } = this.props;
+
     mergeGetInfoFetch({
-      pagesize: 50
+      pagesize: 10,
+      currentpage: 1
+    });
+    
+    this.state = {
+      refreshing: false,
+      pullUpState: 'success'
+    }
+
+    this._onRefresh = this._onRefresh.bind(this);
+    this.pullUpLoad = this.pullUpLoad.bind(this);
+    this._onScroll = ScrollViewPullUp.onScroll('pulluploading', this.pullUpLoad).bind(this);
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({
+  //     refreshing: nextProps.loading
+  //   })
+  // }
+
+  _onRefresh() {
+    const {
+      mergeGetInfoFetch,
+    } = this.props;
+
+    // 重新加载
+    mergeGetInfoFetch({
+      pagesize: 10,
+      currentpage: 1
     });
   }
 
+  pullUpLoad() {
+    const {
+      mergeGetInfoFetch,
+      currentpage,
+    } = this.props;
+
+    // 重新加载
+    mergeGetInfoFetch({
+      pagesize: 10,
+      currentpage: currentpage + 1
+    });
+  } 
+ 
   renderContent() {
     const styles = StyleSheet.create({
       container: {
@@ -43,11 +86,13 @@ class CateList extends React.Component {
 
     const {
       items,
+      pulluploading
     } = this.props;
     
     return (
       <View style={styles.container} >
         <ProductItem1 data={items} groupon={true} />
+        {ScrollViewPullUp.scrollViewFooter(pulluploading)}
       </View>
     )
   }
@@ -55,15 +100,22 @@ class CateList extends React.Component {
   render() {
     const {
       navigation: { navigate },
-      loading, 
+      loaded, 
+      loading,
     } = this.props;
     
-    if (loading) return <Loader />;
+    if (!loaded) return <Loader />;
     
     return (
       <View style={styles.container} >
         <BYHeader />
-        <ScrollView>
+        <ScrollView  
+          onScroll={this._onScroll}
+          refreshControl={<RefreshControl 
+            refreshing={loading} 
+            onRefresh={this._onRefresh} 
+          />}
+        >
           {this.renderContent()}
         </ScrollView>
       </View>
@@ -85,7 +137,10 @@ export default connectLocalization(
 
         return {
           loading: mergeGetInfo.loading,
+          loaded: mergeGetInfo.loaded,
+          pulluploading: mergeGetInfo.pulluploading,
           items: mergeGetInfo.items,
+          currentpage: mergeGetInfo.currentpage,
         }
       }
     },
@@ -93,5 +148,5 @@ export default connectLocalization(
       ...mergeGetInfoActionCreators,
       ...authActionCreators,
     }
-  )(CateList)
+  )(GroupBuyList)
 );

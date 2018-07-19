@@ -15,3 +15,10 @@ export const OPEN = 'OPEN';
 export const CLOSE = 'CLOSE';
 
 export const STOP = 'STOP';
+// 上拉加载状态
+export const PULLUPLOAD = {
+    SUCCESS,
+    FAILURE,
+    ING: 'ING',
+    NOMORE: 'NOMORE'
+}
