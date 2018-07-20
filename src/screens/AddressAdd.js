@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 import { PRIMARY_COLOR, BORDER_COLOR } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, MODAL_TYPES } from "../common/constants";
 
 import BYHeader from '../components/BYHeader';
 import BYTextInput from "../components/BYTextInput";
@@ -18,6 +18,7 @@ import AddressAddModal from "../containers/AddressAddModal";
 
 import * as cityInfosActionCreators from '../common/actions/cityInfos';
 import * as addressActionCreators from '../common/actions/address';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -99,7 +100,8 @@ class AddressAdd extends React.Component {
   }
 
   callbackToggleMenuBottomSheet(ret) {
-    this.setState(ret);
+    console.log(ret);
+    // this.setState(ret);
   }
 
   handleOnPressToggleMenuBottomSheet = (type) => {
@@ -199,9 +201,10 @@ class AddressAdd extends React.Component {
       isOpenMenuBottomSheet,
     } = this.state;
 
-    // const {
-    //   navigation: { goBack, navigate }
-    // } = this.props;
+    const {
+      // navigation: { goBack, navigate },
+      openModal,
+    } = this.props;
 
     return (
       <View style={styles.container}>
@@ -228,7 +231,7 @@ class AddressAdd extends React.Component {
               keyboardType={'phone-pad'}
             />
           </View>
-          <PXTouchable style={styles.item} onPress={() => this.handleOnPressToggleMenuBottomSheet()}>
+          <PXTouchable style={styles.item} onPress={() => openModal(MODAL_TYPES.ADDRESSADD, { callback: this.callbackToggleMenuBottomSheet })}>
             <Text style={styles.title} >Xã/Huyện/Thành</Text>
             <BYTextInput 
               placeholder={'please select'}
@@ -251,16 +254,15 @@ class AddressAdd extends React.Component {
           </View>
           <BYButton styleWrap={styles.submitWrap} styleText={styles.submit} text={'Save'} onPress={() => this.handleOnPressSubmit()}></BYButton>
         </ScrollView>
-        <BYModal
+        {/* <BYModal
           visible={isOpenMenuBottomSheet}
           onRequestClose={this.handleOnPressToggleMenuBottomSheet}
         >
           <AddressAddModal 
             onRequestClose={this.handleOnPressToggleMenuBottomSheet}
             callback={this.callbackToggleMenuBottomSheet}
-           {...this.props}
           />
-        </BYModal>
+        </BYModal> */}
       </View>
     );
   }
@@ -286,5 +288,6 @@ export default connect(
   {
     ...cityInfosActionCreators,
     ...addressActionCreators,
+    ...modalActionCreators,
   }
 )(AddressAdd);

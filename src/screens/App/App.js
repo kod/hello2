@@ -6,7 +6,8 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import { connectLocalization } from '../../components/Localization';
 import BYStatusBar from '../../components/BYStatusBar';
 import Loader from '../../components/Loader';
-import ModalRoot from '../containers/ModalRoot';
+
+import ModalRoot from '../../containers/ModalRoot';
 
 import AppNavigator from '../../navigations/AppNavigator';
 
