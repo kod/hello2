@@ -573,3 +573,5 @@ export const COUPON_SELECT = defineAction(
 );
 
 export const ERROR = defineAction('ERROR', [ADD, CLEAR], appNamespace);
+
+export const MODAL = defineAction('MODAL', [OPEN, CLOSE], appNamespace);

@@ -1,5 +1,9 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
 
+export const MODAL_TYPES = {
+  ADDRESSADD: 'ADDRESSADD',
+};
+
 export const SCREENS = {
   Address: 'Address',
   AddressAdd: 'AddressAdd',

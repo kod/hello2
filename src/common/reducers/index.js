@@ -63,6 +63,7 @@ import orderCancel from './orderCancel';
 import couponSelect from './couponSelect';
 import judgeVoucher from './judgeVoucher';
 import mergeGate from './mergeGate';
+import modal from './modal';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -128,6 +129,7 @@ const rootReducer = combineReducers({
   couponSelect,
   judgeVoucher,
   mergeGate,
+  modal,
   form: formReducer,
 });
 

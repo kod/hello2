@@ -6,6 +6,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import { connectLocalization } from '../../components/Localization';
 import BYStatusBar from '../../components/BYStatusBar';
 import Loader from '../../components/Loader';
+import ModalRoot from '../containers/ModalRoot';
 
 import AppNavigator from '../../navigations/AppNavigator';
 
@@ -57,6 +58,7 @@ class App extends Component {
       <View style={styles.container} >
         {renderComponent}
         <BYStatusBar />
+        <ModalRoot />
         <Toast 
           ref={ref => (this.toast = ref)} 
           opacity={0.7} 
