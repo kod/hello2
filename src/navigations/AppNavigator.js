@@ -334,8 +334,8 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  // initialRouteName: SCREENS.Index,
-  initialRouteName: SCREENS.AddressAdd,
+  initialRouteName: SCREENS.Index,
+  // initialRouteName: SCREENS.AddressAdd,
   // initialRouteName: SCREENS.Login,
   headerMode: 'screen',
   navigationOptions: {
