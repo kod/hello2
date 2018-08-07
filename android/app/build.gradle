@@ -125,6 +125,14 @@ android {
                 keyPassword MYAPP_RELEASE_KEY_PASSWORD
             }
         }
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
     }
     buildTypes {
         release {
