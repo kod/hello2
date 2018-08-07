@@ -1878,6 +1878,10 @@ crypt@~0.0.1:
   version "0.0.2"
   resolved "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
 
+crypto-js@^3.1.9-1:
+  version "3.1.9-1"
+  resolved "https://registry.npmjs.org/crypto-js/-/crypto-js-3.1.9-1.tgz#fda19e761fc077e01ffbfdc6e9fdfc59e8806cd8"
+
 cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   version "0.3.4"
   resolved "https://registry.npmjs.org/cssom/-/cssom-0.3.4.tgz#8cd52e8a3acfd68d3aed38ee0a640177d2f9d797"
@@ -3940,7 +3944,7 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
-lodash-es@^4.17.10, lodash-es@^4.17.4, lodash-es@^4.17.5, lodash-es@^4.2.1:
+lodash-es@^4.17.10, lodash-es@^4.17.5, lodash-es@^4.2.1:
   version "4.17.10"
   resolved "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.10.tgz#62cd7104cdf5dd87f235a837f0ede0e8e5117e05"
 
@@ -4990,7 +4994,7 @@ react-native-easy-toast@^1.1.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-fetch-blob@^0.10.8:
+react-native-fetch-blob@^0.10.0, react-native-fetch-blob@^0.10.8:
   version "0.10.8"
   resolved "https://registry.npmjs.org/react-native-fetch-blob/-/react-native-fetch-blob-0.10.8.tgz#4fc256abae0cb5f10e7c41f28c11b3ff330d72a9"
   dependencies:
@@ -5245,7 +5249,7 @@ read-pkg@^2.0.0:
     normalize-package-data "^2.3.2"
     path-type "^2.0.0"
 
-readable-stream@^2.0.1, readable-stream@^2.0.6, readable-stream@^2.1.5, readable-stream@^2.2.2:
+readable-stream@^2.0.1, readable-stream@^2.0.6, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.2.6:
   version "2.3.6"
   resolved "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
   dependencies:
@@ -5270,6 +5274,10 @@ redux-action-buffer@1.1.0:
 redux-define@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/redux-define/-/redux-define-1.1.1.tgz#98f97bfa45219a1d646a76b8512f421a96c289bf"
+
+redux-enhancer-react-native-appstate@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/redux-enhancer-react-native-appstate/-/redux-enhancer-react-native-appstate-0.2.0.tgz#f8c21319f382aa4775b27e34706ec6e6a76f2eb8"
 
 redux-form@^7.3.0:
   version "7.4.2"
@@ -5297,13 +5305,23 @@ redux-logger@^3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux-persist@4.8.2:
-  version "4.8.2"
-  resolved "https://registry.npmjs.org/redux-persist/-/redux-persist-4.8.2.tgz#7941202e0ce0a9fcc0263d66965f5263d34f43b9"
+redux-persist-filesystem-storage@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/redux-persist-filesystem-storage/-/redux-persist-filesystem-storage-1.2.0.tgz#60025986ac7958c68dd7f84a7472211573d39212"
   dependencies:
+    react-native-fetch-blob "^0.10.0"
+
+redux-persist-transform-encrypt@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/redux-persist-transform-encrypt/-/redux-persist-transform-encrypt-2.0.1.tgz#5832ee93c3b3c3224705c5350594b8472617ea46"
+  dependencies:
+    crypto-js "^3.1.9-1"
     json-stringify-safe "^5.0.1"
-    lodash "^4.17.4"
-    lodash-es "^4.17.4"
+    readable-stream "^2.2.6"
+
+redux-persist@^5.10.0:
+  version "5.10.0"
+  resolved "https://registry.npmjs.org/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
 
 redux-saga@^0.16.0:
   version "0.16.0"
