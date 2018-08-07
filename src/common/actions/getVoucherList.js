@@ -1,6 +1,6 @@
 import {
   GET_VOUCHER_LIST,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export function getVoucherListFetchSuccess({items, status}) {
   return {

@@ -4,7 +4,7 @@ import { TabNavigator } from 'react-navigation';
 import CouponMyItem from '../screens/CouponMyItem';
 import { SCREENS } from '../common/constants';
 
-import { PRIMARY_COLOR } from "../styles/variables";
+import { PRIMARY_COLOR } from '../styles/variables';
 
 import CustomIcon from '../components/CustomIcon.js';
 

@@ -8,11 +8,11 @@ import { SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import BYTouchable from "../components/BYTouchable";
-import EmptyState from "../components/EmptyState";
+import BYTouchable from '../components/BYTouchable';
+import EmptyState from '../components/EmptyState';
 import Loader from "../components/Loader";
 
-import { BORDER_COLOR, PRIMARY_COLOR } from "../styles/variables";
+import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import * as addressActionCreators from '../common/actions/address';

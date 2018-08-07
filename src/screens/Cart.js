@@ -1,22 +1,22 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, Dimensions, Alert } from 'react-native';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 
 import { WINDOW_WIDTH, SCREENS, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
-import { getCartTotalMoney } from "../common/selectors";
-import * as cartActionCreators from "../common/actions/cart";
+import { getCartTotalMoney } from '../common/selectors';
+import * as cartActionCreators from '../common/actions/cart';
 import priceFormat from '../common/helpers/priceFormat';
 
 import Loader from '../components/Loader';
 import BYHeader from '../components/BYHeader';
-import BYTouchable from "../components/BYTouchable";
-import CartItem from "../components/CartItem";
-import EmptyState from "../components/EmptyState";
-import BYTextInput from "../components/BYTextInput";
+import BYTouchable from '../components/BYTouchable';
+import CartItem from '../components/CartItem';
+import EmptyState from '../components/EmptyState';
+import BYTextInput from '../components/BYTextInput';
 import { connectLocalization } from '../components/Localization';
 
 const styles = StyleSheet.create({

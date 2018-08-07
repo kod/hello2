@@ -7,8 +7,8 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { connectLocalization } from '../components/Localization';
 
 import BYBottomSheet from "../components/BYBottomSheet";
-import BYTouchable from "../components/BYTouchable";
-import CustomIcon from "../components/CustomIcon";
+import BYTouchable from '../components/BYTouchable';
+import CustomIcon from '../components/CustomIcon';
 import HeaderShareButton from '../components/HeaderShareButton';
 import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
@@ -21,7 +21,7 @@ import { SCREENS } from '../common/constants';
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
-import { makegetIsCollection } from "../common/selectors";
+import { makegetIsCollection } from '../common/selectors';
 
 import * as mergeGetDetailActionCreators from '../common/actions/mergeGetDetail';
 import * as mergeGetMasterActionCreators from '../common/actions/mergeGetMaster';

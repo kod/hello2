@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import BYHeader from '../components/BYHeader';
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 
 import * as searchHistoryActionCreators from '../common/actions/searchHistory';
 import { SIDEINTERVAL, SCREENS } from '../common/constants';

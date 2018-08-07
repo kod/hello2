@@ -1,14 +1,14 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
-import { SCREENS } from "../constants";
+import { SCREENS } from '../constants';
 import { billDetailsFetchSuccess, billDetailsFetchFailure } from '../actions/billDetails';
 import { billPriceFetch, } from '../actions/bill';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { BILL_DETAILS } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import moment from 'moment';
 
 import {
   getAuthUserFunid,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Dimensions, } from 'react-native';
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 
 const styles = StyleSheet.create({
   nav1: {

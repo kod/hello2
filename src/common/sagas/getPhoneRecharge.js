@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
-import { SCREENS } from "../constants";
+import { SCREENS } from '../constants';
 import { getPhoneRechargeFetchSuccess, getPhoneRechargeFetchFailure } from '../actions/getPhoneRecharge';
 import { prepaidFetch } from '../actions/prepaid';
 import { addError } from '../actions/error';
@@ -9,7 +9,7 @@ import buyoo from '../helpers/apiClient';
 import { GET_PHONE_RECHARGE } from '../constants/actionTypes';
 import priceFormat from "../helpers/priceFormat";
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import moment from 'moment';
 
 import NavigatorService from '../../navigations/NavigatorService';
 

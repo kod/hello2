@@ -5,16 +5,16 @@ import { Field, reduxForm } from 'redux-form';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { PRIMARY_COLOR, BORDER_COLOR } from "../styles/variables";
+import { PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
-import BYTextInput from "../components/BYTextInput";
+import BYTextInput from '../components/BYTextInput';
 import InputRight from '../components/InputRight';
-import CustomIcon from "../components/CustomIcon";
+import CustomIcon from '../components/CustomIcon';
 import BYBottomSheet from "../components/BYBottomSheet";
 import BYModal from "../components/BYModal";
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import BYButton from "../components/BYButton";
 
 import { SCREENS } from '../common/constants';

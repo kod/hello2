@@ -5,11 +5,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { connectLocalization } from '../components/Localization';
 
-import CustomIcon from "../components/CustomIcon";
+import CustomIcon from '../components/CustomIcon';
 import HeaderShareButton from '../components/HeaderShareButton';
 import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import BYCacheImage from "../components/BYCacheImage";
 import Comment from "../components/Comment";
 import priceFormat from "../common/helpers/priceFormat";
@@ -19,11 +19,11 @@ import {
   RED_COLOR,
   BORDER_COLOR,
   PRIMARY_COLOR,
-} from "../styles/variables";
+} from '../styles/variables';
 
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
 
-import { makegetIsCollection } from "../common/selectors";
+import { makegetIsCollection } from '../common/selectors';
 
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 import * as collectionActionCreators from '../common/actions/collection';

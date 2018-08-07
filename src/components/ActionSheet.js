@@ -4,7 +4,7 @@ import { RED_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 import BYTouchable from '../components/BYTouchable';
 
-import { BORDER_COLOR } from "../styles/variables";
+import { BORDER_COLOR } from '../styles/variables';
 
 const styles = StyleSheet.create({
   container: {

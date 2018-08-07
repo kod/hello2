@@ -1,6 +1,6 @@
 import {
   CARD_QUERY,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export function cardQueryFetchSuccess(item) {
   return {

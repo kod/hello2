@@ -5,7 +5,7 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { BANNER_SWIPER } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import moment from 'moment';
 
 export function* bannerSwiperFetchWatchHandle(action) {
   const { swiperId } = action.payload;

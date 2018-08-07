@@ -1,7 +1,7 @@
 import { Platform, DeviceEventEmitter } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
-import { SCREENS } from "../constants";
+import { SCREENS } from '../constants';
 import { orderPayFetchSuccess, orderPayFetchFailure } from '../actions/orderPay';
 import {
   cardQueryFetch,
@@ -10,7 +10,7 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { ORDER_PAY } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import moment from 'moment';
 
 import { getAuthUserFunid } from '../selectors';
 

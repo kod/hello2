@@ -6,21 +6,21 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { SCREENS } from '../common/constants';
 import priceFormat from "../common/helpers/priceFormat";
-import moment from "moment";
-import { getBillMonthItem, getBillTotalMoney } from "../common/selectors";
+import moment from 'moment';
+import { getBillMonthItem, getBillTotalMoney } from '../common/selectors';
 
 import { connectLocalization } from '../components/Localization';
 import Loader from "../components/Loader";
 import BYHeader from '../components/BYHeader';
 import BYModal from "../components/BYModal";
-import BYTouchable from "../components/BYTouchable";
-import BYTextInput from "../components/BYTextInput";
+import BYTouchable from '../components/BYTouchable';
+import BYTextInput from '../components/BYTextInput';
 import BYButton from "../components/BYButton";
 import BillSelect from "../components/BillSelect";
 import ActionSheet from "../components/ActionSheet";
 // import EnterPassword from "../components/EnterPassword";
 
-import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from "../styles/variables";
+import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
 import * as searchMonthActionCreators from '../common/actions/searchMonth';

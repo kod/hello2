@@ -1,6 +1,6 @@
 import {
   ADD_DETAIL_INFO,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export function userAddDetailInfoFetchSuccess() {
   return {

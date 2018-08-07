@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet, ToastAndroid, Platform } from 'react-native';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 import BYHeader from '../components/BYHeader';

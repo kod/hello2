@@ -10,7 +10,7 @@ import ProductItem2 from "../components/ProductItem2";
 import NavBar2 from "../components/NavBar2";
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import BYModal from "../components/BYModal";
 import ActionSheet from "../components/ActionSheet";
 import EnterPassword from "../components/EnterPassword";
@@ -22,7 +22,7 @@ import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
 
-import { getAddressSelectedItem } from "../common/selectors";
+import { getAddressSelectedItem } from '../common/selectors';
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';

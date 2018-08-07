@@ -1,6 +1,6 @@
 import {
   RECEIVE_VOUCHER,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export function receiveVoucherFetchSuccess() {
   return {

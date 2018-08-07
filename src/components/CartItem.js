@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from "../styles/variables";
+import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import { CARMAXNUMBER } from '../common/constants';
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 
-import BYTextInput from "../components/BYTextInput";
+import BYTextInput from '../components/BYTextInput';
 
 import * as cartActionCreators from  "../common/actions/cart";
 

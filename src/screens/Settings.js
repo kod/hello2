@@ -6,9 +6,9 @@ import { SCREENS, SIDEINTERVAL } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import NavBar1 from "../components/NavBar1";
-import BYTouchable from "../components/BYTouchable";
-import { RED_COLOR } from "../styles/variables";
+import NavBar1 from '../components/NavBar1';
+import BYTouchable from '../components/BYTouchable';
+import { RED_COLOR } from '../styles/variables';
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as authActionCreators from '../common/actions/auth';
 

@@ -1,6 +1,6 @@
 import {
   CARD_SUBMIT,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export function cardSubmitFetchSuccess() {
   return {

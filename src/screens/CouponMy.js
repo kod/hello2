@@ -7,11 +7,11 @@ import { SCREENS, WINDOW_WIDTH } from '../common/constants';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import CouponItem from "../components/CouponItem";
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 
 import CouponMyTabNavigator from "../navigations/CouponMyTabNavigator";
 
-import { RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
+import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
 
 import * as getVoucherActionCreators from '../common/actions/getVoucher';

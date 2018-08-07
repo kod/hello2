@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, ToastAndroid, Platform } from 'react-native';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -9,7 +9,7 @@ import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants'
 import BYHeader from '../components/BYHeader';
 import BYButton from "../components/BYButton";
 import InputRight from "../components/InputRight";
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import ReadSeconds from "../components/ReadSeconds";
 
 import * as modifyPayPasswordActionCreators from "../common/actions/modifyPayPassword";

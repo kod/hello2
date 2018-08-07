@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import ButtonSelect from "../components/ButtonSelect";
-import CustomIcon from "../components/CustomIcon";
-import BYTextInput from "../components/BYTextInput";
+import CustomIcon from '../components/CustomIcon';
+import BYTextInput from '../components/BYTextInput';
 import BYButton from "../components/BYButton";
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import ActionSheet from "../components/ActionSheet";
 import Loader from "../components/Loader";
 

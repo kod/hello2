@@ -6,7 +6,7 @@ import { SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import BYButton from "../components/BYButton";
 import Loader from "../components/Loader";
 

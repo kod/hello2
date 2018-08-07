@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation';
 
 import { WINDOW_WIDTH, SCREENS, SIDEINTERVAL, } from '../common/constants';
 
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 
 const styles = StyleSheet.create({
   itemWrap: {

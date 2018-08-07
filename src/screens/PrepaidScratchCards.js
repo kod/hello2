@@ -5,9 +5,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import PrepaidBrand from "../components/PrepaidBrand";
 import ButtonSelect from "../components/ButtonSelect";
-import CustomIcon from "../components/CustomIcon";
+import CustomIcon from '../components/CustomIcon';
 import BYButton from "../components/BYButton";
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import ActionSheet from "../components/ActionSheet";
 import Loader from "../components/Loader";
 

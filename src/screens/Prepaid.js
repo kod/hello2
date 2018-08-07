@@ -26,8 +26,8 @@ import * as productDetailInfoActionCreators from '../common/actions/productDetai
 import * as cartActionCreators from '../common/actions/cart';
 
 import BYBottomSheet from "../components/BYBottomSheet";
-import BYTextInput from "../components/BYTextInput";
-import BYTouchable from "../components/BYTouchable";
+import BYTextInput from '../components/BYTextInput';
+import BYTouchable from '../components/BYTouchable';
 import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
 import PrepaidTabNavigator from "../navigations/PrepaidTabNavigator";

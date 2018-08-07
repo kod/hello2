@@ -6,11 +6,11 @@ import { SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import CustomIcon from "../components/CustomIcon";
-import BYTouchable from "../components/BYTouchable";
+import CustomIcon from '../components/CustomIcon';
+import BYTouchable from '../components/BYTouchable';
 import NavBar2 from "../components/NavBar2";
 import SeparateBar from '../components/SeparateBar';
-import { PRIMARY_COLOR, } from "../styles/variables";
+import { PRIMARY_COLOR, } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';

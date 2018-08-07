@@ -8,7 +8,7 @@ import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants'
 import BYHeader from '../components/BYHeader';
 import BYButton from "../components/BYButton";
 import InputRight from "../components/InputRight";
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import NavSidesText from "../components/NavSidesText";
 import Error from "../components/Error";
 

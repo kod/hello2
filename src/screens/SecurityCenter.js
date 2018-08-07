@@ -7,8 +7,8 @@ import { SCREENS } from '../common/constants';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import NavBar2 from "../components/NavBar2";
-import BYTouchable from "../components/BYTouchable";
-import { RED_COLOR } from "../styles/variables";
+import BYTouchable from '../components/BYTouchable';
+import { RED_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';

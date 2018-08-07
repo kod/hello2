@@ -5,7 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
   BORDER_COLOR,
   PRIMARY_COLOR,
-} from "../styles/variables";
+} from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 const styles = StyleSheet.create({

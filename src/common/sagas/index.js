@@ -4,7 +4,7 @@ import {
   watchLoginRequest,
   watchLoginSuccess,
   logoutWatch,
-} from "./auth";
+} from './auth';
 import {
   cartFetchWatch,
   cartNumberRequestWatch,

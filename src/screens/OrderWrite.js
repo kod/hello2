@@ -13,11 +13,11 @@ import ProductItem2 from "../components/ProductItem2";
 import NavBar2 from "../components/NavBar2";
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import BYTouchable from "../components/BYTouchable";
+import BYTouchable from '../components/BYTouchable';
 import Address from "../components/Address";
 import Loader from "../components/Loader";
 
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, BORDER_COLOR, WINDOW_HEIGHT } from "../styles/variables";
+import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, BORDER_COLOR, WINDOW_HEIGHT } from '../styles/variables';
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';
@@ -25,7 +25,7 @@ import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoByI
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as couponSelectActionCreators from '../common/actions/couponSelect';
 
-import { getAddressSelectedItem } from "../common/selectors";
+import { getAddressSelectedItem } from '../common/selectors';
 import { addressJoin } from "../common/helpers";
 
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
 import { SIDEINTERVAL } from '../common/constants';
-import CustomIcon from "../components/CustomIcon";
+import CustomIcon from '../components/CustomIcon';
 import BYTouchable from '../components/BYTouchable';
 
 const styles = StyleSheet.create({

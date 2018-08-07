@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import moment from "moment";
+import moment from 'moment';
 
-import BYTouchable from "../components/BYTouchable";
-import CustomIcon from "../components/CustomIcon";
+import BYTouchable from '../components/BYTouchable';
+import CustomIcon from '../components/CustomIcon';
 
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from '../common/constants';
 import priceFormat from "../common/helpers/priceFormat";
 
-import { RED_COLOR , PRIMARY_COLOR} from "../styles/variables";
+import { RED_COLOR , PRIMARY_COLOR} from '../styles/variables';
 
 const styles = StyleSheet.create({
   container: {

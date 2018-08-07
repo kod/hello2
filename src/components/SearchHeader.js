@@ -6,8 +6,8 @@ import { HeaderBackButton, withNavigation } from 'react-navigation';
 import { BORDER_COLOR, HEADER_BACKGROUND_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
-import CustomIcon from "../components/CustomIcon";
-import BYTouchable from "../components/BYTouchable";
+import CustomIcon from '../components/CustomIcon';
+import BYTouchable from '../components/BYTouchable';
 
 import { SCREENS } from '../common/constants';
 

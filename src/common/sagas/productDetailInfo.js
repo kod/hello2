@@ -6,7 +6,7 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { PRODUCT_DETAIL_INFO } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import moment from 'moment';
 import NavigatorService from '../../navigations/NavigatorService';
 import i18n from '../helpers/i18n';
 

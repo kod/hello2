@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, ListView, StyleSheet, View, Text, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
-import { BACKGROUND_COLOR, HEADER_BACKGROUND_COLOR } from "../styles/variables";
+import { BACKGROUND_COLOR, HEADER_BACKGROUND_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import { SCREENS } from '../common/constants';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Picker, KeyboardAvoidingView } from 'react-native';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import DatePicker from 'react-native-datepicker';
@@ -10,11 +10,11 @@ import BYButton from '../components/BYButton';
 import CustomIcon from '../components/CustomIcon';
 import BYTouchable from '../components/BYTouchable';
 import FieldInput from '../components/FieldInput';
-import BYTextInput from "../components/BYTextInput";
+import BYTextInput from '../components/BYTextInput';
 import Error from '../components/Error';
 import BYModal from "../components/BYModal";
 
-import { makegetSchoolName } from "../common/selectors";
+import { makegetSchoolName } from '../common/selectors';
 import { SCREENS } from '../common/constants';
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 

@@ -1,16 +1,16 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
-import { SCREENS } from "../constants";
+import { SCREENS } from '../constants';
 import { getProvidersValueFetchSuccess, getProvidersValueFetchFailure } from '../actions/getProvidersValue';
 import { prepaidFetch } from '../actions/prepaid';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { GET_PROVIDERS_VALUE } from '../constants/actionTypes';
-import { PROVIDER_TYPE_MAP } from "../constants";
+import { PROVIDER_TYPE_MAP } from '../constants';
 import priceFormat from "../helpers/priceFormat";
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import moment from 'moment';
 
 import NavigatorService from '../../navigations/NavigatorService';
 

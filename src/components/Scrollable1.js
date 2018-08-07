@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { RED_COLOR } from "../styles/variables";
+import { RED_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, } from '../common/constants';
 
 import SwiperFlatList from '../components/SwiperFlatList';
@@ -22,7 +22,7 @@ import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
 import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
 
-import { BORDER_COLOR } from "../styles/variables";
+import { BORDER_COLOR } from '../styles/variables';
 
 const itemIntervalWidth = SIDEINTERVAL;
 const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;

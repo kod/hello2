@@ -10,7 +10,7 @@ import {
   GET_VOUCHER,
 } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import moment from 'moment';
 
 import { getAuthUserFunid, getAuthUser } from '../selectors';
 

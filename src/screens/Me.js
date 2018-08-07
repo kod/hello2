@@ -1,13 +1,13 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 import { SCREENS } from '../common/constants';
 import BYTouchable from '../components/BYTouchable';
-import CustomIcon from "../components/CustomIcon";
-import NavBar1 from "../components/NavBar1";
+import CustomIcon from '../components/CustomIcon';
+import NavBar1 from '../components/NavBar1';
 
 import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';

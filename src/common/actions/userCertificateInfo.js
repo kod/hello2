@@ -1,7 +1,7 @@
 import {
   USER_CERTIFICATE_INFO,
   ADD_DETAIL_INFO,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export function userCertificateInfoFetchSuccess(certUser) {
   return {

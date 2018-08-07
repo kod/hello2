@@ -2,7 +2,7 @@ import {
   GET_VOUCHER_LIST,
 } from '../constants/actionTypes';
 
-import { COUPONMY_TABNAVIGATOR_MAP } from "../constants";
+import { COUPONMY_TABNAVIGATOR_MAP } from '../constants';
 
 const initState = {
   loading: false,

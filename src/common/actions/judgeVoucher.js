@@ -1,6 +1,6 @@
 import {
   JUDGE_VOUCHER,
-} from "../constants/actionTypes";
+} from '../constants/actionTypes';
 
 export function judgeVoucherFetchSuccess({items, status}) {
   return {

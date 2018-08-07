@@ -12,7 +12,7 @@ import {
   RED_COLOR,
   BORDER_COLOR,
   PRIMARY_COLOR,
-} from "../styles/variables";
+} from '../styles/variables';
 
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
 
