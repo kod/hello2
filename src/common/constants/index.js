@@ -2,6 +2,7 @@ import { Dimensions, Platform, StatusBar } from 'react-native';
 
 export const MODAL_TYPES = {
   ADDRESSADD: 'ADDRESSADD',
+  PARAMSSELECT: 'PARAMSSELECT',
 };
 
 export const SCREENS = {
