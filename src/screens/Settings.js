@@ -1,16 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
-import { SCREENS } from "../common/constants";
+import { SCREENS, SIDEINTERVAL } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import NavBar1 from "../components/NavBar1";
 import BYTouchable from "../components/BYTouchable";
 import { RED_COLOR } from "../styles/variables";
-import { SIDEINTERVAL } from "../common/constants";
-
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as authActionCreators from '../common/actions/auth';
 

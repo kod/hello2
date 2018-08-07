@@ -4,7 +4,7 @@ import { topComputerFetchSuccess, topComputerFetchFailure } from '../actions/top
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { TOP_COMPUTER } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
 export function* topComputerFetchWatchHandle(action) {
@@ -21,9 +21,9 @@ export function* topComputerFetchWatchHandle(action) {
     let pagesize = '5';
     let currentpage = '1';
 
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'typeid',

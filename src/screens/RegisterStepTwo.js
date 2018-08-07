@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import BYButton from "../components/BYButton";
@@ -17,7 +17,7 @@ import { SCREENS } from '../common/constants';
 
 import * as registerActionCreators from "../common/actions/register";
 
-import { PHONEEXPR, PWDEXPR } from "../common/constants";
+import { PHONEEXPR, PWDEXPR } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {

@@ -3,14 +3,14 @@ import { StyleSheet, Text, View, ScrollView, Keyboard, } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import NavBar1 from "../components/NavBar1";
 import BYTouchable from "../components/BYTouchable";
 import { RED_COLOR } from "../styles/variables";
-import { SIDEINTERVAL, WINDOW_WIDTH } from "../common/constants";
+import { SIDEINTERVAL, WINDOW_WIDTH } from '../common/constants';
 
 import EmptyState from "../components/EmptyState";
 import ProductItem3 from "../components/ProductItem3";

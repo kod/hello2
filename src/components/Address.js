@@ -10,7 +10,7 @@ import { SCREENS } from '../common/constants';
 import { addressJoin } from "../common/helpers";
 
 import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 // import * as cartActionCreators from '../common/actions/cart';
 

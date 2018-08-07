@@ -4,7 +4,7 @@ import { bannerSwiperFetchSuccess, bannerSwiperFetchFailure } from '../actions/b
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { BANNER_SWIPER } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
 export function* bannerSwiperFetchWatchHandle(action) {
@@ -28,9 +28,9 @@ export function* bannerSwiperFetchWatchHandle(action) {
         let pagesize = '20';
         let currentPage = '1';
     
-        let signType = signType_MD5(appId, method, charset, Key, false);
+        let signType = signTypeMD5(appId, method, charset, Key, false);
     
-        let encrypt = encrypt_MD5(
+        let encrypt = encryptMD5(
           [
             {
               key: 'type_id',
@@ -82,9 +82,9 @@ export function* bannerSwiperFetchWatchHandle(action) {
             let pagesize = '5';
             let currentpage = '1';
         
-            let signType = signType_MD5(appId, method, charset, Key, true);
+            let signType = signTypeMD5(appId, method, charset, Key, true);
         
-            let encrypt = encrypt_MD5(
+            let encrypt = encryptMD5(
               [
                 {
                   key: 'typeid',
@@ -133,9 +133,9 @@ export function* bannerSwiperFetchWatchHandle(action) {
           let pagesize = '5';
           let currentpage = '1';
       
-          let signType = signType_MD5(appId, method, charset, Key, true);
+          let signType = signTypeMD5(appId, method, charset, Key, true);
       
-          let encrypt = encrypt_MD5(
+          let encrypt = encryptMD5(
             [
               {
                 key: 'typeid',
@@ -184,9 +184,9 @@ export function* bannerSwiperFetchWatchHandle(action) {
           let pagesize = '5';
           let currentpage = '1';
       
-          let signType = signType_MD5(appId, method, charset, Key, true);
+          let signType = signTypeMD5(appId, method, charset, Key, true);
       
-          let encrypt = encrypt_MD5(
+          let encrypt = encryptMD5(
             [
               {
                 key: 'typeid',

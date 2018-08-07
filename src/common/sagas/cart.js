@@ -40,7 +40,7 @@ import {
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import i18n from '../helpers/i18n';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 import { getAuthUserFunid, getCartItems, getCart } from '../selectors';
 import Schemas from "../constants/schemas";
@@ -55,9 +55,9 @@ export function* cartFetchWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
 
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -128,9 +128,9 @@ export function* cartNumberRequestWatchHandle(action) {
     var cartitemid = action.payload.cartitemid;
     var quetity = action.payload.quetity;
   
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -199,9 +199,9 @@ export function* cartDeleteRequestWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
     
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -316,9 +316,9 @@ export function* cartAddRequestWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
     
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'funid',

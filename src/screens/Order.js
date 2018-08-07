@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, RefreshControl, Image, InteractionManager, } from 'react-native';
 import { connect } from 'react-redux';
 
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
 import { getOrderItem } from "../common/selectors";
 import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import ProductItem2 from "../components/ProductItem2";
@@ -16,7 +16,7 @@ import EmptyState from "../components/EmptyState";
 import Loader from "../components/Loader";
 
 import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import { tradeStatusCodes, buttonTextForTradeStatusCodes } from '../common/helpers';
 

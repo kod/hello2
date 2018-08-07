@@ -1,6 +1,6 @@
 import { Platform, DeviceEventEmitter } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import { delay } from 'redux-saga';
+// import { delay } from 'redux-saga';
 import { REHYDRATE } from 'redux-persist';
 import {
   take,
@@ -15,44 +15,57 @@ import {
 } from 'redux-saga/effects';
 import {
   AUTH_LOGIN,
-  AUTH_SIGNUP,
+  // AUTH_SIGNUP,
   AUTH_LOGOUT,
-  AUTH_REFRESH_ACCESS_TOKEN,
+  // AUTH_REFRESH_ACCESS_TOKEN,
 } from '../constants/actionTypes';
 
 import {
-  login,
+  // login,
   loginSuccess,
   loginFailure,
-  signUpSuccess,
-  signUpFailure,
-  logout,
-  refreshAccessToken,
-  refreshAccessTokenSuccess,
-  refreshAccessTokenFailure,
+  // signUpSuccess,
+  // signUpFailure,
+  // logout,
+  // refreshAccessToken,
+  // refreshAccessTokenSuccess,
+  // refreshAccessTokenFailure,
   rehydrateSuccess,
 } from '../actions/auth';
 import {
-  cardQueryFetch, 
-  cardQueryClear, 
-} from "../actions/cardQuery";
+  cardQueryFetch,
+  cardQueryClear,
+  // cardQueryClear,
+} from '../actions/cardQuery';
 import {
-  // queryOrderListFetch, 
-  queryOrderListClear, 
-} from "../actions/queryOrderList";
+  // queryOrderListFetch,
+  queryOrderListClear,
+} from '../actions/queryOrderList';
 import {
   cartRequest,
   cartClear,
-} from "../actions/cart";
+  // cartClear,
+} from '../actions/cart';
 import { addError } from '../actions/error';
-import { setLanguage } from "../actions/i18n";
-import { userCertificateInfoFetch, userCertificateInfoClear } from "../actions/userCertificateInfo";
+import { setLanguage } from '../actions/i18n';
+import {
+  userCertificateInfoFetch,
+  userCertificateInfoClear,
+} from '../actions/userCertificateInfo';
 
-import { getLang, getAuthUser, getAuth, getAuthUserFunid } from '../selectors';
+import {
+  getLang,
+  // getAuthUser,
+  // getAuth,
+  // getAuthUserFunid,
+} from '../selectors';
 import buyoo from '../helpers/apiClient';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import {
+  encryptMD5,
+  // signTypeMD5,
+} from '../../components/AuthEncrypt';
 
-export function* authorize(phone, passwordParam, isProvisionalAccount) {
+export function* authorize(phone, passwordParam /* , isProvisionalAccount */) {
   const Key = 'userKey';
 
   const provider = Platform.OS === 'ios' ? '1' : '2';
@@ -61,42 +74,42 @@ export function* authorize(phone, passwordParam, isProvisionalAccount) {
   const otp = '';
   const appid = DeviceInfo.getDeviceId() || '';
 
-  const encrypt = encrypt_MD5(
+  const encrypt = encryptMD5(
     [
       {
         key: 'provider',
-        value: provider
+        value: provider,
       },
       {
         key: 'msisdn',
-        value: msisdn
+        value: msisdn,
       },
       {
         key: 'password',
-        value: password
+        value: password,
       },
       {
         key: 'otp',
-        value: otp
+        value: otp,
       },
       {
         key: 'appid',
-        value: appid
-      }
+        value: appid,
+      },
     ],
-    Key
+    Key,
   );
 
   // use apply instead of call to pass this to function
   const loginResponse = yield apply(buyoo, buyoo.login, [
     {
-      provider: provider,
-      msisdn: msisdn,
-      password: password,
-      otp: otp,
-      appid: appid,
-      encryption: encrypt
-      }
+      provider,
+      msisdn,
+      password,
+      otp,
+      appid,
+      encryption: encrypt,
+    },
   ]);
   // const options = setProvisionalAccountOptions(isProvisionalAccount, password);
   // if (loginResponse.status !== 10000) throw res.data.result;
@@ -110,11 +123,13 @@ export function* watchLoginRequestTask() {
     try {
       const action = yield take(AUTH_LOGIN.REQUEST);
       const { phone, password, isProvisionalAccount } = action.payload;
-      const authResponse = yield call(
+      // const authResponse = yield call(
+      yield call(
         authorize,
         phone,
         password,
         isProvisionalAccount,
+        // isProvisionalAccount,
       );
       yield race([
         take(AUTH_LOGOUT.SUCCESS),
@@ -149,7 +164,9 @@ export function* watchLoginSuccess() {
       yield put(cartRequest());
       yield put(cardQueryFetch());
 
-      yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'closeLoginScreen' ]);
+      yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
+        'closeLoginScreen',
+      ]);
     } catch (err) {
       // todo logout user
       console.dir(err);
@@ -180,7 +197,7 @@ export function* watchRehydrate() {
   }
 }
 
-export function* logoutWatchHandle(action) {
+export function* logoutWatchHandle(/* action */) {
   yield put(cartClear());
   yield put(cardQueryClear());
   yield put(queryOrderListClear());

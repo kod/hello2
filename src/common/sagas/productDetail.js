@@ -5,7 +5,7 @@
 // import { addError } from '../actions/error';
 // import buyoo from '../helpers/apiClient';
 // import { PRODUCT_DETAIL_INFO } from '../constants/actionTypes';
-// import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+// import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 // import moment from "moment";
 // import Schemas from "../../common/constants/schemas";
 // import NavigatorService from '../../navigations/NavigatorService';
@@ -21,9 +21,9 @@
 //     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
 //     let version = '2.1';
 
-//     let signType = signType_MD5(appId, method, charset, Key, false);
+//     let signType = signTypeMD5(appId, method, charset, Key, false);
 
-//     let encrypt = encrypt_MD5(
+//     let encrypt = encryptMD5(
 //       [
 //         {
 //           key: 'brand_id',

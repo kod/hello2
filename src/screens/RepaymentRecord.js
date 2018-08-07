@@ -3,16 +3,16 @@ import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 import moment from "moment";
 
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import NavBar1 from "../components/NavBar1";
 import BYTouchable from "../components/BYTouchable";
 
 import priceFormat from "../common/helpers/priceFormat";
 import { payWayToText } from "../common/helpers";
-import { SIDEINTERVAL } from "../common/constants";
+import { SIDEINTERVAL } from '../common/constants';
 
 import { BORDER_COLOR } from "../styles/variables";
 

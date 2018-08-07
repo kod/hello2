@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { withNavigation } from 'react-navigation';
 
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import EmptyState from "../components/EmptyState";
 import Loader from "../components/Loader";
 
 import { BORDER_COLOR, PRIMARY_COLOR } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';

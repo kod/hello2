@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 
-import { SCREENS, WINDOW_WIDTH, COUPONMY_TABNAVIGATOR_MAP } from "../common/constants";
+import { SCREENS, WINDOW_WIDTH, COUPONMY_TABNAVIGATOR_MAP } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
 import CouponItem from "../components/CouponItem";
 import BYTouchable from "../components/BYTouchable";
 import EmptyState from "../components/EmptyState";
 
 import { RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
-import { SIDEINTERVAL } from "../common/constants";
+import { SIDEINTERVAL } from '../common/constants';
 
 import * as getVoucherListActionCreators from '../common/actions/getVoucherList';
 import * as receiveVoucherActionCreators from '../common/actions/receiveVoucher';

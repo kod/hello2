@@ -3,16 +3,16 @@ import { connect } from "react-redux";
 import { StyleSheet, Text, View, Image, Dimensions, ScrollView, Linking,  DeviceEventEmitter} from 'react-native';
 // import DeviceInfo from 'react-native-device-info';
 // import { PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
-// import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
-import { SCREENS } from "../common/constants";
+// import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
+import { SCREENS } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 // import BYTouchable from "../components/BYTouchable";
 // import EmptyState from "../components/EmptyState";
 // import Loader from "../components/Loader";
 
-import SeparateBar from "../components/SeparateBar";
+import SeparateBar from '../components/SeparateBar';
 import NavBar1 from "../components/NavBar1";
 
 const styles = StyleSheet.create({

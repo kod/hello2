@@ -9,7 +9,7 @@ import PrepaidScratchCards from '../screens/PrepaidScratchCards';
 import { SCREENS } from '../common/constants';
 import PrepaidTabBarComponent from "../components/PrepaidTabBarComponent";
 import { PRIMARY_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
 
 const RouteConfigs = {
   [SCREENS.PrepaidRecharge]: {

@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 
 import BYTouchable from "../components/BYTouchable";
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {

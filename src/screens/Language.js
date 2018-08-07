@@ -7,8 +7,8 @@ import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import { PRIMARY_COLOR } from "../styles/variables";
 import { BACKGROUND_COLOR } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
-import { connectLocalization } from "../components/Localization";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { connectLocalization } from '../components/Localization';
 
 import * as i18nActionCreators from "../common/actions/i18n";
 

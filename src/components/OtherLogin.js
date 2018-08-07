@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
 import { BORDER_COLOR } from "../styles/variables";
-import { SIDEINTERVAL } from "../common/constants";
+import { SIDEINTERVAL } from '../common/constants';
 
 const styles = StyleSheet.create({
   other: {

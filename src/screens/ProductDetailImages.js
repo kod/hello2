@@ -6,7 +6,7 @@ import BYHeader from '../components/BYHeader';
 
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 

@@ -13,7 +13,7 @@ import buyoo from '../helpers/apiClient';
 import {
   JUDGE_VOUCHER,
 } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
 import NavigatorService from '../../navigations/NavigatorService';
@@ -38,9 +38,9 @@ export function* judgeVoucherFetchWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
 
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    var encrypt = encrypt_MD5(
+    var encrypt = encryptMD5(
       [
         {
           key: 'funid',

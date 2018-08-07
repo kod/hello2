@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { PRIMARY_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import NavBar2 from '../components/NavBar2';
-import SeparateBar from "../components/SeparateBar";
+import SeparateBar from '../components/SeparateBar';
 import BYButton from "../components/BYButton";
 import Loader from "../components/Loader";
 import priceFormat from "../common/helpers/priceFormat";

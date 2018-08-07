@@ -1,69 +1,71 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { adDigitalFetchSuccess, adDigitalFetchFailure } from '../actions/adDigital';
+import moment from 'moment';
+import {
+  adDigitalFetchSuccess,
+  adDigitalFetchFailure,
+} from '../actions/adDigital';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { AD_DIGITAL } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
 export function* adDigitalFetchWatchHandle(action) {
   try {
     const { params = {} } = action.payload;
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.digital.ads';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.digital.ads';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
 
-    let typeid = params.typeid || '5';
-    let pagesize = params.pagesize || '8';
-    let currentpage = params.currentpage || '1';
+    const typeid = params.typeid || '5';
+    const pagesize = params.pagesize || '8';
+    const currentpage = params.currentpage || '1';
 
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'typeid',
-          value: typeid
+          value: typeid,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
         {
           key: 'currentpage',
-          value: currentpage
-        }
+          value: currentpage,
+        },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.initAdDigital, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        typeid: typeid,
-        pagesize: pagesize,
-        currentpage: currentpage
-      }
+        encrypt,
+        timestamp,
+        version,
+        typeid,
+        pagesize,
+        currentpage,
+      },
     ]);
 
-
-    let adDigitalList = [];
-    let adDigitalBanerList = [];
+    const adDigitalList = [];
+    const adDigitalBanerList = [];
     let classfyinfo = [];
 
     if (response.code === 10000) {
       const array = response.digitaladinfo;
-      for (let index = 0; index < array.length; index++) {
+      for (let index = 0; index < array.length; index += 1) {
         const element = array[index];
         if (element.position === 1) {
           adDigitalBanerList.push(element);
@@ -73,10 +75,13 @@ export function* adDigitalFetchWatchHandle(action) {
           adDigitalList.push(element);
         }
       }
-      classfyinfo = response.classfyinfo;
+      // classfyinfo = response.classfyinfo;
+      ({ classfyinfo } = response);
     }
 
-    yield put(adDigitalFetchSuccess(adDigitalList, adDigitalBanerList, classfyinfo));
+    yield put(
+      adDigitalFetchSuccess(adDigitalList, adDigitalBanerList, classfyinfo),
+    );
   } catch (err) {
     yield put(adDigitalFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, Platform } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 class PXCacheImage extends Component {
   constructor(props) {

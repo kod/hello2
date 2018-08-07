@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import QRCode from 'react-native-qrcode';
 
-import { SCREENS, WINDOW_WIDTH } from "../common/constants";
+import { SCREENS, WINDOW_WIDTH } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import SeparateBar from "../components/SeparateBar";
+import SeparateBar from '../components/SeparateBar';
 import BYTouchable from "../components/BYTouchable";
 
 import { RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
-import { SIDEINTERVAL } from "../common/constants";
+import { SIDEINTERVAL } from '../common/constants';
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as authActionCreators from '../common/actions/auth';

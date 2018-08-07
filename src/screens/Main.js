@@ -3,11 +3,11 @@ import { ScrollView, ListView, StyleSheet, View, Text, RefreshControl, StatusBar
 import { connect } from 'react-redux';
 
 import { BACKGROUND_COLOR, HEADER_BACKGROUND_COLOR } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import { SCREENS } from '../common/constants';
 
-import { STATUSBAR_HEIGHT } from "../common/constants";
+import { STATUSBAR_HEIGHT } from '../common/constants';
 
 import ScrollableTabView from '../components/ScrollableTabView';
 import Scrollable1 from '../components/Scrollable1';

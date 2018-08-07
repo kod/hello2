@@ -11,7 +11,7 @@ import i18n from '../helpers/i18n';
 import {
   REGISTER,
 } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
 import NavigatorService from '../../navigations/NavigatorService';
@@ -35,7 +35,7 @@ export function* registerFetchWatchHandle(action) {
     const provider = Platform.OS === 'ios' ? '1' : '2';
     const version = '2.1';
   
-    const encrypt = encrypt_MD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'provider',

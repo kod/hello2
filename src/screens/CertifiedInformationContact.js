@@ -19,7 +19,7 @@ import { SCREENS } from '../common/constants';
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 
 import { BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {

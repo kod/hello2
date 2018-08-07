@@ -14,7 +14,7 @@ import i18n from '../helpers/i18n';
 import {
   UPDATE_PERIOD,
 } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
 import NavigatorService from '../../navigations/NavigatorService';
@@ -37,9 +37,9 @@ export function* updatePeriodFetchWatchHandle(action) {
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '2.0';
 
-    const signType = signType_MD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
   
-    const encrypt = encrypt_MD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',

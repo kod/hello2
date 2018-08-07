@@ -4,7 +4,7 @@ import { promotionInfoFetchSuccess, promotionInfoFetchFailure } from '../actions
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { PROMOTION_INFO } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
 export function* promotionInfoFetchWatchHandle(action) {
   try {
@@ -22,9 +22,9 @@ export function* promotionInfoFetchWatchHandle(action) {
     let pagesize = '6';
     let currentpage = '1';
 
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'typeid',

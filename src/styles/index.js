@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { HEADER_BACKGROUND_COLOR, } from "./variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../common/constants';
 
 const globalStyles = StyleSheet.create({
   container: {

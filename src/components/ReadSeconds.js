@@ -5,7 +5,7 @@ import {
   View,
 } from "react-native";
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 const styles = StyleSheet.create({
   second: {

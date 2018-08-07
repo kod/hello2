@@ -3,7 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Keyboard } from 'react-native';
 import { connect } from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
@@ -11,7 +11,7 @@ import BYButton from '../components/BYButton';
 import NavSidesText from '../components/NavSidesText';
 import BYTextInput from "../components/BYTextInput";
 
-import { PHONEEXPR } from "../common/constants";
+import { PHONEEXPR } from '../common/constants';
 
 import { SCREENS } from '../common/constants';
 

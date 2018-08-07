@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, Dimensions } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 export default ({ data, style, ...restProps }) => {
   const width = WINDOW_WIDTH;

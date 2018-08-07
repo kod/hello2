@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 
-import { WINDOW_WIDTH, SCREENS, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, SCREENS, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 import { getCartTotalMoney } from "../common/selectors";
 import * as cartActionCreators from "../common/actions/cart";
 import priceFormat from '../common/helpers/priceFormat';
@@ -17,7 +17,7 @@ import BYTouchable from "../components/BYTouchable";
 import CartItem from "../components/CartItem";
 import EmptyState from "../components/EmptyState";
 import BYTextInput from "../components/BYTextInput";
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 
 const styles = StyleSheet.create({
   container: {

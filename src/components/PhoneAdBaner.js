@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
-import { WINDOW_WIDTH, SCREENS, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, SCREENS, SIDEINTERVAL, } from '../common/constants';
 
 import BYTouchable from "../components/BYTouchable";
 

@@ -5,13 +5,13 @@ import { NavigationActions } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import { createOrderno } from '../common/helpers';
 
 import ProductItem2 from "../components/ProductItem2";
 import NavBar2 from "../components/NavBar2";
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import Address from "../components/Address";

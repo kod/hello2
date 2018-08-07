@@ -6,9 +6,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
 
-import { SCREENS, WINDOW_WIDTH } from "../common/constants";
+import { SCREENS, WINDOW_WIDTH } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTextInput from "../components/BYTextInput";
 import BYButton from "../components/BYButton";
@@ -16,7 +16,7 @@ import BYTouchable from "../components/BYTouchable";
 import ActionSheet from "../components/ActionSheet";
 import Loader from "../components/Loader";
 import { RED_COLOR, PRIMARY_COLOR } from "../styles/variables";
-import { SIDEINTERVAL } from "../common/constants";
+import { SIDEINTERVAL } from '../common/constants';
 
 import * as collectFilesActionCreators from '../common/actions/collectFiles';
 import * as authActionCreators from '../common/actions/auth';

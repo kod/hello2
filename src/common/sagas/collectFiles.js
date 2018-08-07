@@ -5,7 +5,7 @@ import { collectFilesFetchSuccess, collectFilesFetchFailure } from '../actions/c
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { COLLECT_FILES } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
 export function* collectFilesFetchWatchHandle(action) {
   try {

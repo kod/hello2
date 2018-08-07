@@ -10,7 +10,7 @@ import buyoo from '../helpers/apiClient';
 import {
   SCHOOL_INFOS,
 } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
 export function* schoolInfoFetchWatchHandle(action) {
@@ -25,9 +25,9 @@ export function* schoolInfoFetchWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '1.0';
   
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'name',

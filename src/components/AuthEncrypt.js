@@ -1,6 +1,6 @@
 var md5 = require('md5');
 
-export function signType_MD5(appId, method, charset, Key, lowerCase) {
+export function signTypeMD5(appId, method, charset, Key, lowerCase) {
   var md5SigntypeStrig = "";
   // 默认大写
   if (lowerCase) {
@@ -14,7 +14,7 @@ export function signType_MD5(appId, method, charset, Key, lowerCase) {
   return md5(md5SigntypeStrig);
 };
 
-export function encrypt_MD5(params, Key) {
+export function encryptMD5(params, Key) {
   var i;
   var md5EncryptStrig = "";
   for (i = 0; i < params.length; i++) {

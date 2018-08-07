@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
 
 import ProductItem2 from "../components/ProductItem2";
 import NavBar2 from "../components/NavBar2";
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from "../components/BYTouchable";
 import BYModal from "../components/BYModal";
@@ -16,10 +16,10 @@ import ActionSheet from "../components/ActionSheet";
 import EnterPassword from "../components/EnterPassword";
 import Address from "../components/Address";
 import Loader from "../components/Loader";
-import SeparateBar from "../components/SeparateBar";
+import SeparateBar from '../components/SeparateBar';
 
 import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
 
 import { getAddressSelectedItem } from "../common/selectors";

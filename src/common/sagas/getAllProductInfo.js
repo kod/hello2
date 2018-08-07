@@ -4,7 +4,7 @@ import { getAllProductInfoFetchSuccess, getAllProductInfoFetchFailure } from '..
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { GET_ALL_PRODUCT_INFO } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
 export function* getAllProductInfoFetchWatchHandle(action) {
@@ -24,9 +24,9 @@ export function* getAllProductInfoFetchWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '1.0';
 
-    let signType = signType_MD5(appId, method, charset, Key, false);
+    let signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'parent_id',

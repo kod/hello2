@@ -20,7 +20,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
 import * as productDetailActionCreators from '../common/actions/productDetail';
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
@@ -29,7 +29,7 @@ import * as cartActionCreators from '../common/actions/cart';
 import BYBottomSheet from "../components/BYBottomSheet";
 import BYTextInput from "../components/BYTextInput";
 import BYTouchable from "../components/BYTouchable";
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
 import ProductDetailTabNavigator from "../navigations/ProductDetailTabNavigator";
 import ProductDetailGrouponTabNavigator from "../navigations/ProductDetailGrouponTabNavigator";

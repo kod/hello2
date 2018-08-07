@@ -7,7 +7,7 @@ import { billDetailsFetch } from '../actions/billDetails';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { BILL_BY_YEAR } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 
 import { getAuthUserFunid } from '../selectors';
@@ -29,9 +29,9 @@ export function* billByYearFetchWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '2.0';
 
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    let signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'funid',

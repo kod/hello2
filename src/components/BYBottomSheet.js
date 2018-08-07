@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   Animated,
 } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {

@@ -10,7 +10,7 @@ import buyoo from '../helpers/apiClient';
 import {
   ADD_DETAIL_INFO,
 } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from "moment";
 import { getAuthUserFunid, getCertifiedInformationCertUser } from '../selectors';
 import i18n from '../helpers/i18n';
@@ -62,9 +62,9 @@ export function* userAddDetailInfoFetchWatchHandle(action) {
     let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     let version = '1.0';
 
-    let signType = signType_MD5(appId, method, charset, Key, false);
+    let signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encrypt_MD5(
+    let encrypt = encryptMD5(
       [
         {
           key: 'username',

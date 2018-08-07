@@ -12,10 +12,10 @@ import ActionSheet from "../components/ActionSheet";
 import Loader from "../components/Loader";
 
 import priceFormat from "../common/helpers/priceFormat";
-import { PROVIDER_TYPE_MAP } from "../common/constants";
+import { PROVIDER_TYPE_MAP } from '../common/constants';
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
 
 import * as get3GProvidersCardActionCreators from '../common/actions/get3GProvidersCard';

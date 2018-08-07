@@ -3,7 +3,7 @@ import { View, WebView, StyleSheet } from 'react-native';
 import ProgressBar from 'react-native-progress/Bar';
 import Loader from './Loader';
 import BYHeader from './BYHeader';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {

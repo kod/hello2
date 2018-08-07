@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Dimensions, Image, FlatList, WebVie
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 
 import CustomIcon from "../components/CustomIcon";
 import HeaderShareButton from '../components/HeaderShareButton';
@@ -13,7 +13,7 @@ import BYTouchable from "../components/BYTouchable";
 import BYCacheImage from "../components/BYCacheImage";
 import Comment from "../components/Comment";
 import priceFormat from "../common/helpers/priceFormat";
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
 
 import {
   RED_COLOR,
@@ -21,7 +21,7 @@ import {
   PRIMARY_COLOR,
 } from "../styles/variables";
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
 
 import { makegetIsCollection } from "../common/selectors";
 

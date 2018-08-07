@@ -1,7 +1,8 @@
-import { Platform, ToastAndroid, } from 'react-native';
-import { takeEvery, apply, put, select, } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
-import { SCREENS } from "../constants";
+import { Platform, ToastAndroid } from 'react-native';
+import { takeEvery, apply, put, select } from 'redux-saga/effects';
+import moment from 'moment';
+// import { NavigationActions } from 'react-navigation';
+// import { SCREENS } from '../constants';
 import {
   addressFetch,
   addressFetchSuccess,
@@ -21,69 +22,68 @@ import {
   ADDRESS_REMOVE,
   ADDRESS_MODIFY,
 } from '../constants/actionTypes';
-import { encrypt_MD5, signType_MD5 } from '../../components/AuthEncrypt';
-import moment from "moment";
+import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
+
 import i18n from '../helpers/i18n';
 
 import NavigatorService from '../../navigations/NavigatorService';
 
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
 
-export function* addressFetchWatchHandle(action) {
+export function* addressFetchWatchHandle(/* action */) {
   try {
     const funid = yield select(getAuthUserFunid);
     const msisdn = yield select(getAuthUserMsisdn);
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.userviewaddr';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
-  
-    let signType = signType_MD5(appId, method, charset, Key, false);
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.uc.userviewaddr';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
 
-    let encrypt = encrypt_MD5(
+    const signType = signTypeMD5(appId, method, charset, Key, false);
+
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'msisdn',
-          value: msisdn
+          value: msisdn,
         },
       ],
-      Key
+      Key,
     );
-    let response = yield apply(buyoo, buyoo.userViewAddr, [
+    const response = yield apply(buyoo, buyoo.userViewAddr, [
       {
-        appId: appId,
-        method: method,
-        charset: charset,
-        signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        msisdn: msisdn,
-      }
+        appId,
+        method,
+        charset,
+        signType,
+        encrypt,
+        timestamp,
+        version,
+        funid,
+        msisdn,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(addressFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      let addressSelectedId = 0;
+
+      for (let index = 0; index < response.details.length; index += 1) {
+        const element = response.details[index];
+        if (element.isdefault === 'Y') addressSelectedId = element.id;
+      }
+
+      yield put(addressFetchSuccess(response.details, addressSelectedId));
     }
-
-    let addressSelectedId = 0;
-
-    for (let index = 0; index < response.details.length; index++) {
-      const element = response.details[index];
-      if (element.isdefault === 'Y') addressSelectedId = element.id;
-    }
-
-    yield put(addressFetchSuccess(response.details, addressSelectedId));
   } catch (err) {
     yield put(addressFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -107,95 +107,94 @@ export function* addressAddFetchWatchHandle(action) {
       division6th = 0,
     } = action.payload;
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.useraddaddr';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
-  
-    let signType = signType_MD5(appId, method, charset, Key, false);
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.uc.useraddaddr';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
 
-    let encrypt = encrypt_MD5(
+    const signType = signTypeMD5(appId, method, charset, Key, false);
+
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'msisdn',
-          value: msisdn
+          value: msisdn,
         },
         {
           key: 'address',
-          value: address
+          value: address,
         },
         {
           key: 'isdefault',
-          value: isdefault
+          value: isdefault,
         },
         {
           key: 'username',
-          value: username
+          value: username,
         },
         {
           key: 'division1st',
-          value: division1st
+          value: division1st,
         },
         {
           key: 'division2nd',
-          value: division2nd
+          value: division2nd,
         },
         {
           key: 'division3rd',
-          value: division3rd
+          value: division3rd,
         },
         {
           key: 'division4th',
-          value: division4th
+          value: division4th,
         },
         {
           key: 'division5th',
-          value: division5th
+          value: division5th,
         },
         {
           key: 'division6th',
-          value: division6th
+          value: division6th,
         },
       ],
-      Key
+      Key,
     );
 
-    let response = yield apply(buyoo, buyoo.useraddaddr, [
+    const response = yield apply(buyoo, buyoo.useraddaddr, [
       {
-        appId: appId,
-        method: method,
-        charset: charset,
-        signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        msisdn: msisdn,
-        address: address,
-        isdefault: isdefault,
-        username: username,
-        division1st: division1st,
-        division2nd: division2nd,
-        division3rd: division3rd,
-        division4th: division4th,
-        division5th: division5th,
-        division6th: division6th,
-      }
+        appId,
+        method,
+        charset,
+        signType,
+        encrypt,
+        timestamp,
+        version,
+        funid,
+        msisdn,
+        address,
+        isdefault,
+        username,
+        division1st,
+        division2nd,
+        division3rd,
+        division4th,
+        division5th,
+        division6th,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(addressAddFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(addressAddSuccess());
     }
-
-    yield put(addressAddSuccess());
   } catch (err) {
     yield put(addressAddFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -205,62 +204,65 @@ export function* addressAddFetchWatchHandle(action) {
 export function* addressAddSuccessWatchHandle() {
   try {
     yield put(addressFetch());
-    if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    if (Platform.OS === 'android')
+      yield apply(ToastAndroid, ToastAndroid.show, [
+        i18n.success,
+        ToastAndroid.SHORT,
+      ]);
     NavigatorService.pop(1);
   } catch (err) {
-    
+    console.log(err);
   }
 }
 
 export function* addressRemoveWatchHandle(action) {
   try {
     const funid = yield select(getAuthUserFunid);
-    const adds = action.payload.adds;    
+    const { adds } = action.payload;
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.userDelAddrs';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
-  
-    let signType = signType_MD5(appId, method, charset, Key, true);
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.uc.userDelAddrs';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
 
-    let encrypt = encrypt_MD5(
+    const signType = signTypeMD5(appId, method, charset, Key, true);
+
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'adds',
-          value: adds
+          value: adds,
         },
       ],
-      Key
+      Key,
     );
 
-    let response = yield apply(buyoo, buyoo.userDelAddrs, [
+    const response = yield apply(buyoo, buyoo.userDelAddrs, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        adds: adds,
-      }
+        encrypt,
+        timestamp,
+        version,
+        funid,
+        adds,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(addressRemoveFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(addressRemoveSuccess());
     }
-
-    yield put(addressRemoveSuccess());
   } catch (err) {
     yield put(addressRemoveFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -271,7 +273,7 @@ export function* addressRemoveSuccessWatchHandle() {
   try {
     yield put(addressFetch());
   } catch (err) {
-    
+    console.log(err);
   }
 }
 
@@ -292,101 +294,100 @@ export function* addressModifyWatchHandle(action) {
       division5th = 0,
       division6th = 0,
     } = action.payload;
-    
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.usermodifyaddr';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
-  
-    let signType = signType_MD5(appId, method, charset, Key, false);
 
-    let encrypt = encrypt_MD5(
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.uc.usermodifyaddr';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
+
+    const signType = signTypeMD5(appId, method, charset, Key, false);
+
+    const encrypt = encryptMD5(
       [
         {
           key: 'addrid',
-          value: addrid
+          value: addrid,
         },
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'msisdn',
-          value: msisdn
+          value: msisdn,
         },
         {
           key: 'address',
-          value: address
+          value: address,
         },
         {
           key: 'isdefault',
-          value: isdefault
+          value: isdefault,
         },
         {
           key: 'username',
-          value: username
+          value: username,
         },
         {
           key: 'division1st',
-          value: division1st
+          value: division1st,
         },
         {
           key: 'division2nd',
-          value: division2nd
+          value: division2nd,
         },
         {
           key: 'division3rd',
-          value: division3rd
+          value: division3rd,
         },
         {
           key: 'division4th',
-          value: division4th
+          value: division4th,
         },
         {
           key: 'division5th',
-          value: division5th
+          value: division5th,
         },
         {
           key: 'division6th',
-          value: division6th
+          value: division6th,
         },
       ],
-      Key
+      Key,
     );
-    
-    let response = yield apply(buyoo, buyoo.userModifyAddr, [
+
+    const response = yield apply(buyoo, buyoo.userModifyAddr, [
       {
-        appId: appId,
-        method: method,
-        charset: charset,
-        signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        addrid: addrid,
-        funid: funid,
-        msisdn: msisdn,
-        address: address,
-        isdefault: isdefault,
-        username: username,
-        division1st: division1st,
-        division2nd: division2nd,
-        division3rd: division3rd,
-        division4th: division4th,
-        division5th: division5th,
-        division6th: division6th,
-      }
+        appId,
+        method,
+        charset,
+        signType,
+        encrypt,
+        timestamp,
+        version,
+        addrid,
+        funid,
+        msisdn,
+        address,
+        isdefault,
+        username,
+        division1st,
+        division2nd,
+        division3rd,
+        division4th,
+        division5th,
+        division6th,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(addressModifyFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(addressModifySuccess());
     }
-
-    yield put(addressModifySuccess());
   } catch (err) {
     yield put(addressModifyFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -396,9 +397,13 @@ export function* addressModifyWatchHandle(action) {
 export function* addressModifySuccessWatchHandle() {
   try {
     yield put(addressFetch(true));
-    if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    if (Platform.OS === 'android')
+      yield apply(ToastAndroid, ToastAndroid.show, [
+        i18n.success,
+        ToastAndroid.SHORT,
+      ]);
   } catch (err) {
-    
+    console.log(err);
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { RED_COLOR, } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 const styles = StyleSheet.create({
   tipsWrap: {

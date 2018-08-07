@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import Error from '../components/Error';
 

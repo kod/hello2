@@ -4,11 +4,11 @@ import { Field, reduxForm } from 'redux-form';
 import { StyleSheet, Text, View, ScrollView, Keyboard, DeviceEventEmitter, } from 'react-native';
 import OverlaySpinner from 'react-native-loading-spinner-overlay';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import { SCREENS } from '../common/constants';
 
-import { connectLocalization } from "../components/Localization";
+import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import InputRight from '../components/InputRight';

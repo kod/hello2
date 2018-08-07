@@ -6,12 +6,12 @@ import { withNavigation } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import priceFormat from '../common/helpers/priceFormat';
-import { CARMAXNUMBER } from "../common/constants";
+import { CARMAXNUMBER } from '../common/constants';
 import BYTouchable from "../components/BYTouchable";
-import { SCREENS } from "../common/constants";
+import { SCREENS } from '../common/constants';
 
 import { RED_COLOR, BORDER_COLOR } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from "../common/constants";
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import BYTextInput from "../components/BYTextInput";
 
