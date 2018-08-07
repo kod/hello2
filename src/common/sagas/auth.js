@@ -1,7 +1,7 @@
 import { Platform, DeviceEventEmitter } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { delay } from 'redux-saga';
-import { REHYDRATE } from 'redux-persist/constants';
+import { REHYDRATE } from 'redux-persist';
 import {
   take,
   call,
