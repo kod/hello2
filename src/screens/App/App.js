@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, DeviceEventEmitter } from 'react-native';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
-import Toast, { DURATION } from 'react-native-easy-toast';
+import Toast from 'react-native-easy-toast';
 import { connectLocalization } from '../../components/Localization';
 import BYStatusBar from '../../components/BYStatusBar';
 import Loader from '../../components/Loader';
@@ -11,7 +11,7 @@ import ModalRoot from '../../containers/ModalRoot';
 
 import AppNavigator from '../../navigations/AppNavigator';
 
-import NavigatorService from "../../navigations/NavigatorService";
+import NavigatorService from '../../navigations/NavigatorService';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,23 +46,32 @@ class App extends Component {
   componentWillUnmount() {
     this.showToastListener.remove();
   }
-  
+
   render() {
     const { i18n, rehydrated } = this.props;
     let renderComponent;
     if (!rehydrated) {
       renderComponent = <Loader />;
     } else {
-      renderComponent = <AppNavigator screenProps={{ i18n }} ref={navigatorRef => { NavigatorService.setContainer(navigatorRef); }}  />;
+      renderComponent = (
+        <AppNavigator
+          screenProps={{ i18n }}
+          ref={navigatorRef => {
+            NavigatorService.setContainer(navigatorRef);
+          }}
+        />
+      );
     }
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {renderComponent}
         <BYStatusBar />
         <ModalRoot />
-        <Toast 
-          ref={ref => (this.toast = ref)} 
-          opacity={0.7} 
+        <Toast
+          ref={ref => {
+            this.toast = ref;
+          }}
+          opacity={0.7}
         />
       </View>
     );
@@ -70,9 +79,7 @@ class App extends Component {
 }
 
 export default connectLocalization(
-  connect(
-    state => ({
-      rehydrated: state.auth.rehydrated,
-    })
-  )(App)
+  connect(state => ({
+    rehydrated: state.auth.rehydrated,
+  }))(App),
 );

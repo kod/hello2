@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 
-import BYTextInput from "./BYTextInput";
+import BYTextInput from './BYTextInput';
 
 class FieldInput extends Component {
   render() {
     const {
+      // input,
       input,
-      ...restProps,
+      ...restProps
     } = this.props;
     return (
-      <BYTextInput 
+      <BYTextInput
         onChangeText={input.onChange}
         value={input.value}
         {...restProps}
       />
-    )
+    );
   }
 }
 

@@ -1,20 +1,37 @@
+/* eslint-disable no-class-assign */
+
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet, Platform, ToastAndroid, } from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  Platform,
+  ToastAndroid,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { PRIMARY_COLOR, BORDER_COLOR } from "../styles/variables";
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, MODAL_TYPES } from "../common/constants";
+import {
+  PRIMARY_COLOR,
+  // BORDER_COLOR,
+} from '../styles/variables';
+import {
+  // WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  SIDEINTERVAL,
+  MODAL_TYPES,
+} from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
-import BYTextInput from "../components/BYTextInput";
-import FieldInput from "../components/FieldInput";
-import CustomIcon from "../components/CustomIcon";
-import BYModal from "../components/BYModal";
-import BYButton from "../components/BYButton";
+import BYTextInput from '../components/BYTextInput';
+import FieldInput from '../components/FieldInput';
+import CustomIcon from '../components/CustomIcon';
+// import BYModal from '../components/BYModal';
+import BYButton from '../components/BYButton';
 
 import PXTouchable from '../components/BYTouchable';
-import AddressAddModal from "../containers/AddressAddModal";
+// import AddressAddModal from '../containers/AddressAddModal';
 
 import * as cityInfosActionCreators from '../common/actions/cityInfos';
 import * as addressActionCreators from '../common/actions/address';
@@ -81,15 +98,17 @@ class AddressAdd extends React.Component {
       division2ndName: null,
       division3rdName: null,
       division4thName: null,
-    }
+    };
   }
 
   componentDidMount() {
     const {
       initialize,
-      navigation: { state: { params } },
+      navigation: {
+        state: { params },
+      },
     } = this.props;
-    
+
     if (params) {
       initialize({
         name: params.username,
@@ -104,22 +123,25 @@ class AddressAdd extends React.Component {
     // this.setState(ret);
   }
 
-  handleOnPressToggleMenuBottomSheet = (type) => {
+  handleOnPressToggleMenuBottomSheet = type => {
     const {
       isOpenMenuBottomSheet,
+      // isOpenMenuBottomSheet,
     } = this.state;
 
     const {
       cityInfosFetch,
       division2ndItems,
+      // division2ndItems,
     } = this.props;
 
     if (!isOpenMenuBottomSheet && division2ndItems.length === 0) {
       cityInfosFetch(1, 'division2nd');
     }
-    
+
     this.setState({
-      isOpenMenuBottomSheet: typeof type !== 'boolean' ? !isOpenMenuBottomSheet : type,
+      isOpenMenuBottomSheet:
+        typeof type !== 'boolean' ? !isOpenMenuBottomSheet : type,
     });
   };
 
@@ -128,10 +150,13 @@ class AddressAdd extends React.Component {
       division2ndID,
       division3rdID,
       division4thID,
+      // division4thID,
     } = this.state;
-    
+
     const {
-      navigation: { state: { params } },
+      navigation: {
+        state: { params },
+      },
       addressAddFetch,
       addressModifyFetch,
       addressAddInfo: { values },
@@ -139,7 +164,9 @@ class AddressAdd extends React.Component {
     // return false;
 
     if (!values) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry name', ToastAndroid.SHORT)
+      if (Platform.OS === 'android')
+        ToastAndroid.show('place entry name', ToastAndroid.SHORT);
+
       return false;
     }
 
@@ -147,32 +174,38 @@ class AddressAdd extends React.Component {
       name = '',
       phone = '',
       address = '',
+      // address = '',
     } = values;
 
     if (name.length === 0) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry name', ToastAndroid.SHORT)
+      if (Platform.OS === 'android')
+        ToastAndroid.show('place entry name', ToastAndroid.SHORT);
       return false;
     }
 
     if (phone.length === 0) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry phone', ToastAndroid.SHORT)
+      if (Platform.OS === 'android')
+        ToastAndroid.show('place entry phone', ToastAndroid.SHORT);
+
       return false;
     }
 
     if (!division4thID) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry area', ToastAndroid.SHORT)
+      if (Platform.OS === 'android')
+        ToastAndroid.show('place entry area', ToastAndroid.SHORT);
     }
 
     if (address.length === 0) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry address', ToastAndroid.SHORT)
+      if (Platform.OS === 'android')
+        ToastAndroid.show('place entry address', ToastAndroid.SHORT);
       return false;
     }
 
-    if(params) {
+    if (params) {
       addressModifyFetch({
         id: params.id,
         msisdn: phone,
-        address: address,
+        address,
         isdefault: params.isdefault,
         username: name,
         division2nd: division2ndID,
@@ -180,17 +213,18 @@ class AddressAdd extends React.Component {
         division4th: division4thID,
       });
       return false;
-    } 
+    }
 
     addressAddFetch({
       msisdn: phone,
-      address: address,
+      address,
       isdefault: 'Y',
       username: name,
       division2nd: division2ndID,
       division3rd: division3rdID,
       division4th: division4thID,
-    }); 
+    });
+    return true;
   }
 
   render() {
@@ -198,7 +232,7 @@ class AddressAdd extends React.Component {
       division2ndName,
       division3rdName,
       division4thName,
-      isOpenMenuBottomSheet,
+      // isOpenMenuBottomSheet,
     } = this.state;
 
     const {
@@ -209,50 +243,66 @@ class AddressAdd extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView keyboardShouldPersistTaps={'always'}>
-          <View style={styles.item} >
-            <Text style={styles.title} >Name</Text>
+        <ScrollView keyboardShouldPersistTaps="always">
+          <View style={styles.item}>
+            <Text style={styles.title}>Name</Text>
             <Field
               name="name"
               component={FieldInput}
               style={styles.textInput}
-              placeholder={'please enter your name'}
-              placeholderTextColor={'#ccc'}
+              placeholder="please enter your name"
+              placeholderTextColor="#ccc"
             />
           </View>
-          <View style={styles.item} >
-            <Text style={styles.title} >Phone number</Text>
+          <View style={styles.item}>
+            <Text style={styles.title}>Phone number</Text>
             <Field
               name="phone"
               component={FieldInput}
               style={styles.textInput}
-              placeholder={'please enter your phone number'}
-              placeholderTextColor={'#ccc'}
-              keyboardType={'phone-pad'}
+              placeholder="please enter your phone number"
+              placeholderTextColor="#ccc"
+              keyboardType="phone-pad"
             />
           </View>
-          <PXTouchable style={styles.item} onPress={() => openModal(MODAL_TYPES.ADDRESSADD, { callback: this.callbackToggleMenuBottomSheet })}>
-            <Text style={styles.title} >Xã/Huyện/Thành</Text>
-            <BYTextInput 
-              placeholder={'please select'}
-              placeholderTextColor={'#ccc'}
+          <PXTouchable
+            style={styles.item}
+            onPress={() =>
+              openModal(MODAL_TYPES.ADDRESSADD, {
+                callback: ret => console.log(ret),
+              })
+            }
+          >
+            <Text style={styles.title}>Xã/Huyện/Thành</Text>
+            <BYTextInput
+              placeholder="please select"
+              placeholderTextColor="#ccc"
               style={styles.address}
-              value={division4thName ? `${division4thName}, ${division3rdName}, ${division2ndName}` : ''}
+              value={
+                division4thName
+                  ? `${division4thName}, ${division3rdName}, ${division2ndName}`
+                  : ''
+              }
               editable={false}
             />
-            <CustomIcon style={styles.arrow} name="arrowright"></CustomIcon>
+            <CustomIcon style={styles.arrow} name="arrowright" />
           </PXTouchable>
-          <View style={styles.item} >
-            <Text style={styles.title} >Address</Text>
+          <View style={styles.item}>
+            <Text style={styles.title}>Address</Text>
             <Field
               name="address"
               component={FieldInput}
               style={styles.textInput}
-              placeholder={'please enter your address'}
-              placeholderTextColor={'#ccc'}
+              placeholder="please enter your address"
+              placeholderTextColor="#ccc"
             />
           </View>
-          <BYButton styleWrap={styles.submitWrap} styleText={styles.submit} text={'Save'} onPress={() => this.handleOnPressSubmit()}></BYButton>
+          <BYButton
+            styleWrap={styles.submitWrap}
+            styleText={styles.submit}
+            text="Save"
+            onPress={() => this.handleOnPressSubmit()}
+          />
         </ScrollView>
         {/* <BYModal
           visible={isOpenMenuBottomSheet}
@@ -277,17 +327,18 @@ export default connect(
     const {
       cityInfos,
       form,
+      // form,
     } = state;
     return {
       addressAddInfo: form.AddressAdd ? form.AddressAdd : {},
       division2ndItems: cityInfos.division2nd,
       division3rdItems: cityInfos.division3rd,
       division4thItems: cityInfos.division4th,
-    }
+    };
   },
   {
     ...cityInfosActionCreators,
     ...addressActionCreators,
     ...modalActionCreators,
-  }
+  },
 )(AddressAdd);
