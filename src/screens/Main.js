@@ -151,7 +151,7 @@ class Main extends React.Component {
         adverstInfoFetch({
           type_id: '5'
         });
-        mergeGetInfoFetch();
+        // mergeGetInfoFetch();
 
         break;
 

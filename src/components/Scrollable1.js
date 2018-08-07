@@ -94,9 +94,9 @@ class Scrollable1 extends React.Component {
     adverstInfoFetch({
       type_id: '5',
     });
-    mergeGetInfoFetch({
-      pagesize: 4
-    });
+    // mergeGetInfoFetch({
+    //   pagesize: 4
+    // });
   }
 
   render() {
@@ -141,14 +141,15 @@ class Scrollable1 extends React.Component {
         onPress: () => { navigate(SCREENS.WebView, { source: 'https://buyoo.vn/html/grouponhelpM.html' }) },
       },
     ]
-    
+
     return (
       <View>
         <SwiperFlatList data={bannerSwiperList} />
-        
+
         <NavImg1 data={nav1Data} />
 
-        <View style={styles.groupBuy}>
+        {/* 暂时屏蔽拼单功能 */}
+        {/* <View style={styles.groupBuy}>
           <View style={styles.groupBuyBackground} >
             <Image style={styles.groupBuyImageBackground} source={require('../images/group23423.png')} />
           </View>
@@ -160,11 +161,11 @@ class Scrollable1 extends React.Component {
             </View>
           </View>
           <ProductItem1 data={mergeGetInfoList} groupon={true} />
-        </View>
+        </View> */}
 
-        {/* <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={false} style={{ paddingTop: 15, backgroundColor: '#fff', }} /> */}
+        <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={false} style={{ paddingTop: 15, backgroundColor: '#fff', }} />
 
-        {/* <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} /> */}
+        <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
 
         <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: BORDER_COLOR, borderBottomWidth: 1 }} />
 
