@@ -50,8 +50,7 @@ export default function auth(
     case REHYDRATE:
       return {
         ...state,
-        ...action.payload.auth,
-        loading: false,
+        ...(action.payload && action.payload.auth),
         rehydrated: false,
       };
     case AUTH_REHYDRATE.SUCCESS:
