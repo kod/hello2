@@ -80,5 +80,11 @@
   "success": "Success",
   "startANewGroupBuying": "start a new group buying",
   "startGroupBuy": "Start group buy",
+  "anErrorOccurred": "An error occurred",
+  "copyright": "Copyright by CompanyName",
+  "businessEmail": "Business Email",
+  "serviceEmail": "Service Email",
+  "hotline": "Hotline",
+  "helpingCenter": "Helping center",
   "warehouse": "Warehouse"
 }

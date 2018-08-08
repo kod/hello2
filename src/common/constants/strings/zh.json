@@ -80,5 +80,11 @@
   "success": "成功",
   "startANewGroupBuying": "开始新的团购",
   "startGroupBuy": "开始团购",
+  "anErrorOccurred": "发生错误",
+  "copyright": "CompanyName版权所有",
+  "businessEmail": "商务邮箱",
+  "serviceEmail": "客服邮箱",
+  "hotline": "热线",
+  "helpingCenter": "帮助中心",
   "warehouse": "仓库"
 }
