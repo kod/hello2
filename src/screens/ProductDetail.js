@@ -3,39 +3,47 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
-  Dimensions,
+  // ScrollView,
+  // Dimensions,
   Image,
-  WebView,
   UIManager,
   Platform,
   InteractionManager,
-  DeviceEventEmitter,
+  // DeviceEventEmitter,
   ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+// import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
-import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
+import {
+  BORDER_COLOR,
+  PRIMARY_COLOR,
+  RED_COLOR,
+  // RED_COLOR,
+} from '../styles/variables';
+import {
+  WINDOW_WIDTH,
+  SCREENS,
+  SIDEINTERVAL,
+  // STATUSBAR_HEIGHT,
+} from '../common/constants';
 
 import * as productDetailActionCreators from '../common/actions/productDetail';
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 import * as cartActionCreators from '../common/actions/cart';
-import * as modalActionCreators from '../common/actions/modal';
 
-import BYBottomSheet from "../components/BYBottomSheet";
-import BYTextInput from '../components/BYTextInput';
-import BYTouchable from '../components/BYTouchable';
+// import BYBottomSheet from '../components/BYBottomSheet';
+// import BYTextInput from '../components/BYTextInput';
+// import BYTouchable from '../components/BYTouchable';
 import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
-import ProductDetailTabNavigator from "../navigations/ProductDetailTabNavigator";
-import ProductDetailGrouponTabNavigator from "../navigations/ProductDetailGrouponTabNavigator";
-import priceFormat from "../common/helpers/priceFormat";
-import { SCREENS } from '../common/constants';
+import ProductDetailTabNavigator from '../navigations/ProductDetailTabNavigator';
+import ProductDetailGrouponTabNavigator from '../navigations/ProductDetailGrouponTabNavigator';
+import priceFormat from '../common/helpers/priceFormat';
+
+const zalofunPng = require('../images/zalofun.png');
+const googleplusPng = require('../images/googleplus.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     color: '#fff',
-    backgroundColor: PRIMARY_COLOR
+    backgroundColor: PRIMARY_COLOR,
   },
   operateGroupLeft: {
     flex: 3,
@@ -89,7 +97,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     color: '#fff',
-    backgroundColor: PRIMARY_COLOR
+    backgroundColor: PRIMARY_COLOR,
   },
   paramClose: {
     paddingTop: WINDOW_WIDTH * 0.03,
@@ -127,7 +135,7 @@ const styles = StyleSheet.create({
     color: '#666',
     paddingLeft: SIDEINTERVAL,
     paddingTop: 20,
-    marginBottom: 8
+    marginBottom: 8,
   },
   paramColor: {
     flexDirection: 'row',
@@ -137,7 +145,6 @@ const styles = StyleSheet.create({
   },
   paramColorItem: {
     // width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
-    
     height: 35,
     lineHeight: 35,
     textAlign: 'center',
@@ -221,41 +228,43 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProductDetail extends React.Component {
+class ProductDetail extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isOpenMenuBottomSheet: false,
-      productDetail: {},
-      menuBottomSheetType: 'select',
+      // menuBottomSheetType: 'select',
       mounting: true,
     };
 
     if (Platform.OS === 'android') {
-      UIManager.setLayoutAnimationEnabledExperimental &&
+      if (UIManager.setLayoutAnimationEnabledExperimental)
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
 
   componentDidMount() {
-    const {
-      brandId,
-    } = this.props;
+    // const {
+    //   brandId,
+    // } = this.props;
 
     InteractionManager.runAfterInteractions(() => {
       this.setState({ mounting: false });
     });
-    
+
     // setTimeout(() => {
     //   this.handleOnPressToggleMenuBottomSheet('share');
     // }, 300);
-
   }
 
   handleOnPressToggleMenuBottomSheet = type => {
+    const {
+      isOpenMenuBottomSheet,
+      // isOpenMenuBottomSheet,
+    } = this.state;
     const newState = {
-      isOpenMenuBottomSheet: !this.state.isOpenMenuBottomSheet,
+      isOpenMenuBottomSheet: !isOpenMenuBottomSheet,
       menuBottomSheetType: type,
     };
     // if (selectedImageIndex !== null) {
@@ -271,8 +280,8 @@ class ProductDetail extends React.Component {
     } = this.props;
 
     if (!isAuthUser) return navigate(SCREENS.Login);
-
-  }
+    return true;
+  };
 
   handleOnPressAddCart = () => {
     const {
@@ -280,33 +289,37 @@ class ProductDetail extends React.Component {
       name,
       isAuthUser,
       cartAddRequest,
-      navigation,
+      // navigation,
       navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
     if (!id) return false;
 
-    const param = [{
-      quantity: 1,
-      subject: name,
-      itemId: id,
-    }];
+    const param = [
+      {
+        quantity: 1,
+        subject: name,
+        itemId: id,
+      },
+    ];
 
-    cartAddRequest(JSON.stringify(param));
-  }
+    return cartAddRequest(JSON.stringify(param));
+  };
 
   // 是否有改组合商品
   productPartner(propertiesIdsObject) {
-    const { product_detail } = this.props;
-    return product_detail.filter((val, key) => {
-      return Object.values(propertiesIdsObject).every((val1, key1) => val.propertiesIds.indexOf(val1 + '') !== -1)
-    })[0];
+    const { productDetail } = this.props;
+    return productDetail.filter(val =>
+      Object.values(propertiesIdsObject).every(
+        val1 => val.propertiesIds.indexOf(val1.toString()) !== -1,
+      ),
+    )[0];
   }
 
   handleOnPressselectVersion(id, name) {
     const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
-    let object = {
+    const object = {
       colorId: propertiesIdsObject.colorId,
       colorName: propertiesIdsObject.colorName,
       versionId: id,
@@ -316,12 +329,16 @@ class ProductDetail extends React.Component {
       colorId: object.colorId,
       versionId: object.versionId,
     });
-    productDetail ? productDetailSelect(object, productDetail) :  ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
+    if (productDetail) {
+      productDetailSelect(object, productDetail);
+    } else {
+      ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
+    }
   }
 
   handleOnPressselectColor(id, name) {
     const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
-    let object = {
+    const object = {
       colorId: id,
       colorName: name,
       versionId: propertiesIdsObject.versionId,
@@ -331,13 +348,17 @@ class ProductDetail extends React.Component {
       colorId: object.colorId,
       versionId: object.versionId,
     });
-    productDetail ? productDetailSelect(object, productDetail) :  ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
+    if (productDetail) {
+      productDetailSelect(object, productDetail);
+    } else {
+      ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
+    }
   }
 
   handleOnPresschangeNumber(number) {
     const { productDetailNumberFetch, numbers } = this.props;
     if (number < 1 || number > numbers) return false;
-    productDetailNumberFetch(number);
+    return productDetailNumberFetch(number);
   }
 
   handleOnPressBuy() {
@@ -348,7 +369,7 @@ class ProductDetail extends React.Component {
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
-    navigate(SCREENS.OrderWrite, {
+    return navigate(SCREENS.OrderWrite, {
       groupon,
     });
   }
@@ -356,10 +377,10 @@ class ProductDetail extends React.Component {
   renderMainContent() {
     const { mounting } = this.state;
     const {
-      id,
-      orgPrice,
-      name,
-      productDetailNumber,
+      // id,
+      // orgPrice,
+      // name,
+      // productDetailNumber,
       i18n,
       screenProps,
       productDetailOpacity,
@@ -373,177 +394,98 @@ class ProductDetail extends React.Component {
       brandId,
       navigation,
       groupon,
-      masterItems,
+      // masterItems,
       isMaster,
-      isAuthUser,
-      navigation: { navigate },
+      // isAuthUser,
+      // navigation: { navigate },
     } = this.props;
     if (mounting) {
       return <Loader />;
     }
-    
-    let operateGroupRightText = '';
-    if (isAuthUser) {
-      operateGroupRightText = '';
-    } else {
-      operateGroupRightText = 'Start Group buying';
-    }
+
+    // let operateGroupRightText = '';
+    // if (isAuthUser) {
+    //   operateGroupRightText = '';
+    // } else {
+    //   operateGroupRightText = 'Start Group buying';
+    // }
 
     return (
       <View style={styles.container}>
-        {
-          groupon
-          ?
-          <ProductDetailGrouponTabNavigator screenProps={{
-            ...screenProps,
-            BYopacity: productDetailOpacity,
-            swiper: imageUrls,
-            propertiesIdsObject,
-            propertiesIds,
-            price,
-            imageDesc,
-            goodsProperties,
-            brandId,
-            mainNavigation: navigation,
-            handleOnPressToggleMenuBottomSheet: this.handleOnPressToggleMenuBottomSheet,
-          }} />
-          :
-          <ProductDetailTabNavigator screenProps={{
-            ...screenProps,
-            BYopacity: productDetailOpacity,
-            swiper: imageUrls,
-            propertiesIdsObject,
-            propertiesIds,
-            price,
-            imageDesc,
-            goodsProperties,
-            brandId,
-            mainNavigation: navigation,
-            handleOnPressToggleMenuBottomSheet: this.handleOnPressToggleMenuBottomSheet,
-          }} />
-        }
-        {
-          groupon
-          ?
+        {groupon ? (
+          <ProductDetailGrouponTabNavigator
+            screenProps={{
+              ...screenProps,
+              BYopacity: productDetailOpacity,
+              swiper: imageUrls,
+              propertiesIdsObject,
+              propertiesIds,
+              price,
+              imageDesc,
+              goodsProperties,
+              brandId,
+              mainNavigation: navigation,
+              handleOnPressToggleMenuBottomSheet: this
+                .handleOnPressToggleMenuBottomSheet,
+            }}
+          />
+        ) : (
+          <ProductDetailTabNavigator
+            screenProps={{
+              ...screenProps,
+              BYopacity: productDetailOpacity,
+              swiper: imageUrls,
+              propertiesIdsObject,
+              propertiesIds,
+              price,
+              imageDesc,
+              goodsProperties,
+              brandId,
+              mainNavigation: navigation,
+              handleOnPressToggleMenuBottomSheet: this
+                .handleOnPressToggleMenuBottomSheet,
+            }}
+          />
+        )}
+        {groupon ? (
           <View style={styles.operate}>
             <View style={styles.operateGroupLeft}>
-              <Text style={styles.operateGroupLeftOldPrice}>Price before: {priceFormat(price || 0)} VND</Text>
-              <Text style={styles.operateGroupLeftPrice}>{priceFormat(mergePrice || 0)} VND</Text>
+              <Text style={styles.operateGroupLeftOldPrice}>
+                Price before: {priceFormat(price || 0)} VND
+              </Text>
+              <Text style={styles.operateGroupLeftPrice}>
+                {priceFormat(mergePrice || 0)} VND
+              </Text>
             </View>
-            <Text style={styles.operateGroupRight} onPress={() => this.handleOnPressGroupBuy()}>{ isMaster ? i18n.inviteFriends : i18n.startGroupBuy }</Text>
+            <Text
+              style={styles.operateGroupRight}
+              onPress={() => this.handleOnPressGroupBuy()}
+            >
+              {isMaster ? i18n.inviteFriends : i18n.startGroupBuy}
+            </Text>
           </View>
-          :
+        ) : (
           <View style={styles.operate}>
-            <Text style={styles.operateLeft} onPress={() => this.handleOnPressAddCart()}>{i18n.addToCart}</Text>
-            <Text style={styles.operateRight} 
-              onPress={() => this.handleOnPressBuy()} 
+            <Text
+              style={styles.operateLeft}
+              onPress={() => this.handleOnPressAddCart()}
+            >
+              {i18n.addToCart}
+            </Text>
+            <Text
+              style={styles.operateRight}
+              onPress={() => this.handleOnPressBuy()}
             >
               {i18n.buy}
             </Text>
           </View>
-        }
+        )}
       </View>
-    )
-  }
-
-  renderMenuBottomSelect() {
-    const {
-      i18n,
-      productDetailNumber,
-      colorArray,
-      versionArray,
-      imageUrls,
-      price,
-      numbers,
-      propertiesIdsObject,
-    } = this.props;
-    
-    const { colorId = 0, versionId = 0 } = propertiesIdsObject;
-
-    return (
-      <View style={{backgroundColor: '#fff'}}>
-        <View style={styles.paramClose}>
-          <EvilIcons style={styles.paramCloseIcon} name={'close'} onPress={() => this.handleOnPressToggleMenuBottomSheet()} />
-        </View>
-        <View style={styles.paramInfo}>
-          {
-            imageUrls[0] && 
-            <Image style={styles.paramImage} source={{uri: imageUrls[0].imageUrl}} />
-          }
-          <View style={styles.paramInfoLeft}>
-            <Text style={styles.paramPrice}>{priceFormat(price)} VND</Text>
-            <Text style={styles.paramHave}>{i18n.warehouse}: {numbers > 0 ? i18n.inStock : i18n.soldOut}</Text>
-          </View>
-        </View>
-        <Text style={styles.paramTitle}>{i18n.color}</Text>
-        <View style={styles.paramColor}>
-          {
-            colorArray.map((val, key) => {
-              return (
-                <Text 
-                  style={[styles.paramColorItem, (val.id === colorId) && styles.paramColorItemAcitve]} 
-                  onPress={() => this.handleOnPressselectColor(val.id, val.value)} 
-                  key={key} 
-                >
-                  {val.value}
-                </Text>
-              )
-            })
-          }
-        </View>
-        {!!versionArray.length && <Text style={styles.paramTitle}>RAM & {i18n.memory}</Text>}
-        <View style={styles.paramColor}>
-          {
-            versionArray.map((val, key) => {
-              return (
-                <Text 
-                  style={[styles.paramColorItem, (val.id === versionId) && styles.paramColorItemAcitve]} 
-                  onPress={() => this.handleOnPressselectVersion(val.id, val.value)} 
-                  key={key} 
-                >
-                  {val.value}
-                </Text>
-              )
-            })
-          }
-        </View>
-        <View style={styles.paramNumber}>
-          <Text style={styles.paramNumberText}>số lượng</Text>
-          <View style={styles.paramNumberChange}>
-
-            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber - 1)}>
-              <Ionicons 
-                name={'ios-remove'} 
-                style={[styles.paramNumberRemoveIcon, productDetailNumber === 1 && styles.paramNumberIconDisable]} 
-              />
-            </BYTouchable>
-            <BYTextInput 
-              style={styles.paramNumberTextInput} 
-              keyboardType={'numeric'} 
-              value={productDetailNumber + ''} 
-              editable={false}
-            />
-            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber + 1)}>
-              <Ionicons 
-                name={'ios-add'} 
-                style={[
-                  styles.paramNumberAddIcon, 
-                  parseInt(productDetailNumber) === numbers && styles.paramNumberIconDisable
-                ]} 
-              />
-            </BYTouchable>
-
-          </View>
-        </View>
-        <View style={styles.buttonWrap}>
-          <Text style={styles.button} onPress={() => this.handleOnPressToggleMenuBottomSheet()}>confirm</Text>
-        </View>
-      </View>
-    )
+    );
   }
 
   renderMenuBottomShare() {
-    const styles = StyleSheet.create({
+    const styles1 = StyleSheet.create({
       contanier: {
         paddingTop: 20,
         backgroundColor: '#fff',
@@ -574,63 +516,85 @@ class ProductDetail extends React.Component {
       },
     });
     return (
-      <View style={styles.contanier}>
-        <View style={styles.title}>
-          <Ionicons style={styles.titleIcon}  name="ios-paper-plane" />
-          <Text style={styles.titleText}>tap to share</Text>
+      <View style={styles1.contanier}>
+        <View style={styles1.title}>
+          <Ionicons style={styles1.titleIcon} name="ios-paper-plane" />
+          <Text style={styles1.titleText}>tap to share</Text>
         </View>
-        <View style={styles.main}>
-          <Image style={styles.item} source={require('../images/zalofun.png')} />
-          <Image style={styles.item} source={require('../images/googleplus.png')} />
+        <View style={styles1.main}>
+          <Image style={styles1.item} source={zalofunPng} />
+          <Image style={styles1.item} source={googleplusPng} />
         </View>
       </View>
-    )
+    );
   }
 
   render() {
-    const { isOpenMenuBottomSheet, menuBottomSheetType } = this.state;
-    // const {
-    //   i18n,
-    // } = this.props;
-    
+    // const { isOpenMenuBottomSheet, menuBottomSheetType } = this.state;
+
     return (
       <View style={styles.container}>
         {this.renderMainContent()}
-        <BYBottomSheet
+        {/* <BYBottomSheet
           visible={isOpenMenuBottomSheet}
           onCancel={this.handleOnPressToggleMenuBottomSheet}
           // listenCloseModal={() => this.handleOnPressToggleMenuBottomSheet()}
         >
-          { menuBottomSheetType === 'select' ? this.renderMenuBottomSelect() : this.renderMenuBottomShare()}
-        </BYBottomSheet>
+          {menuBottomSheetType === 'select'
+            ? openModal(MODAL_TYPES.PARAMSSELECT, {
+                callback: ret => console.log(ret),
+              })
+            : this.renderMenuBottomShare()}
+        </BYBottomSheet> */}
       </View>
     );
   }
 }
 
-export default connectLocalization(connect(
-  () => {
-    return (state, props) => {
-      const { productDetail, productDetailInfo, mergeGetDetail, mergeGetMaster, mergeCheck } = state;
-      const brandId = props.brandId || props.navigation.state.params.brandId;
-      const groupon = props.navigation.state.params.groupon;
-      let propertiesIds = props.propertiesIds || props.navigation.state.params.propertiesIds || '';
+export default connectLocalization(
+  connect(
+    (state, props) => {
+      const {
+        productDetailInfo,
+        mergeGetDetail,
+        mergeGetMaster,
+        mergeCheck,
+      } = state;
+
+      const {
+        brandId,
+        navigation,
+        navigation: {
+          state: {
+            params: {
+              groupon,
+              // groupon,
+            },
+          },
+        },
+        propertiesIds,
+        // navigation,
+      } = props;
+
+      const brandIdUsed = brandId || navigation.state.params.brandId;
+      // const groupon = navigation.state.params.groupon;
+      const propertiesIdsUsed =
+        propertiesIds || navigation.state.params.propertiesIds || '';
       const item = groupon ? mergeGetDetail.item : productDetailInfo.item;
       return {
         ...item,
-        brandId,
+        brandId: brandIdUsed,
         groupon,
         isMaster: !!mergeCheck.item.mergeMasterId,
-        propertiesIds,
+        propertiesIds: propertiesIdsUsed,
         masterItems: mergeGetMaster.items,
         isAuthUser: !!state.auth.user,
       };
-    };
-  }, 
-  {
-    ...productDetailActionCreators,
-    ...productDetailInfoActionCreators,
-    ...cartActionCreators,
-    ...modalActionCreators,
-  }
-)(ProductDetail));
+    },
+    {
+      ...productDetailActionCreators,
+      ...productDetailInfoActionCreators,
+      ...cartActionCreators,
+    },
+  )(ProductDetail),
+);
