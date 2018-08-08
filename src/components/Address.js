@@ -68,7 +68,7 @@ class ProductItem2 extends Component {
       addressSelectedItem,
       onPress,
       navigation: { navigate },
-      ...restProps,
+      ...restProps
     } = this.props;
 
     return (

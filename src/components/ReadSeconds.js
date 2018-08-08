@@ -72,7 +72,7 @@ class ReadSeconds extends Component {
     } = this.state;
 
     const {
-      ...restProps,
+      ...restProps
     } =  this.props;
 
     return (

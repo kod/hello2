@@ -67,7 +67,7 @@ class App extends Component {
       style,
       stylePaginationContainer,
       navigation: { navigate },
-      ...restProps,
+      ...restProps
     } = this.props;
     stylePaginationContainerparam = stylePaginationContainer;
     return (

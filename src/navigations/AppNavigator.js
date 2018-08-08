@@ -52,285 +52,285 @@ const RouteConfigs = {
   [SCREENS.Index]: {
     screen: AppTabNavigator,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.ProductDetail]: {
     screen: ProductDetail,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.Pay]: {
     screen: Pay,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.OrderWrite]: {
     screen: OrderWrite,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.Login]: {
     screen: Login,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.RegisterStepOne]: {
     screen: RegisterStepOne,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.RegisterStepTwo]: {
     screen: RegisterStepTwo,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.SearchResult]: {
     screen: SearchResult,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.MyCollection]: {
     screen: MyCollection,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.Settings]: {
     screen: Settings,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   [SCREENS.Language]: {
     screen: Language,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.RegisterFastStepOne]: {
     screen: RegisterFastStepOne,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.RegisterFastStepTwo]: {
     screen: RegisterFastStepTwo,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.ForgotPasswordOne]: {
     screen: ForgotPasswordOne,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.ForgotPasswordTwo]: {
     screen: ForgotPasswordTwo,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Test]: {
     screen: Test,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Address]: {
     screen: Address,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.AddressAdd]: {
     screen: AddressAdd,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.AddressEdit]: {
     screen: AddressEdit,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.CertifiedInformation]: {
     screen: CertifiedInformation,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.CertifiedInformationSchool]: {
     screen: CertifiedInformationSchool,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.CertifiedInformationContact]: {
     screen: CertifiedInformationContact,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.SchoolSelect]: {
     screen: SchoolSelect,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.TransactionPasswordStepOne]: {
     screen: TransactionPasswordStepOne,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.TransactionPasswordStepTwo]: {
     screen: TransactionPasswordStepTwo,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.ProductDetailImages]: {
     screen: ProductDetailImages,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.WebView]: {
     screen: WebView,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Bill]: {
     screen: Bill,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.BillDetail]: {
     screen: BillDetail,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.BillingPeriodDetail]: {
     screen: BillingPeriodDetail,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.RepaymentRecord]: {
     screen: RepaymentRecord,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Order]: {
     screen: Order,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.PeriodSelect]: {
     screen: PeriodSelect,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.SecurityCenter]: {
     screen: SecurityCenter,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Evalution]: {
     screen: Evalution,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Categories]: {
     screen: Categories,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.CateList]: {
     screen: CateList,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Coupon]: {
     screen: Coupon,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.CouponMy]: {
     screen: CouponMy,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.QrCodeScanner]: {
     screen: QrCodeScanner,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Prepaid]: {
     screen: Prepaid,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.SearchResultList]: {
     screen: SearchResultList,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Invite]: {
     screen: Invite,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.Cart]: {
     screen: Cart,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.GroupBuyList]: {
     screen: GroupBuyList,
     navigationOptions: {
       header: null,
-    }
+    },
   },
   [SCREENS.AboutAs]: {
     screen: AboutAs,
     navigationOptions: {
-        header: null,
-    }
+      header: null,
+    },
   },
   [SCREENS.CouponSelect]: {
     screen: CouponSelect,
     navigationOptions: {
-        header: null,
-    }
-  }
+      header: null,
+    },
+  },
 };
 
 const StackNavigatorConfig = {
@@ -340,14 +340,14 @@ const StackNavigatorConfig = {
   headerMode: 'screen',
   navigationOptions: {
     headerStyle: {
-      backgroundColor: '#3e9ce9'
+      backgroundColor: '#3e9ce9',
     },
     headerTitleStyle: {
       color: '#fff',
-      fontSize: 20
+      fontSize: 20,
     },
-    headerTintColor: '#fff'
-  }
+    headerTintColor: '#fff',
+  },
 };
 
 const AppNavigator = StackNavigator(RouteConfigs, StackNavigatorConfig);

@@ -77,8 +77,9 @@ const styles = StyleSheet.create({
 class AddressInput extends React.Component {
   render() {
     const {
+      // input,
       input,
-      ...restProps,
+      ...restProps
     } = this.props;
     return (
       <BYTextInput 

@@ -29,7 +29,7 @@ class InvitationInput extends React.Component {
   render() {
     const {
       input,
-      ...restProps,
+      ...restProps
     } = this.props;
     return (
       <BYTextInput 

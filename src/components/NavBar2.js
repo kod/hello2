@@ -42,7 +42,7 @@ export default (
     isShowLeft = true,
     isShowMiddle = true,
     isShowRight = true,
-    ...restProps,
+    ...restProps
   }
 ) => {
   return (
