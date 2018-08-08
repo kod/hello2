@@ -12,7 +12,7 @@ import BYHeader from '../components/BYHeader';
 import BYTextInput from '../components/BYTextInput';
 import InputRight from '../components/InputRight';
 import CustomIcon from '../components/CustomIcon';
-import BYBottomSheet from "../components/BYBottomSheet";
+import BYBottomSheet from '../components/BYBottomSheet';
 import BYModal from "../components/BYModal";
 import BYTouchable from '../components/BYTouchable';
 import BYButton from "../components/BYButton";

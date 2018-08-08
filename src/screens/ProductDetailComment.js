@@ -6,7 +6,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import ImageGetSize from "../components/ImageGetSize";
-import Comment from "../components/Comment";
+import Comment from '../components/Comment';
 
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';

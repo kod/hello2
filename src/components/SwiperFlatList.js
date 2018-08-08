@@ -88,7 +88,7 @@ class App extends Component {
                 return (
                 <BYTouchable 
                   key={key} 
-                  backgroundColor={'transparent'} 
+                  backgroundColor="transparent" 
                   onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, })}
                 >
                   <Image

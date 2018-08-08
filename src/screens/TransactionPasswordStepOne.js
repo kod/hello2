@@ -65,7 +65,7 @@ class TransactionPasswordStepOne extends React.Component {
             name="phone"
             component={InputCountry}
             style={styles.input}
-            keyboardType={'numeric'}
+            keyboardType="numeric"
             returnKeyType = { "next" }
             blurOnSubmit={true}
             onSubmitEditing={this.handleOnPressSubmit}

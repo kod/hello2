@@ -25,13 +25,13 @@ import * as productDetailActionCreators from '../common/actions/productDetail';
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 import * as cartActionCreators from '../common/actions/cart';
 
-import BYBottomSheet from "../components/BYBottomSheet";
+import BYBottomSheet from '../components/BYBottomSheet';
 import BYTextInput from '../components/BYTextInput';
 import BYTouchable from '../components/BYTouchable';
 import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
 import PrepaidTabNavigator from "../navigations/PrepaidTabNavigator";
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 import { SCREENS } from '../common/constants';
 
 const styles = StyleSheet.create({

@@ -95,7 +95,7 @@ class TransactionPasswordStepTwo extends React.Component {
             inputRight={<ReadSeconds />}
             // inputRight={this.renderInputRightCode()}
             placeholder={'Vui lòng nhập mã xác nhận'}
-            keyboardType={'numeric'}
+            keyboardType="numeric"
             // onSubmitEditing={() => { this.password.focus(); }}
             // blurOnSubmit={false}
             // autoFocus={true}
@@ -106,7 +106,7 @@ class TransactionPasswordStepTwo extends React.Component {
             // inputRight={this.renderInputRightClose()}
             placeholder={'Vui lòng nhập 6 chữ số'}
             secureTextEntry={true}
-            keyboardType={'numeric'}
+            keyboardType="numeric"
             // onSubmitEditing={() => { this.repassword.focus(); }}
             // ref={(input) => { this.password = input }}
             // blurOnSubmit={false}
@@ -118,7 +118,7 @@ class TransactionPasswordStepTwo extends React.Component {
             styleWrap={{marginBottom: 45}}
             placeholder={'Nhập lại Mật mã giao dịch'}
             secureTextEntry={true}
-            keyboardType={'numeric'}
+            keyboardType="numeric"
             // ref={(input) => { this.repassword = input }}
           />
           <BYButton text={'Submit'} style={{ marginBottom: 30 }} onPress={() => this.handleOnPressSubmit()} />

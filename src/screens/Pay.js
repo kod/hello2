@@ -34,7 +34,7 @@ import * as cardQueryActionCreators from "../common/actions/cardQuery";
 import * as orderCancelActionCreators from "../common/actions/orderCancel";
 
 import { addressJoin, tradeStatusCodes } from "../common/helpers";
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({
   container: {

@@ -208,7 +208,7 @@ class CertifiedInformationSchool extends Component {
                   placeholderTextColor={'#ccc'}
                   onChangeText={val => certifiedInformationEdit(`connectusermsisdn${index}`, val)}
                   value={connectusermsisdn}
-                  keyboardType={'numeric'} 
+                  keyboardType="numeric" 
                 />
               </View>
             </View>
@@ -224,7 +224,7 @@ class CertifiedInformationSchool extends Component {
                     placeholderTextColor={'#ccc'}
                     onChangeText={val => certifiedInformationEdit(`connectuseridentification${index}`, val)}
                     value={connectuseridentification}
-                    keyboardType={'numeric'} 
+                    keyboardType="numeric" 
                   />
                 </View>
               </View>

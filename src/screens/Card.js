@@ -10,7 +10,7 @@ import NavBar2 from '../components/NavBar2';
 import SeparateBar from '../components/SeparateBar';
 import BYButton from "../components/BYButton";
 import Loader from "../components/Loader";
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 import { judge } from "../common/helpers";
 
 

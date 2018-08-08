@@ -6,7 +6,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { PRIMARY_COLOR, } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
 
-import CustomIcon from '../components/CustomIcon.js';
+import CustomIcon from '../components/CustomIcon';
 
 const styles = StyleSheet.create({
   header: {

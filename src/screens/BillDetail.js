@@ -131,7 +131,7 @@ class BillDetail extends React.Component {
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
-            backgroundColor={'transparent'}
+            backgroundColor="transparent"
           />
           <NavBar2 
             valueLeft={'Interest'} 
@@ -139,7 +139,7 @@ class BillDetail extends React.Component {
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
-            backgroundColor={'transparent'}
+            backgroundColor="transparent"
           />
           <NavBar2 
             valueLeft={'Accountant bill date'} 
@@ -147,7 +147,7 @@ class BillDetail extends React.Component {
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
-            backgroundColor={'transparent'}
+            backgroundColor="transparent"
           />
           <NavBar2 
             valueLeft={'Latest repayment date'} 
@@ -155,7 +155,7 @@ class BillDetail extends React.Component {
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
-            backgroundColor={'transparent'}
+            backgroundColor="transparent"
           />
         </View>
       </View>

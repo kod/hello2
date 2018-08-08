@@ -6,7 +6,7 @@ import { SCREENS } from '../common/constants';
 
 import { PRIMARY_COLOR } from '../styles/variables';
 
-import CustomIcon from '../components/CustomIcon.js';
+import CustomIcon from '../components/CustomIcon';
 
 const TabContainer = TabNavigator(
   {

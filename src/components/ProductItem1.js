@@ -7,7 +7,7 @@ import { SCREENS } from '../common/constants';
 
 import { RED_COLOR , BORDER_COLOR} from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 
 const itemIntervalWidth = SIDEINTERVAL;
 const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;

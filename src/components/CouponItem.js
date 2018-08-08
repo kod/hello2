@@ -7,7 +7,7 @@ import BYTouchable from '../components/BYTouchable';
 import CustomIcon from '../components/CustomIcon';
 
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from '../common/constants';
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 
 import { RED_COLOR , PRIMARY_COLOR} from '../styles/variables';
 
@@ -100,7 +100,7 @@ class CouponItem extends Component {
             style={[styles.item, isCouponCenter && val.status !== 1 && styles.itemDisable]} 
             key={key} 
             onPress={() => onPress && onPress(val)} 
-            backgroundColor={'transparent'}
+            backgroundColor="transparent"
           > 
             <Image style={styles.image} source={require('../images/couponBlue.png')} />
             <View style={styles.bottom}>
@@ -121,7 +121,7 @@ class CouponItem extends Component {
             style={[styles.item, isCouponCenter && val.status !== 1 && styles.itemDisable]} 
             key={key} 
             onPress={() => onPress && onPress(val)} 
-            backgroundColor={'transparent'}
+            backgroundColor="transparent"
           >
             <Image style={styles.image} source={require('../images/couponRed.png')} />
             <View style={[styles.bottom, styles.bottomRed]}>

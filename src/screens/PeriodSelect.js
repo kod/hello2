@@ -80,7 +80,7 @@ class PeriodSelect extends React.Component {
     return (
       <BYTouchable 
         style={styles.container} 
-        backgroundColor={'transparent'} 
+        backgroundColor="transparent" 
         onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}
       >
         <Text style={styles.title}>Set the stage</Text>
@@ -168,7 +168,7 @@ class PeriodSelect extends React.Component {
                   <BYTouchable 
                     style={[styles.item, period === val && styles.itemActive]} 
                     key={key}
-                    backgroundColor={'transparent'}
+                    backgroundColor="transparent"
                     onPress={() => this.handleOnPressItem(val)}
                   >
                     <Text style={[styles.itemNumber, period === val && styles.itemTextActive]}>{val}</Text>

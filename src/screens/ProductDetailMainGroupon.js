@@ -6,15 +6,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { connectLocalization } from '../components/Localization';
 
-import BYBottomSheet from "../components/BYBottomSheet";
+import BYBottomSheet from '../components/BYBottomSheet';
 import BYTouchable from '../components/BYTouchable';
 import CustomIcon from '../components/CustomIcon';
 import HeaderShareButton from '../components/HeaderShareButton';
 import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
 import ImageGetSize from "../components/ImageGetSize";
-import Comment from "../components/Comment";
-import priceFormat from "../common/helpers/priceFormat";
+import Comment from '../components/Comment';
+import priceFormat from '../common/helpers/priceFormat';
 import { SCREENS } from '../common/constants';
 
 
@@ -616,7 +616,7 @@ class ProductDetail extends Component {
           <Text style={styles.grouponJoinMainRow2} numberOfLines={1}>{val.username ? val.username : val.msisdn}</Text>
           <Text style={styles.grouponJoinMainRow1}>{i18n.need} {val.personNum - val.slaveNum - 1} {i18n.person}</Text>
         </View>
-        <Text style={styles.grouponJoinMainRight} onPress={() => this.handleOnPressToggleGroup('join', val)} backgroundColor={'transparent'}>{i18n.join}</Text>
+        <Text style={styles.grouponJoinMainRight} onPress={() => this.handleOnPressToggleGroup('join', val)} backgroundColor="transparent">{i18n.join}</Text>
       </View>
     )
   }
@@ -729,7 +729,7 @@ class ProductDetail extends Component {
         {
           masterItems.length > 0 && isMaster === true
           &&
-          <BYTouchable style={styles.grouponInfo} onPress={() => this.handleOnPressToggleGroup('self')} backgroundColor={'transparent'}>
+          <BYTouchable style={styles.grouponInfo} onPress={() => this.handleOnPressToggleGroup('self')} backgroundColor="transparent">
             <View style={styles.grouponInfoTitle}>
               <Text style={styles.grouponInfoTitleLeft}>{i18n.groupBuy}</Text>
               <Text style={styles.grouponInfoTitleMiddle}>{i18n.details}</Text>
@@ -744,8 +744,8 @@ class ProductDetail extends Component {
           <View style={styles.grouponJoin}>
             <View style={styles.grouponJoinTitle}>
               <Text style={styles.grouponJoinTitleText}>{masterItems.length} {i18n.personGroupBuying}</Text>
-              <Text style={styles.grouponJoinMore} onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor={'transparent'}>{i18n.more}</Text>
-              <CustomIcon style={styles.grouponArrow} name="arrowright" onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor={'transparent'} />
+              <Text style={styles.grouponJoinMore} onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor="transparent">{i18n.more}</Text>
+              <CustomIcon style={styles.grouponArrow} name="arrowright" onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor="transparent" />
             </View>
             {this.renderGrouponJoin(masterItems[0])}
           </View>
@@ -802,7 +802,7 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <ScrollView onScroll={this.handleOnScroll}>
-          <BYTouchable style={styles.favorite} backgroundColor={'transparent'} onPress={() => this.handleToggleCollection()}>
+          <BYTouchable style={styles.favorite} backgroundColor="transparent" onPress={() => this.handleToggleCollection()}>
             {
               isCollection ? 
               <MaterialIcons name="favorite" style={[styles.favoriteIcon, styles.favoriteIconActive]} /> : 
@@ -823,7 +823,7 @@ class ProductDetail extends Component {
             <Text style={styles.productTitle}>{name}</Text>
             <Text style={styles.productPrice}>{priceFormat(price || 0)} VND</Text>
             <View style={styles.serverinfo}>
-              <CustomIcon style={styles.serverinfoToBePaid} name="returns"  />
+              <CustomIcon style={styles.serverinfoToBePaid} name="returns" />
               <Text style={styles.serverinfoToBePaidText}>{i18n.qualityAssurance}</Text>
               <CustomIcon style={styles.serverinfotoReceiveGoods} name="toReceiveGoods"  />
               <Text style={styles.serverinfotoReceiveGoodsText}>{i18n.fastDelivery}</Text>

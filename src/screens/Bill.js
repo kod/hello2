@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { SCREENS } from '../common/constants';
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 import moment from 'moment';
 import { getBillMonthItem, getBillTotalMoney } from '../common/selectors';
 
@@ -154,7 +154,7 @@ class Bill extends React.Component {
     return (
       <BYTouchable 
         style={styles.container} 
-        backgroundColor={'transparent'} 
+        backgroundColor="transparent" 
         onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}
       >
         <Text style={styles.title}>tháng {activeMonth}</Text>
@@ -181,7 +181,7 @@ class Bill extends React.Component {
     return (
       <BYTouchable 
         style={styles.container} 
-        backgroundColor={'transparent'} 
+        backgroundColor="transparent" 
         onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}
       >
         <Entypo style={styles.arrow} name={'dots-three-vertical'} />
@@ -333,7 +333,7 @@ class Bill extends React.Component {
           <View style={styles.enterPrice}>
             <BYTextInput 
               style={styles.textInput} 
-              keyboardType={'numeric'} 
+              keyboardType="numeric" 
               value={price} 
               onChangeText={(text) => billPriceFetch(text)}
             />

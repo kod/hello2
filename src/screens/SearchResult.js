@@ -124,7 +124,7 @@ class SearchResult extends React.Component {
     return (
       <BYTouchable 
         style={styles.container} 
-        backgroundColor={'transparent'} 
+        backgroundColor="transparent" 
         onPress={() => this.handleOnPressToggleModal('isOpenPay')}
       >
         <Text style={styles.title}>search</Text>

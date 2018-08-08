@@ -294,7 +294,7 @@ class CertifiedInformation extends Component {
                 placeholderTextColor={'#ccc'}
                 onChangeText={(val) => certifiedInformationEdit('identification', val)}
                 value={identification}
-                keyboardType={'numeric'}
+                keyboardType="numeric"
               />
             </View>
           </View>
@@ -348,7 +348,7 @@ class CertifiedInformation extends Component {
               />
             </View>
           </View>
-          <BYTouchable style={styles.item} backgroundColor={'transparent'} onPress={() => navigate(SCREENS.CertifiedInformationSchool)}>
+          <BYTouchable style={styles.item} backgroundColor="transparent" onPress={() => navigate(SCREENS.CertifiedInformationSchool)}>
             <View style={styles.main}>
               <Text style={styles.label}>School</Text>
               <Text style={styles.value}>

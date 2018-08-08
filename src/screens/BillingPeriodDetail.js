@@ -76,21 +76,21 @@ class BillingPeriodDetail extends React.Component {
           onPress={() => {}}
           valueLeft={'MI mix2 6+64G'}
           valueMiddle={'2018-02-03'}
-          backgroundColor={'transparent'}
+          backgroundColor="transparent"
           isShowRight={false}
         />
         <NavBar2 
           onPress={() => {}}
           valueLeft={'iPhone 7 128G'}
           valueMiddle={'2018-04-01'}
-          backgroundColor={'transparent'}
+          backgroundColor="transparent"
           isShowRight={false}
         />
         <NavBar2 
           onPress={() => {}}
           valueLeft={'Tatal'}
           valueMiddle={'80.500 vnd'}
-          backgroundColor={'transparent'}
+          backgroundColor="transparent"
           isShowRight={false}
           styleMiddle={{ color: PRIMARY_COLOR }}
         />
@@ -103,21 +103,21 @@ class BillingPeriodDetail extends React.Component {
           onPress={() => {}}
           valueLeft={'MI mix2 6+64G'}
           valueMiddle={'2018-02-03'}
-          backgroundColor={'transparent'}
+          backgroundColor="transparent"
           isShowRight={false}
         />
         <NavBar2 
           onPress={() => {}}
           valueLeft={'iPhone 7 128G'}
           valueMiddle={'2018-04-01'}
-          backgroundColor={'transparent'}
+          backgroundColor="transparent"
           isShowRight={false}
         />
         <NavBar2 
           onPress={() => {}}
           valueLeft={'Tatal'}
           valueMiddle={'80.500 vnd'}
-          backgroundColor={'transparent'}
+          backgroundColor="transparent"
           isShowRight={false}
           styleMiddle={{ color: PRIMARY_COLOR }}
         />

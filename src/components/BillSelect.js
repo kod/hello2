@@ -5,7 +5,7 @@ import { RED_COLOR, PRIMARY_COLOR, } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 import { withNavigation } from 'react-navigation';
 
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 import { billStatusCodes } from "../common/helpers";
 
 import BYTouchable from '../components/BYTouchable';
@@ -155,7 +155,7 @@ class BillSelect extends Component {
                   <BYTouchable 
                     style={styles.item} 
                     key={key} 
-                    backgroundColor={'transparent'}
+                    backgroundColor="transparent"
                     onPress={() => this.handleOnPressMonth(val)}
                   >
                     <View style={styles.itemMain}>

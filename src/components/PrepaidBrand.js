@@ -101,7 +101,7 @@ class PrepaidBrand extends Component {
                 <BYTouchable 
                   style={styles.item} 
                   onPress={() => this.handleOnPress(val, key)}
-                  backgroundColor={'transparent'}
+                  backgroundColor="transparent"
                   key={key}
                 >
                   <View style={[styles.itemImgWrap, key === indexActive && styles.itemImgActive]}>

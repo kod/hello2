@@ -1,13 +1,22 @@
 import React from 'react';
-import { ScrollView, ListView, StyleSheet, View, Text, RefreshControl, StatusBar } from 'react-native';
+import {
+  ScrollView,
+  // ListView,
+  StyleSheet,
+  View,
+  // Text,
+  RefreshControl,
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import { BACKGROUND_COLOR, HEADER_BACKGROUND_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
-
-import { SCREENS } from '../common/constants';
-
-import { STATUSBAR_HEIGHT } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  // SIDEINTERVAL,
+  STATUSBAR_HEIGHT,
+  SCREENS,
+} from '../common/constants';
 
 import ScrollableTabView from '../components/ScrollableTabView';
 import Scrollable1 from '../components/Scrollable1';
@@ -15,9 +24,9 @@ import Scrollable2 from '../components/Scrollable2';
 import Scrollable3 from '../components/Scrollable3';
 import Scrollable4 from '../components/Scrollable4';
 import { connectLocalization } from '../components/Localization';
-import i18n from '../common/helpers/i18n';
-import CustomIcon from '../components/CustomIcon.js';
-import BYTouchable from '../components/BYTouchable';
+// import i18n from '../common/helpers/i18n';
+// import CustomIcon from '../components/CustomIcon';
+// import BYTouchable from '../components/BYTouchable';
 import SearchHeader from '../components/SearchHeader';
 
 import * as i18nActionCreators from '../common/actions/i18n';
@@ -34,12 +43,12 @@ import * as adDigitalActionCreators from '../common/actions/adDigital';
 
 const styles = StyleSheet.create({
   base: {
-    flex: 1
+    flex: 1,
   },
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: BACKGROUND_COLOR
+    backgroundColor: BACKGROUND_COLOR,
   },
   headerContainer: {
     display: 'flex',
@@ -50,7 +59,7 @@ const styles = StyleSheet.create({
     paddingTop: STATUSBAR_HEIGHT,
   },
   headerMiddle: {
-    flex: 8
+    flex: 8,
   },
   headerMiddleMain: {
     flexDirection: 'row',
@@ -58,16 +67,16 @@ const styles = StyleSheet.create({
     paddingLeft: WINDOW_WIDTH * 0.03,
     height: 30,
     backgroundColor: '#f5f5f5',
-    borderRadius: 1
+    borderRadius: 1,
   },
   headerMiddleIcon: {
     fontSize: 12,
     color: '#ccc',
-    marginRight: WINDOW_WIDTH * 0.02
+    marginRight: WINDOW_WIDTH * 0.02,
   },
   headerMiddleText: {
     fontSize: 13,
-    color: '#ccc'
+    color: '#ccc',
   },
   headerIcon: {
     height: 40,
@@ -75,8 +84,8 @@ const styles = StyleSheet.create({
     paddingLeft: WINDOW_HEIGHT * 0.03,
     paddingRight: WINDOW_HEIGHT * 0.03,
     color: '#999',
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 });
 
 class Main extends React.Component {
@@ -84,72 +93,59 @@ class Main extends React.Component {
     super(props);
 
     this.onChangeTab = this.onChangeTab.bind(this);
-
-    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-
-    this.auto_data = function(num = 20, begin = 0) {
-      let empty_array = [];
-      for (let index = begin; index < num + begin; index++) {
-        empty_array.push(`row ${index}`);
-      }
-      return empty_array;
-    };
-
-    this._data = this.auto_data();
-
+    this.onRefresh = this.onRefresh.bind(this);
     this.state = {
-      dataSource: this.ds.cloneWithRows(this._data),
-      refreshing: false
+      refreshing: false,
     };
   }
 
-  componentDidMount() {
+  // componentDidMount() {
+  //   const {
+  //     navigation: { navigate },
+  //     i18n,
+  //     setLanguage,
+  //   } = this.props;
+
+  //   // setTimeout(() => {
+  //   //   // navigate(SCREENS.WebView, {
+  //   //   //   source: 'https://buyoo.vn/html/about.html'
+  //   //   // });
+  //   //   navigate(SCREENS.Pay, {
+  //   //     tradeNo: '210320180613100829786253',
+  //   //     orderNo: '220180613100829817675838324',
+  //   //   });
+
+  //   // }, 300);
+  // }
+
+  onDataArrived() {}
+
+  onRefresh() {
     const {
-      navigation: { navigate },
-      i18n,
-      setLanguage,
-    } = this.props;
-
-    // setTimeout(() => {
-    //   // navigate(SCREENS.WebView, {
-    //   //   source: 'https://buyoo.vn/html/about.html'
-    //   // });
-    //   navigate(SCREENS.Pay, {
-    //     tradeNo: '210320180613100829786253',
-    //     orderNo: '220180613100829817675838324',
-    //   });
-
-    // }, 300);
-  }
-
-  _onDataArrived() {}
-
-  _onRefresh() {
-    const { 
       scrollTabIndex,
       bannerSwiperFetch,
       bannerHomeTypeFetch,
       promotionInfoFetch,
       adverstInfoFetch,
-      mergeGetInfoFetch,
+      // mergeGetInfoFetch,
       adPhoneFetch,
       topComputerFetch,
       newComputerFetch,
       adDigitalFetch,
-     } = this.props;
+    } = this.props;
     switch (scrollTabIndex) {
       case 0:
         bannerSwiperFetch('one');
         bannerHomeTypeFetch();
         promotionInfoFetch();
         adverstInfoFetch({
-          type_id: '1'
+          type_id: '1',
         });
         adverstInfoFetch({
-          type_id: '2'
+          type_id: '2',
         });
         adverstInfoFetch({
-          type_id: '5'
+          type_id: '5',
         });
         // mergeGetInfoFetch();
 
@@ -164,7 +160,7 @@ class Main extends React.Component {
       case 2:
         topComputerFetch();
         newComputerFetch();
-  
+
         break;
 
       case 3:
@@ -178,7 +174,7 @@ class Main extends React.Component {
 
     this.setState({ refreshing: true });
     setTimeout(() => {
-      this._onDataArrived();
+      this.onDataArrived();
       this.setState({ refreshing: false });
     }, 1000);
     // fetchData().then(() => {
@@ -187,47 +183,60 @@ class Main extends React.Component {
   }
 
   onChangeTab(res) {
-    const { scrollableTabViewIndex, scrollTabIndex } = this.props;
+    const {
+      scrollableTabViewIndex,
+      // scrollTabIndex,
+    } = this.props;
     if (res.i !== res.from) scrollableTabViewIndex(res.i);
   }
 
   render() {
     const {
       navigation: { navigate },
-      i18n
+      i18n,
     } = this.props;
 
     const scrollableTabKeys = [
       {
         tabLabel: i18n.recommend,
-        view: <Scrollable1 {...this.props} />
+        view: <Scrollable1 {...this.props} />,
       },
       {
         tabLabel: i18n.mobileCommunications,
-        view: <Scrollable2 {...this.props} />
+        view: <Scrollable2 {...this.props} />,
       },
       {
         tabLabel: i18n.computerOffice,
-        view: <Scrollable3 {...this.props} />
+        view: <Scrollable3 {...this.props} />,
       },
       {
         tabLabel: i18n.digitalDevices,
-        view: <Scrollable4 {...this.props} />
-      }
+        view: <Scrollable4 {...this.props} />,
+      },
     ];
 
     const content = scrollableTabKeys.map((val, key) => {
+      const { refreshing } = this.state;
       return (
         <View tabLabel={val.tabLabel} style={styles.base} key={key}>
-          <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />}>{scrollableTabKeys[key].view}</ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => this.onRefresh()}
+              />
+            }
+          >
+            {scrollableTabKeys[key].view}
+          </ScrollView>
         </View>
       );
     });
 
     return (
       <View style={styles.container}>
-        <SearchHeader 
-          text={'search'} 
+        <SearchHeader
+          text={i18n.search}
           leftOnPress={() => navigate(SCREENS.QrCodeScanner)}
           middleOnPress={() => navigate(SCREENS.SearchResult)}
         />
@@ -239,20 +248,19 @@ class Main extends React.Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          scrollableTabView,
-        } = state;
+    state => {
+      const {
+        scrollableTabView,
+        // scrollableTabView,
+      } = state;
 
-        // const {
+      // const {
 
-        // } = props;
+      // } = props;
 
-        return {
-          scrollTabIndex: scrollableTabView.index
-        }
-      }
+      return {
+        scrollTabIndex: scrollableTabView.index,
+      };
     },
     {
       ...i18nActionCreators,
@@ -266,32 +274,6 @@ export default connectLocalization(
       ...topComputerActionCreators,
       ...newComputerActionCreators,
       ...adDigitalActionCreators,
-    }
-  )(Main)
+    },
+  )(Main),
 );
-
-// function mapStateToProps(state, props) {
-//   const { scrollableTabView } = state;
-//   return {
-//     scrollTabIndex: scrollableTabView.index
-//   };
-// }
-
-// export default connectLocalization(
-//   connect(
-//     mapStateToProps, 
-//     {
-//       ...i18nActionCreators,
-//       ...scrollableTabViewActionCreators,
-//       ...bannerSwiperActionCreators,
-//       ...bannerHomeTypeActionCreators,
-//       ...promotionInfoActionCreators,
-//       ...mergeGetInfoActionCreators,
-//       ...adverstInfoActionCreators,
-//       ...adPhoneActionCreators,
-//       ...topComputerActionCreators,
-//       ...newComputerActionCreators,
-//       ...adDigitalActionCreators,
-//     }
-//   )(Main)
-// );

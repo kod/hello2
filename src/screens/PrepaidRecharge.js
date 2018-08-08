@@ -11,7 +11,7 @@ import BYTouchable from '../components/BYTouchable';
 import ActionSheet from "../components/ActionSheet";
 import Loader from "../components/Loader";
 
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
@@ -315,7 +315,7 @@ class PrepaidRecharge extends React.Component {
               value={phoneNumber} 
               placeholder={'Số điện thoại'} 
               placeholderTextColor={'#ccc'} 
-              keyboardType={'numeric'} 
+              keyboardType="numeric" 
             />
             {
               providerIcon.length > 0 &&

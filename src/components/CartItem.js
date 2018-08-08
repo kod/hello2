@@ -186,20 +186,20 @@ class CartItem extends Component {
         <View style={styles.number}>
           <BYTouchable onPress={() => onChangeTextHandle(parseInt(quantity) - 1, id)}>
             <Ionicons 
-              name={'ios-remove'} 
+              name="ios-remove" 
               style={[styles.removeIcon, quantity === '1' && styles.removeIconDisable]} 
             />
           </BYTouchable>
           <BYTextInput 
             style={styles.textInput} 
-            keyboardType={'numeric'} 
+            keyboardType="numeric" 
             value={quantity} 
             // onChangeText={(text) => onChangeTextHandle(text, id)}
             editable={false}
           />
           <BYTouchable onPress={() => onChangeTextHandle(parseInt(quantity) + 1, id)}>
             <Ionicons 
-              name={'ios-add'} 
+              name="ios-add" 
               style={[
                 styles.addIcon, 
                 parseInt(quantity) === CARMAXNUMBER && styles.removeIconDisable

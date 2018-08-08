@@ -128,7 +128,7 @@ class RegisterStepTwo extends React.Component {
             component={InputRight}
             inputRight={<ReadSeconds />}
             placeholder={'place enter the code'}
-            keyboardType={'numeric'}
+            keyboardType="numeric"
           />
           <Field 
             name="password"

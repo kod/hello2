@@ -77,7 +77,7 @@ class SecurityCenter extends React.Component {
           styleLeft={{ color: '#666' }}
           // styleMiddle={{ color: '#666' }}
           // isShowRight={false}
-          // backgroundColor={'transparent'}
+          // backgroundColor="transparent"
         />
         <NavBar2 
           onPress={() => {}}
@@ -86,7 +86,7 @@ class SecurityCenter extends React.Component {
           styleLeft={{ color: '#666' }}
           // styleMiddle={{ color: '#666' }}
           // isShowRight={false}
-          // backgroundColor={'transparent'}
+          // backgroundColor="transparent"
         />
       </View>
     )

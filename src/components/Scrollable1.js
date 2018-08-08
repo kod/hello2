@@ -10,7 +10,7 @@ import SwiperFlatList from '../components/SwiperFlatList';
 import BannerHomeType from '../components/BannerHomeType';
 import DiscountsItem from '../components/DiscountsItem';
 import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
-import CustomIcon from '../components/CustomIcon.js';
+import CustomIcon from '../components/CustomIcon';
 import ProductItem1 from "../components/ProductItem1";
 import ProductItem2 from "../components/ProductItem2";
 import FloorTitle from "../components/FloorTitle";

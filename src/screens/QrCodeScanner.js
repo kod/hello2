@@ -75,7 +75,7 @@ class QrCodeScanner extends React.Component {
     return (
       <BYTouchable 
         style={styles.container} 
-        backgroundColor={'transparent'} 
+        backgroundColor="transparent" 
       >
         <Text style={styles.title}>Scan QR Code</Text>
       </BYTouchable>

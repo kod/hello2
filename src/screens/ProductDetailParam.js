@@ -6,7 +6,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import ImageGetSize from "../components/ImageGetSize";
-import BYCacheImage from "../components/BYCacheImage";
+import BYCacheImage from '../components/BYCacheImage';
 
 import {
   RED_COLOR,

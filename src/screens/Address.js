@@ -186,7 +186,7 @@ class Address extends React.Component {
                   <Text style={styles.address}>{this.edit_address(val)}</Text>
                   {!isSelect && 
                   <View style={styles.operate}>
-                    <BYTouchable style={styles.operateLeft} backgroundColor={'transparent'} onPress={() => this.handleOnPressAddressDefault(val)}>
+                    <BYTouchable style={styles.operateLeft} backgroundColor="transparent" onPress={() => this.handleOnPressAddressDefault(val)}>
                       <Ionicons style={[styles.selectIcon, val.isdefault === 'Y' && styles.selected]} name={'ios-radio-button-on-outline'} />
                       <Text style={[styles.selectText, val.isdefault === 'Y' && styles.selected]}>{i18n.defaultAddress}</Text>
                     </BYTouchable>

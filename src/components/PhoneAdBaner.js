@@ -33,7 +33,7 @@ class PhoneAdBaner extends Component {
         {data.map((val, key) => (
           <BYTouchable 
           style={styles.touchable} 
-            backgroundColor={'transparent'}
+            backgroundColor="transparent"
             key={key} 
             onPress={() => navigate(SCREENS.ProductDetail,  { brandId: val.brandId, groupon })}
           >

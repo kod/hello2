@@ -10,7 +10,7 @@ import BYHeader from '../components/BYHeader';
 import NavBar1 from '../components/NavBar1';
 import BYTouchable from '../components/BYTouchable';
 
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 import { payWayToText } from "../common/helpers";
 import { SIDEINTERVAL } from '../common/constants';
 
@@ -55,7 +55,7 @@ class RepaymentRecord extends React.Component {
     return (
       <BYTouchable 
         style={styles.container} 
-        backgroundColor={'transparent'} 
+        backgroundColor="transparent" 
         onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}
       >
         <Text style={styles.title}>record</Text>

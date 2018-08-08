@@ -11,7 +11,7 @@ import BYTouchable from '../components/BYTouchable';
 import ActionSheet from "../components/ActionSheet";
 import Loader from "../components/Loader";
 
-import priceFormat from "../common/helpers/priceFormat";
+import priceFormat from '../common/helpers/priceFormat';
 import { PROVIDER_TYPE_MAP } from '../common/constants';
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
