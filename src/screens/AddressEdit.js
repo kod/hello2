@@ -432,7 +432,7 @@ class AddressAdd extends React.Component {
               value={areaAddressStr}
               editable={false}
             />
-            <CustomIcon style={styles.arrow} name="arrowright"></CustomIcon>
+            <CustomIcon style={styles.arrow} name="arrowright" />
           </PXTouchable>
           <View style={styles.item}>
             <Text style={styles.title}>Address</Text>

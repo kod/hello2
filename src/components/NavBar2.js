@@ -61,7 +61,7 @@ export default (
         isShowRight &&
         (componentRight ?
         componentRight :
-        <CustomIcon style={[styles.componentRight, styleRight]} name="arrowright"></CustomIcon>)
+        <CustomIcon style={[styles.componentRight, styleRight]} name="arrowright" />)
       }
     </BYTouchable>
   )

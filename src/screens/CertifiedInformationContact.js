@@ -173,7 +173,7 @@ class CertifiedInformationSchool extends Component {
               <View style={styles.main}>
                 <Text style={styles.label}>relative</Text>
                 <Text style={styles.value}>{connectuserrelation}</Text>
-                <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
+                <CustomIcon style={styles.icon} name="arrowright" />
                 {/* <Picker
                   selectedValue={connectuserrelation}
                   style={styles.picker}

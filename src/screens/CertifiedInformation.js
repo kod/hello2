@@ -363,7 +363,7 @@ class CertifiedInformation extends Component {
                   ''
                 }
               </Text>
-              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
+              <CustomIcon style={styles.icon} name="arrowright" />
             </View>
           </BYTouchable>
           <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 1 })}>
@@ -379,7 +379,7 @@ class CertifiedInformation extends Component {
                 ''
               }
               </Text>
-              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
+              <CustomIcon style={styles.icon} name="arrowright" />
             </View>
           </BYTouchable>
           <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 2 })}>
@@ -394,7 +394,7 @@ class CertifiedInformation extends Component {
                 ''
               }
               </Text>
-              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
+              <CustomIcon style={styles.icon} name="arrowright" />
             </View>
           </BYTouchable>
           <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 3 })}>
@@ -409,7 +409,7 @@ class CertifiedInformation extends Component {
                 ''
               }
               </Text>
-              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
+              <CustomIcon style={styles.icon} name="arrowright" />
             </View>
           </BYTouchable>
           <View style={styles.item}>

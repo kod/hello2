@@ -257,7 +257,7 @@ class PrepaidPhoneCard extends React.Component {
         <BYTouchable style={styles.payMethod} onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}>
           <Text style={styles.payMethodLeft}>Payment method</Text>
           <Text style={styles.payMethodMiddle}>{payWayButtons[payWayIndex].text}</Text>
-          <CustomIcon style={styles.payMethodRight} name={'arrowright'} />
+          <CustomIcon style={styles.payMethodRight} name="arrowright" />
         </BYTouchable>
         <View style={styles.price}>
           <Text style={styles.priceTitle}>金额</Text>

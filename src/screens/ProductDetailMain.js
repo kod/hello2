@@ -297,9 +297,9 @@ class ProductDetail extends React.Component {
             <Text style={styles.productTitle}>{name}</Text>
             <Text style={styles.productPrice}>{priceFormat(price || 0)} VND</Text>
             <View style={styles.serverinfo}>
-              <CustomIcon style={styles.serverinfoToBePaid} name="returns" ></CustomIcon>
+              <CustomIcon style={styles.serverinfoToBePaid} name="returns"  />
               <Text style={styles.serverinfoToBePaidText}>{i18n.qualityAssurance}</Text>
-              <CustomIcon style={styles.serverinfotoReceiveGoods} name="toReceiveGoods" ></CustomIcon>
+              <CustomIcon style={styles.serverinfotoReceiveGoods} name="toReceiveGoods"  />
               <Text style={styles.serverinfotoReceiveGoodsText}>{i18n.fastDelivery}</Text>
             </View>
             <View style={styles.spec}>

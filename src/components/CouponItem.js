@@ -111,7 +111,7 @@ class CouponItem extends Component {
               </View>
               {
                 onPress && 
-                <CustomIcon style={styles.arrow} name={'arrowright'} />
+                <CustomIcon style={styles.arrow} name="arrowright" />
               }
               <Text style={styles.date}>{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
             </View>
@@ -132,7 +132,7 @@ class CouponItem extends Component {
               </View>
               {
                 onPress && 
-                <CustomIcon style={styles.arrow} name={'arrowright'} />
+                <CustomIcon style={styles.arrow} name="arrowright" />
               }
               <Text style={styles.date}>{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
             </View>
