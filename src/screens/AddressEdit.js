@@ -205,7 +205,7 @@ class AddressAdd extends React.Component {
     } = this.props;
 
     if (!values) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry name', ToastAndroid.SHORT)
+      if (Platform.OS === 'android') ToastAndroid.show('place entry name', ToastAndroid.SHORT);
       return false;
     }
 
@@ -216,21 +216,21 @@ class AddressAdd extends React.Component {
     } = values;
 
     if (name.length === 0) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry name', ToastAndroid.SHORT)
+      if (Platform.OS === 'android') ToastAndroid.show('place entry name', ToastAndroid.SHORT);
       return false;
     }
 
     if (phone.length === 0) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry phone', ToastAndroid.SHORT)
+      if (Platform.OS === 'android') ToastAndroid.show('place entry phone', ToastAndroid.SHORT);
       return false;
     }
 
     if (!this.state.areaAddressStr) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry area', ToastAndroid.SHORT)
+      if (Platform.OS === 'android') ToastAndroid.show('place entry area', ToastAndroid.SHORT);
     }
 
     if (address.length === 0) {
-      Platform.OS === 'android' && ToastAndroid.show('place entry address', ToastAndroid.SHORT)
+      if (Platform.OS === 'android') ToastAndroid.show('place entry address', ToastAndroid.SHORT);
       return false;
     }
 

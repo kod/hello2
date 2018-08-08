@@ -159,7 +159,10 @@ class CertifiedInformation extends Component {
       isCertify,
     } = this.props;
 
-    const tips = (text) => Platform.OS === 'android' && ToastAndroid.show(text, ToastAndroid.SHORT);
+    const tips = text => {
+      if (Platform.OS === 'android')
+        ToastAndroid.show(text, ToastAndroid.SHORT);
+    };
 
     if (isCertify) {
       if (!username.length) return tips('username');

@@ -315,7 +315,7 @@ class ProductDetail extends React.Component {
       colorId: object.colorId,
       versionId: object.versionId,
     });
-    productDetail ? productDetailSelect(object, productDetail) : Platform.OS === 'android' && ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
+    productDetail ? productDetailSelect(object, productDetail) :  ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
   }
 
   handleOnPressselectColor(id, name) {
@@ -330,7 +330,7 @@ class ProductDetail extends React.Component {
       colorId: object.colorId,
       versionId: object.versionId,
     });
-    productDetail ? productDetailSelect(object, productDetail) : Platform.OS === 'android' && ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
+    productDetail ? productDetailSelect(object, productDetail) :  ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
   }
 
   handleOnPresschangeNumber(number) {

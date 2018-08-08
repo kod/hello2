@@ -1,48 +1,64 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, Clipboard, Platform, ToastAndroid } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  // ScrollView,
+  Image,
+  Clipboard,
+  Platform,
+  ToastAndroid,
+} from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import QRCode from 'react-native-qrcode';
 
-import { SCREENS, WINDOW_WIDTH } from '../common/constants';
+import {
+  // SCREENS,
+  SIDEINTERVAL,
+  WINDOW_WIDTH,
+} from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import SeparateBar from '../components/SeparateBar';
-import BYTouchable from '../components/BYTouchable';
+// import BYTouchable from '../components/BYTouchable';
 
-import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { SIDEINTERVAL } from '../common/constants';
+import {
+  // RED_COLOR,
+  PRIMARY_COLOR,
+} from '../styles/variables';
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as authActionCreators from '../common/actions/auth';
-import priceFormat from '../common/helpers/priceFormat';
+// import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-})
+});
 
 class Invite extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       qrText: 'https://buyoo.vn/',
-    }
+    };
   }
 
-  componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
-  }
+  // componentDidMount() {
+  //   const { bannerHomeRecommendFetch } = this.props;
+  //   // bannerHomeRecommendFetch();
+  // }
 
   async handleOnPressCopy() {
     Clipboard.setString('hello world');
-    Platform.OS === 'android' && ToastAndroid.show('复制成功', ToastAndroid.SHORT)
+    if (Platform.OS === 'android')
+      ToastAndroid.show('复制成功', ToastAndroid.SHORT);
   }
-  
+
   renderMenuBottomShare() {
     const styles = StyleSheet.create({
       contanier: {

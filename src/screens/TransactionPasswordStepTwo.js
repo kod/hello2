@@ -75,10 +75,10 @@ class TransactionPasswordStepTwo extends React.Component {
       navigation: { state },
     } = this.props;
     if (!formValue) return false;
-    if (!formValue.code) return Platform.OS === 'android' && ToastAndroid.show('Vui lòng nhập mã xác nhận', ToastAndroid.SHORT);
-    if (!formValue.password) return Platform.OS === 'android' && ToastAndroid.show('Vui lòng nhập 6 chữ số', ToastAndroid.SHORT);
-    if (!formValue.repassword) return Platform.OS === 'android' && ToastAndroid.show('Nhập lại Mật mã giao dịch', ToastAndroid.SHORT);
-    if (formValue.password !== formValue.repassword) return Platform.OS === 'android' && ToastAndroid.show('Hai lần nhập mật mã giao dịch không giống nhau', ToastAndroid.SHORT);
+    if (!formValue.code) if (Platform.OS === 'android') ToastAndroid.show('Vui lòng nhập mã xác nhận', ToastAndroid.SHORT);
+    if (!formValue.password) if (Platform.OS === 'android') ToastAndroid.show('Vui lòng nhập 6 chữ số', ToastAndroid.SHORT);
+    if (!formValue.repassword) if (Platform.OS === 'android') ToastAndroid.show('Nhập lại Mật mã giao dịch', ToastAndroid.SHORT);
+    if (formValue.password !== formValue.repassword) if (Platform.OS === 'android') ToastAndroid.show('Hai lần nhập mật mã giao dịch không giống nhau', ToastAndroid.SHORT);
     modifyPayPasswordFetch(formValue.password, formValue.code);
   }
 
