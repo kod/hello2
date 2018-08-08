@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, View, Text, Platform, StatusBar } from 'react-native';
-import { HeaderBackButton, withNavigation } from 'react-navigation';
+// import PropTypes from 'prop-types';
+import {
+  StyleSheet,
+  View,
+  Text,
+  // Platform,
+  // StatusBar,
+} from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 import { BORDER_COLOR, HEADER_BACKGROUND_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  SIDEINTERVAL,
+  // APPBAR_HEIGHT,
+  STATUSBAR_HEIGHT,
+  // SCREENS,
+} from '../common/constants';
 
-import CustomIcon from '../components/CustomIcon';
-import BYTouchable from '../components/BYTouchable';
-
-import { SCREENS } from '../common/constants';
+import CustomIcon from './CustomIcon';
+import BYTouchable from './BYTouchable';
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -22,7 +33,7 @@ const styles = StyleSheet.create({
     paddingLeft: SIDEINTERVAL,
   },
   headerMiddle: {
-    flex: 8
+    flex: 8,
   },
   headerMiddleMain: {
     flexDirection: 'row',
@@ -30,16 +41,16 @@ const styles = StyleSheet.create({
     paddingLeft: WINDOW_WIDTH * 0.03,
     height: 30,
     backgroundColor: BORDER_COLOR,
-    borderRadius: 1
+    borderRadius: 1,
   },
   headerMiddleIcon: {
     fontSize: 12,
     color: '#ccc',
-    marginRight: WINDOW_WIDTH * 0.02
+    marginRight: WINDOW_WIDTH * 0.02,
   },
   headerMiddleText: {
     fontSize: 13,
-    color: '#ccc'
+    color: '#ccc',
   },
   headerIcon: {
     height: 40,
@@ -47,15 +58,15 @@ const styles = StyleSheet.create({
     paddingLeft: WINDOW_HEIGHT * 0.03,
     paddingRight: WINDOW_HEIGHT * 0.03,
     color: '#999',
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 });
 
 class SearchHeader extends Component {
   render() {
     const {
       headerRight,
-      headerLeft,
+      // headerLeft,
       text,
       middleOnPress = () => {},
       leftOnPress = () => {},
@@ -78,13 +89,15 @@ class SearchHeader extends Component {
             <Text style={styles.headerMiddleText}>{text}</Text>
           </View>
         </BYTouchable>
-        {
-          headerRight
-          ?
-          headerRight
-          :
-          <CustomIcon name="qrcode" style={styles.headerIcon} onPress={leftOnPress} />
-        }
+        {headerRight ? (
+          { headerRight }
+        ) : (
+          <CustomIcon
+            name="qrcode"
+            style={styles.headerIcon}
+            onPress={leftOnPress}
+          />
+        )}
       </View>
     );
   }
