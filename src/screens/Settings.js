@@ -12,6 +12,11 @@ import { RED_COLOR } from '../styles/variables';
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as authActionCreators from '../common/actions/auth';
 
+const personPng = require('../images/person.png');
+const osindfaofisPng = require('../images/osindfaofis.png');
+const ufifhiufaisfudPng = require('../images/ufifhiufaisfud.png');
+const aboutPng = require('../images/about.png');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -29,14 +34,13 @@ const styles = StyleSheet.create({
     color: RED_COLOR,
     fontSize: 14,
   },
-})
+});
 
 class Settings extends React.Component {
-
-  componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
-  }
+  // componentDidMount() {
+  //   const { bannerHomeRecommendFetch } = this.props;
+  //   // bannerHomeRecommendFetch();
+  // }
 
   // handleOnPressHeaderBackButton = () => {
   //   const { goBack } = this.props.navigation;
@@ -56,56 +60,56 @@ class Settings extends React.Component {
   //     <View></View>
   //   )
   // }
-  // 
+  //
 
   handleOnPressLogout() {
-    const { i18n, logout, navigation: { goBack } } = this.props;
-    Alert.alert(
-      '',
-      i18n.doYouWantToSignOut,
-      [
-        {
-          text: i18n.cancel,
+    const {
+      i18n,
+      logout,
+      navigation: { goBack },
+    } = this.props;
+    Alert.alert('', i18n.doYouWantToSignOut, [
+      {
+        text: i18n.cancel,
+      },
+      {
+        text: i18n.signOut,
+        onPress: () => {
+          logout();
+          goBack();
         },
-        {
-          text: i18n.signOut,
-          onPress: () => {
-            logout();
-            goBack();
-          }
-        }
-      ]
-    )
+      },
+    ]);
   }
 
   render() {
     const {
-      bannerHomeRecommend,
+      // bannerHomeRecommend,
       navigation: { navigate },
-      i18n 
+      i18n,
     } = this.props;
 
     const navBar1List = [
       {
-        iconImg: require('../images/person.png'),
+        iconImg: personPng,
         name: i18n.personalInformation,
         navigate: SCREENS.Login,
         tips: '',
       },
       {
-        iconImg: require('../images/osindfaofis.png'),
+        iconImg: osindfaofisPng,
         name: i18n.securityCenter,
         navigate: SCREENS.Login,
         tips: '',
       },
       {
-        iconImg: require('../images/ufifhiufaisfud.png'),
+        iconImg: ufifhiufaisfudPng,
         name: i18n.clearCache,
         navigate: SCREENS.Login,
         tips: '',
       },
       {
-        iconImg: require('../images/about.png'),
+        iconImg: aboutPng,
         name: i18n.about,
         navigate: SCREENS.Login,
         tips: '',
@@ -117,13 +121,21 @@ class Settings extends React.Component {
         tips: '',
       },
     ];
-    
+
     return (
       <View style={styles.container}>
         <BYHeader />
         <ScrollView style={styles.container}>
-          <NavBar1 list={navBar1List} callback={(nav) => navigate(nav.navigate)} style={{marginBottom: 30}} styleItemLeft={{flex: 3}} />
-          <BYTouchable style={styles.logout} onPress={() => this.handleOnPressLogout()}>
+          <NavBar1
+            list={navBar1List}
+            style={{ marginBottom: 30 }}
+            styleItemLeft={{ flex: 3 }}
+            callback={nav => navigate(nav.navigate)}
+          />
+          <BYTouchable
+            style={styles.logout}
+            onPress={() => this.handleOnPressLogout()}
+          >
             <Text style={styles.logoutText}>{i18n.signOut}</Text>
           </BYTouchable>
         </ScrollView>
@@ -132,11 +144,12 @@ class Settings extends React.Component {
   }
 }
 
-export default connectLocalization(connect(
-  () => {
-    return (state, props) => {
+export default connectLocalization(
+  connect(
+    state => {
       const {
         bannerHomeRecommend,
+        // bannerHomeRecommend,
       } = state;
 
       // const {
@@ -144,12 +157,12 @@ export default connectLocalization(connect(
       // } = props;
 
       return {
-        bannerHomeRecommend: bannerHomeRecommend || {}
-      }
-    }
-  },
-  {
-    ...bannerHomeRecommendActionCreators,
-    ...authActionCreators,
-  }
-)(Settings));
+        bannerHomeRecommend: bannerHomeRecommend || {},
+      };
+    },
+    {
+      ...bannerHomeRecommendActionCreators,
+      ...authActionCreators,
+    },
+  )(Settings),
+);
