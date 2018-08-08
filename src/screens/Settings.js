@@ -112,7 +112,7 @@ class Settings extends React.Component {
       {
         iconImg: aboutPng,
         name: i18n.aboutAs,
-        navigate: SCREENS.AboutAs,
+        func: () => navigate(SCREENS.AboutAs),
         tips: '',
       },
       {
