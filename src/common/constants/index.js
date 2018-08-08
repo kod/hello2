@@ -1,5 +1,44 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
 
+export const CARMAXNUMBER = 50;
+
+export const SUPPORT_CENTER_URL = 'https://buyoo.vn/html/paystepM.html';
+export const HOW_TO_BUY_URL = 'https://buyoo.vn/html/paystepM.html';
+export const BUSINESS_EMAIL = 'business.vn@buyoo.aisa';
+export const SERVICE_EMAIL = 'service.vn@buyoo.aisa';
+export const SERVICE_PHONE = '1900555506';
+export const BUYOO = 'Buyoo';
+export const BUYOO_VN = `${BUYOO}.vn`;
+
+export const PHONEEXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
+export const PWDEXPR = /^.{8,20}$/; // 密码
+
+export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);
+export const WINDOW_HEIGHT = Math.floor(Dimensions.get('window').height);
+export const SIDEINTERVAL = Math.floor(Dimensions.get('window').width) * 0.04;
+
+export const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 44;
+export const STATUSBAR_HEIGHT =
+  Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+
+export const COUPONMY_TABNAVIGATOR_MAP = {
+  CouponMyUnused: 1,
+  CouponMyUsed: 2,
+  CouponMyPast: 0,
+  1: 'CouponMyUnused',
+  2: 'CouponMyUsed',
+  0: 'CouponMyPast',
+};
+
+export const PROVIDER_TYPE_MAP = {
+  recharge: 32,
+  phoneCard: 33,
+  scratchCards: 34,
+  32: 'recharge',
+  33: 'phoneCard',
+  34: 'scratchCards',
+};
+
 export const MODAL_TYPES = {
   ADDRESSADD: 'ADDRESSADD',
   PARAMSSELECT: 'PARAMSSELECT',
@@ -67,35 +106,4 @@ export const SCREENS = {
   TransactionPasswordStepOne: 'TransactionPasswordStepOne',
   TransactionPasswordStepTwo: 'TransactionPasswordStepTwo',
   WebView: 'WebView',
-};
-
-export const CARMAXNUMBER = 50;
-
-export const PHONEEXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
-export const PWDEXPR = /^.{8,20}$/; // 密码
-
-export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);
-export const WINDOW_HEIGHT = Math.floor(Dimensions.get('window').height);
-export const SIDEINTERVAL = Math.floor(Dimensions.get('window').width) * 0.04;
-
-export const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 44;
-export const STATUSBAR_HEIGHT =
-  Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
-
-export const COUPONMY_TABNAVIGATOR_MAP = {
-  CouponMyUnused: 1,
-  CouponMyUsed: 2,
-  CouponMyPast: 0,
-  1: 'CouponMyUnused',
-  2: 'CouponMyUsed',
-  0: 'CouponMyPast',
-};
-
-export const PROVIDER_TYPE_MAP = {
-  recharge: 32,
-  phoneCard: 33,
-  scratchCards: 34,
-  32: 'recharge',
-  33: 'phoneCard',
-  34: 'scratchCards',
 };
