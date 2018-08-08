@@ -575,7 +575,7 @@ class ProductDetail extends React.Component {
     return (
       <View style={styles.contanier}>
         <View style={styles.title}>
-          <Ionicons style={styles.titleIcon} name={'ios-paper-plane'} />
+          <Ionicons style={styles.titleIcon}  name="ios-paper-plane" />
           <Text style={styles.titleText}>tap to share</Text>
         </View>
         <View style={styles.main}>
