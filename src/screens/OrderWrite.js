@@ -326,12 +326,12 @@ class OrderWrite extends React.Component {
     // } = this.props;
     
     return (
-      <View style={styles.nav} >
-        <View style={styles.navLeft} >
-          <Text style={styles.navLeftTop} >Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom} >{this.calcMoney()} VND</Text>
+      <View style={styles.nav}>
+        <View style={styles.navLeft}>
+          <Text style={styles.navLeftTop}>Trà lần đầu</Text>
+          <Text style={styles.navLeftBottom}>{this.calcMoney()} VND</Text>
         </View>
-        <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()} >Submit</Text>
+        <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()}>Submit</Text>
       </View>
     )
   }
@@ -362,7 +362,7 @@ class OrderWrite extends React.Component {
     }];
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {(getUserInfoById.loading || orderCreate.loading) && <Loader absolutePosition />}
         <BYHeader />
         <ScrollView>
@@ -370,7 +370,7 @@ class OrderWrite extends React.Component {
             addressSelectedItem={addressSelectedItem} 
             onPress={() => this.handleOnPressAddress()} 
           />
-          <View style={styles.bar} ></View>
+          <View style={styles.bar}></View>
           <ProductItem2 
             data={adverstInfo}
             stylePricePrice={{ color: '#666' }}

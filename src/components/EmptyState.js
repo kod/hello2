@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 
 export default ({ style, styleImage, styleText, source, text, ...restProps }) => {
   return (
-    <View style={[styles.empty, style]} {...restProps} >
+    <View style={[styles.empty, style]} {...restProps}>
       <Image style={[styles.emptyImg, styleImage]} source={source} />
       <Text style={[styles.emptyText, styleText]}>{text}</Text>
     </View>

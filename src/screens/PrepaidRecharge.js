@@ -304,11 +304,11 @@ class PrepaidRecharge extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
-        <View style={{ height: 20 }} ></View>
-        <Text style={styles.title} >Chọn nhà mạng</Text>
-        <View style={styles.phoneNumberWrap} >
-          <View style={styles.phoneNumber} >
+      <View style={styles.container}>
+        <View style={{ height: 20 }}></View>
+        <Text style={styles.title}>Chọn nhà mạng</Text>
+        <View style={styles.phoneNumberWrap}>
+          <View style={styles.phoneNumber}>
             <BYTextInput 
               style={styles.phoneInput} 
               onChangeText={(text) => this.handleOnChangeText(text)} 
@@ -322,29 +322,29 @@ class PrepaidRecharge extends React.Component {
               <Image style={styles.phoneImg} source={{ uri: providerIcon }} />
             }
           </View>
-          <Text style={styles.phoneTips} >Lưu ý: Thuê bao bị khóa chiều nạp tiền (sim bị khóa 2 chiều, sim bị khóa do nhập sai mã thẻ điện thoại trước đó nhiều lần, ...) sẽ không thể thực hiện được dịch vụ này.</Text>
+          <Text style={styles.phoneTips}>Lưu ý: Thuê bao bị khóa chiều nạp tiền (sim bị khóa 2 chiều, sim bị khóa do nhập sai mã thẻ điện thoại trước đó nhiều lần, ...) sẽ không thể thực hiện được dịch vụ này.</Text>
           {
             errorText.length > 0 &&
-            <View style={styles.phoneError} >
+            <View style={styles.phoneError}>
               <Ionicons name={'md-alert'} style={styles.phoneErrorIcon} />
-              <Text style={styles.phoneErrorText} >{errorText}</Text>
+              <Text style={styles.phoneErrorText}>{errorText}</Text>
             </View>
           }
         </View>
-        <Text style={styles.title} >Chọn nhà mạng</Text>
+        <Text style={styles.title}>Chọn nhà mạng</Text>
         <ButtonSelect data={items} callback={this.buttonSelectPriceCallback} />
-        <BYTouchable style={styles.payMethod} onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')} >
-          <Text style={styles.payMethodLeft} >Payment method</Text>
-          <Text style={styles.payMethodMiddle} >{payWayButtons[payWayIndex].text || ''}</Text>
+        <BYTouchable style={styles.payMethod} onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}>
+          <Text style={styles.payMethodLeft}>Payment method</Text>
+          <Text style={styles.payMethodMiddle}>{payWayButtons[payWayIndex].text || ''}</Text>
           <CustomIcon style={styles.payMethodRight} name={'arrowright'} />
         </BYTouchable>
-        <View style={styles.price} >
-          <Text style={styles.priceTitle} >金额</Text>
-          <View style={styles.priceMain} >
-            <Text style={styles.priceRed} >{priceFormat(items[buttonIndex].price)} VND</Text>
+        <View style={styles.price}>
+          <Text style={styles.priceTitle}>金额</Text>
+          <View style={styles.priceMain}>
+            <Text style={styles.priceRed}>{priceFormat(items[buttonIndex].price)} VND</Text>
             {
               (items[buttonIndex].price - items[buttonIndex].orgPrice) !== 0 &&
-              <Text style={styles.priceGrey} >(已优惠{priceFormat(items[buttonIndex].orgPrice - items[buttonIndex].price)} VND)</Text>
+              <Text style={styles.priceGrey}>(已优惠{priceFormat(items[buttonIndex].orgPrice - items[buttonIndex].price)} VND)</Text>
             }
           </View>
         </View>
@@ -371,7 +371,7 @@ class PrepaidRecharge extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ScrollView>
           {this.renderContent()}
         </ScrollView>

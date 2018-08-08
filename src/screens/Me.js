@@ -171,11 +171,11 @@ class Me extends React.Component {
     ]
 
     return (
-      <View style={styles.headerBottom} >
+      <View style={styles.headerBottom}>
         {list.map((val, key) => 
-          <View style={styles.headerItem} key={key} >
-            <Text style={styles.headerItemPrice} >{val.price}</Text>
-            <Text style={styles.headerItemText} >{val.text}</Text>
+          <View style={styles.headerItem} key={key}>
+            <Text style={styles.headerItemPrice}>{val.price}</Text>
+            <Text style={styles.headerItemText}>{val.text}</Text>
           </View>
         )}
       </View>
@@ -213,18 +213,18 @@ class Me extends React.Component {
     ];
 
     return (
-      <View style={styles.nav1} >
+      <View style={styles.nav1}>
         {list.map((val, key) => 
           <BYTouchable 
             style={styles.nav1Item} 
             key={key} 
             onPress={() => this.handleOnPressOrderNav(key + 1)}
           >
-            <CustomIcon style={[styles.nav1ItemIcon, val.styleIcon]} name={val.iconName} ></CustomIcon>
+            <CustomIcon style={[styles.nav1ItemIcon, val.styleIcon]} name={val.iconName}></CustomIcon>
             <Text style={styles.nav1ItemText}>{val.text}</Text>
             {
               orderItem[key + 1].items.length > 0 && 
-              <Text style={styles.nav1ItemBadge} >{ orderItem[key + 1].items.length > 0 && orderItem[key + 1].items.length}</Text>
+              <Text style={styles.nav1ItemBadge}>{ orderItem[key + 1].items.length > 0 && orderItem[key + 1].items.length}</Text>
             }
           </BYTouchable>
       )}
@@ -347,13 +347,13 @@ class Me extends React.Component {
     // }
 
     return (
-      <View style={styles.container} >
-        <ScrollView style={styles.container} >
-          <View style={styles.container} >
-            <View style={styles.header} >
+      <View style={styles.container}>
+        <ScrollView style={styles.container}>
+          <View style={styles.container}>
+            <View style={styles.header}>
               <BYTouchable style={styles.headerIcon} onPress={() => this.handleOnPressUser()}>
                 <Image style={styles.headerIconImg} source={headerIconImgSource} />
-                <Text style={styles.headerIconText} >{username || phone}</Text>
+                <Text style={styles.headerIconText}>{username || phone}</Text>
               </BYTouchable>
               {/* {this.renderHeaderBottom()} */}
             </View>

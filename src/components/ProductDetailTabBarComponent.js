@@ -61,9 +61,9 @@ export default class ProductDetailTabBarComponent extends Component {
     
     if (type === 'main') {
       return (
-        <Animated.View style={[style,]} >
-          <View style={[styles.headerMiddle, { opacity, backgroundColor: '#fff', }]} ></View>
-          <View style={{flexDirection: 'row'}} >
+        <Animated.View style={[style,]}>
+          <View style={[styles.headerMiddle, { opacity, backgroundColor: '#fff', }]}></View>
+          <View style={{flexDirection: 'row'}}>
             <CustomIcon name="back" 
               onPress={() => goBack()} 
               style={[styles.headerLeft, { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})`, }]} 
@@ -87,7 +87,7 @@ export default class ProductDetailTabBarComponent extends Component {
     }
     
     return (
-      <Animated.View style={[style, {opacity: opacity}]} >
+      <Animated.View style={[style, {opacity: opacity}]}>
         <CustomIcon name="back" style={styles.headerLeft} onPress={() => goBack()} />
         <TabBarTop {...this.props} />
         <SimpleLineIcons name="share" style={styles.headerRight} onPress={() => handleOnPressToggleMenuBottomSheet()} />

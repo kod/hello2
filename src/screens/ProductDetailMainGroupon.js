@@ -175,7 +175,7 @@ class GrouponList extends Component {
       item,
     } = this.props;
     return (
-      <View style={styles.grouponInfoMain} >
+      <View style={styles.grouponInfoMain}>
         <MasterAvatar avatar={item.headimage ? { uri: item.headimage } :require('../images/aioru09230f.png')} imageStyle={{height:30,width:30}} />
         <Ionicons style={styles.grouponInfoItemWait} name={'ios-help-circle-outline'} />
       </View>
@@ -211,7 +211,7 @@ class MasterAvatar extends Component {
       avatar,
     } = this.props;
     return (
-      <View style={[styles.masterAvatar, style]} >
+      <View style={[styles.masterAvatar, style]}>
         <Image style={[styles.masterAvatarImg, imageStyle]} source={avatar} />
         <Image style={styles.masterAvatarIcon} source={require('../images/groupon948943.png')} />
       </View>
@@ -409,22 +409,22 @@ class ProductDetail extends Component {
     const createTime = item ? item.createTime : '';
     
     return (
-      <View style={styles.container} >
-        <View style={styles.main} >
-          <View style={styles.top} >
+      <View style={styles.container}>
+        <View style={styles.main}>
+          <View style={styles.top}>
             <MasterAvatar avatar={item.headimage ? { uri: item.headimage } :require('../images/aioru09230f.png')} />
-            <Text style={styles.masterName} >{item.username ? item.username : item.msisdn}</Text>
-            <Text style={styles.createTime} >{`${createTime} ${i18n.startANewGroupBuying}`}</Text>
-            <Text style={styles.proccess} >{`${item.slaveNum + 1}/${item.personNum}`}</Text>
+            <Text style={styles.masterName}>{item.username ? item.username : item.msisdn}</Text>
+            <Text style={styles.createTime}>{`${createTime} ${i18n.startANewGroupBuying}`}</Text>
+            <Text style={styles.proccess}>{`${item.slaveNum + 1}/${item.personNum}`}</Text>
             <EvilIcons name={'close'} style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
           </View>
-          <ScrollView style={styles.bottom} >
+          <ScrollView style={styles.bottom}>
             {
               masterItems.map((val, key) => {
                 return (
-                  <View style={styles.item} key={key} >
+                  <View style={styles.item} key={key}>
                     <Image style={styles.itemAvatar} source={val.headimage ? { uri: val.headimage } :require('../images/aioru09230f.png')} />
-                    <Text style={styles.itemText} >{val.username}</Text>
+                    <Text style={styles.itemText}>{val.username}</Text>
                   </View>
                 )
               })
@@ -490,12 +490,12 @@ class ProductDetail extends Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
-        <View style={styles.main} >
-          <Text style={styles.title} >{i18n.joinInGroupBuy} {value.username ? value.username : value.msisdn}</Text>
+      <View style={styles.container}>
+        <View style={styles.main}>
+          <Text style={styles.title}>{i18n.joinInGroupBuy} {value.username ? value.username : value.msisdn}</Text>
           <GrouponList item={value} />
-          <View style={styles.buttonWrap} >
-            <Text style={styles.button} onPress={() => this.handleOnPressJoinInGroupBuy()} >{i18n.joinInGroupBuy}</Text>
+          <View style={styles.buttonWrap}>
+            <Text style={styles.button} onPress={() => this.handleOnPressJoinInGroupBuy()}>{i18n.joinInGroupBuy}</Text>
           </View>
           <EvilIcons name={'close'} style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
         </View>
@@ -546,13 +546,13 @@ class ProductDetail extends Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
-        <View style={styles.main} >
-          <Text style={styles.title} >{i18n.groupBuy}</Text>
-          <ScrollView style={styles.wrap} >
+      <View style={styles.container}>
+        <View style={styles.main}>
+          <Text style={styles.title}>{i18n.groupBuy}</Text>
+          <ScrollView style={styles.wrap}>
             {
               masterItems.map((val, key) => 
-                <View key={key} >
+                <View key={key}>
                   {this.renderGrouponJoin(val)}
                 </View>
               )
@@ -610,13 +610,13 @@ class ProductDetail extends Component {
     } = this.props;
     
     return (
-      <View style={styles.grouponJoinMain} >
+      <View style={styles.grouponJoinMain}>
         <Image style={styles.grouponJoinMainLeft} source={val.headimage ? { uri: val.headimage } :require('../images/aioru09230f.png')} />
-        <View style={styles.grouponJoinMainMiddle} >
-          <Text style={styles.grouponJoinMainRow2} numberOfLines={1} >{val.username ? val.username : val.msisdn}</Text>
-          <Text style={styles.grouponJoinMainRow1} >{i18n.need} {val.personNum - val.slaveNum - 1} {i18n.person}</Text>
+        <View style={styles.grouponJoinMainMiddle}>
+          <Text style={styles.grouponJoinMainRow2} numberOfLines={1}>{val.username ? val.username : val.msisdn}</Text>
+          <Text style={styles.grouponJoinMainRow1}>{i18n.need} {val.personNum - val.slaveNum - 1} {i18n.person}</Text>
         </View>
-        <Text style={styles.grouponJoinMainRight} onPress={() => this.handleOnPressToggleGroup('join', val)} backgroundColor={'transparent'} >{i18n.join}</Text>
+        <Text style={styles.grouponJoinMainRight} onPress={() => this.handleOnPressToggleGroup('join', val)} backgroundColor={'transparent'}>{i18n.join}</Text>
       </View>
     )
   }
@@ -716,23 +716,23 @@ class ProductDetail extends Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
           masterItems.length === 0
           &&
-          <View style={styles.groupon} >
-            <Text style={styles.grouponTitle} >{i18n.groupBuy}</Text>
-            <Text style={styles.grouponDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')} >{i18n.startGroupBuy}</Text>
+          <View style={styles.groupon}>
+            <Text style={styles.grouponTitle}>{i18n.groupBuy}</Text>
+            <Text style={styles.grouponDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')}>{i18n.startGroupBuy}</Text>
             <CustomIcon style={styles.grouponArrow} name="arrowright" />
           </View>
         }
         {
           masterItems.length > 0 && isMaster === true
           &&
-          <BYTouchable style={styles.grouponInfo} onPress={() => this.handleOnPressToggleGroup('self')} backgroundColor={'transparent'} >
-            <View style={styles.grouponInfoTitle} >
-              <Text style={styles.grouponInfoTitleLeft} >{i18n.groupBuy}</Text>
-              <Text style={styles.grouponInfoTitleMiddle} >{i18n.details}</Text>
+          <BYTouchable style={styles.grouponInfo} onPress={() => this.handleOnPressToggleGroup('self')} backgroundColor={'transparent'}>
+            <View style={styles.grouponInfoTitle}>
+              <Text style={styles.grouponInfoTitleLeft}>{i18n.groupBuy}</Text>
+              <Text style={styles.grouponInfoTitleMiddle}>{i18n.details}</Text>
               <CustomIcon style={styles.grouponInfoTitleRight} name="arrowright" />
             </View>
             <GrouponList item={masterItems[0]} />
@@ -741,10 +741,10 @@ class ProductDetail extends Component {
         {
           masterItems.length > 0 && isMaster === false
           &&
-          <View style={styles.grouponJoin} >
-            <View style={styles.grouponJoinTitle} >
-              <Text style={styles.grouponJoinTitleText} >{masterItems.length} {i18n.personGroupBuying}</Text>
-              <Text style={styles.grouponJoinMore} onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor={'transparent'} >{i18n.more}</Text>
+          <View style={styles.grouponJoin}>
+            <View style={styles.grouponJoinTitle}>
+              <Text style={styles.grouponJoinTitleText}>{masterItems.length} {i18n.personGroupBuying}</Text>
+              <Text style={styles.grouponJoinMore} onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor={'transparent'}>{i18n.more}</Text>
               <CustomIcon style={styles.grouponArrow} name="arrowright" onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor={'transparent'} />
             </View>
             {this.renderGrouponJoin(masterItems[0])}
@@ -800,16 +800,16 @@ class ProductDetail extends Component {
     const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${WebViewImages}</body></html>`
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ScrollView onScroll={this.handleOnScroll}>
-          <BYTouchable style={styles.favorite} backgroundColor={'transparent'} onPress={() => this.handleToggleCollection()} >
+          <BYTouchable style={styles.favorite} backgroundColor={'transparent'} onPress={() => this.handleToggleCollection()}>
             {
               isCollection ? 
               <MaterialIcons name="favorite" style={[styles.favoriteIcon, styles.favoriteIconActive]} /> : 
               <MaterialIcons name="favorite-border" style={styles.favoriteIcon} />
             }
           </BYTouchable>
-          <View style={styles.statusbarPlaceholder} ></View>
+          <View style={styles.statusbarPlaceholder}></View>
           <SwiperFlatList 
             data={imageUrls} 
             style={{ height: WINDOW_WIDTH, }} 
@@ -819,18 +819,18 @@ class ProductDetail extends Component {
             paginationDefaultColor="rgba(88,88,88,.5)"
             autoplay={false}
           />
-          <View style={styles.product} >
-            <Text style={styles.productTitle} >{name}</Text>
-            <Text style={styles.productPrice} >{priceFormat(price || 0)} VND</Text>
-            <View style={styles.serverinfo} >
+          <View style={styles.product}>
+            <Text style={styles.productTitle}>{name}</Text>
+            <Text style={styles.productPrice}>{priceFormat(price || 0)} VND</Text>
+            <View style={styles.serverinfo}>
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" ></CustomIcon>
-              <Text style={styles.serverinfoToBePaidText} >{i18n.qualityAssurance}</Text>
+              <Text style={styles.serverinfoToBePaidText}>{i18n.qualityAssurance}</Text>
               <CustomIcon style={styles.serverinfotoReceiveGoods} name="toReceiveGoods" ></CustomIcon>
-              <Text style={styles.serverinfotoReceiveGoodsText} >{i18n.fastDelivery}</Text>
+              <Text style={styles.serverinfotoReceiveGoodsText}>{i18n.fastDelivery}</Text>
             </View>
-            <View style={styles.spec} >
-              <Text style={styles.specTitle} >{i18n.selected}</Text>
-              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')} >{propertiesIdsObject.colorName} {propertiesIdsObject.versionName}</Text>
+            <View style={styles.spec}>
+              <Text style={styles.specTitle}>{i18n.selected}</Text>
+              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')}>{propertiesIdsObject.colorName} {propertiesIdsObject.versionName}</Text>
               <CustomIcon style={styles.specArrow} name="arrowright" />
             </View>
           </View>
@@ -838,8 +838,8 @@ class ProductDetail extends Component {
           <Comment data={comment} />
           {
             !!comment.length &&
-            <View style={styles.commentMore} >
-              <Text style={styles.commentMoreText} onPress={() => navigate(SCREENS.ProductDetailComment)} >{i18n.more}</Text>
+            <View style={styles.commentMore}>
+              <Text style={styles.commentMoreText} onPress={() => navigate(SCREENS.ProductDetailComment)}>{i18n.more}</Text>
             </View>
           }
           <WebView
@@ -850,8 +850,8 @@ class ProductDetail extends Component {
             }
             style={styles.WebView}
           />
-          <View style={[styles.commentMore, {paddingTop: SIDEINTERVAL}]} >
-            <Text style={styles.commentMoreText} onPress={() => mainNavigation.navigate(SCREENS.ProductDetailImages, { html: WebViewHTML })} >{i18n.more}</Text>
+          <View style={[styles.commentMore, {paddingTop: SIDEINTERVAL}]}>
+            <Text style={styles.commentMoreText} onPress={() => mainNavigation.navigate(SCREENS.ProductDetailImages, { html: WebViewHTML })}>{i18n.more}</Text>
           </View>
           {/* {
             imageDesc.map((val, key) => {

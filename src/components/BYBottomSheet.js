@@ -96,7 +96,7 @@ class BYBottomSheet extends Component {
         <TouchableWithoutFeedback onPress={onCancel}>
           <View style={[styles.container, containerStyle]}>
             <TouchableWithoutFeedback>
-              <View style={styles.innerContainer} >
+              <View style={styles.innerContainer}>
                 {children}
               </View>
             </TouchableWithoutFeedback>

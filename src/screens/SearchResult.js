@@ -140,11 +140,11 @@ class SearchResult extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader
           headerTitle={this.renderHeaderTitle()}
         />
-        <View style={styles.search} >
+        <View style={styles.search}>
           <TextInput 
             style={styles.textInput} 
             underlineColorAndroid={'rgba(0,0,0,.0)'} 
@@ -160,9 +160,9 @@ class SearchResult extends React.Component {
         </View>
         {
           items.length > 0 && 
-          <Text style={styles.title} >historical search</Text>
+          <Text style={styles.title}>historical search</Text>
         }
-        <View style={styles.history} >
+        <View style={styles.history}>
           {
             items.map((val, key) => (
               <BYTouchable 
@@ -170,7 +170,7 @@ class SearchResult extends React.Component {
                 onPress={() => this.handleOnPressHistoryItem(val)} 
                 key={key} 
               >
-                <Text style={styles.historyTitle} >{val}</Text>
+                <Text style={styles.historyTitle}>{val}</Text>
                 <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => searchHistoryRemove(val)} />
               </BYTouchable>
             ))

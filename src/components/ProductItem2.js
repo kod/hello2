@@ -107,7 +107,7 @@ class ProductItem2 extends Component {
         {data &&
           data.map((val, key) => {
             return (
-              <BYTouchable style={[styles.item, styleItem]} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, propertiesIds: val.propertiesIds, })} >
+              <BYTouchable style={[styles.item, styleItem]} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, propertiesIds: val.propertiesIds, })}>
                 <View style={[styles.itemLeft, styleItemLeft]}>
                   <Image style={styles.itemImage} source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} />
                 </View>

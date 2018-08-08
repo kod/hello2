@@ -223,9 +223,9 @@ class CertifiedInformation extends Component {
     } = this.props
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
-          sexList.map((val, key) => <Text style={styles.item} key={key} onPress={() => { certifiedInformationEdit(`sex`, val.key); this.handleOnPressToggleModal(); }} >{val.value}</Text>)
+          sexList.map((val, key) => <Text style={styles.item} key={key} onPress={() => { certifiedInformationEdit(`sex`, val.key); this.handleOnPressToggleModal(); }}>{val.value}</Text>)
         }
       </View>
     )
@@ -270,12 +270,12 @@ class CertifiedInformation extends Component {
     }
     
     return (
-      <ScrollView keyboardShouldPersistTaps={'always'} >
-        <KeyboardAvoidingView behavior={'padding'} >
+      <ScrollView keyboardShouldPersistTaps={'always'}>
+        <KeyboardAvoidingView behavior={'padding'}>
           {(addLoading || cardSubmitLoading) && <Loader absolutePosition />}
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Name</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Name</Text>
               <BYTextInput 
                 style={styles.input}
                 placeholder={'please enter your name'}
@@ -285,9 +285,9 @@ class CertifiedInformation extends Component {
               />
             </View>
           </View>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >ID number</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>ID number</Text>
               <BYTextInput 
                 style={styles.input}
                 placeholder={'please enter your ID'}
@@ -298,16 +298,16 @@ class CertifiedInformation extends Component {
               />
             </View>
           </View>
-          <BYTouchable style={styles.item} onPress={() => this.handleOnPressToggleModal()} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Gender</Text>
-              <Text style={styles.value} >{this.getSexName()}</Text>
-              <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'} ></MaterialIcons>
+          <BYTouchable style={styles.item} onPress={() => this.handleOnPressToggleModal()}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Gender</Text>
+              <Text style={styles.value}>{this.getSexName()}</Text>
+              <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'}></MaterialIcons>
             </View>
           </BYTouchable>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Birthday</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Birthday</Text>
               <DatePicker
                 showIcon={false}
                 style={{flex: 1}}
@@ -333,12 +333,12 @@ class CertifiedInformation extends Component {
                 }}
                 onDateChange={val => certifiedInformationEdit('birthday', val)}
               />
-              <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'} ></MaterialIcons>
+              <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'}></MaterialIcons>
             </View>
           </View>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Home address</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Home address</Text>
               <BYTextInput 
                 style={styles.input}
                 placeholder={'please enter your Home address'}
@@ -348,10 +348,10 @@ class CertifiedInformation extends Component {
               />
             </View>
           </View>
-          <BYTouchable style={styles.item} backgroundColor={'transparent'} onPress={() => navigate(SCREENS.CertifiedInformationSchool)} >
-            <View style={styles.main} >
-              <Text style={styles.label} >School</Text>
-              <Text style={styles.value} >
+          <BYTouchable style={styles.item} backgroundColor={'transparent'} onPress={() => navigate(SCREENS.CertifiedInformationSchool)}>
+            <View style={styles.main}>
+              <Text style={styles.label}>School</Text>
+              <Text style={styles.value}>
                 {
                   admissiontime &&
                   collegeaddr &&
@@ -363,13 +363,13 @@ class CertifiedInformation extends Component {
                   ''
                 }
               </Text>
-              <CustomIcon style={styles.icon} name={'arrowright'} ></CustomIcon>
+              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
             </View>
           </BYTouchable>
-          <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 1 })} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Emergency Contact Person 1</Text>
-              <Text style={styles.value} >
+          <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 1 })}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Emergency Contact Person 1</Text>
+              <Text style={styles.value}>
               {
                 connectuseridentification1.length &&
                 connectusermsisdn1.length &&
@@ -379,13 +379,13 @@ class CertifiedInformation extends Component {
                 ''
               }
               </Text>
-              <CustomIcon style={styles.icon} name={'arrowright'} ></CustomIcon>
+              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
             </View>
           </BYTouchable>
-          <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 2 })} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Emergency Contact Person 2</Text>
-              <Text style={styles.value} >
+          <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 2 })}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Emergency Contact Person 2</Text>
+              <Text style={styles.value}>
               {
                 connectusermsisdn2.length &&
                 connectusername2.length &&
@@ -394,13 +394,13 @@ class CertifiedInformation extends Component {
                 ''
               }
               </Text>
-              <CustomIcon style={styles.icon} name={'arrowright'} ></CustomIcon>
+              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
             </View>
           </BYTouchable>
-          <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 3 })} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Emergency Contact Person 3</Text>
-              <Text style={styles.value} >
+          <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.CertifiedInformationContact, { index: 3 })}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Emergency Contact Person 3</Text>
+              <Text style={styles.value}>
               {
                 connectusermsisdn3.length &&
                 connectusername3.length &&
@@ -409,12 +409,12 @@ class CertifiedInformation extends Component {
                 ''
               }
               </Text>
-              <CustomIcon style={styles.icon} name={'arrowright'} ></CustomIcon>
+              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
             </View>
           </BYTouchable>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >E-mail</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>E-mail</Text>
               <BYTextInput 
                 style={styles.input}
                 placeholder={'please enter your Email'}

@@ -103,17 +103,17 @@ class CouponItem extends Component {
             backgroundColor={'transparent'}
           > 
             <Image style={styles.image} source={require('../images/couponBlue.png')} />
-            <View style={styles.bottom} >
-              <View style={styles.left} >
-                <Text style={styles.price} >{priceFormat(val.voucherValue)} vnd</Text>
-                <Text style={styles.text1} >{val.voucherName}</Text>
-                <Text style={styles.text2} >{val.voucherDesc}</Text>
+            <View style={styles.bottom}>
+              <View style={styles.left}>
+                <Text style={styles.price}>{priceFormat(val.voucherValue)} vnd</Text>
+                <Text style={styles.text1}>{val.voucherName}</Text>
+                <Text style={styles.text2}>{val.voucherDesc}</Text>
               </View>
               {
                 onPress && 
                 <CustomIcon style={styles.arrow} name={'arrowright'} />
               }
-              <Text style={styles.date} >{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
+              <Text style={styles.date}>{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
             </View>
           </BYTouchable>
           :
@@ -124,17 +124,17 @@ class CouponItem extends Component {
             backgroundColor={'transparent'}
           >
             <Image style={styles.image} source={require('../images/couponRed.png')} />
-            <View style={[styles.bottom, styles.bottomRed]} >
-              <View style={styles.left} >
-                <Text style={styles.price} >{ 100 - val.voucherValue }% OFF</Text>
-                <Text style={styles.text1} >{val.voucherName}</Text>
-                <Text style={styles.text2} >{val.voucherDesc}</Text>
+            <View style={[styles.bottom, styles.bottomRed]}>
+              <View style={styles.left}>
+                <Text style={styles.price}>{ 100 - val.voucherValue }% OFF</Text>
+                <Text style={styles.text1}>{val.voucherName}</Text>
+                <Text style={styles.text2}>{val.voucherDesc}</Text>
               </View>
               {
                 onPress && 
                 <CustomIcon style={styles.arrow} name={'arrowright'} />
               }
-              <Text style={styles.date} >{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
+              <Text style={styles.date}>{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
             </View>
           </BYTouchable>
         ))}

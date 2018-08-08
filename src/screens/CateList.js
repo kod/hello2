@@ -49,7 +49,7 @@ class CateList extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ProductItem1 data={items} groupon={false} />
       </View>
     )
@@ -64,7 +64,7 @@ class CateList extends React.Component {
     if (loading) return <Loader />;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         <ScrollView>
           {this.renderContent()}

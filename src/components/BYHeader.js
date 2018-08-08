@@ -94,13 +94,13 @@ class PXHeader extends Component {
 
   renderHeaderLeft = () => {
     return (
-      <View style={{}} ></View>
+      <View style={{}}></View>
     );
   };
 
   renderHeaderTitle = () => {
     return (
-      <View style={{flex: 1}} ></View>
+      <View style={{flex: 1}}></View>
     );
   };
   
@@ -121,7 +121,7 @@ class PXHeader extends Component {
         ]}
       >
         <View style={styles.subContainer}>
-          <BYTouchable onPress={() => this.handleOnPressBackButton()} >
+          <BYTouchable onPress={() => this.handleOnPressBackButton()}>
             {showBackButton ?
               <CustomIcon
                 name="back"

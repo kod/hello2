@@ -142,12 +142,12 @@ class BillSelect extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.main}>
-          <View style={styles.nav} >
-            <Text style={styles.navItem} onPress={() => this.handleOnPressYear(activeYear - 1)} >{activeYear - 1}</Text>
-            <Text style={[styles.navItem, styles.navItemActive]} >{activeYear}</Text>
-            <Text style={styles.navItem} onPress={() => this.handleOnPressYear(activeYear + 1)} >{activeYear + 1}</Text>
+          <View style={styles.nav}>
+            <Text style={styles.navItem} onPress={() => this.handleOnPressYear(activeYear - 1)}>{activeYear - 1}</Text>
+            <Text style={[styles.navItem, styles.navItemActive]}>{activeYear}</Text>
+            <Text style={styles.navItem} onPress={() => this.handleOnPressYear(activeYear + 1)}>{activeYear + 1}</Text>
           </View>
-          <ScrollView style={styles.wrap} >
+          <ScrollView style={styles.wrap}>
             {
               billByYearItems[activeYear] && 
               billByYearItems[activeYear].map((val, key) => {
@@ -158,12 +158,12 @@ class BillSelect extends Component {
                     backgroundColor={'transparent'}
                     onPress={() => this.handleOnPressMonth(val)}
                   >
-                    <View style={styles.itemMain} >
-                      <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]} >{key + 1}</Text>
-                      <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]} >{ val.totalAmount ? priceFormat(val.totalAmount) + ' VND' : 'no bill' } </Text>
+                    <View style={styles.itemMain}>
+                      <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]}>{key + 1}</Text>
+                      <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]}>{ val.totalAmount ? priceFormat(val.totalAmount) + ' VND' : 'no bill' } </Text>
                     </View>
                     {
-                      <Text style={[styles.itemTips, val.status === 10007 && styles.itemTipsActive]} >{ val.status && billStatusCodes(val.status) }</Text>
+                      <Text style={[styles.itemTips, val.status === 10007 && styles.itemTipsActive]}>{ val.status && billStatusCodes(val.status) }</Text>
                     }
                   </BYTouchable>
                 )

@@ -112,7 +112,7 @@ class Coupon extends React.Component {
     if (loading) return <Loader />;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
         />

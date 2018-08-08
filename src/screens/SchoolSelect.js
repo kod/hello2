@@ -112,7 +112,7 @@ class SchoolSelect extends React.Component {
 
   renderHeaderRight = () => {
     return (
-      <View style={{width: 45}} ></View>
+      <View style={{width: 45}}></View>
     )
   }
 
@@ -142,8 +142,8 @@ class SchoolSelect extends React.Component {
   }
   
   _renderItem = (item, key) => (
-    <BYTouchable key={key} onPress={() => this.handleOnPressItem(item)} >
-      <Text style={[styles.item, item.staging === 1 && styles.itemActive]} >{item.name}</Text>
+    <BYTouchable key={key} onPress={() => this.handleOnPressItem(item)}>
+      <Text style={[styles.item, item.staging === 1 && styles.itemActive]}>{item.name}</Text>
     </BYTouchable>
   );
 
@@ -166,12 +166,12 @@ class SchoolSelect extends React.Component {
     }
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader 
           headerRight={this.renderHeaderRight()}
           headerTitle={this.renderHeaderTitle()}
         />
-        <Text style={styles.tips} >
+        <Text style={styles.tips}>
           Bạn học thân mến, tạm thời chúng tôi chỉ thực hiện thanh toán trả góp tại những trường đại học có trong danh sách, những trường đại học không thể chọn được vì nhân lực công ty chúng tôi có hạn nên tạm thời chưa thể thanh toán, nhưng bạn có thể lựa chọn thanh toán toàn bộ. Nếu có thắc mắc gì, xin hãy để lại lời nhắn trên facebook. Cám ơn sự ủng hộ của bạn.
         </Text>
         <ScrollView>

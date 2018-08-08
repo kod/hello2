@@ -119,12 +119,12 @@ class Settings extends React.Component {
     ];
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
-        <ScrollView style={styles.container} >
+        <ScrollView style={styles.container}>
           <NavBar1 list={navBar1List} callback={(nav) => navigate(nav.navigate)} style={{marginBottom: 30}} styleItemLeft={{flex: 3}} />
-          <BYTouchable style={styles.logout} onPress={() => this.handleOnPressLogout()} >
-            <Text style={styles.logoutText} >{i18n.signOut}</Text>
+          <BYTouchable style={styles.logout} onPress={() => this.handleOnPressLogout()}>
+            <Text style={styles.logoutText}>{i18n.signOut}</Text>
           </BYTouchable>
         </ScrollView>
       </View>

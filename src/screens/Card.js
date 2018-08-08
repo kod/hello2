@@ -50,7 +50,7 @@ class Card extends React.Component {
     });
     
     return (
-      <Text style={styles.title} >credit card</Text>
+      <Text style={styles.title}>credit card</Text>
     )
   }
 
@@ -72,7 +72,7 @@ class Card extends React.Component {
     });
     
     return (
-      <View style={styles.applyStatus} >
+      <View style={styles.applyStatus}>
         <Image style={styles.cardImage} source={require('../images/kasdifghosjfil.png')} />
         <BYButton 
           text={text} 
@@ -137,19 +137,19 @@ class Card extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader
           showBackButton={false}
           headerTitle={this.renderHeaderTitle()}
         />
-        <View style={styles.card} >
-          <View style={styles.cardMain} >
-            <Text style={styles.logoText} >Buyoo</Text>
-            <Text style={styles.title} >available credit</Text>
-            <Text style={styles.price} >{priceFormat(availableBalance)} VND</Text>
-            <View style={styles.info} >
-              <Text style={styles.cardId} >{priceFormat(cardCode, ' ', 4)}</Text>
-              <Text style={styles.cardName} >{username}</Text>
+        <View style={styles.card}>
+          <View style={styles.cardMain}>
+            <Text style={styles.logoText}>Buyoo</Text>
+            <Text style={styles.title}>available credit</Text>
+            <Text style={styles.price}>{priceFormat(availableBalance)} VND</Text>
+            <View style={styles.info}>
+              <Text style={styles.cardId}>{priceFormat(cardCode, ' ', 4)}</Text>
+              <Text style={styles.cardName}>{username}</Text>
             </View>
           </View>
         </View>
@@ -188,7 +188,7 @@ class Card extends React.Component {
     // )
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
           status === 3 && initPassword === 1
           &&
@@ -249,7 +249,7 @@ class Card extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {this.renderMain()}
       </View>
     );

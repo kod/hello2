@@ -229,8 +229,8 @@ class Evalution extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
-        <View style={styles.startWrap} >
+      <View style={styles.container}>
+        <View style={styles.startWrap}>
           {
             [0,1,2,3,4].map((val) => 
               <FontAwesome 
@@ -242,8 +242,8 @@ class Evalution extends React.Component {
             )
           }
         </View>
-        <View style={styles.mainWrap} >
-          <View style={styles.main} >
+        <View style={styles.mainWrap}>
+          <View style={styles.main}>
             <BYTextInput 
               style={styles.textInput}
               placeholder={'please enter your name'}
@@ -254,26 +254,26 @@ class Evalution extends React.Component {
               numberOfLines={3}
               multiline={true}
             />
-            <View style={styles.pics} >
+            <View style={styles.pics}>
               {
                 images.map((val, key) => {
                   return (
-                    <View style={styles.imageItem} key={key} >
-                      <Text style={styles.imageItemOnLongPress} onLongPress={() => this.handleOnLongPressImgDel(key)} ></Text>
+                    <View style={styles.imageItem} key={key}>
+                      <Text style={styles.imageItemOnLongPress} onLongPress={() => this.handleOnLongPressImgDel(key)}></Text>
                       <Image style={styles.imageItemImage} source={{ uri: val }} />
                       {/* <Image style={styles.imageItemImage} source={require('../images/viemnam.png')} /> */}
                     </View>
                   )
                 })
               }
-              <BYTouchable style={styles.selectPics} onPress={() => this.handleOnPressSelectPics()} >
+              <BYTouchable style={styles.selectPics} onPress={() => this.handleOnPressSelectPics()}>
                 <FontAwesome  style={ styles.cameraIcon } name="camera" />
-                <Text style={styles.cameraText} >0/5</Text>
+                <Text style={styles.cameraText}>0/5</Text>
               </BYTouchable>
             </View>
           </View>
-          <Text style={styles.tips} >your comment will be anonymous</Text>
-          <Text style={styles.tips} >长按删除图片</Text>
+          <Text style={styles.tips}>your comment will be anonymous</Text>
+          <Text style={styles.tips}>长按删除图片</Text>
         </View>
         <BYButton text={'publish'} styleWrap={styles.button} onPress={() => {}} />
       </View>
@@ -294,7 +294,7 @@ class Evalution extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         <ScrollView>
           {this.renderContent()}

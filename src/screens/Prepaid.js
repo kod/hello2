@@ -88,7 +88,7 @@ class Prepaid extends React.Component {
     // }
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
           <PrepaidTabNavigator screenProps={{
             ...screenProps,
             mainNavigation: navigation,
@@ -106,7 +106,7 @@ class Prepaid extends React.Component {
     // } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {this.renderMainContent()}
         {/* <BYBottomSheet
           visible={isOpenMenuBottomSheet}

@@ -169,28 +169,28 @@ class Address extends React.Component {
     }
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
           items.length === 0 
           ?
           <EmptyState source={require('../images/afiasifsdhfs.png')} text={i18n.pleaseAddYourShippingAddress} />
           :
-          <ScrollView style={styles.container} >
+          <ScrollView style={styles.container}>
             {items.map((val, key) => 
-              <BYTouchable style={styles.item} key={key} onPress={() => this.handleOnPressItem(val)} >
-                <View style={styles.main} >
-                  <View style={styles.namePhone} >
-                    <Text style={styles.name} >{val.username}</Text>
-                    <Text style={styles.phone} >{val.msisdn}</Text>
+              <BYTouchable style={styles.item} key={key} onPress={() => this.handleOnPressItem(val)}>
+                <View style={styles.main}>
+                  <View style={styles.namePhone}>
+                    <Text style={styles.name}>{val.username}</Text>
+                    <Text style={styles.phone}>{val.msisdn}</Text>
                   </View>
-                  <Text style={styles.address} >{this.edit_address(val)}</Text>
+                  <Text style={styles.address}>{this.edit_address(val)}</Text>
                   {!isSelect && 
-                  <View style={styles.operate} >
-                    <BYTouchable style={styles.operateLeft} backgroundColor={'transparent'} onPress={() => this.handleOnPressAddressDefault(val)} >
+                  <View style={styles.operate}>
+                    <BYTouchable style={styles.operateLeft} backgroundColor={'transparent'} onPress={() => this.handleOnPressAddressDefault(val)}>
                       <Ionicons style={[styles.selectIcon, val.isdefault === 'Y' && styles.selected]} name={'ios-radio-button-on-outline'} />
-                      <Text style={[styles.selectText, val.isdefault === 'Y' && styles.selected]} >{i18n.defaultAddress}</Text>
+                      <Text style={[styles.selectText, val.isdefault === 'Y' && styles.selected]}>{i18n.defaultAddress}</Text>
                     </BYTouchable>
-                    <View style={styles.operateRight} >
+                    <View style={styles.operateRight}>
                       <Ionicons style={styles.editIcon} name={'ios-create-outline'} 
                         onPress={() => navigate(SCREENS.AddressAdd, {
                           id: val.id,
@@ -214,7 +214,7 @@ class Address extends React.Component {
             )}
           </ScrollView>
         }
-        <Text style={styles.add} onPress={() => navigate(SCREENS.AddressAdd)} >add address</Text>
+        <Text style={styles.add} onPress={() => navigate(SCREENS.AddressAdd)}>add address</Text>
       </View>
     )
   }
@@ -225,7 +225,7 @@ class Address extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         {this.renderMainContent()}
       </View>

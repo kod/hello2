@@ -69,9 +69,9 @@ class BillingPeriodDetail extends React.Component {
       },
     });
     return (
-      <View style={styles.container} >
-       <View style={styles.item} >
-        <Text style={styles.order} >NO. 1521890352288VNLJWQZ6ZURA</Text>
+      <View style={styles.container}>
+       <View style={styles.item}>
+        <Text style={styles.order}>NO. 1521890352288VNLJWQZ6ZURA</Text>
         <NavBar2 
           onPress={() => {}}
           valueLeft={'MI mix2 6+64G'}
@@ -97,8 +97,8 @@ class BillingPeriodDetail extends React.Component {
         <SeparateBar />
         <SeparateBar />
        </View>
-       <View style={styles.item} >
-        <Text style={styles.order} >NO. 1521890352288VNLJWQZ6ZURA</Text>
+       <View style={styles.item}>
+        <Text style={styles.order}>NO. 1521890352288VNLJWQZ6ZURA</Text>
         <NavBar2 
           onPress={() => {}}
           valueLeft={'MI mix2 6+64G'}
@@ -132,7 +132,7 @@ class BillingPeriodDetail extends React.Component {
     const { bannerHomeRecommend, navigation: { navigate, goBack }, i18n } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
         />

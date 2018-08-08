@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
 export default ({ style, textLeft, textRight, navigateLeft, navigateRight, ...restProps }) => {
   return (
-    <View style={styles.component} {...restProps} >
+    <View style={styles.component} {...restProps}>
       <Text style={styles.componentText} onPress={navigateLeft}>{textLeft}</Text>
       <Text style={styles.componentText} onPress={navigateRight}>{textRight}</Text>
     </View>

@@ -69,18 +69,18 @@ class ParamsSelectModal extends Component {
         <View style={styles.paramClose}>
           <EvilIcons style={styles.paramCloseIcon} name={'close'} onPress={() => this.handleOnPressToggleMenuBottomSheet()} />
         </View>
-        <View style={styles.paramInfo} >
+        <View style={styles.paramInfo}>
           {
             imageUrls[0] && 
             <Image style={styles.paramImage} source={{uri: imageUrls[0].imageUrl}} />
           }
-          <View style={styles.paramInfoLeft} >
-            <Text style={styles.paramPrice} >{priceFormat(price)} VND</Text>
-            <Text style={styles.paramHave} >{i18n.warehouse}: {numbers > 0 ? i18n.inStock : i18n.soldOut}</Text>
+          <View style={styles.paramInfoLeft}>
+            <Text style={styles.paramPrice}>{priceFormat(price)} VND</Text>
+            <Text style={styles.paramHave}>{i18n.warehouse}: {numbers > 0 ? i18n.inStock : i18n.soldOut}</Text>
           </View>
         </View>
-        <Text style={styles.paramTitle} >{i18n.color}</Text>
-        <View style={styles.paramColor} >
+        <Text style={styles.paramTitle}>{i18n.color}</Text>
+        <View style={styles.paramColor}>
           {
             colorArray.map((val, key) => {
               return (
@@ -95,8 +95,8 @@ class ParamsSelectModal extends Component {
             })
           }
         </View>
-        {!!versionArray.length && <Text style={styles.paramTitle} >RAM & {i18n.memory}</Text>}
-        <View style={styles.paramColor} >
+        {!!versionArray.length && <Text style={styles.paramTitle}>RAM & {i18n.memory}</Text>}
+        <View style={styles.paramColor}>
           {
             versionArray.map((val, key) => {
               return (
@@ -111,11 +111,11 @@ class ParamsSelectModal extends Component {
             })
           }
         </View>
-        <View style={styles.paramNumber} >
-          <Text style={styles.paramNumberText} >số lượng</Text>
-          <View style={styles.paramNumberChange} >
+        <View style={styles.paramNumber}>
+          <Text style={styles.paramNumberText}>số lượng</Text>
+          <View style={styles.paramNumberChange}>
 
-            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber - 1)} >
+            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber - 1)}>
               <Ionicons 
                 name={'ios-remove'} 
                 style={[styles.paramNumberRemoveIcon, productDetailNumber === 1 && styles.paramNumberIconDisable]} 
@@ -127,7 +127,7 @@ class ParamsSelectModal extends Component {
               value={productDetailNumber + ''} 
               editable={false}
             />
-            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber + 1)} >
+            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber + 1)}>
               <Ionicons 
                 name={'ios-add'} 
                 style={[
@@ -139,8 +139,8 @@ class ParamsSelectModal extends Component {
 
           </View>
         </View>
-        <View style={styles.buttonWrap} >
-          <Text style={styles.button} onPress={() => this.handleOnPressToggleMenuBottomSheet()} >confirm</Text>
+        <View style={styles.buttonWrap}>
+          <Text style={styles.button} onPress={() => this.handleOnPressToggleMenuBottomSheet()}>confirm</Text>
         </View>
       </View>
     );

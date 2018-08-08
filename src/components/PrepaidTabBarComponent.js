@@ -48,7 +48,7 @@ export default class PrepaidTabBarComponent extends Component {
     const { goBack } = mainNavigation;
 
     return (
-      <Animated.View style={[styles.header]} >
+      <Animated.View style={[styles.header]}>
         <CustomIcon name="back" style={styles.headerLeft} onPress={() => goBack()} />
         <TabBarTop {...this.props} />
         <SimpleLineIcons name="share" style={styles.headerRight} onPress={() => handleOnPressToggleMenuBottomSheet()} />

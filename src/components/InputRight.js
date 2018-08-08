@@ -38,7 +38,7 @@ export default (
   }
 ) => {
   return (
-    <View style={[styles.componentWrap, styleWrap]} >
+    <View style={[styles.componentWrap, styleWrap]}>
       <View style={[styles.component, style]}>
         <BYTextInput 
           style={[styles.componentInput, styleInput]} 

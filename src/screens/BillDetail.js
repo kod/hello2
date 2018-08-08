@@ -109,22 +109,22 @@ class BillDetail extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
-        <View style={styles.main} >
+      <View style={styles.container}>
+        <View style={styles.main}>
           <Text style={styles.title}>Payment in April.</Text>
           <Text style={styles.price}>{priceFormat(billDetailsItem.amountBill)} VND</Text>
-          <View style={styles.bill} >
-            <View style={styles.billItem} >
-              <Text style={styles.billText} >{priceFormat(billDetailsItem.monthBill)}</Text>
-              <Text style={styles.billText} >This month's bill</Text>
+          <View style={styles.bill}>
+            <View style={styles.billItem}>
+              <Text style={styles.billText}>{priceFormat(billDetailsItem.monthBill)}</Text>
+              <Text style={styles.billText}>This month's bill</Text>
             </View>
-            <View style={styles.billItem} >
-              <Text style={styles.billText} >{priceFormat(billDetailsItem.historicalBill)}</Text>
-              <Text style={styles.billText} >This history's bill</Text>
+            <View style={styles.billItem}>
+              <Text style={styles.billText}>{priceFormat(billDetailsItem.historicalBill)}</Text>
+              <Text style={styles.billText}>This history's bill</Text>
             </View>
           </View>
         </View>
-        <View style={styles.items} >
+        <View style={styles.items}>
           <NavBar2 
             valueLeft={'Principal'} 
             valueMiddle={`${priceFormat(billDetailsItem.principal)} VND`} 
@@ -166,9 +166,9 @@ class BillDetail extends React.Component {
     const { bannerHomeRecommend, navigation: { navigate, goBack }, i18n, billDetailsItem, } = this.props;
 
     return (
-      <View style={styles.container} >
-        <View style={styles.header} >
-          <BYTouchable onPress={() => goBack()} >
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <BYTouchable onPress={() => goBack()}>
             <CustomIcon
               name="back"
               style={styles.headerBack}

@@ -84,13 +84,13 @@ class Settings extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
-        <View style={styles.header} >
+      <View style={styles.container}>
+        <View style={styles.header}>
           <MaterialIcons 
             name="search" 
             style={styles.headerIcon} 
           />
-          <Text style={styles.textInput} onPress={() => goBack()} >{findcontent}</Text>
+          <Text style={styles.textInput} onPress={() => goBack()}>{findcontent}</Text>
           {/* <BYTextInput 
             underlineColorAndroid={'rgba(0,0,0,.0)'} 
             placeholder={'Search'} 
@@ -113,7 +113,7 @@ class Settings extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader 
           headerTitle={this.renderHeaderTitle()}
         />

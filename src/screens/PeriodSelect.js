@@ -159,9 +159,9 @@ class PeriodSelect extends React.Component {
     } = this.state;
     
     return (
-      <View style={styles.container} >
-        <View style={styles.main} >
-          <View style={styles.wrap} >
+      <View style={styles.container}>
+        <View style={styles.main}>
+          <View style={styles.wrap}>
             {
               periodList.map((val, key) => {
                 return (
@@ -171,8 +171,8 @@ class PeriodSelect extends React.Component {
                     backgroundColor={'transparent'}
                     onPress={() => this.handleOnPressItem(val)}
                   >
-                    <Text style={[styles.itemNumber, period === val && styles.itemTextActive]} >{val}</Text>
-                    <Text style={[styles.itemText, period === val && styles.itemTextActive]} >period</Text>
+                    <Text style={[styles.itemNumber, period === val && styles.itemTextActive]}>{val}</Text>
+                    <Text style={[styles.itemText, period === val && styles.itemTextActive]}>period</Text>
                   </BYTouchable>
                 )
               })
@@ -180,10 +180,10 @@ class PeriodSelect extends React.Component {
           </View>
           <BYButton text={'confirm'} styleWrap={styles.submit} onPress={() => this.handleOnPressSubmit()} />
         </View>
-        <View style={styles.tips} >
-          <Text style={styles.tipsTitle} >说明:</Text>
-          <Text style={styles.tipsText} >1. 每月26日为出账日，出账日之前的账单可以在此处修改分期数; 出账日之后的账单不可以再修改分期数。</Text>
-          <Text style={styles.tipsText} >2. 请根据自己的消费情况设置合理的分期数，以免影响到个人还款信用。</Text>
+        <View style={styles.tips}>
+          <Text style={styles.tipsTitle}>说明:</Text>
+          <Text style={styles.tipsText}>1. 每月26日为出账日，出账日之前的账单可以在此处修改分期数; 出账日之后的账单不可以再修改分期数。</Text>
+          <Text style={styles.tipsText}>2. 请根据自己的消费情况设置合理的分期数，以免影响到个人还款信用。</Text>
         </View>
       </View>
     )
@@ -198,11 +198,11 @@ class PeriodSelect extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
         />
-        <ScrollView style={styles.container} >
+        <ScrollView style={styles.container}>
           {this.renderContent()}
         </ScrollView>
         {/* <Loader absolutePosition /> */}

@@ -98,20 +98,20 @@ class CertifiedInformationSchool extends Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView keyboardShouldPersistTaps={'always'} >
+        <ScrollView keyboardShouldPersistTaps={'always'}>
           <BYTouchable 
             style={styles.item} 
             onPress={() => navigate(SCREENS.SchoolSelect)} 
           >
-            <View style={styles.main} >
-              <Text style={styles.label} >School</Text>
-              <Text style={styles.value} >{schoolName}</Text>
-              <CustomIcon style={styles.icon} name={'arrowright'} ></CustomIcon>
+            <View style={styles.main}>
+              <Text style={styles.label}>School</Text>
+              <Text style={styles.value}>{schoolName}</Text>
+              <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
             </View>
           </BYTouchable>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >School address</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>School address</Text>
               <BYTextInput 
                 style={styles.input}
                 placeholder={'please enter school address'}
@@ -121,9 +121,9 @@ class CertifiedInformationSchool extends Component {
               />
             </View>
           </View>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Department</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Department</Text>
               <BYTextInput 
                 style={styles.input}
                 placeholder={'please enter department'}
@@ -133,9 +133,9 @@ class CertifiedInformationSchool extends Component {
               />
             </View>
           </View>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Profession</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Profession</Text>
               <BYTextInput 
                 style={styles.input}
                 placeholder={'please enter profession'}
@@ -145,9 +145,9 @@ class CertifiedInformationSchool extends Component {
               />
             </View>
           </View>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Matriculation time</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Matriculation time</Text>
               <DatePicker
                 showIcon={false}
                 style={{flex: 1}}
@@ -173,12 +173,12 @@ class CertifiedInformationSchool extends Component {
                 }}
                 onDateChange={val => {certifiedInformationEdit('admissiontime', val)}}
               />
-              <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'} ></MaterialIcons>
+              <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'}></MaterialIcons>
             </View>
           </View>
-          <View style={styles.item} >
-            <View style={styles.main} >
-              <Text style={styles.label} >Gradution time</Text>
+          <View style={styles.item}>
+            <View style={styles.main}>
+              <Text style={styles.label}>Gradution time</Text>
               <DatePicker
                 showIcon={false}
                 style={{flex: 1}}
@@ -204,7 +204,7 @@ class CertifiedInformationSchool extends Component {
                 }}
                 onDateChange={val => certifiedInformationEdit('graduationtime', val)}
               />
-              <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'} ></MaterialIcons>
+              <MaterialIcons style={{fontSize: 24}} name={'arrow-drop-down'}></MaterialIcons>
             </View>
           </View>
           <BYButton text={'确定'} style={{ marginBottom: 30, }} styleWrap={{paddingTop: SIDEINTERVAL}} onPress={() => goBack()} />

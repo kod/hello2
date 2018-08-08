@@ -8,7 +8,7 @@ const width3_item = (width - width3_interval) / 3;
 export default ({ data }) => {
   const { items } = data;
   return (
-    <View style={{ backgroundColor: '#fff', paddingTop: 15 }} >
+    <View style={{ backgroundColor: '#fff', paddingTop: 15 }}>
       {items &&
         items.map((val, key) => {
           return (

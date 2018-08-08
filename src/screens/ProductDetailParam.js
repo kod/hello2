@@ -74,7 +74,7 @@ class ProductDetailParam extends React.Component {
         }
         style={{marginTop: STATUSBAR_HEIGHT + 40}}
       />
-      // <View style={styles.container} >
+      // <View style={styles.container}>
       //   <ScrollView >
       //     <FlatList
       //       data={goodsProperties}

@@ -44,7 +44,7 @@ export default (
   }
 ) => {
   return (
-    <View style={[styles.componentWrap, style]} >
+    <View style={[styles.componentWrap, style]}>
       <View style={styles.component}>
         <Image source={require('../images/viemnam.png')} style={styles.componentFlag} />
         <Text style={styles.componentCode}>+84</Text>

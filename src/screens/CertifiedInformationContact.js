@@ -94,7 +94,7 @@ class CertifiedInformationSchool extends Component {
       index,
     } = this.props;
     return (
-      <Text style={styles.title} >
+      <Text style={styles.title}>
         Emergency Contact Person {index}
       </Text>
     )
@@ -102,7 +102,7 @@ class CertifiedInformationSchool extends Component {
 
   renderHeaderRight = () => {
     return (
-      <View style={{width: 45}} ></View>
+      <View style={{width: 45}}></View>
     )
   }
 
@@ -138,9 +138,9 @@ class CertifiedInformationSchool extends Component {
     const list = index === 1 ? ['Bố', 'Mẹ'] : ['Bạn trai / bạn gái', 'Bạn cùng phòng', 'Bạn học'];
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
-          list.map((val, key) => <Text style={styles.item} key={key} onPress={() => { certifiedInformationEdit(`connectuserrelation${index}`, val); this.handleOnPressToggleModal(); }} >{val}</Text>)
+          list.map((val, key) => <Text style={styles.item} key={key} onPress={() => { certifiedInformationEdit(`connectuserrelation${index}`, val); this.handleOnPressToggleModal(); }}>{val}</Text>)
         }
       </View>
     )
@@ -167,13 +167,13 @@ class CertifiedInformationSchool extends Component {
           headerTitle={this.renderHeaderTitle()}
           headerRight={this.renderHeaderRight()}
         />
-        <ScrollView keyboardShouldPersistTaps={'always'} >
+        <ScrollView keyboardShouldPersistTaps={'always'}>
           <KeyboardAvoidingView behavior="padding" >
-            <BYTouchable style={styles.item} onPress={() => this.handleOnPressToggleModal()} >
-              <View style={styles.main} >
-                <Text style={styles.label} >relative</Text>
-                <Text style={styles.value} >{connectuserrelation}</Text>
-                <CustomIcon style={styles.icon} name={'arrowright'} ></CustomIcon>
+            <BYTouchable style={styles.item} onPress={() => this.handleOnPressToggleModal()}>
+              <View style={styles.main}>
+                <Text style={styles.label}>relative</Text>
+                <Text style={styles.value}>{connectuserrelation}</Text>
+                <CustomIcon style={styles.icon} name={'arrowright'}></CustomIcon>
                 {/* <Picker
                   selectedValue={connectuserrelation}
                   style={styles.picker}
@@ -187,9 +187,9 @@ class CertifiedInformationSchool extends Component {
                 </Picker> */}
               </View>
             </BYTouchable>
-            <View style={styles.item} >
-              <View style={styles.main} >
-                <Text style={styles.label} >name</Text>
+            <View style={styles.item}>
+              <View style={styles.main}>
+                <Text style={styles.label}>name</Text>
                 <BYTextInput 
                   style={styles.input}
                   placeholder={'please enter name'}
@@ -199,9 +199,9 @@ class CertifiedInformationSchool extends Component {
                 />
               </View>
             </View>
-            <View style={styles.item} >
-              <View style={styles.main} >
-                <Text style={styles.label} >msisdn</Text>
+            <View style={styles.item}>
+              <View style={styles.main}>
+                <Text style={styles.label}>msisdn</Text>
                 <BYTextInput 
                   style={styles.input}
                   placeholder={'please enter msisdn'}
@@ -215,9 +215,9 @@ class CertifiedInformationSchool extends Component {
             {
               index === 1
               &&
-              <View style={styles.item} >
-                <View style={styles.main} >
-                  <Text style={styles.label} >identification</Text>
+              <View style={styles.item}>
+                <View style={styles.main}>
+                  <Text style={styles.label}>identification</Text>
                   <BYTextInput 
                     style={styles.input}
                     placeholder={'please enter profession'}

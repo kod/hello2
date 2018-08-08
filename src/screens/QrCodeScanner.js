@@ -90,7 +90,7 @@ class QrCodeScanner extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
         />

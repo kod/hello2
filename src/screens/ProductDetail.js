@@ -389,7 +389,7 @@ class ProductDetail extends React.Component {
     }
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
           groupon
           ?
@@ -424,16 +424,16 @@ class ProductDetail extends React.Component {
         {
           groupon
           ?
-          <View style={styles.operate} >
+          <View style={styles.operate}>
             <View style={styles.operateGroupLeft}>
-              <Text style={styles.operateGroupLeftOldPrice} >Price before: {priceFormat(price || 0)} VND</Text>
-              <Text style={styles.operateGroupLeftPrice} >{priceFormat(mergePrice || 0)} VND</Text>
+              <Text style={styles.operateGroupLeftOldPrice}>Price before: {priceFormat(price || 0)} VND</Text>
+              <Text style={styles.operateGroupLeftPrice}>{priceFormat(mergePrice || 0)} VND</Text>
             </View>
-            <Text style={styles.operateGroupRight} onPress={() => this.handleOnPressGroupBuy()} >{ isMaster ? i18n.inviteFriends : i18n.startGroupBuy }</Text>
+            <Text style={styles.operateGroupRight} onPress={() => this.handleOnPressGroupBuy()}>{ isMaster ? i18n.inviteFriends : i18n.startGroupBuy }</Text>
           </View>
           :
-          <View style={styles.operate} >
-            <Text style={styles.operateLeft} onPress={() => this.handleOnPressAddCart()} >{i18n.addToCart}</Text>
+          <View style={styles.operate}>
+            <Text style={styles.operateLeft} onPress={() => this.handleOnPressAddCart()}>{i18n.addToCart}</Text>
             <Text style={styles.operateRight} 
               onPress={() => this.handleOnPressBuy()} 
             >
@@ -464,18 +464,18 @@ class ProductDetail extends React.Component {
         <View style={styles.paramClose}>
           <EvilIcons style={styles.paramCloseIcon} name={'close'} onPress={() => this.handleOnPressToggleMenuBottomSheet()} />
         </View>
-        <View style={styles.paramInfo} >
+        <View style={styles.paramInfo}>
           {
             imageUrls[0] && 
             <Image style={styles.paramImage} source={{uri: imageUrls[0].imageUrl}} />
           }
-          <View style={styles.paramInfoLeft} >
-            <Text style={styles.paramPrice} >{priceFormat(price)} VND</Text>
-            <Text style={styles.paramHave} >{i18n.warehouse}: {numbers > 0 ? i18n.inStock : i18n.soldOut}</Text>
+          <View style={styles.paramInfoLeft}>
+            <Text style={styles.paramPrice}>{priceFormat(price)} VND</Text>
+            <Text style={styles.paramHave}>{i18n.warehouse}: {numbers > 0 ? i18n.inStock : i18n.soldOut}</Text>
           </View>
         </View>
-        <Text style={styles.paramTitle} >{i18n.color}</Text>
-        <View style={styles.paramColor} >
+        <Text style={styles.paramTitle}>{i18n.color}</Text>
+        <View style={styles.paramColor}>
           {
             colorArray.map((val, key) => {
               return (
@@ -490,8 +490,8 @@ class ProductDetail extends React.Component {
             })
           }
         </View>
-        {!!versionArray.length && <Text style={styles.paramTitle} >RAM & {i18n.memory}</Text>}
-        <View style={styles.paramColor} >
+        {!!versionArray.length && <Text style={styles.paramTitle}>RAM & {i18n.memory}</Text>}
+        <View style={styles.paramColor}>
           {
             versionArray.map((val, key) => {
               return (
@@ -506,11 +506,11 @@ class ProductDetail extends React.Component {
             })
           }
         </View>
-        <View style={styles.paramNumber} >
-          <Text style={styles.paramNumberText} >số lượng</Text>
-          <View style={styles.paramNumberChange} >
+        <View style={styles.paramNumber}>
+          <Text style={styles.paramNumberText}>số lượng</Text>
+          <View style={styles.paramNumberChange}>
 
-            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber - 1)} >
+            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber - 1)}>
               <Ionicons 
                 name={'ios-remove'} 
                 style={[styles.paramNumberRemoveIcon, productDetailNumber === 1 && styles.paramNumberIconDisable]} 
@@ -522,7 +522,7 @@ class ProductDetail extends React.Component {
               value={productDetailNumber + ''} 
               editable={false}
             />
-            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber + 1)} >
+            <BYTouchable onPress={() => this.handleOnPresschangeNumber(productDetailNumber + 1)}>
               <Ionicons 
                 name={'ios-add'} 
                 style={[
@@ -534,8 +534,8 @@ class ProductDetail extends React.Component {
 
           </View>
         </View>
-        <View style={styles.buttonWrap} >
-          <Text style={styles.button} onPress={() => this.handleOnPressToggleMenuBottomSheet()} >confirm</Text>
+        <View style={styles.buttonWrap}>
+          <Text style={styles.button} onPress={() => this.handleOnPressToggleMenuBottomSheet()}>confirm</Text>
         </View>
       </View>
     )
@@ -573,12 +573,12 @@ class ProductDetail extends React.Component {
       },
     });
     return (
-      <View style={styles.contanier} >
-        <View style={styles.title} >
+      <View style={styles.contanier}>
+        <View style={styles.title}>
           <Ionicons style={styles.titleIcon} name={'ios-paper-plane'} />
-          <Text style={styles.titleText} >tap to share</Text>
+          <Text style={styles.titleText}>tap to share</Text>
         </View>
-        <View style={styles.main} >
+        <View style={styles.main}>
           <Image style={styles.item} source={require('../images/zalofun.png')} />
           <Image style={styles.item} source={require('../images/googleplus.png')} />
         </View>
@@ -593,7 +593,7 @@ class ProductDetail extends React.Component {
     // } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {this.renderMainContent()}
         <BYBottomSheet
           visible={isOpenMenuBottomSheet}

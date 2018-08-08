@@ -160,30 +160,30 @@ class EnterPassword extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.header} >
-          <Text style={styles.title} onPress={() => onRequestClose()} >{title}</Text>
+        <View style={styles.header}>
+          <Text style={styles.title} onPress={() => onRequestClose()}>{title}</Text>
           <EvilIcons style={styles.close} name="close" onPress={() => onRequestClose()} />
         </View>
-        <View style={styles.inputPassword} >
-          <View style={styles.inputPasswordBackground} >
+        <View style={styles.inputPassword}>
+          <View style={styles.inputPasswordBackground}>
             {
-              passwordLength.map((val, key) => <View style={styles.inputPasswordBackgroundItem} key={key} ></View>)
+              passwordLength.map((val, key) => <View style={styles.inputPasswordBackgroundItem} key={key}></View>)
             }
           </View>
-          <View style={styles.inputPasswordDot} >
+          <View style={styles.inputPasswordDot}>
             {
               password.split('').map((val, key) => <FontAwesome style={styles.inputPasswordDotItem} name={'circle'} key={key} />)
             }
           </View>
         </View>
-        <Text style={styles.forget} >forgot password?</Text>
-        <View style={styles.keyboard} >
+        <Text style={styles.forget}>forgot password?</Text>
+        <View style={styles.keyboard}>
           {
-            keyboardItems.map((val, key) => <BYTouchable key={key} onPress={() => this.handleOnPressNumber(key + 1)} ><Text style={styles.keyboardItem} >{key + 1}</Text></BYTouchable>)
+            keyboardItems.map((val, key) => <BYTouchable key={key} onPress={() => this.handleOnPressNumber(key + 1)}><Text style={styles.keyboardItem}>{key + 1}</Text></BYTouchable>)
           }
-          <Text style={[styles.keyboardItem, styles.keyboardItemEmpty]} ></Text>
-          <BYTouchable onPress={() => this.handleOnPressNumber(0)} ><Text style={styles.keyboardItem} >0</Text></BYTouchable>
-          <BYTouchable onPress={() => this.handleOnPressBackspace()} ><Ionicons style={styles.keyboardItemBackspace} name={'ios-backspace-outline'} /></BYTouchable>
+          <Text style={[styles.keyboardItem, styles.keyboardItemEmpty]}></Text>
+          <BYTouchable onPress={() => this.handleOnPressNumber(0)}><Text style={styles.keyboardItem}>0</Text></BYTouchable>
+          <BYTouchable onPress={() => this.handleOnPressBackspace()}><Ionicons style={styles.keyboardItemBackspace} name={'ios-backspace-outline'} /></BYTouchable>
         </View>
       </View>
     );

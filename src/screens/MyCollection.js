@@ -33,7 +33,7 @@ class MyCollection extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ProductItem2 data={items} />
       </View>
     )
@@ -47,7 +47,7 @@ class MyCollection extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         {loading && <Loader absolutePosition />}
         {

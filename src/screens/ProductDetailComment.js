@@ -51,16 +51,16 @@ class ProductDetailComment extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {comment.length !== 0 &&
           <ScrollView >
             <Comment data={comment} style={{ paddingTop: 20}} />
           </ScrollView>
         }
         {comment.length === 0 &&
-          <View style={styles.emptyComment} >
+          <View style={styles.emptyComment}>
             <Image style={styles.emptyCommentImage} source={require('../images/emptycomment.png')} />
-            <Text style={styles.emptyCommentText} >{i18n.noCommentYet}</Text>
+            <Text style={styles.emptyCommentText}>{i18n.noCommentYet}</Text>
           </View>
         }
       </View>

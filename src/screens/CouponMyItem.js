@@ -112,7 +112,7 @@ class Coupon extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {loading && <Loader absolutePosition />}
         {
           items.length > 0 

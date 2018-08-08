@@ -378,18 +378,18 @@ class OrderWrite extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.nav} >
-        <View style={styles.navLeft} >
-          <Text style={styles.navLeftTop} >Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom} >{priceFormat(advance)} VND</Text>
+      <View style={styles.nav}>
+        <View style={styles.navLeft}>
+          <Text style={styles.navLeftTop}>Trà lần đầu</Text>
+          <Text style={styles.navLeftBottom}>{priceFormat(advance)} VND</Text>
         </View>
         {
           tradeStatus === '10000' &&
-          <Text style={styles.navCancel} onPress={() => this.handleOnPressCancel()} >Cancel Order</Text>
+          <Text style={styles.navCancel} onPress={() => this.handleOnPressCancel()}>Cancel Order</Text>
         }
         {
           tradeStatus === '10000' &&
-          <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()} >Pay</Text>
+          <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()}>Pay</Text>
         }
       </View>
     )
@@ -440,60 +440,60 @@ class OrderWrite extends React.Component {
   //   });
     
   //   return (
-  //     <View style={styles.container} >
-  //       <BYTouchable style={styles.closeWrap} onPress={() => this.handleOnPressToggleBottomSheet()} >
+  //     <View style={styles.container}>
+  //       <BYTouchable style={styles.closeWrap} onPress={() => this.handleOnPressToggleBottomSheet()}>
   //         <EvilIcons style={styles.close} name="close" />
   //       </BYTouchable>
-  //       <View style={styles.title} >
-  //         <Text style={styles.titleItem} >periods</Text>
-  //         <Text style={styles.titleItem} >supply</Text>
-  //         <Text style={styles.titleItem} >principalprincipal</Text>
+  //       <View style={styles.title}>
+  //         <Text style={styles.titleItem}>periods</Text>
+  //         <Text style={styles.titleItem}>supply</Text>
+  //         <Text style={styles.titleItem}>principalprincipal</Text>
   //       </View>
-  //       <ScrollView style={styles.scrollview} >
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //       <ScrollView style={styles.scrollview}>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
-  //         <View style={styles.item} >
-  //           <Text style={styles.itemText} >1st periods</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
-  //           <Text style={styles.itemText} >4349.230.43</Text>
+  //         <View style={styles.item}>
+  //           <Text style={styles.itemText}>1st periods</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
+  //           <Text style={styles.itemText}>4349.230.43</Text>
   //         </View>
   //       </ScrollView>
   //     </View>
@@ -544,9 +544,9 @@ class OrderWrite extends React.Component {
     if (getUserInfoById.loading || cardQuery.loading) return <Loader />
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ScrollView>
-          <Text style={styles.status} >{tradeStatusCodes(tradeStatus)}</Text>
+          <Text style={styles.status}>{tradeStatusCodes(tradeStatus)}</Text>
           <Address
             addressSelectedItem={addressSelectedItem} 
             // onPress={() => navigate(SCREENS.Address, { isSelect: true })} 
@@ -557,7 +557,7 @@ class OrderWrite extends React.Component {
             stylePricePrice={{ color: '#666' }}
             isShowNumber={true}
           />
-          <Text style={styles.totalPrice} >{priceFormat(advance + couponValue)} VND</Text>
+          <Text style={styles.totalPrice}>{priceFormat(advance + couponValue)} VND</Text>
           <SeparateBar />
           <NavBar2 
             onPress={() => tradeStatus === '10000' && this.handleOnPressToggleModal('isOpenActionSheet')} 
@@ -604,7 +604,7 @@ class OrderWrite extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         {this.renderContent()}
         {/* <BYModal

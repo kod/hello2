@@ -93,12 +93,12 @@ class Invite extends React.Component {
       },
     });
     return (
-      <View style={styles.contanier} >
-        <View style={styles.title} >
+      <View style={styles.contanier}>
+        <View style={styles.title}>
           <Ionicons style={styles.titleIcon} name={'ios-paper-plane'} />
-          <Text style={styles.titleText} >tap to share</Text>
+          <Text style={styles.titleText}>tap to share</Text>
         </View>
-        <View style={styles.main} >
+        <View style={styles.main}>
           <Image style={styles.item} source={require('../images/zalofun.png')} />
           <Image style={styles.item} source={require('../images/googleplus.png')} />
         </View>
@@ -159,22 +159,22 @@ class Invite extends React.Component {
     });
 
     return (
-      <View style={styles.container} >
-        <View style={styles.row1} >
+      <View style={styles.container}>
+        <View style={styles.row1}>
           <QRCode
             value={this.state.qrText}
             size={200}
           />
-          <Text style={styles.row1Title} >Show this QR code or share the invitation code to your friends</Text>
+          <Text style={styles.row1Title}>Show this QR code or share the invitation code to your friends</Text>
         </View>
           <SeparateBar />
-          <View style={styles.row2} >
-            <Text style={styles.row2Left} >My inviation code</Text>
-            <Text style={styles.row2Middle} >123456789123</Text>
-            <Text style={styles.row2Right} onPress={() => this.handleOnPressCopy()} >COPY</Text>
+          <View style={styles.row2}>
+            <Text style={styles.row2Left}>My inviation code</Text>
+            <Text style={styles.row2Middle}>123456789123</Text>
+            <Text style={styles.row2Right} onPress={() => this.handleOnPressCopy()}>COPY</Text>
           </View>
           {this.renderMenuBottomShare()}
-        {/* <View style={styles.wrap} >
+        {/* <View style={styles.wrap}>
         </View> */}
       </View>
     )
@@ -188,7 +188,7 @@ class Invite extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         {/* <ScrollView> */}
           {this.renderContent()}

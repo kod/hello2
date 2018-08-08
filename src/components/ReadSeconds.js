@@ -77,7 +77,7 @@ class ReadSeconds extends Component {
 
     return (
       <View style={styles.second}>
-        <Text style={styles.secondText} onPress={() => this.handleOnPressSeconds()} {...restProps} >{ing ? seconds : 'gửi mã'}</Text>
+        <Text style={styles.secondText} onPress={() => this.handleOnPressSeconds()} {...restProps}>{ing ? seconds : 'gửi mã'}</Text>
       </View>
     );
   }

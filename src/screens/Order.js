@@ -96,22 +96,22 @@ class Scrollable extends React.Component {
     ) 
 
     return (
-      <View style={stylesScrollable.container} >
+      <View style={stylesScrollable.container}>
         {
           items.map((val, key) => {
             return (
-              <View style={styles.item} key={key} >
+              <View style={styles.item} key={key}>
                 <ProductItem2 
                   data={val.goodList}
                   stylePricePrice={{ color: '#fff' }}
                   stylePricePeriods={{ color: '#fff' }}
                   isShowNumber={true}
                 />
-                <View style={stylesScrollable.totalPrice} >
-                  <Text style={stylesScrollable.price} >total: {priceFormat(val.totalAmount)} VND</Text>
+                <View style={stylesScrollable.totalPrice}>
+                  <Text style={stylesScrollable.price}>total: {priceFormat(val.totalAmount)} VND</Text>
                 </View>
-                <View style={stylesScrollable.pay} >
-                  <Text style={stylesScrollable.payText} >{tradeStatusCodes(val.tradeStatus)}</Text>
+                <View style={stylesScrollable.pay}>
+                  <Text style={stylesScrollable.payText}>{tradeStatusCodes(val.tradeStatus)}</Text>
                   <Text 
                     style={stylesScrollable.payButton} 
                     onPress={() => navigate(SCREENS.Pay, { tradeNo: val.tradeNo, orderNo: val.orderNo, })}
@@ -270,7 +270,7 @@ class Order extends React.Component {
     });
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
         />

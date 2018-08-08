@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 
 export default ({ style, ...restProps }) => {
   return (
-    <View style={[styles.other, style]} {...restProps} >
+    <View style={[styles.other, style]} {...restProps}>
       <Text style={styles.otherTitle}>第三方登录</Text>
       <View style={styles.otherMain}>
         <View style={styles.otherFb}>

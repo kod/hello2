@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
 
 export default ({ data, styleWrap, style, styleText, text, ...restProps }) => {
   return (
-    <View style={[styles.componentWrap, styleWrap]} >
-      <BYTouchable delayPressIn={0} style={[styles.component, style]} {...restProps} >
+    <View style={[styles.componentWrap, styleWrap]}>
+      <BYTouchable delayPressIn={0} style={[styles.component, style]} {...restProps}>
         <Text style={[styles.componentText, styleText]}>{text}</Text>
       </BYTouchable>
     </View>

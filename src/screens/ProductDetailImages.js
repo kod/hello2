@@ -35,7 +35,7 @@ class ProductDetailImages extends React.Component {
     const WebViewHTML = navigation.state.params.html;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         <WebView
           source={

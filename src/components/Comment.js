@@ -94,7 +94,7 @@ export default ({ data, styleWrap, style, ...restProps }) => {
               </View>
               <Text style={styles.componentTime}>{val.updateTime}</Text>
             </View>
-            <Text style={styles.componentDesc} numberOfLines={3} >{val.content}</Text>
+            <Text style={styles.componentDesc} numberOfLines={3}>{val.content}</Text>
             <View style={styles.componentimageWrap}>
               {
                 val.imageUrls.map((val, key) => 

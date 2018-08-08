@@ -322,10 +322,10 @@ class AddressAdd extends React.Component {
       }
 
       return (
-        <ScrollView style={[styles.scrollView, addressIndex === scrollViewKey && styles.ScrollViewShow]} key={scrollViewKey} >
+        <ScrollView style={[styles.scrollView, addressIndex === scrollViewKey && styles.ScrollViewShow]} key={scrollViewKey}>
           {item.map((val, key) => 
-            <BYTouchable style={styles.scrollViewItem} key={key} onPress={() => this.handleOnPressCitySelect(val, scrollViewKey)} >
-              <Text style={[styles.scrollViewItemText, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]} >{val.name}</Text>
+            <BYTouchable style={styles.scrollViewItem} key={key} onPress={() => this.handleOnPressCitySelect(val, scrollViewKey)}>
+              <Text style={[styles.scrollViewItemText, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]}>{val.name}</Text>
               <Ionicons style={[styles.scrollViewItemIcon, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]} name={'ios-radio-button-on-outline'} />
             </BYTouchable>
           )}
@@ -348,11 +348,11 @@ class AddressAdd extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
-        <View style={styles.closeWrap} >
+      <View style={styles.container}>
+        <View style={styles.closeWrap}>
           <EvilIcons style={styles.close} name="close" onPress={() => this.handleOnPressToggleMenuBottomSheet()} />
         </View>
-        <ScrollView style={styles.nav} horizontal={true} showsHorizontalScrollIndicator={false} >
+        <ScrollView style={styles.nav} horizontal={true} showsHorizontalScrollIndicator={false}>
           <Text
             style={[styles.navItem, addressIndex === 0 && styles.navActive]} 
             onPress={() => this.setState({addressIndex: 0})}
@@ -378,7 +378,7 @@ class AddressAdd extends React.Component {
             </Text>            
           }
         </ScrollView>
-        <View style={styles.scrollViewWrap} >
+        <View style={styles.scrollViewWrap}>
           {[division2ndItems, division3rdItems, division4thItems].map((val, key) => 
             renderScrollView(val, key)
           )}
@@ -401,8 +401,8 @@ class AddressAdd extends React.Component {
       <View style={styles.container}>
         <BYHeader />
         <ScrollView keyboardShouldPersistTaps={'always'}>
-          <View style={styles.item} >
-            <Text style={styles.title} >Name</Text>
+          <View style={styles.item}>
+            <Text style={styles.title}>Name</Text>
             <Field
               name="name"
               component={AddressInput}
@@ -411,8 +411,8 @@ class AddressAdd extends React.Component {
               placeholderTextColor={'#ccc'}
             />
           </View>
-          <View style={styles.item} >
-            <Text style={styles.title} >Phone number</Text>
+          <View style={styles.item}>
+            <Text style={styles.title}>Phone number</Text>
             <Field
               name="phone"
               component={AddressInput}
@@ -423,7 +423,7 @@ class AddressAdd extends React.Component {
             />
           </View>
           <PXTouchable style={styles.item} onPress={() => this.handleOnPressToggleMenuBottomSheet()}>
-            <Text style={styles.title} >Xã/Huyện/Thành</Text>
+            <Text style={styles.title}>Xã/Huyện/Thành</Text>
             <BYTextInput 
               placeholder={'please select'}
               placeholderTextColor={'#ccc'}
@@ -433,8 +433,8 @@ class AddressAdd extends React.Component {
             />
             <CustomIcon style={styles.arrow} name="arrowright"></CustomIcon>
           </PXTouchable>
-          <View style={styles.item} >
-            <Text style={styles.title} >Address</Text>
+          <View style={styles.item}>
+            <Text style={styles.title}>Address</Text>
             <Field
               name="address"
               component={AddressInput}

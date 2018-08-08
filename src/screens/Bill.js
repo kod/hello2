@@ -318,29 +318,29 @@ class Bill extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
           searchMonthLoading && 
-          <View style={styles.mask} >
+          <View style={styles.mask}>
             <Loader absolutePosition />
           </View>
         }
         <View style={styles.close}>
           <EvilIcons style={styles.closeIcon} name={'close'} onPress={() => this.handleOnPressToggleModal('isOpenPay')} />
         </View>
-        <Text style={styles.title} >Repayment</Text>
-        <View style={styles.wrap} >
-          <View style={styles.enterPrice} >
+        <Text style={styles.title}>Repayment</Text>
+        <View style={styles.wrap}>
+          <View style={styles.enterPrice}>
             <BYTextInput 
               style={styles.textInput} 
               keyboardType={'numeric'} 
               value={price} 
               onChangeText={(text) => billPriceFetch(text)}
             />
-            <Text style={styles.enterPriceText} >change amount</Text>
+            <Text style={styles.enterPriceText}>change amount</Text>
           </View>
         </View>
-        <Text style={styles.tips} >remaining in this period {priceFormat(price)} VND</Text>
+        <Text style={styles.tips}>remaining in this period {priceFormat(price)} VND</Text>
         <BYButton 
           text={'pay'} 
           styleWrap={{ marginBottom: SIDEINTERVAL * 2 }} 
@@ -392,39 +392,39 @@ class Bill extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.goods} >
+      <View style={styles.goods}>
         {
           queryGoodsItems.map((val, key) => {
             return (
-              <View style={styles.item} key={key} >
-                <Text style={styles.title} >{key + 1}. {val.name}</Text>
-                <View style={styles.bottom} >
-                  <Text style={styles.price} >{priceFormat(val.totalAmount)} VND</Text>
-                  <Text style={styles.date} >{moment(val.createTime).format('DD-MM')}</Text>
+              <View style={styles.item} key={key}>
+                <Text style={styles.title}>{key + 1}. {val.name}</Text>
+                <View style={styles.bottom}>
+                  <Text style={styles.price}>{priceFormat(val.totalAmount)} VND</Text>
+                  <Text style={styles.date}>{moment(val.createTime).format('DD-MM')}</Text>
                 </View>
               </View>
             )
           })
         }
-        {/* <View style={styles.item} >
-          <Text style={styles.title} >1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
-           <View style={styles.bottom} >
-            <Text style={styles.price} >666.000 VND</Text>
-            <Text style={styles.date} >16-05</Text>
+        {/* <View style={styles.item}>
+          <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
+           <View style={styles.bottom}>
+            <Text style={styles.price}>666.000 VND</Text>
+            <Text style={styles.date}>16-05</Text>
            </View>
         </View>
-        <View style={styles.item} >
-          <Text style={styles.title} >1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
-           <View style={styles.bottom} >
-            <Text style={styles.price} >666.000 VND</Text>
-            <Text style={styles.date} >16-05</Text>
+        <View style={styles.item}>
+          <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
+           <View style={styles.bottom}>
+            <Text style={styles.price}>666.000 VND</Text>
+            <Text style={styles.date}>16-05</Text>
            </View>
         </View>
-        <View style={styles.item} >
-          <Text style={styles.title} >1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
-           <View style={styles.bottom} >
-            <Text style={styles.price} >666.000 VND</Text>
-            <Text style={styles.date} >16-05</Text>
+        <View style={styles.item}>
+          <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
+           <View style={styles.bottom}>
+            <Text style={styles.price}>666.000 VND</Text>
+            <Text style={styles.date}>16-05</Text>
            </View>
         </View> */}
         <Ionicons style={styles.arrow} name={'ios-arrow-up'} onPress={() => this.setState({ isShowGoods: false })} />
@@ -530,35 +530,35 @@ class Bill extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
-        <View style={styles.main} >
+      <View style={styles.container}>
+        <View style={styles.main}>
           {
             billMonthItem.status !== 10002 &&
-            <View style={styles.topOne} >
-              <Text style={styles.price} >{priceFormat(billMonthItem.waitingAmount)} VND</Text>
-              <View style={styles.detailWrap} >
-                <Text style={styles.detail} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })} >query the detail</Text>
+            <View style={styles.topOne}>
+              <Text style={styles.price}>{priceFormat(billMonthItem.waitingAmount)} VND</Text>
+              <View style={styles.detailWrap}>
+                <Text style={styles.detail} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })}>query the detail</Text>
               </View>
               {
                 billMonthItem.status !== 10002 && billMonthItem.status !== 10000 &&
                 <BYButton text={'pay'} styleWrap={styles.button} onPress={() => this.handleOnPressPay()} />
               }
-              <Text style={styles.tips} >latest repayment date 5th</Text>
+              <Text style={styles.tips}>latest repayment date 5th</Text>
             </View>
           }
           {
             billMonthItem.status === 10002 &&
-            <View style={styles.topTwo} >
+            <View style={styles.topTwo}>
               <Image style={styles.image} source={require('../images/jafsdbufnl.png')} />
-              <Text style={styles.topTwoTitle} >The bill has been paid off this month.</Text>
-              <View style={styles.topTwoTextWrap} >
-                <Text style={styles.topTwoTextOne} >Has also {priceFormat(billMonthItem.waitingAmount)} VND</Text>
-                <Text style={styles.topTwoTextTwo} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })} >query the detail</Text>
+              <Text style={styles.topTwoTitle}>The bill has been paid off this month.</Text>
+              <View style={styles.topTwoTextWrap}>
+                <Text style={styles.topTwoTextOne}>Has also {priceFormat(billMonthItem.waitingAmount)} VND</Text>
+                <Text style={styles.topTwoTextTwo} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })}>query the detail</Text>
               </View>
             </View>
           }
-          <View style={styles.bottom} >
-            <Text style={styles.bottomText} onPress={() => this.setState({ isShowGoods: !this.state.isShowGoods })} >Expenses record ></Text>
+          <View style={styles.bottom}>
+            <Text style={styles.bottomText} onPress={() => this.setState({ isShowGoods: !this.state.isShowGoods })}>Expenses record ></Text>
           </View>
           {
             isShowGoods && 
@@ -585,7 +585,7 @@ class Bill extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader
           headerTitle={this.renderHeaderTitle()}
           headerRight={this.renderHeaderRight()}
@@ -598,7 +598,7 @@ class Bill extends React.Component {
         </ScrollView>
         {
           isOverdue && 
-          <Text style={styles.alert} onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')} >您有账单已逾期，请尽快还款!</Text>
+          <Text style={styles.alert} onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}>您有账单已逾期，请尽快还款!</Text>
         }
         <BillSelect 
           visible={isOpenBillSelect}

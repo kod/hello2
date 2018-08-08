@@ -96,15 +96,15 @@ class Categories extends React.Component {
     } = this.props;
 
     return (
-      <ScrollView style={styles.scrollViewRight} >
-      <View style={styles.main} >
+      <ScrollView style={styles.scrollViewRight}>
+      <View style={styles.main}>
           {
             levelTwo.map((val, key) => {
               return (
                 levelOneIndex === key &&
-                <View style={styles.rightItem} key={key} >
-                  <Text style={styles.rightItemTitle} ></Text>
-                  <View style={styles.rightItemMain} >
+                <View style={styles.rightItem} key={key}>
+                  <Text style={styles.rightItemTitle}></Text>
+                  <View style={styles.rightItemMain}>
                     {
                       levelTwo.length !== 0 && 
                       val.map((val1, key1) => {
@@ -115,7 +115,7 @@ class Categories extends React.Component {
                             onPress={() => navigate(SCREENS.CateList, { parent_id: val1.parentId, classfy_id: val1.id })}
                           >
                             <Image style={styles.rightItemSubItemImage} source={{ uri: val1.imageUrl }} />
-                            <Text style={styles.rightItemSubItemText} >{val1.name}</Text>
+                            <Text style={styles.rightItemSubItemText}>{val1.name}</Text>
                           </BYTouchable>
                         )
                       })
@@ -182,9 +182,9 @@ class Categories extends React.Component {
     if (loading) return <Loader />;
     
     return (
-      <View style={styles.content} >
-        <ScrollView style={styles.scrollViewLeft} >
-          <View style={styles.main} >
+      <View style={styles.content}>
+        <ScrollView style={styles.scrollViewLeft}>
+          <View style={styles.main}>
             {
               levelOne.map((val, key) => {
                 return (
@@ -193,11 +193,11 @@ class Categories extends React.Component {
                     onPress={() => getMenuIndexFetch(key)}
                   >
                     <Image style={styles.itemImage} source={{ uri: val.image }} />
-                    <Text style={styles.itemText} >{val.name}</Text>
+                    <Text style={styles.itemText}>{val.name}</Text>
 
                     {
                       levelOneIndex === key && 
-                      <View style={styles.itemActive} ></View>
+                      <View style={styles.itemActive}></View>
                     }
                   </BYTouchable>
                 )
@@ -214,7 +214,7 @@ class Categories extends React.Component {
     const { getMenu, navigation: { navigate }, i18n } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader 
           headerTitle={this.renderHeaderTitle()}
           showBackButton={false}

@@ -69,7 +69,7 @@ class SecurityCenter extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <NavBar2 
           onPress={() => navigate(SCREENS.TransactionPasswordStepOne)}
           valueLeft={'Payment password'} 
@@ -96,7 +96,7 @@ class SecurityCenter extends React.Component {
     const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         <ScrollView>
           {this.renderContent()}

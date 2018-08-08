@@ -150,13 +150,13 @@ class Scrollable1 extends React.Component {
 
         {/* 暂时屏蔽拼单功能 */}
         {/* <View style={styles.groupBuy}>
-          <View style={styles.groupBuyBackground} >
+          <View style={styles.groupBuyBackground}>
             <Image style={styles.groupBuyImageBackground} source={require('../images/group23423.png')} />
           </View>
           <View style={styles.groupBuyTitle}>
             <Text style={styles.groupBuyTitleText}>{i18n.groupBuy}</Text>
             <View style={styles.groupBuyTitleRight}>
-              <Text style={styles.groupBuyTitleMore} onPress={() => navigate(SCREENS.GroupBuyList)} >{i18n.more}</Text>
+              <Text style={styles.groupBuyTitleMore} onPress={() => navigate(SCREENS.GroupBuyList)}>{i18n.more}</Text>
               <CustomIcon name="arrowright" style={styles.groupBuyTitleMoreIcon} />
             </View>
           </View>

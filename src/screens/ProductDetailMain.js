@@ -274,16 +274,16 @@ class ProductDetail extends React.Component {
     const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${WebViewImages}</body></html>`
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ScrollView onScroll={this.handleOnScroll}>
-          <BYTouchable style={styles.favorite} backgroundColor={'transparent'} onPress={() => this.handleToggleCollection()} >
+          <BYTouchable style={styles.favorite} backgroundColor={'transparent'} onPress={() => this.handleToggleCollection()}>
             {
               isCollection ? 
               <MaterialIcons name="favorite" style={[styles.favoriteIcon, styles.favoriteIconActive]} /> : 
               <MaterialIcons name="favorite-border" style={styles.favoriteIcon} />
             }
           </BYTouchable>
-          <View style={styles.statusbarPlaceholder} ></View>
+          <View style={styles.statusbarPlaceholder}></View>
           <SwiperFlatList 
             data={imageUrls} 
             style={{ height: WINDOW_WIDTH, }} 
@@ -293,26 +293,26 @@ class ProductDetail extends React.Component {
             paginationDefaultColor="rgba(88,88,88,.5)"
             autoplay={false}
           />
-          <View style={styles.product} >
-            <Text style={styles.productTitle} >{name}</Text>
-            <Text style={styles.productPrice} >{priceFormat(price || 0)} VND</Text>
-            <View style={styles.serverinfo} >
+          <View style={styles.product}>
+            <Text style={styles.productTitle}>{name}</Text>
+            <Text style={styles.productPrice}>{priceFormat(price || 0)} VND</Text>
+            <View style={styles.serverinfo}>
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" ></CustomIcon>
-              <Text style={styles.serverinfoToBePaidText} >{i18n.qualityAssurance}</Text>
+              <Text style={styles.serverinfoToBePaidText}>{i18n.qualityAssurance}</Text>
               <CustomIcon style={styles.serverinfotoReceiveGoods} name="toReceiveGoods" ></CustomIcon>
-              <Text style={styles.serverinfotoReceiveGoodsText} >{i18n.fastDelivery}</Text>
+              <Text style={styles.serverinfotoReceiveGoodsText}>{i18n.fastDelivery}</Text>
             </View>
-            <View style={styles.spec} >
-              <Text style={styles.specTitle} >{i18n.selected}</Text>
-              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')} >{propertiesIdsObject.colorName} {propertiesIdsObject.versionName}</Text>
+            <View style={styles.spec}>
+              <Text style={styles.specTitle}>{i18n.selected}</Text>
+              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')}>{propertiesIdsObject.colorName} {propertiesIdsObject.versionName}</Text>
               <CustomIcon style={styles.specArrow} name="arrowright" />
             </View>
           </View>
           <Comment data={comment} />
           {
             !!comment.length &&
-            <View style={styles.commentMore} >
-              <Text style={styles.commentMoreText} onPress={() => navigate(SCREENS.ProductDetailComment)} >{i18n.more}</Text>
+            <View style={styles.commentMore}>
+              <Text style={styles.commentMoreText} onPress={() => navigate(SCREENS.ProductDetailComment)}>{i18n.more}</Text>
             </View>
           }
           <WebView
@@ -323,8 +323,8 @@ class ProductDetail extends React.Component {
             }
             style={styles.WebView}
           />
-          <View style={[styles.commentMore, {paddingTop: SIDEINTERVAL}]} >
-            <Text style={styles.commentMoreText} onPress={() => mainNavigation.navigate(SCREENS.ProductDetailImages, { html: WebViewHTML })} >{i18n.more}</Text>
+          <View style={[styles.commentMore, {paddingTop: SIDEINTERVAL}]}>
+            <Text style={styles.commentMoreText} onPress={() => mainNavigation.navigate(SCREENS.ProductDetailImages, { html: WebViewHTML })}>{i18n.more}</Text>
           </View>
         </ScrollView>
       </View>

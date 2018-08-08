@@ -90,7 +90,7 @@ class GroupBuyList extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ProductItem1 data={items} groupon={true} />
         {ScrollViewPullUp.scrollViewFooter(pulluploading)}
       </View>
@@ -107,7 +107,7 @@ class GroupBuyList extends React.Component {
     if (!loaded) return <Loader />;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader />
         <ScrollView  
           onScroll={this._onScroll}

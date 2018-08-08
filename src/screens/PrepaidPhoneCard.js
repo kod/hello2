@@ -246,27 +246,27 @@ class PrepaidPhoneCard extends React.Component {
     const number = buttonSelectNumber[numberItemIndex].text;
     
     return (
-      <View style={styles.container} >
-        <View style={{ height: 20 }} ></View>
-        <Text style={styles.title} >Chọn nhà mạng</Text>
+      <View style={styles.container}>
+        <View style={{ height: 20 }}></View>
+        <Text style={styles.title}>Chọn nhà mạng</Text>
         <PrepaidBrand data={providersItems} callback={this.prepaidBrandCallback} />
-        <Text style={styles.title} >Chọn nhà mạng</Text>
+        <Text style={styles.title}>Chọn nhà mạng</Text>
         <ButtonSelect data={ProvidersValueItems} callback={this.buttonSelectPriceCallback} />
-        <Text style={styles.title} >Chọn mệnh giá và số lượng thẻ</Text>
+        <Text style={styles.title}>Chọn mệnh giá và số lượng thẻ</Text>
         <ButtonSelect data={buttonSelectNumber} style={{ marginBottom: 10 }} callback={this.buttonSelectNumberCallback} />
-        <BYTouchable style={styles.payMethod} onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')} >
-          <Text style={styles.payMethodLeft} >Payment method</Text>
-          <Text style={styles.payMethodMiddle} >{payWayButtons[payWayIndex].text}</Text>
+        <BYTouchable style={styles.payMethod} onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}>
+          <Text style={styles.payMethodLeft}>Payment method</Text>
+          <Text style={styles.payMethodMiddle}>{payWayButtons[payWayIndex].text}</Text>
           <CustomIcon style={styles.payMethodRight} name={'arrowright'} />
         </BYTouchable>
-        <View style={styles.price} >
-          <Text style={styles.priceTitle} >金额</Text>
-          <View style={styles.priceMain} >
-            <Text style={styles.priceRed} >{ProvidersValueItems[priceIndex] && priceFormat(ProvidersValueItems[priceIndex].price * number )} VND</Text>
+        <View style={styles.price}>
+          <Text style={styles.priceTitle}>金额</Text>
+          <View style={styles.priceMain}>
+            <Text style={styles.priceRed}>{ProvidersValueItems[priceIndex] && priceFormat(ProvidersValueItems[priceIndex].price * number )} VND</Text>
             {
               ProvidersValueItems[priceIndex] && 
               (ProvidersValueItems[priceIndex].price - ProvidersValueItems[priceIndex].orgPrice) !== 0 &&
-              <Text style={styles.priceGrey} >(已优惠{priceFormat(ProvidersValueItems[priceIndex].orgPrice * number - ProvidersValueItems[priceIndex].price * number)} VND)</Text>
+              <Text style={styles.priceGrey}>(已优惠{priceFormat(ProvidersValueItems[priceIndex].orgPrice * number - ProvidersValueItems[priceIndex].price * number)} VND)</Text>
             }
           </View>
         </View>
@@ -292,7 +292,7 @@ class PrepaidPhoneCard extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <ScrollView>
           {this.renderContent()}
         </ScrollView>

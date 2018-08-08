@@ -113,8 +113,8 @@ class Cart extends React.Component {
     }
     
     return (
-      <BYTouchable style={styles.headerRight} onPress={() => onPressHandle()} >
-        <Text style={styles.headerRightText} >{ isEdit ? i18n.save: i18n.edit }</Text>
+      <BYTouchable style={styles.headerRight} onPress={() => onPressHandle()}>
+        <Text style={styles.headerRightText}>{ isEdit ? i18n.save: i18n.edit }</Text>
       </BYTouchable>
     );
   };
@@ -280,20 +280,20 @@ class Cart extends React.Component {
         }
         {
           !isEmptyCart && 
-          <View style={styles.overview} >
-            <BYTouchable style={styles.overviewSelectAll} onPress={() => this.onPressSelectAllHandle()} >
-              <View style={styles.overviewIconWrap} >
+          <View style={styles.overview}>
+            <BYTouchable style={styles.overviewSelectAll} onPress={() => this.onPressSelectAllHandle()}>
+              <View style={styles.overviewIconWrap}>
                 {
                   isEdit
                   ? <Ionicons name={ allSelectedDel ? 'ios-radio-button-on-outline' : 'ios-radio-button-off-outline'} style={[styles.overviewIcon, allSelectedDel && styles.overviewIconSelectedDel]} />
                   : <Ionicons name={ allSelected ? 'ios-radio-button-on-outline' : 'ios-radio-button-off-outline'} style={[styles.overviewIcon, allSelected && styles.overviewIconSelected]} />
                 }
               </View>
-              <Text style={styles.overviewSelect} >{i18n.selectAll}</Text>
+              <Text style={styles.overviewSelect}>{i18n.selectAll}</Text>
             </BYTouchable>
-            <Text style={styles.overviewPrice} >{!isEdit && (priceFormat(totalMoney) + ' VND')}</Text>
-            <BYTouchable style={styles.overviewSubmit} onPress={() => this.onPressSubmitHandle()} >
-              <Text style={[styles.overviewSubmitText, isEdit && styles.overviewSubmitTextDel]} >{isEdit ? i18n.delete : i18n.buy}</Text>
+            <Text style={styles.overviewPrice}>{!isEdit && (priceFormat(totalMoney) + ' VND')}</Text>
+            <BYTouchable style={styles.overviewSubmit} onPress={() => this.onPressSubmitHandle()}>
+              <Text style={[styles.overviewSubmitText, isEdit && styles.overviewSubmitTextDel]}>{isEdit ? i18n.delete : i18n.buy}</Text>
             </BYTouchable>
           </View>
         }

@@ -108,73 +108,73 @@ class RepaymentRecord extends React.Component {
     } = this.props;
     
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
           repaymentRecordItems.map((val, key) => {
             return (
-              <View style={styles.item} key={key} >
-                <View style={styles.number} >
-                  <Text style={styles.textLeft} >number</Text>
-                  <Text style={styles.textRight} >{val.orderNo}</Text>
+              <View style={styles.item} key={key}>
+                <View style={styles.number}>
+                  <Text style={styles.textLeft}>number</Text>
+                  <Text style={styles.textRight}>{val.orderNo}</Text>
                 </View>
-                <View style={styles.cell} >
-                  <Text style={styles.textLeft} >sum</Text>
-                  <Text style={styles.textRight} >{priceFormat(val.amount)} VND</Text>
+                <View style={styles.cell}>
+                  <Text style={styles.textLeft}>sum</Text>
+                  <Text style={styles.textRight}>{priceFormat(val.amount)} VND</Text>
                 </View>
-                <View style={styles.cell} >
-                  <Text style={styles.textLeft} >date</Text>
-                  <Text style={styles.textRight} >{moment(val.createTime).format('L')}</Text>
+                <View style={styles.cell}>
+                  <Text style={styles.textLeft}>date</Text>
+                  <Text style={styles.textRight}>{moment(val.createTime).format('L')}</Text>
                 </View>
-                <View style={styles.cell} >
-                  <Text style={styles.textLeft} >way</Text>
-                  <Text style={styles.textRight} >{payWayToText(val.payWay)}</Text>
+                <View style={styles.cell}>
+                  <Text style={styles.textLeft}>way</Text>
+                  <Text style={styles.textRight}>{payWayToText(val.payWay)}</Text>
                 </View>
               </View>
             )
           })
         }
-        {/* <View style={styles.item} >
-          <View style={styles.number} >
-            <Text style={styles.textLeft} >number</Text>
-            <Text style={styles.textRight} >C0316011200001560047</Text>
+        {/* <View style={styles.item}>
+          <View style={styles.number}>
+            <Text style={styles.textLeft}>number</Text>
+            <Text style={styles.textRight}>C0316011200001560047</Text>
           </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >sum</Text>
-            <Text style={styles.textRight} >8.000.500 VND</Text>
+          <View style={styles.cell}>
+            <Text style={styles.textLeft}>sum</Text>
+            <Text style={styles.textRight}>8.000.500 VND</Text>
           </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >date</Text>
-            <Text style={styles.textRight} >2018.04.25</Text>
+          <View style={styles.cell}>
+            <Text style={styles.textLeft}>date</Text>
+            <Text style={styles.textRight}>2018.04.25</Text>
           </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >bank</Text>
-            <Text style={styles.textRight} >visa</Text>
+          <View style={styles.cell}>
+            <Text style={styles.textLeft}>bank</Text>
+            <Text style={styles.textRight}>visa</Text>
           </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >way</Text>
-            <Text style={styles.textRight} >bank</Text>
+          <View style={styles.cell}>
+            <Text style={styles.textLeft}>way</Text>
+            <Text style={styles.textRight}>bank</Text>
           </View>
         </View>
-        <View style={styles.item} >
-          <View style={styles.number} >
-            <Text style={styles.textLeft} >number</Text>
-            <Text style={styles.textRight} >C0316011200001560047</Text>
+        <View style={styles.item}>
+          <View style={styles.number}>
+            <Text style={styles.textLeft}>number</Text>
+            <Text style={styles.textRight}>C0316011200001560047</Text>
           </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >sum</Text>
-            <Text style={styles.textRight} >8.000.500 VND</Text>
+          <View style={styles.cell}>
+            <Text style={styles.textLeft}>sum</Text>
+            <Text style={styles.textRight}>8.000.500 VND</Text>
           </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >date</Text>
-            <Text style={styles.textRight} >2018.04.25</Text>
+          <View style={styles.cell}>
+            <Text style={styles.textLeft}>date</Text>
+            <Text style={styles.textRight}>2018.04.25</Text>
           </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >bank</Text>
-            <Text style={styles.textRight} >visa</Text>
+          <View style={styles.cell}>
+            <Text style={styles.textLeft}>bank</Text>
+            <Text style={styles.textRight}>visa</Text>
           </View>
-          <View style={styles.cell} >
-            <Text style={styles.textLeft} >way</Text>
-            <Text style={styles.textRight} >bank</Text>
+          <View style={styles.cell}>
+            <Text style={styles.textLeft}>way</Text>
+            <Text style={styles.textRight}>bank</Text>
           </View>
         </View> */}
       </View>
@@ -185,7 +185,7 @@ class RepaymentRecord extends React.Component {
     const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
 
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <BYHeader  
           headerTitle={this.renderHeaderTitle()}
         />

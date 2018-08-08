@@ -46,7 +46,7 @@ export default (
   }
 ) => {
   return (
-    <BYTouchable delayPressIn={0} style={[styles.component, style]} {...restProps} >
+    <BYTouchable delayPressIn={0} style={[styles.component, style]} {...restProps}>
       {
         isShowLeft && 
         <Text style={[styles.componentLeft, styleLeft]}>{valueLeft}</Text>
@@ -55,7 +55,7 @@ export default (
         isShowMiddle &&
         (componentMiddle ? 
         componentMiddle : 
-        <Text style={[styles.componentMiddle, styleMiddle]} numberOfLines={1} >{valueMiddle}</Text>)
+        <Text style={[styles.componentMiddle, styleMiddle]} numberOfLines={1}>{valueMiddle}</Text>)
       }
       {
         isShowRight &&
