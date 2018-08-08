@@ -1,16 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Image, Dimensions, ScrollView, } from 'react-native';
-import DeviceInfo from 'react-native-device-info';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  // Dimensions,
+  ScrollView,
+} from 'react-native';
+// import DeviceInfo from 'react-native-device-info';
 import { PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
-import { SCREENS } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  // WINDOW_HEIGHT,
+  // SIDEINTERVAL,
+  // APPBAR_HEIGHT,
+  SCREENS,
+  STATUSBAR_HEIGHT,
+} from '../common/constants';
 import BYTouchable from '../components/BYTouchable';
 import CustomIcon from '../components/CustomIcon';
 import NavBar1 from '../components/NavBar1';
 
 import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
+
+const aioru09230fPng = require('../images/aioru09230f.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -47,7 +62,7 @@ const styles = StyleSheet.create({
   headerItemPrice: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   headerItemText: {
     color: '#fff',
@@ -88,30 +103,29 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     paddingBottom: 1,
     borderRadius: 100,
-  }
+  },
 });
 
 class Me extends React.Component {
   constructor(props) {
     super(props);
-    this.handleOnNavBar1Callback = this.handleOnNavBar1Callback.bind(this)
+    this.handleOnNavBar1Callback = this.handleOnNavBar1Callback.bind(this);
     // this.didFocusAddListener = this.didFocusAddListener.bind(this)
   }
 
   componentDidMount() {
-    const { 
+    const {
       authUser,
-      queryOrderListFetch,
+      // queryOrderListFetch,
       cardQueryFetch,
+      navigation,
     } = this.props;
 
-    this.didBlurSubscription = this.props.navigation.addListener(
-      'didFocus',
-      payload => this.didFocusAddListener()
+    this.didBlurSubscription = navigation.addListener('didFocus', () =>
+      this.didFocusAddListener(),
     );
-    
-    authUser && cardQueryFetch();
 
+    if (authUser) cardQueryFetch();
   }
 
   componentWillUnmount() {
@@ -119,10 +133,10 @@ class Me extends React.Component {
   }
 
   didFocusAddListener() {
-    const { 
+    const {
       authUser,
       queryOrderListFetch,
-      cardQueryFetch,
+      // cardQueryFetch,
     } = this.props;
 
     if (authUser) {
@@ -146,47 +160,47 @@ class Me extends React.Component {
   }
 
   async handleOnPressOrderNav(index) {
-    const { 
-      queryOrderListIndexFetch,
-      navigation: { navigate }
+    const {
+      // queryOrderListIndexFetch,
+      navigation: { navigate },
     } = this.props;
     // await queryOrderListIndexFetch({
     //   scrollTabIndex: index,
     // });
-    navigate(SCREENS.Order, { index })
-  }
-  
-  renderHeaderBottom() {
-    const { authUser } = this.props;
-    
-    const list = [
-      {
-        price: '6,205,000',
-        text: 'April stay also(₫)',
-      },
-      {
-        price: '7,205,000',
-        text: 'May stay also(₫)',
-      },
-    ]
-
-    return (
-      <View style={styles.headerBottom}>
-        {list.map((val, key) => 
-          <View style={styles.headerItem} key={key}>
-            <Text style={styles.headerItemPrice}>{val.price}</Text>
-            <Text style={styles.headerItemText}>{val.text}</Text>
-          </View>
-        )}
-      </View>
-    );
+    navigate(SCREENS.Order, { index });
   }
 
-  renderNav1() {    
+  // renderHeaderBottom() {
+  //   // const { authUser } = this.props;
+
+  //   const list = [
+  //     {
+  //       price: '6,205,000',
+  //       text: 'April stay also(₫)',
+  //     },
+  //     {
+  //       price: '7,205,000',
+  //       text: 'May stay also(₫)',
+  //     },
+  //   ];
+
+  //   return (
+  //     <View style={styles.headerBottom}>
+  //       {list.map((val, key) => (
+  //         <View style={styles.headerItem} key={key}>
+  //           <Text style={styles.headerItemPrice}>{val.price}</Text>
+  //           <Text style={styles.headerItemText}>{val.text}</Text>
+  //         </View>
+  //       ))}
+  //     </View>
+  //   );
+  // }
+
+  renderNav1() {
     const {
       screenProps: { i18n },
       orderItem,
-      navigation: { navigate }
+      // navigation: { navigate },
     } = this.props;
 
     const list = [
@@ -214,20 +228,25 @@ class Me extends React.Component {
 
     return (
       <View style={styles.nav1}>
-        {list.map((val, key) => 
-          <BYTouchable 
-            style={styles.nav1Item} 
-            key={key} 
+        {list.map((val, key) => (
+          <BYTouchable
+            style={styles.nav1Item}
+            key={val.text}
             onPress={() => this.handleOnPressOrderNav(key + 1)}
           >
-            <CustomIcon style={[styles.nav1ItemIcon, val.styleIcon]} name={val.iconName}></CustomIcon>
+            <CustomIcon
+              style={[styles.nav1ItemIcon, val.styleIcon]}
+              name={val.iconName}
+            />
             <Text style={styles.nav1ItemText}>{val.text}</Text>
-            {
-              orderItem[key + 1].items.length > 0 && 
-              <Text style={styles.nav1ItemBadge}>{ orderItem[key + 1].items.length > 0 && orderItem[key + 1].items.length}</Text>
-            }
+            {orderItem[key + 1].items.length > 0 && (
+              <Text style={styles.nav1ItemBadge}>
+                {orderItem[key + 1].items.length > 0 &&
+                  orderItem[key + 1].items.length}
+              </Text>
+            )}
           </BYTouchable>
-      )}
+        ))}
       </View>
     );
   }
@@ -238,41 +257,52 @@ class Me extends React.Component {
       authUser,
     } = this.props;
 
-    authUser ? navigate(SCREENS.Settings) : navigate(SCREENS.Login);
+    if (authUser) {
+      navigate(SCREENS.Settings);
+    } else {
+      navigate(SCREENS.Login);
+    }
   }
 
   handleOnNavBar1Callback(screens) {
-    var SCREENS_name = screens.navigate;
+    // const SCREENSName = screens.navigate;
     const {
       navigation: { navigate },
       authUser,
     } = this.props;
 
-    switch (SCREENS_name) {
+    switch (screens) {
       case SCREENS.AboutAs:
       case SCREENS.Settings:
       case SCREENS.Invite:
-        navigate(SCREENS_name)
+        navigate(screens);
         break;
-    
+
       default:
-        authUser ? navigate(SCREENS_name) : navigate(SCREENS.Login);
+        if (authUser) {
+          navigate(screens);
+        } else {
+          navigate(SCREENS.Login);
+        }
         break;
     }
   }
-  
+
   render() {
     const {
-      navigation: { navigate },
+      // navigation: { navigate },
       screenProps: { i18n },
       certUser,
       authUser,
-      initPassword,
-      status,
+      // initPassword,
+      // status,
     } = this.props;
 
-    const headerIconImgSource = (authUser && certUser.headimage) ?  {uri: certUser.headimage} : require('../images/aioru09230f.png');
-    
+    const headerIconImgSource =
+      authUser && certUser.headimage
+        ? { uri: certUser.headimage }
+        : aioru09230fPng;
+
     const username = authUser ? certUser.username : i18n.loginRegister;
     const phone = authUser ? authUser.msisdn : '';
 
@@ -284,7 +314,7 @@ class Me extends React.Component {
       // },
       {
         name: i18n.orders,
-        navigate: SCREENS.Order,
+        func: () => this.handleOnNavBar1Callback(SCREENS.Order),
         tips: '',
       },
     ];
@@ -292,46 +322,47 @@ class Me extends React.Component {
       {
         name: i18n.cart,
         navigate: SCREENS.Cart,
+        func: () => this.handleOnNavBar1Callback(SCREENS.Cart),
         tips: '',
       },
       {
         name: i18n.myCollection,
-        navigate: SCREENS.MyCollection,
+        func: () => this.handleOnNavBar1Callback(SCREENS.MyCollection),
         tips: '',
       },
       {
         name: i18n.myCoupon,
-        navigate: SCREENS.CouponMy,
+        func: () => this.handleOnNavBar1Callback(SCREENS.CouponMy),
         tips: '',
       },
       {
         name: i18n.securityCenter,
-        navigate: SCREENS.SecurityCenter,
+        func: () => this.handleOnNavBar1Callback(SCREENS.SecurityCenter),
         tips: '',
       },
       {
         name: i18n.shippingAddress,
-        navigate: SCREENS.Address,
+        func: () => this.handleOnNavBar1Callback(SCREENS.Address),
         tips: '',
       },
       // {
       //   name: i18n.inviteFriends,
-      //   navigate: SCREENS.Invite,
+      //   func: () => this.handleOnNavBar1Callback(SCREENS.Invite),
+      //   tips: '',
+      // },
+      // {
+      //   name: i18n.aboutAs,
+      //   func: () => this.handleOnNavBar1Callback(SCREENS.AboutAs),
+      //   tips: '',
+      // },
+      // {
+      //   name: i18n.followUs,
+      //   func: () => this.handleOnNavBar1Callback(SCREENS.Settings),
       //   tips: '',
       // },
       {
-        name: i18n.aboutAs,
-        navigate: SCREENS.AboutAs,
-        tips: '',
-      },
-      {
-        name: i18n.followUs,
-        navigate: SCREENS.Settings,
-        tips: '',
-      },
-      {
         name: i18n.settings,
-        navigate: SCREENS.Settings,
+        func: () => this.handleOnNavBar1Callback(SCREENS.Settings),
         tips: '',
       },
     ];
@@ -351,15 +382,28 @@ class Me extends React.Component {
         <ScrollView style={styles.container}>
           <View style={styles.container}>
             <View style={styles.header}>
-              <BYTouchable style={styles.headerIcon} onPress={() => this.handleOnPressUser()}>
-                <Image style={styles.headerIconImg} source={headerIconImgSource} />
+              <BYTouchable
+                style={styles.headerIcon}
+                onPress={() => this.handleOnPressUser()}
+              >
+                <Image
+                  style={styles.headerIconImg}
+                  source={headerIconImgSource}
+                />
                 <Text style={styles.headerIconText}>{username || phone}</Text>
               </BYTouchable>
               {/* {this.renderHeaderBottom()} */}
             </View>
-            <NavBar1 list={renderCellItem1List1} callback={this.handleOnNavBar1Callback} />
+            <NavBar1
+              list={renderCellItem1List1}
+              // callback={this.handleOnNavBar1Callback}
+            />
             {this.renderNav1()}
-            <NavBar1 list={renderCellItem1List2} callback={this.handleOnNavBar1Callback} styleItemLeft={{flex: 3}} />
+            <NavBar1
+              list={renderCellItem1List2}
+              // callback={this.handleOnNavBar1Callback}
+              styleItemLeft={{ flex: 3 }}
+            />
           </View>
         </ScrollView>
       </View>
@@ -368,25 +412,24 @@ class Me extends React.Component {
 }
 
 export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        userCertificateInfo,
-        auth,
-        queryOrderList,
-        cardQuery,
-      } = state;
-      return {
-        orderItem: queryOrderList.item,
-        certUser: userCertificateInfo.certUser,
-        authUser: auth.user,
-        initPassword: cardQuery.item.initPassword,
-        status: cardQuery.item.status,
-      }
-    }
+  state => {
+    const {
+      userCertificateInfo,
+      auth,
+      queryOrderList,
+      cardQuery,
+      // cardQuery,
+    } = state;
+    return {
+      orderItem: queryOrderList.item,
+      certUser: userCertificateInfo.certUser,
+      authUser: auth.user,
+      initPassword: cardQuery.item.initPassword,
+      status: cardQuery.item.status,
+    };
   },
   {
     ...queryOrderListActionCreators,
     ...cardQueryActionCreators,
-  }
+  },
 )(Me);

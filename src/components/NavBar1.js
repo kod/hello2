@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { SIDEINTERVAL } from '../common/constants';
-import CustomIcon from '../components/CustomIcon';
-import BYTouchable from '../components/BYTouchable';
+import CustomIcon from './CustomIcon';
+import BYTouchable from './BYTouchable';
 
 const styles = StyleSheet.create({
   cellItem1Wrap: {
@@ -41,18 +41,39 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({list, style, styleItem, styleItemLeft, styleIconImg, callback}) => {
-  return (
-    <View style={[styles.cellItem1Wrap, style]}>
-      {list.map((val, key) => 
-        <BYTouchable delayPressIn={0} style={[styles.cellItem1, styleItem]} key={key} onPress={() => callback(val)}>
-          { !!val.iconName && <CustomIcon style={styles.cellItem1Icon} name={val.iconName}></CustomIcon>}
-          { !!val.iconImg && <Image style={[styles.cellItem1IconImg, styleIconImg]} source={val.iconImg} />}
-          <Text style={[styles.cellItem1Left, styleItemLeft]} numberOfLines={1}>{val.name}</Text>
-          <Text style={styles.cellItem1Middle} numberOfLines={1}>{val.tips}</Text>
-          <CustomIcon style={styles.cellItem1Right} name="arrowright"></CustomIcon>
-        </BYTouchable>
-      )}
-    </View>
-  )
-};
+export default ({
+  list,
+  style,
+  styleItem,
+  styleItemLeft,
+  styleIconImg,
+  // callback,
+}) => (
+  <View style={[styles.cellItem1Wrap, style]}>
+    {list.map((val, key) => (
+      <BYTouchable
+        delayPressIn={0}
+        style={[styles.cellItem1, styleItem]}
+        key={key}
+        onPress={() => val.func()}
+      >
+        {!!val.iconName && (
+          <CustomIcon style={styles.cellItem1Icon} name={val.iconName} />
+        )}
+        {!!val.iconImg && (
+          <Image
+            style={[styles.cellItem1IconImg, styleIconImg]}
+            source={val.iconImg}
+          />
+        )}
+        <Text style={[styles.cellItem1Left, styleItemLeft]} numberOfLines={1}>
+          {val.name}
+        </Text>
+        <Text style={styles.cellItem1Middle} numberOfLines={1}>
+          {val.tips}
+        </Text>
+        <CustomIcon style={styles.cellItem1Right} name="arrowright" />
+      </BYTouchable>
+    ))}
+  </View>
+);

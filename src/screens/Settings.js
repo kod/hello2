@@ -13,8 +13,8 @@ import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHome
 import * as authActionCreators from '../common/actions/auth';
 
 const personPng = require('../images/person.png');
-const osindfaofisPng = require('../images/osindfaofis.png');
-const ufifhiufaisfudPng = require('../images/ufifhiufaisfud.png');
+// const osindfaofisPng = require('../images/osindfaofis.png');
+// const ufifhiufaisfudPng = require('../images/ufifhiufaisfud.png');
 const aboutPng = require('../images/about.png');
 
 const styles = StyleSheet.create({
@@ -90,34 +90,35 @@ class Settings extends React.Component {
     } = this.props;
 
     const navBar1List = [
-      {
-        iconImg: personPng,
-        name: i18n.personalInformation,
-        navigate: SCREENS.Login,
-        tips: '',
-      },
-      {
-        iconImg: osindfaofisPng,
-        name: i18n.securityCenter,
-        navigate: SCREENS.Login,
-        tips: '',
-      },
-      {
-        iconImg: ufifhiufaisfudPng,
-        name: i18n.clearCache,
-        navigate: SCREENS.Login,
-        tips: '',
-      },
+      // {
+      //   iconImg: personPng,
+      //   name: i18n.personalInformation,
+      //   navigate: SCREENS.Login,
+      //   tips: '',
+      // },
+      // {
+      //   iconImg: osindfaofisPng,
+      //   name: i18n.securityCenter,
+      //   navigate: SCREENS.SecurityCenter,
+      //   callback: () =>
+      //   tips: '',
+      // },
+      // {
+      //   iconImg: ufifhiufaisfudPng,
+      //   name: i18n.clearCache,
+      //   navigate: SCREENS.Login,
+      //   tips: '',
+      // },
       {
         iconImg: aboutPng,
-        name: i18n.about,
-        navigate: SCREENS.Login,
+        name: i18n.aboutAs,
+        navigate: SCREENS.AboutAs,
         tips: '',
       },
       {
-        // iconImg: require('../images/person.png'),
+        iconImg: personPng,
         name: i18n.language,
-        navigate: SCREENS.Language,
+        func: () => navigate(SCREENS.Language),
         tips: '',
       },
     ];
@@ -130,7 +131,6 @@ class Settings extends React.Component {
             list={navBar1List}
             style={{ marginBottom: 30 }}
             styleItemLeft={{ flex: 3 }}
-            callback={nav => navigate(nav.navigate)}
           />
           <BYTouchable
             style={styles.logout}
