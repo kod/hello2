@@ -37,26 +37,25 @@ const styles = StyleSheet.create({
 });
 
 class ParamsSelectModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addressIndex: 0, // 显示哪个ScrollView
-      division2ndID: null,
-      division3rdID: null,
-      division4thID: null,
-      division2ndName: null,
-      division3rdName: null,
-      division4thName: null,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     addressIndex: 0, // 显示哪个ScrollView
+  //     division2ndID: null,
+  //     division3rdID: null,
+  //     division4thID: null,
+  //     division2ndName: null,
+  //     division3rdName: null,
+  //     division4thName: null,
+  //   };
+  // }
 
-  componentDidMount() {
-    const {
-      cityInfosFetch,
-      modalProps: { params },
-    } = this.props;
-
-  }
+  // componentDidMount() {
+  //   const {
+  //     cityInfosFetch,
+  //     modalProps: { params },
+  //   } = this.props;
+  // }
 
   handleOnModalClose = () => {
     const { closeModal } = this.props;
@@ -64,10 +63,27 @@ class ParamsSelectModal extends Component {
   };
 
   renderContent() {
+    const {
+      i18n,
+      productDetailNumber,
+      colorArray,
+      versionArray,
+      imageUrls,
+      price,
+      numbers,
+      propertiesIdsObject,
+    } = this.props;
+
+    const { colorId = 0, versionId = 0 } = propertiesIdsObject;
+
     return (
-      <View style={{backgroundColor: '#fff'}}>
+      <View style={{ backgroundColor: '#fff' }}>
         <View style={styles.paramClose}>
-          <EvilIcons style={styles.paramCloseIcon} name={'close'} onPress={() => this.handleOnPressToggleMenuBottomSheet()} />
+          <EvilIcons
+            style={styles.paramCloseIcon}
+            name="close"
+            onPress={() => this.handleOnPressToggleMenuBottomSheet()}
+          />
         </View>
         <View style={styles.paramInfo}>
           {
@@ -166,7 +182,7 @@ class ParamsSelectModal extends Component {
 export default connect(
   state => {
     const {
-      cityInfos,
+      // cityInfos,
       modal: { modalProps = {} },
     } = state;
 
@@ -175,14 +191,14 @@ export default connect(
 
     return {
       modalProps,
-      loading: cityInfos.loading,
-      division2ndItems: cityInfos.division2nd,
-      division3rdItems: cityInfos.division3rd,
-      division4thItems: cityInfos.division4th,
+      // loading: cityInfos.loading,
+      // division2ndItems: cityInfos.division2nd,
+      // division3rdItems: cityInfos.division3rd,
+      // division4thItems: cityInfos.division4th,
     };
   },
   {
-    ...cityInfosActionCreators,
+    // ...cityInfosActionCreators,
     ...modalActionCreators,
   },
 )(ParamsSelectModal);

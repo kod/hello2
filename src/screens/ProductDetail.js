@@ -25,6 +25,7 @@ import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEI
 import * as productDetailActionCreators from '../common/actions/productDetail';
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 import * as cartActionCreators from '../common/actions/cart';
+import * as modalActionCreators from '../common/actions/modal';
 
 import BYBottomSheet from "../components/BYBottomSheet";
 import BYTextInput from '../components/BYTextInput';
@@ -630,5 +631,6 @@ export default connectLocalization(connect(
     ...productDetailActionCreators,
     ...productDetailInfoActionCreators,
     ...cartActionCreators,
+    ...modalActionCreators,
   }
 )(ProductDetail));
