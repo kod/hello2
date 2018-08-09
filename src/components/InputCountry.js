@@ -48,11 +48,11 @@ export default (
       <View style={styles.component}>
         <Image source={require('../images/viemnam.png')} style={styles.componentFlag} />
         <Text style={styles.componentCode}>+84</Text>
-        <BYTextInput 
+        <BYTextInput
           style={styles.componentInput} 
-          underlineColorAndroid={'rgba(0,0,0,.0)'} 
+          underlineColorAndroid="rgba(0,0,0,.0)" 
           placeholder={'please input your phone number'} 
-          placeholderTextColor={'#ccc'} 
+          placeholderTextColor="#ccc" 
           onChangeText={input.onChange}
           value={input.value}
           {...input}

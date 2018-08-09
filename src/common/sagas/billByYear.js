@@ -88,11 +88,11 @@ export function* billByYearFetchWatchHandle(action) {
       const beforeNumber = beforeMonth - 1;
       const afterNumber = 12 - afterMonth;
 
-      for (let index = 0; index < beforeNumber; index++) {
+      for (let index = 0; index < beforeNumber; index += 1) {
         result.unshift({});
       }
 
-      for (let index = 0; index < afterNumber; index++) {
+      for (let index = 0; index < afterNumber; index += 1) {
         result.push({});
       }
 

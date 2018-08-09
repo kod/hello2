@@ -32,7 +32,7 @@ class InvitationInput extends React.Component {
       ...restProps
     } = this.props;
     return (
-      <BYTextInput 
+      <BYTextInput
         onChangeText={input.onChange}
         value={input.value}
         {...restProps}
@@ -78,7 +78,7 @@ class RegisterStepOne extends React.Component {
       <View style={styles.container}>
         <BYHeader />
 
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView keyboardShouldPersistTaps="always">
           <Field 
             name="phone"
             component={InputCountry}

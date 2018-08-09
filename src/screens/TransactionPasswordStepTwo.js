@@ -87,7 +87,7 @@ class TransactionPasswordStepTwo extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView keyboardShouldPersistTaps="always">
 
           <Field 
             name="code"
@@ -105,7 +105,7 @@ class TransactionPasswordStepTwo extends React.Component {
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
             placeholder={'Vui lòng nhập 6 chữ số'}
-            secureTextEntry={true}
+            secureTextEntry
             keyboardType="numeric"
             // onSubmitEditing={() => { this.repassword.focus(); }}
             // ref={(input) => { this.password = input }}
@@ -117,7 +117,7 @@ class TransactionPasswordStepTwo extends React.Component {
             // inputRight={this.renderInputRightClose()}
             styleWrap={{marginBottom: 45}}
             placeholder={'Nhập lại Mật mã giao dịch'}
-            secureTextEntry={true}
+            secureTextEntry
             keyboardType="numeric"
             // ref={(input) => { this.repassword = input }}
           />

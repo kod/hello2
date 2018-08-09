@@ -99,10 +99,10 @@ class SchoolSelect extends React.Component {
     return (
       <View style={styles.headerMiddleMain}>
         <CustomIcon name="search" style={styles.headerMiddleIcon} />
-        <BYTextInput 
+        <BYTextInput
           style={styles.headerMiddleText}
           placeholder={'Search'}
-          placeholderTextColor={'#ccc'}
+          placeholderTextColor="#ccc"
           onChangeText={(val) => this.setState({ inputValue: val.toLowerCase() })}
           value={inputValue}  
         />

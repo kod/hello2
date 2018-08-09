@@ -9,7 +9,7 @@ import * as queryOrderListActionCreators from '../common/actions/queryOrderList'
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
-import ProductItem2 from "../components/ProductItem2";
+import ProductItem2 from '../components/ProductItem2';
 import ScrollableTabView from '../components/ScrollableTabView';
 import SeparateBar from '../components/SeparateBar';
 import EmptyState from '../components/EmptyState';

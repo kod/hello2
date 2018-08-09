@@ -61,7 +61,7 @@ export function* newComputerFetchWatchHandle(action) {
 
     if (response.code === 10000) {
       const array = response.computernewest;
-      for (let index = 0; index < array.length; index++) {
+      for (let index = 0; index < array.length; index += 1) {
         const element = array[index];
         if (element.position === 1) {
           computernewBanerList.push(element);

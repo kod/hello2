@@ -6,15 +6,15 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import { SCREENS } from '../common/constants';
 
-import ProductItem2 from "../components/ProductItem2";
+import ProductItem2 from '../components/ProductItem2';
 import NavBar2 from "../components/NavBar2";
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
-import BYModal from "../components/BYModal";
+import BYModal from '../components/BYModal';
 import ActionSheet from "../components/ActionSheet";
 import EnterPassword from "../components/EnterPassword";
-import Address from "../components/Address";
+import Address from '../components/Address';
 import Loader from '../components/Loader';
 import SeparateBar from '../components/SeparateBar';
 

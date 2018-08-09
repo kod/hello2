@@ -65,7 +65,7 @@ class ForgotPasswordTwo extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView keyboardShouldPersistTaps="always">
           <Field 
             name="code"
             component={InputRight}
@@ -77,7 +77,7 @@ class ForgotPasswordTwo extends React.Component {
             component={InputRight}
             inputRight={this.renderInputRightClose()} 
             textInputProps={{placeholder: '8-20 password', secureTextEntry: true}}
-            secureTextEntry={true}
+            secureTextEntry
           />
           <Field 
             name="repassword"
@@ -85,7 +85,7 @@ class ForgotPasswordTwo extends React.Component {
             inputRight={this.renderInputRightClose()} 
             styleWrap={{marginBottom: 5}}
             textInputProps={{placeholder: 'confirm password', secureTextEntry: true}}
-            secureTextEntry={true}
+            secureTextEntry
           />
 
           <Error text={'input error'} styleWrap={{marginBottom: 45}} />

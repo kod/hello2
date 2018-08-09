@@ -68,7 +68,7 @@ class RegisterFastStepTwo extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView keyboardShouldPersistTaps="always">
           <Field 
             name="code"
             component={InputRight}

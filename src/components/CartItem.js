@@ -190,7 +190,7 @@ class CartItem extends Component {
               style={[styles.removeIcon, quantity === '1' && styles.removeIconDisable]} 
             />
           </BYTouchable>
-          <BYTextInput 
+          <BYTextInput
             style={styles.textInput} 
             keyboardType="numeric" 
             value={quantity} 

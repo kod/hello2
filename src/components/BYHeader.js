@@ -100,7 +100,7 @@ class PXHeader extends Component {
 
   renderHeaderTitle = () => {
     return (
-      <View style={{flex: 1}}></View>
+      <View style={{ flex: 1 }}></View>
     );
   };
   

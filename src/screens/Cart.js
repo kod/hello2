@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 class Cart extends React.Component {
   componentDidMount() {
     const { cartRequest, isAuthUser } = this.props;
-    isAuthUser && cartRequest();
+    if (isAuthUser) cartRequest();
   }
 
   componentWillMount() {
@@ -166,7 +166,7 @@ class Cart extends React.Component {
       const { items, products, details } = cart;
       let adverstInfo = [], productsCart = []
 
-      for (let index = 0; index < items.length; index++) {
+      for (let index = 0; index < items.length; index += 1) {
         const val = items[index];
 
         if (products[val].selected) {

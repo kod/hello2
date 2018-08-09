@@ -79,7 +79,7 @@ export function* mergeGetInfoFetchWatchHandle(action) {
     }
 
     const array = response.details;
-    for (let index = 0; index < array.length; index++) {
+    for (let index = 0; index < array.length; index += 1) {
       let element = array[index];
       element.price = element.mergePrice;
       result.push(element);

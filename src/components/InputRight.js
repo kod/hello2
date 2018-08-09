@@ -40,9 +40,9 @@ export default (
   return (
     <View style={[styles.componentWrap, styleWrap]}>
       <View style={[styles.component, style]}>
-        <BYTextInput 
+        <BYTextInput
           style={[styles.componentInput, styleInput]} 
-          placeholderTextColor={'#ccc'} 
+          placeholderTextColor="#ccc" 
           onChangeText={input.onChange}
           value={input.value}
           {...input}

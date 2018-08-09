@@ -118,7 +118,7 @@ export function* bannerSwiperFetchWatchHandle(action) {
             ]);
             response = item.topadinfo;
 
-            // for (let index = 0; index < item.topadinfo.length; index++) {
+            // for (let index = 0; index < item.topadinfo.length; index += 1) {
             //   const element = item.topadinfo[index];
             //   response.push(element.imageUrl);
             // }
@@ -170,7 +170,7 @@ export function* bannerSwiperFetchWatchHandle(action) {
 
           response = item.computerltopadinfo;
 
-          // for (let index = 0; index < item.computerltopadinfo.length; index++) {
+          // for (let index = 0; index < item.computerltopadinfo.length; index += 1) {
           //   const element = item.computerltopadinfo[index];
           //   response.push(element.imageUrl);
           // }
@@ -221,7 +221,7 @@ export function* bannerSwiperFetchWatchHandle(action) {
 
           response = item.digitaltopadinfo;
 
-          // for (let index = 0; index < item.digitaltopadinfo.length; index++) {
+          // for (let index = 0; index < item.digitaltopadinfo.length; index += 1) {
           //   const element = item.digitaltopadinfo[index];
           //   response.push(element.imageUrl);
           // }

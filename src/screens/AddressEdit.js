@@ -13,7 +13,7 @@ import BYTextInput from '../components/BYTextInput';
 import InputRight from '../components/InputRight';
 import CustomIcon from '../components/CustomIcon';
 import BYBottomSheet from '../components/BYBottomSheet';
-import BYModal from "../components/BYModal";
+import BYModal from '../components/BYModal';
 import BYTouchable from '../components/BYTouchable';
 import BYButton from '../components/BYButton';
 
@@ -82,7 +82,7 @@ class AddressInput extends React.Component {
       ...restProps
     } = this.props;
     return (
-      <BYTextInput 
+      <BYTextInput
         onChangeText={input.onChange}
         value={input.value}
         {...restProps}
@@ -401,15 +401,15 @@ class AddressAdd extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView keyboardShouldPersistTaps="always">
           <View style={styles.item}>
             <Text style={styles.title}>Name</Text>
             <Field
               name="name"
               component={AddressInput}
               style={styles.textInput}
-              placeholder={'please enter your name'}
-              placeholderTextColor={'#ccc'}
+              placeholder="please enter your name"
+              placeholderTextColor="#ccc"
             />
           </View>
           <View style={styles.item}>
@@ -419,15 +419,15 @@ class AddressAdd extends React.Component {
               component={AddressInput}
               style={styles.textInput}
               placeholder={'please enter your phone number'}
-              placeholderTextColor={'#ccc'}
+              placeholderTextColor="#ccc"
               keyboardType={'phone-pad'}
             />
           </View>
           <PXTouchable style={styles.item} onPress={() => this.handleOnPressToggleMenuBottomSheet()}>
             <Text style={styles.title}>Xã/Huyện/Thành</Text>
-            <BYTextInput 
+            <BYTextInput
               placeholder={'please select'}
-              placeholderTextColor={'#ccc'}
+              placeholderTextColor="#ccc"
               style={styles.address}
               value={areaAddressStr}
               editable={false}
@@ -441,7 +441,7 @@ class AddressAdd extends React.Component {
               component={AddressInput}
               style={styles.textInput}
               placeholder={'please enter your address'}
-              placeholderTextColor={'#ccc'}
+              placeholderTextColor="#ccc"
               defaultValue={'123'}
             />
           </View>

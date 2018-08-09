@@ -244,10 +244,10 @@ class Evalution extends React.Component {
         </View>
         <View style={styles.mainWrap}>
           <View style={styles.main}>
-            <BYTextInput 
+            <BYTextInput
               style={styles.textInput}
-              placeholder={'please enter your name'}
-              placeholderTextColor={'#ccc'}
+              placeholder="please enter your name"
+              placeholderTextColor="#ccc"
               onChangeText={(val) => this.setState({ textValue: val })}
               value={textValue}
               maxLength={150}

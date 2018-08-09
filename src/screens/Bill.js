@@ -12,7 +12,7 @@ import { getBillMonthItem, getBillTotalMoney } from '../common/selectors';
 import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
 import BYHeader from '../components/BYHeader';
-import BYModal from "../components/BYModal";
+import BYModal from '../components/BYModal';
 import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
@@ -331,7 +331,7 @@ class Bill extends React.Component {
         <Text style={styles.title}>Repayment</Text>
         <View style={styles.wrap}>
           <View style={styles.enterPrice}>
-            <BYTextInput 
+            <BYTextInput
               style={styles.textInput} 
               keyboardType="numeric" 
               value={price} 

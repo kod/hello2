@@ -75,7 +75,7 @@ export function* adverstInfoFetchWatchHandle(action) {
       // result = response.details;
 
       const array = response.details;
-      for (let index = 0; index < array.length; index++) {
+      for (let index = 0; index < array.length; index += 1) {
         let element = array[index];
         element.price = element.minprice;
         element.orgPrice = element.maxprice;

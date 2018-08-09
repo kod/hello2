@@ -121,7 +121,7 @@ class RegisterStepTwo extends React.Component {
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView keyboardShouldPersistTaps="always">
           {loading && <Loader absolutePosition />}
           <Field 
             name="otp"
@@ -135,15 +135,15 @@ class RegisterStepTwo extends React.Component {
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
             placeholder={'8-20 password'}
-            secureTextEntry={true}
+            secureTextEntry
           />
           <Field 
             name="repassword"
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
             styleWrap={{marginBottom: 45}}
-            placeholder={'confirm password'}
-            secureTextEntry={true}
+            placeholder="confirm password"
+            secureTextEntry
           />
 
           <BYButton text={'Register'} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />

@@ -9,12 +9,12 @@ import { SCREENS } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import { createOrderno } from '../common/helpers';
 
-import ProductItem2 from "../components/ProductItem2";
+import ProductItem2 from '../components/ProductItem2';
 import NavBar2 from "../components/NavBar2";
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
-import Address from "../components/Address";
+import Address from '../components/Address';
 import Loader from '../components/Loader';
 
 import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, BORDER_COLOR, WINDOW_HEIGHT } from '../styles/variables';

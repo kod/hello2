@@ -105,7 +105,7 @@ class Login extends React.Component {
           styleWrap={{ marginBottom: 75 }}
           placeholder={i18n.pleaseEnterThePassword}
           returnKeyType={'done'}
-          secureTextEntry={true}
+          secureTextEntry
         />
         <BYButton text={i18n.login} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
         <NavSidesText 
@@ -114,7 +114,7 @@ class Login extends React.Component {
           navigateLeft={() => navigate(SCREENS.RegisterStepOne)} 
           navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} 
         />
-        <View style={{flex: 1}}></View>
+        <View style={{ flex: 1 }}></View>
         {/* <OtherLogin /> */}
         <OverlaySpinner visible={loading} />
       </View>

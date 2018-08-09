@@ -70,7 +70,7 @@ export function* queryGoodsFetchWatchHandle(action) {
 
     let items = [];
 
-    for (let index = 0; index < response.result.length; index++) {
+    for (let index = 0; index < response.result.length; index += 1) {
       const element = response.result[index];
       items = [...items, ...element.goodList];
     }

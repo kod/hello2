@@ -93,7 +93,7 @@ export function* cartFetchWatchHandle(action) {
         return val;
       });
       cart = normalize(cart, Schemas.PRODUCTS_ARRAY);
-      // for (let index = 0; index < array.length; index++) {
+      // for (let index = 0; index < array.length; index += 1) {
       //   let element = array[index];
       //   element = {  ...JSON.parse(element.detail), ...element };
       //   element.imageUrl = element.iconUrl;
@@ -168,7 +168,7 @@ export function* cartNumberRequestWatchHandle(action) {
     cart = response;
     // if (response.code === 10000) {
     //   let array = response.cartitems;
-    //   for (let index = 0; index < array.length; index++) {
+    //   for (let index = 0; index < array.length; index += 1) {
     //     let element = array[index];
     //     element = { ...element, ... JSON.parse(element.detail) };
     //     element.imageUrl = element.iconUrl;

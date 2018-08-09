@@ -155,7 +155,7 @@ export const makegetSchoolName = () => {
     (schoolInfoItems, certifiedInformationCertUser) => {
       if (schoolInfoItems.length === 0) return '';
       if (!certifiedInformationCertUser.collegename) return '';
-      for (let index = 0; index < schoolInfoItems.length; index++) {
+      for (let index = 0; index < schoolInfoItems.length; index += 1) {
         const element = schoolInfoItems[index];
         if (element.id === parseInt(certifiedInformationCertUser.collegename)) return element.name;
       }
@@ -167,7 +167,7 @@ export const getAddressSelectedItem = createSelector(
   [getAddressItems, getAddressSelectedId],
   (addressItems, addressSelectedId) => {
     if (addressItems.length === 0 || addressSelectedId === 0) return defaultObject;
-    for (let index = 0; index < addressItems.length; index++) {
+    for (let index = 0; index < addressItems.length; index += 1) {
       const element = addressItems[index];
       if (element.id === addressSelectedId) return element;
     }
@@ -183,7 +183,7 @@ export const getBillMonthItem = createSelector(
 
     // const getValidMonth = (array) => {
     //   array = array.reverse();
-    //   for (let index = 0; index < array.length; index++) {
+    //   for (let index = 0; index < array.length; index += 1) {
     //     const element = array[index];
     //     if (element.status) return element;
     //   }

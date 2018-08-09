@@ -91,10 +91,10 @@ class Settings extends React.Component {
             style={styles.headerIcon} 
           />
           <Text style={styles.textInput} onPress={() => goBack()}>{findcontent}</Text>
-          {/* <BYTextInput 
-            underlineColorAndroid={'rgba(0,0,0,.0)'} 
+          {/* <BYTextInput
+            underlineColorAndroid="rgba(0,0,0,.0)" 
             placeholder={'Search'} 
-            placeholderTextColor={'#ccc'} 
+            placeholderTextColor="#ccc" 
             style={styles.textInput} 
             value={findcontent}
             editable={false}

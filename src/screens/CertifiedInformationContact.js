@@ -12,7 +12,7 @@ import BYTouchable from '../components/BYTouchable';
 import FieldInput from '../components/FieldInput';
 import BYTextInput from '../components/BYTextInput';
 import Error from '../components/Error';
-import BYModal from "../components/BYModal";
+import BYModal from '../components/BYModal';
 
 import { makegetSchoolName } from '../common/selectors';
 import { SCREENS } from '../common/constants';
@@ -106,7 +106,7 @@ class CertifiedInformationSchool extends Component {
     )
   }
 
-  handleOnPressToggleModal = (type) => {
+  handleOnPressToggleModal = type => {
     const {
       isOpenModal,
     } = this.state;
@@ -167,7 +167,7 @@ class CertifiedInformationSchool extends Component {
           headerTitle={this.renderHeaderTitle()}
           headerRight={this.renderHeaderRight()}
         />
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView keyboardShouldPersistTaps="always">
           <KeyboardAvoidingView behavior="padding" >
             <BYTouchable style={styles.item} onPress={() => this.handleOnPressToggleModal()}>
               <View style={styles.main}>
@@ -190,10 +190,10 @@ class CertifiedInformationSchool extends Component {
             <View style={styles.item}>
               <View style={styles.main}>
                 <Text style={styles.label}>name</Text>
-                <BYTextInput 
+                <BYTextInput
                   style={styles.input}
                   placeholder={'please enter name'}
-                  placeholderTextColor={'#ccc'}
+                  placeholderTextColor="#ccc"
                   onChangeText={val => certifiedInformationEdit(`connectusername${index}`, val)}
                   value={connectusername}
                 />
@@ -202,10 +202,10 @@ class CertifiedInformationSchool extends Component {
             <View style={styles.item}>
               <View style={styles.main}>
                 <Text style={styles.label}>msisdn</Text>
-                <BYTextInput 
+                <BYTextInput
                   style={styles.input}
                   placeholder={'please enter msisdn'}
-                  placeholderTextColor={'#ccc'}
+                  placeholderTextColor="#ccc"
                   onChangeText={val => certifiedInformationEdit(`connectusermsisdn${index}`, val)}
                   value={connectusermsisdn}
                   keyboardType="numeric" 
@@ -218,10 +218,10 @@ class CertifiedInformationSchool extends Component {
               <View style={styles.item}>
                 <View style={styles.main}>
                   <Text style={styles.label}>identification</Text>
-                  <BYTextInput 
+                  <BYTextInput
                     style={styles.input}
                     placeholder={'please enter profession'}
-                    placeholderTextColor={'#ccc'}
+                    placeholderTextColor="#ccc"
                     onChangeText={val => certifiedInformationEdit(`connectuseridentification${index}`, val)}
                     value={connectuseridentification}
                     keyboardType="numeric" 
@@ -229,7 +229,7 @@ class CertifiedInformationSchool extends Component {
                 </View>
               </View>
             }
-            <BYButton text={'确定'} style={{ marginBottom: 30, }} styleWrap={{paddingTop: SIDEINTERVAL}} onPress={() => goBack()} />
+            <BYButton text={'确定'} style={{ marginBottom: 30, }} styleWrap={{ paddingTop: SIDEINTERVAL }} onPress={() => goBack()} />
           </KeyboardAvoidingView>
         </ScrollView>
         <BYModal
