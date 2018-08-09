@@ -87,5 +87,7 @@
   "hotline": "热线",
   "helpingCenter": "帮助中心",
   "search": "搜索",
+  "phoneNumberAlreadyRegistered": "手机号已注册",
+  "verificationCodeError": "验证码错误",
   "warehouse": "仓库"
 }

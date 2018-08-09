@@ -87,5 +87,7 @@
   "hotline": "Đường dây nóng",
   "helpingCenter": "Trung tâm hỗ trợ",
   "search": "Tìm kiếm",
+  "phoneNumberAlreadyRegistered": "Số điện thoại đã được đăng ký",
+  "verificationCodeError": "Lỗi mã xác minh",
   "warehouse": "kho"
 }

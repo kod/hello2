@@ -87,5 +87,7 @@
   "hotline": "Hotline",
   "helpingCenter": "Helping center",
   "search": "Search",
+  "phoneNumberAlreadyRegistered": "Phone number is already registered",
+  "verificationCodeError": "Verification code error",
   "warehouse": "Warehouse"
 }
