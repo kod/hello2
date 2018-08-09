@@ -1,8 +1,18 @@
-import { Platform, DeviceEventEmitter } from 'react-native';
-import { takeEvery, apply, put } from 'redux-saga/effects';
+import {
+  Alert,
+  // Platform,
+  // DeviceEventEmitter,
+} from 'react-native';
+import {
+  takeEvery,
+  // apply,
+  put,
+  // put,
+} from 'redux-saga/effects';
 // import { MessageBarManager } from 'react-native-message-bar';
 import { clearError } from '../actions/error';
 import { ERROR } from '../constants/actionTypes';
+import i18n from '../helpers/i18n';
 
 export function* handleAlertError(action) {
   const error = action.payload;
@@ -15,7 +25,14 @@ export function* handleAlertError(action) {
   //     viewTopInset: Platform.OS === 'ios' ? 10 : 0,
   //   },
   // ]);
-  yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'showToast', error]);
+  // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'showToast', error]);
+  Alert.alert('', error, [
+    {
+      text: i18n.confirm,
+      onPress: () => {},
+    },
+  ]);
+
   yield put(clearError());
 }
 
