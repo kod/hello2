@@ -95,7 +95,7 @@ class Settings extends React.Component {
             underlineColorAndroid="rgba(0,0,0,.0)" 
             placeholder={'Search'} 
             placeholderTextColor="#ccc" 
-            style={styles.textInput} 
+            style={styles.textInput}
             value={findcontent}
             editable={false}
             onPress={() => {}}

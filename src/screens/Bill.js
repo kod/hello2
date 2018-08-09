@@ -332,8 +332,8 @@ class Bill extends React.Component {
         <View style={styles.wrap}>
           <View style={styles.enterPrice}>
             <BYTextInput
-              style={styles.textInput} 
-              keyboardType="numeric" 
+              style={styles.textInput}
+              keyboardType="numeric"
               value={price} 
               onChangeText={(text) => billPriceFetch(text)}
             />

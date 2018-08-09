@@ -112,7 +112,7 @@ class SchoolSelect extends React.Component {
 
   renderHeaderRight = () => {
     return (
-      <View style={{width: 45}}></View>
+      <View style={{ width: 45 }} />
     )
   }
 

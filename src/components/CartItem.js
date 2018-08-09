@@ -191,8 +191,8 @@ class CartItem extends Component {
             />
           </BYTouchable>
           <BYTextInput
-            style={styles.textInput} 
-            keyboardType="numeric" 
+            style={styles.textInput}
+            keyboardType="numeric"
             value={quantity} 
             // onChangeText={(text) => onChangeTextHandle(text, id)}
             editable={false}

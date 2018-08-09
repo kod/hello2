@@ -315,7 +315,7 @@ class PrepaidRecharge extends React.Component {
               value={phoneNumber} 
               placeholder={'Số điện thoại'} 
               placeholderTextColor="#ccc" 
-              keyboardType="numeric" 
+              keyboardType="numeric"
             />
             {
               providerIcon.length > 0 &&

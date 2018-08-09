@@ -146,7 +146,7 @@ class SearchResult extends React.Component {
         />
         <View style={styles.search}>
           <TextInput 
-            style={styles.textInput} 
+            style={styles.textInput}
             underlineColorAndroid="rgba(0,0,0,.0)" 
             placeholder={'search'}
             placeholderTextColor="#ccc"
