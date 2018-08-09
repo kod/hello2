@@ -1,106 +1,110 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
+import {
+  BackHandler,
+  // BackHandler,
+} from 'react-native';
 import { connect } from 'react-redux';
 
+import { connectLocalization } from '../components/Localization';
+import BYWebView from '../components/BYWebView';
+// import { SIDEINTERVAL, RED_COLOR } from '../styles/variables';
+
+import * as authActionCreators from '../common/actions/auth';
 import { SCREENS } from '../common/constants';
 
-import { connectLocalization } from '../components/Localization';
-import BYHeader from '../components/BYHeader';
-import NavBar1 from '../components/NavBar1';
-import BYWebView from '../components/BYWebView';
-import { SIDEINTERVAL, RED_COLOR } from '../styles/variables';
-
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
-import * as authActionCreators from '../common/actions/auth';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-  logout: {
-    paddingRight: SIDEINTERVAL,
-    paddingLeft: SIDEINTERVAL
-  },
-  logoutText: {
-    height: 50,
-    lineHeight: 50,
-    textAlign: 'center',
-    backgroundColor: '#F5F5F5',
-    color: RED_COLOR,
-    fontSize: 14
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//   },
+//   logout: {
+//     paddingRight: SIDEINTERVAL,
+//     paddingLeft: SIDEINTERVAL,
+//   },
+//   logoutText: {
+//     height: 50,
+//     lineHeight: 50,
+//     textAlign: 'center',
+//     backgroundColor: '#F5F5F5',
+//     color: RED_COLOR,
+//     fontSize: 14,
+//   },
+// });
 
 class WebView extends React.Component {
   componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
+    const {
+      navigation: {
+        state,
+        // goBack,
+        pop,
+        // state,
+      },
+      // i18n,
+    } = this.props;
+
+    switch (state.params.from) {
+      case SCREENS.Repayment:
+        this.backHandler = BackHandler.addEventListener(
+          'hardwareBackPress',
+          () => pop(2),
+        );
+        break;
+
+      default:
+        break;
+    }
   }
 
-  handleOnPressLogout() {
+  componentWillUnmount() {
     const {
-      i18n,
-      logout,
-      navigation: { goBack }
+      navigation: { state },
+      // i18n,
     } = this.props;
-    Alert.alert('', i18n.doYouWantToSignOut, [
-      {
-        text: i18n.cancel
-      },
-      {
-        text: i18n.signOut,
-        onPress: () => {
-          logout();
-          goBack();
-        }
-      }
-    ]);
+
+    switch (state.params.from) {
+      case SCREENS.Repayment:
+        this.backHandler.remove();
+        break;
+
+      default:
+        break;
+    }
   }
 
   render() {
     const {
-      navigation: { navigate, state },
-      i18n,
+      navigation: { state },
+      // i18n,
     } = this.props;
-    return <BYWebView source={{ uri: state.params.source }} />;
+    return (
+      <BYWebView
+        {...this.props}
+        source={{ uri: state.params.source }}
+        from={state.params.from}
+      />
+    );
   }
 }
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          bannerHomeRecommend,
-        } = state;
+    state => {
+      const {
+        auth,
+        // auth,
+      } = state;
 
-        // const {
+      // const {
 
-        // } = props;
+      // } = props;
 
-        return {
-          bannerHomeRecommend: bannerHomeRecommend || {}
-        }
-      }
+      return {
+        auth: auth || {},
+      };
     },
     {
-      ...bannerHomeRecommendActionCreators,
       ...authActionCreators,
-    }
-  )(WebView)
+    },
+  )(WebView),
 );
-
-// function mapStateToProps(state, props) {
-//   const { bannerHomeRecommend } = state;
-//   return {
-//     bannerHomeRecommend: bannerHomeRecommend || {}
-//   };
-// }
-
-// export default connectLocalization(
-//   connect(
-//     mapStateToProps,
-//     { ...bannerHomeRecommendActionCreators, ...authActionCreators }
-//   )(WebView)
-// );
