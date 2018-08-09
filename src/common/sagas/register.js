@@ -1,7 +1,16 @@
-import { Platform, ToastAndroid, Alert, } from 'react-native';
-import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
-  registerFetch,
+  Platform,
+  // ToastAndroid,
+  Alert,
+} from 'react-native';
+import {
+  takeEvery,
+  apply,
+  put,
+  // select,
+} from 'redux-saga/effects';
+import {
+  // registerFetch,
   registerFetchSuccess,
   registerFetchFailure,
 } from '../actions/register';
@@ -10,13 +19,11 @@ import buyoo from '../helpers/apiClient';
 import i18n from '../helpers/i18n';
 import {
   REGISTER,
+  // REGISTER,
 } from '../constants/actionTypes';
-import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
+import { encryptMD5 } from '../../components/AuthEncrypt';
 
 import NavigatorService from '../../navigations/NavigatorService';
-
-import { SCREENS } from '../constants';
 
 export function* registerFetchWatchHandle(action) {
   try {
@@ -30,76 +37,75 @@ export function* registerFetchWatchHandle(action) {
       appid = '',
       inviterno = '',
     } = action.payload;
-    
+
     const Key = 'userKey';
     const provider = Platform.OS === 'ios' ? '1' : '2';
     const version = '2.1';
-  
+
     const encrypt = encryptMD5(
       [
         {
           key: 'provider',
-          value: provider
+          value: provider,
         },
         {
           key: 'msisdn',
-          value: msisdn
+          value: msisdn,
         },
         {
           key: 'username',
-          value: username
+          value: username,
         },
         {
           key: 'password',
-          value: password
+          value: password,
         },
         {
           key: 'payPassword',
-          value: payPassword
+          value: payPassword,
         },
         {
           key: 'otp',
-          value: otp
+          value: otp,
         },
         {
           key: 'check',
-          value: check
+          value: check,
         },
         {
           key: 'appid',
-          value: appid
+          value: appid,
         },
         {
           key: 'inviterno',
-          value: inviterno
+          value: inviterno,
         },
       ],
-      Key
+      Key,
     );
-    
-    let response = yield apply(buyoo, buyoo.register, [
+
+    const response = yield apply(buyoo, buyoo.register, [
       {
-        provider: provider,
-        msisdn: msisdn,
-        username: username,
-        password: password,
-        payPassword: payPassword,
-        otp: otp,
-        check: check,
-        appid: appid,
-        inviterno: inviterno,
+        provider,
+        msisdn,
+        username,
+        password,
+        payPassword,
+        otp,
+        check,
+        appid,
+        inviterno,
         encryption: encrypt,
-        version: version,
-      }
+        version,
+      },
     ]);
 
     if (response.status !== 10000) {
       yield put(registerFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(registerFetchSuccess());
     }
-    yield put(registerFetchSuccess());
-
   } catch (err) {
     yield put(registerFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -109,26 +115,22 @@ export function* registerFetchWatch() {
   yield takeEvery(REGISTER.REQUEST, registerFetchWatchHandle);
 }
 
-export function* registerSuccessWatchHandle(action) {
+export function* registerSuccessWatchHandle(/* action */) {
   try {
-    const {
-      from,
-    } = action.payload;
-    Alert.alert(
-      '',
-      '注册成功',
-      [
-        {
-          text: i18n.confirm,
-          onPress: () => {
-            NavigatorService.pop(2);
-          },
-        }
-      ]
-    )
+    // const {
+    //   from,
+    // } = action.payload;
 
+    Alert.alert('', '注册成功', [
+      {
+        text: i18n.confirm,
+        onPress: () => {
+          NavigatorService.pop(2);
+        },
+      },
+    ]);
   } catch (error) {
-    yield put(addError(typeof err === 'string' ? err : err.toString()));
+    yield put(addError(typeof err === 'string' ? error : error.toString()));
   }
 }
 
