@@ -100,13 +100,23 @@ export function* registerFetchWatchHandle(action) {
       },
     ]);
 
+    console.log(response);
     if (response.status !== 10000) {
       yield put(registerFetchFailure());
-      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
+      switch (response.status) {
+        case 50008:
+          yield put(addError(i18n.phoneNumberAlreadyRegistered));
+          break;
+
+        default:
+          yield put(addError(i18n.verificationCodeError));
+          break;
+      }
     } else {
       yield put(registerFetchSuccess());
     }
   } catch (err) {
+    console.log(err);
     yield put(registerFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

@@ -3,16 +3,16 @@ import {
   Modal,
   StyleSheet,
   Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+  // TouchableWithoutFeedback,
+  // View,
+} from 'react-native';
 
 const styles = StyleSheet.create({
   mask: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,.3)',
   },
-})
+});
 
 class BYModal extends Component {
   render() {
@@ -20,8 +20,9 @@ class BYModal extends Component {
       children,
       visible,
       onRequestClose,
+      // onRequestClose,
     } = this.props;
-    
+
     return (
       <Modal
         transparent
@@ -29,10 +30,7 @@ class BYModal extends Component {
         visible={visible}
         onRequestClose={onRequestClose}
       >
-        <Text
-          style={styles.mask} 
-          onPress={onRequestClose}
-        ></Text>
+        <Text style={styles.mask} onPress={onRequestClose} />
         {children}
       </Modal>
     );
