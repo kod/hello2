@@ -1,22 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { PRIMARY_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT } from '../common/constants';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  // ScrollView,
+} from 'react-native';
+// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {
+  PRIMARY_COLOR,
+  // PRIMARY_COLOR,
+} from '../styles/variables';
+import {
+  // WINDOW_WIDTH,
+  // WINDOW_HEIGHT,
+  SCREENS,
+  SIDEINTERVAL,
+  APPBAR_HEIGHT,
+} from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import NavBar2 from '../components/NavBar2';
 import SeparateBar from '../components/SeparateBar';
-import BYButton from "../components/BYButton";
-import Loader from "../components/Loader";
+import BYButton from '../components/BYButton';
+import Loader from '../components/Loader';
 import priceFormat from '../common/helpers/priceFormat';
-import { judge } from "../common/helpers";
+import { judge } from '../common/helpers';
 
+import * as cardQueryActionCreators from '../common/actions/cardQuery';
 
-import { SCREENS } from '../common/constants';
-
-import * as cardQueryActionCreators from "../common/actions/cardQuery";
+const kasdifghosjfilPng = require('../images/kasdifghosjfil.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -26,20 +40,21 @@ const styles = StyleSheet.create({
 });
 
 class Card extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     const {
       cardQueryFetch,
       isAuthUser,
+      // isAuthUser,
     } = this.props;
-    isAuthUser && cardQueryFetch();
+    if (isAuthUser) cardQueryFetch();
   }
 
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       title: {
         flex: 1,
         height: 50,
@@ -48,14 +63,12 @@ class Card extends React.Component {
         textAlign: 'center',
       },
     });
-    
-    return (
-      <Text style={styles.title}>credit card</Text>
-    )
-  }
+
+    return <Text style={stylesX.title}>credit card</Text>;
+  };
 
   renderApplyStatus({ backgroundColor, text, onPress }) {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       applyStatus: {
         backgroundColor,
         paddingLeft: SIDEINTERVAL,
@@ -70,23 +83,23 @@ class Card extends React.Component {
         marginBottom: 5,
       },
     });
-    
+
     return (
-      <View style={styles.applyStatus}>
-        <Image style={styles.cardImage} source={require('../images/kasdifghosjfil.png')} />
-        <BYButton 
-          text={text} 
+      <View style={stylesX.applyStatus}>
+        <Image style={stylesX.cardImage} source={kasdifghosjfilPng} />
+        <BYButton
+          text={text}
           styleWrap={{ paddingLeft: 0, paddingRight: 0 }}
-          style={{ backgroundColor: '#fff', marginBottom: 30, }} 
-          styleText={{ color: PRIMARY_COLOR, height: 40, lineHeight: 40 }} 
-          onPress={onPress} 
+          style={{ backgroundColor: '#fff', marginBottom: 30 }}
+          styleText={{ color: PRIMARY_COLOR, height: 40, lineHeight: 40 }}
+          onPress={onPress}
         />
       </View>
-    )
+    );
   }
 
   renderCard() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       card: {
         paddingLeft: SIDEINTERVAL,
         paddingRight: SIDEINTERVAL,
@@ -133,23 +146,27 @@ class Card extends React.Component {
     });
 
     const {
-      item: { availableBalance, cardCode, username,  },
+      item: { availableBalance, cardCode, username },
     } = this.props;
-    
+
     return (
-      <View style={styles.container}>
+      <View style={stylesX.container}>
         <BYHeader
           showBackButton={false}
           headerTitle={this.renderHeaderTitle()}
         />
-        <View style={styles.card}>
-          <View style={styles.cardMain}>
-            <Text style={styles.logoText}>Buyoo</Text>
-            <Text style={styles.title}>available credit</Text>
-            <Text style={styles.price}>{priceFormat(availableBalance)} VND</Text>
-            <View style={styles.info}>
-              <Text style={styles.cardId}>{priceFormat(cardCode, ' ', 4)}</Text>
-              <Text style={styles.cardName}>{username}</Text>
+        <View style={stylesX.card}>
+          <View style={stylesX.cardMain}>
+            <Text style={stylesX.logoText}>Buyoo</Text>
+            <Text style={stylesX.title}>available credit</Text>
+            <Text style={stylesX.price}>
+              {priceFormat(availableBalance)} VND
+            </Text>
+            <View style={stylesX.info}>
+              <Text style={stylesX.cardId}>
+                {priceFormat(cardCode, ' ', 4)}
+              </Text>
+              <Text style={stylesX.cardName}>{username}</Text>
             </View>
           </View>
         </View>
@@ -186,94 +203,93 @@ class Card extends React.Component {
     //     onPress: () => navigate(SCREENS.CertifiedInformation, { isCertify: true })
     //   })
     // )
-    
+
     return (
       <View style={styles.container}>
-        {
-          status === 3 && initPassword === 1
-          &&
-          this.renderCard()
-        }
-        {
-          (!isAuthUser || status === 1)
-          &&
+        {status === 3 && initPassword === 1 && this.renderCard()}
+        {(!isAuthUser || status === 1) &&
           this.renderApplyStatus({
             backgroundColor: '#147af3',
             text: 'apply for a credit card >',
-            onPress: () => navigate(SCREENS.CertifiedInformation, { isCertify: true })
-          })
-        }
-        {
-          status === 2
-          &&
+            onPress: () =>
+              navigate(SCREENS.CertifiedInformation, { isCertify: true }),
+          })}
+        {status === 2 &&
           this.renderApplyStatus({
             backgroundColor: '#fa534d',
             text: '申请成功  等待审核中...',
             // onPress: () => navigate(SCREENS.CertifiedInformation, { isCertify: true })
-          })
-        }
-        {
-          status === 3 && initPassword === 0
-          &&
+          })}
+        {status === 3 &&
+          initPassword === 0 &&
           this.renderApplyStatus({
             backgroundColor: '#18a873',
             text: '激活 >',
             onPress: () => {
-              navigate( isAuthUser ? SCREENS.TransactionPasswordStepOne : SCREENS.Login, { from: 'card', msisdn })
-            }
-          })
-        }
-        <NavBar2 
-          onPress={() => judge(status === 3 && initPassword === 1, () => navigate(SCREENS.Bill))}
-          valueLeft={'Bill'} 
-          // valueMiddle={'on the 5th of each month'} 
+              navigate(
+                isAuthUser ? SCREENS.TransactionPasswordStepOne : SCREENS.Login,
+                { from: 'card', msisdn },
+              );
+            },
+          })}
+        <NavBar2
+          onPress={() =>
+            judge(status === 3 && initPassword === 1, () =>
+              navigate(SCREENS.Bill),
+            )
+          }
+          valueLeft="Bill"
+          // valueMiddle={'on the 5th of each month'}
         />
-        <NavBar2 
-          onPress={() => judge(status === 3 && initPassword === 1, () => navigate(SCREENS.PeriodSelect))}
-          valueLeft={'Stage setting'} 
-          valueMiddle={ periodHobbit ? `${periodHobbit} period` : ''} 
+        <NavBar2
+          onPress={() =>
+            judge(status === 3 && initPassword === 1, () =>
+              navigate(SCREENS.PeriodSelect),
+            )
+          }
+          valueLeft="Stage setting"
+          valueMiddle={periodHobbit ? `${periodHobbit} period` : ''}
         />
         <SeparateBar />
-        <NavBar2 
-          onPress={() => judge(status === 3 && initPassword === 1, () => navigate(SCREENS.SecurityCenter))}
-          valueLeft={'Security Settings'} 
-          // valueMiddle={'3 period'} 
+        <NavBar2
+          onPress={() =>
+            judge(status === 3 && initPassword === 1, () =>
+              navigate(SCREENS.SecurityCenter),
+            )
+          }
+          valueLeft="Security Settings"
+          // valueMiddle={'3 period'}
         />
-      </View>
-    )
-  }
-
-  render() {
-    const {
-      navigation: { navigate },
-    } = this.props;
-    
-    return (
-      <View style={styles.container}>
-        {this.renderMain()}
       </View>
     );
   }
+
+  render() {
+    // const {
+    //   navigation: { navigate },
+    // } = this.props;
+
+    return <View style={styles.container}>{this.renderMain()}</View>;
+  }
 }
 export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        cardQuery,
-        auth,
-      } = state;
-      return {
-        loading: cardQuery.loading,
-        initPassword: cardQuery.item.initPassword,
-        item: cardQuery.item,
-        status: cardQuery.item.status,
-        periodHobbit: cardQuery.item.periodHobbit,
-        isAuthUser: !!state.auth.user,
-        msisdn: auth.user ? auth.user.msisdn : '',
-      }
-    }
+  state => {
+    const {
+      cardQuery,
+      auth,
+      // auth,
+    } = state;
+    return {
+      loading: cardQuery.loading,
+      initPassword: cardQuery.item.initPassword,
+      item: cardQuery.item,
+      status: cardQuery.item.status,
+      periodHobbit: cardQuery.item.periodHobbit,
+      isAuthUser: !!state.auth.user,
+      msisdn: auth.user ? auth.user.msisdn : '',
+    };
   },
   {
     ...cardQueryActionCreators,
-  }
+  },
 )(Card);
