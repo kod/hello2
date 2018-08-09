@@ -5024,6 +5024,12 @@ react-native-permissions@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"
 
+react-native-progress-bar-animated@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/react-native-progress-bar-animated/-/react-native-progress-bar-animated-1.0.6.tgz#18de003ababb8222c84299ef2f20d0eab549dc19"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-progress@^3.5.0:
   version "3.5.0"
   resolved "https://registry.npmjs.org/react-native-progress/-/react-native-progress-3.5.0.tgz#d1ccc7f96dc17c609aedb43b2e6695d67deae0ec"
