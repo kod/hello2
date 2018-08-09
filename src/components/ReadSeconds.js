@@ -3,9 +3,14 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
+  // View,
+} from 'react-native';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  // WINDOW_HEIGHT,
+  // SIDEINTERVAL,
+} from '../common/constants';
 
 const styles = StyleSheet.create({
   second: {
@@ -39,20 +44,26 @@ class ReadSeconds extends Component {
     this.readSeconds();
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.setTimeoutID);
+  }
+
   async readSeconds() {
-    if (this.state.ing === false) {
+    const { ing } = this.state;
+    if (ing === false) {
       await this.setState({
-        seconds: 60,
+        seconds: 30,
         ing: true,
       });
     }
-    if (this.state.seconds > 0) {
-      setTimeout(async () => {
+    const { seconds } = this.state;
+    if (seconds > 0) {
+      this.setTimeoutID = setTimeout(async () => {
         await this.setState({
-          seconds: this.state.seconds - 1,
+          seconds: seconds - 1,
         });
         this.readSeconds();
-      }, 700);
+      }, 1000);
     } else {
       await this.setState({
         ing: false,
@@ -61,23 +72,32 @@ class ReadSeconds extends Component {
   }
 
   handleOnPressSeconds() {
-    if (this.state.ing) return false;
-    this.readSeconds();  
+    const { ing } = this.state;
+    if (ing) return false;
+    return this.readSeconds();
   }
 
   render() {
     const {
       ing,
       seconds,
+      // seconds,
     } = this.state;
 
     const {
+      // cc,
       ...restProps
-    } =  this.props;
+    } = this.props;
 
     return (
       <View style={styles.second}>
-        <Text style={styles.secondText} onPress={() => this.handleOnPressSeconds()} {...restProps}>{ing ? seconds : 'gửi mã'}</Text>
+        <Text
+          style={styles.secondText}
+          onPress={() => this.handleOnPressSeconds()}
+          {...restProps}
+        >
+          {ing ? seconds : 'gửi mã'}
+        </Text>
       </View>
     );
   }
