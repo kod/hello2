@@ -40,6 +40,7 @@ class Coupon extends React.Component {
     const {
       receiveVoucherFetch,
       isAuthUser,
+      i18n,
       navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
@@ -50,7 +51,7 @@ class Coupon extends React.Component {
         '',
         title,
         [{ 
-            text: '确定', 
+            text: i18n.confirm,
             onPress: () => {}
         }]
       )

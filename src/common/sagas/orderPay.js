@@ -135,7 +135,7 @@ export function* orderPaySuccessWatchHandle(action) {
           [
             // { text: i18n.cancel, },
             { 
-              text: '确定', 
+              text: i18n.confirm, 
               onPress: () => {
                 NavigatorService.pop(3);
               }

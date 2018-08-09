@@ -139,7 +139,7 @@ export function* billByYearSuccessWatchHandle(action) {
         '您还没有产生账单',
         [
           { 
-            text: '确定', 
+            text: i18n.confirm, 
             onPress: () => { NavigatorService.pop(1); }
           }
         ]

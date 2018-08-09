@@ -41,12 +41,16 @@ class QrCodeScanner extends React.Component {
   }
 
   onSuccess(e) {
+    const {
+      i18n,
+      // i18n,
+    } = this.props;
     Alert.alert(
       '',
       e.data,
       [
         { 
-          text: '确定', 
+          text: i18n.confirm, 
           onPress: () => {}
         }
       ]
