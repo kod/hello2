@@ -15,7 +15,7 @@ import CustomIcon from '../components/CustomIcon';
 import BYBottomSheet from '../components/BYBottomSheet';
 import BYModal from "../components/BYModal";
 import BYTouchable from '../components/BYTouchable';
-import BYButton from "../components/BYButton";
+import BYButton from '../components/BYButton';
 
 import { SCREENS } from '../common/constants';
 import PXTouchable from '../components/BYTouchable';

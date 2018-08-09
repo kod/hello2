@@ -6,10 +6,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PrepaidBrand from "../components/PrepaidBrand";
 import ButtonSelect from "../components/ButtonSelect";
 import CustomIcon from '../components/CustomIcon';
-import BYButton from "../components/BYButton";
+import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
 import ActionSheet from "../components/ActionSheet";
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import priceFormat from '../common/helpers/priceFormat';
 import { PROVIDER_TYPE_MAP } from '../common/constants';

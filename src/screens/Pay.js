@@ -15,7 +15,7 @@ import BYModal from "../components/BYModal";
 import ActionSheet from "../components/ActionSheet";
 import EnterPassword from "../components/EnterPassword";
 import Address from "../components/Address";
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 import SeparateBar from '../components/SeparateBar';
 
 import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
@@ -30,10 +30,10 @@ import * as queryOrderActionCreators from '../common/actions/queryOrder';
 import * as orderPayActionCreators from '../common/actions/orderPay';
 import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
 import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
-import * as cardQueryActionCreators from "../common/actions/cardQuery";
+import * as cardQueryActionCreators from '../common/actions/cardQuery';
 import * as orderCancelActionCreators from "../common/actions/orderCancel";
 
-import { addressJoin, tradeStatusCodes } from "../common/helpers";
+import { addressJoin, tradeStatusCodes } from '../common/helpers';
 import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({

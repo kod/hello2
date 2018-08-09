@@ -13,7 +13,7 @@ import ProductItem2 from "../components/ProductItem2";
 import ScrollableTabView from '../components/ScrollableTabView';
 import SeparateBar from '../components/SeparateBar';
 import EmptyState from '../components/EmptyState';
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';

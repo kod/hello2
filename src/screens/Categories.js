@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 import { RED_COLOR, BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { SCREENS, SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../common/constants';
 

@@ -7,11 +7,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
-import BYButton from "../components/BYButton";
-import InputRight from "../components/InputRight";
+import BYButton from '../components/BYButton';
+import InputRight from '../components/InputRight';
 import BYTouchable from '../components/BYTouchable';
 import ReadSeconds from "../components/ReadSeconds";
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import { SCREENS } from '../common/constants';
 

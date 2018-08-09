@@ -6,7 +6,7 @@ import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEI
 import { withNavigation } from 'react-navigation';
 
 import priceFormat from '../common/helpers/priceFormat';
-import { billStatusCodes } from "../common/helpers";
+import { billStatusCodes } from '../common/helpers';
 
 import BYTouchable from '../components/BYTouchable';
 

@@ -13,7 +13,7 @@ import FieldInput from '../components/FieldInput';
 import Error from '../components/Error';
 import BYTextInput from '../components/BYTextInput';
 import BYModal from "../components/BYModal";
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import { makegetSchoolName } from '../common/selectors';
 import { SCREENS } from '../common/constants';

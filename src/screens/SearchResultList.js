@@ -14,7 +14,7 @@ import { SIDEINTERVAL, WINDOW_WIDTH } from '../common/constants';
 
 import EmptyState from '../components/EmptyState';
 import ProductItem3 from "../components/ProductItem3";
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import * as findProductsActionCreators from '../common/actions/findProducts';
 import * as authActionCreators from '../common/actions/auth';

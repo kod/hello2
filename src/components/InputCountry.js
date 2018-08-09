@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
-import Error from "../components/Error";
+import Error from '../components/Error';
 import BYTextInput from '../components/BYTextInput';
 import { BORDER_COLOR } from '../styles/variables';
 

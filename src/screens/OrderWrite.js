@@ -15,7 +15,7 @@ import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
 import Address from "../components/Address";
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, BORDER_COLOR, WINDOW_HEIGHT } from '../styles/variables';
 
@@ -26,7 +26,7 @@ import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as couponSelectActionCreators from '../common/actions/couponSelect';
 
 import { getAddressSelectedItem } from '../common/selectors';
-import { addressJoin } from "../common/helpers";
+import { addressJoin } from '../common/helpers';
 
 const styles = StyleSheet.create({
   container: {

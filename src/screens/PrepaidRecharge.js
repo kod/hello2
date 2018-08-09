@@ -6,10 +6,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ButtonSelect from "../components/ButtonSelect";
 import CustomIcon from '../components/CustomIcon';
 import BYTextInput from '../components/BYTextInput';
-import BYButton from "../components/BYButton";
+import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
 import ActionSheet from "../components/ActionSheet";
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import priceFormat from '../common/helpers/priceFormat';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';

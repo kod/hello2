@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import BYTouchable from '../components/BYTouchable';
 import { SCREENS } from '../common/constants';
-import { addressJoin } from "../common/helpers";
+import { addressJoin } from '../common/helpers';
 
 import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';

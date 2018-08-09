@@ -10,7 +10,7 @@ import BYHeader from '../components/BYHeader';
 import SearchHeader from '../components/SearchHeader';
 import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';

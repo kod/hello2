@@ -7,8 +7,8 @@ import { SCREENS } from '../common/constants';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
-import BYButton from "../components/BYButton";
-import Loader from "../components/Loader";
+import BYButton from '../components/BYButton';
+import Loader from '../components/Loader';
 
 import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';

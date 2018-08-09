@@ -11,7 +11,7 @@ import NavBar1 from '../components/NavBar1';
 import BYTouchable from '../components/BYTouchable';
 
 import priceFormat from '../common/helpers/priceFormat';
-import { payWayToText } from "../common/helpers";
+import { payWayToText } from '../common/helpers';
 import { SIDEINTERVAL } from '../common/constants';
 
 import { BORDER_COLOR } from '../styles/variables';
