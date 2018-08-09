@@ -1,16 +1,16 @@
 /* eslint strict:0 */
 
-"use strict";
+'use strict';
 
-const axios = require("axios");
-const qs = require("qs");
+const axios = require('axios');
+const qs = require('qs');
 
 const DEBUG = true;
 
 const BASE_URL = DEBUG ? 'http://14.162.145.248' : '';
 
 const PORT_80 = DEBUG ? ':8180' : 'https://uc.buyoo.vn';
-const PORT_81 = DEBUG ? ':8181' : 'https://payment.buyoo.vn';
+// const PORT_81 = DEBUG ? ':8181' : 'https://payment.buyoo.vn';
 const PORT_83 = DEBUG ? ':8183' : 'https://trade.buyoo.vn';
 const PORT_84 = DEBUG ? ':8184' : 'https://settlement.buyoo.vn';
 const PORT_85 = DEBUG ? ':8185' : 'https://commodity.buyoo.vn';
@@ -42,7 +42,7 @@ class ReactStore {
 
   returnMoney(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -53,13 +53,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_84}/fun/installment/returnMoney`, options);
   }
 
   orderCreate(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -70,13 +70,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_83}/fun/trade/order/create`, options);
   }
 
   getPhoneRecharge(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -87,13 +87,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/virtual/getPhoneRecharge`, options);
   }
 
   getProvidersCard(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -104,13 +104,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/virtual/getProvidersCard`, options);
   }
 
   get3GProvidersCard(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -121,13 +121,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_85}/fun/virtual/get3GProvidersCard`, options);
+
+    return this.requestUrl(
+      `${PORT_85}/fun/virtual/get3GProvidersCard`,
+      options,
+    );
   }
 
   getProvidersValue(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -138,13 +141,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/virtual/getProvidersValue`, options);
   }
 
   queryOrderList(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -155,7 +158,7 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_83}/fun/trade/queryOrderList`, options);
   }
 
@@ -186,7 +189,7 @@ class ReactStore {
 
   orderPay(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -197,13 +200,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_83}/fun/trade/order/pay`, options);
   }
 
   orderCancel(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -214,13 +217,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_83}/fun/trade/orderCancel`, options);
   }
 
   orderPayInternetBank(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -228,8 +231,8 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
     return `${BASE_URL}${PORT_83}/fun/trade/order/pay?${queryString}`;
   }
@@ -259,10 +262,9 @@ class ReactStore {
   //     });
   // }
 
-  
   queryOrder(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -273,13 +275,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_83}/fun/trade/queryOrder`, options);
   }
-  
+
   billDetails(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -290,13 +292,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_84}/fun/bill/billDetails`, options);
   }
-  
+
   repaymentRecord(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -307,13 +309,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_84}/fun/bill/repaymentRecord`, options);
   }
-  
+
   searchMonth(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -324,13 +326,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_84}/fun/bill/searchMonth`, options);
   }
 
   billByYear(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -341,13 +343,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_84}/fun/bill/billByYear`, options);
   }
-  
+
   queryGoods(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -358,7 +360,7 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/user/consume/queryGoods`, options);
   }
 
@@ -389,7 +391,7 @@ class ReactStore {
 
   cardSubmit(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -400,13 +402,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/userCenter/card/submit`, options);
   }
 
   cardQuery(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -423,7 +425,7 @@ class ReactStore {
 
   userCertificateInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -434,13 +436,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/usercenter/userViewDetailInfo`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/usercenter/userViewDetailInfo`,
+      options,
+    );
   }
 
   receiveVoucher(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -451,13 +456,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/receiveVoucher`, options);
   }
 
   getVoucherList(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -468,13 +473,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/getVoucherList`, options);
   }
 
   judgeVoucher(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -485,13 +490,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/judgeVoucher`, options);
   }
 
   userAddDetailInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -502,13 +507,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/usercenter/userAddDetailInfo`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/usercenter/userAddDetailInfo`,
+      options,
+    );
   }
 
   userGetCollection(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -519,13 +527,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/usercenter/userGetCollection`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/usercenter/userGetCollection`,
+      options,
+    );
   }
 
   userViewAddr(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -536,13 +547,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/userViewAddr`, options);
   }
 
   useraddaddr(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -553,13 +564,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/userAddAddr`, options);
   }
 
   userDelAddrs(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -570,13 +581,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/userDelAddrs`, options);
   }
 
   userModifyAddr(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -587,13 +598,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/userModifyAddr`, options);
   }
 
   getCityInfos(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -604,13 +615,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/getCityInfos`, options);
   }
 
   getSchoolInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -621,13 +632,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/usercenter/getSchoolInfo`, options);
   }
 
   userBatchCollection(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -638,13 +649,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/usercenter/userBatchCollection`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/usercenter/userBatchCollection`,
+      options,
+    );
   }
 
   userCancelCollection(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -655,13 +669,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/usercenter/userCancelCollection`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/usercenter/userCancelCollection`,
+      options,
+    );
   }
 
   otp(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -672,13 +689,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/otp`, options);
   }
 
   updatePeriod(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -689,13 +706,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/updatePeriod`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/userCenter/userAction/updatePeriod`,
+      options,
+    );
   }
 
   register(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -706,13 +726,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/register`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/userCenter/userAction/register`,
+      options,
+    );
   }
 
   modifyPayPassword(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -723,13 +746,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/modifyPayPassword`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/userCenter/userAction/modifyPayPassword`,
+      options,
+    );
   }
 
   getUserInfoById(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -740,8 +766,11 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/getUserInfoById`, options);
+
+    return this.requestUrl(
+      `${PORT_80}/fun/userCenter/userAction/getUserInfoById`,
+      options,
+    );
   }
 
   login(options) {
@@ -767,7 +796,10 @@ class ReactStore {
       data,
     };
 
-    return axios(`${BASE_URL}${PORT_80}/fun/userCenter/userAction/login`, options)
+    return axios(
+      `${BASE_URL}${PORT_80}/fun/userCenter/userAction/login`,
+      options,
+    )
       .then(res => {
         if (res.data.status !== 10000) {
           throw new Error(res.data.result);
@@ -783,13 +815,12 @@ class ReactStore {
         // }
       });
 
-    
     // return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/login`, options);
   }
 
   initTopDigital(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -797,15 +828,17 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    return this.requestUrl(`${PORT_85}/fun/digital/initTopDigital?${queryString}`);
+    return this.requestUrl(
+      `${PORT_85}/fun/digital/initTopDigital?${queryString}`,
+    );
   }
 
   initAdDigital(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -813,15 +846,17 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    return this.requestUrl(`${PORT_85}/fun/digital/initAdDigital?${queryString}`);
+    return this.requestUrl(
+      `${PORT_85}/fun/digital/initAdDigital?${queryString}`,
+    );
   }
 
   initNewComputer(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -829,15 +864,17 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    return this.requestUrl(`${PORT_85}/fun/computer/initNewComputer?${queryString}`);
+    return this.requestUrl(
+      `${PORT_85}/fun/computer/initNewComputer?${queryString}`,
+    );
   }
 
   initTopComputer(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -845,15 +882,17 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    return this.requestUrl(`${PORT_85}/fun/computer/initTopComputer?${queryString}`);
+    return this.requestUrl(
+      `${PORT_85}/fun/computer/initTopComputer?${queryString}`,
+    );
   }
 
   initTopCellphone(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -861,15 +900,17 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    return this.requestUrl(`${PORT_85}/fun/cellphone/initTopCellphone?${queryString}`);
+    return this.requestUrl(
+      `${PORT_85}/fun/cellphone/initTopCellphone?${queryString}`,
+    );
   }
 
   initAdCellphone(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -877,15 +918,17 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    return this.requestUrl(`${PORT_85}/fun/cellphone/initAdCellphone?${queryString}`);
+    return this.requestUrl(
+      `${PORT_85}/fun/cellphone/initAdCellphone?${queryString}`,
+    );
   }
 
   getEvaluationInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -896,13 +939,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_85}/fun/commodity/getEvaluationInfo`, options);
+
+    return this.requestUrl(
+      `${PORT_85}/fun/commodity/getEvaluationInfo`,
+      options,
+    );
   }
 
   getMenu(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -913,13 +959,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/commodity/getMenu`, options);
   }
 
   getProductDetailInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -930,13 +976,16 @@ class ReactStore {
       },
       data,
     };
-    
-    return this.requestUrl(`${PORT_85}/fun/commodity/getProductDetailInfo`, options);
+
+    return this.requestUrl(
+      `${PORT_85}/fun/commodity/getProductDetailInfo`,
+      options,
+    );
   }
 
   mergeGetInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -947,13 +996,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/commodity/merge/getInfo`, options);
   }
 
   mergeGetDetail(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -964,13 +1013,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/commodity/merge/getDetail`, options);
   }
 
   mergeGetSlave(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -981,13 +1030,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/commodity/merge/getSlave`, options);
   }
 
   mergeCheck(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -998,13 +1047,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/commodity/merge/check`, options);
   }
 
   mergeGetMaster(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -1015,13 +1064,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/commodity/merge/getMaster`, options);
   }
 
   mergeGate(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const data = qs.stringify(options);
@@ -1032,13 +1081,13 @@ class ReactStore {
       },
       data,
     };
-    
+
     return this.requestUrl(`${PORT_85}/fun/commodity/merge/gate`, options);
   }
 
   getAdverstInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -1046,16 +1095,18 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    
-    return this.requestUrl(`${PORT_85}/fun/commodity/getAdverstInfo?${queryString}`);
+
+    return this.requestUrl(
+      `${PORT_85}/fun/commodity/getAdverstInfo?${queryString}`,
+    );
   }
 
   getAllProductInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -1063,16 +1114,18 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    
-    return this.requestUrl(`${PORT_85}/fun/commodity/getAllProductInfo?${queryString}`);
+
+    return this.requestUrl(
+      `${PORT_85}/fun/commodity/getAllProductInfo?${queryString}`,
+    );
   }
 
   findProducts(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -1080,16 +1133,18 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    
-    return this.requestUrl(`${PORT_85}/fun/commodity/findProducts?${queryString}`);
+
+    return this.requestUrl(
+      `${PORT_85}/fun/commodity/findProducts?${queryString}`,
+    );
   }
 
   getPromotionInfo(options) {
     if (!options) {
-      return Promise.reject(new Error("fields required"));
+      return Promise.reject(new Error('fields required'));
     }
 
     const queryString = qs.stringify(
@@ -1097,10 +1152,12 @@ class ReactStore {
         {
           // filter,
         },
-        options
-      )
+        options,
+      ),
     );
-    return this.requestUrl(`${PORT_85}/fun/commodity/getPromotionInfo?${queryString}`);
+    return this.requestUrl(
+      `${PORT_85}/fun/commodity/getPromotionInfo?${queryString}`,
+    );
   }
 
   getNewestInfo(options) {
@@ -1202,7 +1259,7 @@ class ReactStore {
       method: 'POST',
       headers: {
         // 'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
       },
       data: options,
     };
@@ -1226,9 +1283,9 @@ class ReactStore {
   }
 
   requestUrl(url, options) {
-    if (!url) {
-      return Promise.reject("Url cannot be empty");
-    }
+    // if (!url) {
+    //   return Promise.reject('Url cannot be empty');
+    // }
     options = options || {};
     options.headers = Object.assign({}, this.headers, options.headers || {});
 
