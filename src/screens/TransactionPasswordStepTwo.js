@@ -108,7 +108,7 @@ class TransactionPasswordStepTwo extends React.Component {
             secureTextEntry
             keyboardType="numeric"
             // onSubmitEditing={() => { this.repassword.focus(); }}
-            // ref={(input) => { this.password = input }}
+            // ref={input => { this.password = input }}
             // blurOnSubmit={false}
           />
           <Field 
@@ -119,7 +119,7 @@ class TransactionPasswordStepTwo extends React.Component {
             placeholder={'Nhập lại Mật mã giao dịch'}
             secureTextEntry
             keyboardType="numeric"
-            // ref={(input) => { this.repassword = input }}
+            // ref={input => { this.repassword = input }}
           />
           <BYButton text={'Submit'} style={{ marginBottom: 30 }} onPress={() => this.handleOnPressSubmit()} />
         </ScrollView>

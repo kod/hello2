@@ -72,7 +72,12 @@ class ProductItem2 extends Component {
     } = this.props;
 
     return (
-      <BYTouchable style={styles.address} onPress={onPress} {...restProps}>
+      <BYTouchable
+        style={styles.address}
+        onPress={onPress}
+        // onPress={onPress}
+        {...restProps}
+      >
         {addressSelectedItem.id > 0 ? (
           <View style={styles.addressLeft}>
             <View style={styles.addressTop}>

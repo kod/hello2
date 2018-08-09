@@ -298,7 +298,7 @@ class Cart extends React.Component {
           </View>
         }
         {
-          !loading && isEmptyCart && <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
+          !loading && isEmptyCart && <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{ marginBottom: 0 }} />
         }
       </View>
     );

@@ -50,7 +50,7 @@ export default (
         <Text style={styles.componentCode}>+84</Text>
         <BYTextInput
           style={styles.componentInput} 
-          underlineColorAndroid="rgba(0,0,0,.0)" 
+          underlineColorAndroid="rgba(0,0,0,.0)"
           placeholder={'please input your phone number'} 
           placeholderTextColor="#ccc" 
           onChangeText={input.onChange}

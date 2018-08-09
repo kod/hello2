@@ -67,7 +67,7 @@ class TransactionPasswordStepOne extends React.Component {
             style={styles.input}
             keyboardType="numeric"
             returnKeyType = { "next" }
-            blurOnSubmit={true}
+            blurOnSubmit
             onSubmitEditing={this.handleOnPressSubmit}
             editable={false}
           />

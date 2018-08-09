@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ style, ...restProps }) => {
-  return <TextInput style={[styles.component, style]} underlineColorAndroid="rgba(0,0,0,.0)" {...restProps} />;
-};
+export default ({ style, ...restProps }) => (
+  <TextInput
+    style={[styles.component, style]}
+    underlineColorAndroid="rgba(0,0,0,.0)"
+    {...restProps}
+  />
+);

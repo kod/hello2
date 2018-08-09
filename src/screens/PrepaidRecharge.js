@@ -311,7 +311,7 @@ class PrepaidRecharge extends React.Component {
           <View style={styles.phoneNumber}>
             <BYTextInput
               style={styles.phoneInput} 
-              onChangeText={(text) => this.handleOnChangeText(text)} 
+              onChangeText={text => this.handleOnChangeText(text)} 
               value={phoneNumber} 
               placeholder={'Số điện thoại'} 
               placeholderTextColor="#ccc" 

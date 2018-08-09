@@ -153,8 +153,8 @@ class Bill extends React.Component {
     
     return (
       <BYTouchable 
-        style={styles.container} 
-        backgroundColor="transparent" 
+        style={styles.container}
+        backgroundColor="transparent"
         onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}
       >
         <Text style={styles.title}>tháng {activeMonth}</Text>
@@ -180,8 +180,8 @@ class Bill extends React.Component {
     });
     return (
       <BYTouchable 
-        style={styles.container} 
-        backgroundColor="transparent" 
+        style={styles.container}
+        backgroundColor="transparent"
         onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}
       >
         <Entypo style={styles.arrow} name={'dots-three-vertical'} />
@@ -326,7 +326,7 @@ class Bill extends React.Component {
           </View>
         }
         <View style={styles.close}>
-          <EvilIcons style={styles.closeIcon} name={'close'} onPress={() => this.handleOnPressToggleModal('isOpenPay')} />
+          <EvilIcons style={styles.closeIcon} name="close" onPress={() => this.handleOnPressToggleModal('isOpenPay')} />
         </View>
         <Text style={styles.title}>Repayment</Text>
         <View style={styles.wrap}>

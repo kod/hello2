@@ -416,7 +416,7 @@ class ProductDetail extends Component {
             <Text style={styles.masterName}>{item.username ? item.username : item.msisdn}</Text>
             <Text style={styles.createTime}>{`${createTime} ${i18n.startANewGroupBuying}`}</Text>
             <Text style={styles.proccess}>{`${item.slaveNum + 1}/${item.personNum}`}</Text>
-            <EvilIcons name={'close'} style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
+            <EvilIcons name="close" style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
           </View>
           <ScrollView style={styles.bottom}>
             {
@@ -497,7 +497,7 @@ class ProductDetail extends Component {
           <View style={styles.buttonWrap}>
             <Text style={styles.button} onPress={() => this.handleOnPressJoinInGroupBuy()}>{i18n.joinInGroupBuy}</Text>
           </View>
-          <EvilIcons name={'close'} style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
+          <EvilIcons name="close" style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
         </View>
       </View>
     )
@@ -558,7 +558,7 @@ class ProductDetail extends Component {
               )
             }
           </ScrollView>
-          <EvilIcons name={'close'} style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
+          <EvilIcons name="close" style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
         </View>
       </View>
     )
@@ -745,7 +745,12 @@ class ProductDetail extends Component {
             <View style={styles.grouponJoinTitle}>
               <Text style={styles.grouponJoinTitleText}>{masterItems.length} {i18n.personGroupBuying}</Text>
               <Text style={styles.grouponJoinMore} onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor="transparent">{i18n.more}</Text>
-              <CustomIcon style={styles.grouponArrow} name="arrowright" onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor="transparent" />
+              <CustomIcon
+                style={styles.grouponArrow}
+                name="arrowright"
+                onPress={() => this.handleOnPressToggleGroup('list')}
+                backgroundColor="transparent"
+              />
             </View>
             {this.renderGrouponJoin(masterItems[0])}
           </View>
@@ -802,7 +807,11 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <ScrollView onScroll={this.handleOnScroll}>
-          <BYTouchable style={styles.favorite} backgroundColor="transparent" onPress={() => this.handleToggleCollection()}>
+          <BYTouchable
+            style={styles.favorite}
+            backgroundColor="transparent"
+            onPress={() => this.handleToggleCollection()}
+          >
             {
               isCollection ? 
               <MaterialIcons name="favorite" style={[styles.favoriteIcon, styles.favoriteIconActive]} /> : 

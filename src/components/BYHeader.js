@@ -121,7 +121,10 @@ class PXHeader extends Component {
         ]}
       >
         <View style={styles.subContainer}>
-          <BYTouchable onPress={() => this.handleOnPressBackButton()}>
+          <BYTouchable
+            onPress={() => this.handleOnPressBackButton()}
+            // onPress={() => this.handleOnPressBackButton()}
+          >
             {showBackButton ?
               <CustomIcon
                 name="back"

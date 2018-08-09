@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  // TextInput,
+} from 'react-native';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
@@ -63,19 +69,19 @@ class SearchResult extends React.Component {
 
     this.state = {
       searchText: '',
-    }
+    };
 
     this.handleOnPressSubmit = this.handleOnPressSubmit.bind(this);
   }
 
   componentDidMount() {
-    const { searchHistoryFetch } = this.props;
-    this.didBlurSubscription = this.props.navigation.addListener(
-      'didFocus',
-      payload => {
-        this.searchTextInput.focus();
-      }
-    );
+    const {
+      navigation,
+      // searchHistoryFetch,
+    } = this.props;
+    this.didBlurSubscription = navigation.addListener('didFocus', () => {
+      this.searchTextInput.focus();
+    });
   }
 
   componentWillUnmount() {
@@ -85,6 +91,7 @@ class SearchResult extends React.Component {
   handleOnPressSubmit() {
     const {
       searchText,
+      // searchText,
     } = this.state;
 
     const {
@@ -93,8 +100,8 @@ class SearchResult extends React.Component {
     } = this.props;
 
     if (searchText.length > 0) {
-      searchHistoryAdd([searchText])
-      navigate(SCREENS.SearchResultList, { findcontent: searchText })
+      searchHistoryAdd([searchText]);
+      navigate(SCREENS.SearchResultList, { findcontent: searchText });
     }
   }
 
@@ -102,12 +109,12 @@ class SearchResult extends React.Component {
     const {
       navigation: { navigate },
     } = this.props;
-    this.setState({ searchText: val })
-    navigate(SCREENS.SearchResultList, { findcontent: val })
+    this.setState({ searchText: val });
+    navigate(SCREENS.SearchResultList, { findcontent: val });
   }
-  
+
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
         alignItems: 'center',
@@ -122,59 +129,66 @@ class SearchResult extends React.Component {
       },
     });
     return (
-      <BYTouchable 
-        style={styles.container} 
-        backgroundColor="transparent" 
+      <BYTouchable
+        style={stylesX.container}
+        backgroundColor="transparent"
         onPress={() => this.handleOnPressToggleModal('isOpenPay')}
       >
-        <Text style={styles.title}>search</Text>
+        <Text style={stylesX.title}>search</Text>
       </BYTouchable>
-    )
-  }
+    );
+  };
 
   render() {
     const {
+      searchText,
+      // searchText,
+    } = this.state;
+
+    const {
       items,
-      navigation: { navigate },
+      // navigation: { navigate },
       searchHistoryRemove,
+      i18n,
     } = this.props;
 
     return (
       <View style={styles.container}>
-        <BYHeader
-          headerTitle={this.renderHeaderTitle()}
-        />
+        <BYHeader headerTitle={this.renderHeaderTitle()} />
         <View style={styles.search}>
-          <TextInput 
+          <TextInput
             style={styles.textInput}
-            underlineColorAndroid="rgba(0,0,0,.0)" 
-            placeholder={'search'}
+            underlineColorAndroid="rgba(0,0,0,.0)"
+            placeholder={i18n.search}
             placeholderTextColor="#ccc"
-            value={this.state.searchText} 
-            onChangeText={(text) => this.setState({ searchText: text })}
-            returnKeyType={'search'}
-            blurOnSubmit={true}
+            value={searchText}
+            onChangeText={text => this.setState({ searchText: text })}
+            returnKeyType="search"
+            blurOnSubmit
             onSubmitEditing={this.handleOnPressSubmit}
-            ref={(input) => { this.searchTextInput = input; }} 
+            ref={input => {
+              this.searchTextInput = input;
+            }}
           />
         </View>
-        {
-          items.length > 0 && 
+        {items.length > 0 && (
           <Text style={styles.title}>historical search</Text>
-        }
+        )}
         <View style={styles.history}>
-          {
-            items.map((val, key) => (
-              <BYTouchable 
-                style={styles.historyItem} 
-                onPress={() => this.handleOnPressHistoryItem(val)} 
-                key={key} 
-              >
-                <Text style={styles.historyTitle}>{val}</Text>
-                <EvilIcons style={styles.historyCloseIcon} name={'close'} onPress={() => searchHistoryRemove(val)} />
-              </BYTouchable>
-            ))
-          }
+          {items.map((val, key) => (
+            <BYTouchable
+              style={styles.historyItem}
+              onPress={() => this.handleOnPressHistoryItem(val)}
+              key={key}
+            >
+              <Text style={styles.historyTitle}>{val}</Text>
+              <EvilIcons
+                style={styles.historyCloseIcon}
+                name="close"
+                onPress={() => searchHistoryRemove(val)}
+              />
+            </BYTouchable>
+          ))}
         </View>
       </View>
     );
@@ -182,22 +196,21 @@ class SearchResult extends React.Component {
 }
 
 export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        searchHistory,
-      } = state;
+  () => state => {
+    const {
+      searchHistory,
+      // searchHistory,
+    } = state;
 
-      // const {
+    // const {
 
-      // } = props;
+    // } = props;
 
-      return {
-        items: searchHistory.items
-      }
-    }
+    return {
+      items: searchHistory.items,
+    };
   },
   {
     ...searchHistoryActionCreators,
-  }
+  },
 )(SearchResult);

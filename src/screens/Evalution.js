@@ -248,7 +248,7 @@ class Evalution extends React.Component {
               style={styles.textInput}
               placeholder="please enter your name"
               placeholderTextColor="#ccc"
-              onChangeText={(val) => this.setState({ textValue: val })}
+              onChangeText={val => this.setState({ textValue: val })}
               value={textValue}
               maxLength={150}
               numberOfLines={3}

@@ -57,7 +57,7 @@ class MyCollection extends React.Component {
             {this.renderContenr()}
           </ScrollView>
           :
-          !loading && <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{marginBottom: 0}} />
+          !loading && <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{ marginBottom: 0 }} />
         }
       </View>
     );

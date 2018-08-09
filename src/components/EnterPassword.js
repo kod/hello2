@@ -179,11 +179,20 @@ class EnterPassword extends Component {
         <Text style={styles.forget}>forgot password?</Text>
         <View style={styles.keyboard}>
           {
-            keyboardItems.map((val, key) => <BYTouchable key={key} onPress={() => this.handleOnPressNumber(key + 1)}><Text style={styles.keyboardItem}>{key + 1}</Text></BYTouchable>)
+            keyboardItems.map((val, key) =>
+              <BYTouchable
+                key={key}
+                onPress={() => this.handleOnPressNumber(key + 1)}
+              >
+                <Text style={styles.keyboardItem}>{key + 1}</Text>
+              </BYTouchable>
+            )
           }
           <Text style={[styles.keyboardItem, styles.keyboardItemEmpty]}></Text>
-          <BYTouchable onPress={() => this.handleOnPressNumber(0)}><Text style={styles.keyboardItem}>0</Text></BYTouchable>
-          <BYTouchable onPress={() => this.handleOnPressBackspace()}><Ionicons style={styles.keyboardItemBackspace} name={'ios-backspace-outline'} /></BYTouchable>
+          <BYTouchable
+            onPress={() => this.handleOnPressNumber(0)}><Text style={styles.keyboardItem}>0</Text></BYTouchable>
+          <BYTouchable
+            onPress={() => this.handleOnPressBackspace()}><Ionicons style={styles.keyboardItemBackspace} name={'ios-backspace-outline'} /></BYTouchable>
         </View>
       </View>
     );

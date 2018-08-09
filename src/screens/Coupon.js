@@ -79,8 +79,8 @@ class Coupon extends React.Component {
     });
     return (
       <BYTouchable 
-        style={styles.container} 
-        backgroundColor="transparent" 
+        style={styles.container}
+        backgroundColor="transparent"
       >
         <Text style={styles.title}>coupon center</Text>
       </BYTouchable>
@@ -122,7 +122,7 @@ class Coupon extends React.Component {
           ?
           this.renderContent()
           :
-          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'暂无优惠券可领'} styleText={{marginBottom: 0}} />
+          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'暂无优惠券可领'} styleText={{ marginBottom: 0 }} />
         }
       </View>
     );

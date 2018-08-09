@@ -54,8 +54,8 @@ class RepaymentRecord extends React.Component {
     });
     return (
       <BYTouchable 
-        style={styles.container} 
-        backgroundColor="transparent" 
+        style={styles.container}
+        backgroundColor="transparent"
         onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}
       >
         <Text style={styles.title}>record</Text>

@@ -92,8 +92,8 @@ class Coupon extends React.Component {
     });
     return (
       <BYTouchable 
-        style={styles.container} 
-        backgroundColor="transparent" 
+        style={styles.container}
+        backgroundColor="transparent"
       >
         <Text style={styles.title}>my coupon</Text>
       </BYTouchable>

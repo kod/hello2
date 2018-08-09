@@ -104,7 +104,10 @@ class CartItem extends Component {
     }
 
     return (
-      <BYTouchable style={styles.container} onPress={() => onPressHandle(id, !selected)}>
+      <BYTouchable
+        style={styles.container}
+        onPress={() => onPressHandle(id, !selected)}
+      >
         {
           selected
           ? <Ionicons name={'ios-radio-button-on-outline'} style={styles.iconSelected} />
@@ -184,7 +187,9 @@ class CartItem extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.number}>
-          <BYTouchable onPress={() => onChangeTextHandle(parseInt(quantity) - 1, id)}>
+          <BYTouchable
+            onPress={() => onChangeTextHandle(parseInt(quantity) - 1, id)}
+          >
             <Ionicons 
               name="ios-remove" 
               style={[styles.removeIcon, quantity === '1' && styles.removeIconDisable]} 
@@ -197,7 +202,9 @@ class CartItem extends Component {
             // onChangeText={(text) => onChangeTextHandle(text, id)}
             editable={false}
           />
-          <BYTouchable onPress={() => onChangeTextHandle(parseInt(quantity) + 1, id)}>
+          <BYTouchable
+            onPress={() => onChangeTextHandle(parseInt(quantity) + 1, id)}
+          >
             <Ionicons 
               name="ios-add" 
               style={[
@@ -207,7 +214,10 @@ class CartItem extends Component {
             />
           </BYTouchable>
         </View>
-        <BYTouchable style={styles.tips}>
+        <BYTouchable
+          style={styles.tips}
+          // style={styles.tips}
+        >
           <Text style={styles.tipsText}>Kệ sản phẩm</Text>
         </BYTouchable>
       </View>

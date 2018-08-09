@@ -1,19 +1,35 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList, InteractionManager } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  // FlatList,
+  InteractionManager,
+} from 'react-native';
 import { connect } from 'react-redux';
-
-import { SCREENS } from '../common/constants';
 
 import CustomIcon from '../components/CustomIcon';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import SearchHeader from '../components/SearchHeader';
+// import SearchHeader from '../components/SearchHeader';
 import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
 import Loader from '../components/Loader';
 
-import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
+// import {
+//   BORDER_COLOR,
+//   PRIMARY_COLOR,
+//   RED_COLOR,
+// } from '../styles/variables';
+import {
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  // WINDOW_HEIGHT,
+  // APPBAR_HEIGHT,
+  // STATUSBAR_HEIGHT,
+  // SCREENS,
+} from '../common/constants';
 
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 import * as schoolInfoActionCreators from '../common/actions/schoolInfo';
@@ -47,7 +63,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#f5f5f5',
   },
-})
+});
 
 class SchoolSelect extends React.Component {
   constructor(props) {
@@ -61,20 +77,16 @@ class SchoolSelect extends React.Component {
   componentDidMount() {
     const { schoolInfoFetch, items } = this.props;
     // schoolInfoFetch();
-    items.length === 0 && schoolInfoFetch();
+    if (items.length === 0) schoolInfoFetch();
     InteractionManager.runAfterInteractions(() => {
       this.setState({
-        isCanLoad: true
+        isCanLoad: true,
       });
     });
   }
 
   renderHeaderTitle = () => {
-    const {
-      inputValue
-    } = this.state;
-    
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       headerMiddleMain: {
         flex: 1,
         flexDirection: 'row',
@@ -82,42 +94,48 @@ class SchoolSelect extends React.Component {
         paddingLeft: WINDOW_WIDTH * 0.03,
         height: 30,
         backgroundColor: '#f5f5f5',
-        borderRadius: 1
+        borderRadius: 1,
       },
       headerMiddleIcon: {
         fontSize: 12,
         color: '#ccc',
-        marginRight: WINDOW_WIDTH * 0.02
+        marginRight: WINDOW_WIDTH * 0.02,
       },
       headerMiddleText: {
         flex: 1,
         // fontSize: 13,
         // color: '#ccc'
-      },    
+      },
     });
-    
+
+    const {
+      inputValue,
+      // inputValue,
+    } = this.state;
+
+    const {
+      i18n,
+      // i18n,
+    } = this.props;
+
     return (
-      <View style={styles.headerMiddleMain}>
-        <CustomIcon name="search" style={styles.headerMiddleIcon} />
+      <View style={stylesX.headerMiddleMain}>
+        <CustomIcon name="search" style={stylesX.headerMiddleIcon} />
         <BYTextInput
-          style={styles.headerMiddleText}
-          placeholder={'Search'}
+          style={stylesX.headerMiddleText}
+          placeholder={i18n.search}
           placeholderTextColor="#ccc"
-          onChangeText={(val) => this.setState({ inputValue: val.toLowerCase() })}
-          value={inputValue}  
+          onChangeText={val => this.setState({ inputValue: val.toLowerCase() })}
+          value={inputValue}
         />
       </View>
-    )
-  }
+    );
+  };
 
-  renderHeaderRight = () => {
-    return (
-      <View style={{ width: 45 }} />
-    )
-  }
+  renderHeaderRight = () => <View style={{ width: 45 }} />;
 
   renderHeaderLeft = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       icon: {
         width: 45,
         textAlign: 'center',
@@ -125,25 +143,25 @@ class SchoolSelect extends React.Component {
         color: '#666',
       },
     });
-    
-    return (
-      <CustomIcon style={styles.icon} name="back" onPress={() => {}} />
-    )
-  }
+
+    return <CustomIcon style={stylesX.icon} name="back" onPress={() => {}} />;
+  };
 
   handleOnPressItem(item) {
     const {
       certifiedInformationEdit,
-      navigation: { state, goBack },
+      navigation: { goBack },
     } = this.props;
     if (item.staging !== 1) return false;
     certifiedInformationEdit('collegename', item.id);
-    goBack();
+    return goBack();
   }
-  
-  _renderItem = (item, key) => (
+
+  renderItem = (item, key) => (
     <BYTouchable key={key} onPress={() => this.handleOnPressItem(item)}>
-      <Text style={[styles.item, item.staging === 1 && styles.itemActive]}>{item.name}</Text>
+      <Text style={[styles.item, item.staging === 1 && styles.itemActive]}>
+        {item.name}
+      </Text>
     </BYTouchable>
   );
 
@@ -151,14 +169,15 @@ class SchoolSelect extends React.Component {
     const {
       isCanLoad,
       inputValue,
+      // inputValue,
     } = this.state;
-    
+
     const {
       i18n,
       items,
       loading,
-      schoolInfo,
-      navigation: { navigate },
+      // schoolInfo,
+      // navigation: { navigate },
     } = this.props;
 
     if (loading) {
@@ -167,21 +186,16 @@ class SchoolSelect extends React.Component {
 
     return (
       <View style={styles.container}>
-        <BYHeader 
+        <BYHeader
           headerRight={this.renderHeaderRight()}
           headerTitle={this.renderHeaderTitle()}
         />
-        <Text style={styles.tips}>
-          Bạn học thân mến, tạm thời chúng tôi chỉ thực hiện thanh toán trả góp tại những trường đại học có trong danh sách, những trường đại học không thể chọn được vì nhân lực công ty chúng tôi có hạn nên tạm thời chưa thể thanh toán, nhưng bạn có thể lựa chọn thanh toán toàn bộ. Nếu có thắc mắc gì, xin hãy để lại lời nhắn trên facebook. Cám ơn sự ủng hộ của bạn.
-        </Text>
+        <Text style={styles.tips}>{i18n.unsupportedSchoolTip}</Text>
         <ScrollView>
-          {
-            isCanLoad
-            &&
+          {isCanLoad &&
             items
-              .filter((val) => val.name.toLowerCase().indexOf(inputValue) !== -1)
-              .map((val, key) => this._renderItem(val, key))
-          }
+              .filter(val => val.name.toLowerCase().indexOf(inputValue) !== -1)
+              .map((val, key) => this.renderItem(val, key))}
         </ScrollView>
       </View>
     );
@@ -190,21 +204,19 @@ class SchoolSelect extends React.Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          schoolInfo
-        } = state;
-        return {
-          items: schoolInfo.items,
-          loading: schoolInfo.loading,
-        }
-      }
-    }
-    , 
+    state => {
+      const {
+        schoolInfo,
+        // schoolInfo,
+      } = state;
+      return {
+        items: schoolInfo.items,
+        loading: schoolInfo.loading,
+      };
+    },
     {
-      ...certifiedInformationActionCreators, 
-      ...schoolInfoActionCreators, 
-    }
-  )(SchoolSelect)
+      ...certifiedInformationActionCreators,
+      ...schoolInfoActionCreators,
+    },
+  )(SchoolSelect),
 );

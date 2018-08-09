@@ -63,11 +63,18 @@ class ActionSheet extends Component {
       <View style={styles.container}>
         {
           buttons.map((val, key) => 
-            <BYTouchable style={styles.item} key={key} onPress={() => this.handleOnPress(key)}>
+            <BYTouchable
+              style={styles.item}
+              key={key}
+              onPress={() => this.handleOnPress(key)}
+            >
               <Text style={styles.buttonItem}>{val}</Text>
             </BYTouchable>)
         }
-        <BYTouchable onPress={() => this.handleOnPress(-1)}>
+        <BYTouchable
+          onPress={() => this.handleOnPress(-1)}
+          // onPress={() => this.handleOnPress(-1)}
+        >
           <Text style={[styles.buttonItem, styles.buttonItemCancel]}>{cancelTitle}</Text>
         </BYTouchable>
       </View>
