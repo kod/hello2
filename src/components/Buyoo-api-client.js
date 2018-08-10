@@ -18,6 +18,10 @@ const PORT_87 = DEBUG ? ':8187' : 'https://market.buyoo.vn';
 
 function callApi(url, options) {
   const finalUrl = /^https?:\/\//i.test(url) ? url : BASE_URL + url;
+  if (DEBUG) {
+    console.log(finalUrl);
+    console.log(options);
+  }
   return axios(finalUrl, options)
     .then(res => res.data)
     .catch(err => {
