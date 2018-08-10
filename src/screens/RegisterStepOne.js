@@ -12,7 +12,7 @@ import NavSidesText from '../components/NavSidesText';
 import BYTextInput from '../components/BYTextInput';
 import { connectLocalization } from '../components/Localization';
 
-import { PHONEEXPR } from '../common/constants';
+import { PHONE_EXPR } from '../common/constants';
 
 import { SCREENS } from '../common/constants';
 
@@ -47,7 +47,7 @@ const validate = (values, props) => {
   const { i18n } = props;
   const errors = {};
 
-  if (!PHONEEXPR.test(phone)) {
+  if (!PHONE_EXPR.test(phone)) {
     errors.phone = 'phone error';
   }
   return errors;

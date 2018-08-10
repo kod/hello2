@@ -18,7 +18,7 @@ import { SCREENS } from '../common/constants';
 
 import * as registerActionCreators from "../common/actions/register";
 
-import { PHONEEXPR, PWDEXPR } from '../common/constants';
+import { PHONE_EXPR, PWD_EXPR } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -63,7 +63,7 @@ const validate = (values, props) => {
   if (!otp) {
     errors.otp = 'place enter the code';
   }
-  if (!PWDEXPR.test(password)) {
+  if (!PWD_EXPR.test(password)) {
     errors.password = '8-20 password';
   }
   if (password !== repassword) {

@@ -10,7 +10,7 @@ import { connectLocalization } from '../components/Localization';
 
 import * as otpActionCreators from "../common/actions/otp";
 
-import { SCREENS, PHONEEXPR } from '../common/constants';
+import { SCREENS, PHONE_EXPR } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +45,7 @@ class TransactionPasswordStepOne extends React.Component {
       navigation: { goBack, navigate, state },
     } = this.props;
     if (!formValue) return false;
-    if (!PHONEEXPR.test(formValue.phone)) {
+    if (!PHONE_EXPR.test(formValue.phone)) {
       if (Platform.OS === 'android')
         ToastAndroid.show('định dạng số điện thoại sai', ToastAndroid.SHORT);
     }
