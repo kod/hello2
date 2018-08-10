@@ -1,9 +1,21 @@
 import { GET_SQUARES_INFO } from '../constants/actionTypes';
 
-export function getSquaresInfoFetchSuccess() {
+export function getSquaresInfoFetchSuccess({
+  squareinfo,
+  totalsize,
+  totalpage,
+  pagesize,
+  currentpage,
+}) {
   return {
     type: GET_SQUARES_INFO.SUCCESS,
-    payload: {},
+    payload: {
+      squareinfo,
+      totalsize,
+      totalpage,
+      pagesize,
+      currentpage,
+    },
   };
 }
 

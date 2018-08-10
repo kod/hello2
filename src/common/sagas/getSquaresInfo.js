@@ -3,7 +3,8 @@ import {
   takeEvery,
   apply,
   put,
-  // select，
+  select,
+  // select,
 } from 'redux-saga/effects';
 import moment from 'moment';
 // import { NavigationActions } from 'react-navigation';
@@ -17,18 +18,21 @@ import buyoo from '../helpers/apiClient';
 import { GET_SQUARES_INFO } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
-// import NavigatorService from '../../navigations/NavigatorService';
+import { getAuthUserFunid } from '../selectors';
 
 export function* getSquaresInfoFetchWatchHandle(action) {
   try {
     const {
-      msisdn,
-      // msisdn,
+      pagesize = 10,
+      currentpage = 1,
+      // currentpage = 1,
     } = action.payload;
+
+    const funid = yield select(getAuthUserFunid) || '';
 
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
-    const method = 'fun.virtual.getSquaresInfo';
+    const method = 'fun.index.squares';
     const charset = 'utf-8';
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '2.0';
@@ -38,8 +42,16 @@ export function* getSquaresInfoFetchWatchHandle(action) {
     const encrypt = encryptMD5(
       [
         {
-          key: 'msisdn',
-          value: msisdn,
+          key: 'funid',
+          value: funid,
+        },
+        {
+          key: 'pagesize',
+          value: pagesize,
+        },
+        {
+          key: 'currentpage',
+          value: currentpage,
         },
       ],
       Key,
@@ -54,7 +66,9 @@ export function* getSquaresInfoFetchWatchHandle(action) {
         encrypt,
         timestamp,
         version,
-        msisdn,
+        funid,
+        pagesize,
+        currentpage,
       },
     ]);
 
@@ -62,7 +76,15 @@ export function* getSquaresInfoFetchWatchHandle(action) {
       yield put(getSquaresInfoFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
     } else {
-      yield put(getSquaresInfoFetchSuccess());
+      yield put(
+        getSquaresInfoFetchSuccess({
+          squareinfo: response.result.squareinfo,
+          totalsize: response.result.totalsize,
+          totalpage: response.result.totalpage,
+          pagesize: response.result.pagesize,
+          currentpage: response.result.currentpage,
+        }),
+      );
     }
   } catch (err) {
     yield put(getSquaresInfoFetchFailure());
