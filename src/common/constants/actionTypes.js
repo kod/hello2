@@ -4,12 +4,12 @@ import {
   SUCCESS,
   FAILURE,
   CLEAR,
-  CLEAR_ALL,
+  // CLEAR_ALL,
   ADD,
-  ADD_SUCCESS,
-  ADD_FAILURE,
+  // ADD_SUCCESS,
+  // ADD_FAILURE,
   REMOVE,
-  REPLACE,
+  // REPLACE,
   OPEN,
   CLOSE,
   STOP,
@@ -367,7 +367,6 @@ export const CARD_SUBMIT = defineAction(
   appNamespace,
 );
 
-
 export const RECEIVE_VOUCHER = defineAction(
   'RECEIVE_VOUCHER',
   [REQUEST, SUCCESS, FAILURE],
@@ -506,23 +505,11 @@ export const BILL_BY_YEAR = defineAction(
   appNamespace,
 );
 
-export const BILL_YEAR = defineAction(
-  'BILL_YEAR',
-  [REQUEST],
-  appNamespace,
-);
+export const BILL_YEAR = defineAction('BILL_YEAR', [REQUEST], appNamespace);
 
-export const BILL_MONTH = defineAction(
-  'BILL_MONTH',
-  [REQUEST],
-  appNamespace,
-);
+export const BILL_MONTH = defineAction('BILL_MONTH', [REQUEST], appNamespace);
 
-export const BILL_PRICE = defineAction(
-  'BILL_PRICE',
-  [REQUEST],
-  appNamespace,
-);
+export const BILL_PRICE = defineAction('BILL_PRICE', [REQUEST], appNamespace);
 
 export const COLLECT_FILES = defineAction(
   'COLLECT_FILES',
