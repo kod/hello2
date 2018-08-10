@@ -9,7 +9,7 @@ import { SCREENS, WINDOW_HEIGHT } from '../common/constants';
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import BYButton from '../components/BYButton';
-import OtherLogin from '../components/OtherLogin';
+import { connectLocalization } from '../components/Localization';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,4 +44,4 @@ RegisterFastStepOne = reduxForm({
   form: 'RegisterFastStepOne',
 })(RegisterFastStepOne);
 
-export default RegisterFastStepOne;
+export default connectLocalization(RegisterFastStepOne);

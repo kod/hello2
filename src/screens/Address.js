@@ -264,20 +264,3 @@ export default withNavigation(
     )(Address)
   )
 );
-
-
-// function mapStateToProps(state, props) {
-//   const { address, } = state;
-//   return {
-//     isAuthUser: !!state.auth.user,
-//     items: address.items,
-//     loading: address.loading,
-//     refreshing: address.refreshing,
-//   };
-// }
-
-// export default withNavigation(
-//   connectLocalization(
-//     connect(mapStateToProps, { ...addressActionCreators, ...authActionCreators })(Address)
-//   )
-// );

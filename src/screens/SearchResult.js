@@ -11,6 +11,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
+import { connectLocalization } from '../components/Localization';
 
 import * as searchHistoryActionCreators from '../common/actions/searchHistory';
 import { SIDEINTERVAL, SCREENS } from '../common/constants';
@@ -195,22 +196,24 @@ class SearchResult extends React.Component {
   }
 }
 
-export default connect(
-  () => state => {
-    const {
-      searchHistory,
-      // searchHistory,
-    } = state;
+export default connectLocalization(
+  connect(
+    () => state => {
+      const {
+        searchHistory,
+        // searchHistory,
+      } = state;
 
-    // const {
+      // const {
 
-    // } = props;
+      // } = props;
 
-    return {
-      items: searchHistory.items,
-    };
-  },
-  {
-    ...searchHistoryActionCreators,
-  },
-)(SearchResult);
+      return {
+        items: searchHistory.items,
+      };
+    },
+    {
+      ...searchHistoryActionCreators,
+    },
+  )(SearchResult),
+);

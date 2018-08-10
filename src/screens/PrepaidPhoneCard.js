@@ -10,6 +10,7 @@ import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
 import ActionSheet from "../components/ActionSheet";
 import Loader from '../components/Loader';
+import { connectLocalization } from '../components/Localization';
 
 import priceFormat from '../common/helpers/priceFormat';
 import { PROVIDER_TYPE_MAP } from '../common/constants';
@@ -308,30 +309,32 @@ class PrepaidPhoneCard extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        getProvidersCard,
-        getProvidersValue,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          getProvidersCard,
+          getProvidersValue,
+        } = state;
 
-      // const {
+        // const {
 
-      // } = props;
+        // } = props;
 
-      return {
-        providersItems: getProvidersCard.items,
-        loading: getProvidersValue.loading,
-        providerCode: getProvidersValue['phoneCard'].providerCode,
-        ProvidersValueItems: getProvidersValue['phoneCard'].items,
-        payWayButtons: getProvidersValue['phoneCard'].payWayButtons,
+        return {
+          providersItems: getProvidersCard.items,
+          loading: getProvidersValue.loading,
+          providerCode: getProvidersValue['phoneCard'].providerCode,
+          ProvidersValueItems: getProvidersValue['phoneCard'].items,
+          payWayButtons: getProvidersValue['phoneCard'].payWayButtons,
+        }
       }
+    },
+    {
+      ...getProvidersCardActionCreators,
+      ...getProvidersValueActionCreators,
+      ...orderCreateActionCreators,
     }
-  },
-  {
-    ...getProvidersCardActionCreators,
-    ...getProvidersValueActionCreators,
-    ...orderCreateActionCreators,
-  }
-)(PrepaidPhoneCard);
+  )(PrepaidPhoneCard),
+);

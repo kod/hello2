@@ -10,6 +10,7 @@ import InputCountry from '../components/InputCountry';
 import BYButton from '../components/BYButton';
 import NavSidesText from '../components/NavSidesText';
 import BYTextInput from '../components/BYTextInput';
+import { connectLocalization } from '../components/Localization';
 
 import { PHONEEXPR } from '../common/constants';
 
@@ -110,21 +111,23 @@ RegisterStepOne = reduxForm({
 // export default RegisterStepOne;
 
 
-export default connect(
-  () => {
-    return (state, props) => {
-      // const {
-      //   auth,
-      //   form: { RegisterStepOne },
-      // } = state;
-      // const msisdn = props.navigation.state.params.msisdn || '';
-      return {
-        // msisdn: auth.user ? auth.user.msisdn : '',
-        // formValue: RegisterStepOne ? RegisterStepOne.values : '',
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        // const {
+        //   auth,
+        //   form: { RegisterStepOne },
+        // } = state;
+        // const msisdn = props.navigation.state.params.msisdn || '';
+        return {
+          // msisdn: auth.user ? auth.user.msisdn : '',
+          // formValue: RegisterStepOne ? RegisterStepOne.values : '',
+        }
       }
+    },
+    {
+      ...otpActionCreators
     }
-  },
-  {
-    ...otpActionCreators
-  }
-)(RegisterStepOne);
+  )(RegisterStepOne),
+);

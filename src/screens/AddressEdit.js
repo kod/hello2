@@ -16,9 +16,10 @@ import BYBottomSheet from '../components/BYBottomSheet';
 import BYModal from '../components/BYModal';
 import BYTouchable from '../components/BYTouchable';
 import BYButton from '../components/BYButton';
+import PXTouchable from '../components/BYTouchable';
+import { connectLocalization } from '../components/Localization';
 
 import { SCREENS } from '../common/constants';
-import PXTouchable from '../components/BYTouchable';
 
 import * as cityInfosActionCreators from '../common/actions/cityInfos';
 import * as addressActionCreators from '../common/actions/address';
@@ -463,22 +464,24 @@ AddressAdd = reduxForm({
   // validate,
 })(AddressAdd);
 
-export default connect(
-  state => {
-    const {
-      cityInfos,
-      form,
-    } = state;
-    return {
-      addressAddInfo: form.AddressAdd ? form.AddressAdd : {},
-      loading: cityInfos.loading,
-      division2ndItems: cityInfos.division2nd,
-      division3rdItems: cityInfos.division3rd,
-      division4thItems: cityInfos.division4th,
+export default connectLocalization(
+  connect(
+    state => {
+      const {
+        cityInfos,
+        form,
+      } = state;
+      return {
+        addressAddInfo: form.AddressAdd ? form.AddressAdd : {},
+        loading: cityInfos.loading,
+        division2ndItems: cityInfos.division2nd,
+        division3rdItems: cityInfos.division3rd,
+        division4thItems: cityInfos.division4th,
+      }
+    },
+    {
+      ...cityInfosActionCreators,
+      ...addressActionCreators,
     }
-  },
-  {
-    ...cityInfosActionCreators,
-    ...addressActionCreators,
-  }
-)(AddressAdd);
+  )(AddressAdd),
+);

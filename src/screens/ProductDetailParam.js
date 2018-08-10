@@ -7,6 +7,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import ImageGetSize from "../components/ImageGetSize";
 import BYCacheImage from '../components/BYCacheImage';
+import { connectLocalization } from '../components/Localization';
 
 import {
   RED_COLOR,
@@ -100,32 +101,25 @@ class ProductDetailParam extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        bannerSwiper,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          bannerSwiper,
+        } = state;
 
-      // const {
+        // const {
 
-      // } = props;
+        // } = props;
 
-      return {
-        bannerSwiper: bannerSwiper['one'] || {}
+        return {
+          bannerSwiper: bannerSwiper['one'] || {}
+        }
       }
+    },
+    {
+      ...bannerSwiperActionCreators,
     }
-  },
-  {
-    ...bannerSwiperActionCreators,
-  }
-)(ProductDetailParam);
-
-// function mapStateToProps(state, props) {
-//   const { bannerSwiper } = state;
-//   return {
-//     bannerSwiper: bannerSwiper['one'] || {}
-//   };
-// }
-
-// export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetailParam);
+  )(ProductDetailParam),
+);

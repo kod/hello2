@@ -9,7 +9,7 @@ import BYHeader from '../components/BYHeader';
 import BYButton from '../components/BYButton';
 import InputRight from '../components/InputRight';
 import BYTouchable from '../components/BYTouchable';
-import NavSidesText from '../components/NavSidesText';
+import { connectLocalization } from '../components/Localization';
 import Error from '../components/Error';
 
 import { SCREENS } from '../common/constants';
@@ -88,4 +88,4 @@ RegisterFastStepTwo = reduxForm({
   form: 'RegisterFastStepTwo',
 })(RegisterFastStepTwo);
 
-export default RegisterFastStepTwo;
+export default connectLocalization(RegisterFastStepTwo);

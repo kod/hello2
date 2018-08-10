@@ -21,6 +21,7 @@ import {
 import BYTouchable from '../components/BYTouchable';
 import CustomIcon from '../components/CustomIcon';
 import NavBar1 from '../components/NavBar1';
+import { connectLocalization } from '../components/Localization';
 
 import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
@@ -411,25 +412,27 @@ class Me extends React.Component {
   }
 }
 
-export default connect(
-  state => {
-    const {
-      userCertificateInfo,
-      auth,
-      queryOrderList,
-      cardQuery,
-      // cardQuery,
-    } = state;
-    return {
-      orderItem: queryOrderList.item,
-      certUser: userCertificateInfo.certUser,
-      authUser: auth.user,
-      initPassword: cardQuery.item.initPassword,
-      status: cardQuery.item.status,
-    };
-  },
-  {
-    ...queryOrderListActionCreators,
-    ...cardQueryActionCreators,
-  },
-)(Me);
+export default connectLocalization(
+  connect(
+    state => {
+      const {
+        userCertificateInfo,
+        auth,
+        queryOrderList,
+        cardQuery,
+        // cardQuery,
+      } = state;
+      return {
+        orderItem: queryOrderList.item,
+        certUser: userCertificateInfo.certUser,
+        authUser: auth.user,
+        initPassword: cardQuery.item.initPassword,
+        status: cardQuery.item.status,
+      };
+    },
+    {
+      ...queryOrderListActionCreators,
+      ...cardQueryActionCreators,
+    },
+  )(Me),
+);

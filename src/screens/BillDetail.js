@@ -11,6 +11,7 @@ import CustomIcon from '../components/CustomIcon';
 import BYTouchable from '../components/BYTouchable';
 import NavBar2 from "../components/NavBar2";
 import SeparateBar from '../components/SeparateBar';
+
 import { PRIMARY_COLOR, } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, APPBAR_HEIGHT, } from '../common/constants';
 
@@ -187,20 +188,22 @@ class BillDetail extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        billDetails,
-      } = state;
-      return {
-        isAuthUser: !!state.auth.user,
-        id: props.navigation.state.params.id,
-        billDetailsItem: billDetails.item,
+export default connectLocalization(
+    connect(
+    () => {
+      return (state, props) => {
+        const {
+          billDetails,
+        } = state;
+        return {
+          isAuthUser: !!state.auth.user,
+          id: props.navigation.state.params.id,
+          billDetailsItem: billDetails.item,
+        }
       }
+    },
+    {
+      ...billDetailsActionCreators,
     }
-  },
-  {
-    ...billDetailsActionCreators,
-  }
-)(BillDetail);
+  )(BillDetail),
+);

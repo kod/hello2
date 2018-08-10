@@ -197,19 +197,21 @@ class RepaymentRecord extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        repaymentRecord,
-      } = state;
-      return {
-        repaymentRecordItems: repaymentRecord.item.records ? repaymentRecord.item.records : [],
-        isAuthUser: !!state.auth.user,
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          repaymentRecord,
+        } = state;
+        return {
+          repaymentRecordItems: repaymentRecord.item.records ? repaymentRecord.item.records : [],
+          isAuthUser: !!state.auth.user,
+        }
       }
+    },
+    {
+      ...repaymentRecordActionCreators,
     }
-  },
-  {
-    ...repaymentRecordActionCreators,
-  }
-)(RepaymentRecord);
+  )(RepaymentRecord),
+);

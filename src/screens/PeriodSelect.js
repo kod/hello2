@@ -212,23 +212,25 @@ class PeriodSelect extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        cardQuery,
-        updatePeriod,
-      } = state;
-      return {
-        loading: updatePeriod.loading,
-        initPassword: cardQuery.item.initPassword,
-        status: cardQuery.item.status,
-        periodHobbit: cardQuery.item.periodHobbit,
-        isAuthUser: !!state.auth.user,
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          cardQuery,
+          updatePeriod,
+        } = state;
+        return {
+          loading: updatePeriod.loading,
+          initPassword: cardQuery.item.initPassword,
+          status: cardQuery.item.status,
+          periodHobbit: cardQuery.item.periodHobbit,
+          isAuthUser: !!state.auth.user,
+        }
       }
+    },
+    {
+      ...updatePeriodActionCreators,
     }
-  },
-  {
-    ...updatePeriodActionCreators,
-  }
-)(PeriodSelect);
+  )(PeriodSelect),
+);

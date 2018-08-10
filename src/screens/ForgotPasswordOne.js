@@ -9,7 +9,7 @@ import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import BYButton from '../components/BYButton';
 import OtherLogin from '../components/OtherLogin';
-
+import { connectLocalization } from '../components/Localization';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,4 +46,4 @@ ForgotPasswordOne = reduxForm({
   // validate,
 })(ForgotPasswordOne);
 
-export default ForgotPasswordOne;
+export default connectLocalization(ForgotPasswordOne);

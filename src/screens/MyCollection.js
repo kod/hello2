@@ -6,6 +6,7 @@ import BYHeader from '../components/BYHeader';
 import ProductItem2 from '../components/ProductItem2';
 import EmptyState from '../components/EmptyState';
 import Loader from '../components/Loader';
+import { connectLocalization } from '../components/Localization';
 
 import * as collectionActionCreators from '../common/actions/collection';
 
@@ -64,24 +65,26 @@ class MyCollection extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        collection,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          collection,
+        } = state;
 
-      // const {
+        // const {
 
-      // } = props;
+        // } = props;
 
-      return {
-        loading: collection.loading,
-        items: collection.items.details ? collection.items.details : [],
+        return {
+          loading: collection.loading,
+          items: collection.items.details ? collection.items.details : [],
+        }
       }
+    },
+    {
+      ...collectionActionCreators,
     }
-  },
-  {
-    ...collectionActionCreators,
-  }
-)(MyCollection);
+  )(MyCollection),
+);

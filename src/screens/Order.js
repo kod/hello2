@@ -286,22 +286,24 @@ class Order extends React.Component {
 }
 
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        queryOrderList,
-      } = state;
-      return {
-        initIndex: props.navigation.state.params ? props.navigation.state.params.index : 0,
-        orderItem: getOrderItem(state, props),
-        queryOrderListItem: queryOrderList.item,
-        scrollTabIndex: queryOrderList.scrollTabIndex,
-        isAuthUser: !!state.auth.user,
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          queryOrderList,
+        } = state;
+        return {
+          initIndex: props.navigation.state.params ? props.navigation.state.params.index : 0,
+          orderItem: getOrderItem(state, props),
+          queryOrderListItem: queryOrderList.item,
+          scrollTabIndex: queryOrderList.scrollTabIndex,
+          isAuthUser: !!state.auth.user,
+        }
       }
+    },
+    {
+      ...queryOrderListActionCreators,
     }
-  },
-  {
-    ...queryOrderListActionCreators,
-  }
-)(Order);
+  )(Order),
+);

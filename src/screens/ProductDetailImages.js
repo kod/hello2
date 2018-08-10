@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Dimensions, Image, FlatList, WebVie
 import { connect } from 'react-redux';
 
 import BYHeader from '../components/BYHeader';
-
+import { connectLocalization } from '../components/Localization';
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
@@ -50,32 +50,25 @@ class ProductDetailImages extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        bannerSwiper,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          bannerSwiper,
+        } = state;
 
-      // const {
+        // const {
 
-      // } = props;
+        // } = props;
 
-      return {
-        bannerSwiper: bannerSwiper['one'] || {}
+        return {
+          bannerSwiper: bannerSwiper['one'] || {}
+        }
       }
+    },
+    {
+      ...bannerSwiperActionCreators,
     }
-  },
-  {
-    ...bannerSwiperActionCreators,
-  }
-)(ProductDetailImages);
-
-// function mapStateToProps(state, props) {
-//   const { bannerSwiper } = state;
-//   return {
-//     bannerSwiper: bannerSwiper['one'] || {}
-//   };
-// }
-
-// export default connect(mapStateToProps, { ...bannerSwiperActionCreators, })(ProductDetailImages);
+  )(ProductDetailImages),
+);

@@ -12,6 +12,7 @@ import InputRight from '../components/InputRight';
 import BYTouchable from '../components/BYTouchable';
 import ReadSeconds from "../components/ReadSeconds";
 import Loader from '../components/Loader';
+import { connectLocalization } from '../components/Localization';
 
 import { SCREENS } from '../common/constants';
 
@@ -158,20 +159,22 @@ RegisterStepTwo = reduxForm({
   validate,
 })(RegisterStepTwo);
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        form: { RegisterStepOne },
-        register,
-      } = state;
-      return {
-        registerStepOneValues: RegisterStepOne ? RegisterStepOne.values : '',
-        loading: register.loading,
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          form: { RegisterStepOne },
+          register,
+        } = state;
+        return {
+          registerStepOneValues: RegisterStepOne ? RegisterStepOne.values : '',
+          loading: register.loading,
+        }
       }
+    },
+    {
+      ...registerActionCreators,
     }
-  },
-  {
-    ...registerActionCreators,
-  }
-)(RegisterStepTwo);
+  )(RegisterStepTwo),
+);

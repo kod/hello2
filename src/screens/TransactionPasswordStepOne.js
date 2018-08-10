@@ -6,6 +6,7 @@ import { Field, reduxForm } from 'redux-form';
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import BYButton from '../components/BYButton';
+import { connectLocalization } from '../components/Localization';
 
 import * as otpActionCreators from "../common/actions/otp";
 
@@ -82,20 +83,22 @@ TransactionPasswordStepOne = reduxForm({
   form: 'TransactionPasswordStepOne',
 })(TransactionPasswordStepOne);
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        auth,
-        form: { TransactionPasswordStepOne },
-      } = state;
-      return {
-        msisdn: auth.user ? auth.user.msisdn : '',
-        formValue: TransactionPasswordStepOne ? TransactionPasswordStepOne.values : '',
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          auth,
+          form: { TransactionPasswordStepOne },
+        } = state;
+        return {
+          msisdn: auth.user ? auth.user.msisdn : '',
+          formValue: TransactionPasswordStepOne ? TransactionPasswordStepOne.values : '',
+        }
       }
+    },
+    {
+      ...otpActionCreators
     }
-  },
-  {
-    ...otpActionCreators
-  }
-)(TransactionPasswordStepOne);
+  )(TransactionPasswordStepOne),
+);

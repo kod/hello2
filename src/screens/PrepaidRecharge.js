@@ -10,6 +10,7 @@ import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
 import ActionSheet from "../components/ActionSheet";
 import Loader from '../components/Loader';
+import { connectLocalization } from '../components/Localization';
 
 import priceFormat from '../common/helpers/priceFormat';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
@@ -387,33 +388,35 @@ class PrepaidRecharge extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        prepaid,
-        orderCreate,
-        getPhoneRecharge,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          prepaid,
+          orderCreate,
+          getPhoneRecharge,
+        } = state;
 
-      // const {
+        // const {
 
-      // } = props;
+        // } = props;
 
-      return {
-        errorText: prepaid.errorText,
-        providerIcon: prepaid.providerIcon,
-        payWayButtons: getPhoneRecharge.payWayButtons,
-        providerCode: getPhoneRecharge.providerCode,
-        items: getPhoneRecharge.items,
-        loading: getPhoneRecharge.loading,
-        orderCreateLoading: orderCreate.loading,
+        return {
+          errorText: prepaid.errorText,
+          providerIcon: prepaid.providerIcon,
+          payWayButtons: getPhoneRecharge.payWayButtons,
+          providerCode: getPhoneRecharge.providerCode,
+          items: getPhoneRecharge.items,
+          loading: getPhoneRecharge.loading,
+          orderCreateLoading: orderCreate.loading,
+        }
       }
+    },
+    {
+      ...prepaidActionCreators,
+      ...orderCreateActionCreators,
+      ...getPhoneRechargeActionCreators,
     }
-  },
-  {
-    ...prepaidActionCreators,
-    ...orderCreateActionCreators,
-    ...getPhoneRechargeActionCreators,
-  }
-)(PrepaidRecharge);
+  )(PrepaidRecharge),
+);

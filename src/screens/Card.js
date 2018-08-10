@@ -25,6 +25,8 @@ import NavBar2 from '../components/NavBar2';
 import SeparateBar from '../components/SeparateBar';
 import BYButton from '../components/BYButton';
 import Loader from '../components/Loader';
+import { connectLocalization } from '../components/Localization';
+
 import priceFormat from '../common/helpers/priceFormat';
 import { judge } from '../common/helpers';
 
@@ -275,24 +277,26 @@ class Card extends React.Component {
     return <View style={styles.container}>{this.renderMain()}</View>;
   }
 }
-export default connect(
-  state => {
-    const {
-      cardQuery,
-      auth,
-      // auth,
-    } = state;
-    return {
-      loading: cardQuery.loading,
-      initPassword: cardQuery.item.initPassword,
-      item: cardQuery.item,
-      status: cardQuery.item.status,
-      periodHobbit: cardQuery.item.periodHobbit,
-      isAuthUser: !!state.auth.user,
-      msisdn: auth.user ? auth.user.msisdn : '',
-    };
-  },
-  {
-    ...cardQueryActionCreators,
-  },
-)(Card);
+export default connectLocalization(
+  connect(
+    state => {
+      const {
+        cardQuery,
+        auth,
+        // auth,
+      } = state;
+      return {
+        loading: cardQuery.loading,
+        initPassword: cardQuery.item.initPassword,
+        item: cardQuery.item,
+        status: cardQuery.item.status,
+        periodHobbit: cardQuery.item.periodHobbit,
+        isAuthUser: !!state.auth.user,
+        msisdn: auth.user ? auth.user.msisdn : '',
+      };
+    },
+    {
+      ...cardQueryActionCreators,
+    },
+  )(Card),
+);

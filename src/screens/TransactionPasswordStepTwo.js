@@ -11,6 +11,7 @@ import BYButton from '../components/BYButton';
 import InputRight from '../components/InputRight';
 import BYTouchable from '../components/BYTouchable';
 import ReadSeconds from "../components/ReadSeconds";
+import { connectLocalization } from '../components/Localization';
 
 import * as modifyPayPasswordActionCreators from "../common/actions/modifyPayPassword";
 
@@ -132,18 +133,20 @@ TransactionPasswordStepTwo = reduxForm({
   form: 'TransactionPasswordStepTwo',
 })(TransactionPasswordStepTwo);
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        form: { TransactionPasswordStepTwo },
-      } = state;
-      return {
-        formValue: TransactionPasswordStepTwo ? TransactionPasswordStepTwo.values : '',
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          form: { TransactionPasswordStepTwo },
+        } = state;
+        return {
+          formValue: TransactionPasswordStepTwo ? TransactionPasswordStepTwo.values : '',
+        }
       }
+    },
+    {
+      ...modifyPayPasswordActionCreators,
     }
-  },
-  {
-    ...modifyPayPasswordActionCreators,
-  }
-)(TransactionPasswordStepTwo);
+  )(TransactionPasswordStepTwo),
+);

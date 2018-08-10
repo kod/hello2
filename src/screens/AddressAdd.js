@@ -29,6 +29,7 @@ import FieldInput from '../components/FieldInput';
 import CustomIcon from '../components/CustomIcon';
 // import BYModal from '../components/BYModal';
 import BYButton from '../components/BYButton';
+import { connectLocalization } from '../components/Localization';
 
 import PXTouchable from '../components/BYTouchable';
 // import AddressAddModal from '../containers/AddressAddModal';
@@ -322,23 +323,25 @@ AddressAdd = reduxForm({
   form: 'AddressAdd',
 })(AddressAdd);
 
-export default connect(
-  state => {
-    const {
-      cityInfos,
-      form,
-      // form,
-    } = state;
-    return {
-      addressAddInfo: form.AddressAdd ? form.AddressAdd : {},
-      division2ndItems: cityInfos.division2nd,
-      division3rdItems: cityInfos.division3rd,
-      division4thItems: cityInfos.division4th,
-    };
-  },
-  {
-    ...cityInfosActionCreators,
-    ...addressActionCreators,
-    ...modalActionCreators,
-  },
-)(AddressAdd);
+export default connectLocalization(
+  connect(
+    state => {
+      const {
+        cityInfos,
+        form,
+        // form,
+      } = state;
+      return {
+        addressAddInfo: form.AddressAdd ? form.AddressAdd : {},
+        division2ndItems: cityInfos.division2nd,
+        division3rdItems: cityInfos.division3rd,
+        division4thItems: cityInfos.division4th,
+      };
+    },
+    {
+      ...cityInfosActionCreators,
+      ...addressActionCreators,
+      ...modalActionCreators,
+    },
+  )(AddressAdd),
+);

@@ -7,7 +7,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import ImageGetSize from "../components/ImageGetSize";
 import Comment from '../components/Comment';
-
+import { connectLocalization } from '../components/Localization';
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
@@ -68,33 +68,25 @@ class ProductDetailComment extends React.Component {
   }
 }
 
-export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        comment,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => {
+      return (state, props) => {
+        const {
+          comment,
+        } = state;
 
-      // const {
+        // const {
 
-      // } = props;
+        // } = props;
 
-      return {
-        comment: comment.items.detail ? comment.items.detail : [],
+        return {
+          comment: comment.items.detail ? comment.items.detail : [],
+        }
       }
+    },
+    {
+      ...productDetailInfoActionCreators,
     }
-  },
-  {
-    ...productDetailInfoActionCreators,
-  }
-)(ProductDetailComment);
-
-// function mapStateToProps(state, props) {
-//   const { comment } = state;
-//   return {
-//     comment: comment.items.detail ? comment.items.detail : [],
-//     // bannerSwiper: bannerSwiper['one'] || {}
-//   };
-// }
-
-// export default connect(mapStateToProps, { ...productDetailInfoActionCreators, })(ProductDetailComment);
+  )(ProductDetailComment),
+);

@@ -167,14 +167,3 @@ export default connectLocalization(
     }
   )(BillingPeriodDetail)
 );
-
-// function mapStateToProps(state, props) {
-//   const { bannerHomeRecommend } = state;
-//   return {
-//     bannerHomeRecommend: bannerHomeRecommend || {}
-//   };
-// }
-
-// export default connectLocalization(
-//   connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, ...authActionCreators })(BillingPeriodDetail)
-// );
