@@ -9,7 +9,6 @@ import priceFormat from '../common/helpers/priceFormat';
 import moment from 'moment';
 import { getBillMonthItem, getBillTotalMoney } from '../common/selectors';
 
-import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
 import BYHeader from '../components/BYHeader';
 import BYModal from '../components/BYModal';
