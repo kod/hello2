@@ -32,6 +32,38 @@ import {
   addressModifyWatch,
   addressModifySuccessWatch,
 } from './address';
+import {
+  userAddDetailInfoFetchWatch,
+  userAddDetailInfoSuccessWatch,
+} from './userAddDetailInfo';
+import {
+  queryOrderListFetchWatch,
+  queryOrderListIndexFetchWatch,
+} from './queryOrderList';
+import {
+  modifyPayPasswordFetchWatch,
+  modifyPayPasswordSuccessWatch,
+} from './modifyPayPassword';
+import {
+  updatePeriodFetchWatch,
+  updatePeriodSuccessWatch,
+} from './updatePeriod';
+import {
+  repaymentRecordFetchWatch,
+  repaymentRecordSuccessWatch,
+} from './repaymentRecord';
+import {
+  receiveVoucherFetchWatch,
+  receiveVoucherSuccessWatch,
+} from './receiveVoucher';
+import {
+  getProvidersCardFetchWatch,
+  getProvidersCardSuccessWatch,
+} from './getProvidersCard';
+import {
+  get3GProvidersCardFetchWatch,
+  get3GProvidersCardSuccessWatch,
+} from './get3GProvidersCard';
 import { watchError } from './error';
 import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
@@ -47,120 +79,35 @@ import { adPhoneFetchWatch } from './adPhone';
 import { topComputerFetchWatch } from './topComputer';
 import { newComputerFetchWatch } from './newComputer';
 import { adDigitalFetchWatch } from './adDigital';
-import {
-  userCertificateInfoFetchWatch,
-} from './userCertificateInfo';
-import {
-  userAddDetailInfoFetchWatch,
-  userAddDetailInfoSuccessWatch,
-} from './userAddDetailInfo';
-import {
-  orderCreateFetchWatch,
-  orderCreateSuccessWatch,
-} from './orderCreate';
-import {
-  queryOrderListFetchWatch,
-  queryOrderListIndexFetchWatch,
-} from './queryOrderList';
-import {
-  orderPayFetchWatch,
-  orderPaySuccessWatch,
-} from './orderPay';
-import {
-  queryOrderFetchWatch,
-} from './queryOrder';
+import { userCertificateInfoFetchWatch } from './userCertificateInfo';
+import { orderCreateFetchWatch, orderCreateSuccessWatch } from './orderCreate';
+import { orderPayFetchWatch, orderPaySuccessWatch } from './orderPay';
+import { queryOrderFetchWatch } from './queryOrder';
 import { productDetailInfoFetchWatch } from './productDetailInfo';
 import { commentFetchWatch } from './comment';
 import { cityInfosFetchWatch } from './cityInfos';
 import { schoolInfoFetchWatch } from './schoolInfo';
 import { otpFetchWatch } from './otp';
-import {
-  modifyPayPasswordFetchWatch,
-  modifyPayPasswordSuccessWatch,
-} from './modifyPayPassword';
 import { returnMoneyFetchWatch } from './returnMoney';
 import { getUserInfoByIdFetchWatch } from './getUserInfoById';
-import {
-  cardSubmitFetchWatch,
-  cardSubmitSuccessWatch,
-} from './cardSubmit';
+import { cardSubmitFetchWatch, cardSubmitSuccessWatch } from './cardSubmit';
 import { cardQueryFetchWatch } from './cardQuery';
-import {
-  updatePeriodFetchWatch,
-  updatePeriodSuccessWatch,
-} from './updatePeriod';
-import {
-  registerFetchWatch,
-  registerSuccessWatch,
-} from './register';
-import {
-  billByYearFetchWatch,
-  billByYearSuccessWatch,
-} from './billByYear';
-import {
-  searchMonthFetchWatch,
-  searchMonthSuccessWatch,
-} from './searchMonth';
-import {
-  repaymentRecordFetchWatch,
-  repaymentRecordSuccessWatch,
-} from './repaymentRecord';
-import {
-  billDetailsFetchWatch,
-  billDetailsSuccessWatch,
-} from './billDetails';
-import {
-  queryGoodsFetchWatch,
-  queryGoodsSuccessWatch,
-} from './queryGoods';
-import {
-  collectFilesFetchWatch,
-} from './collectFiles';
-import {
-  getMenuFetchWatch,
-} from './getMenu';
-import {
-  getAllProductInfoFetchWatch,
-} from './getAllProductInfo';
-import {
-  getVoucherFetchWatch,
-} from './getVoucher';
-import {
-  receiveVoucherFetchWatch,
-  receiveVoucherSuccessWatch,
-} from './receiveVoucher';
-import {
-  getVoucherListFetchWatch,
-  // getVoucherListSuccessWatch,
-} from './getVoucherList';
-import {
-  getPhoneRechargeFetchWatch,
-  // getPhoneRechargeSuccessWatch,
-} from './getPhoneRecharge';
-import {
-  getProvidersCardFetchWatch,
-  getProvidersCardSuccessWatch,
-} from './getProvidersCard';
-import {
-  get3GProvidersCardFetchWatch,
-  get3GProvidersCardSuccessWatch,
-} from './get3GProvidersCard';
-import {
-  getProvidersValueFetchWatch,
-  // getProvidersValueSuccessWatch,
-} from './getProvidersValue';
-import {
-  findProductsFetchWatch,
-  // findProductsSuccessWatch,
-} from './findProducts';
-import {
-  orderCancelFetchWatch,
-  orderCancelSuccessWatch,
-} from './orderCancel';
-import {
-  judgeVoucherFetchWatch,
-  // judgeVoucherSuccessWatch,
-} from './judgeVoucher';
+import { registerFetchWatch, registerSuccessWatch } from './register';
+import { billByYearFetchWatch, billByYearSuccessWatch } from './billByYear';
+import { searchMonthFetchWatch, searchMonthSuccessWatch } from './searchMonth';
+import { billDetailsFetchWatch, billDetailsSuccessWatch } from './billDetails';
+import { queryGoodsFetchWatch, queryGoodsSuccessWatch } from './queryGoods';
+import { collectFilesFetchWatch } from './collectFiles';
+import { getMenuFetchWatch } from './getMenu';
+import { getAllProductInfoFetchWatch } from './getAllProductInfo';
+import { getVoucherFetchWatch } from './getVoucher';
+import { getVoucherListFetchWatch } from './getVoucherList';
+import { getPhoneRechargeFetchWatch } from './getPhoneRecharge';
+import { getProvidersValueFetchWatch } from './getProvidersValue';
+import { findProductsFetchWatch } from './findProducts';
+import { orderCancelFetchWatch, orderCancelSuccessWatch } from './orderCancel';
+import { judgeVoucherFetchWatch } from './judgeVoucher';
+import { getSquaresInfoFetchWatch } from './getSquaresInfo';
 
 export default function* rootSaga() {
   yield all([
@@ -185,7 +132,7 @@ export default function* rootSaga() {
     adDigitalFetchWatch(),
     userCertificateInfoFetchWatch(),
     userAddDetailInfoFetchWatch(),
-    userAddDetailInfoSuccessWatch(),  
+    userAddDetailInfoSuccessWatch(),
     cartFetchWatch(),
     cartNumberRequestWatch(),
     cartNumberSuccessWatch(),
@@ -257,5 +204,6 @@ export default function* rootSaga() {
     orderCancelFetchWatch(),
     orderCancelSuccessWatch(),
     judgeVoucherFetchWatch(),
+    getSquaresInfoFetchWatch(),
   ]);
 }
