@@ -212,7 +212,10 @@ class Card extends React.Component {
             backgroundColor: '#147af3',
             text: 'apply for a credit card >',
             onPress: () =>
-              navigate(SCREENS.CertifiedInformation, { isCertify: true }),
+              navigate(
+                isAuthUser ? SCREENS.CertifiedInformation : SCREENS.Login,
+                { isCertify: true },
+              ),
           })}
         {status === 2 &&
           this.renderApplyStatus({
