@@ -239,8 +239,7 @@ class CertifiedInformation extends Component {
       )
         return tips(`${i18n.pleaseEnterEmergencyContactPerson} 3`);
 
-      if (!EMAIL_EXPR.test(email))
-        return tips(i18n.pleaseEnterYourEmailAddress);
+      if (!EMAIL_EXPR.test(email)) return tips(i18n.failedEMailPleaseReEnter);
     }
 
     return userAddDetailInfoFetch();

@@ -119,6 +119,7 @@
   "pleaseEnterYourAddress": "请输入您的住址",
   "pleaseFillSchoolInformation": "请填写学校信息",
   "pleaseEnterYourEmailAddress": "请输入您的电子邮箱",
+  "failedEMailPleaseReEnter": "请输入正确的电子邮箱",
   "ambassadorContactYou": "我们的校园大使会与您联系",
   "warehouse": "仓库"
 }

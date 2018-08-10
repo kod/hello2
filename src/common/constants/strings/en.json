@@ -119,6 +119,7 @@
   "pleaseEnterYourAddress": "Please enter your address",
   "pleaseFillSchoolInformation": "Please fill in the school information",
   "pleaseEnterYourEmailAddress": "Please enter your email address",
+  "failedEMailPleaseReEnter": "Failed to fill in E-mail , please re-enter!",
   "ambassadorContactYou": "A representative of our school will contact you to complete the signing agreement",
   "warehouse": "Warehouse"
 }
