@@ -9,12 +9,13 @@ import { connect } from 'react-redux';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // import { RED_COLOR } from '../styles/variables';
-import {
-  // WINDOW_WIDTH,
-  // WINDOW_HEIGHT,
-  // SIDEINTERVAL,
-  SCREENS,
-} from '../common/constants';
+
+// import {
+//   // WINDOW_WIDTH,
+//   // WINDOW_HEIGHT,
+//   // SIDEINTERVAL,
+//   SCREENS,
+// } from '../common/constants';
 
 import SwiperFlatList from './SwiperFlatList';
 import BannerHomeType from './BannerHomeType';
@@ -25,12 +26,14 @@ import BannerHomeType from './BannerHomeType';
 import ProductItem2 from './ProductItem2';
 import FloorTitle from './FloorTitle';
 import NavImg1 from './NavImg1';
+import SeparateBar from './SeparateBar';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
 import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
 import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
+import * as getSquaresInfoActionCreators from '../common/actions/getSquaresInfo';
 
 import { BORDER_COLOR } from '../styles/variables';
 
@@ -90,17 +93,30 @@ class Scrollable1 extends React.Component {
   //   super(props);
   // }
 
+  componentWillReceiveProps(nextProps) {
+    const { adverstInfo } = this.props;
+    const { adverstInfo: prevAdverstInfo } = nextProps;
+    // const { isBookmark } = this.state;
+    console.log(this.props);
+    console.log(nextProps);
+    console.log('==========');
+    console.log(adverstInfo);
+    console.log(prevAdverstInfo);
+  }
+
   componentDidMount() {
     const {
       bannerSwiperFetch,
       bannerHomeTypeFetch,
       promotionInfoFetch,
       adverstInfoFetch,
+      getSquaresInfoFetch,
       // mergeGetInfoFetch,
     } = this.props;
     bannerSwiperFetch('one');
     bannerHomeTypeFetch();
     promotionInfoFetch();
+    getSquaresInfoFetch();
     adverstInfoFetch({
       type_id: '1',
     });
@@ -115,6 +131,18 @@ class Scrollable1 extends React.Component {
     // });
   }
 
+  handleOnPressNavImg1(val) {
+    console.log(val);
+    // switch (val.id) {
+    //   case 1:
+        
+    //     break;
+    
+    //   default:
+    //     break;
+    // }
+  }
+
   render() {
     const {
       bannerSwiper,
@@ -122,46 +150,25 @@ class Scrollable1 extends React.Component {
       // promotionInfo,
       // mergeGetInfo,
       adverstInfo,
-      navigation: { navigate },
+      // navigation: { navigate },
       i18n,
+      getSquaresInfoItems,
     } = this.props;
     // const mergeGetInfoList = mergeGetInfo.items;
     const bannerSwiperList = bannerSwiper.items;
     const adverstInfoList = adverstInfo.items;
 
-    const nav1Data = [
-      {
-        imageSource: require('../images/coupon.png'), 
-        text: i18n.coupon,
-        onPress: () => { navigate(SCREENS.Coupon) },
-      },
-      {
-        imageSource: require('../images/recharge.png'), 
-        text: i18n.recharge,
-        onPress: () => { navigate(SCREENS.Prepaid) },
-      },
-      {
-        imageSource: require('../images/buyhelp.png'), 
-        text: i18n.howToBuy,
-        onPress: () => { navigate(SCREENS.WebView, { source: 'https://buyoo.vn/html/paystepM.html' }) },
-        styleImg: {
-          height: 32,
-          width: 32,
-          marginBottom: 8
-        },      
-      },
-      {
-        imageSource: require('../images/grouphelp.png'), 
-        text: i18n.groupBuyHelp,
-        onPress: () => { navigate(SCREENS.WebView, { source: 'https://buyoo.vn/html/grouponhelpM.html' }) },
-      },
-    ]
-
     return (
       <View>
         <SwiperFlatList data={bannerSwiperList} />
 
-        <NavImg1 data={nav1Data} />
+        <NavImg1
+          data={getSquaresInfoItems}
+          style={{ paddingTop: 5, paddingBottom: 5 }}
+          onPress={this.handleOnPressNavImg1}
+        />
+
+        <SeparateBar />
 
         {/* 暂时屏蔽拼单功能 */}
         {/* <View style={styles.groupBuy}>
@@ -178,11 +185,19 @@ class Scrollable1 extends React.Component {
           <ProductItem1 data={mergeGetInfoList} groupon={true} />
         </View> */}
 
-        <FloorTitle title={`/${i18n.brandOnSale}/`} isMore={false} style={{ paddingTop: 15, backgroundColor: '#fff', }} />
+        <FloorTitle
+          title={`/${i18n.brandOnSale}/`}
+          isMore={false}
+          style={{ paddingTop: 0, backgroundColor: '#fff' }}
+        />
 
         <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
 
-        <FloorTitle title={`/${i18n.featuredEvents}/`} isMore={false} style={{ borderBottomColor: BORDER_COLOR, borderBottomWidth: 1 }} />
+        <FloorTitle
+          title={`/${i18n.featuredEvents}/`}
+          isMore={false}
+          style={{ borderBottomColor: BORDER_COLOR, borderBottomWidth: 1 }}
+        />
 
         <ProductItem2 data={adverstInfoList} />
       </View>
@@ -191,28 +206,28 @@ class Scrollable1 extends React.Component {
 }
 
 export default connect(
-  () => {
-    return (state, props) => {
-      const {
-        bannerSwiper,
-        bannerHomeType,
-        promotionInfo,
-        adverstInfo,
-        mergeGetInfo,
-      } = state;
+  state => {
+    const {
+      bannerSwiper,
+      bannerHomeType,
+      promotionInfo,
+      adverstInfo,
+      mergeGetInfo,
+      getSquaresInfo,
+    } = state;
 
-      // const {
+    // const {
 
-      // } = props;
+    // } = props;
 
-      return {
-        bannerSwiper: bannerSwiper['one'] || {},
-        bannerHomeType: bannerHomeType || {},
-        promotionInfo: promotionInfo || {},
-        adverstInfo: adverstInfo || {},
-        mergeGetInfo: mergeGetInfo || {},
-      }
-    }
+    return {
+      bannerSwiper: bannerSwiper.one || {},
+      bannerHomeType: bannerHomeType || {},
+      promotionInfo: promotionInfo || {},
+      adverstInfo: adverstInfo || {},
+      mergeGetInfo: mergeGetInfo || {},
+      getSquaresInfoItems: getSquaresInfo.items,
+    };
   },
   {
     ...bannerSwiperActionCreators,
@@ -220,18 +235,6 @@ export default connect(
     ...promotionInfoActionCreators,
     ...mergeGetInfoActionCreators,
     ...adverstInfoActionCreators,
-  }
+    ...getSquaresInfoActionCreators,
+  },
 )(Scrollable1);
-
-// function mapStateToProps(state, props) {
-//   const { bannerSwiper, bannerHomeType, promotionInfo, adverstInfo, mergeGetInfo } = state;
-//   return {
-//     bannerSwiper: bannerSwiper['one'] || {},
-//     bannerHomeType: bannerHomeType || {},
-//     promotionInfo: promotionInfo || {},
-//     adverstInfo: adverstInfo || {},
-//     mergeGetInfo: mergeGetInfo || {},
-//   };
-// }
-
-// export default connect(mapStateToProps, { ...bannerSwiperActionCreators, ...bannerHomeTypeActionCreators, ...promotionInfoActionCreators, ...mergeGetInfoActionCreators, ...adverstInfoActionCreators })(Scrollable1);
