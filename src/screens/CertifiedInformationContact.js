@@ -1,25 +1,40 @@
+/* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Picker, KeyboardAvoidingView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  // Picker,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import DatePicker from 'react-native-datepicker';
+import { reduxForm } from 'redux-form';
+// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+// import DatePicker from 'react-native-datepicker';
 
 import BYHeader from '../components/BYHeader';
 import BYButton from '../components/BYButton';
 import CustomIcon from '../components/CustomIcon';
 import BYTouchable from '../components/BYTouchable';
-import FieldInput from '../components/FieldInput';
+// import FieldInput from '../components/FieldInput';
 import BYTextInput from '../components/BYTextInput';
-import Error from '../components/Error';
+// import Error from '../components/Error';
 import BYModal from '../components/BYModal';
+import { connectLocalization } from '../components/Localization';
 
 import { makegetSchoolName } from '../common/selectors';
-import { SCREENS } from '../common/constants';
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 
 import { BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  SIDEINTERVAL,
+  APPBAR_HEIGHT,
+  STATUSBAR_HEIGHT,
+  // SCREENS,
+} from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,11 +42,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   ScrollView: {
-    height: WINDOW_HEIGHT - APPBAR_HEIGHT - STATUSBAR_HEIGHT
+    height: WINDOW_HEIGHT - APPBAR_HEIGHT - STATUSBAR_HEIGHT,
   },
   item: {
     paddingLeft: SIDEINTERVAL,
-    
   },
   main: {
     flexDirection: 'row',
@@ -81,7 +95,7 @@ class CertifiedInformationSchool extends Component {
   }
 
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       title: {
         flex: 1,
         textAlign: 'center',
@@ -92,23 +106,22 @@ class CertifiedInformationSchool extends Component {
 
     const {
       index,
+      i18n,
+      // index,
     } = this.props;
     return (
-      <Text style={styles.title}>
-        Emergency Contact Person {index}
+      <Text style={stylesX.title}>
+        {i18n.emergencyContactPerson} {index}
       </Text>
-    )
-  }
+    );
+  };
 
-  renderHeaderRight = () => {
-    return (
-      <View style={{width: 45}}></View>
-    )
-  }
+  renderHeaderRight = () => <View style={{ width: 45 }} />;
 
   handleOnPressToggleModal = type => {
     const {
       isOpenModal,
+      // isOpenModal,
     } = this.state;
 
     this.setState({
@@ -117,7 +130,7 @@ class CertifiedInformationSchool extends Component {
   };
 
   renderBottomSheet() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         backgroundColor: '#fff',
       },
@@ -129,28 +142,47 @@ class CertifiedInformationSchool extends Component {
         color: '#666',
       },
     });
-    
+
     const {
       certifiedInformationEdit,
       index,
-    } = this.props
-    
-    const list = index === 1 ? ['Bố', 'Mẹ'] : ['Bạn trai / bạn gái', 'Bạn cùng phòng', 'Bạn học'];
-    
+      i18n,
+      // index,
+    } = this.props;
+
+    const list =
+      index === 1
+        ? [i18n.dad, i18n.mother]
+        : [
+            `${i18n.boyfriend} / ${i18n.girlfriend}`,
+            i18n.roommate,
+            i18n.classmate,
+          ];
+
     return (
-      <View style={styles.container}>
-        {
-          list.map((val, key) => <Text style={styles.item} key={key} onPress={() => { certifiedInformationEdit(`connectuserrelation${index}`, val); this.handleOnPressToggleModal(); }}>{val}</Text>)
-        }
+      <View style={stylesX.container}>
+        {list.map((val, key) => (
+          <Text
+            style={stylesX.item}
+            key={key}
+            onPress={() => {
+              certifiedInformationEdit(`connectuserrelation${index}`, val);
+              this.handleOnPressToggleModal();
+            }}
+          >
+            {val}
+          </Text>
+        ))}
       </View>
-    )
+    );
   }
-  
+
   render() {
     const {
-      isOpenModal
+      isOpenModal,
+      // isOpenModal,
     } = this.state;
-    
+
     const {
       connectuseridentification,
       connectusermsisdn,
@@ -158,7 +190,8 @@ class CertifiedInformationSchool extends Component {
       connectuserrelation,
       certifiedInformationEdit,
       index,
-      navigation: { goBack, navigate },
+      navigation: { goBack },
+      i18n,
     } = this.props;
 
     return (
@@ -168,10 +201,13 @@ class CertifiedInformationSchool extends Component {
           headerRight={this.renderHeaderRight()}
         />
         <ScrollView keyboardShouldPersistTaps="always">
-          <KeyboardAvoidingView behavior="padding" >
-            <BYTouchable style={styles.item} onPress={() => this.handleOnPressToggleModal()}>
+          <KeyboardAvoidingView behavior="padding">
+            <BYTouchable
+              style={styles.item}
+              onPress={() => this.handleOnPressToggleModal()}
+            >
               <View style={styles.main}>
-                <Text style={styles.label}>relative</Text>
+                <Text style={styles.label}>{i18n.relationship}</Text>
                 <Text style={styles.value}>{connectuserrelation}</Text>
                 <CustomIcon style={styles.icon} name="arrowright" />
                 {/* <Picker
@@ -189,47 +225,59 @@ class CertifiedInformationSchool extends Component {
             </BYTouchable>
             <View style={styles.item}>
               <View style={styles.main}>
-                <Text style={styles.label}>name</Text>
+                <Text style={styles.label}>{i18n.actualName}</Text>
                 <BYTextInput
                   style={styles.input}
-                  placeholder={'please enter name'}
+                  placeholder={i18n.actualName}
                   placeholderTextColor="#ccc"
-                  onChangeText={val => certifiedInformationEdit(`connectusername${index}`, val)}
+                  onChangeText={val =>
+                    certifiedInformationEdit(`connectusername${index}`, val)
+                  }
                   value={connectusername}
                 />
               </View>
             </View>
             <View style={styles.item}>
               <View style={styles.main}>
-                <Text style={styles.label}>msisdn</Text>
+                <Text style={styles.label}>{i18n.phoneNumber}</Text>
                 <BYTextInput
                   style={styles.input}
-                  placeholder={'please enter msisdn'}
+                  placeholder={i18n.phoneNumber}
                   placeholderTextColor="#ccc"
-                  onChangeText={val => certifiedInformationEdit(`connectusermsisdn${index}`, val)}
+                  onChangeText={val =>
+                    certifiedInformationEdit(`connectusermsisdn${index}`, val)
+                  }
                   value={connectusermsisdn}
-                  keyboardType="numeric" 
+                  keyboardType="numeric"
                 />
               </View>
             </View>
-            {
-              index === 1
-              &&
+            {index === 1 && (
               <View style={styles.item}>
                 <View style={styles.main}>
-                  <Text style={styles.label}>identification</Text>
+                  <Text style={styles.label}>{i18n.idCard}</Text>
                   <BYTextInput
                     style={styles.input}
-                    placeholder={'please enter profession'}
+                    placeholder={i18n.idCard}
                     placeholderTextColor="#ccc"
-                    onChangeText={val => certifiedInformationEdit(`connectuseridentification${index}`, val)}
+                    onChangeText={val =>
+                      certifiedInformationEdit(
+                        `connectuseridentification${index}`,
+                        val,
+                      )
+                    }
                     value={connectuseridentification}
-                    keyboardType="numeric" 
+                    keyboardType="numeric"
                   />
                 </View>
               </View>
-            }
-            <BYButton text={'确定'} style={{ marginBottom: 30, }} styleWrap={{ paddingTop: SIDEINTERVAL }} onPress={() => goBack()} />
+            )}
+            <BYButton
+              text={i18n.confirm}
+              style={{ marginBottom: 30 }}
+              styleWrap={{ paddingTop: SIDEINTERVAL }}
+              onPress={() => goBack()}
+            />
           </KeyboardAvoidingView>
         </ScrollView>
         <BYModal
@@ -247,26 +295,42 @@ CertifiedInformationSchool = reduxForm({
   form: 'CertifiedInformationSchool',
 })(CertifiedInformationSchool);
 
-export default connect(
-  () => {
-    const getSchoolName = makegetSchoolName();
-    return (state, props) => {
-      const {
-        certifiedInformation,
-      } = state;
-      const index = props.navigation.state.params ? props.navigation.state.params.index : 1;
-      return {
-        index,
-        connectuseridentification: certifiedInformation.certUser[`connectuseridentification${index}`],
-        connectusermsisdn: certifiedInformation.certUser[`connectusermsisdn${index}`],
-        connectusername: certifiedInformation.certUser[`connectusername${index}`],
-        connectuserrelation: certifiedInformation.certUser[`connectuserrelation${index}`],
-        schoolName: getSchoolName(state, props),
-        ...certifiedInformation.certUser,
-      }
-    }
-  },
-  {
-    ...certifiedInformationActionCreators,
-  }
-)(CertifiedInformationSchool);
+export default connectLocalization(
+  connect(
+    () => {
+      const getSchoolName = makegetSchoolName();
+      return (state, props) => {
+        const {
+          certifiedInformation,
+          // certifiedInformation,
+        } = state;
+        const {
+          navigation: {
+            state: {
+              params,
+              // params,
+            },
+          },
+        } = props;
+
+        const index = params ? params.index : 1;
+        return {
+          index,
+          connectuseridentification:
+            certifiedInformation.certUser[`connectuseridentification${index}`],
+          connectusermsisdn:
+            certifiedInformation.certUser[`connectusermsisdn${index}`],
+          connectusername:
+            certifiedInformation.certUser[`connectusername${index}`],
+          connectuserrelation:
+            certifiedInformation.certUser[`connectuserrelation${index}`],
+          schoolName: getSchoolName(state, props),
+          ...certifiedInformation.certUser,
+        };
+      };
+    },
+    {
+      ...certifiedInformationActionCreators,
+    },
+  )(CertifiedInformationSchool),
+);

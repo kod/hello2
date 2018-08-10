@@ -1,4 +1,5 @@
 /* eslint-disable no-class-assign */
+/* eslint-disable no-nested-ternary */
 
 import React, { Component } from 'react';
 import {
@@ -7,8 +8,9 @@ import {
   View,
   ScrollView,
   KeyboardAvoidingView,
-  ToastAndroid,
-  Platform,
+  // ToastAndroid,
+  // Platform,
+  Alert,
   // Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -28,7 +30,7 @@ import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
 import BYModal from '../components/BYModal';
 import Loader from '../components/Loader';
-
+import { connectLocalization } from '../components/Localization';
 import { makegetSchoolName } from '../common/selectors';
 
 import { BORDER_COLOR } from '../styles/variables';
@@ -39,6 +41,9 @@ import {
   APPBAR_HEIGHT,
   STATUSBAR_HEIGHT,
   SCREENS,
+  NAME_EXPR,
+  IDENTIFICATION_EXPR,
+  EMAIL_EXPR,
 } from '../common/constants';
 
 import * as userAddDetailInfoActionCreators from '../common/actions/userAddDetailInfo';
@@ -179,19 +184,29 @@ class CertifiedInformation extends Component {
       // connectuseridentification3,
       birthday,
       isCertify,
+      i18n,
     } = this.props;
 
     const tips = text => {
-      if (Platform.OS === 'android')
-        ToastAndroid.show(text, ToastAndroid.SHORT);
+      Alert.alert('', text, [
+        {
+          text: i18n.confirm,
+          onPress: () => {},
+        },
+      ]);
     };
 
     if (isCertify) {
-      if (!username.length) return tips('username');
-      if (!identification.length) return tips('identification');
-      if (!sex.length) return tips('sex');
-      if (!birthday.length) return tips('birthday');
-      if (!address.length) return tips('address');
+      // if (!username.length) return tips(i18n.pleaseEnterYourActualName);
+      if (!NAME_EXPR.test(username))
+        return tips(i18n.pleaseEnterYourActualName);
+
+      if (!IDENTIFICATION_EXPR.test(identification))
+        return tips(i18n.pleseEnterYourIndentification);
+
+      if (!sex.length) return tips(i18n.pleaseSelectGender);
+      if (!birthday.length) return tips(i18n.pleaseChooseBirthday);
+      if (!address.length) return tips(i18n.pleaseEnterYourAddress);
       if (
         collegename.length === '' ||
         !collegeaddr.length ||
@@ -200,27 +215,32 @@ class CertifiedInformation extends Component {
         !admissiontime.length ||
         !graduationtime.length
       )
-        return tips('school');
+        return tips(i18n.pleaseFillSchoolInformation);
+
       if (
         !connectusername1.length ||
         !connectusermsisdn1.length ||
         !connectuserrelation1.length ||
         !connectuseridentification1.length
       )
-        return tips('Người liên lạc 1');
+        return tips(`${i18n.pleaseEnterEmergencyContactPerson} 1`);
+
       if (
         !connectusername2.length ||
         !connectusermsisdn2.length ||
         !connectuserrelation2.length
       )
-        return tips('Người liên lạc 2');
+        return tips(`${i18n.pleaseEnterEmergencyContactPerson} 2`);
+
       if (
         !connectusername3.length ||
         !connectusermsisdn3.length ||
         !connectuserrelation3.length
       )
-        return tips('Người liên lạc 3');
-      if (!email.length) return tips('email');
+        return tips(`${i18n.pleaseEnterEmergencyContactPerson} 3`);
+
+      if (!EMAIL_EXPR.test(email))
+        return tips(i18n.pleaseEnterYourEmailAddress);
     }
 
     return userAddDetailInfoFetch();
@@ -295,6 +315,7 @@ class CertifiedInformation extends Component {
       schoolName,
       specialty,
       // sex,
+      i18n,
       username,
       loading,
       addLoading,
@@ -311,10 +332,10 @@ class CertifiedInformation extends Component {
           {(addLoading || cardSubmitLoading) && <Loader absolutePosition />}
           <View style={styles.item}>
             <View style={styles.main}>
-              <Text style={styles.label}>Name</Text>
+              <Text style={styles.label}>{i18n.actualName}</Text>
               <BYTextInput
                 style={styles.input}
-                placeholder="please enter your name"
+                placeholder={i18n.pleaseEnterYourActualName}
                 placeholderTextColor="#ccc"
                 onChangeText={val => certifiedInformationEdit('username', val)}
                 value={username}
@@ -323,10 +344,10 @@ class CertifiedInformation extends Component {
           </View>
           <View style={styles.item}>
             <View style={styles.main}>
-              <Text style={styles.label}>ID number</Text>
+              <Text style={styles.label}>{i18n.idCard}</Text>
               <BYTextInput
                 style={styles.input}
-                placeholder="please enter your ID"
+                placeholder={i18n.idCard}
                 placeholderTextColor="#ccc"
                 onChangeText={val =>
                   certifiedInformationEdit('identification', val)
@@ -341,20 +362,20 @@ class CertifiedInformation extends Component {
             onPress={() => this.handleOnPressToggleModal()}
           >
             <View style={styles.main}>
-              <Text style={styles.label}>Gender</Text>
+              <Text style={styles.label}>{i18n.gender}</Text>
               <Text style={styles.value}>{this.getSexName()}</Text>
               <MaterialIcons style={{ fontSize: 24 }} name="arrow-drop-down" />
             </View>
           </BYTouchable>
           <View style={styles.item}>
             <View style={styles.main}>
-              <Text style={styles.label}>Birthday</Text>
+              <Text style={styles.label}>{i18n.yearOfBirth}</Text>
               <DatePicker
                 showIcon={false}
                 style={{ flex: 1 }}
                 date={birthday}
                 mode="date"
-                placeholder="select date"
+                placeholder={i18n.yearOfBirth}
                 format="DD-MM-YYYY"
                 // minDate="2016-05-01"
                 // maxDate="2016-06-01"
@@ -379,10 +400,10 @@ class CertifiedInformation extends Component {
           </View>
           <View style={styles.item}>
             <View style={styles.main}>
-              <Text style={styles.label}>Home address</Text>
+              <Text style={styles.label}>{i18n.homeTown}</Text>
               <BYTextInput
                 style={styles.input}
-                placeholder="please enter your Home address"
+                placeholder={i18n.homeTown}
                 placeholderTextColor="#ccc"
                 onChangeText={val => certifiedInformationEdit('address', val)}
                 value={address}
@@ -395,7 +416,7 @@ class CertifiedInformation extends Component {
             onPress={() => navigate(SCREENS.CertifiedInformationSchool)}
           >
             <View style={styles.main}>
-              <Text style={styles.label}>School</Text>
+              <Text style={styles.label}>{i18n.school}</Text>
               <Text style={styles.value}>
                 {admissiontime &&
                 collegeaddr &&
@@ -416,7 +437,7 @@ class CertifiedInformation extends Component {
             }
           >
             <View style={styles.main}>
-              <Text style={styles.label}>Emergency Contact Person 1</Text>
+              <Text style={styles.label}>{i18n.emergencyContactPerson} 1</Text>
               <Text style={styles.value}>
                 {connectuseridentification1.length &&
                 connectusermsisdn1.length &&
@@ -435,7 +456,7 @@ class CertifiedInformation extends Component {
             }
           >
             <View style={styles.main}>
-              <Text style={styles.label}>Emergency Contact Person 2</Text>
+              <Text style={styles.label}>{i18n.emergencyContactPerson} 2</Text>
               <Text style={styles.value}>
                 {connectusermsisdn2.length &&
                 connectusername2.length &&
@@ -453,7 +474,7 @@ class CertifiedInformation extends Component {
             }
           >
             <View style={styles.main}>
-              <Text style={styles.label}>Emergency Contact Person 3</Text>
+              <Text style={styles.label}>{i18n.emergencyContactPerson} 3</Text>
               <Text style={styles.value}>
                 {connectusermsisdn3.length &&
                 connectusername3.length &&
@@ -466,10 +487,10 @@ class CertifiedInformation extends Component {
           </BYTouchable>
           <View style={styles.item}>
             <View style={styles.main}>
-              <Text style={styles.label}>E-mail</Text>
+              <Text style={styles.label}>{i18n.email}</Text>
               <BYTextInput
                 style={styles.input}
-                placeholder="please enter your Email"
+                placeholder={i18n.email}
                 placeholderTextColor="#ccc"
                 onChangeText={val => certifiedInformationEdit('email', val)}
                 value={email}
@@ -477,7 +498,7 @@ class CertifiedInformation extends Component {
             </View>
           </View>
           <BYButton
-            text="Apply"
+            text={i18n.apply}
             style={styles.submit}
             styleWrap={{ paddingTop: SIDEINTERVAL }}
             onPress={() => this.handleOnPressSubmit()}
@@ -511,48 +532,53 @@ CertifiedInformation = reduxForm({
   form: 'CertifiedInformation',
 })(CertifiedInformation);
 
-export default connect(
-  () => {
-    const getSchoolName = makegetSchoolName();
-    return (state, props) => {
-      const {
-        // auth,
-        certifiedInformation,
-        userCertificateInfo,
-        userAddDetailInfo,
-        cardSubmit,
-        schoolInfo,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => {
+      const getSchoolName = makegetSchoolName();
+      return (state, props) => {
+        const {
+          // auth,
+          certifiedInformation,
+          userCertificateInfo,
+          userAddDetailInfo,
+          cardSubmit,
+          schoolInfo,
+        } = state;
 
-      const {
-        navigation: {
-          state: {
-            params,
-            // params,
+        const {
+          navigation: {
+            state: {
+              params,
+              // params,
+            },
           },
-        },
-      } = props;
-      const isCertify = params
-        ? typeof params.isCertify === 'boolean' ? params.isCertify : false
-        : false;
+        } = props;
 
-      return {
-        ...certifiedInformation.certUser,
-        loading: userCertificateInfo.loading,
-        addLoading: userAddDetailInfo.loading,
-        cardSubmitLoading: cardSubmit.loading,
-        isCertify,
-        isAuthUser: !!state.auth.user,
-        schoolInfoItems: schoolInfo.items,
-        schoolName: getSchoolName(state, props),
+        const isCertify = params
+          ? typeof params.isCertify === 'boolean'
+            ? params.isCertify
+            : false
+          : true;
+
+        return {
+          ...certifiedInformation.certUser,
+          loading: userCertificateInfo.loading,
+          addLoading: userAddDetailInfo.loading,
+          cardSubmitLoading: cardSubmit.loading,
+          isCertify,
+          isAuthUser: !!state.auth.user,
+          schoolInfoItems: schoolInfo.items,
+          schoolName: getSchoolName(state, props),
+        };
       };
-    };
-  },
-  {
-    ...certifiedInformationActionCreators,
-    ...schoolInfoActionCreators,
-    ...userCertificateInfoActionCreators,
-    ...userAddDetailInfoActionCreators,
-    ...cardSubmitActionCreators,
-  },
-)(CertifiedInformation);
+    },
+    {
+      ...certifiedInformationActionCreators,
+      ...schoolInfoActionCreators,
+      ...userCertificateInfoActionCreators,
+      ...userAddDetailInfoActionCreators,
+      ...cardSubmitActionCreators,
+    },
+  )(CertifiedInformation),
+);
