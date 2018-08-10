@@ -18,16 +18,16 @@ export function* commentFetchWatchHandle(action) {
     let pagesize = '4';
     let currentpage = '1';
 
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.evaluation.query';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.evaluation.query';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
   
-    let signType = signTypeMD5(appId, method, charset, Key, false);
+    const signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'brand_id',
@@ -52,14 +52,14 @@ export function* commentFetchWatchHandle(action) {
     const response = yield apply(buyoo, buyoo.getEvaluationInfo, [
       {
         appId: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         brand_id: brand_id,
-        msisdn: msisdn,
+        msisdn,
         pagesize: pagesize,
         currentPage: currentpage
       }

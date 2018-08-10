@@ -10,20 +10,20 @@ import moment from 'moment';
 export function* adPhoneFetchWatchHandle(action) {
   try {
     const { params = {} } = action.payload;
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.cellphone.ads';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.cellphone.ads';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
 
     let typeid = params.typeid || '1';
     let pagesize = params.pagesize || '8';
     let currentpage = params.currentpage || '1';
 
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'typeid',
@@ -44,12 +44,12 @@ export function* adPhoneFetchWatchHandle(action) {
     const response = yield apply(buyoo, buyoo.initAdCellphone, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         typeid: typeid,
         pagesize: pagesize,
         currentpage: currentpage

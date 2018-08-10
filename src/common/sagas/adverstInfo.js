@@ -10,12 +10,12 @@ import moment from 'moment';
 export function* adverstInfoFetchWatchHandle(action) {
   try {
     const { params = {} } = action.payload;
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.adverst.query';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.adverst.query';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
 
 
     let type_id = params.type_id || '1';
@@ -24,9 +24,9 @@ export function* adverstInfoFetchWatchHandle(action) {
     let pagesize = params.pagesize || '3';
     let currentPage = params.currentPage || '1';
 
-    let signType = signTypeMD5(appId, method, charset, Key, false);
+    const signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'type_id',
@@ -55,12 +55,12 @@ export function* adverstInfoFetchWatchHandle(action) {
     const response = yield apply(buyoo, buyoo.getAdverstInfo, [
       {
         appId: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         type_id: type_id,
         classfy_id: classfy_id,
         position: position,

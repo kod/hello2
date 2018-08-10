@@ -22,16 +22,16 @@ export function* billByYearFetchWatchHandle(action) {
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
-    let Key = 'settleKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.bill.byyear';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
+    const Key = 'settleKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.bill.byyear';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
 
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -48,13 +48,13 @@ export function* billByYearFetchWatchHandle(action) {
     const options = [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
+        encrypt,
+        timestamp,
+        version,
+        funid,
         year: year,
       }
     ];

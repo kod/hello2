@@ -19,16 +19,16 @@ export function* getMenuFetchWatchHandle(action) {
       thirdclassfyid = 0,
     } = action.payload;
 
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.commodity.menu';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.commodity.menu';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
   
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -53,13 +53,13 @@ export function* getMenuFetchWatchHandle(action) {
     const response = yield apply(buyoo, buyoo.getMenu, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
+        encrypt,
+        timestamp,
+        version,
+        funid,
         typeid: typeid,
         subclassfyid: subclassfyid,
         thirdclassfyid: thirdclassfyid

@@ -31,16 +31,16 @@ export function* orderCancelFetchWatchHandle(action) {
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
-    let Key = 'tradeKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.trade.orderCancel';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
+    const Key = 'tradeKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.trade.orderCancel';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
 
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -65,13 +65,13 @@ export function* orderCancelFetchWatchHandle(action) {
     const options = [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
+        encrypt,
+        timestamp,
+        version,
+        funid,
         orderno: orderno,
         tradeno: tradeno,
         status: status

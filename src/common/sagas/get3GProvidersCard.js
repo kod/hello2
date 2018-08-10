@@ -21,16 +21,16 @@ export function* get3GProvidersCardFetchWatchHandle(action) {
     //   msisdn,
     // } = action.payload;
 
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.virtual.getProvidersCard';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.virtual.getProvidersCard';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
 
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         // {
         //   key: 'msisdn',
@@ -40,15 +40,15 @@ export function* get3GProvidersCardFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.get3GProvidersCard, [
+    const response = yield apply(buyoo, buyoo.get3GProvidersCard, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
       }
     ]);
 

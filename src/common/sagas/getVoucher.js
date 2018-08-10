@@ -28,16 +28,16 @@ export function* getVoucherFetchWatchHandle(action) {
       pagesize = '100',
     } = action.payload;
 
-    let Key = 'marketKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.market.getVoucher';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
+    const Key = 'marketKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.market.getVoucher';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
   
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'vouchertype',
@@ -71,17 +71,17 @@ export function* getVoucherFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.getVoucher, [
+    const response = yield apply(buyoo, buyoo.getVoucher, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         vouchertype: vouchertype,
-        funid: funid,
+        funid,
         typeid: typeid,
         brandid: brandid,
         productid: productid,

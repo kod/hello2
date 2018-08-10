@@ -18,16 +18,16 @@ export function* queryOrderFetchWatchHandle(action) {
       tradeNo,
     } = action.payload;
 
-    let Key = 'tradeKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.trade.query';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
+    const Key = 'tradeKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.trade.query';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
 
-    let signType = signTypeMD5(appId, method, charset, Key, false);
+    const signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'orderNo',
@@ -41,7 +41,7 @@ export function* queryOrderFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.queryOrder, [
+    const response = yield apply(buyoo, buyoo.queryOrder, [
       {
         // appId: 'VNOYX9GI72QE',
         // method: 'fun.trade.query',
@@ -53,12 +53,12 @@ export function* queryOrderFetchWatchHandle(action) {
         // orderNo: '220180606173139579374083127',
         // tradeNo: '210320180606173139579121',
         appId: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         orderNo: orderNo,
         tradeNo: tradeNo,
       }

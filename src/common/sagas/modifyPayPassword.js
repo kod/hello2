@@ -56,10 +56,10 @@ export function* modifyPayPasswordFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.modifyPayPassword, [
+    const response = yield apply(buyoo, buyoo.modifyPayPassword, [
       {
         provider: provider,
-        msisdn: msisdn,
+        msisdn,
         paypassword: paypassword,
         otp: otp,
         encryption: encrypt

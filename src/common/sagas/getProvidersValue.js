@@ -22,16 +22,16 @@ export function* getProvidersValueFetchWatchHandle(action) {
       providerType,
     } = action.payload;
 
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.virtual.getProvidersValue';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.1';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.virtual.getProvidersValue';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.1';
 
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'providerName',
@@ -49,15 +49,15 @@ export function* getProvidersValueFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.getProvidersValue, [
+    const response = yield apply(buyoo, buyoo.getProvidersValue, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         providerName: providerName,
         providerCode: providerCode,
         providerType: providerType

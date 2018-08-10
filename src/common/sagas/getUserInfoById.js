@@ -37,7 +37,7 @@ export function* getUserInfoByIdFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.getUserInfoById, [
+    const response = yield apply(buyoo, buyoo.getUserInfoById, [
       {
         provider: provider,
         id: funid,

@@ -41,10 +41,10 @@ export function* otpFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.otp, [
+    const response = yield apply(buyoo, buyoo.otp, [
       {
         provider: provider,
-        msisdn: msisdn,
+        msisdn,
         type: type,
         encryption: encrypt,
       }

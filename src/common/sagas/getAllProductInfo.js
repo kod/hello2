@@ -17,16 +17,16 @@ export function* getAllProductInfoFetchWatchHandle(action) {
       pagesize = 49,
       currentPage = 1,
     } = action.payload;
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.product.query';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.product.query';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
 
-    let signType = signTypeMD5(appId, method, charset, Key, false);
+    const signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'parent_id',
@@ -59,12 +59,12 @@ export function* getAllProductInfoFetchWatchHandle(action) {
     const response = yield apply(buyoo, buyoo.getAllProductInfo, [
       {
         appId: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         parent_id: parent_id,
         classfy_id: classfy_id,
         sub_classfy_id: sub_classfy_id,

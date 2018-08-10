@@ -82,16 +82,16 @@ export function* productDetailInfoFetchWatchHandle(action) {
   let propertiesIds = action.payload.propertiesIds;
 
   try {
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.brand.query';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.1';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.brand.query';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.1';
 
-    let signType = signTypeMD5(appId, method, charset, Key, false);
+    const signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'brand_id',
@@ -104,12 +104,12 @@ export function* productDetailInfoFetchWatchHandle(action) {
     const response = yield apply(buyoo, buyoo.getProductDetailInfo, [
       {
         appId: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         brand_id: brand_id,
       }
     ]);

@@ -53,16 +53,16 @@ export function* updatePeriodFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.updatePeriod, [
+    const response = yield apply(buyoo, buyoo.updatePeriod, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
+        encrypt,
+        timestamp,
+        version,
+        funid,
         period: period,
       }
     ]);

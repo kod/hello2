@@ -8,12 +8,12 @@ import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
 export function* promotionInfoFetchWatchHandle(action) {
   try {
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.promotion.query';
-    let charset = 'utf-8';
-    let timestamp = (Date.now() + '').slice(3);
-    let version = '2.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.promotion.query';
+    const charset = 'utf-8';
+    const timestamp = (Date.now() + '').slice(3);
+    const version = '2.0';
 
 
     let typeid = '0';
@@ -22,9 +22,9 @@ export function* promotionInfoFetchWatchHandle(action) {
     let pagesize = '6';
     let currentpage = '1';
 
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'typeid',
@@ -53,12 +53,12 @@ export function* promotionInfoFetchWatchHandle(action) {
     const response = yield apply(buyoo, buyoo.getPromotionInfo, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         typeid: typeid,
         classfyid: classfyid,
         position: position,

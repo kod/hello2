@@ -29,16 +29,16 @@ export function* receiveVoucherFetchWatchHandle(action) {
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.usercenter.receiveVoucher';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.usercenter.receiveVoucher';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
   
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -52,16 +52,16 @@ export function* receiveVoucherFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.receiveVoucher, [
+    const response = yield apply(buyoo, buyoo.receiveVoucher, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
+        encrypt,
+        timestamp,
+        version,
+        funid,
         voucherid: voucherid,
       }
     ]);

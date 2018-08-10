@@ -18,16 +18,16 @@ export function* schoolInfoFetchWatchHandle(action) {
     const name = '';
     const notifyurlbg = '';
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.getschoolinfo';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.uc.getschoolinfo';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
   
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'name',
@@ -37,17 +37,17 @@ export function* schoolInfoFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.getSchoolInfo, [
+    const response = yield apply(buyoo, buyoo.getSchoolInfo, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
+        encrypt,
+        timestamp,
+        version,
         notifyurlbg: notifyurlbg,
-        name: name,
+        name,
       }
     ]);
 

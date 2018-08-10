@@ -1,20 +1,22 @@
 import { Platform, Alert } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
+import moment from 'moment';
 import {
-  cardSubmitFetch,
+  // cardSubmitFetch,
   cardSubmitFetchSuccess,
   cardSubmitFetchFailure,
 } from '../actions/cardSubmit';
 import {
   cardQueryFetch,
+  // cardQueryFetch,
 } from '../actions/cardQuery';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import {
   CARD_SUBMIT,
+  // CARD_SUBMIT,
 } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 import NavigatorService from '../../navigations/NavigatorService';
 
@@ -26,59 +28,59 @@ export function* cardSubmitFetchWatchHandle(action) {
   try {
     const {
       name,
+      // name,
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
     const msisdn = yield select(getAuthUserMsisdn);
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.user.card.submit';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
-  
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.user.card.submit';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
 
-    let encrypt = encryptMD5(
+    const signType = signTypeMD5(appId, method, charset, Key, true);
+
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'name',
-          value: name
+          value: name,
         },
         {
           key: 'msisdn',
-          value: msisdn
+          value: msisdn,
         },
       ],
-      Key
+      Key,
     );
 
-    let response = yield apply(buyoo, buyoo.cardSubmit, [
+    const response = yield apply(buyoo, buyoo.cardSubmit, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        name: name,
-        msisdn: msisdn,
-      }
+        encrypt,
+        timestamp,
+        version,
+        funid,
+        name,
+        msisdn,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(cardSubmitFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(cardSubmitFetchSuccess());
     }
-
-    yield put(cardSubmitFetchSuccess());
   } catch (err) {
     yield put(cardSubmitFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -91,19 +93,14 @@ export function* cardSubmitFetchWatch() {
 export function* cardSubmitSuccessWatchHandle() {
   try {
     yield put(cardQueryFetch());
-    Alert.alert(
-      '',
-      '申请提交成功, 稍后会有校园大使与您联系',
-      [
-        {
-          text: i18n.confirm,
-          onPress: () => {
-            NavigatorService.pop(1);
-          },
-        }
-      ]
-    )
-
+    Alert.alert('', i18n.ambassadorContactYou, [
+      {
+        text: i18n.confirm,
+        onPress: () => {
+          NavigatorService.pop(1);
+        },
+      },
+    ]);
   } catch (err) {
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

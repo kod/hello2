@@ -28,16 +28,16 @@ export function* collectionFetchWatchHandle(action) {
     const pagesize = 100;
     const currentpage = 1;
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.getcollection';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.uc.getcollection';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
   
-    let signType = signTypeMD5(appId, method, charset, Key, false);
+    const signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -59,17 +59,17 @@ export function* collectionFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.userGetCollection, [
+    const response = yield apply(buyoo, buyoo.userGetCollection, [
       {
         appId: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        msisdn: msisdn,
+        encrypt,
+        timestamp,
+        version,
+        funid,
+        msisdn,
         pagesize: pagesize,
         currentpage: currentpage
       }
@@ -103,16 +103,16 @@ export function* collectionAddFetchWatchHandle(action) {
     const funid = yield select(getAuthUserFunid);
     const brandids = action.payload.brandIds;    
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.addcollection';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '2.0';
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.uc.addcollection';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '2.0';
   
-    let signType = signTypeMD5(appId, method, charset, Key, true);
+    const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -126,16 +126,16 @@ export function* collectionAddFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.userBatchCollection, [
+    const response = yield apply(buyoo, buyoo.userBatchCollection, [
       {
         appid: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signtype: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
+        encrypt,
+        timestamp,
+        version,
+        funid,
         brandids: brandids,
       }
     ]);
@@ -167,16 +167,16 @@ export function* collectionRemoveFetchWatchHandle(action) {
     const msisdn = yield select(getAuthUserMsisdn);
     const brand_id = action.payload.brand_id;    
 
-    let Key = 'userKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let method = 'fun.uc.cancelcollection';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'userKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const method = 'fun.uc.cancelcollection';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
   
-    let signType = signTypeMD5(appId, method, charset, Key, false);
+    const signType = signTypeMD5(appId, method, charset, Key, false);
 
-    let encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -194,17 +194,17 @@ export function* collectionRemoveFetchWatchHandle(action) {
       Key
     );
 
-    let response = yield apply(buyoo, buyoo.userCancelCollection, [
+    const response = yield apply(buyoo, buyoo.userCancelCollection, [
       {
         appId: appId,
-        method: method,
-        charset: charset,
+        method,
+        charset,
         signType: signType,
-        encrypt: encrypt,
-        timestamp: timestamp,
-        version: version,
-        funid: funid,
-        msisdn: msisdn,
+        encrypt,
+        timestamp,
+        version,
+        funid,
+        msisdn,
         brand_id: brand_id,
       }
     ]);

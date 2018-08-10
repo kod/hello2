@@ -13,24 +13,24 @@ export function* bannerSwiperFetchWatchHandle(action) {
     let response = [];
     let item;
 
-    let Key = 'commodityKey';
-    let appId = Platform.OS === 'ios' ? '1' : '2';
-    let charset = 'utf-8';
-    let timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    let version = '1.0';
+    const Key = 'commodityKey';
+    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const charset = 'utf-8';
+    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+    const version = '1.0';
 
     switch (swiperId) {
       case 'one':
-        let method = 'fun.adverst.query';
+        const method = 'fun.adverst.query';
         let type_id = '';
         let classfy_id = '0';
         let position = '2';
         let pagesize = '20';
         let currentPage = '1';
     
-        let signType = signTypeMD5(appId, method, charset, Key, false);
+        const signType = signTypeMD5(appId, method, charset, Key, false);
     
-        let encrypt = encryptMD5(
+        const encrypt = encryptMD5(
           [
             {
               key: 'type_id',
@@ -59,12 +59,12 @@ export function* bannerSwiperFetchWatchHandle(action) {
         item = yield apply(buyoo, buyoo.getAdverstInfo, [
           {
             appId: appId,
-            method: method,
-            charset: charset,
+            method,
+            charset,
             signType: signType,
-            encrypt: encrypt,
-            timestamp: timestamp,
-            version: version,
+            encrypt,
+            timestamp,
+            version,
             type_id: type_id,
             classfy_id: classfy_id,
             position: position,
@@ -77,14 +77,14 @@ export function* bannerSwiperFetchWatchHandle(action) {
 
       case 'two':
           {
-            let method = 'fun.cellphone.topad';
+            const method = 'fun.cellphone.topad';
             let typeid = '1';
             let pagesize = '5';
             let currentpage = '1';
         
-            let signType = signTypeMD5(appId, method, charset, Key, true);
+            const signType = signTypeMD5(appId, method, charset, Key, true);
         
-            let encrypt = encryptMD5(
+            const encrypt = encryptMD5(
               [
                 {
                   key: 'typeid',
@@ -105,12 +105,12 @@ export function* bannerSwiperFetchWatchHandle(action) {
             item = yield apply(buyoo, buyoo.initTopCellphone, [
               {
                 appid: appId,
-                method: method,
-                charset: charset,
+                method,
+                charset,
                 signtype: signType,
-                encrypt: encrypt,
-                timestamp: timestamp,
-                version: version,
+                encrypt,
+                timestamp,
+                version,
                 typeid: typeid,
                 pagesize: pagesize,
                 currentpage: currentpage,
@@ -128,14 +128,14 @@ export function* bannerSwiperFetchWatchHandle(action) {
 
       case 'three':
         {
-          let method = 'fun.computer.topad';
+          const method = 'fun.computer.topad';
           let typeid = '2';
           let pagesize = '5';
           let currentpage = '1';
       
-          let signType = signTypeMD5(appId, method, charset, Key, true);
+          const signType = signTypeMD5(appId, method, charset, Key, true);
       
-          let encrypt = encryptMD5(
+          const encrypt = encryptMD5(
             [
               {
                 key: 'typeid',
@@ -156,12 +156,12 @@ export function* bannerSwiperFetchWatchHandle(action) {
           item = yield apply(buyoo, buyoo.initTopComputer, [
             {
               appid: appId,
-              method: method,
-              charset: charset,
+              method,
+              charset,
               signtype: signType,
-              encrypt: encrypt,
-              timestamp: timestamp,
-              version: version,
+              encrypt,
+              timestamp,
+              version,
               typeid: typeid,
               pagesize: pagesize,
               currentpage: currentpage,
@@ -179,14 +179,14 @@ export function* bannerSwiperFetchWatchHandle(action) {
 
       case 'four':
         {
-          let method = 'fun.digital.topad';
+          const method = 'fun.digital.topad';
           let typeid = '5';
           let pagesize = '5';
           let currentpage = '1';
       
-          let signType = signTypeMD5(appId, method, charset, Key, true);
+          const signType = signTypeMD5(appId, method, charset, Key, true);
       
-          let encrypt = encryptMD5(
+          const encrypt = encryptMD5(
             [
               {
                 key: 'typeid',
@@ -207,12 +207,12 @@ export function* bannerSwiperFetchWatchHandle(action) {
           item = yield apply(buyoo, buyoo.initTopDigital, [
             {
               appid: appId,
-              method: method,
-              charset: charset,
+              method,
+              charset,
               signtype: signType,
-              encrypt: encrypt,
-              timestamp: timestamp,
-              version: version,
+              encrypt,
+              timestamp,
+              version,
               typeid: typeid,
               pagesize: pagesize,
               currentpage: currentpage,
