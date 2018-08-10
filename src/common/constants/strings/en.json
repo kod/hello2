@@ -90,7 +90,7 @@
   "phoneNumberAlreadyRegistered": "Phone number is already registered",
   "verificationCodeError": "Verification code error",
   "actualName": "Actual name",
-  "pleaseEnterYourActualName": "Please enter your actual name",
+  "pleaseEnterYourActualName": "Please enter a full name",
   "idCard": "ID card",
   "gender": "Gender",
   "yearOfBirth": "Date of birth",
@@ -112,5 +112,13 @@
   "matriculationTime": "Matriculation time",
   "graduationTime": "Graduation time",
   "unsupportedSchoolTip": "Dear students, temporarily we only make installment payments at the listed universities, universities can not be selected because the human resources of our company is limited so it is temporarily unable to pay , but you can choose the whole payment. If you have any questions, please leave a message on facebook. Thank you for your support.",
+  "noData": "No data",
+  "pleseEnterYourIndentification": "Plese enter your indentification",
+  "pleaseSelectGender": "Please select gender",
+  "pleaseChooseBirthday": "Please choose birthday",
+  "pleaseEnterYourAddress": "Please enter your address",
+  "pleaseFillSchoolInformation": "Please fill in the school information",
+  "pleaseEnterYourEmailAddress": "Please enter your email address",
+  "ambassadorContactYou": "A representative of our school will contact you to complete the signing agreement",
   "warehouse": "Warehouse"
 }

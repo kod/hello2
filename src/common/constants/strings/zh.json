@@ -90,7 +90,7 @@
   "phoneNumberAlreadyRegistered": "手机号已注册",
   "verificationCodeError": "验证码错误",
   "actualName": "姓名",
-  "pleaseEnterYourActualName": "请输入你的真实姓名",
+  "pleaseEnterYourActualName": "请输入你的姓名",
   "idCard": "身份证",
   "gender": "性别",
   "yearOfBirth": "出生日期",
@@ -113,5 +113,12 @@
   "graduationTime": "毕业时间",
   "unsupportedSchoolTip": "亲爱的同学们，暂时我们只在上市大学进行分期付款，大学不能选，因为我们公司的人力资源有限，所以暂时无法支付 ，但您可以选择整个付款。 如果您有任何疑问，请在Facebook上留言。 感谢您的支持。",
   "noData": "没有数据",
+  "pleseEnterYourIndentification": "请输入身份证",
+  "pleaseSelectGender": "请选择性别",
+  "pleaseChooseBirthday": "请选择生日",
+  "pleaseEnterYourAddress": "请输入您的住址",
+  "pleaseFillSchoolInformation": "请填写学校信息",
+  "pleaseEnterYourEmailAddress": "请输入您的电子邮箱",
+  "ambassadorContactYou": "我们的校园大使会与您联系",
   "warehouse": "仓库"
 }
