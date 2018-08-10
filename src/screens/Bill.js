@@ -335,7 +335,7 @@ class Bill extends React.Component {
             <Text style={styles.enterPriceText}>change amount</Text>
           </View>
         </View>
-        <Text style={styles.tips}>remaining in this period {priceFormat(price)} VND</Text>
+        <Text style={styles.tips}>remaining in this period {priceFormat(price)} ₫</Text>
         <BYButton 
           text={'pay'} 
           styleWrap={{ marginBottom: SIDEINTERVAL * 2 }} 
@@ -394,7 +394,7 @@ class Bill extends React.Component {
               <View style={styles.item} key={key}>
                 <Text style={styles.title}>{key + 1}. {val.name}</Text>
                 <View style={styles.bottom}>
-                  <Text style={styles.price}>{priceFormat(val.totalAmount)} VND</Text>
+                  <Text style={styles.price}>{priceFormat(val.totalAmount)} ₫</Text>
                   <Text style={styles.date}>{moment(val.createTime).format('DD-MM')}</Text>
                 </View>
               </View>
@@ -404,21 +404,21 @@ class Bill extends React.Component {
         {/* <View style={styles.item}>
           <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
            <View style={styles.bottom}>
-            <Text style={styles.price}>666.000 VND</Text>
+            <Text style={styles.price}>666.000 ₫</Text>
             <Text style={styles.date}>16-05</Text>
            </View>
         </View>
         <View style={styles.item}>
           <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
            <View style={styles.bottom}>
-            <Text style={styles.price}>666.000 VND</Text>
+            <Text style={styles.price}>666.000 ₫</Text>
             <Text style={styles.date}>16-05</Text>
            </View>
         </View>
         <View style={styles.item}>
           <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
            <View style={styles.bottom}>
-            <Text style={styles.price}>666.000 VND</Text>
+            <Text style={styles.price}>666.000 ₫</Text>
             <Text style={styles.date}>16-05</Text>
            </View>
         </View> */}
@@ -530,7 +530,7 @@ class Bill extends React.Component {
           {
             billMonthItem.status !== 10002 &&
             <View style={styles.topOne}>
-              <Text style={styles.price}>{priceFormat(billMonthItem.waitingAmount)} VND</Text>
+              <Text style={styles.price}>{priceFormat(billMonthItem.waitingAmount)} ₫</Text>
               <View style={styles.detailWrap}>
                 <Text style={styles.detail} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })}>query the detail</Text>
               </View>
@@ -547,7 +547,7 @@ class Bill extends React.Component {
               <Image style={styles.image} source={require('../images/jafsdbufnl.png')} />
               <Text style={styles.topTwoTitle}>The bill has been paid off this month.</Text>
               <View style={styles.topTwoTextWrap}>
-                <Text style={styles.topTwoTextOne}>Has also {priceFormat(billMonthItem.waitingAmount)} VND</Text>
+                <Text style={styles.topTwoTextOne}>Has also {priceFormat(billMonthItem.waitingAmount)} ₫</Text>
                 <Text style={styles.topTwoTextTwo} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })}>query the detail</Text>
               </View>
             </View>

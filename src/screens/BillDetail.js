@@ -113,7 +113,7 @@ class BillDetail extends React.Component {
       <View style={styles.container}>
         <View style={styles.main}>
           <Text style={styles.title}>Payment in April.</Text>
-          <Text style={styles.price}>{priceFormat(billDetailsItem.amountBill)} VND</Text>
+          <Text style={styles.price}>{priceFormat(billDetailsItem.amountBill)} ₫</Text>
           <View style={styles.bill}>
             <View style={styles.billItem}>
               <Text style={styles.billText}>{priceFormat(billDetailsItem.monthBill)}</Text>
@@ -128,7 +128,7 @@ class BillDetail extends React.Component {
         <View style={styles.items}>
           <NavBar2 
             valueLeft={'Principal'} 
-            valueMiddle={`${priceFormat(billDetailsItem.principal)} VND`} 
+            valueMiddle={`${priceFormat(billDetailsItem.principal)} ₫`} 
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
@@ -136,7 +136,7 @@ class BillDetail extends React.Component {
           />
           <NavBar2 
             valueLeft={'Interest'} 
-            valueMiddle={`${priceFormat(billDetailsItem.interest)} VND`} 
+            valueMiddle={`${priceFormat(billDetailsItem.interest)} ₫`} 
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}

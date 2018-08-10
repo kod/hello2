@@ -830,7 +830,7 @@ class ProductDetail extends Component {
           />
           <View style={styles.product}>
             <Text style={styles.productTitle}>{name}</Text>
-            <Text style={styles.productPrice}>{priceFormat(price || 0)} VND</Text>
+            <Text style={styles.productPrice}>{priceFormat(price || 0)} ₫</Text>
             <View style={styles.serverinfo}>
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" />
               <Text style={styles.serverinfoToBePaidText}>{i18n.qualityAssurance}</Text>

@@ -162,7 +162,7 @@ class Card extends React.Component {
             <Text style={stylesX.logoText}>Buyoo</Text>
             <Text style={stylesX.title}>available credit</Text>
             <Text style={stylesX.price}>
-              {priceFormat(availableBalance)} VND
+              {priceFormat(availableBalance)} ₫
             </Text>
             <View style={stylesX.info}>
               <Text style={stylesX.cardId}>

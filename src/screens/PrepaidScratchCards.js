@@ -263,11 +263,11 @@ class PrepaidPhoneCard extends React.Component {
         <View style={styles.price}>
           <Text style={styles.priceTitle}>金额</Text>
           <View style={styles.priceMain}>
-            <Text style={styles.priceRed}>{ProvidersValueItems[priceIndex] && priceFormat(ProvidersValueItems[priceIndex].price * number)} VND</Text>
+            <Text style={styles.priceRed}>{ProvidersValueItems[priceIndex] && priceFormat(ProvidersValueItems[priceIndex].price * number)} ₫</Text>
             {
               ProvidersValueItems[priceIndex] && 
               (ProvidersValueItems[priceIndex].price - ProvidersValueItems[priceIndex].orgPrice) !== 0 &&
-              <Text style={styles.priceGrey}>(已优惠{priceFormat(ProvidersValueItems[priceIndex].orgPrice * number - ProvidersValueItems[priceIndex].price * number)} VND)</Text>
+              <Text style={styles.priceGrey}>(已优惠{priceFormat(ProvidersValueItems[priceIndex].orgPrice * number - ProvidersValueItems[priceIndex].price * number)} ₫)</Text>
             }
           </View>
         </View>

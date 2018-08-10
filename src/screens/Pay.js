@@ -381,7 +381,7 @@ class OrderWrite extends React.Component {
       <View style={styles.nav}>
         <View style={styles.navLeft}>
           <Text style={styles.navLeftTop}>Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom}>{priceFormat(advance)} VND</Text>
+          <Text style={styles.navLeftBottom}>{priceFormat(advance)} ₫</Text>
         </View>
         {
           tradeStatus === '10000' &&
@@ -557,7 +557,7 @@ class OrderWrite extends React.Component {
             stylePricePrice={{ color: '#666' }}
             isShowNumber={true}
           />
-          <Text style={styles.totalPrice}>{priceFormat(advance + couponValue)} VND</Text>
+          <Text style={styles.totalPrice}>{priceFormat(advance + couponValue)} ₫</Text>
           <SeparateBar />
           <NavBar2 
             onPress={() => tradeStatus === '10000' && this.handleOnPressToggleModal('isOpenActionSheet')} 

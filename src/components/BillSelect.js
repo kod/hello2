@@ -160,7 +160,7 @@ class BillSelect extends Component {
                   >
                     <View style={styles.itemMain}>
                       <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]}>{key + 1}</Text>
-                      <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]}>{ val.totalAmount ? priceFormat(val.totalAmount) + ' VND' : 'no bill' } </Text>
+                      <Text style={[styles.itemText, key + 1 === activeMonth && styles.itemActive]}>{ val.totalAmount ? priceFormat(val.totalAmount) + ' ₫' : 'no bill' } </Text>
                     </View>
                     {
                       <Text style={[styles.itemTips, val.status === 10007 && styles.itemTipsActive]}>{ val.status && billStatusCodes(val.status) }</Text>

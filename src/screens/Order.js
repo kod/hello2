@@ -108,7 +108,7 @@ class Scrollable extends React.Component {
                   isShowNumber={true}
                 />
                 <View style={stylesScrollable.totalPrice}>
-                  <Text style={stylesScrollable.price}>total: {priceFormat(val.totalAmount)} VND</Text>
+                  <Text style={stylesScrollable.price}>total: {priceFormat(val.totalAmount)} ₫</Text>
                 </View>
                 <View style={stylesScrollable.pay}>
                   <Text style={stylesScrollable.payText}>{tradeStatusCodes(val.tradeStatus)}</Text>

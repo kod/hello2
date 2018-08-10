@@ -329,7 +329,7 @@ class OrderWrite extends React.Component {
       <View style={styles.nav}>
         <View style={styles.navLeft}>
           <Text style={styles.navLeftTop}>Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom}>{this.calcMoney()} VND</Text>
+          <Text style={styles.navLeftBottom}>{this.calcMoney()} ₫</Text>
         </View>
         <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()}>Submit</Text>
       </View>

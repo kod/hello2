@@ -342,10 +342,10 @@ class PrepaidRecharge extends React.Component {
         <View style={styles.price}>
           <Text style={styles.priceTitle}>金额</Text>
           <View style={styles.priceMain}>
-            <Text style={styles.priceRed}>{priceFormat(items[buttonIndex].price)} VND</Text>
+            <Text style={styles.priceRed}>{priceFormat(items[buttonIndex].price)} ₫</Text>
             {
               (items[buttonIndex].price - items[buttonIndex].orgPrice) !== 0 &&
-              <Text style={styles.priceGrey}>(已优惠{priceFormat(items[buttonIndex].orgPrice - items[buttonIndex].price)} VND)</Text>
+              <Text style={styles.priceGrey}>(已优惠{priceFormat(items[buttonIndex].orgPrice - items[buttonIndex].price)} ₫)</Text>
             }
           </View>
         </View>

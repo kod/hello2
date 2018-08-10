@@ -291,7 +291,7 @@ class Cart extends React.Component {
               </View>
               <Text style={styles.overviewSelect}>{i18n.selectAll}</Text>
             </BYTouchable>
-            <Text style={styles.overviewPrice}>{!isEdit && (priceFormat(totalMoney) + ' VND')}</Text>
+            <Text style={styles.overviewPrice}>{!isEdit && (priceFormat(totalMoney) + ' ₫')}</Text>
             <BYTouchable style={styles.overviewSubmit} onPress={() => this.onPressSubmitHandle()}>
               <Text style={[styles.overviewSubmitText, isEdit && styles.overviewSubmitTextDel]}>{isEdit ? i18n.delete : i18n.buy}</Text>
             </BYTouchable>

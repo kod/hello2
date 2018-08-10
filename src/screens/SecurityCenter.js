@@ -73,7 +73,7 @@ class SecurityCenter extends React.Component {
         <NavBar2 
           onPress={() => navigate(SCREENS.TransactionPasswordStepOne)}
           valueLeft={'Payment password'} 
-          // valueMiddle={'884.000 VND'} 
+          // valueMiddle={'884.000 ₫'} 
           styleLeft={{ color: '#666' }}
           // styleMiddle={{ color: '#666' }}
           // isShowRight={false}
@@ -82,7 +82,7 @@ class SecurityCenter extends React.Component {
         <NavBar2 
           onPress={() => {}}
           valueLeft={'Login password'} 
-          // valueMiddle={'884.000 VND'} 
+          // valueMiddle={'884.000 ₫'} 
           styleLeft={{ color: '#666' }}
           // styleMiddle={{ color: '#666' }}
           // isShowRight={false}

@@ -451,10 +451,10 @@ class ProductDetail extends Component {
           <View style={styles.operate}>
             <View style={styles.operateGroupLeft}>
               <Text style={styles.operateGroupLeftOldPrice}>
-                Price before: {priceFormat(price || 0)} VND
+                Price before: {priceFormat(price || 0)} ₫
               </Text>
               <Text style={styles.operateGroupLeftPrice}>
-                {priceFormat(mergePrice || 0)} VND
+                {priceFormat(mergePrice || 0)} ₫
               </Text>
             </View>
             <Text

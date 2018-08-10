@@ -119,7 +119,7 @@ class RepaymentRecord extends React.Component {
                 </View>
                 <View style={styles.cell}>
                   <Text style={styles.textLeft}>sum</Text>
-                  <Text style={styles.textRight}>{priceFormat(val.amount)} VND</Text>
+                  <Text style={styles.textRight}>{priceFormat(val.amount)} ₫</Text>
                 </View>
                 <View style={styles.cell}>
                   <Text style={styles.textLeft}>date</Text>
@@ -140,7 +140,7 @@ class RepaymentRecord extends React.Component {
           </View>
           <View style={styles.cell}>
             <Text style={styles.textLeft}>sum</Text>
-            <Text style={styles.textRight}>8.000.500 VND</Text>
+            <Text style={styles.textRight}>8.000.500 ₫</Text>
           </View>
           <View style={styles.cell}>
             <Text style={styles.textLeft}>date</Text>
@@ -162,7 +162,7 @@ class RepaymentRecord extends React.Component {
           </View>
           <View style={styles.cell}>
             <Text style={styles.textLeft}>sum</Text>
-            <Text style={styles.textRight}>8.000.500 VND</Text>
+            <Text style={styles.textRight}>8.000.500 ₫</Text>
           </View>
           <View style={styles.cell}>
             <Text style={styles.textLeft}>date</Text>
