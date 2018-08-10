@@ -248,7 +248,7 @@ class PrepaidPhoneCard extends React.Component {
     
     return (
       <View style={styles.container}>
-        <View style={{ height: 20 }}></View>
+        <View style={{ height: 20 }} />
         <Text style={styles.title}>Chọn nhà mạng</Text>
         <PrepaidBrand data={providersItems} callback={this.prepaidBrandCallback} />
         <Text style={styles.title}>Chọn nhà mạng</Text>

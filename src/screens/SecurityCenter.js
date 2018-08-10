@@ -54,7 +54,7 @@ class SecurityCenter extends React.Component {
 
   // renderHeaderRight = () => {
   //   return (
-  //     <View></View>
+  //     <View />
   //   )
   // }
   // 

@@ -8,7 +8,7 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { GET_PROVIDERS_VALUE } from '../constants/actionTypes';
 import { PROVIDER_TYPE_MAP } from '../constants';
-import priceFormat from "../helpers/priceFormat";
+import priceFormat from '../helpers/priceFormat';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from 'moment';
 

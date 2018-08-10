@@ -7,7 +7,7 @@ import { prepaidFetch } from '../actions/prepaid';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { GET_PHONE_RECHARGE } from '../constants/actionTypes';
-import priceFormat from "../helpers/priceFormat";
+import priceFormat from '../helpers/priceFormat';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from 'moment';
 
@@ -47,7 +47,7 @@ export function* getPhoneRechargeFetchWatchHandle(action) {
         encrypt,
         timestamp,
         version,
-        msisdn: msisdn
+        msisdn
       }
     ]);
 

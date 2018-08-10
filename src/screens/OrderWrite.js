@@ -370,7 +370,7 @@ class OrderWrite extends React.Component {
             addressSelectedItem={addressSelectedItem} 
             onPress={() => this.handleOnPressAddress()} 
           />
-          <View style={styles.bar}></View>
+          <View style={styles.bar} />
           <ProductItem2 
             data={adverstInfo}
             stylePricePrice={{ color: '#666' }}

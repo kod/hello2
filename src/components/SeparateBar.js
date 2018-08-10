@@ -8,8 +8,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ ...restProps }) => {
-  return (
-    <View style={styles.separateBar}></View>
-  );
-};
+export default ({ ...restProps }) => (
+  <View style={styles.separateBar} {...restProps} />
+);

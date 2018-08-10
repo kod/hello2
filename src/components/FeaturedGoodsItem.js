@@ -12,7 +12,7 @@ export default ({ data }) => {
       {items &&
         items.map((val, key) => {
           return (
-            <View style={{ flexDirection: 'row', marginBottom: 15, borderBottomColor: '#f2f2f2', borderBottomWidth: StyleSheet.hairlineWidth, }} key={key}>
+            <View style={{ flexDirection: 'row', marginBottom: 15, borderBottomColor: '#f2f2f2', borderBottomWidth: StyleSheet.hairlineWidth }} key={key}>
               <View style={{ flex: 1, paddingRight: 10, paddingLeft: 10 }}>
                 <Image source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} style={{ width: 'auto', height: 120 }} />
               </View>

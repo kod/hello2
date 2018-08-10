@@ -62,7 +62,7 @@ export default class ProductDetailTabBarComponent extends Component {
     if (type === 'main') {
       return (
         <Animated.View style={[style,]}>
-          <View style={[styles.headerMiddle, { opacity, backgroundColor: '#fff', }]}></View>
+          <View style={[styles.headerMiddle, { opacity, backgroundColor: '#fff', }]} />
           <View style={{flexDirection: 'row'}}>
             <CustomIcon name="back" 
               onPress={() => goBack()} 

@@ -167,7 +167,7 @@ class EnterPassword extends Component {
         <View style={styles.inputPassword}>
           <View style={styles.inputPasswordBackground}>
             {
-              passwordLength.map((val, key) => <View style={styles.inputPasswordBackgroundItem} key={key}></View>)
+              passwordLength.map((val, key) => <View style={styles.inputPasswordBackgroundItem} key={key} />)
             }
           </View>
           <View style={styles.inputPasswordDot}>

@@ -33,7 +33,7 @@ class RegisterFastStepOne extends React.Component {
           style={{marginBottom: 70}}
         />
         <BYButton text={'Next'} onPress={() => navigate(SCREENS.RegisterFastStepTwo)} />
-        <View style={{flex: 1, minHeight: WINDOW_HEIGHT * 0.2}}></View>
+        <View style={{flex: 1, minHeight: WINDOW_HEIGHT * 0.2}} />
         {/* <OtherLogin /> */}
       </View>
     );

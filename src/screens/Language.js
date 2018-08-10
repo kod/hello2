@@ -59,7 +59,7 @@ class Language extends React.Component {
         {list.map((val, key) => 
           <BYTouchable delayPressIn={0} key={key} onPress={ () => this.handleOnPressListItem(val.id) }>
             <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: WINDOW_WIDTH * 0.04, paddingRight: WINDOW_WIDTH * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }}>
-              <Text style={{ flex: 1, }}>{ val.title }</Text>
+              <Text style={{ flex: 1 }}>{ val.title }</Text>
               { val.id === lang && <MaterialIcons name="check-circle" style={{ fontSize: 26, color: PRIMARY_COLOR }} /> }
             </View>
           </BYTouchable>
@@ -83,7 +83,7 @@ class Language extends React.Component {
 
   renderHeaderRight = () => {
     return (
-      <View></View>
+      <View />
     )
   }
 

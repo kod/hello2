@@ -16,9 +16,9 @@ export default ({ data, style, ...restProps }) => {
       {items && (
         <View style={{ flexDirection: 'row' }}>
           <Image source={{ uri: items[0] }} style={{ width: itemWidth, height: itemHeight }} />
-          <View style={{ height: itemHeight, width: itemIntervalWidth, }} />
+          <View style={{ height: itemHeight, width: itemIntervalWidth }} />
           <Image source={{ uri: items[1] }} style={{ width: itemWidth, height: itemHeight }} />
-          <View style={{ height: itemHeight, width: itemIntervalWidth, }} />
+          <View style={{ height: itemHeight, width: itemIntervalWidth }} />
           <Image source={{ uri: items[2] }} style={{ width: itemWidth, height: itemHeight }} />
         </View>
       )}

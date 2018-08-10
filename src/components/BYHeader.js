@@ -94,13 +94,13 @@ class PXHeader extends Component {
 
   renderHeaderLeft = () => {
     return (
-      <View style={{}}></View>
+      <View style={{}} />
     );
   };
 
   renderHeaderTitle = () => {
     return (
-      <View style={{ flex: 1 }}></View>
+      <View style={{ flex: 1 }} />
     );
   };
   
@@ -135,7 +135,7 @@ class PXHeader extends Component {
           {headerTitle || this.renderHeaderTitle()}
           {headerRight}
         </View>
-        <View style={styles.headerLine}></View>
+        <View style={styles.headerLine} />
       </View>
     );
   }

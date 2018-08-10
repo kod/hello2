@@ -197,7 +197,7 @@ class Categories extends React.Component {
 
                     {
                       levelOneIndex === key && 
-                      <View style={styles.itemActive}></View>
+                      <View style={styles.itemActive} />
                     }
                   </BYTouchable>
                 )

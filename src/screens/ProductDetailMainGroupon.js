@@ -818,12 +818,12 @@ class ProductDetail extends Component {
               <MaterialIcons name="favorite-border" style={styles.favoriteIcon} />
             }
           </BYTouchable>
-          <View style={styles.statusbarPlaceholder}></View>
+          <View style={styles.statusbarPlaceholder} />
           <SwiperFlatList 
             data={imageUrls} 
-            style={{ height: WINDOW_WIDTH, }} 
+            style={{ height: WINDOW_WIDTH }} 
             styleWrap={{ height: WINDOW_WIDTH, paddingBottom: WINDOW_WIDTH * 0.03, backgroundColor: '#fff' }}
-            stylePaginationContainer={{ justifyContent: 'center', }}
+            stylePaginationContainer={{ justifyContent: 'center' }}
             paginationActiveColor="rgba(88,88,88,1)"
             paginationDefaultColor="rgba(88,88,88,.5)"
             autoplay={false}

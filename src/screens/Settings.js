@@ -57,7 +57,7 @@ class Settings extends React.Component {
 
   // renderHeaderRight = () => {
   //   return (
-  //     <View></View>
+  //     <View />
   //   )
   // }
   //
