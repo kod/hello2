@@ -12,7 +12,9 @@ export const BUYOO_VN = `${BUYOO}.vn`;
 
 export const PHONEEXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
 export const PWDEXPR = /^.{8,20}$/; // 密码
-export const EMAIL_EXPR = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+export const EMAIL_EXPR = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/; // 邮箱
+export const NAME_EXPR = /^.*\s.*$/; // 越南姓名
+export const IDENTIFICATION_EXPR = /^(\d{9}|\d{12})$/; // 越南身份证
 
 export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);
 export const WINDOW_HEIGHT = Math.floor(Dimensions.get('window').height);
