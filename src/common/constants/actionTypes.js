@@ -523,6 +523,12 @@ export const PREPAID = defineAction(
   appNamespace,
 );
 
+export const GET_SQUARES_INFO = defineAction(
+  'GET_SQUARES_INFO',
+  [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
 export const GET_PHONE_RECHARGE = defineAction(
   'GET_PHONE_RECHARGE',
   [REQUEST, SUCCESS, FAILURE, REMOVE],

@@ -1164,6 +1164,24 @@ class ReactStore {
     );
   }
 
+  getSquaresInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options,
+      ),
+    );
+    return this.requestUrl(
+      `${PORT_85}/fun/commodity/getSquaresInfo?${queryString}`,
+    );
+  }
+
   getNewestInfo(options) {
     if (!options) {
       return Promise.reject(new Error('fields required'));
