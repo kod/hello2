@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
-import BYTouchable from '../components/BYTouchable';
+import BYTouchable from './BYTouchable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {
   BORDER_COLOR,

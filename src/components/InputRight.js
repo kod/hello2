@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
-import Error from '../components/Error';
+import Error from './Error';
 
 import { BORDER_COLOR } from '../styles/variables';
 
-import BYTextInput from '../components/BYTextInput';
+import BYTextInput from './BYTextInput';
 
 const styles = StyleSheet.create({
   componentWrap: {

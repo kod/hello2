@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions, } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
-import BYTouchable from '../components/BYTouchable';
+import BYTouchable from './BYTouchable';
 import { SCREENS } from '../common/constants';
 
 import { RED_COLOR , BORDER_COLOR} from '../styles/variables';

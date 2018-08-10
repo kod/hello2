@@ -8,7 +8,7 @@ import { withNavigation } from 'react-navigation';
 import priceFormat from '../common/helpers/priceFormat';
 import { billStatusCodes } from '../common/helpers';
 
-import BYTouchable from '../components/BYTouchable';
+import BYTouchable from './BYTouchable';
 
 import * as billActionCreators from '../common/actions/bill';
 import * as billByYearActionCreators from '../common/actions/billByYear';

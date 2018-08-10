@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import BYTouchable from '../components/BYTouchable';
+import BYTouchable from './BYTouchable';
 import { SCREENS } from '../common/constants';
 import { addressJoin } from '../common/helpers';
 

@@ -7,9 +7,9 @@ import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import { CARMAXNUMBER } from '../common/constants';
-import BYTouchable from '../components/BYTouchable';
+import BYTouchable from './BYTouchable';
 
-import BYTextInput from '../components/BYTextInput';
+import BYTextInput from './BYTextInput';
 
 import * as cartActionCreators from  "../common/actions/cart";
 

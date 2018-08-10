@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import CustomIcon from '../components/CustomIcon';
-import { connectLocalization } from '../components/Localization';
+import CustomIcon from './CustomIcon';
+import { connectLocalization } from './Localization';
 import BYTouchable from './BYTouchable';
 
 const styles = StyleSheet.create({

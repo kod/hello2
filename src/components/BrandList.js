@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, } from '../common/constants';
 import { withNavigation } from 'react-navigation';
 
-import BYTouchable from '../components/BYTouchable';
+import BYTouchable from './BYTouchable';
 
 const marginWidth = WINDOW_WIDTH * 0.015;
 const width = (WINDOW_WIDTH - marginWidth * 2 * 4 - marginWidth * 2) / 4;

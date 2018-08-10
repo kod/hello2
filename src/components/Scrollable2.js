@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import SwiperFlatList from '../components/SwiperFlatList';
-import FeaturedGoodsItem from '../components/FeaturedGoodsItem';
-import BrandList from "../components/BrandList";
-import PhoneAdBaner from "../components/PhoneAdBaner";
-import FloorTitle from "../components/FloorTitle";
-import ProductItem1 from "../components/ProductItem1";
+import SwiperFlatList from './SwiperFlatList';
+import FeaturedGoodsItem from './FeaturedGoodsItem';
+import BrandList from "./BrandList";
+import PhoneAdBaner from "./PhoneAdBaner";
+import FloorTitle from './FloorTitle';
+import ProductItem1 from './ProductItem1';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';

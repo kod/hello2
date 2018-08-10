@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import BYTouchable from './BYTouchable';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
-import CustomIcon from '../components/CustomIcon';
-import { connectLocalization } from '../components/Localization';
+import CustomIcon from './CustomIcon';
+import { connectLocalization } from './Localization';
 
 const styles = StyleSheet.create({
   component: {

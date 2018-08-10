@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
-import BYTouchable from '../components/BYTouchable';
-import BYButton from '../components/BYButton';
+import BYTouchable from './BYTouchable';
+import BYButton from './BYButton';
 
 import { SCREENS } from '../common/constants';
 

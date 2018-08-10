@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, Image, } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import moment from 'moment';
 
-import BYTouchable from '../components/BYTouchable';
-import CustomIcon from '../components/CustomIcon';
+import BYTouchable from './BYTouchable';
+import CustomIcon from './CustomIcon';
 
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';

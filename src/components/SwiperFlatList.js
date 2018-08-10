@@ -3,7 +3,7 @@ import { Text, Dimensions, Image, StyleSheet, View, TouchableOpacity } from 'rea
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { withNavigation } from 'react-navigation';
 
-import BYTouchable from '../components/BYTouchable';
+import BYTouchable from './BYTouchable';
 
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from '../common/constants';
 

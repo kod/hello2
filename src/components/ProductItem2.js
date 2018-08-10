@@ -7,13 +7,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import priceFormat from '../common/helpers/priceFormat';
 import { CARMAXNUMBER } from '../common/constants';
-import BYTouchable from '../components/BYTouchable';
+import BYTouchable from './BYTouchable';
 import { SCREENS } from '../common/constants';
 
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
 
-import BYTextInput from '../components/BYTextInput';
+import BYTextInput from './BYTextInput';
 
 import * as cartActionCreators from  "../common/actions/cart";
 
