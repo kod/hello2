@@ -61,7 +61,7 @@ class OrderWrite extends React.Component {
     getUserInfoByIdFetch();
 
     this.orderWriteCallBack = DeviceEventEmitter.addListener(
-      'orderWriteCallBack',
+      SCREENS.OrderWrite,
       ({ type = '', params = {} }) => {
         switch (type) {
           case 'orderCreateSuccess':

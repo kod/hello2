@@ -124,7 +124,10 @@ export function* orderPaySuccessWatchHandle(action) {
 
     switch (BYtype) {
       case 'billPay':
-        // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'billPayResult', ret]);
+        // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
+        //   SCREENS.Bill,
+        //   ret,
+        // ]);
         break;
     
       default:

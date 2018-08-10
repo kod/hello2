@@ -80,15 +80,11 @@ class Bill extends React.Component {
     queryGoodsFetch({
       createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
     });
-    
-    
-    this.billPayResult_addListener = DeviceEventEmitter.addListener(
-      'billPayResult',
-      (parmas) => {
-        // goBack()
-      },
-    );
 
+    this.billPayResult_addListener = DeviceEventEmitter.addListener(
+      SCREENS.Bill,
+      () => {},
+    );
   }
 
   componentWillUnmount() {

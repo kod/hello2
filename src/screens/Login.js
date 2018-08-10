@@ -48,9 +48,9 @@ class Login extends React.Component {
     } = this.props;
 
     this.closeLoginScreen = DeviceEventEmitter.addListener(
-      'closeLoginScreen',
+      SCREENS.Login,
       () => {
-        goBack()
+        goBack();
       },
     );
   }

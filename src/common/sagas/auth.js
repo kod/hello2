@@ -19,6 +19,10 @@ import {
   AUTH_LOGOUT,
   // AUTH_REFRESH_ACCESS_TOKEN,
 } from '../constants/actionTypes';
+import {
+  SCREENS,
+  // AUTH_SIGNUP,
+} from '../constants';
 
 import {
   // login,
@@ -164,9 +168,7 @@ export function* watchLoginSuccess() {
       yield put(cartRequest());
       yield put(cardQueryFetch());
 
-      yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
-        'closeLoginScreen',
-      ]);
+      yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [SCREENS.Login]);
     } catch (err) {
       // todo logout user
       console.dir(err);

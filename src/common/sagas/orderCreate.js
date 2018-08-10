@@ -135,13 +135,16 @@ export function* orderCreateSuccessWatchHandle(action) {
     } = action.payload;
     switch (BYtype) {
       case 'normal':
-        yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'orderWriteCallBack', {
-          type: 'orderCreateSuccess',
-          params: {
-            tradeNo,
-            orderNo,
+        yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
+          SCREENS.OrderWrite,
+          {
+            type: 'orderCreateSuccess',
+            params: {
+              tradeNo,
+              orderNo,
+            },
           },
-        }]);
+        ]);
         break;
 
       case 'billPay':
