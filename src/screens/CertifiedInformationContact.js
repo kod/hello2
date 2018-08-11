@@ -161,10 +161,10 @@ class CertifiedInformationSchool extends Component {
 
     return (
       <View style={stylesX.container}>
-        {list.map((val, key) => (
+        {list.map(val => (
           <Text
             style={stylesX.item}
-            key={key}
+            key={val}
             onPress={() => {
               certifiedInformationEdit(`connectuserrelation${index}`, val);
               this.handleOnPressToggleModal();

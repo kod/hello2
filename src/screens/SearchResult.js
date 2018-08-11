@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SearchResult extends React.Component {
+class SearchResult extends Component {
   constructor(props) {
     super(props);
 
@@ -176,11 +176,11 @@ class SearchResult extends React.Component {
           <Text style={styles.title}>historical search</Text>
         )}
         <View style={styles.history}>
-          {items.map((val, key) => (
+          {items.map(val => (
             <BYTouchable
               style={styles.historyItem}
               onPress={() => this.handleOnPressHistoryItem(val)}
-              key={key}
+              key={val}
             >
               <Text style={styles.historyTitle}>{val}</Text>
               <EvilIcons

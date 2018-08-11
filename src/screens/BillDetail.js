@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -9,7 +9,7 @@ import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import CustomIcon from '../components/CustomIcon';
 import BYTouchable from '../components/BYTouchable';
-import NavBar2 from "../components/NavBar2";
+import NavBar2 from '../components/NavBar2';
 import SeparateBar from '../components/SeparateBar';
 
 import { PRIMARY_COLOR, } from '../styles/variables';
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class BillDetail extends React.Component {
+class BillDetail extends Component {
 
   componentDidMount() {
     const {

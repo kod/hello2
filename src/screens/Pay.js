@@ -1,26 +1,37 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Alert,
+  // Alert,
+} from 'react-native';
 import { connect } from 'react-redux';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-
-import { SCREENS } from '../common/constants';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+// import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import ProductItem2 from '../components/ProductItem2';
-import NavBar2 from "../components/NavBar2";
+import NavBar2 from '../components/NavBar2';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import BYTouchable from '../components/BYTouchable';
-import BYModal from '../components/BYModal';
-import ActionSheet from "../components/ActionSheet";
-import EnterPassword from "../components/EnterPassword";
+// import BYTouchable from '../components/BYTouchable';
+// import BYModal from '../components/BYModal';
+import ActionSheet from '../components/ActionSheet';
+import EnterPassword from '../components/EnterPassword';
 import Address from '../components/Address';
 import Loader from '../components/Loader';
 import SeparateBar from '../components/SeparateBar';
 
 import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
-
+import {
+  WINDOW_WIDTH,
+  // WINDOW_HEIGHT,
+  SIDEINTERVAL,
+  // APPBAR_HEIGHT,
+  // STATUSBAR_HEIGHT,
+  SCREENS,
+} from '../common/constants';
 
 import { getAddressSelectedItem } from '../common/selectors';
 
@@ -31,9 +42,9 @@ import * as orderPayActionCreators from '../common/actions/orderPay';
 import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
 import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
-import * as orderCancelActionCreators from "../common/actions/orderCancel";
+import * as orderCancelActionCreators from '../common/actions/orderCancel';
 
-import { addressJoin, tradeStatusCodes } from '../common/helpers';
+import { tradeStatusCodes } from '../common/helpers';
 import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({
@@ -94,7 +105,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class OrderWrite extends React.Component {
+class OrderWrite extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -111,14 +122,14 @@ class OrderWrite extends React.Component {
 
   componentDidMount() {
     const {
-      isAuthUser,
+      // isAuthUser,
       addressFetch,
       orderNo,
       tradeNo,
       queryOrderFetch,
       cardQueryFetch,
       getUserInfoByIdFetch,
-      navigation: { navigate },
+      // navigation: { navigate },
     } = this.props;
     // if (!isAuthUser) return navigate(SCREENS.Login);
 
@@ -130,16 +141,16 @@ class OrderWrite extends React.Component {
       orderNo,
       tradeNo,
     });
-    
+
     // setTimeout(() => {
-      // navigate(SCREENS.TransactionPasswordStepOne);
-      // this.handleOnPressToggleBottomSheet();
+    // navigate(SCREENS.TransactionPasswordStepOne);
+    // this.handleOnPressToggleBottomSheet();
     // }, 300);
   }
 
   actionSheetCallback(ret) {
     if (ret.buttonIndex === -1) return false;
-    this.setState({
+    return this.setState({
       payWayIndex: ret.buttonIndex,
     });
   }
@@ -157,8 +168,12 @@ class OrderWrite extends React.Component {
   }
 
   handleOnPressToggleModal = (key, val) => {
+    const {
+      key: [key1],
+      // [key],
+    } = this.state;
     this.setState({
-      [key]: typeof val !== 'boolean' ? !this.state[key] : val,
+      [key]: typeof val !== 'boolean' ? !key1 : val,
     });
   };
 
@@ -166,6 +181,7 @@ class OrderWrite extends React.Component {
     const {
       payWayIndex,
       paypassword,
+      // paypassword,
     } = this.state;
     const {
       i18n,
@@ -175,94 +191,83 @@ class OrderWrite extends React.Component {
       orderNo,
       tradeNo,
       getUserInfoByIdFetch,
-      cardSubmitFetch,
+      // cardSubmitFetch,
       orderPayFetch,
       navigation: { navigate },
       cardQuery,
       queryOrderItem: {
         advance,
+        // advance,
       },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
     if (!userType) return getUserInfoByIdFetch();
 
     const payway = payWayIndex === 0 ? 1 : 2;
-    
+
     const creditCard = () => {
-      
       let paywayNow = 1;
       if (cardQuery.item.availableBalance) {
         paywayNow = cardQuery.item.availableBalance < advance ? 5 : 1;
       }
 
       const alreadyPaypassword = () => {
-        if (paypassword.length === 0) return this.handleOnPressToggleModal('isOpenEnterPassword')
+        if (paypassword.length === 0)
+          return this.handleOnPressToggleModal('isOpenEnterPassword');
 
         if (paywayNow === 5) {
-          Alert.alert(
-            '',
-            '当前可用额度不够, 其余金额将通过网银支付',
-            [
-              { text: i18n.cancel, },
-              { 
-                text: i18n.confirm, 
-                onPress: () => {
-                  orderPayFetch({
-                    orderno: orderNo,
-                    tradeno: tradeNo,
-                    payway: paywayNow,
-                    paypassword,
-                    payvalue: advance - cardQuery.item.availableBalance,
-                  });
-                }
-              }
-            ]
-          )
+          Alert.alert('', '当前可用额度不够, 其余金额将通过网银支付', [
+            { text: i18n.cancel },
+            {
+              text: i18n.confirm,
+              onPress: () => {
+                orderPayFetch({
+                  orderno: orderNo,
+                  tradeno: tradeNo,
+                  payway: paywayNow,
+                  paypassword,
+                  payvalue: advance - cardQuery.item.availableBalance,
+                });
+              },
+            },
+          ]);
         } else {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
             payway: paywayNow,
             paypassword,
-          })
+          });
         }
+        return false;
       };
       // const paywayNow = cardQuery.item.availableBalance
       if (userType === 3) {
         // 已开通信用卡
         if (initPassword !== 1) {
           // 未设置支付密码
-          Alert.alert(
-            '',
-            '您尚未设置交易密码?',
-            [
-              { text: i18n.cancel, },
-              {
-                text: '去设置',
-                onPress: () => navigate(SCREENS.TransactionPasswordStepOne),
-              }
-            ]
-          )
+          Alert.alert('', '您尚未设置交易密码?', [
+            { text: i18n.cancel },
+            {
+              text: '去设置',
+              onPress: () => navigate(SCREENS.TransactionPasswordStepOne),
+            },
+          ]);
         } else {
           alreadyPaypassword();
         }
       } else {
-        Alert.alert(
-          '',
-          '您尚未开通信用卡是否现在去开通?',
-          [
-            {
-              text: i18n.cancel,
-            },
-            {
-              text: i18n.join,
-              onPress: () => navigate(SCREENS.Card),
-            }
-          ]
-        )
-
+        Alert.alert('', '您尚未开通信用卡是否现在去开通?', [
+          {
+            text: i18n.cancel,
+          },
+          {
+            text: i18n.join,
+            onPress: () => navigate(SCREENS.Card),
+          },
+        ]);
       }
-    }
+    };
 
     const internetBank = () => {
       orderPayFetch({
@@ -270,31 +275,33 @@ class OrderWrite extends React.Component {
         tradeno: tradeNo,
         payway,
       });
-    }
-    
+    };
+
     switch (payway) {
       case 1:
         creditCard();
         break;
-    
+
       case 2:
         internetBank();
         break;
-    
+
       // case 5:
       //   creditCard();
       //   break;
-    
+
       default:
         break;
     }
-  }
+    return true;
+  };
 
   handleOnPressCancel() {
     const {
       orderCancelFetch,
       orderNo,
       tradeNo,
+      // tradeNo,
     } = this.props;
 
     Alert.alert(
@@ -555,7 +562,7 @@ class OrderWrite extends React.Component {
           <ProductItem2 
             data={goodsDetail}
             stylePricePrice={{ color: '#666' }}
-            isShowNumber={true}
+            isShowNumber
           />
           <Text style={styles.totalPrice}>{priceFormat(advance + couponValue)} ₫</Text>
           <SeparateBar />

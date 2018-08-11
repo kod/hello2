@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Settings extends React.Component {
+class Settings extends Component {
   // componentDidMount() {
   //   const { bannerHomeRecommendFetch } = this.props;
   //   // bannerHomeRecommendFetch();

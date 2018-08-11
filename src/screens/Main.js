@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   ScrollView,
   // ListView,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Main extends React.Component {
+class Main extends Component {
   constructor(props) {
     super(props);
 
@@ -218,7 +218,7 @@ class Main extends React.Component {
     const content = scrollableTabKeys.map((val, key) => {
       const { refreshing } = this.state;
       return (
-        <View tabLabel={val.tabLabel} style={styles.base} key={key}>
+        <View tabLabel={val.tabLabel} style={styles.base} key={val.tabLabel}>
           <ScrollView
             refreshControl={
               <RefreshControl

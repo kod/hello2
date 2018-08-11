@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { SIDEINTERVAL } from '../common/constants';
 import CustomIcon from './CustomIcon';

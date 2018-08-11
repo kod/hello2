@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class QrCodeScanner extends React.Component {
+class QrCodeScanner extends Component {
 
   componentDidMount() {
     const { bannerHomeRecommendFetch } = this.props;

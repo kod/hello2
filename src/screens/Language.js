@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -36,7 +36,7 @@ const languageList = [
   },
 ]
 
-class Language extends React.Component {
+class Language extends Component {
   constructor(props) {
     super(props);
   }

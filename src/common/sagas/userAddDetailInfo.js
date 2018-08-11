@@ -266,7 +266,7 @@ export function* userAddDetailInfoSuccessWatchHandle() {
       username,
       // username,
     } = certifiedInformationCertUser;
-    // if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    // if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
     yield put(
       cardSubmitFetch({
         name: username,

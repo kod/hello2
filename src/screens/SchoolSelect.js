@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SchoolSelect extends React.Component {
+class SchoolSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {

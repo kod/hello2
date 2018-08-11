@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
 import {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 });
 
 // 我_关于我们
-class AboutAs extends React.Component {
+class AboutAs extends Component {
   // constructor(props) {
   //   super(props);
   // }

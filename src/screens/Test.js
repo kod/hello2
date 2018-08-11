@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Animated, Text, View } from 'react-native';
 
-class FadeInView extends React.Component {
+class FadeInView extends Component {
   state = {
     fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
   }
@@ -34,7 +34,7 @@ class FadeInView extends React.Component {
 }
 
 // You can then use your `FadeInView` in place of a `View` in your components:
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

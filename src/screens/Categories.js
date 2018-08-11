@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Categories extends React.Component {
+class Categories extends Component {
 
   componentDidMount() {
     const { getMenuFetch } = this.props;

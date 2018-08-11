@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -6,7 +6,7 @@ import { SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import NavBar2 from "../components/NavBar2";
+import NavBar2 from '../components/NavBar2';
 import BYTouchable from '../components/BYTouchable';
 import { RED_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class SecurityCenter extends React.Component {
+class SecurityCenter extends Component {
 
   componentDidMount() {
     const { bannerHomeRecommendFetch } = this.props;

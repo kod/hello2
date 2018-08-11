@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class InvitationInput extends React.Component {
+class InvitationInput extends Component {
   render() {
     const {
       input,
@@ -53,7 +53,7 @@ const validate = (values, props) => {
   return errors;
 };
 
-class RegisterStepOne extends React.Component {
+class RegisterStepOne extends Component {
 
   submit = data => {
     const {

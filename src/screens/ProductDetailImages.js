@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image, FlatList, WebView } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProductDetailImages extends React.Component {
+class ProductDetailImages extends Component {
   componentDidMount() {
     const { bannerSwiperFetch } = this.props;
     // bannerSwiperFetch('one');

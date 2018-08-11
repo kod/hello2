@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, Image, DeviceEventEmitter } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,7 +16,7 @@ import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
 import BillSelect from "../components/BillSelect";
-import ActionSheet from "../components/ActionSheet";
+import ActionSheet from '../components/ActionSheet';
 import { connectLocalization } from '../components/Localization';
 
 import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class Bill extends React.Component {
+class Bill extends Component {
   constructor(props) {
     super(props);
     this.state = {

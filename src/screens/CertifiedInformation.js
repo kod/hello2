@@ -271,10 +271,10 @@ class CertifiedInformation extends Component {
 
     return (
       <View style={stylesX.container}>
-        {sexList.map((val, key) => (
+        {sexList.map(val => (
           <Text
             style={stylesX.item}
-            key={key}
+            key={val.value}
             onPress={() => {
               certifiedInformationEdit(`sex`, val.key);
               this.handleOnPressToggleModal();

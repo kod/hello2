@@ -1,23 +1,37 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView, DeviceEventEmitter, ToastAndroid, Platform } from 'react-native';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  DeviceEventEmitter,
+  ToastAndroid,
+  Platform,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
+// import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 import { SCREENS } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
-import { createOrderno } from '../common/helpers';
+// import { createOrderno } from '../common/helpers';
 
 import ProductItem2 from '../components/ProductItem2';
-import NavBar2 from "../components/NavBar2";
+import NavBar2 from '../components/NavBar2';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import BYTouchable from '../components/BYTouchable';
+// import BYTouchable from '../components/BYTouchable';
 import Address from '../components/Address';
 import Loader from '../components/Loader';
 
-import { SIDEINTERVAL, RED_COLOR, PRIMARY_COLOR, BORDER_COLOR, WINDOW_HEIGHT } from '../styles/variables';
+import {
+  // SIDEINTERVAL,
+  RED_COLOR,
+  PRIMARY_COLOR,
+  BORDER_COLOR,
+  // WINDOW_HEIGHT,
+} from '../styles/variables';
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';
@@ -26,7 +40,7 @@ import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as couponSelectActionCreators from '../common/actions/couponSelect';
 
 import { getAddressSelectedItem } from '../common/selectors';
-import { addressJoin } from '../common/helpers';
+// import { addressJoin } from '../common/helpers';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,20 +54,20 @@ const styles = StyleSheet.create({
   },
 });
 
-class OrderWrite extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+class OrderWrite extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
 
-    };
-  }
+  //   };
+  // }
 
   componentDidMount() {
     const {
-      isAuthUser,
+      // isAuthUser,
       addressFetch,
       getUserInfoByIdFetch,
-      navigation: { navigate },
+      // navigation: { navigate },
     } = this.props;
     // if (!isAuthUser) return navigate(SCREENS.Login);
 
@@ -63,19 +77,21 @@ class OrderWrite extends React.Component {
     this.orderWriteCallBack = DeviceEventEmitter.addListener(
       SCREENS.OrderWrite,
       ({ type = '', params = {} }) => {
+        let resetAction = null;
+        const { navigation } = this.props;
         switch (type) {
           case 'orderCreateSuccess':
-            const resetAction = NavigationActions.reset({
+            resetAction = NavigationActions.reset({
               index: 1,
               actions: [
                 NavigationActions.navigate({ routeName: SCREENS.Index }),
-                NavigationActions.navigate({ routeName: SCREENS.Pay, params })
-              ]
-            })
+                NavigationActions.navigate({ routeName: SCREENS.Pay, params }),
+              ],
+            });
 
-            this.props.navigation.dispatch(resetAction);
+            navigation.dispatch(resetAction);
             break;
-        
+
           default:
             break;
         }
@@ -86,6 +102,7 @@ class OrderWrite extends React.Component {
   componentWillUnmount() {
     const {
       couponSelectClear,
+      // couponSelectClear,
     } = this.props;
 
     couponSelectClear();
@@ -98,10 +115,10 @@ class OrderWrite extends React.Component {
       isAuthUser,
       navigation: { navigate },
     } = this.props;
-    
+
     if (!isAuthUser) return navigate(SCREENS.Login);
 
-    navigate(SCREENS.Address, { isSelect: true })
+    return navigate(SCREENS.Address, { isSelect: true });
   }
 
   handleOnPressCoupon() {
@@ -112,7 +129,7 @@ class OrderWrite extends React.Component {
       detailItem,
       navigation: { navigate },
     } = this.props;
-    
+
     if (!isAuthUser) return navigate(SCREENS.Login);
 
     let products; // 请求judgeVoucher接口所需参数
@@ -120,15 +137,19 @@ class OrderWrite extends React.Component {
     if (isCart) {
       products = cartProducts;
     } else {
-      products = [{
-        id: detailItem.id,
-        amount: detailItem.price * detailItem.productDetailNumber,
-      }]
+      products = [
+        {
+          id: detailItem.id,
+          amount: detailItem.price * detailItem.productDetailNumber,
+        },
+      ];
     }
 
-    navigate(SCREENS.CouponSelect, { products: JSON.stringify(products) })
+    return navigate(SCREENS.CouponSelect, {
+      products: JSON.stringify(products),
+    });
   }
-  
+
   handleOnPressSubmit() {
     const {
       addressSelectedId,
@@ -138,9 +159,9 @@ class OrderWrite extends React.Component {
       isCart,
       orderCreateFetch,
       navigation: { navigate },
-      userType,
+      // userType,
       groupon,
-      mergeMasterInfo,
+      // mergeMasterInfo,
     } = this.props;
 
     if (!isAuthUser) return navigate(SCREENS.Login);
@@ -152,13 +173,13 @@ class OrderWrite extends React.Component {
 
     // }
 
-    const getGoodsdetail = (isCart) => {
+    const getGoodsdetail = () => {
       if (isCart) {
         return cartAdverstInfo.map(val => {
-          val.number = val.number
-          val.rechargeaccount = ''
-          val.rechargecode = ''
-          val.repaymentamount = 0
+          // val.number = val.number
+          val.rechargeaccount = '';
+          val.rechargecode = '';
+          val.repaymentamount = 0;
           return {
             number: val.number,
             cartitemid: val.cartitemid,
@@ -166,35 +187,35 @@ class OrderWrite extends React.Component {
             rechargeaccount: '',
             rechargecode: '',
             repaymentamount: 0,
-          }
-        })
-      } else {
-        return [{
+          };
+        });
+      }
+      return [
+        {
           number: detailItem.productDetailNumber,
           cartitemid: 0,
           productid: detailItem.id,
           rechargeaccount: '',
           rechargecode: '',
           repaymentamount: 0,
-        }];
-      }
-    }
+        },
+      ];
+    };
 
-    const getSubject = (isCart) => {
+    const getSubject = () => {
       let result = '';
       if (isCart) {
-        result = cartAdverstInfo.map(val => {
-          return val.name
-        }).join('_')
+        result = cartAdverstInfo.map(val => val.name).join('_');
       } else {
-        result = detailItem.name
+        result = detailItem.name;
       }
       return result;
-    }
+    };
 
     const getCoupondetail = () => {
       const {
         couponSelectItem,
+        // couponSelectItem,
       } = this.props;
 
       if (!couponSelectItem.id) return '';
@@ -207,14 +228,14 @@ class OrderWrite extends React.Component {
         coupontype: couponSelectItem.voucherType,
         couponvalue: couponSelectItem.voucherValue,
       });
-    }
+    };
 
-    const getObject = (groupon) => {
+    const getObject = () => {
       let result;
       if (groupon) {
         result = {
           ordertype: isCart ? '3' : '2',
-          addrid: addressSelectedId + '',
+          addrid: addressSelectedId.toString(),
           goodsdetail: '',
           mergedetail: JSON.stringify({
             mergeorderid: '',
@@ -227,28 +248,29 @@ class OrderWrite extends React.Component {
           }),
           coupondetail: getCoupondetail(),
           subject: getSubject(isCart),
-        }  
+        };
       } else {
         result = {
           ordertype: isCart ? '3' : '2',
-          addrid: addressSelectedId + '',
-          goodsdetail: JSON.stringify(getGoodsdetail(isCart)),
+          addrid: addressSelectedId.toString(),
+          goodsdetail: JSON.stringify(getGoodsdetail()),
           mergedetail: '',
           coupondetail: getCoupondetail(),
           subject: getSubject(isCart),
-        }  
+        };
       }
       return result;
-    }
-    
+    };
+
     if (addressSelectedId === 0) {
-      if(Platform.OS === 'android') return ToastAndroid.show('请选择收货地址', ToastAndroid.SHORT);
+      if (Platform.OS === 'android')
+        return ToastAndroid.show('请选择收货地址', ToastAndroid.SHORT);
     }
-    
+
     // console.log(object);
     // console.log(JSON.stringify(object));
 
-    orderCreateFetch(getObject(groupon));
+    return orderCreateFetch(getObject());
   }
 
   calcMoney() {
@@ -263,33 +285,35 @@ class OrderWrite extends React.Component {
     if (isCart) {
       // money
       money = cartAdverstInfo.reduce((a, b, index) => {
+        let result;
         if (index === 1) {
           const aTotalMoney = a.price * a.number;
           const bTotalMoney = b.price * b.number;
-          return aTotalMoney + bTotalMoney
+          result = aTotalMoney + bTotalMoney;
         } else {
           const bTotalMoney = b.price * b.number;
-          return a + bTotalMoney
+          result = a + bTotalMoney;
         }
-      })
+        return result;
+      });
     } else {
-      money = productDetailNumber * price
+      money = productDetailNumber * price;
     }
 
     if (couponSelectItem.id) {
       if (couponSelectItem.voucherType === 0) {
         // 打折券
-        money = money * couponSelectItem.voucherValue * 0.01
+        money *= couponSelectItem.voucherValue * 0.01;
       } else {
-        money = money - couponSelectItem.voucherValue
+        money -= couponSelectItem.voucherValue;
       }
     }
 
-    return priceFormat(money)
+    return priceFormat(money);
   }
 
   renderBottom() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       nav: {
         flexDirection: 'row',
         borderTopWidth: 1,
@@ -324,22 +348,27 @@ class OrderWrite extends React.Component {
     //   detailItem: { price, productDetailNumber },
     //   couponSelectItem,
     // } = this.props;
-    
+
     return (
-      <View style={styles.nav}>
-        <View style={styles.navLeft}>
-          <Text style={styles.navLeftTop}>Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom}>{this.calcMoney()} ₫</Text>
+      <View style={stylesX.nav}>
+        <View style={stylesX.navLeft}>
+          <Text style={stylesX.navLeftTop}>Trà lần đầu</Text>
+          <Text style={stylesX.navLeftBottom}>{this.calcMoney()} ₫</Text>
         </View>
-        <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()}>Submit</Text>
+        <Text
+          style={stylesX.navRight}
+          onPress={() => this.handleOnPressSubmit()}
+        >
+          Submit
+        </Text>
       </View>
-    )
+    );
   }
-  
+
   render() {
     const {
-      navigation: { navigate },
-      i18n,
+      // navigation: { navigate },
+      // i18n,
       isCart,
       cartAdverstInfo,
       addressSelectedItem,
@@ -350,36 +379,45 @@ class OrderWrite extends React.Component {
     } = this.props;
     console.log('this.propsthis.propsthis.propsthis.props');
     console.log(this.props);
-    const adverstInfo = isCart ? 
-    cartAdverstInfo : 
-    [{
-      brandId: detailItem.brandId,
-      propertiesIds: detailItem.propertiesIds,
-      imageUrl: detailItem.imageUrls[0] && detailItem.imageUrls[0].imageUrl,
-      name: detailItem.name,
-      price: detailItem.price,
-      number: detailItem.productDetailNumber,
-    }];
+    const adverstInfo = isCart
+      ? cartAdverstInfo
+      : [
+          {
+            brandId: detailItem.brandId,
+            propertiesIds: detailItem.propertiesIds,
+            imageUrl:
+              detailItem.imageUrls[0] && detailItem.imageUrls[0].imageUrl,
+            name: detailItem.name,
+            price: detailItem.price,
+            number: detailItem.productDetailNumber,
+          },
+        ];
 
     return (
       <View style={styles.container}>
-        {(getUserInfoById.loading || orderCreate.loading) && <Loader absolutePosition />}
+        {(getUserInfoById.loading || orderCreate.loading) && (
+          <Loader absolutePosition />
+        )}
         <BYHeader />
         <ScrollView>
           <Address
-            addressSelectedItem={addressSelectedItem} 
-            onPress={() => this.handleOnPressAddress()} 
+            addressSelectedItem={addressSelectedItem}
+            onPress={() => this.handleOnPressAddress()}
           />
           <View style={styles.bar} />
-          <ProductItem2 
+          <ProductItem2
             data={adverstInfo}
             stylePricePrice={{ color: '#666' }}
-            isShowNumber={true}
+            isShowNumber
           />
-          <NavBar2 
-            onPress={() => this.handleOnPressCoupon()} 
-            valueLeft={'Sử dụng voucher'} 
-            valueMiddle={ couponSelectItem.id ? couponSelectItem.voucherName : 'không thể sử dụng voucher'} 
+          <NavBar2
+            onPress={() => this.handleOnPressCoupon()}
+            valueLeft="Sử dụng voucher"
+            valueMiddle={
+              couponSelectItem.id
+                ? couponSelectItem.voucherName
+                : 'không thể sử dụng voucher'
+            }
           />
         </ScrollView>
         {this.renderBottom()}
@@ -391,6 +429,7 @@ class OrderWrite extends React.Component {
 export default connectLocalization(
   connect(
     () => {
+      console.log();
       return (state, props) => {
         const {
           address,
@@ -400,12 +439,27 @@ export default connectLocalization(
           productDetailInfo,
           couponSelect,
         } = state;
-        const groupon = props.navigation.state.params.groupon;
-        const mergeMasterInfo = props.navigation.state.params.mergeMasterInfo;
-        const detailItem = groupon ? mergeGetDetail.item : productDetailInfo.item;
-        const isCart = props.navigation.state.params.isCart;
-        const cartProducts = props.navigation.state.params.products;
-        const cartAdverstInfo = props.navigation.state.params.adverstInfo;
+        const {
+          navigation: {
+            state: {
+              params: {
+                groupon,
+                mergeMasterInfo,
+                isCart,
+                products,
+                adverstInfo,
+              },
+            },
+          },
+        } = props;
+        // const groupon = props.navigation.state.params.groupon;
+        // const mergeMasterInfo = props.navigation.state.params.mergeMasterInfo;
+        const detailItem = groupon
+          ? mergeGetDetail.item
+          : productDetailInfo.item;
+        // const isCart = props.navigation.state.params.isCart;
+        // const cartProducts = props.navigation.state.params.products;
+        // const cartAdverstInfo = props.navigation.state.params.adverstInfo;
         console.log(groupon);
         console.log(mergeMasterInfo);
         return {
@@ -413,8 +467,8 @@ export default connectLocalization(
           groupon,
           mergeMasterInfo,
           isCart,
-          cartProducts,
-          cartAdverstInfo,
+          cartProducts: products,
+          cartAdverstInfo: adverstInfo,
           detailItem,
           orderCreate,
           addressSelectedItem: getAddressSelectedItem(state, props),
@@ -424,8 +478,8 @@ export default connectLocalization(
           isAuthUser: !!state.auth.user,
           getUserInfoById,
           userType: getUserInfoById.item.userType || null,
-        }
-      }
+        };
+      };
     },
     {
       ...addressActionCreators,
@@ -433,6 +487,6 @@ export default connectLocalization(
       ...getUserInfoByIdActionCreators,
       ...orderCreateActionCreators,
       ...couponSelectActionCreators,
-    }
-  )(OrderWrite)
+    },
+  )(OrderWrite),
 );

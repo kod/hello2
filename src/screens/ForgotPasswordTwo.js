@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class ForgotPasswordTwo extends React.Component {
+class ForgotPasswordTwo extends Component {
   renderInputRightCode = () => {
     return (
       <View style={styles.second}>

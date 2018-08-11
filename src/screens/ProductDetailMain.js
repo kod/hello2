@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProductDetail extends React.Component {
+class ProductDetail extends Component {
   componentDidMount() {
     const {
       commentFetch,
@@ -317,9 +317,7 @@ class ProductDetail extends React.Component {
           />
           <View style={styles.product}>
             <Text style={styles.productTitle}>{name}</Text>
-            <Text style={styles.productPrice}>
-              {priceFormat(price || 0)} ₫
-            </Text>
+            <Text style={styles.productPrice}>{priceFormat(price || 0)} ₫</Text>
             <View style={styles.serverinfo}>
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" />
               <Text style={styles.serverinfoToBePaidText}>

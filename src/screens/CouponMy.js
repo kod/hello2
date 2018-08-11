@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class Coupon extends React.Component {
+class Coupon extends Component {
   constructor(props) {
     super(props);
 

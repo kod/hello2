@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class MyCollection extends React.Component {
+class MyCollection extends Component {
   constructor(props) {
     super(props);
   }

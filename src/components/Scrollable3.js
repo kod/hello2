@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import SwiperFlatList from './SwiperFlatList';
@@ -13,7 +13,7 @@ import * as newComputerActionCreators from '../common/actions/newComputer';
 
 const { width, height } = Dimensions.get('window');
 
-class Scrollable3 extends React.Component {
+class Scrollable3 extends Component {
   constructor(props) {
     super(props);
   }

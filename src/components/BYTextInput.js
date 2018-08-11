@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 
 const styles = StyleSheet.create({

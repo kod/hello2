@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, Dimensions, Alert } from 'react-native';
 import { connect } from 'react-redux';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Cart extends React.Component {
+class Cart extends Component {
   componentDidMount() {
     const { cartRequest, isAuthUser } = this.props;
     if (isAuthUser) cartRequest();

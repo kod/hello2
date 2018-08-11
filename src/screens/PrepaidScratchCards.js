@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -8,7 +8,7 @@ import ButtonSelect from "../components/ButtonSelect";
 import CustomIcon from '../components/CustomIcon';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
-import ActionSheet from "../components/ActionSheet";
+import ActionSheet from '../components/ActionSheet';
 import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PrepaidPhoneCard extends React.Component {
+class PrepaidPhoneCard extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProductDetailComment extends React.Component {
+class ProductDetailComment extends Component {
   componentDidMount() {
     const { bannerSwiperFetch } = this.props;
     

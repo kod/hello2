@@ -85,7 +85,7 @@ export function* updatePeriodFetchWatch() {
 
 export function* updatePeriodSuccessWatchHandle(action) {
   try {
-    if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
     yield put(cardQueryFetch());
     NavigatorService.pop(1);
   } catch (error) {

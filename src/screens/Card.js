@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   StyleSheet,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Card extends React.Component {
+class Card extends Component {
   // constructor(props) {
   //   super(props);
   // }
@@ -161,9 +161,7 @@ class Card extends React.Component {
           <View style={stylesX.cardMain}>
             <Text style={stylesX.logoText}>Buyoo</Text>
             <Text style={stylesX.title}>available credit</Text>
-            <Text style={stylesX.price}>
-              {priceFormat(availableBalance)} ₫
-            </Text>
+            <Text style={stylesX.price}>{priceFormat(availableBalance)} ₫</Text>
             <View style={stylesX.info}>
               <Text style={stylesX.cardId}>
                 {priceFormat(cardCode, ' ', 4)}

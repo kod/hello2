@@ -97,7 +97,7 @@ export function* modifyPayPasswordSuccessWatchHandle(action) {
     const {
       from,
     } = action.payload;
-    // if(Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    // if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
     yield put(cardQueryFetch());
     Alert.alert(
       '',

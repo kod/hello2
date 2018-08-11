@@ -1,6 +1,6 @@
 /* eslint-disable no-class-assign */
 
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class AddressAdd extends React.Component {
+class AddressAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {

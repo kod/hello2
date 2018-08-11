@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
 
 export default ({ ...restProps }) => (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -13,7 +13,7 @@ import BYHeader from '../components/BYHeader';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
-import ActionSheet from "../components/ActionSheet";
+import ActionSheet from '../components/ActionSheet';
 import Loader from '../components/Loader';
 import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class Evalution extends React.Component {
+class Evalution extends Component {
   constructor(props) {
     super(props);
 

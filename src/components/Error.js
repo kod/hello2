@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { RED_COLOR, } from '../styles/variables';

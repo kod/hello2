@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,7 +8,7 @@ import CustomIcon from '../components/CustomIcon';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
-import ActionSheet from "../components/ActionSheet";
+import ActionSheet from '../components/ActionSheet';
 import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PrepaidRecharge extends React.Component {
+class PrepaidRecharge extends Component {
   constructor(props) {
     super(props);
     this.state = {

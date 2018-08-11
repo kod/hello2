@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import CustomIcon from './CustomIcon';
 import BYTouchable from './BYTouchable';

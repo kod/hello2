@@ -1,8 +1,16 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, RefreshControl, Image, InteractionManager, } from 'react-native';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  // Alert,
+  RefreshControl,
+  // Image,
+  InteractionManager,
+} from 'react-native';
 import { connect } from 'react-redux';
 
-import { SCREENS } from '../common/constants';
 import { getOrderItem } from '../common/selectors';
 import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
 
@@ -16,9 +24,19 @@ import EmptyState from '../components/EmptyState';
 import Loader from '../components/Loader';
 
 import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  SIDEINTERVAL,
+  // APPBAR_HEIGHT,
+  // STATUSBAR_HEIGHT,
+  SCREENS,
+} from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
-import { tradeStatusCodes, buttonTextForTradeStatusCodes } from '../common/helpers';
+import {
+  tradeStatusCodes,
+  buttonTextForTradeStatusCodes,
+} from '../common/helpers';
 
 const styles = StyleSheet.create({
   container: {
@@ -70,8 +88,7 @@ const stylesScrollable = StyleSheet.create({
   },
 });
 
-class Scrollable extends React.Component {  
-
+class Scrollable extends Component {
   render() {
     // const adverstInfo = [{
     //   brandId: detailItem.brandId,
@@ -105,7 +122,7 @@ class Scrollable extends React.Component {
                   data={val.goodList}
                   stylePricePrice={{ color: '#fff' }}
                   stylePricePeriods={{ color: '#fff' }}
-                  isShowNumber={true}
+                  isShowNumber
                 />
                 <View style={stylesScrollable.totalPrice}>
                   <Text style={stylesScrollable.price}>total: {priceFormat(val.totalAmount)} ₫</Text>
@@ -130,7 +147,7 @@ class Scrollable extends React.Component {
   }
 }
 
-class Order extends React.Component {
+class Order extends Component {
   constructor(props) {
     super(props);
   

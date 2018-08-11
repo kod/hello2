@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   // StyleSheet,
   View,
@@ -88,7 +88,7 @@ import { BORDER_COLOR } from '../styles/variables';
 //   },
 // });
 
-class Scrollable1 extends React.Component {
+class Scrollable1 extends Component {
   // constructor(props) {
   //   super(props);
   // }

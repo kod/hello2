@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { StyleSheet, Text, View, ScrollView, Keyboard, DeviceEventEmitter, } from 'react-native';
@@ -41,7 +41,7 @@ const validate = (values, props) => {
   return errors;
 };
 
-class Login extends React.Component {
+class Login extends Component {
   componentDidMount() {
     const {
       navigation: { goBack, navigate },

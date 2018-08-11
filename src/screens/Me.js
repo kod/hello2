@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   StyleSheet,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Me extends React.Component {
+class Me extends Component {
   constructor(props) {
     super(props);
     this.handleOnNavBar1Callback = this.handleOnNavBar1Callback.bind(this);

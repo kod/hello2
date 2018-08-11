@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class Address extends React.Component {
+class Address extends Component {
   componentDidMount() {
     const {
       isAuthUser,

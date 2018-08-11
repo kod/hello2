@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -72,7 +72,7 @@ const validate = (values, props) => {
   return errors;
 };
 
-class RegisterStepTwo extends React.Component {
+class RegisterStepTwo extends Component {
   submit = data => {
     const {
       otp,

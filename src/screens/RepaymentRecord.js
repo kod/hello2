@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class RepaymentRecord extends React.Component {
+class RepaymentRecord extends Component {
 
   componentDidMount() {
     const {

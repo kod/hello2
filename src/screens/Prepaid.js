@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Prepaid extends React.Component {
+class Prepaid extends Component {
   constructor(props) {
     super(props);
 

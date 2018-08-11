@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class GroupBuyList extends React.Component {
+class GroupBuyList extends Component {
 
   componentDidMount() {
     const {

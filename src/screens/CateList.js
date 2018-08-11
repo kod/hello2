@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class CateList extends React.Component {
+class CateList extends Component {
 
   componentDidMount() {
     const {

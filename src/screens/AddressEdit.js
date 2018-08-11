@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View, ScrollView, StyleSheet, Modal, Platform, ToastAndroid, } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class AddressInput extends React.Component {
+class AddressInput extends Component {
   render() {
     const {
       // input,
@@ -92,7 +92,7 @@ class AddressInput extends React.Component {
   }
 }
 
-class AddressAdd extends React.Component {
+class AddressAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {

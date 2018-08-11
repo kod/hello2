@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   BackHandler,
   // BackHandler,
@@ -31,7 +31,7 @@ import { SCREENS } from '../common/constants';
 //   },
 // });
 
-class WebView extends React.Component {
+class WebView extends Component {
   componentDidMount() {
     const {
       navigation: {

@@ -136,7 +136,7 @@ export function* orderPaySuccessWatchHandle(action) {
           '',
           '支付成功',
           [
-            // { text: i18n.cancel, },
+            // { text: i18n.cancel },
             { 
               text: i18n.confirm, 
               onPress: () => {

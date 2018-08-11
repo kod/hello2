@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 
 import Card from '../screens/Card';

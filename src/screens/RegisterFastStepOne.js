@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image, Button } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class RegisterFastStepOne extends React.Component {
+class RegisterFastStepOne extends Component {
   render() {
     const {
       navigation: { goBack, navigate },

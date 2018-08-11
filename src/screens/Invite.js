@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Invite extends React.Component {
+class Invite extends Component {
   constructor(props) {
     super(props);
     this.state = {

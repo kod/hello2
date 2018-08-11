@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   TouchableOpacity,
   // TouchableNativeFeedback,
@@ -28,7 +28,7 @@ const PXTouchable = ({ activeOpacity = 0.7, ...props }) => (
 
 export default PXTouchable;
 
-// import React from 'react';
+// import React, { Component } from 'react';
 // import {
 //   TouchableOpacity,
 //   TouchableNativeFeedback,

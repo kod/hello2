@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, ToastAndroid, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 })
 
-class TransactionPasswordStepTwo extends React.Component {
+class TransactionPasswordStepTwo extends Component {
   constructor(props) {
     super(props);
     this.state = {

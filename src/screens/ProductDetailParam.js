@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, Image, FlatList, WebView } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProductDetailParam extends React.Component {
+class ProductDetailParam extends Component {
   componentDidMount() {
     const { bannerSwiperFetch } = this.props;
     // bannerSwiperFetch('one');
