@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
 import Loader from '../components/Loader';
-import { RED_COLOR, BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { SCREENS, SIDEINTERVAL, WINDOW_WIDTH, WINDOW_HEIGHT, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../common/constants';
+import {
+  // RED_COLOR,
+  BORDER_COLOR,
+  PRIMARY_COLOR,
+} from '../styles/variables';
+import {
+  SCREENS,
+  SIDEINTERVAL,
+  WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  APPBAR_HEIGHT,
+  STATUSBAR_HEIGHT,
+} from '../common/constants';
 
 import * as getMenuActionCreators from '../common/actions/getMenu';
 import * as authActionCreators from '../common/actions/auth';
@@ -20,14 +31,13 @@ const styles = StyleSheet.create({
 });
 
 class Categories extends Component {
-
   componentDidMount() {
     const { getMenuFetch } = this.props;
     getMenuFetch();
   }
 
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
         alignItems: 'center',
@@ -38,17 +48,17 @@ class Categories extends Component {
         height: 45,
         lineHeight: 45,
       },
-    })
-    
+    });
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Categories</Text>
+      <View style={stylesX.container}>
+        <Text style={stylesX.title}>Categories</Text>
       </View>
-    )
-  }
+    );
+  };
 
   renderScrollViewRight() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       scrollViewRight: {
         width: WINDOW_WIDTH * 0.75,
       },
@@ -56,6 +66,29 @@ class Categories extends Component {
         paddingTop: SIDEINTERVAL,
         paddingBottom: SIDEINTERVAL,
       },
+    });
+
+    const {
+      // levelOne,
+      levelTwo,
+      levelOneIndex,
+      // navigation: { navigate },
+    } = this.props;
+
+    return (
+      <ScrollView style={stylesX.scrollViewRight}>
+        <View style={stylesX.main}>
+          {levelTwo.map(
+            (val, key) =>
+              levelOneIndex === key && this.renderScrollViewRightItem(val, key),
+          )}
+        </View>
+      </ScrollView>
+    );
+  }
+
+  renderScrollViewRightItem(val, key) {
+    const stylesX = StyleSheet.create({
       rightItemTitle: {
         fontSize: 11,
         color: '#ccc',
@@ -87,51 +120,43 @@ class Categories extends Component {
         color: '#666',
       },
     });
-    
+
     const {
-      levelOne,
+      // levelOne,
       levelTwo,
-      levelOneIndex,
       navigation: { navigate },
     } = this.props;
 
     return (
-      <ScrollView style={styles.scrollViewRight}>
-      <View style={styles.main}>
-          {
-            levelTwo.map((val, key) => {
-              return (
-                levelOneIndex === key &&
-                <View style={styles.rightItem} key={key}>
-                  <Text style={styles.rightItemTitle}></Text>
-                  <View style={styles.rightItemMain}>
-                    {
-                      levelTwo.length !== 0 && 
-                      val.map((val1, key1) => {
-                        return (
-                          <BYTouchable 
-                            style={styles.rightItemSubItem} 
-                            key={key1} 
-                            onPress={() => navigate(SCREENS.CateList, { parent_id: val1.parentId, classfy_id: val1.id })}
-                          >
-                            <Image style={styles.rightItemSubItemImage} source={{ uri: val1.imageUrl }} />
-                            <Text style={styles.rightItemSubItemText}>{val1.name}</Text>
-                          </BYTouchable>
-                        )
-                      })
-                    }
-                  </View>
-                </View>
-              )
-            })
-          }
+      <View style={stylesX.rightItem} key={key}>
+        <Text style={stylesX.rightItemTitle} />
+        <View style={stylesX.rightItemMain}>
+          {levelTwo.length !== 0 &&
+            val.map(val1 => (
+              <BYTouchable
+                style={stylesX.rightItemSubItem}
+                key={val1.imageUrl}
+                onPress={() =>
+                  navigate(SCREENS.CateList, {
+                    parent_id: val1.parentId,
+                    classfy_id: val1.id,
+                  })
+                }
+              >
+                <Image
+                  style={stylesX.rightItemSubItemImage}
+                  source={{ uri: val1.imageUrl }}
+                />
+                <Text style={stylesX.rightItemSubItemText}>{val1.name}</Text>
+              </BYTouchable>
+            ))}
+        </View>
       </View>
-    </ScrollView>
-    )
+    );
   }
 
   renderContent() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       content: {
         height: WINDOW_HEIGHT - APPBAR_HEIGHT - STATUSBAR_HEIGHT - 1,
         flexDirection: 'row',
@@ -177,45 +202,44 @@ class Categories extends Component {
       getMenuIndexFetch,
       levelOneIndex,
       loading,
+      // loading,
     } = this.props;
 
     if (loading) return <Loader />;
-    
-    return (
-      <View style={styles.content}>
-        <ScrollView style={styles.scrollViewLeft}>
-          <View style={styles.main}>
-            {
-              levelOne.map((val, key) => {
-                return (
-                  <BYTouchable style={styles.item} 
-                    key={key} 
-                    onPress={() => getMenuIndexFetch(key)}
-                  >
-                    <Image style={styles.itemImage} source={{ uri: val.image }} />
-                    <Text style={styles.itemText}>{val.name}</Text>
 
-                    {
-                      levelOneIndex === key && 
-                      <View style={styles.itemActive} />
-                    }
-                  </BYTouchable>
-                )
-              }) 
-            }
+    return (
+      <View style={stylesX.content}>
+        <ScrollView style={stylesX.scrollViewLeft}>
+          <View style={stylesX.main}>
+            {levelOne.map((val, key) => (
+              <BYTouchable
+                style={stylesX.item}
+                key={val.image}
+                onPress={() => getMenuIndexFetch(key)}
+              >
+                <Image style={stylesX.itemImage} source={{ uri: val.image }} />
+                <Text style={stylesX.itemText}>{val.name}</Text>
+
+                {levelOneIndex === key && <View style={stylesX.itemActive} />}
+              </BYTouchable>
+            ))}
           </View>
         </ScrollView>
         {this.renderScrollViewRight()}
       </View>
-    )
+    );
   }
 
   render() {
-    const { getMenu, navigation: { navigate }, i18n } = this.props;
+    // const {
+    //   getMenu,
+    //   navigation: { navigate },
+    //   i18n,
+    // } = this.props;
 
     return (
       <View style={styles.container}>
-        <BYHeader 
+        <BYHeader
           headerTitle={this.renderHeaderTitle()}
           showBackButton={false}
         />
@@ -228,9 +252,11 @@ class Categories extends Component {
 export default connectLocalization(
   connect(
     () => {
-      return (state, props) => {
+      console.log();
+      return state => {
         const {
           getMenu,
+          // getMenu,
         } = state;
 
         // const {
@@ -243,28 +269,12 @@ export default connectLocalization(
           levelTwo: getMenu.levelTwo,
           levelOneIndex: getMenu.levelOneIndex,
           levelTwoIndex: getMenu.levelTwoIndex,
-        }
-      }
+        };
+      };
     },
     {
       ...getMenuActionCreators,
       ...authActionCreators,
-    }
-  )(Categories)
+    },
+  )(Categories),
 );
-
-
-// function mapStateToProps(state, props) {
-//   const { getMenu } = state;
-//   return {
-//     loading: getMenu.loading,
-//     levelOne: getMenu.levelOne,
-//     levelTwo: getMenu.levelTwo,
-//     levelOneIndex: getMenu.levelOneIndex,
-//     levelTwoIndex: getMenu.levelTwoIndex,
-//   };
-// }
-
-// export default connectLocalization(
-//   connect(mapStateToProps, { ...getMenuActionCreators, ...authActionCreators })(Categories)
-// );
