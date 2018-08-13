@@ -304,30 +304,26 @@ class OrderWrite extends Component {
       // tradeNo,
     } = this.props;
 
-    Alert.alert(
-      '',
-      'Xác nhận？',
-      [
-        { 
-          text: 'Hủy', 
-          onPress: () => {}
+    Alert.alert('', 'Xác nhận？', [
+      {
+        text: 'Hủy',
+        onPress: () => {},
+      },
+      {
+        text: 'Xác nhận',
+        onPress: () => {
+          orderCancelFetch({
+            orderno: orderNo,
+            tradeno: tradeNo,
+            status: '40000',
+          });
         },
-        { 
-          text: 'Xác nhận', 
-          onPress: () => {
-            orderCancelFetch({
-              orderno: orderNo,
-              tradeno: tradeNo,
-              status: '40000',
-            })
-          }
-        }
-      ]
-    )
+      },
+    ]);
   }
 
   renderBottom() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       nav: {
         flexDirection: 'row',
         borderTopWidth: 1,
@@ -379,27 +375,36 @@ class OrderWrite extends Component {
 
     const {
       queryOrderItem: {
-        tradeStatus, 
+        tradeStatus,
         advance,
-      }
+        // advance,
+      },
     } = this.props;
 
     return (
-      <View style={styles.nav}>
-        <View style={styles.navLeft}>
-          <Text style={styles.navLeftTop}>Trà lần đầu</Text>
-          <Text style={styles.navLeftBottom}>{priceFormat(advance)} ₫</Text>
+      <View style={stylesX.nav}>
+        <View style={stylesX.navLeft}>
+          <Text style={stylesX.navLeftTop}>Trà lần đầu</Text>
+          <Text style={stylesX.navLeftBottom}>{priceFormat(advance)} ₫</Text>
         </View>
-        {
-          tradeStatus === '10000' &&
-          <Text style={styles.navCancel} onPress={() => this.handleOnPressCancel()}>Cancel Order</Text>
-        }
-        {
-          tradeStatus === '10000' &&
-          <Text style={styles.navRight} onPress={() => this.handleOnPressSubmit()}>Pay</Text>
-        }
+        {tradeStatus === '10000' && (
+          <Text
+            style={stylesX.navCancel}
+            onPress={() => this.handleOnPressCancel()}
+          >
+            Cancel Order
+          </Text>
+        )}
+        {tradeStatus === '10000' && (
+          <Text
+            style={stylesX.navRight}
+            onPress={() => this.handleOnPressSubmit()}
+          >
+            Pay
+          </Text>
+        )}
       </View>
-    )
+    );
   }
 
   // renderBottomSheet() {
@@ -445,7 +450,7 @@ class OrderWrite extends Component {
   //       textAlign: 'center',
   //     },
   //   });
-    
+
   //   return (
   //     <View style={styles.container}>
   //       <BYTouchable style={styles.closeWrap} onPress={() => this.handleOnPressToggleBottomSheet()}>
@@ -509,17 +514,17 @@ class OrderWrite extends Component {
 
   renderContent() {
     const {
-      isOpenActionSheet,
-      isOpenBottomSheet,
-      isOpenEnterPassword,
+      // isOpenActionSheet,
+      // isOpenBottomSheet,
+      // isOpenEnterPassword,
       payWayButtons,
       payWayIndex,
     } = this.state;
 
     const {
-      navigation: { navigate },
-      i18n,
-      addressItems,
+      // navigation: { navigate },
+      // i18n,
+      // addressItems,
       getUserInfoById,
       cardQuery,
       queryOrderItem: {
@@ -548,67 +553,72 @@ class OrderWrite extends Component {
       division4thName,
     };
 
-    if (getUserInfoById.loading || cardQuery.loading) return <Loader />
+    if (getUserInfoById.loading || cardQuery.loading) return <Loader />;
 
     return (
       <View style={styles.container}>
         <ScrollView>
           <Text style={styles.status}>{tradeStatusCodes(tradeStatus)}</Text>
           <Address
-            addressSelectedItem={addressSelectedItem} 
-            // onPress={() => navigate(SCREENS.Address, { isSelect: true })} 
+            addressSelectedItem={addressSelectedItem}
+            // onPress={() => navigate(SCREENS.Address, { isSelect: true })}
           />
           <SeparateBar />
-          <ProductItem2 
+          <ProductItem2
             data={goodsDetail}
             stylePricePrice={{ color: '#666' }}
             isShowNumber
           />
-          <Text style={styles.totalPrice}>{priceFormat(advance + couponValue)} ₫</Text>
+          <Text style={styles.totalPrice}>
+            {priceFormat(advance + couponValue)} ₫
+          </Text>
           <SeparateBar />
-          <NavBar2 
-            onPress={() => tradeStatus === '10000' && this.handleOnPressToggleModal('isOpenActionSheet')} 
-            valueLeft={'Order amount'} 
-            valueMiddle={payWayButtons[payWayIndex]} 
+          <NavBar2
+            onPress={() =>
+              tradeStatus === '10000' &&
+              this.handleOnPressToggleModal('isOpenActionSheet')
+            }
+            valueLeft="Order amount"
+            valueMiddle={payWayButtons[payWayIndex]}
           />
-          <NavBar2 
+          <NavBar2
             // onPress={() => this.handleOnPressToggleBottomSheet()}
-            valueLeft={'Coupon value'} 
-            valueMiddle={couponValue} 
+            valueLeft="Coupon value"
+            valueMiddle={couponValue}
             isShowRight={false}
           />
         </ScrollView>
         {this.renderBottom()}
       </View>
-    )
+    );
   }
-  
+
   render() {
     const {
       isOpenActionSheet,
       // isOpenBottomSheet,
       isOpenEnterPassword,
       payWayButtons,
-      payWayIndex,
+      // payWayIndex,
     } = this.state;
-    
-    const {
-      navigation: { navigate },
-      i18n,
-      addressItems,
-      queryOrderItem: {
-        goodsDetail,
-        address,
-        couponValue,
-        username,
-        msisdn,
-        division1stName,
-        division2ndName,
-        division3rdName,
-        division4thName,
-        tradeStatus,
-      },
-    } = this.props;
+
+    // const {
+    //   navigation: { navigate },
+    //   i18n,
+    //   addressItems,
+    //   queryOrderItem: {
+    //     goodsDetail,
+    //     address,
+    //     couponValue,
+    //     username,
+    //     msisdn,
+    //     division1stName,
+    //     division2ndName,
+    //     division3rdName,
+    //     division4thName,
+    //     tradeStatus,
+    //   },
+    // } = this.props;
 
     return (
       <View style={styles.container}>
@@ -620,15 +630,19 @@ class OrderWrite extends Component {
         >
           {this.renderBottomSheet()}
         </BYModal> */}
-        <ActionSheet 
+        <ActionSheet
           visible={isOpenActionSheet}
-          onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
+          onRequestClose={() =>
+            this.handleOnPressToggleModal('isOpenActionSheet')
+          }
           buttons={payWayButtons}
           callback={this.actionSheetCallback}
         />
-        <EnterPassword 
+        <EnterPassword
           visible={isOpenEnterPassword}
-          onRequestClose={() => this.handleOnPressToggleModal('isOpenEnterPassword')}
+          onRequestClose={() =>
+            this.handleOnPressToggleModal('isOpenEnterPassword')
+          }
           callback={this.enterPasswordCallback}
         />
       </View>
@@ -639,18 +653,32 @@ class OrderWrite extends Component {
 export default connectLocalization(
   connect(
     () => {
+      console.log();
       return (state, props) => {
         const {
           address,
           queryOrder,
           getUserInfoById,
           cardQuery,
+          // cardQuery,
         } = state;
 
         const {
-          orderNo,
-          tradeNo,
-        } = props.navigation.state.params;
+          navigation: {
+            state: {
+              params: {
+                orderNo,
+                tradeNo,
+                // tradeNo,
+              },
+            },
+          },
+        } = props;
+
+        // const {
+        //   orderNo,
+        //   tradeNo,
+        // } = props.navigation.state.params;
 
         return {
           addressSelectedItem: getAddressSelectedItem(state, props),
@@ -663,8 +691,8 @@ export default connectLocalization(
           getUserInfoById,
           initPassword: getUserInfoById.item.initPassword || null,
           userType: getUserInfoById.item.userType || null,
-        }
-      }
+        };
+      };
     },
     {
       ...addressActionCreators,
@@ -675,6 +703,6 @@ export default connectLocalization(
       ...cardSubmitActionCreators,
       ...cardQueryActionCreators,
       ...orderCancelActionCreators,
-    }
-  )(OrderWrite)
+    },
+  )(OrderWrite),
 );

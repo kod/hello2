@@ -11,7 +11,7 @@ export default function cardQuery(state = initState, action) {
   switch (action.type) {
     case CARD_QUERY.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case CARD_QUERY.REQUEST:
       return {
