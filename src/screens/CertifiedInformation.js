@@ -43,6 +43,7 @@ import {
   SCREENS,
   NAME_EXPR,
   IDENTIFICATION_EXPR,
+  // PHONE_EXPR,
   EMAIL_EXPR,
   MODAL_TYPES,
 } from '../common/constants';
@@ -256,6 +257,10 @@ class CertifiedInformation extends Component {
         !graduationtime.length
       )
         return tips(i18n.pleaseFillSchoolInformation);
+
+      // if (!PHONE_EXPR.test(connectusermsisdn1))
+      //   return tips(i18n.pleaseEnterYourAddress);
+      // 暂时不验证
 
       if (
         !connectusername1.length ||

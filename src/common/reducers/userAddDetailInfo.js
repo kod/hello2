@@ -10,7 +10,7 @@ export default function userAddDetailInfo(state = initState, action) {
   switch (action.type) {
     case ADD_DETAIL_INFO.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case ADD_DETAIL_INFO.REQUEST:
       return {
