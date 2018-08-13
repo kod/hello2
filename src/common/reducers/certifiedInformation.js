@@ -8,33 +8,33 @@ const initState = {
   loaded: false,
   refreshing: false,
   certUser: {
-    address: "",
-    admissiontime: "",
-    birthday: "",
-    collegeaddr: "",
-    collegename: "",
-    connectuseridentification1: "",
-    connectuseridentification2: "",
-    connectuseridentification3: "",
-    connectusermsisdn1: "",
-    connectusermsisdn2: "",
-    connectusermsisdn3: "",
-    connectusername1: "",
-    connectusername2: "",
-    connectusername3: "",
-    connectuserrelation1: "",
-    connectuserrelation2: "",
-    connectuserrelation3: "",
-    degree: "",
-    department: "",
-    email: "",
-    funid: "",
-    graduationtime: "",
-    headimage: "",
-    identification: "",
-    sex: "",
-    specialty: "",
-    username: "",
+    address: '',
+    admissiontime: '',
+    birthday: '',
+    collegeaddr: '',
+    collegename: '',
+    connectuseridentification1: '',
+    connectuseridentification2: '',
+    connectuseridentification3: '',
+    connectusermsisdn1: '',
+    connectusermsisdn2: '',
+    connectusermsisdn3: '',
+    connectusername1: '',
+    connectusername2: '',
+    connectusername3: '',
+    connectuserrelation1: '',
+    connectuserrelation2: '',
+    connectuserrelation3: '',
+    degree: '',
+    department: '',
+    email: '',
+    funid: '',
+    graduationtime: '',
+    headimage: '',
+    identification: '',
+    sex: '',
+    specialty: '',
+    username: '',
   },
 };
 
@@ -42,7 +42,7 @@ export default function certifiedInformation(state = initState, action) {
   switch (action.type) {
     case CERTIFIED_INFORMATION.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case CERTIFIED_INFORMATION.REQUEST:
       return {
@@ -57,15 +57,33 @@ export default function certifiedInformation(state = initState, action) {
         loaded: true,
         certUser: {
           ...action.payload.certUser,
-          admissiontime: action.payload.certUser.admissiontime ? 
-            `${action.payload.certUser.admissiontime.slice(8, 10)}-${action.payload.certUser.admissiontime.slice(5, 7)}-${action.payload.certUser.admissiontime.slice(0, 4)}` :
-            '',
-          birthday: action.payload.certUser.birthday ? 
-            `${action.payload.certUser.birthday.slice(8, 10)}-${action.payload.certUser.birthday.slice(5, 7)}-${action.payload.certUser.birthday.slice(0, 4)}` : 
-            '',
-          graduationtime: action.payload.certUser.graduationtime ? 
-            `${action.payload.certUser.graduationtime.slice(8, 10)}-${action.payload.certUser.graduationtime.slice(5, 7)}-${action.payload.certUser.graduationtime.slice(0, 4)}` :
-            '',
+          admissiontime: action.payload.certUser.admissiontime
+            ? `${action.payload.certUser.admissiontime.slice(
+                8,
+                10,
+              )}-${action.payload.certUser.admissiontime.slice(
+                5,
+                7,
+              )}-${action.payload.certUser.admissiontime.slice(0, 4)}`
+            : '',
+          birthday: action.payload.certUser.birthday
+            ? `${action.payload.certUser.birthday.slice(
+                8,
+                10,
+              )}-${action.payload.certUser.birthday.slice(
+                5,
+                7,
+              )}-${action.payload.certUser.birthday.slice(0, 4)}`
+            : '',
+          graduationtime: action.payload.certUser.graduationtime
+            ? `${action.payload.certUser.graduationtime.slice(
+                8,
+                10,
+              )}-${action.payload.certUser.graduationtime.slice(
+                5,
+                7,
+              )}-${action.payload.certUser.graduationtime.slice(0, 4)}`
+            : '',
         },
       };
     case CERTIFIED_INFORMATION.FAILURE:
@@ -80,7 +98,7 @@ export default function certifiedInformation(state = initState, action) {
         loading: true,
         certUser: {
           ...state.certUser,
-          [action.payload.key]: action.payload.value,
+          [action.payload.key]: action.payload.value.trim(),
         },
       };
     case CERTIFIED_INFORMATION_EDIT.SUCCESS:
