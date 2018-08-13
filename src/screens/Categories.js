@@ -32,8 +32,15 @@ const styles = StyleSheet.create({
 
 class Categories extends Component {
   componentDidMount() {
-    const { getMenuFetch } = this.props;
-    getMenuFetch();
+    const { getMenuFetch, navigation } = this.props;
+
+    this.didBlurSubscription = navigation.addListener('didFocus', () => {
+      getMenuFetch();
+    });
+  }
+
+  componentWillUnmount() {
+    this.didBlurSubscription.remove();
   }
 
   renderHeaderTitle = () => {
@@ -201,11 +208,9 @@ class Categories extends Component {
       levelOne,
       getMenuIndexFetch,
       levelOneIndex,
-      loading,
+      // loading,
       // loading,
     } = this.props;
-
-    if (loading) return <Loader />;
 
     return (
       <View style={stylesX.content}>
@@ -231,11 +236,14 @@ class Categories extends Component {
   }
 
   render() {
-    // const {
-    //   getMenu,
-    //   navigation: { navigate },
-    //   i18n,
-    // } = this.props;
+    const {
+      // getMenu,
+      // navigation: { navigate },
+      // i18n,
+      loaded,
+    } = this.props;
+
+    if (!loaded) return <Loader />;
 
     return (
       <View style={styles.container}>
@@ -265,6 +273,7 @@ export default connectLocalization(
 
         return {
           loading: getMenu.loading,
+          loaded: getMenu.loaded,
           levelOne: getMenu.levelOne,
           levelTwo: getMenu.levelTwo,
           levelOneIndex: getMenu.levelOneIndex,

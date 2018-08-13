@@ -50,9 +50,17 @@ class Card extends Component {
     const {
       cardQueryFetch,
       isAuthUser,
+      navigation,
       // isAuthUser,
     } = this.props;
-    if (isAuthUser) cardQueryFetch();
+
+    this.didBlurSubscription = navigation.addListener('didFocus', () => {
+      if (isAuthUser) cardQueryFetch();
+    });
+  }
+
+  componentWillUnmount() {
+    this.didBlurSubscription.remove();
   }
 
   renderHeaderTitle = () => {
@@ -176,7 +184,6 @@ class Card extends Component {
 
   renderMain() {
     const {
-      loading,
       initPassword,
       msisdn,
       navigation: { navigate },
@@ -184,7 +191,6 @@ class Card extends Component {
       periodHobbit,
       isAuthUser,
     } = this.props;
-    if (loading) return <Loader />;
 
     // return (
     //   this.renderApplyStatus({
@@ -268,9 +274,12 @@ class Card extends Component {
   }
 
   render() {
-    // const {
-    //   navigation: { navigate },
-    // } = this.props;
+    const {
+      loaded,
+      // navigation: { navigate },
+    } = this.props;
+
+    if (!loaded) return <Loader />;
 
     return <View style={styles.container}>{this.renderMain()}</View>;
   }
@@ -285,6 +294,7 @@ export default connectLocalization(
       } = state;
       return {
         loading: cardQuery.loading,
+        loaded: cardQuery.loaded,
         initPassword: cardQuery.item.initPassword,
         item: cardQuery.item,
         status: cardQuery.item.status,
