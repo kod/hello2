@@ -44,6 +44,7 @@ import {
   NAME_EXPR,
   IDENTIFICATION_EXPR,
   EMAIL_EXPR,
+  MODAL_TYPES,
 } from '../common/constants';
 
 import * as userAddDetailInfoActionCreators from '../common/actions/userAddDetailInfo';
@@ -51,6 +52,7 @@ import * as userCertificateInfoActionCreators from '../common/actions/userCertif
 import * as certifiedInformationActionCreators from '../common/actions/certifiedInformation';
 import * as schoolInfoActionCreators from '../common/actions/schoolInfo';
 import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -99,6 +101,7 @@ class CertifiedInformation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      submitfreeze: false,
       isOpenModal: false,
       sexList: [
         {
@@ -124,6 +127,38 @@ class CertifiedInformation extends Component {
     // if (!isAuthUser) return navigate(SCREENS.Login);
     if (isAuthUser) userCertificateInfoFetch();
     if (schoolInfoItems.length === 0) schoolInfoFetch();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      cardSubmitLoading: prevCardSubmitLoading,
+      addLoading: prevAddLoading,
+    } = this.props;
+    const {
+      cardSubmitLoading,
+      addLoading,
+      openModal,
+      closeModal,
+      // closeModal,
+    } = nextProps;
+    console.log('cardSubmitLoadingcardSubmitLoadingcardSubmitLoading');
+
+    if (prevAddLoading !== addLoading) {
+      if (addLoading) {
+        console.log('openModalopenModalopenModalopenModalopenModal');
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
+    if (prevCardSubmitLoading !== cardSubmitLoading) {
+      if (cardSubmitLoading === false) {
+        console.log('closeModalcloseModalcloseModalcloseModal');
+        closeModal();
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.setTimeoutId);
   }
 
   getSexName() {
@@ -156,6 +191,11 @@ class CertifiedInformation extends Component {
   };
 
   handleOnPressSubmit() {
+    const {
+      submitfreeze,
+      // submitfreeze,
+    } = this.state;
+
     const {
       userAddDetailInfoFetch,
       // cardSubmitFetch,
@@ -242,7 +282,16 @@ class CertifiedInformation extends Component {
       if (!EMAIL_EXPR.test(email)) return tips(i18n.failedEMailPleaseReEnter);
     }
 
-    return userAddDetailInfoFetch();
+    if (submitfreeze === false) {
+      userAddDetailInfoFetch();
+    } else {
+      this.setState({ submitfreeze: true });
+      this.setTimeoutId = setTimeout(() => {
+        this.setState({ submitfreeze: false });
+      }, 2000);
+    }
+
+    return false;
   }
 
   renderBottomSheet() {
@@ -317,8 +366,7 @@ class CertifiedInformation extends Component {
       i18n,
       username,
       loading,
-      addLoading,
-      cardSubmitLoading,
+      // addLoading,
     } = this.props;
 
     if (loading) {
@@ -328,7 +376,7 @@ class CertifiedInformation extends Component {
     return (
       <ScrollView keyboardShouldPersistTaps="always">
         <KeyboardAvoidingView behavior="padding">
-          {(addLoading || cardSubmitLoading) && <Loader absolutePosition />}
+          {/* {addLoading && <Loader absolutePosition />} */}
           <View style={styles.item}>
             <View style={styles.main}>
               <Text style={styles.label}>{i18n.actualName}</Text>
@@ -578,6 +626,7 @@ export default connectLocalization(
       ...userCertificateInfoActionCreators,
       ...userAddDetailInfoActionCreators,
       ...cardSubmitActionCreators,
+      ...modalActionCreators,
     },
   )(CertifiedInformation),
 );

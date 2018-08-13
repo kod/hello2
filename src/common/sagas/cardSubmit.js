@@ -93,14 +93,19 @@ export function* cardSubmitFetchWatch() {
 export function* cardSubmitSuccessWatchHandle() {
   try {
     yield put(cardQueryFetch());
-    Alert.alert('', i18n.ambassadorContactYou, [
-      {
-        text: i18n.confirm,
-        onPress: () => {
-          NavigatorService.pop(1);
+    Alert.alert(
+      '',
+      i18n.ambassadorContactYou,
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {
+            NavigatorService.pop(1);
+          },
         },
-      },
-    ]);
+      ],
+      { cancelable: false },
+    );
   } catch (err) {
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
