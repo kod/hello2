@@ -6,7 +6,7 @@ import { SCREENS, WINDOW_WIDTH } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import CouponItem from "../components/CouponItem";
+import CouponItem from '../components/CouponItem';
 import BYTouchable from '../components/BYTouchable';
 import EmptyState from '../components/EmptyState';
 import Loader from '../components/Loader';
