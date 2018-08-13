@@ -3,7 +3,7 @@ import {
   takeEvery,
   apply,
   put,
-  select,
+  // select,
   // select,
 } from 'redux-saga/effects';
 import moment from 'moment';
@@ -18,8 +18,6 @@ import buyoo from '../helpers/apiClient';
 import { GET_SQUARES_INFO } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
-import { getAuthUserFunid } from '../selectors';
-
 export function* getSquaresInfoFetchWatchHandle(action) {
   try {
     const {
@@ -28,7 +26,7 @@ export function* getSquaresInfoFetchWatchHandle(action) {
       // currentpage = 1,
     } = action.payload;
 
-    const funid = yield select(getAuthUserFunid) || '';
+    const funid = '';
 
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
