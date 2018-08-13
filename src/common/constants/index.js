@@ -17,6 +17,10 @@ export const EMAIL_EXPR = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]
 export const NAME_EXPR = /^.*\s.*$/; // 越南姓名
 export const IDENTIFICATION_EXPR = /^(\d{9}|\d{12})$/; // 越南身份证
 
+export const HTML_REGEX = /html\/(\w+).html/;
+export const BRANDACT_REGEX = /brandAct=(\d+)&/;
+export const CLASSIFYID_REGEX = /classifyId=(\d+)&/;
+
 export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);
 export const WINDOW_HEIGHT = Math.floor(Dimensions.get('window').height);
 export const SIDEINTERVAL = Math.floor(Dimensions.get('window').width) * 0.04;

@@ -10,12 +10,12 @@ import { connect } from 'react-redux';
 
 // import { RED_COLOR } from '../styles/variables';
 
-// import {
-//   // WINDOW_WIDTH,
-//   // WINDOW_HEIGHT,
-//   // SIDEINTERVAL,
-//   SCREENS,
-// } from '../common/constants';
+import {
+  HTML_REGEX,
+  BRANDACT_REGEX,
+  CLASSIFYID_REGEX,
+  // CLASSIFYID_REGEX,
+} from '../common/constants';
 
 import SwiperFlatList from './SwiperFlatList';
 import BannerHomeType from './BannerHomeType';
@@ -89,20 +89,21 @@ import { BORDER_COLOR } from '../styles/variables';
 // });
 
 class Scrollable1 extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
-  componentWillReceiveProps(nextProps) {
-    const { adverstInfo } = this.props;
-    const { adverstInfo: prevAdverstInfo } = nextProps;
-    // const { isBookmark } = this.state;
-    console.log(this.props);
-    console.log(nextProps);
-    console.log('==========');
-    console.log(adverstInfo);
-    console.log(prevAdverstInfo);
+  constructor(props) {
+    super(props);
+    this.handleOnPressNavImg1 = this.handleOnPressNavImg1.bind(this);
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   const { adverstInfo } = this.props;
+  //   const { adverstInfo: prevAdverstInfo } = nextProps;
+  //   // const { isBookmark } = this.state;
+  //   console.log(this.props);
+  //   console.log(nextProps);
+  //   console.log('==========');
+  //   console.log(adverstInfo);
+  //   console.log(prevAdverstInfo);
+  // }
 
   componentDidMount() {
     const {
@@ -131,16 +132,85 @@ class Scrollable1 extends Component {
     // });
   }
 
+  navImg1More(linkUrl) {
+    const brandActRegexResult = linkUrl.match(BRANDACT_REGEX);
+    const classifyIdRegexResult = linkUrl.match(CLASSIFYID_REGEX);
+    if (~~classifyIdRegexResult[1] === 0) {
+      switch (~~brandActRegexResult[1]) {
+        case 1:
+          // 手机
+          console.log('手机');
+          break;
+
+        case 2:
+          // 电脑
+          console.log('电脑');
+          break;
+
+        case 3:
+          // 户外运动
+          console.log('户外运动');
+          break;
+
+        case 4:
+          // 相机单反
+          console.log('相机单反');
+          break;
+
+        case 5:
+          // 智能
+          console.log('智能');
+          break;
+
+        case 6:
+          // 虚拟
+          console.log('虚拟');
+          break;
+
+        case 7:
+          // 腕表
+          console.log('腕表');
+          break;
+
+        case 8:
+          // 化妆品
+          console.log('化妆品');
+          break;
+
+        case 9:
+          // 教育
+          console.log('教育');
+          break;
+
+        default:
+          break;
+      }
+    } else {
+      console.log('二手');
+    }
+  }
+
   handleOnPressNavImg1(val) {
-    console.log(val);
-    // switch (val.id) {
-    //   case 1:
-        
-    //     break;
-    
-    //   default:
-    //     break;
-    // }
+    const { linkUrl } = val;
+    const htmlRegexResult = linkUrl.match(HTML_REGEX);
+    switch (htmlRegexResult[1]) {
+      case 'more':
+        console.log('more');
+        this.navImg1More(linkUrl);
+        break;
+
+      case 'order':
+        console.log('order');
+        break;
+
+      case 'couponcenter':
+        console.log('couponcenter');
+        break;
+
+      default:
+        console.error('error');
+        break;
+    }
   }
 
   render() {
