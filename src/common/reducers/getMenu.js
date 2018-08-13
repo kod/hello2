@@ -13,7 +13,7 @@ export default function getMenu(state = initState, action) {
   switch (action.type) {
     case GET_MENU.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case GET_MENU.REQUEST:
       return {
@@ -26,7 +26,7 @@ export default function getMenu(state = initState, action) {
         loading: false,
         loaded: true,
         levelOne: action.payload.levelOne,
-        levelTwo: action.payload.levelTwo
+        levelTwo: action.payload.levelTwo,
       };
     case GET_MENU.FAILURE:
       return {
