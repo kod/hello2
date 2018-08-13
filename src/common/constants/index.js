@@ -50,6 +50,7 @@ export const PROVIDER_TYPE_MAP = {
 export const MODAL_TYPES = {
   ADDRESSADD: 'ADDRESSADD',
   PARAMSSELECT: 'PARAMSSELECT',
+  LOADER: 'LOADER',
 };
 
 export const SCREENS = {
