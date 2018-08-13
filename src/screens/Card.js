@@ -276,10 +276,11 @@ class Card extends Component {
   render() {
     const {
       loaded,
+      isAuthUser,
       // navigation: { navigate },
     } = this.props;
 
-    if (!loaded) return <Loader />;
+    if (isAuthUser && !loaded) return <Loader />;
 
     return <View style={styles.container}>{this.renderMain()}</View>;
   }
