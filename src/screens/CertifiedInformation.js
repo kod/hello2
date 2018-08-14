@@ -393,6 +393,9 @@ class CertifiedInformation extends Component {
                 placeholder={i18n.pleaseEnterYourActualName}
                 placeholderTextColor="#ccc"
                 onChangeText={val => certifiedInformationEdit('username', val)}
+                onBlur={() =>
+                  certifiedInformationEdit('username', username.trim())
+                }
                 value={username}
               />
             </View>
@@ -406,6 +409,12 @@ class CertifiedInformation extends Component {
                 placeholderTextColor="#ccc"
                 onChangeText={val =>
                   certifiedInformationEdit('identification', val)
+                }
+                onBlur={() =>
+                  certifiedInformationEdit(
+                    'identification',
+                    identification.trim(),
+                  )
                 }
                 value={identification}
                 keyboardType="numeric"
@@ -461,6 +470,9 @@ class CertifiedInformation extends Component {
                 placeholder={i18n.homeTown}
                 placeholderTextColor="#ccc"
                 onChangeText={val => certifiedInformationEdit('address', val)}
+                onBlur={() =>
+                  certifiedInformationEdit('address', address.trim())
+                }
                 value={address}
               />
             </View>
@@ -548,6 +560,7 @@ class CertifiedInformation extends Component {
                 placeholder={i18n.email}
                 placeholderTextColor="#ccc"
                 onChangeText={val => certifiedInformationEdit('email', val)}
+                onBlur={() => certifiedInformationEdit('email', email.trim())}
                 value={email}
               />
             </View>
