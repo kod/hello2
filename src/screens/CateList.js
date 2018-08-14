@@ -1,16 +1,14 @@
 /* eslint-disable camelcase */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-
-import { SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import ProductItem1 from "../components/ProductItem1";
+import ProductItem1 from '../components/ProductItem1';
 import Loader from '../components/Loader';
-import { RED_COLOR } from '../styles/variables';
+// import { RED_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
 
 import * as getAllProductInfoActionCreators from '../common/actions/getAllProductInfo';

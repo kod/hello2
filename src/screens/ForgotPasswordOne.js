@@ -32,7 +32,7 @@ class ForgotPasswordOne extends Component {
           component={InputCountry}
           style={{marginBottom: 70}}
         />
-        <BYButton text={'Next'} onPress={() => navigate(SCREENS.ForgotPasswordTwo)} />
+        <BYButton text="next" onPress={() => navigate(SCREENS.ForgotPasswordTwo)} />
         <View style={{flex: 1, minHeight: WINDOW_HEIGHT * 0.2}} />
         {/* <OtherLogin /> */}
       </View>

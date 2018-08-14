@@ -32,7 +32,7 @@ class RegisterFastStepOne extends Component {
           component={InputCountry}
           style={{marginBottom: 70}}
         />
-        <BYButton text={'Next'} onPress={() => navigate(SCREENS.RegisterFastStepTwo)} />
+        <BYButton text="next" onPress={() => navigate(SCREENS.RegisterFastStepTwo)} />
         <View style={{flex: 1, minHeight: WINDOW_HEIGHT * 0.2}} />
         {/* <OtherLogin /> */}
       </View>
