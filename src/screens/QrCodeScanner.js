@@ -102,7 +102,7 @@ class QrCodeScanner extends Component {
           onRead={this.onSuccess.bind(this)}
           showMarker={true}
           // topContent={
-          //   <Text style={styles.centerText}></Text>
+          //   <Text style={styles.centerText} />
           // }
           // bottomContent={
           //   <TouchableOpacity style={styles.buttonTouchable}>

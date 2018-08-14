@@ -55,7 +55,7 @@ export function* billByYearFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        year: year,
+        year,
       }
     ];
 

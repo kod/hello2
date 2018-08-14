@@ -188,7 +188,7 @@ class EnterPassword extends Component {
               </BYTouchable>
             )
           }
-          <Text style={[styles.keyboardItem, styles.keyboardItemEmpty]}></Text>
+          <Text style={[styles.keyboardItem, styles.keyboardItemEmpty]} />
           <BYTouchable
             onPress={() => this.handleOnPressNumber(0)}><Text style={styles.keyboardItem}>0</Text></BYTouchable>
           <BYTouchable

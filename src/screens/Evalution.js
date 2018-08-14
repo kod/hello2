@@ -259,7 +259,7 @@ class Evalution extends Component {
                 images.map((val, key) => {
                   return (
                     <View style={styles.imageItem} key={key}>
-                      <Text style={styles.imageItemOnLongPress} onLongPress={() => this.handleOnLongPressImgDel(key)}></Text>
+                      <Text style={styles.imageItemOnLongPress} onLongPress={() => this.handleOnLongPressImgDel(key)} />
                       <Image style={styles.imageItemImage} source={{ uri: val }} />
                       {/* <Image style={styles.imageItemImage} source={require('../images/viemnam.png')} /> */}
                     </View>

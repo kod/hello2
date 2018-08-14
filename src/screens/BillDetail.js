@@ -175,7 +175,7 @@ class BillDetail extends Component {
               style={styles.headerBack}
             />
           </BYTouchable>
-          <Text style={styles.title}></Text>
+          <Text style={styles.title} />
         </View>
         <ScrollView >
           {
@@ -196,7 +196,7 @@ export default connectLocalization(
           billDetails,
         } = state;
         return {
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
           id: props.navigation.state.params.id,
           billDetailsItem: billDetails.item,
         }
