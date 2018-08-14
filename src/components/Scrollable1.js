@@ -12,9 +12,11 @@ import { connect } from 'react-redux';
 
 import {
   HTML_REGEX,
-  BRANDACT_REGEX,
+  BRANDID_REGEX,
   CLASSIFYID_REGEX,
-  // CLASSIFYID_REGEX,
+  SUBCLASSFYID_REGEX,
+  THIRDCLASSFYID_REGEX,
+  SCREENS,
 } from '../common/constants';
 
 import SwiperFlatList from './SwiperFlatList';
@@ -133,82 +135,50 @@ class Scrollable1 extends Component {
   }
 
   navImg1More(linkUrl) {
-    const brandActRegexResult = linkUrl.match(BRANDACT_REGEX);
+    const {
+      navigation: { navigate },
+    } = this.props;
+    const brandIdRegexResult = linkUrl.match(BRANDID_REGEX);
     const classifyIdRegexResult = linkUrl.match(CLASSIFYID_REGEX);
-    if (~~classifyIdRegexResult[1] === 0) {
-      switch (~~brandActRegexResult[1]) {
-        case 1:
-          // 手机
-          console.log('手机');
-          break;
-
-        case 2:
-          // 电脑
-          console.log('电脑');
-          break;
-
-        case 3:
-          // 户外运动
-          console.log('户外运动');
-          break;
-
-        case 4:
-          // 相机单反
-          console.log('相机单反');
-          break;
-
-        case 5:
-          // 智能
-          console.log('智能');
-          break;
-
-        case 6:
-          // 虚拟
-          console.log('虚拟');
-          break;
-
-        case 7:
-          // 腕表
-          console.log('腕表');
-          break;
-
-        case 8:
-          // 化妆品
-          console.log('化妆品');
-          break;
-
-        case 9:
-          // 教育
-          console.log('教育');
-          break;
-
-        default:
-          break;
-      }
-    } else {
-      console.log('二手');
-    }
+    const subClassfyIdRegexResult = linkUrl.match(SUBCLASSFYID_REGEX);
+    const thirdClassfyIdRegexResult = linkUrl.match(THIRDCLASSFYID_REGEX);
+    navigate(SCREENS.CateList, {
+      parent_id: brandIdRegexResult ? brandIdRegexResult[1] : '0',
+      classfy_id: classifyIdRegexResult ? classifyIdRegexResult[1] : '0',
+      sub_classfy_id: subClassfyIdRegexResult
+        ? subClassfyIdRegexResult[1]
+        : '0',
+      third_classfy_id: thirdClassfyIdRegexResult
+        ? thirdClassfyIdRegexResult[1]
+        : '0',
+    });
   }
 
   handleOnPressNavImg1(val) {
+    const {
+      navigation: { navigate },
+    } = this.props;
     const { linkUrl } = val;
     const htmlRegexResult = linkUrl.match(HTML_REGEX);
     switch (htmlRegexResult[1]) {
       case 'more':
-        console.log('more');
         this.navImg1More(linkUrl);
         break;
 
       case 'order':
-        console.log('order');
+        navigate(SCREENS.Order, { index: 0 });
         break;
 
       case 'couponcenter':
-        console.log('couponcenter');
+        navigate(SCREENS.CouponMy);
+        break;
+
+      case 'prepaid':
+        navigate(SCREENS.Prepaid);
         break;
 
       default:
-        console.error('error');
+        console.warn('error');
         break;
     }
   }

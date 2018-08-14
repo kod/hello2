@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
 import { connect } from 'react-redux';
@@ -19,19 +21,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-})
+});
 
 class CateList extends Component {
-
   componentDidMount() {
     const {
       getAllProductInfoFetch,
       parent_id,
       classfy_id,
+      sub_classfy_id,
+      third_classfy_id,
     } = this.props;
     getAllProductInfoFetch({
       parent_id,
       classfy_id,
+      sub_classfy_id,
+      third_classfy_id,
     });
   }
 
@@ -91,8 +96,10 @@ export default connectLocalization(
           items: getAllProductInfo.items,
           parent_id: navigation.state.params.parent_id,
           classfy_id: navigation.state.params.classfy_id,
-        }
-      }
+          sub_classfy_id: navigation.state.params.sub_classfy_id,
+          third_classfy_id: navigation.state.params.third_classfy_id,
+        };
+      };
     },
     {
       ...getAllProductInfoActionCreators,

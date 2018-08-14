@@ -37,7 +37,15 @@ export default ({ data, style, onPress, ...restProps }) => (
   <View style={[styles.nav1, style]} {...restProps}>
     {data.map(val => (
       <BYTouchable
-        style={[styles.nav1Item, val.styleItem]}
+        style={[
+          styles.nav1Item,
+          val.styleItem,
+          {
+            width:
+              WINDOW_WIDTH /
+              (data.length > 5 ? data.length * 0.5 : data.length),
+          },
+        ]}
         key={val.id}
         onPress={() => onPress(val)}
       >
