@@ -98,7 +98,10 @@ export default function certifiedInformation(state = initState, action) {
         loading: true,
         certUser: {
           ...state.certUser,
-          [action.payload.key]: action.payload.value.trim(),
+          [action.payload.key]:
+            typeof action.payload.value === 'string'
+              ? action.payload.value.trim()
+              : action.payload.value,
         },
       };
     case CERTIFIED_INFORMATION_EDIT.SUCCESS:
