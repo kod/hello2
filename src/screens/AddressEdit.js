@@ -328,7 +328,7 @@ class AddressAdd extends Component {
           {item.map((val, key) => 
             <BYTouchable style={styles.scrollViewItem} key={key} onPress={() => this.handleOnPressCitySelect(val, scrollViewKey)}>
               <Text style={[styles.scrollViewItemText, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]}>{val.name}</Text>
-              <Ionicons style={[styles.scrollViewItemIcon, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]} name={'ios-radio-button-on-outline'} />
+              <Ionicons style={[styles.scrollViewItemIcon, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]} name="ios-radio-button-on-outline" />
             </BYTouchable>
           )}
         </ScrollView>

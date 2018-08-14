@@ -110,7 +110,7 @@ class CartItem extends Component {
       >
         {
           selected
-          ? <Ionicons name={'ios-radio-button-on-outline'} style={styles.iconSelected} />
+          ? <Ionicons name="ios-radio-button-on-outline" style={styles.iconSelected} />
           : <Ionicons name={'ios-radio-button-off-outline'} style={styles.icon} />
         }
       </BYTouchable>

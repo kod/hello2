@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { withNavigation } from 'react-navigation';
 
-import { SCREENS } from '../common/constants';
-
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
@@ -13,10 +11,17 @@ import EmptyState from '../components/EmptyState';
 import Loader from '../components/Loader';
 
 import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  // WINDOW_HEIGHT,
+  SIDEINTERVAL,
+  SCREENS,
+} from '../common/constants';
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';
+
+const afiasifsdhfsPng = require('../images/afiasifsdhfs.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -92,9 +97,9 @@ const styles = StyleSheet.create({
     paddingRight: WINDOW_WIDTH * 0.02,
   },
   selected: {
-    color: PRIMARY_COLOR
+    color: PRIMARY_COLOR,
   },
-})
+});
 
 class Address extends Component {
   componentDidMount() {
@@ -102,45 +107,49 @@ class Address extends Component {
       isAuthUser,
       addressFetch,
       items,
+      // items,
     } = this.props;
     if (isAuthUser) {
-      items.length === 0 && addressFetch();
+      if (items.length === 0) addressFetch();
     }
   }
 
-  edit_address = function(item) {
-    return item.address + (item.division4thName ? ', ' : '') + item.division4thName + (item.division3rdName ? ', ' : '') + item.division3rdName + (item.division2ndName ? ', ' : '') + item.division2ndName
-  }
+  editAddress = item =>
+    item.address +
+    (item.division4thName ? ', ' : '') +
+    item.division4thName +
+    (item.division3rdName ? ', ' : '') +
+    item.division3rdName +
+    (item.division2ndName ? ', ' : '') +
+    item.division2ndName;
 
   handleOnPressAddressDefault(item) {
     const {
       addressModifyFetch,
+      // addressModifyFetch,
     } = this.props;
     if (item.isdefault === 'Y') return false;
     item.isdefault = 'Y';
-    addressModifyFetch(item);
+    return addressModifyFetch(item);
   }
 
   handleOnPressAddressDel(id) {
     const {
       i18n,
       addressRemoveFetch,
+      // addressRemoveFetch,
     } = this.props;
-    Alert.alert(
-      '',
-      '确定删除？',
-      [
-        {
-          text: i18n.cancel,
+    Alert.alert('', '确定删除？', [
+      {
+        text: i18n.cancel,
+      },
+      {
+        text: i18n.delete,
+        onPress: () => {
+          addressRemoveFetch(id);
         },
-        {
-          text: i18n.delete,
-          onPress: () => {
-            addressRemoveFetch(id);
-          }
-        }
-      ]
-    )
+      },
+    ]);
   }
 
   handleOnPressItem(item) {
@@ -152,7 +161,7 @@ class Address extends Component {
     if (isSelect) addressSelectFetch(item.id);
     goBack();
   }
-  
+
   renderMainContent() {
     const {
       i18n,
@@ -163,69 +172,99 @@ class Address extends Component {
     } = this.props;
 
     const isSelect = state.params ? state.params.isSelect : false;
-    
+
     if (loading && !refreshing) {
       return <Loader />;
     }
 
     return (
       <View style={styles.container}>
-        {
-          items.length === 0 
-          ?
-          <EmptyState source={require('../images/afiasifsdhfs.png')} text={i18n.pleaseAddYourShippingAddress} />
-          :
+        {items.length === 0 ? (
+          <EmptyState
+            source={afiasifsdhfsPng}
+            text={i18n.pleaseAddYourShippingAddress}
+          />
+        ) : (
           <ScrollView style={styles.container}>
-            {items.map((val, key) => 
-              <BYTouchable style={styles.item} key={key} onPress={() => this.handleOnPressItem(val)}>
+            {items.map((val, key) => (
+              <BYTouchable
+                style={styles.item}
+                key={key}
+                onPress={() => this.handleOnPressItem(val)}
+              >
                 <View style={styles.main}>
                   <View style={styles.namePhone}>
                     <Text style={styles.name}>{val.username}</Text>
                     <Text style={styles.phone}>{val.msisdn}</Text>
                   </View>
-                  <Text style={styles.address}>{this.edit_address(val)}</Text>
-                  {!isSelect && 
-                  <View style={styles.operate}>
-                    <BYTouchable style={styles.operateLeft}
-                      backgroundColor="transparent"
-                      onPress={() => this.handleOnPressAddressDefault(val)}
-                    >
-                      <Ionicons style={[styles.selectIcon, val.isdefault === 'Y' && styles.selected]} name={'ios-radio-button-on-outline'} />
-                      <Text style={[styles.selectText, val.isdefault === 'Y' && styles.selected]}>{i18n.defaultAddress}</Text>
-                    </BYTouchable>
-                    <View style={styles.operateRight}>
-                      <Ionicons style={styles.editIcon} name={'ios-create-outline'} 
-                        onPress={() => navigate(SCREENS.AddressAdd, {
-                          id: val.id,
-                          msisdn: val.msisdn,
-                          address: val.address,
-                          username: val.username,
-                          isdefault: val.isdefault,
-                          division2nd: val.division2nd,
-                          division3rd: val.division3rd,
-                          division4th: val.division4th,
-                          division2ndName: val.division2ndName,
-                          division3rdName: val.division3rdName,
-                          division4thName: val.division4thName,
-                        })} 
-                      />
-                      <Ionicons style={styles.trashIcon} name={'ios-trash-outline'} onPress={() => this.handleOnPressAddressDel(val.id)} />
+                  <Text style={styles.address}>{this.editAddress(val)}</Text>
+                  {!isSelect && (
+                    <View style={styles.operate}>
+                      <BYTouchable
+                        style={styles.operateLeft}
+                        backgroundColor="transparent"
+                        onPress={() => this.handleOnPressAddressDefault(val)}
+                      >
+                        <Ionicons
+                          name="ios-radio-button-on-outline"
+                          style={[
+                            styles.selectIcon,
+                            val.isdefault === 'Y' && styles.selected,
+                          ]}
+                        />
+                        <Text
+                          style={[
+                            styles.selectText,
+                            val.isdefault === 'Y' && styles.selected,
+                          ]}
+                        >
+                          {i18n.defaultAddress}
+                        </Text>
+                      </BYTouchable>
+                      <View style={styles.operateRight}>
+                        <Ionicons
+                          style={styles.editIcon}
+                          name="ios-create-outline"
+                          onPress={() =>
+                            navigate(SCREENS.AddressAdd, {
+                              id: val.id,
+                              msisdn: val.msisdn,
+                              address: val.address,
+                              username: val.username,
+                              isdefault: val.isdefault,
+                              division2nd: val.division2nd,
+                              division3rd: val.division3rd,
+                              division4th: val.division4th,
+                              division2ndName: val.division2ndName,
+                              division3rdName: val.division3rdName,
+                              division4thName: val.division4thName,
+                            })
+                          }
+                        />
+                        <Ionicons
+                          style={styles.trashIcon}
+                          name="ios-trash-outline"
+                          onPress={() => this.handleOnPressAddressDel(val.id)}
+                        />
+                      </View>
                     </View>
-                  </View>}
+                  )}
                 </View>
               </BYTouchable>
-            )}
+            ))}
           </ScrollView>
-        }
-        <Text style={styles.add} onPress={() => navigate(SCREENS.AddressAdd)}>add address</Text>
+        )}
+        <Text style={styles.add} onPress={() => navigate(SCREENS.AddressAdd)}>
+          add address
+        </Text>
       </View>
-    )
+    );
   }
 
   render() {
-    const {
-      // navigation: { navigate },
-    } = this.props;
+    // const {
+    //   // navigation: { navigate },
+    // } = this.props;
 
     return (
       <View style={styles.container}>
@@ -240,9 +279,11 @@ export default withNavigation(
   connectLocalization(
     connect(
       () => {
-        return (state, props) => {
+        console.log();
+        return state => {
           const {
             address,
+            // address,
           } = state;
 
           // const {
@@ -254,13 +295,13 @@ export default withNavigation(
             items: address.items,
             loading: address.loading,
             refreshing: address.refreshing,
-          }
-        }
+          };
+        };
       },
       {
         ...addressActionCreators,
-        ...authActionCreators
-      }
-    )(Address)
-  )
+        ...authActionCreators,
+      },
+    )(Address),
+  ),
 );
