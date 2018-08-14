@@ -49,12 +49,13 @@ class Card extends Component {
   componentDidMount() {
     const {
       cardQueryFetch,
-      isAuthUser,
       navigation,
       // isAuthUser,
     } = this.props;
 
     this.didBlurSubscription = navigation.addListener('didFocus', () => {
+      const { isAuthUser } = this.props;
+
       if (isAuthUser) cardQueryFetch();
     });
   }
