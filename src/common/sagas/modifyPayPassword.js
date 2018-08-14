@@ -1,4 +1,4 @@
-import { Platform, ToastAndroid, Alert, } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
   modifyPayPasswordFetch,
@@ -97,7 +97,6 @@ export function* modifyPayPasswordSuccessWatchHandle(action) {
     const {
       from,
     } = action.payload;
-    // if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
     yield put(cardQueryFetch());
     Alert.alert(
       '',

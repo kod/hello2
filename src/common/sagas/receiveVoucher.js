@@ -1,4 +1,4 @@
-import { Platform, Alert, ToastAndroid } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
   receiveVoucherFetch,
@@ -85,7 +85,17 @@ export function* receiveVoucherFetchWatch() {
 export function* receiveVoucherSuccessWatchHandle() {
   try {
     yield put(getVoucherFetch());
-    if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    Alert.alert(
+      '',
+      i18n.success,
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {},
+        },
+      ],
+      // { cancelable: false },
+    );
   } catch (err) {
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

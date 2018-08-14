@@ -1,8 +1,4 @@
-import {
-  Platform,
-  // ToastAndroid,
-  // Alert,
-} from 'react-native';
+import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
 import {
@@ -347,7 +343,6 @@ export function* userAddDetailInfoSuccessWatchHandle() {
       username,
       // username,
     } = certifiedInformationCertUser;
-    // if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
     yield put(
       cardSubmitFetch({
         name: username,

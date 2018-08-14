@@ -10,7 +10,7 @@ import {
   Platform,
   InteractionManager,
   // DeviceEventEmitter,
-  ToastAndroid,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 // import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -332,7 +332,17 @@ class ProductDetail extends Component {
     if (productDetail) {
       productDetailSelect(object, productDetail);
     } else {
-      ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
+      Alert.alert(
+        '',
+        i18n.soldOut,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
     }
   }
 
@@ -351,7 +361,17 @@ class ProductDetail extends Component {
     if (productDetail) {
       productDetailSelect(object, productDetail);
     } else {
-      ToastAndroid.show(i18n.soldOut, ToastAndroid.SHORT);
+      Alert.alert(
+        '',
+        i18n.soldOut,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
     }
   }
 

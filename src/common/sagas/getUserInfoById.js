@@ -1,4 +1,4 @@
-import { Platform, ToastAndroid, } from 'react-native';
+import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
   getUserInfoByIdFetch,

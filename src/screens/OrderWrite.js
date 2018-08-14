@@ -5,8 +5,7 @@ import {
   View,
   ScrollView,
   DeviceEventEmitter,
-  ToastAndroid,
-  Platform,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
@@ -161,7 +160,7 @@ class OrderWrite extends Component {
       navigation: { navigate },
       // userType,
       groupon,
-      // mergeMasterInfo,
+      i18n,
     } = this.props;
 
     if (!isAuthUser) return navigate(SCREENS.Login);
@@ -263,8 +262,17 @@ class OrderWrite extends Component {
     };
 
     if (addressSelectedId === 0) {
-      if (Platform.OS === 'android')
-        return ToastAndroid.show('请选择收货地址', ToastAndroid.SHORT);
+      Alert.alert(
+        '',
+        '请选择收货地址',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
     }
 
     // console.log(object);

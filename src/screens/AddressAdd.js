@@ -7,7 +7,6 @@ import {
   ScrollView,
   StyleSheet,
   // Platform,
-  // ToastAndroid,
   DeviceEventEmitter,
   Alert,
 } from 'react-native';
@@ -35,7 +34,7 @@ import CustomIcon from '../components/CustomIcon';
 // import BYModal from '../components/BYModal';
 import BYButton from '../components/BYButton';
 import { connectLocalization } from '../components/Localization';
-import PXTouchable from '../components/BYTouchable';
+import BYTouchable from '../components/BYTouchable';
 
 import { submitDuplicateFreeze } from '../common/helpers';
 
@@ -346,7 +345,7 @@ class AddressAdd extends Component {
               placeholderTextColor="#ccc"
             />
           </View>
-          <PXTouchable
+          <BYTouchable
             style={styles.item}
             onPress={() =>
               openModal(MODAL_TYPES.ADDRESSADD, {
@@ -367,7 +366,7 @@ class AddressAdd extends Component {
               editable={false}
             />
             <CustomIcon style={styles.arrow} name="arrowright" />
-          </PXTouchable>
+          </BYTouchable>
           <BYButton
             styleWrap={styles.submitWrap}
             styleText={styles.submit}

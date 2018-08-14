@@ -1,24 +1,24 @@
-import { Platform, Alert, ToastAndroid } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
+import moment from 'moment';
 import {
-  getVoucherListFetch,
+  // getVoucherListFetch,
   getVoucherListFetchSuccess,
   getVoucherListFetchFailure,
 } from '../actions/getVoucherList';
 import {
   getVoucherFetch,
+  // getVoucherFetch,
 } from '../actions/getVoucher';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import {
   GET_VOUCHER_LIST,
+  // GET_VOUCHER_LIST,
 } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
-import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
+import { getAuthUserFunid } from '../selectors';
 
 import i18n from '../helpers/i18n';
 
@@ -45,48 +45,48 @@ export function* getVoucherListFetchWatchHandle(action) {
 
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    var encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'vouchertype',
-          value: vouchertype
+          value: vouchertype,
         },
         {
           key: 'typeid',
-          value: typeid
+          value: typeid,
         },
         {
           key: 'brandid',
-          value: brandid
+          value: brandid,
         },
         {
           key: 'productid',
-          value: productid
+          value: productid,
         },
         {
           key: 'cardno',
-          value: cardno
+          value: cardno,
         },
         {
           key: 'status',
-          value: status
+          value: status,
         },
         {
           key: 'currentpage',
-          value: currentpage
+          value: currentpage,
         },
         {
           key: 'pagesize',
-          value: pagesize
-        }
+          value: pagesize,
+        },
       ],
-      Key
+      Key,
     );
-  
+
     const response = yield apply(buyoo, buyoo.getVoucherList, [
       {
         appid: appId,
@@ -97,27 +97,28 @@ export function* getVoucherListFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        vouchertype: vouchertype,
-        typeid: typeid,
-        brandid: brandid,
-        productid: productid,
-        cardno: cardno,
-        status: status,
-        currentpage: currentpage,
-        pagesize: pagesize
-      }
+        vouchertype,
+        typeid,
+        brandid,
+        productid,
+        cardno,
+        status,
+        currentpage,
+        pagesize,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(getVoucherListFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(
+        getVoucherListFetchSuccess({
+          items: response.details,
+          status,
+        }),
+      );
     }
-
-    yield put(getVoucherListFetchSuccess({
-      items: response.details,
-      status,
-    }));
   } catch (err) {
     yield put(getVoucherListFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -131,7 +132,17 @@ export function* getVoucherListFetchWatch() {
 export function* getVoucherListSuccessWatchHandle() {
   try {
     yield put(getVoucherFetch());
-    if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    Alert.alert(
+      '',
+      i18n.success,
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {},
+        },
+      ],
+      // { cancelable: false },
+    );
   } catch (err) {
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

@@ -88,7 +88,7 @@ class ForgotPasswordTwo extends Component {
             secureTextEntry
           />
 
-          <Error text={'input error'} styleWrap={{marginBottom: 45}} />
+          <Error text={'input error'} styleWrap={{ marginBottom: 45 }} />
           <BYButton text={'Register'} style={{ marginBottom: 30 }} onPress={() => navigate(SCREENS.RegisterStepOne)} />
         </ScrollView>
       </View>

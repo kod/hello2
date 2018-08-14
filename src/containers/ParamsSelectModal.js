@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Modal,
   // Platform,
-  // ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';

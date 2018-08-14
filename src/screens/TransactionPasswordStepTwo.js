@@ -1,21 +1,20 @@
+/* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, ToastAndroid, Platform } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { WINDOW_WIDTH } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import BYButton from '../components/BYButton';
 import InputRight from '../components/InputRight';
 import BYTouchable from '../components/BYTouchable';
-import ReadSeconds from "../components/ReadSeconds";
+import ReadSeconds from '../components/ReadSeconds';
 import { connectLocalization } from '../components/Localization';
 
-import * as modifyPayPasswordActionCreators from "../common/actions/modifyPayPassword";
-
-import { SCREENS } from '../common/constants';
+import * as modifyPayPasswordActionCreators from '../common/actions/modifyPayPassword';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     color: '#ccc',
   },
-})
+});
 
 class TransactionPasswordStepTwo extends Component {
   constructor(props) {
@@ -61,68 +60,126 @@ class TransactionPasswordStepTwo extends Component {
     // this.readSeconds();
   }
 
-  renderInputRightClose = () => {
-    return (
-      <BYTouchable>
-        <MaterialIcons name="cancel" style={styles.closeIcon} />
-      </BYTouchable>
-    );
-  };
+  renderInputRightClose = () => (
+    <BYTouchable>
+      <MaterialIcons name="cancel" style={styles.closeIcon} />
+    </BYTouchable>
+  );
 
   handleOnPressSubmit() {
     const {
+      i18n,
       formValue,
       modifyPayPasswordFetch,
-      navigation: { state },
+      // navigation: { state },
     } = this.props;
     if (!formValue) return false;
-    if (!formValue.code) if (Platform.OS === 'android') ToastAndroid.show('Vui lòng nhập mã xác nhận', ToastAndroid.SHORT);
-    if (!formValue.password) if (Platform.OS === 'android') ToastAndroid.show('Vui lòng nhập 6 chữ số', ToastAndroid.SHORT);
-    if (!formValue.repassword) if (Platform.OS === 'android') ToastAndroid.show('Nhập lại Mật mã giao dịch', ToastAndroid.SHORT);
-    if (formValue.password !== formValue.repassword) if (Platform.OS === 'android') ToastAndroid.show('Hai lần nhập mật mã giao dịch không giống nhau', ToastAndroid.SHORT);
-    modifyPayPasswordFetch(formValue.password, formValue.code);
+    if (!formValue.code) {
+      Alert.alert(
+        '',
+        'Vui lòng nhập mã xác nhận',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
+
+    if (!formValue.password) {
+      Alert.alert(
+        '',
+        'Vui lòng nhập 6 chữ số',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
+
+    if (!formValue.repassword) {
+      Alert.alert(
+        '',
+        'Nhập lại Mật mã giao dịch',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
+
+    if (formValue.password !== formValue.repassword) {
+      Alert.alert(
+        '',
+        'Hai lần nhập mật mã giao dịch không giống nhau',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
+    return modifyPayPasswordFetch(formValue.password, formValue.code);
   }
 
   render() {
-    const { navigation: { goBack, navigate } } = this.props;
+    const { i18n } = this.props;
+
     return (
       <View style={styles.container}>
         <BYHeader />
         <ScrollView keyboardShouldPersistTaps="always">
-
-          <Field 
+          <Field
             name="code"
             component={InputRight}
             inputRight={<ReadSeconds />}
             // inputRight={this.renderInputRightCode()}
-            placeholder={'Vui lòng nhập mã xác nhận'}
+            placeholder="Vui lòng nhập mã xác nhận"
             keyboardType="numeric"
             // onSubmitEditing={() => { this.password.focus(); }}
             // blurOnSubmit={false}
             // autoFocus={true}
           />
-          <Field 
+          <Field
             name="password"
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
-            placeholder={'Vui lòng nhập 6 chữ số'}
+            placeholder="Vui lòng nhập 6 chữ số"
             secureTextEntry
             keyboardType="numeric"
             // onSubmitEditing={() => { this.repassword.focus(); }}
             // ref={input => { this.password = input }}
             // blurOnSubmit={false}
           />
-          <Field 
+          <Field
             name="repassword"
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
-            styleWrap={{marginBottom: 45}}
-            placeholder={'Nhập lại Mật mã giao dịch'}
+            styleWrap={{ marginBottom: 45 }}
+            placeholder="Nhập lại Mật mã giao dịch"
             secureTextEntry
             keyboardType="numeric"
             // ref={input => { this.repassword = input }}
           />
-          <BYButton text={'Submit'} style={{ marginBottom: 30 }} onPress={() => this.handleOnPressSubmit()} />
+          <BYButton
+            text={i18n.submit}
+            style={{ marginBottom: 30 }}
+            onPress={() => this.handleOnPressSubmit()}
+          />
         </ScrollView>
       </View>
     );
@@ -135,18 +192,18 @@ TransactionPasswordStepTwo = reduxForm({
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          form: { TransactionPasswordStepTwo },
-        } = state;
-        return {
-          formValue: TransactionPasswordStepTwo ? TransactionPasswordStepTwo.values : '',
-        }
-      }
+    state => {
+      const {
+        form: { TransactionPasswordStepTwoX },
+      } = state;
+      return {
+        formValue: TransactionPasswordStepTwoX
+          ? TransactionPasswordStepTwoX.values
+          : '',
+      };
     },
     {
       ...modifyPayPasswordActionCreators,
-    }
+    },
   )(TransactionPasswordStepTwo),
 );

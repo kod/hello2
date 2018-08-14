@@ -8,7 +8,6 @@ import {
   View,
   ScrollView,
   KeyboardAvoidingView,
-  // ToastAndroid,
   // Platform,
   Alert,
   // Platform,

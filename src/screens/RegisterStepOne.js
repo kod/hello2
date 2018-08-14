@@ -16,7 +16,7 @@ import { PHONE_EXPR } from '../common/constants';
 
 import { SCREENS } from '../common/constants';
 
-import * as otpActionCreators from "../common/actions/otp";
+import * as otpActionCreators from '../common/actions/otp';
 
 const styles = StyleSheet.create({
   container: {
@@ -83,7 +83,7 @@ class RegisterStepOne extends Component {
           <Field 
             name="phone"
             component={InputCountry}
-            keyboardType={'phone-pad'}
+            keyboardType="phone-pad"
             style={{marginBottom: 30}}
           />
           <View style={{ paddingLeft: SIDEINTERVAL, paddingRight: SIDEINTERVAL }}>
@@ -95,7 +95,7 @@ class RegisterStepOne extends Component {
               placeholderTextColor={'#6D7592'} 
             />
           </View>
-          <BYButton text={'Next step'} style={{ marginBottom: 20 }} onPress={handleSubmit(this.submit)} />
+          <BYButton text="Next step" style={{ marginBottom: 20 }} onPress={handleSubmit(this.submit)} />
           <NavSidesText textLeft={'Already have an account?'} navigateLeft={() => goBack()} />
         </ScrollView>
       </View>

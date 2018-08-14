@@ -1,4 +1,4 @@
-import { Platform, Alert, ToastAndroid } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import {
   judgeVoucherFetch,
@@ -40,7 +40,7 @@ export function* judgeVoucherFetchWatchHandle(action) {
 
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
-    var encrypt = encryptMD5(
+    const encrypt = encryptMD5(
       [
         {
           key: 'funid',
@@ -101,7 +101,6 @@ export function* judgeVoucherFetchWatch() {
 export function* judgeVoucherSuccessWatchHandle() {
   try {
     yield put(getVoucherFetch());
-    // if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
   } catch (err) {
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

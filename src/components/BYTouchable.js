@@ -6,7 +6,7 @@ import {
   // View,
 } from 'react-native';
 
-const PXTouchable = ({ activeOpacity = 0.7, ...props }) => (
+const BYTouchable = ({ activeOpacity = 0.7, ...props }) => (
   // if (Platform.OS === 'android' && Platform.Version >= 21) {
   //   const { style, children, backgroundColor = '#ccc', ...otherProps } = props;
   //   return (
@@ -26,7 +26,7 @@ const PXTouchable = ({ activeOpacity = 0.7, ...props }) => (
   <TouchableOpacity activeOpacity={activeOpacity} {...props} />
 );
 
-export default PXTouchable;
+export default BYTouchable;
 
 // import React, { Component } from 'react';
 // import {
@@ -36,7 +36,7 @@ export default PXTouchable;
 //   View,
 // } from 'react-native';
 
-// const PXTouchable = props => {
+// const BYTouchable = props => {
 //   if (Platform.OS === 'android') {
 //     const { style, children, backgroundColor = '#ccc', ...otherProps } = props;
 //     return (
@@ -59,4 +59,4 @@ export default PXTouchable;
 //   return <TouchableOpacity {...props} />;
 // };
 
-// export default PXTouchable;
+// export default BYTouchable;

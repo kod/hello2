@@ -1,25 +1,36 @@
+/* eslint-disable react/no-multi-comp */
+/* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Modal, Platform, ToastAndroid, } from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  // Platform,
+  Alert,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  SIDEINTERVAL,
+  // SCREENS,
+} from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import BYTextInput from '../components/BYTextInput';
-import InputRight from '../components/InputRight';
+// import InputRight from '../components/InputRight';
 import CustomIcon from '../components/CustomIcon';
-import BYBottomSheet from '../components/BYBottomSheet';
+// import BYBottomSheet from '../components/BYBottomSheet';
 import BYModal from '../components/BYModal';
 import BYTouchable from '../components/BYTouchable';
 import BYButton from '../components/BYButton';
-import PXTouchable from '../components/BYTouchable';
 import { connectLocalization } from '../components/Localization';
-
-import { SCREENS } from '../common/constants';
 
 import * as cityInfosActionCreators from '../common/actions/cityInfos';
 import * as addressActionCreators from '../common/actions/address';
@@ -88,7 +99,7 @@ class AddressInput extends Component {
         value={input.value}
         {...restProps}
       />
-    )
+    );
   }
 }
 
@@ -105,34 +116,40 @@ class AddressAdd extends Component {
       division2ndID: null,
       division3rdID: null,
       division4thID: null,
-      division2ndCityList: [],
-      division3rdCityList: [],
-      division4thCityList: [],
-    }
+      // division2ndCityList: [],
+      // division3rdCityList: [],
+      // division4thCityList: [],
+    };
   }
 
   componentDidMount() {
     // setTimeout(() => {
     //   this.handleOnPressToggleMenuBottomSheet();
     // }, 300);
-    // 
-    this.props.initialize({ address: 'your name' });
+    //
+    const {
+      initialize,
+      // initialize,
+    } = this.props;
+    initialize({ address: 'your name' });
   }
-  
+
   handleOnPressToggleMenuBottomSheet = () => {
     const {
       isOpenMenuBottomSheet,
+      // isOpenMenuBottomSheet,
     } = this.state;
 
     const {
       cityInfosFetch,
       division2ndItems,
+      // division2ndItems,
     } = this.props;
 
     if (!isOpenMenuBottomSheet && division2ndItems.length === 0) {
       cityInfosFetch(1, 'division2nd');
     }
-    
+
     this.setState({
       isOpenMenuBottomSheet: !isOpenMenuBottomSheet,
     });
@@ -144,11 +161,12 @@ class AddressAdd extends Component {
     const {
       division2nd,
       division3rd,
-      division4th,
+      // division4th,
     } = this.state;
-    
+
     const {
       cityInfosFetch,
+      // cityInfosFetch,
     } = this.props;
 
     switch (key) {
@@ -162,22 +180,22 @@ class AddressAdd extends Component {
           division3rdID: null,
           division4thID: null,
           areaAddressStr: '',
-        }
+        };
         cityInfosFetch(val.id, 'division3rd');
         break;
-    
+
       case 1:
         item = {
           addressIndex: 2,
-          division3rd: val, 
+          division3rd: val,
           division4th: {},
           division2ndID: null,
           division3rdID: null,
           division4thID: null,
           areaAddressStr: '',
-        }
+        };
         cityInfosFetch(val.id, 'division4th');
-      break;
+        break;
 
       case 2:
         item = {
@@ -185,10 +203,15 @@ class AddressAdd extends Component {
           division4th: val,
           division2ndID: division2nd.id,
           division3rdID: division3rd.id,
-          division4thID: val.id,    
-          areaAddressStr: `${val.name}, ${division3rd.name}, ${division2nd.name}`,
-        }
+          division4thID: val.id,
+          areaAddressStr: `${val.name}, ${division3rd.name}, ${
+            division2nd.name
+          }`,
+        };
         this.handleOnPressToggleMenuBottomSheet();
+        break;
+
+      default:
         break;
     }
     this.setState(item);
@@ -199,15 +222,28 @@ class AddressAdd extends Component {
       division2ndID,
       division3rdID,
       division4thID,
+      areaAddressStr,
+      // division4thID,
     } = this.state;
-    
+
     const {
       addressAddFetch,
       addressAddInfo: { values },
+      i18n,
     } = this.props;
 
     if (!values) {
-      if (Platform.OS === 'android') ToastAndroid.show('place entry name', ToastAndroid.SHORT);
+      Alert.alert(
+        '',
+        'place entry name',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
       return false;
     }
 
@@ -215,40 +251,82 @@ class AddressAdd extends Component {
       name = '',
       phone = '',
       address = '',
+      // address = '',
     } = values;
 
     if (name.length === 0) {
-      if (Platform.OS === 'android') ToastAndroid.show('place entry name', ToastAndroid.SHORT);
+      Alert.alert(
+        '',
+        'place entry name',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
       return false;
     }
 
     if (phone.length === 0) {
-      if (Platform.OS === 'android') ToastAndroid.show('place entry phone', ToastAndroid.SHORT);
+      Alert.alert(
+        '',
+        'place entry phone',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
       return false;
     }
 
-    if (!this.state.areaAddressStr) {
-      if (Platform.OS === 'android') ToastAndroid.show('place entry area', ToastAndroid.SHORT);
+    if (!areaAddressStr) {
+      Alert.alert(
+        '',
+        'place entry area',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
     }
 
     if (address.length === 0) {
-      if (Platform.OS === 'android') ToastAndroid.show('place entry address', ToastAndroid.SHORT);
+      Alert.alert(
+        '',
+        'place entry address',
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
       return false;
     }
 
-    addressAddFetch({
+    return addressAddFetch({
       msisdn: phone,
-      address: address,
+      address,
       isdefault: 'Y',
       username: name,
       division2nd: division2ndID,
       division3rd: division3rdID,
       division4th: division4thID,
-    }); 
+    });
   }
 
   renderBottomSheet() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         backgroundColor: '#fff',
       },
@@ -309,10 +387,10 @@ class AddressAdd extends Component {
         addressIndex,
         division2nd,
         division3rd,
-        division4th,  
+        division4th,
       } = this.state;
 
-      const divisionObject = scrollViewKey => {
+      const divisionObject = () => {
         switch (scrollViewKey) {
           case 0:
             return division2nd;
@@ -320,26 +398,54 @@ class AddressAdd extends Component {
             return division3rd;
           case 2:
             return division4th;
+          default:
+            return false;
         }
-      }
+      };
 
       return (
-        <ScrollView style={[styles.scrollView, addressIndex === scrollViewKey && styles.ScrollViewShow]} key={scrollViewKey}>
-          {item.map((val, key) => 
-            <BYTouchable style={styles.scrollViewItem} key={key} onPress={() => this.handleOnPressCitySelect(val, scrollViewKey)}>
-              <Text style={[styles.scrollViewItemText, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]}>{val.name}</Text>
-              <Ionicons style={[styles.scrollViewItemIcon, divisionObject(scrollViewKey).id === val.id && styles.scrollViewActive]} name="ios-radio-button-on-outline" />
+        <ScrollView
+          style={[
+            stylesX.scrollView,
+            addressIndex === scrollViewKey && stylesX.ScrollViewShow,
+          ]}
+          key={scrollViewKey}
+        >
+          {item.map(val => (
+            <BYTouchable
+              style={stylesX.scrollViewItem}
+              key={val.id}
+              onPress={() => this.handleOnPressCitySelect(val, scrollViewKey)}
+            >
+              <Text
+                style={[
+                  stylesX.scrollViewItemText,
+                  divisionObject(scrollViewKey).id === val.id &&
+                    stylesX.scrollViewActive,
+                ]}
+              >
+                {val.name}
+              </Text>
+              <Ionicons
+                style={[
+                  stylesX.scrollViewItemIcon,
+                  divisionObject(scrollViewKey).id === val.id &&
+                    stylesX.scrollViewActive,
+                ]}
+                name="ios-radio-button-on-outline"
+              />
             </BYTouchable>
-          )}
+          ))}
         </ScrollView>
-      )
-    }
+      );
+    };
 
     const {
       addressIndex,
       division2nd,
       division3rd,
       division4th,
+      // division4th,
     } = this.state;
 
     const {
@@ -352,52 +458,60 @@ class AddressAdd extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.closeWrap}>
-          <EvilIcons style={styles.close} name="close" onPress={() => this.handleOnPressToggleMenuBottomSheet()} />
+          <EvilIcons
+            style={styles.close}
+            name="close"
+            onPress={() => this.handleOnPressToggleMenuBottomSheet()}
+          />
         </View>
-        <ScrollView style={styles.nav} horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          style={styles.nav}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
           <Text
-            style={[styles.navItem, addressIndex === 0 && styles.navActive]} 
-            onPress={() => this.setState({addressIndex: 0})}
+            style={[styles.navItem, addressIndex === 0 && styles.navActive]}
+            onPress={() => this.setState({ addressIndex: 0 })}
           >
             {division2nd.name || 'Tỉnh/Thành'}
           </Text>
-          {
-            division2nd.id &&
-            <Text 
-              style={[styles.navItem, addressIndex === 1 && styles.navActive]} 
-              onPress={() => this.setState({addressIndex: 1})}
+          {division2nd.id && (
+            <Text
+              style={[styles.navItem, addressIndex === 1 && styles.navActive]}
+              onPress={() => this.setState({ addressIndex: 1 })}
             >
               {division3rd.name || 'Quận/huyện'}
             </Text>
-          }
-          {
-            division3rd.id &&
-            <Text 
-              style={[styles.navItem, addressIndex === 2 && styles.navActive]} 
-              onPress={() => this.setState({addressIndex: 2})}
+          )}
+          {division3rd.id && (
+            <Text
+              style={[styles.navItem, addressIndex === 2 && styles.navActive]}
+              onPress={() => this.setState({ addressIndex: 2 })}
             >
               {division4th.name || 'Phường, xã'}
-            </Text>            
-          }
+            </Text>
+          )}
         </ScrollView>
         <View style={styles.scrollViewWrap}>
-          {[division2ndItems, division3rdItems, division4thItems].map((val, key) => 
-            renderScrollView(val, key)
+          {[division2ndItems, division3rdItems, division4thItems].map(
+            (val, key) => renderScrollView(val, key),
           )}
           {loading && <Loader absolutePosition />}
         </View>
       </View>
-    )
+    );
   }
 
   render() {
     const {
       areaAddressStr,
       isOpenMenuBottomSheet,
+      // isOpenMenuBottomSheet,
     } = this.state;
 
     const {
       // navigation: { goBack, navigate }
+      i18n,
     } = this.props;
     return (
       <View style={styles.container}>
@@ -419,34 +533,42 @@ class AddressAdd extends Component {
               name="phone"
               component={AddressInput}
               style={styles.textInput}
-              placeholder={'please enter your phone number'}
+              placeholder="please enter your phone number"
               placeholderTextColor="#ccc"
-              keyboardType={'phone-pad'}
+              keyboardType="phone-pad"
             />
           </View>
-          <PXTouchable style={styles.item} onPress={() => this.handleOnPressToggleMenuBottomSheet()}>
+          <BYTouchable
+            style={styles.item}
+            onPress={() => this.handleOnPressToggleMenuBottomSheet()}
+          >
             <Text style={styles.title}>Xã/Huyện/Thành</Text>
             <BYTextInput
-              placeholder={'please select'}
+              placeholder="please select"
               placeholderTextColor="#ccc"
               style={styles.address}
               value={areaAddressStr}
               editable={false}
             />
             <CustomIcon style={styles.arrow} name="arrowright" />
-          </PXTouchable>
+          </BYTouchable>
           <View style={styles.item}>
             <Text style={styles.title}>Address</Text>
             <Field
               name="address"
               component={AddressInput}
               style={styles.textInput}
-              placeholder={'please enter your address'}
+              placeholder="please enter your address"
               placeholderTextColor="#ccc"
-              defaultValue={'123'}
+              defaultValue=""
             />
           </View>
-          <BYButton styleWrap={styles.submitWrap} styleText={styles.submit} text={'Save'} onPress={() => this.handleOnPressSubmit()}></BYButton>
+          <BYButton
+            styleWrap={styles.submitWrap}
+            styleText={styles.submit}
+            text={i18n.save}
+            onPress={() => this.handleOnPressSubmit()}
+          />
         </ScrollView>
         <BYModal
           visible={isOpenMenuBottomSheet}
@@ -470,6 +592,7 @@ export default connectLocalization(
       const {
         cityInfos,
         form,
+        // form,
       } = state;
       return {
         addressAddInfo: form.AddressAdd ? form.AddressAdd : {},
@@ -477,11 +600,11 @@ export default connectLocalization(
         division2ndItems: cityInfos.division2nd,
         division3rdItems: cityInfos.division3rd,
         division4thItems: cityInfos.division4th,
-      }
+      };
     },
     {
       ...cityInfosActionCreators,
       ...addressActionCreators,
-    }
+    },
   )(AddressAdd),
 );

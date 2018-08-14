@@ -10,7 +10,7 @@ import BYHeader from '../components/BYHeader';
 import BYButton from '../components/BYButton';
 import InputRight from '../components/InputRight';
 import BYTouchable from '../components/BYTouchable';
-import ReadSeconds from "../components/ReadSeconds";
+import ReadSeconds from '../components/ReadSeconds';
 import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
@@ -142,7 +142,7 @@ class RegisterStepTwo extends Component {
             name="repassword"
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
-            styleWrap={{marginBottom: 45}}
+            styleWrap={{ marginBottom: 45 }}
             placeholder="confirm password"
             secureTextEntry
           />

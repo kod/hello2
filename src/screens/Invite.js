@@ -6,8 +6,7 @@ import {
   // ScrollView,
   Image,
   Clipboard,
-  Platform,
-  ToastAndroid,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -33,6 +32,9 @@ import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHome
 import * as authActionCreators from '../common/actions/auth';
 // import priceFormat from '../common/helpers/priceFormat';
 
+const zalofunPng = require('../images/zalofun.png');
+const googleplusPng = require('../images/googleplus.png');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -54,13 +56,23 @@ class Invite extends Component {
   // }
 
   async handleOnPressCopy() {
+    const { i18n } = this.props;
     Clipboard.setString('hello world');
-    if (Platform.OS === 'android')
-      ToastAndroid.show('复制成功', ToastAndroid.SHORT);
+    Alert.alert(
+      '',
+      '复制成功',
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {},
+        },
+      ],
+      // { cancelable: false },
+    );
   }
 
   renderMenuBottomShare() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       contanier: {
         paddingTop: 20,
         backgroundColor: PRIMARY_COLOR,
@@ -93,21 +105,21 @@ class Invite extends Component {
       },
     });
     return (
-      <View style={styles.contanier}>
-        <View style={styles.title}>
-          <Ionicons style={styles.titleIcon} name="ios-paper-plane" />
-          <Text style={styles.titleText}>tap to share</Text>
+      <View style={stylesX.contanier}>
+        <View style={stylesX.title}>
+          <Ionicons style={stylesX.titleIcon} name="ios-paper-plane" />
+          <Text style={stylesX.titleText}>tap to share</Text>
         </View>
-        <View style={styles.main}>
-          <Image style={styles.item} source={require('../images/zalofun.png')} />
-          <Image style={styles.item} source={require('../images/googleplus.png')} />
+        <View style={stylesX.main}>
+          <Image style={stylesX.item} source={zalofunPng} />
+          <Image style={stylesX.item} source={googleplusPng} />
         </View>
       </View>
-    )
+    );
   }
 
   renderContent() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         // position: 'relative',
         flex: 1,
@@ -158,64 +170,67 @@ class Invite extends Component {
       },
     });
 
+    const { qrText } = this.state;
+
     return (
-      <View style={styles.container}>
-        <View style={styles.row1}>
-          <QRCode
-            value={this.state.qrText}
-            size={200}
-          />
-          <Text style={styles.row1Title}>Show this QR code or share the invitation code to your friends</Text>
+      <View style={stylesX.container}>
+        <View style={stylesX.row1}>
+          <QRCode value={qrText} size={200} />
+          <Text style={stylesX.row1Title}>
+            Show this QR code or share the invitation code to your friends
+          </Text>
         </View>
         <SeparateBar />
-        <View style={styles.row2}>
-          <Text style={styles.row2Left}>My inviation code</Text>
-          <Text style={styles.row2Middle}>123456789123</Text>
-          <Text style={styles.row2Right} onPress={() => this.handleOnPressCopy()}>COPY</Text>
+        <View style={stylesX.row2}>
+          <Text style={stylesX.row2Left}>My inviation code</Text>
+          <Text style={stylesX.row2Middle}>123456789123</Text>
+          <Text
+            style={stylesX.row2Right}
+            onPress={() => this.handleOnPressCopy()}
+          >
+            COPY
+          </Text>
         </View>
         {this.renderMenuBottomShare()}
-        {/* <View style={styles.wrap}>
+        {/* <View style={stylesX.wrap}>
         </View> */}
       </View>
-    )
+    );
   }
 
   render() {
-    const {
-      bannerHomeRecommend,
-      navigation: { navigate },
-      i18n 
-    } = this.props;
+    // const {
+    //   // bannerHomeRecommend,
+    //   // navigation: { navigate },
+    //   i18n,
+    // } = this.props;
 
     return (
       <View style={styles.container}>
         <BYHeader />
         {/* <ScrollView> */}
-          {this.renderContent()}
+        {this.renderContent()}
         {/* </ScrollView> */}
       </View>
     );
   }
 }
 
-export default connectLocalization(connect(
-  () => {
-    return (state, props) => {
-      const {
-        bannerHomeRecommend,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => {
+      // const {
+      // } = state;
 
       // const {
 
       // } = props;
-
-      return {
-        bannerHomeRecommend: bannerHomeRecommend || {}
-      }
-    }
-  },
-  {
-    ...bannerHomeRecommendActionCreators,
-    ...authActionCreators,
-  }
-)(Invite));
+      console.log();
+      return {};
+    },
+    {
+      ...bannerHomeRecommendActionCreators,
+      ...authActionCreators,
+    },
+  )(Invite),
+);

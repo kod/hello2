@@ -95,7 +95,7 @@ class Login extends Component {
           name="phone"
           component={InputCountry}
           placeholder={i18n.pleaseEnterYourPhoneNumber}
-          keyboardType={'phone-pad'}
+          keyboardType="phone-pad"
           returnKeyType={'next'}
         />
         <Field

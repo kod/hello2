@@ -11,7 +11,6 @@ import {
   Platform,
   InteractionManager,
   DeviceEventEmitter,
-  ToastAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';

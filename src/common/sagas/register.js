@@ -1,8 +1,4 @@
-import {
-  Platform,
-  // ToastAndroid,
-  Alert,
-} from 'react-native';
+import { Platform, Alert } from 'react-native';
 import {
   takeEvery,
   apply,

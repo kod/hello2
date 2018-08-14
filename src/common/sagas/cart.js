@@ -1,31 +1,37 @@
-import { Platform, ToastAndroid, InteractionManager, DeviceEventEmitter } from 'react-native';
+import {
+  Platform,
+  Alert,
+  // InteractionManager,
+  // DeviceEventEmitter,
+} from 'react-native';
 import { normalize } from 'normalizr';
 import {
-  take,
-  call,
+  // take,
+  // call,
   apply,
   put,
-  race,
+  // race,
   select,
-  fork,
-  cancel,
+  // fork,
+  // cancel,
   takeEvery,
 } from 'redux-saga/effects';
+import moment from 'moment';
 import {
   cartRequest,
   cartSuccess,
   cartFailure,
-  cartAddRequest,
+  // cartAddRequest,
   cartAddSuccess,
   cartAddFailure,
   cartNumberSuccess,
   cartNumberFailure,
   cartDeleteSuccess,
   cartDeleteFailure,
-  cartSelectRequest,
+  // cartSelectRequest,
   cartSelectSuccess,
   cartSelectFailure,
-  cartSelectAllRequest,
+  // cartSelectAllRequest,
   cartSelectAllSuccess,
   cartSelectAllFailure,
 } from '../actions/cart';
@@ -41,11 +47,10 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import i18n from '../helpers/i18n';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
-import { getAuthUserFunid, getCartItems, getCart } from '../selectors';
-import Schemas from "../constants/schemas";
+import { getAuthUserFunid } from '../selectors';
+import Schemas from '../constants/schemas';
 
-export function* cartFetchWatchHandle(action) {
+export function* cartFetchWatchHandle(/* action */) {
   try {
     const funid = yield select(getAuthUserFunid);
     const Key = 'commodityKey';
@@ -61,10 +66,10 @@ export function* cartFetchWatchHandle(action) {
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.cartGetInfo, [
@@ -77,15 +82,15 @@ export function* cartFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-      }
+      },
     ]);
 
     let cart = [];
-    
-    if (response.code === 10000) {
-      let array = response.cartitems;
 
-      cart = array.map((val, key) => {
+    if (response.code === 10000) {
+      const array = response.cartitems;
+
+      cart = array.map(val => {
         val.detail = JSON.parse(val.detail) || {};
         val.imageUrl = val.iconUrl || '';
         val.selected = false;
@@ -103,7 +108,9 @@ export function* cartFetchWatchHandle(action) {
       // }
     }
 
-    yield put(cartSuccess(cart.result, cart.entities.products, cart.entities.details));
+    yield put(
+      cartSuccess(cart.result, cart.entities.products, cart.entities.details),
+    );
   } catch (err) {
     yield put(cartFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -115,37 +122,39 @@ export function* cartFetchWatch() {
 }
 
 export function* cartNumberRequestWatchHandle(action) {
+  const {
+    cartitemid,
+    quetity,
+    // quetity,
+  } = action.payload;
   try {
     const funid = yield select(getAuthUserFunid);
-    
+
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.cart.change';
     const charset = 'utf-8';
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '2.0';
-    
-    var cartitemid = action.payload.cartitemid;
-    var quetity = action.payload.quetity;
-  
+
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
     const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'cartitemid',
-          value: cartitemid
+          value: cartitemid,
         },
         {
           key: 'quetity',
-          value: quetity
-        }
+          value: quetity,
+        },
       ],
-        Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.cartChangeNum, [
@@ -158,11 +167,10 @@ export function* cartNumberRequestWatchHandle(action) {
         timestamp,
         version,
         funid,
-        cartitemid: cartitemid,
-        quetity: quetity
-      }
+        cartitemid,
+        quetity,
+      },
     ]);
-    // 
 
     let cart = [];
     cart = response;
@@ -191,32 +199,32 @@ export function* cartDeleteRequestWatchHandle(action) {
   try {
     const funid = yield select(getAuthUserFunid);
     const { cartitemids, orderno = '' } = action.payload;
-    
+
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.cart.remove';
     const charset = 'utf-8';
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '2.0';
-    
+
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
     const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'cartitemids',
-          value: cartitemids
+          value: cartitemids,
         },
         {
           key: 'orderno',
-          value: orderno
-        }
+          value: orderno,
+        },
       ],
-        Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.cartRemove, [
@@ -229,9 +237,9 @@ export function* cartDeleteRequestWatchHandle(action) {
         timestamp,
         version,
         funid,
-        cartitemids: cartitemids,
-        orderno: orderno
-      }
+        cartitemids,
+        orderno,
+      },
     ]);
 
     if (response.code === 10000) {
@@ -240,7 +248,6 @@ export function* cartDeleteRequestWatchHandle(action) {
       yield put(cartDeleteFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
     }
-
   } catch (err) {
     yield put(cartDeleteFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -251,10 +258,9 @@ export function* cartDeleteRequestWatch() {
   yield takeEvery(CART_DELETE.REQUEST, cartDeleteRequestWatchHandle);
 }
 
-export function* cartNumberSuccessWatchHandle(action) {
+export function* cartNumberSuccessWatchHandle() {
   try {
     yield put(cartRequest());
-    
   } catch (err) {
     // yield put(cartNumberFailure());
     // yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -265,7 +271,7 @@ export function* cartNumberSuccessWatch() {
   yield takeEvery(CART_NUMBER.SUCCESS, cartNumberSuccessWatchHandle);
 }
 
-export function* cartDeleteSuccessWatchHandle(action) {
+export function* cartDeleteSuccessWatchHandle() {
   try {
     yield put(cartRequest());
   } catch (err) {
@@ -278,7 +284,7 @@ export function* cartDeleteSuccessWatch() {
   yield takeEvery(CART_DELETE.SUCCESS, cartDeleteSuccessWatchHandle);
 }
 
-export function* cartSelectRequestWatchHandle(action) {
+export function* cartSelectRequestWatchHandle() {
   try {
     yield put(cartSelectSuccess());
   } catch (err) {
@@ -291,7 +297,7 @@ export function* cartSelectRequestWatch() {
   yield takeEvery(CART_SELECT.REQUEST, cartSelectRequestWatchHandle);
 }
 
-export function* cartSelectAllRequestWatchHandle(action) {
+export function* cartSelectAllRequestWatchHandle() {
   try {
     yield put(cartSelectAllSuccess());
   } catch (err) {
@@ -315,21 +321,21 @@ export function* cartAddRequestWatchHandle(action) {
     const charset = 'utf-8';
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '2.0';
-    
+
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
     const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'cartitems',
-          value: cartitems
+          value: cartitems,
         },
       ],
-        Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.cartGate, [
@@ -342,17 +348,16 @@ export function* cartAddRequestWatchHandle(action) {
         timestamp,
         version,
         funid,
-        cartitems: cartitems,
-      }
+        cartitems,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(cartAddFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(cartAddSuccess());
     }
-
-    yield put(cartAddSuccess());
   } catch (err) {
     yield put(cartAddFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -363,9 +368,19 @@ export function* cartAddRequestWatch() {
   yield takeEvery(CART_ADD.REQUEST, cartAddRequestWatchHandle);
 }
 
-export function* cartAddSuccessWatchHandle(action) {
+export function* cartAddSuccessWatchHandle() {
   try {
-    if (Platform.OS === 'android') yield apply(ToastAndroid, ToastAndroid.show, [ i18n.success, ToastAndroid.SHORT ]);
+    Alert.alert(
+      '',
+      i18n.success,
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {},
+        },
+      ],
+      // { cancelable: false },
+    );
   } catch (err) {
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
