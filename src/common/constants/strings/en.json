@@ -133,5 +133,6 @@
   "payment": "Payment",
   "overdue": "Overdue",
   "internetBanking": "Internet banking",
+  "submit": "Submit",
   "warehouse": "Warehouse"
 }
