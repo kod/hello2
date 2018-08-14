@@ -559,8 +559,9 @@ class CertifiedInformation extends Component {
                 style={styles.input}
                 placeholder={i18n.email}
                 placeholderTextColor="#ccc"
-                onChangeText={val => certifiedInformationEdit('email', val)}
-                onBlur={() => certifiedInformationEdit('email', email.trim())}
+                onChangeText={val =>
+                  certifiedInformationEdit('email', val.trim())
+                }
                 value={email}
               />
             </View>
