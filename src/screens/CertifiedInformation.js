@@ -32,6 +32,7 @@ import BYModal from '../components/BYModal';
 import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 import { makegetSchoolName } from '../common/selectors';
+import { submitDuplicateFreeze } from '../common/helpers';
 
 import { BORDER_COLOR } from '../styles/variables';
 import {
@@ -287,14 +288,16 @@ class CertifiedInformation extends Component {
       if (!EMAIL_EXPR.test(email)) return tips(i18n.failedEMailPleaseReEnter);
     }
 
-    if (submitfreeze === false) {
-      userAddDetailInfoFetch();
-    } else {
-      this.setState({ submitfreeze: true });
-      this.setTimeoutId = setTimeout(() => {
-        this.setState({ submitfreeze: false });
-      }, 2000);
-    }
+    submitDuplicateFreeze(submitfreeze, this, () => userAddDetailInfoFetch());
+
+    // if (submitfreeze === false) {
+    //   userAddDetailInfoFetch();
+    // } else {
+    //   this.setState({ submitfreeze: true });
+    //   this.setTimeoutId = setTimeout(() => {
+    //     this.setState({ submitfreeze: false });
+    //   }, 2000);
+    // }
 
     return false;
   }

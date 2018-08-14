@@ -6,8 +6,10 @@ import {
   View,
   ScrollView,
   StyleSheet,
-  Platform,
-  ToastAndroid,
+  // Platform,
+  // ToastAndroid,
+  DeviceEventEmitter,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -21,6 +23,9 @@ import {
   WINDOW_HEIGHT,
   SIDEINTERVAL,
   MODAL_TYPES,
+  SCREENS,
+  PHONE_EXPR,
+  NAME_EXPR,
 } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
@@ -30,9 +35,9 @@ import CustomIcon from '../components/CustomIcon';
 // import BYModal from '../components/BYModal';
 import BYButton from '../components/BYButton';
 import { connectLocalization } from '../components/Localization';
-
 import PXTouchable from '../components/BYTouchable';
-// import AddressAddModal from '../containers/AddressAddModal';
+
+import { submitDuplicateFreeze } from '../common/helpers';
 
 import * as cityInfosActionCreators from '../common/actions/cityInfos';
 import * as addressActionCreators from '../common/actions/address';
@@ -92,6 +97,7 @@ class AddressAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      submitfreeze: false,
       isOpenMenuBottomSheet: false,
       division2ndID: null,
       division3rdID: null,
@@ -106,9 +112,17 @@ class AddressAdd extends Component {
     const {
       initialize,
       navigation: {
+        goBack,
         state: { params },
       },
     } = this.props;
+
+    this.screenListener = DeviceEventEmitter.addListener(
+      SCREENS.AddressAdd,
+      () => {
+        goBack();
+      },
+    );
 
     if (params) {
       initialize({
@@ -119,9 +133,13 @@ class AddressAdd extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.setTimeoutId);
+    this.screenListener.remove();
+  }
+
   callbackToggleMenuBottomSheet(ret) {
-    console.log(ret);
-    // this.setState(ret);
+    this.setState(ret);
   }
 
   handleOnPressToggleMenuBottomSheet = type => {
@@ -151,6 +169,7 @@ class AddressAdd extends Component {
       division2ndID,
       division3rdID,
       division4thID,
+      submitfreeze,
       // division4thID,
     } = this.state;
 
@@ -161,13 +180,22 @@ class AddressAdd extends Component {
       addressAddFetch,
       addressModifyFetch,
       addressAddInfo: { values },
+      i18n,
     } = this.props;
     // return false;
 
     if (!values) {
-      if (Platform.OS === 'android')
-        ToastAndroid.show('place entry name', ToastAndroid.SHORT);
-
+      Alert.alert(
+        '',
+        i18n.pleaseEnterYourActualName,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
       return false;
     }
 
@@ -178,53 +206,94 @@ class AddressAdd extends Component {
       // address = '',
     } = values;
 
-    if (name.length === 0) {
-      if (Platform.OS === 'android')
-        ToastAndroid.show('place entry name', ToastAndroid.SHORT);
+    if (!NAME_EXPR.test(name)) {
+      Alert.alert(
+        '',
+        i18n.pleaseEnterCorrectFullName,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
       return false;
     }
 
-    if (phone.length === 0) {
-      if (Platform.OS === 'android')
-        ToastAndroid.show('place entry phone', ToastAndroid.SHORT);
+    if (!PHONE_EXPR.test(phone)) {
+      Alert.alert(
+        '',
+        i18n.pleaseEnterCorrectPhoneNumber,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
 
+    if (address.length === 0) {
+      Alert.alert(
+        '',
+        i18n.pleaseEnterAddress,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
       return false;
     }
 
     if (!division4thID) {
-      if (Platform.OS === 'android')
-        ToastAndroid.show('place entry area', ToastAndroid.SHORT);
-    }
-
-    if (address.length === 0) {
-      if (Platform.OS === 'android')
-        ToastAndroid.show('place entry address', ToastAndroid.SHORT);
+      Alert.alert(
+        '',
+        i18n.pleaseEnterArea,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
       return false;
     }
 
     if (params) {
-      addressModifyFetch({
-        id: params.id,
+      submitDuplicateFreeze(submitfreeze, this, () =>
+        addressModifyFetch({
+          id: params.id,
+          msisdn: phone,
+          address,
+          isdefault: params.isdefault,
+          username: name,
+          division2nd: division2ndID,
+          division3rd: division3rdID,
+          division4th: division4thID,
+        }),
+      );
+      return false;
+    }
+
+    submitDuplicateFreeze(submitfreeze, this, () =>
+      addressAddFetch({
         msisdn: phone,
         address,
-        isdefault: params.isdefault,
+        isdefault: 'Y',
         username: name,
         division2nd: division2ndID,
         division3rd: division3rdID,
         division4th: division4thID,
-      });
-      return false;
-    }
-
-    addressAddFetch({
-      msisdn: phone,
-      address,
-      isdefault: 'Y',
-      username: name,
-      division2nd: division2ndID,
-      division3rd: division3rdID,
-      division4th: division4thID,
-    });
+        screen: SCREENS.AddressAdd,
+      }),
+    );
     return true;
   }
 
@@ -238,6 +307,7 @@ class AddressAdd extends Component {
 
     const {
       // navigation: { goBack, navigate },
+      i18n,
       openModal,
     } = this.props;
 
@@ -246,37 +316,47 @@ class AddressAdd extends Component {
         <BYHeader />
         <ScrollView keyboardShouldPersistTaps="always">
           <View style={styles.item}>
-            <Text style={styles.title}>Name</Text>
+            <Text style={styles.title}>{i18n.actualName}</Text>
             <Field
               name="name"
               component={FieldInput}
               style={styles.textInput}
-              placeholder="please enter your name"
+              placeholder={i18n.pleaseEnterYourActualName}
               placeholderTextColor="#ccc"
             />
           </View>
           <View style={styles.item}>
-            <Text style={styles.title}>Phone number</Text>
+            <Text style={styles.title}>{i18n.phone}</Text>
             <Field
               name="phone"
               component={FieldInput}
               style={styles.textInput}
-              placeholder="please enter your phone number"
+              placeholder={i18n.pleaseEnterYourPhoneNumber}
               placeholderTextColor="#ccc"
               keyboardType="phone-pad"
+            />
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.title}>{i18n.address}</Text>
+            <Field
+              name="address"
+              component={FieldInput}
+              style={styles.textInput}
+              placeholder={i18n.pleaseEnterAddress}
+              placeholderTextColor="#ccc"
             />
           </View>
           <PXTouchable
             style={styles.item}
             onPress={() =>
               openModal(MODAL_TYPES.ADDRESSADD, {
-                callback: ret => console.log(ret),
+                callback: ret => this.callbackToggleMenuBottomSheet(ret),
               })
             }
           >
-            <Text style={styles.title}>Xã/Huyện/Thành</Text>
+            <Text style={styles.title}>{i18n.communeDistrictCity}</Text>
             <BYTextInput
-              placeholder="please select"
+              placeholder={i18n.pleaseChoose}
               placeholderTextColor="#ccc"
               style={styles.address}
               value={
@@ -288,20 +368,10 @@ class AddressAdd extends Component {
             />
             <CustomIcon style={styles.arrow} name="arrowright" />
           </PXTouchable>
-          <View style={styles.item}>
-            <Text style={styles.title}>Address</Text>
-            <Field
-              name="address"
-              component={FieldInput}
-              style={styles.textInput}
-              placeholder="please enter your address"
-              placeholderTextColor="#ccc"
-            />
-          </View>
           <BYButton
             styleWrap={styles.submitWrap}
             styleText={styles.submit}
-            text="Save"
+            text={i18n.save}
             onPress={() => this.handleOnPressSubmit()}
           />
         </ScrollView>

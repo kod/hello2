@@ -1,17 +1,30 @@
-export const addressJoin = item => {
-  return item.address + (item.division4thName ? ', ' : '') + item.division4thName + (item.division3rdName ? ', ' : '') + item.division3rdName + (item.division2ndName ? ', ' : '') + item.division2ndName;
-};
+export const addressJoin = item =>
+  item.address +
+  (item.division4thName ? ', ' : '') +
+  item.division4thName +
+  (item.division3rdName ? ', ' : '') +
+  item.division3rdName +
+  (item.division2ndName ? ', ' : '') +
+  item.division2ndName;
 
 export const createOrderno = funid => {
-  var mydate = new Date();
-  return funid + mydate.getDay() + mydate.getHours() + mydate.getMinutes() + mydate.getSeconds() + mydate.getMilliseconds() + Math.round(Math.random() * 10000);
+  const mydate = new Date();
+  return (
+    funid +
+    mydate.getDay() +
+    mydate.getHours() +
+    mydate.getMinutes() +
+    mydate.getSeconds() +
+    mydate.getMilliseconds() +
+    Math.round(Math.random() * 10000)
+  );
 };
 
 export const tradeStatusCodes = (code = 10000, i18n) => {
-  const codes =  {
-    10000: '交易创建，等待买家付款',
+  const codes = {
+    10000: i18n.pendingPayment, // '交易创建，等待买家付款'
     10001: '交易支付成功',
-    10002: '交易支付失败',
+    10002: i18n.paymentFailed, // '交易支付失败'
     10003: '交易支付等待',
     10004: '交易成功,等待审核(新流程)',
     20000: '未付款交易超时关闭，或支付完成后全额退款',
@@ -33,8 +46,8 @@ export const tradeStatusCodes = (code = 10000, i18n) => {
 };
 
 export const buttonTextForTradeStatusCodes = (code = 10000, i18n) => {
-  const codes =  {
-    10000: 'Pay',
+  const codes = {
+    10000: i18n.payment, // Pay
     10001: 'View',
     10002: 'View',
     10003: 'View',
@@ -58,11 +71,11 @@ export const buttonTextForTradeStatusCodes = (code = 10000, i18n) => {
 };
 
 export const billStatusCodes = (code = 10000, i18n) => {
-  const codes =  {
+  const codes = {
     10000: '未出账',
     10001: '已出账',
     10002: '已还清',
-    10007: '已逾期',
+    10007: i18n.overdue, // '已逾期'
   };
   return codes[code];
 };
@@ -83,7 +96,7 @@ export const billInitDate = () => {
 
   return {
     year,
-    month
+    month,
   };
 };
 
@@ -94,13 +107,15 @@ export const payWayToText = (payWay, i18n) => {
     case '1':
       result = '信用卡支付';
       break;
-  
+
     case '2':
-      result = '网银支付';
+      result = i18n.internetBanking; // '网银支付'
       break;
-  
+
     case '5':
       result = '混合支付';
+      break;
+    default:
       break;
   }
 
@@ -108,5 +123,23 @@ export const payWayToText = (payWay, i18n) => {
 };
 
 export const judge = (boolean, trueFunc, falseFunc = () => {}) => {
-  boolean ? trueFunc() : falseFunc();
-}
+  if (boolean) {
+    trueFunc();
+  } else {
+    falseFunc();
+  }
+};
+
+/* 防止重复提交
+- 需在当前组件state里添加submitfreeze字段(boolean)
+- 需在当前组件componentWillUnmount方法里添加clearTimeout(this.setTimeoutId);
+*/
+export const submitDuplicateFreeze = (submitfreeze, self, callback) => {
+  if (submitfreeze === false) {
+    callback();
+    self.setState({ submitfreeze: true });
+    self.setTimeoutId = setTimeout(() => {
+      self.setState({ submitfreeze: false });
+    }, 2000);
+  }
+};

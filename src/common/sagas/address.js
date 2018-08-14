@@ -1,4 +1,4 @@
-import { Platform, ToastAndroid } from 'react-native';
+import { Platform, Alert, DeviceEventEmitter } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
 // import { NavigationActions } from 'react-navigation';
@@ -26,7 +26,7 @@ import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
 import i18n from '../helpers/i18n';
 
-import NavigatorService from '../../navigations/NavigatorService';
+// import NavigatorService from '../../navigations/NavigatorService';
 
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
 
@@ -105,6 +105,7 @@ export function* addressAddFetchWatchHandle(action) {
       division4th = 0,
       division5th = 0,
       division6th = 0,
+      screen,
     } = action.payload;
 
     const Key = 'userKey';
@@ -193,7 +194,7 @@ export function* addressAddFetchWatchHandle(action) {
       yield put(addressAddFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
     } else {
-      yield put(addressAddSuccess());
+      yield put(addressAddSuccess(screen));
     }
   } catch (err) {
     yield put(addressAddFailure());
@@ -201,15 +202,30 @@ export function* addressAddFetchWatchHandle(action) {
   }
 }
 
-export function* addressAddSuccessWatchHandle() {
+export function* addressAddSuccessWatchHandle(action) {
+  const { screen } = action.payload;
   try {
     yield put(addressFetch());
-    if (Platform.OS === 'android')
-      yield apply(ToastAndroid, ToastAndroid.show, [
-        i18n.success,
-        ToastAndroid.SHORT,
-      ]);
-    NavigatorService.pop(1);
+    Alert.alert(
+      '',
+      i18n.success,
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {
+            apply(DeviceEventEmitter, DeviceEventEmitter.emit, [screen]);
+            // NavigatorService.pop(1);
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+
+    // if (Platform.OS === 'android')
+    //   yield apply(ToastAndroid, ToastAndroid.show, [
+    //     i18n.success,
+    //     ToastAndroid.SHORT,
+    //   ]);
   } catch (err) {
     console.log(err);
   }
@@ -397,11 +413,23 @@ export function* addressModifyWatchHandle(action) {
 export function* addressModifySuccessWatchHandle() {
   try {
     yield put(addressFetch(true));
-    if (Platform.OS === 'android')
-      yield apply(ToastAndroid, ToastAndroid.show, [
-        i18n.success,
-        ToastAndroid.SHORT,
-      ]);
+    Alert.alert(
+      '',
+      i18n.success,
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {},
+        },
+      ],
+      // { cancelable: false },
+    );
+
+    // if (Platform.OS === 'android')
+    // yield apply(ToastAndroid, ToastAndroid.show, [
+    //   i18n.success,
+    //   ToastAndroid.SHORT,
+    // ]);
   } catch (err) {
     console.log(err);
   }

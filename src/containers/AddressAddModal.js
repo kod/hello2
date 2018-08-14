@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   },
   mask: {
     flex: 1,
+    backgroundColor: 'rgba(0,0,0, .3)',
   },
   closeWrap: {
     alignItems: 'flex-end',
