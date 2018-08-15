@@ -7,17 +7,18 @@ import {
   Image,
   // ScrollView,
 } from 'react-native';
+import Swiper from 'react-native-swiper';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   PRIMARY_COLOR,
   // PRIMARY_COLOR,
 } from '../styles/variables';
 import {
-  // WINDOW_WIDTH,
   // WINDOW_HEIGHT,
   SCREENS,
   SIDEINTERVAL,
-  APPBAR_HEIGHT,
+  // APPBAR_HEIGHT,
+  WINDOW_WIDTH,
 } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
@@ -32,7 +33,10 @@ import { judge } from '../common/helpers';
 
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
 
-const kasdifghosjfilPng = require('../images/kasdifghosjfil.png');
+const hh8d9sadiua8Jpg = require('../images/hh8d9sadiua8.jpg');
+const hh9834ire843Png = require('../images/hh9834ire843.png');
+const hh98344roi34Png = require('../images/hh98344roi34.png');
+// const kasdifghosjfilPng = require('../images/kasdifghosjfil.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -75,34 +79,100 @@ class Card extends Component {
       },
     });
 
-    return <Text style={stylesX.title}>credit card</Text>;
+    const { i18n } = this.props;
+
+    return <Text style={stylesX.title}>{i18n.funCard}</Text>;
   };
 
-  renderApplyStatus({ backgroundColor, text, onPress }) {
+  renderApplyStatus({ text, onPress }) {
     const stylesX = StyleSheet.create({
       applyStatus: {
-        backgroundColor,
-        paddingLeft: SIDEINTERVAL,
-        paddingRight: SIDEINTERVAL,
-        paddingTop: 20 + APPBAR_HEIGHT,
-        minHeight: 100,
+        // backgroundColor,
+        // paddingLeft: SIDEINTERVAL,
+        // paddingRight: SIDEINTERVAL,
+        // paddingTop: 20 + APPBAR_HEIGHT,
+        // minHeight: 100,
       },
-      cardImage: {
-        height: 150,
-        width: 'auto',
-        resizeMode: 'cover',
-        marginBottom: 5,
+      // cardImage: {
+      //   height: 150,
+      //   width: 'auto',
+      //   resizeMode: 'cover',
+      //   marginBottom: 5,
+      // },
+      swiperWrap: {
+        height: 230,
+      },
+      wrapper: {
+        backgroundColor: '#fff',
+      },
+      slide: {
+        flex: 1,
+        backgroundColor: 'transparent',
+      },
+      image: {
+        width: WINDOW_WIDTH,
+        height: 200,
+      },
+      dot: {
+        backgroundColor: '#e6e6e6',
+        width: 5,
+        height: 5,
+        borderRadius: 10,
+        marginLeft: 5,
+        marginRight: 5,
+      },
+      activeDot: {
+        backgroundColor: '#b3b3b3',
+        width: 5,
+        height: 5,
+        borderRadius: 10,
+        marginLeft: 5,
+        marginRight: 5,
       },
     });
 
     return (
       <View style={stylesX.applyStatus}>
-        <Image style={stylesX.cardImage} source={kasdifghosjfilPng} />
+        <View style={stylesX.swiperWrap}>
+          <Swiper
+            style={stylesX.wrapper}
+            dot={<View style={stylesX.dot} />}
+            activeDot={<View style={stylesX.activeDot} />}
+            paginationStyle={{
+              bottom: 15,
+            }}
+            loop
+            autoplay
+          >
+            <View style={stylesX.slide}>
+              <Image
+                style={stylesX.image}
+                source={hh98344roi34Png}
+                resizeMode="cover"
+              />
+            </View>
+            <View style={stylesX.slide}>
+              <Image
+                style={stylesX.image}
+                source={hh9834ire843Png}
+                resizeMode="cover"
+              />
+            </View>
+            <View style={stylesX.slide}>
+              <Image
+                style={stylesX.image}
+                source={hh8d9sadiua8Jpg}
+                resizeMode="cover"
+              />
+            </View>
+          </Swiper>
+        </View>
+        {/* <Image style={stylesX.cardImage} source={kasdifghosjfilPng} /> */}
         <BYButton
           text={text}
-          styleWrap={{ paddingLeft: 0, paddingRight: 0 }}
-          style={{ backgroundColor: '#fff', marginBottom: 30 }}
-          styleText={{ color: PRIMARY_COLOR, height: 40, lineHeight: 40 }}
+          // styleWrap={{ paddingLeft: 0, paddingRight: 0 }}
+          style={{ backgroundColor: PRIMARY_COLOR, marginBottom: 30 }}
+          styleText={{ color: '#fff', height: 50, lineHeight: 50 }}
           onPress={onPress}
         />
       </View>
@@ -183,7 +253,7 @@ class Card extends Component {
     );
   }
 
-  renderMain() {
+  renderContent() {
     const {
       initPassword,
       msisdn,
@@ -193,31 +263,13 @@ class Card extends Component {
       isAuthUser,
     } = this.props;
 
-    // return (
-    //   this.renderApplyStatus({
-    //     backgroundColor: '#18a873',
-    //     text: '激活 >',
-    //     onPress: () => {
-    //       navigate( isAuthUser ? SCREENS.TransactionPasswordStepOne : SCREENS.Login, { from: 'card', msisdn })
-    //     }
-    //   })
-    // )
-
-    // return (
-    //   this.renderApplyStatus({
-    //     backgroundColor: '#147af3',
-    //     text: 'apply for a credit card >',
-    //     onPress: () => navigate(SCREENS.CertifiedInformation, { isCertify: true })
-    //   })
-    // )
-
     return (
       <View style={styles.container}>
         {status === 3 && initPassword === 1 && this.renderCard()}
         {(!isAuthUser || status === 1) &&
           this.renderApplyStatus({
-            backgroundColor: '#147af3',
-            text: 'apply for a credit card >',
+            // backgroundColor: '#147af3',
+            text: 'apply for a credit card',
             onPress: () =>
               navigate(
                 isAuthUser ? SCREENS.CertifiedInformation : SCREENS.Login,
@@ -226,15 +278,15 @@ class Card extends Component {
           })}
         {status === 2 &&
           this.renderApplyStatus({
-            backgroundColor: '#fa534d',
-            text: '申请成功  等待审核中...',
+            // backgroundColor: '#fa534d',
+            text: '申请成功 等待审核中...',
             // onPress: () => navigate(SCREENS.CertifiedInformation, { isCertify: true })
           })}
         {status === 3 &&
           initPassword === 0 &&
           this.renderApplyStatus({
-            backgroundColor: '#18a873',
-            text: '激活 >',
+            // backgroundColor: '#18a873',
+            text: '激活',
             onPress: () => {
               navigate(
                 isAuthUser ? SCREENS.TransactionPasswordStepOne : SCREENS.Login,
@@ -242,6 +294,8 @@ class Card extends Component {
               );
             },
           })}
+        <SeparateBar />
+        <SeparateBar />
         <NavBar2
           onPress={() =>
             judge(status === 3 && initPassword === 1, () =>
@@ -268,7 +322,6 @@ class Card extends Component {
             )
           }
           valueLeft="Security Settings"
-          // valueMiddle={'3 period'}
         />
       </View>
     );
@@ -283,7 +336,15 @@ class Card extends Component {
 
     if (isAuthUser && !loaded) return <Loader />;
 
-    return <View style={styles.container}>{this.renderMain()}</View>;
+    return (
+      <View style={styles.container}>
+        <BYHeader
+          headerTitle={this.renderHeaderTitle()}
+          showBackButton={false}
+        />
+        {this.renderContent()}
+      </View>
+    );
   }
 }
 export default connectLocalization(
