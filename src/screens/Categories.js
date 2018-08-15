@@ -57,9 +57,11 @@ class Categories extends Component {
       },
     });
 
+    const { i18n } = this.props;
+
     return (
       <View style={stylesX.container}>
-        <Text style={stylesX.title}>Categories</Text>
+        <Text style={stylesX.title}>{i18n.categories}</Text>
       </View>
     );
   };

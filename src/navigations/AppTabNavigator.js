@@ -33,7 +33,7 @@ const TabContainer = TabNavigator(
     [SCREENS.Card]: {
       screen: Card,
       navigationOptions: ({ screenProps: { i18n } }) => ({
-        tabBarLabel: i18n.card,
+        tabBarLabel: i18n.funCard,
         tabBarIcon: ({ tintColor }) => (
           <CustomIcon name="card" size={14} color={tintColor} />
         ),
