@@ -2,6 +2,7 @@ export default function entities(
   state = {
     product_detail: {},
     properties_detail: {},
+    getAllProductInfo: {},
     // users: {},
     // userPreviews: {},
     // userProfiles: {},

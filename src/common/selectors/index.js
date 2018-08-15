@@ -1,19 +1,13 @@
 /* eslint-disable max-len, no-confusing-arrow */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disabel no-unused-vars */
-/* eslint-disabel camelcase */
-/* eslint-disabel no-else-return */
+/* eslint-disable camelcase */
+/* eslint-disable no-else-return */
 
 import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 import Schemas from '../constants/schemas';
 
-const getProps = (state, props) => props;
-const selectEntities = state => state.entities;
-const selectProductDetail = state => state.productDetail;
-const selectProductDetailInfo = state => state.productDetailInfo;
-
-// const defaultArray = [];
+const defaultArray = [];
 const defaultObject = {};
 // const defaultString = '';
 
@@ -43,6 +37,12 @@ export const getQueryOrderListItem = state => state.queryOrderList.item;
 export const getQueryOrderListScrollTabIndex = state =>
   state.queryOrderList.scrollTabIndex;
 export const getQueryOrderListRows = state => state.queryOrderList.rows;
+
+const getProps = (state, props) => props;
+const selectEntities = state => state.entities;
+const selectProductDetail = state => state.productDetail;
+const selectProductDetailInfo = state => state.productDetailInfo;
+const selectGetAllProductInfo = state => state.getAllProductInfo;
 
 export const makegetProductDetailInfo = () =>
   createSelector(
@@ -90,11 +90,16 @@ export const makegetProductDetailProperties = () => {
       // let colorId = 0;
       // let versionId = 0;
       propertiesIds = propertiesIds.split('-');
-      propertiesIds.forEach((id1, key) => {
-        properties_detail.forEach((val1, key1) => {
+      propertiesIds.forEach(id1 => {
+        properties_detail.forEach(val1 => {
           const id2 = val1.id;
-          if (parseInt(id1) !== id2) return false;
-          val1.image ? result.colorId = id2 : result.versionId = id2;
+          if (parseInt(id1, 10) !== id2) return false;
+          if (val1.image) {
+            result.colorId = id2;
+          } else {
+            result.versionId = id2;
+          }
+          return true;
         });
       });
       return result;
@@ -117,10 +122,10 @@ export const makegetProductDetailItem = () => {
 
       if (!product_detail || !propertiesArray.length) return defaultObject;
 
-      product_detail.forEach((val, key) => {
-        const item = propertiesArray.every((val1, key1) => {
-          return val.propertiesIds.indexOf(val1 + '') !== -1;
-        });
+      product_detail.forEach(val => {
+        const item = propertiesArray.every(
+          val1 => val.propertiesIds.indexOf(val1.toString()) !== -1,
+        );
         if (item) result = val;
       });
       return result;
@@ -138,7 +143,7 @@ export const makegetProductDetailColorVersionList = () => {
     const { properties_detail } = productDetailInfo;
     if (!properties_detail) return result;
 
-    properties_detail.forEach((val, key) => {
+    properties_detail.forEach(val => {
       if (val.image) {
         result.product_color.push(val);
       } else {
@@ -161,8 +166,8 @@ export const makegetIsCollection = () =>
     },
   );
 
-export const makegetSchoolName = () => {
-  return createSelector(
+export const makegetSchoolName = () =>
+  createSelector(
     [getSchoolInfoItems, getCertifiedInformationCertUser],
     (schoolInfoItems, certifiedInformationCertUser) => {
       if (schoolInfoItems.length === 0) return '';
@@ -174,9 +179,9 @@ export const makegetSchoolName = () => {
         )
           return element.name;
       }
+      return true;
     },
   );
-};
 
 export const getAddressSelectedItem = createSelector(
   [getAddressItems, getAddressSelectedId],
@@ -193,24 +198,10 @@ export const getAddressSelectedItem = createSelector(
 
 export const getBillMonthItem = createSelector(
   [getBillByYearItems, getBillActiveYear, getBillActiveMonth],
-  (billByYearItems, billActiveYear, billActiveMonth) => {
-    // if (!billByYearItems[billActiveYear]) return defaultObject;
-    // const activeItem = billByYearItems[billActiveYear][billActiveMonth - 1];
-
-    // const getValidMonth = (array) => {
-    //   array = array.reverse();
-    //   for (let index = 0; index < array.length; index += 1) {
-    //     const element = array[index];
-    //     if (element.status) return element;
-    //   }
-    //   return defaultObjectZ;
-    // };
-
-    // billMonthItem.status ? billMonthItem.status : getValidMonth(billByYearItems[billActiveYear]);
-    return billByYearItems[billActiveYear]
+  (billByYearItems, billActiveYear, billActiveMonth) =>
+    billByYearItems[billActiveYear]
       ? billByYearItems[billActiveYear][billActiveMonth - 1]
-      : defaultObject;
-  },
+      : defaultObject,
 );
 
 export const getBillTotalMoney = createSelector(
@@ -234,9 +225,8 @@ export const getBillTotalMoney = createSelector(
 
 export const getOrderItem = createSelector(
   [getQueryOrderListItem, getQueryOrderListScrollTabIndex],
-  (queryOrderListItem, queryOrderListScrollTabIndex) => {
-    return queryOrderListItem[queryOrderListScrollTabIndex];
-  },
+  (queryOrderListItem, queryOrderListScrollTabIndex) =>
+    queryOrderListItem[queryOrderListScrollTabIndex],
 );
 
 export const getCartTotalMoney = createSelector(
@@ -245,19 +235,36 @@ export const getCartTotalMoney = createSelector(
     if (items.length === 0) {
       return 0;
     } else if (items.length === 1) {
-      return products[items[0]].selected ? details[products[items[0]].detail].price * products[items[0]].quantity : 0;
+      return products[items[0]].selected
+        ? details[products[items[0]].detail].price * products[items[0]].quantity
+        : 0;
     } else {
       return items.reduce((a, b, index) => {
         if (index === 1) {
-          const aPrice = products[a].selected ? details[products[a].detail].price * products[a].quantity : 0;
-          const bPrice = products[b].selected ? details[products[b].detail].price * products[b].quantity : 0;
+          const aPrice = products[a].selected
+            ? details[products[a].detail].price * products[a].quantity
+            : 0;
+          const bPrice = products[b].selected
+            ? details[products[b].detail].price * products[b].quantity
+            : 0;
           return aPrice + bPrice;
         } else {
-          const bPrice = products[b].selected ? details[products[b].detail].price * products[b].quantity : 0;
+          const bPrice = products[b].selected
+            ? details[products[b].detail].price * products[b].quantity
+            : 0;
           return a + bPrice;
         }
-        return a + b;
       });
     }
   },
+);
+
+export const getGetAllProductInfoItems = createSelector(
+  [selectGetAllProductInfo, selectEntities],
+  (getAllProductInfo, entities) =>
+    denormalize(
+      getAllProductInfo.items,
+      Schemas.GETALLPRODUCTINFO_ARRAY,
+      entities,
+    ),
 );
