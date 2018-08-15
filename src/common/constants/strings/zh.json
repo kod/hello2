@@ -136,5 +136,6 @@
   "submit": "提交",
   "userNotExist": "用户不存在",
   "wrongPhoneNumberOrPassword": "手机或者密码输入错误",
+  "funCard": "Fun Card",
   "warehouse": "仓库"
 }
