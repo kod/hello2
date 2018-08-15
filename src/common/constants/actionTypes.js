@@ -211,6 +211,14 @@ export const GET_USERINFO_BYID = defineAction(
   appNamespace,
 );
 
+export const LOGIN = defineAction(
+  'LOGIN',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
+export const LOGOUT = defineAction('LOGOUT', [SUCCESS], appNamespace);
+
 export const CART_NUMBER = defineAction(
   'CART_NUMBER',
   [REQUEST, SUCCESS, FAILURE],

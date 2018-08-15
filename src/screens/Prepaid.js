@@ -123,7 +123,7 @@ export default connectLocalization(connect(
       const { productDetail, productDetailInfo, mergeGetDetail, mergeGetMaster, mergeCheck } = state;
       // const brandId = props.brandId || props.navigation.state.params.brandId;
       return {
-        // isAuthUser: !!state.auth.user,
+        // isAuthUser: !!state.login.user,
       };
     };
   }, 

@@ -183,8 +183,8 @@ export default connectLocalization(
   connect(
     state => {
       const {
-        auth,
-        // auth,
+        login,
+        // login,
       } = state;
 
       // const {
@@ -192,7 +192,7 @@ export default connectLocalization(
       // } = props;
 
       return {
-        isAuthUser: !!auth.user,
+        isAuthUser: !!login.user,
       };
     },
     // {

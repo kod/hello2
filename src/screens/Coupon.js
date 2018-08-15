@@ -146,7 +146,7 @@ export default connectLocalization(connect(
         receiveVoucherLoading: receiveVoucher.loading,
         loading: getVoucher.loading,
         items: getVoucher.items,
-        isAuthUser: !!state.auth.user,
+        isAuthUser: !!state.login.user,
       }
     }
   },

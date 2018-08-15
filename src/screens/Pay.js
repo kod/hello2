@@ -683,7 +683,7 @@ export default connectLocalization(
         return {
           addressSelectedItem: getAddressSelectedItem(state, props),
           addressItems: address.items,
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
           queryOrderItem: queryOrder.item,
           orderNo,
           tradeNo,

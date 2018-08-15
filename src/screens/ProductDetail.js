@@ -608,7 +608,7 @@ export default connectLocalization(
         isMaster: !!mergeCheck.item.mergeMasterId,
         propertiesIds: propertiesIdsUsed,
         masterItems: mergeGetMaster.items,
-        isAuthUser: !!state.auth.user,
+        isAuthUser: !!state.login.user,
       };
     },
     {

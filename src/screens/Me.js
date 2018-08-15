@@ -417,7 +417,7 @@ export default connectLocalization(
     state => {
       const {
         userCertificateInfo,
-        auth,
+        login,
         queryOrderList,
         cardQuery,
         // cardQuery,
@@ -425,7 +425,7 @@ export default connectLocalization(
       return {
         orderItem: queryOrderList.item,
         certUser: userCertificateInfo.certUser,
-        authUser: auth.user,
+        authUser: login.user,
         initPassword: cardQuery.item.initPassword,
         status: cardQuery.item.status,
       };

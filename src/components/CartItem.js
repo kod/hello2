@@ -273,7 +273,7 @@ class CartItem extends Component {
 export default connect(
   state => {
     return {
-      authUser: state.auth.user,
+      authUser: state.login.user,
       isEdit: state.cart.isEdit,
     }
   },

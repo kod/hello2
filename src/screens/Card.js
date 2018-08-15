@@ -291,8 +291,8 @@ export default connectLocalization(
     state => {
       const {
         cardQuery,
-        auth,
-        // auth,
+        login,
+        // login,
       } = state;
       return {
         loading: cardQuery.loading,
@@ -301,8 +301,8 @@ export default connectLocalization(
         item: cardQuery.item,
         status: cardQuery.item.status,
         periodHobbit: cardQuery.item.periodHobbit,
-        isAuthUser: !!state.auth.user,
-        msisdn: auth.user ? auth.user.msisdn : '',
+        isAuthUser: !!login.user,
+        msisdn: login.user ? login.user.msisdn : '',
       };
     },
     {

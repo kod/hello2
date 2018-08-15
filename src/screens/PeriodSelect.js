@@ -225,7 +225,7 @@ export default connectLocalization(
           initPassword: cardQuery.item.initPassword,
           status: cardQuery.item.status,
           periodHobbit: cardQuery.item.periodHobbit,
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
         }
       }
     },

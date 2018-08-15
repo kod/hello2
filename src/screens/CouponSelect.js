@@ -135,7 +135,7 @@ export default connectLocalization(connect(
         products,
         loading: judgeVoucher.loading,
         items: judgeVoucher.items,
-        isAuthUser: !!state.auth.user,
+        isAuthUser: !!state.login.user,
       }
     }
   },

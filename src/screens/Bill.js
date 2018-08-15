@@ -642,7 +642,7 @@ export default connectLocalization(
           isOverdue: billByYear.isOverdue,
           billByYearItems: billByYear.items,
           queryGoodsItems: queryGoods.items,
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
         }
       }
     },

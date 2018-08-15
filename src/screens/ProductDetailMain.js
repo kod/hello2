@@ -415,7 +415,7 @@ export default connectLocalization(
           propertiesIds,
           comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
           isCollection: getIsCollection(state, props),
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
         };
       };
     },

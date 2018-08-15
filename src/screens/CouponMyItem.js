@@ -155,7 +155,7 @@ export default connectLocalization(
         return {
           items: getVoucherList[routeName],
           loading: getVoucherList.loading,
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
           routeName,
         };
       };

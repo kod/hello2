@@ -1,12 +1,18 @@
+/* eslint-disable no-class-assign */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { StyleSheet, Text, View, ScrollView, Keyboard, DeviceEventEmitter, } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  // ScrollView,
+  Keyboard,
+  DeviceEventEmitter,
+} from 'react-native';
 import OverlaySpinner from 'react-native-loading-spinner-overlay';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
-
-import { SCREENS } from '../common/constants';
+import { SIDEINTERVAL, SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
@@ -15,9 +21,10 @@ import InputRight from '../components/InputRight';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
 import NavSidesText from '../components/NavSidesText';
-import OtherLogin from '../components/OtherLogin';
+// import OtherLogin from '../components/OtherLogin';
 
-import * as authActionCreators from "../common/actions/auth";
+import * as authActionCreators from '../common/actions/auth';
+import * as loginActionCreators from '../common/actions/login';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +51,7 @@ const validate = (values, props) => {
 class Login extends Component {
   componentDidMount() {
     const {
-      navigation: { goBack, navigate },
+      navigation: { goBack },
     } = this.props;
 
     this.closeLoginScreen = DeviceEventEmitter.addListener(
@@ -56,34 +63,54 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
+    const {
+      loginFailure,
+      // loginFailure,
+    } = this.props;
+    loginFailure();
     this.closeLoginScreen.remove();
   }
-  
+
   renderInputRight = () => {
     const {
-      navigation: { goBack, navigate },
+      navigation: { navigate },
     } = this.props;
 
     return (
-      <BYTouchable style={{ marginRight: SIDEINTERVAL }} onPress={() => navigate(SCREENS.ForgotPasswordOne)}>
-        <Text style={{ marginLeft: 0, color: '#666', fontSize: 11, borderBottomColor: '#666', borderBottomWidth: 1 }}>forgot password?</Text>
+      <BYTouchable
+        style={{ marginRight: SIDEINTERVAL }}
+        onPress={() => navigate(SCREENS.ForgotPasswordOne)}
+      >
+        <Text
+          style={{
+            marginLeft: 0,
+            color: '#666',
+            fontSize: 11,
+            borderBottomColor: '#666',
+            borderBottomWidth: 1,
+          }}
+        >
+          forgot password?
+        </Text>
       </BYTouchable>
     );
   };
 
   submit = data => {
-    const { login } = this.props;
+    const { loginFetch } = this.props;
     const { phone, password } = data;
+    console.log('submitsubmitsubmitsubmit');
     if (phone && password) {
       Keyboard.dismiss();
-      login(phone, password);
+      console.log('loginloginloginlogin');
+      loginFetch(phone, password);
     }
   };
 
   // 1212312
   render() {
     const {
-      navigation: { goBack, navigate },
+      navigation: { navigate },
       handleSubmit,
       i18n,
       auth: { loading },
@@ -96,27 +123,31 @@ class Login extends Component {
           component={InputCountry}
           placeholder={i18n.pleaseEnterYourPhoneNumber}
           keyboardType="phone-pad"
-          returnKeyType={'next'}
+          returnKeyType="next"
         />
         <Field
           name="password"
           component={InputRight}
-          inputRight={this.renderInputRight()} 
+          inputRight={this.renderInputRight()}
           styleWrap={{ marginBottom: 75 }}
           placeholder={i18n.pleaseEnterThePassword}
-          returnKeyType={'done'}
+          returnKeyType="done"
           secureTextEntry
         />
-        <BYButton text={i18n.login} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
-        <NavSidesText 
-          textLeft={'Register now?'} 
-          textRight={'Log in via SMS?'} 
-          navigateLeft={() => navigate(SCREENS.RegisterStepOne)} 
-          navigateRight={() => navigate(SCREENS.RegisterFastStepOne)} 
+        <BYButton
+          text={i18n.login}
+          style={{ marginBottom: 30 }}
+          onPress={handleSubmit(this.submit)}
+        />
+        <NavSidesText
+          textLeft="Register now?"
+          textRight="Log in via SMS?"
+          navigateLeft={() => navigate(SCREENS.RegisterStepOne)}
+          navigateRight={() => navigate(SCREENS.RegisterFastStepOne)}
         />
         <View style={{ flex: 1 }} />
         {/* <OtherLogin /> */}
-        <OverlaySpinner visible={loading} />
+        {/* <OverlaySpinner visible={loading} /> */}
       </View>
     );
   }
@@ -129,11 +160,17 @@ Login = reduxForm({
 })(Login);
 
 export default connectLocalization(
-  connect(state => {
-    return {
-      auth: state.auth,
-    }
-  }, {
-    ...authActionCreators
-  })(Login)
+  connect(
+    state => {
+      console.log();
+      return {
+        auth: state.login,
+        // auth: state.login,
+      };
+    },
+    {
+      ...authActionCreators,
+      ...loginActionCreators,
+    },
+  )(Login),
 );

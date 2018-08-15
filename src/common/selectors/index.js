@@ -1,4 +1,10 @@
-import { createSelector, createSelectorCreator } from 'reselect';
+/* eslint-disable max-len, no-confusing-arrow */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disabel no-unused-vars */
+/* eslint-disabel camelcase */
+/* eslint-disabel no-else-return */
+
+import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 import Schemas from '../constants/schemas';
 
@@ -7,14 +13,14 @@ const selectEntities = state => state.entities;
 const selectProductDetail = state => state.productDetail;
 const selectProductDetailInfo = state => state.productDetailInfo;
 
-const defaultArray = [];
+// const defaultArray = [];
 const defaultObject = {};
-const defaultString = '';
+// const defaultString = '';
 
-export const getAuth = state => state.auth;
-export const getAuthUser = state => state.auth.user;
-export const getAuthUserFunid = state => state.auth.user.result;
-export const getAuthUserMsisdn = state => state.auth.user.msisdn;
+export const getAuth = state => state.login;
+export const getAuthUser = state => state.login.user;
+export const getAuthUserFunid = state => state.login.user.result;
+export const getAuthUserMsisdn = state => state.login.user.msisdn;
 export const getLang = state => state.i18n.lang;
 export const getCart = state => state.cart;
 export const getCartItems = state => state.cart.items;
@@ -31,14 +37,15 @@ export const getBillActiveMonth = state => state.bill.activeMonth;
 export const getBillNowYear = state => state.bill.nowYear;
 export const getBillNowMonth = state => state.bill.nowMonth;
 export const getAddressSelectedId = state => state.address.addressSelectedId;
-export const getCertifiedInformationCertUser = state => state.certifiedInformation.certUser;
+export const getCertifiedInformationCertUser = state =>
+  state.certifiedInformation.certUser;
 export const getQueryOrderListItem = state => state.queryOrderList.item;
-export const getQueryOrderListScrollTabIndex = state => state.queryOrderList.scrollTabIndex;
+export const getQueryOrderListScrollTabIndex = state =>
+  state.queryOrderList.scrollTabIndex;
 export const getQueryOrderListRows = state => state.queryOrderList.rows;
 
-
-export const makegetProductDetailInfo = () => {
-  return createSelector(
+export const makegetProductDetailInfo = () =>
+  createSelector(
     [selectProductDetailInfo, selectEntities, getProps],
     (productDetailInfo, entities, props) => {
       const brandId = props.brandId || props.navigation.state.params.brandId;
@@ -51,7 +58,6 @@ export const makegetProductDetailInfo = () => {
         : defaultObject;
     },
   );
-}
 
 export const makegetProductDetailProperties = () => {
   const getProductDetailInfo = makegetProductDetailInfo();
@@ -61,34 +67,40 @@ export const makegetProductDetailProperties = () => {
       let {
         brandId,
         propertiesIds,
+        // propertiesIds,
       } = props.navigation.state.params;
       const { product_detail } = productDetailInfo;
-      let result = {
+      const result = {
         colorId: 0,
         versionId: 0,
-      }
+      };
       brandId = props.brandId || brandId;
       propertiesIds = props.propertiesIds || propertiesIds || '';
-      propertiesIds = propertiesIds || ( (product_detail && product_detail[0]) ? product_detail[0].propertiesIds : '');
+      propertiesIds =
+        propertiesIds ||
+        (product_detail && product_detail[0]
+          ? product_detail[0].propertiesIds
+          : '');
       if (!propertiesIds || !productDetailInfo.product_detail) return result;
-      
+
       const {
         properties_detail,
+        // properties_detail,
       } = productDetailInfo;
-      let colorId = 0;
-      let versionId = 0;
+      // let colorId = 0;
+      // let versionId = 0;
       propertiesIds = propertiesIds.split('-');
       propertiesIds.forEach((id1, key) => {
         properties_detail.forEach((val1, key1) => {
           const id2 = val1.id;
           if (parseInt(id1) !== id2) return false;
           val1.image ? result.colorId = id2 : result.versionId = id2;
-        })
+        });
       });
       return result;
     },
   );
-}
+};
 
 export const makegetProductDetailItem = () => {
   const getProductDetailInfo = makegetProductDetailInfo();
@@ -98,56 +110,56 @@ export const makegetProductDetailItem = () => {
       const { product_detail } = productDetailInfo;
       let result = {};
       const propertiesArray = [];
-      
-      if (productDetail.colorId) propertiesArray.push(productDetail.colorId);
-      if (productDetail.versionId) propertiesArray.push(productDetail.versionId);
 
-      if (!product_detail || !propertiesArray.length ) return defaultObject;
+      if (productDetail.colorId) propertiesArray.push(productDetail.colorId);
+      if (productDetail.versionId)
+        propertiesArray.push(productDetail.versionId);
+
+      if (!product_detail || !propertiesArray.length) return defaultObject;
 
       product_detail.forEach((val, key) => {
         const item = propertiesArray.every((val1, key1) => {
           return val.propertiesIds.indexOf(val1 + '') !== -1;
-        })
+        });
         if (item) result = val;
       });
       return result;
     },
   );
-}
+};
 
 export const makegetProductDetailColorVersionList = () => {
   const getProductDetailInfo = makegetProductDetailInfo();
-  return createSelector(
-    [getProductDetailInfo],
-    (productDetailInfo) => {
-      let result = {
-        product_color: [],
-        product_version: [],
-      }
-      const { properties_detail } = productDetailInfo;
-      if (!properties_detail) return result;
-      
-      properties_detail.forEach((val, key) => {
-        if (val.image) {
-          result.product_color.push(val);
-        } else {
-          result.product_version.push(val);
-        }
-      });
-      return result;
-    },
-  );
-}
+  return createSelector([getProductDetailInfo], productDetailInfo => {
+    const result = {
+      product_color: [],
+      product_version: [],
+    };
+    const { properties_detail } = productDetailInfo;
+    if (!properties_detail) return result;
 
-export const makegetIsCollection = () => {
-  return createSelector(
+    properties_detail.forEach((val, key) => {
+      if (val.image) {
+        result.product_color.push(val);
+      } else {
+        result.product_version.push(val);
+      }
+    });
+    return result;
+  });
+};
+
+export const makegetIsCollection = () =>
+  createSelector(
     [getProductDetailInfoItem, getCollectionItems],
     (productDetailInfoItem, collectionItems) => {
-      if (!productDetailInfoItem.brandId || !collectionItems.details) return false;
-      return collectionItems.details.some((val, key) => val.brandId === productDetailInfoItem.brandId);
+      if (!productDetailInfoItem.brandId || !collectionItems.details)
+        return false;
+      return collectionItems.details.some(
+        val => val.brandId === productDetailInfoItem.brandId,
+      );
     },
   );
-}
 
 export const makegetSchoolName = () => {
   return createSelector(
@@ -157,16 +169,20 @@ export const makegetSchoolName = () => {
       if (!certifiedInformationCertUser.collegename) return '';
       for (let index = 0; index < schoolInfoItems.length; index += 1) {
         const element = schoolInfoItems[index];
-        if (element.id === parseInt(certifiedInformationCertUser.collegename)) return element.name;
+        if (
+          element.id === parseInt(certifiedInformationCertUser.collegename, 10)
+        )
+          return element.name;
       }
     },
   );
-}
+};
 
 export const getAddressSelectedItem = createSelector(
   [getAddressItems, getAddressSelectedId],
   (addressItems, addressSelectedId) => {
-    if (addressItems.length === 0 || addressSelectedId === 0) return defaultObject;
+    if (addressItems.length === 0 || addressSelectedId === 0)
+      return defaultObject;
     for (let index = 0; index < addressItems.length; index += 1) {
       const element = addressItems[index];
       if (element.id === addressSelectedId) return element;
@@ -189,9 +205,11 @@ export const getBillMonthItem = createSelector(
     //   }
     //   return defaultObjectZ;
     // };
-    
+
     // billMonthItem.status ? billMonthItem.status : getValidMonth(billByYearItems[billActiveYear]);
-    return billByYearItems[billActiveYear] ? billByYearItems[billActiveYear][billActiveMonth - 1] : defaultObject;
+    return billByYearItems[billActiveYear]
+      ? billByYearItems[billActiveYear][billActiveMonth - 1]
+      : defaultObject;
   },
 );
 
@@ -200,8 +218,14 @@ export const getBillTotalMoney = createSelector(
   (searchMonthItem, billByYearItems, billNowYear, billNowMonth) => {
     if (!searchMonthItem.totalWaitingAmount) return 0;
     if (!billByYearItems[billNowYear]) return 0;
-    if (billByYearItems[billNowYear][billNowMonth - 1].status && billByYearItems[billNowYear][billNowMonth - 1].status !== 10000) {
-      return searchMonthItem.totalWaitingAmount + billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
+    if (
+      billByYearItems[billNowYear][billNowMonth - 1].status &&
+      billByYearItems[billNowYear][billNowMonth - 1].status !== 10000
+    ) {
+      return (
+        searchMonthItem.totalWaitingAmount +
+        billByYearItems[billNowYear][billNowMonth - 1].waitingAmount
+      );
     } else {
       return searchMonthItem.totalWaitingAmount;
     }

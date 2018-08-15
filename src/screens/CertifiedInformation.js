@@ -606,7 +606,6 @@ export default connectLocalization(
       const getSchoolName = makegetSchoolName();
       return (state, props) => {
         const {
-          // auth,
           certifiedInformation,
           userCertificateInfo,
           userAddDetailInfo,
@@ -635,7 +634,7 @@ export default connectLocalization(
           addLoading: userAddDetailInfo.loading,
           cardSubmitLoading: cardSubmit.loading,
           isCertify,
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
           schoolInfoItems: schoolInfo.items,
           schoolName: getSchoolName(state, props),
         };

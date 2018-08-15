@@ -482,8 +482,8 @@ export default connectLocalization(
           addressSelectedItem: getAddressSelectedItem(state, props),
           addressItems: address.items,
           addressSelectedId: address.addressSelectedId,
-          funid: state.auth.user ? state.auth.user.result : null,
-          isAuthUser: !!state.auth.user,
+          funid: state.login.user ? state.login.user.result : null,
+          isAuthUser: !!state.login.user,
           getUserInfoById,
           userType: getUserInfoById.item.userType || null,
         };

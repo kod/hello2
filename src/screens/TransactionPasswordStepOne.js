@@ -113,11 +113,11 @@ export default connectLocalization(
       console.log();
       return state => {
         const {
-          auth,
+          login,
           // form: { TransactionPasswordStepOne },
         } = state;
         return {
-          msisdn: auth.user ? auth.user.msisdn : '',
+          msisdn: login.user ? login.user.msisdn : '',
           formValue: TransactionPasswordStepOne
             ? TransactionPasswordStepOne.values
             : '',

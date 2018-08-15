@@ -132,7 +132,7 @@ export default withNavigation(
   connect(
     state => {
       return {
-        authUser: state.auth.user
+        authUser: state.login.user
       }
     },
     {

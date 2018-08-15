@@ -1,9 +1,9 @@
 import { all } from 'redux-saga/effects';
 import {
   watchRehydrate,
-  watchLoginRequest,
-  watchLoginSuccess,
-  logoutWatch,
+  // watchLoginRequest,
+  // watchLoginSuccess,
+  // logoutWatch,
 } from './auth';
 import {
   cartFetchWatch,
@@ -64,6 +64,11 @@ import {
   get3GProvidersCardFetchWatch,
   get3GProvidersCardSuccessWatch,
 } from './get3GProvidersCard';
+import {
+  loginFetchWatch,
+  loginSuccessWatch,
+  logoutSuccessWatch,
+} from './login';
 import { watchError } from './error';
 import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
@@ -112,9 +117,9 @@ import { getSquaresInfoFetchWatch } from './getSquaresInfo';
 export default function* rootSaga() {
   yield all([
     watchRehydrate(),
-    watchLoginRequest(),
-    watchLoginSuccess(),
-    logoutWatch(),
+    // watchLoginRequest(),
+    // watchLoginSuccess(),
+    // logoutWatch(),
     watchError(),
     bannerSwiperFetchWatch(),
     bannerHomeTypeFetchWatch(),
@@ -205,5 +210,8 @@ export default function* rootSaga() {
     orderCancelSuccessWatch(),
     judgeVoucherFetchWatch(),
     getSquaresInfoFetchWatch(),
+    loginFetchWatch(),
+    loginSuccessWatch(),
+    logoutSuccessWatch(),
   ]);
 }

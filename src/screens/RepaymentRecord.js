@@ -206,7 +206,7 @@ export default connectLocalization(
         } = state;
         return {
           repaymentRecordItems: repaymentRecord.item.records ? repaymentRecord.item.records : [],
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
         }
       }
     },

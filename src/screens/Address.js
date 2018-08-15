@@ -291,7 +291,7 @@ export default withNavigation(
           // } = props;
 
           return {
-            isAuthUser: !!state.auth.user,
+            isAuthUser: !!state.login.user,
             items: address.items,
             loading: address.loading,
             refreshing: address.refreshing,

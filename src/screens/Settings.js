@@ -9,8 +9,8 @@ import BYHeader from '../components/BYHeader';
 import NavBar1 from '../components/NavBar1';
 import BYTouchable from '../components/BYTouchable';
 import { RED_COLOR } from '../styles/variables';
-import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
-import * as authActionCreators from '../common/actions/auth';
+// import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import * as loginActionCreators from '../common/actions/login';
 
 const personPng = require('../images/person.png');
 // const osindfaofisPng = require('../images/osindfaofis.png');
@@ -161,8 +161,8 @@ export default connectLocalization(
       };
     },
     {
-      ...bannerHomeRecommendActionCreators,
-      ...authActionCreators,
+      // ...bannerHomeRecommendActionCreators,
+      ...loginActionCreators,
     },
   )(Settings),
 );

@@ -65,6 +65,7 @@ import judgeVoucher from './judgeVoucher';
 import mergeGate from './mergeGate';
 import modal from './modal';
 import getSquaresInfo from './getSquaresInfo';
+import login from './login';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -132,6 +133,7 @@ const rootReducer = combineReducers({
   mergeGate,
   modal,
   getSquaresInfo,
+  login,
   form: formReducer,
 });
 

@@ -116,12 +116,12 @@ export default connectLocalization(
     () => {
       return (state, props) => {
         // const {
-        //   auth,
+        //   login,
         //   form: { RegisterStepOne },
         // } = state;
         // const msisdn = props.navigation.state.params.msisdn || '';
         return {
-          // msisdn: auth.user ? auth.user.msisdn : '',
+          // msisdn: login.user ? login.user.msisdn : '',
           // formValue: RegisterStepOne ? RegisterStepOne.values : '',
         }
       }

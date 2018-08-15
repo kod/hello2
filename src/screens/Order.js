@@ -315,7 +315,7 @@ export default connectLocalization(
           orderItem: getOrderItem(state, props),
           queryOrderListItem: queryOrderList.item,
           scrollTabIndex: queryOrderList.scrollTabIndex,
-          isAuthUser: !!state.auth.user,
+          isAuthUser: !!state.login.user,
         }
       }
     },

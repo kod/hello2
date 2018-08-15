@@ -146,7 +146,7 @@ export default connectLocalization(connect(
         couponMyUnused: getVoucherList.CouponMyUnused.length,
         couponMyUsed: getVoucherList.CouponMyUsed.length,
         items: getVoucher.items,
-        isAuthUser: !!state.auth.user,
+        isAuthUser: !!state.login.user,
       }
     }
   },

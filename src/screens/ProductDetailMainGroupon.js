@@ -896,7 +896,7 @@ export default connectLocalization(connect(
         masterItems: mergeGetMaster.items,
         comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
         isCollection: getIsCollection(state, props),
-        isAuthUser: !!state.auth.user,
+        isAuthUser: !!state.login.user,
         isMaster: !!mergeCheck.item.mergeMasterId
       }
     }

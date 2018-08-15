@@ -309,14 +309,14 @@ export default connectLocalization(
   () => {
     return (state, props) => {
       const {
-        auth,
+        login,
         cart,
       } = state;
 
       return {
         cart,
         totalMoney: getCartTotalMoney(state, props),
-        isAuthUser: !!auth.user,
+        isAuthUser: !!login.user,
         loading: cart.loading,
         allSelected: cart.allSelected,
         allSelectedDel: cart.allSelectedDel,
