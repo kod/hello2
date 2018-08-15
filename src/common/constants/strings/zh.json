@@ -134,5 +134,7 @@
   "overdue": "逾期",
   "internetBanking": "网银",
   "submit": "提交",
+  "userNotExist": "用户不存在",
+  "wrongPhoneNumberOrPassword": "手机或者密码输入错误",
   "warehouse": "仓库"
 }

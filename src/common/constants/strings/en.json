@@ -134,5 +134,7 @@
   "overdue": "Overdue",
   "internetBanking": "Internet banking",
   "submit": "Submit",
+  "userNotExist": "User does not exist",
+  "wrongPhoneNumberOrPassword": "Wrong phone number or password",
   "warehouse": "Warehouse"
 }

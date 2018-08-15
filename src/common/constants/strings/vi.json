@@ -134,5 +134,7 @@
   "overdue": "Ngày hết hạn",
   "internetBanking": "Ngân hàng trực tuyến",
   "submit": "Gửi",
+  "userNotExist": "Người dùng không tồn tại",
+  "wrongPhoneNumberOrPassword": "Điện thoại hoặc mật khẩu nhập sai",
   "warehouse": "kho"
 }
