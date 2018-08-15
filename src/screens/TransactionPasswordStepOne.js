@@ -58,7 +58,7 @@ class TransactionPasswordStepOne extends Component {
     if (!PHONE_EXPR.test(formValue.phone)) {
       Alert.alert(
         '',
-        'định dạng số điện thoại sai',
+        i18n.pleaseEnterCorrectPhoneNumber,
         [
           {
             text: i18n.confirm,
@@ -75,9 +75,10 @@ class TransactionPasswordStepOne extends Component {
   }
 
   render() {
-    // const {
-    //   navigation: { goBack, navigate },
-    // } = this.props;
+    const {
+      // navigation: { goBack, navigate },
+      i18n,
+    } = this.props;
     return (
       <View style={styles.container}>
         <BYHeader />
@@ -93,7 +94,7 @@ class TransactionPasswordStepOne extends Component {
             editable={false}
           />
           <BYButton
-            text="Next step"
+            text={i18n.nextStep}
             style={styles.button}
             onPress={() => this.handleOnPressSubmit()}
           />

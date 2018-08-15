@@ -165,13 +165,6 @@ class OrderWrite extends Component {
 
     if (!isAuthUser) return navigate(SCREENS.Login);
 
-    // if (userType === 3) {
-    //   // 已开通信用卡
-
-    // } else {
-
-    // }
-
     const getGoodsdetail = () => {
       if (isCart) {
         return cartAdverstInfo.map(val => {
@@ -264,7 +257,7 @@ class OrderWrite extends Component {
     if (addressSelectedId === 0) {
       Alert.alert(
         '',
-        '请选择收货地址',
+        i18n.pleaseSelectourShippingAddress,
         [
           {
             text: i18n.confirm,
@@ -376,7 +369,7 @@ class OrderWrite extends Component {
   render() {
     const {
       // navigation: { navigate },
-      // i18n,
+      i18n,
       isCart,
       cartAdverstInfo,
       addressSelectedItem,
@@ -385,8 +378,6 @@ class OrderWrite extends Component {
       orderCreate,
       couponSelectItem,
     } = this.props;
-    console.log('this.propsthis.propsthis.propsthis.props');
-    console.log(this.props);
     const adverstInfo = isCart
       ? cartAdverstInfo
       : [
@@ -420,11 +411,11 @@ class OrderWrite extends Component {
           />
           <NavBar2
             onPress={() => this.handleOnPressCoupon()}
-            valueLeft="Sử dụng voucher"
+            valueLeft={i18n.useVoucher}
             valueMiddle={
               couponSelectItem.id
                 ? couponSelectItem.voucherName
-                : 'không thể sử dụng voucher'
+                : i18n.canNotUseVoucher
             }
           />
         </ScrollView>

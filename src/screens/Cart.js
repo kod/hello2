@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, Dimensions, Alert } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 
-import { WINDOW_WIDTH, SCREENS, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  SCREENS,
+  SIDEINTERVAL,
+  APPBAR_HEIGHT,
+} from '../common/constants';
 import { getCartTotalMoney } from '../common/selectors';
 import * as cartActionCreators from '../common/actions/cart';
 import priceFormat from '../common/helpers/priceFormat';
@@ -16,8 +21,9 @@ import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
 import CartItem from '../components/CartItem';
 import EmptyState from '../components/EmptyState';
-import BYTextInput from '../components/BYTextInput';
 import { connectLocalization } from '../components/Localization';
+
+const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
 
 const styles = StyleSheet.create({
   container: {
@@ -97,24 +103,23 @@ class Cart extends Component {
   }
 
   componentWillMount() {
-    const {
-      cartClear
-    } = this.props;
-
+    const { cartClear } = this.props;
     cartClear();
   }
-  
+
   renderHeaderRight = () => {
     const { isEdit, i18n, cartEditRequest, cartEditInitRequest } = this.props;
 
     const onPressHandle = () => {
       cartEditRequest();
       if (isEdit) cartEditInitRequest();
-    }
-    
+    };
+
     return (
       <BYTouchable style={styles.headerRight} onPress={() => onPressHandle()}>
-        <Text style={styles.headerRightText}>{ isEdit ? i18n.save: i18n.edit }</Text>
+        <Text style={styles.headerRightText}>
+          {isEdit ? i18n.save : i18n.edit}
+        </Text>
       </BYTouchable>
     );
   };
@@ -133,7 +138,8 @@ class Cart extends Component {
       // delete
       cartSelectDelAllRequest();
     }
-  }
+    return true;
+  };
 
   onPressSubmitHandle = () => {
     const {
@@ -144,27 +150,28 @@ class Cart extends Component {
       navigation: { navigate },
     } = this.props;
 
-    const getSelectedDelId = (cart) => {
-      const { items, products, details } = cart;
-      let result = [];
-      items.forEach((value, index, arr) => {
+    const getSelectedDelId = () => {
+      const { items, products /* , details */ } = cart;
+      const result = [];
+      items.forEach(value => {
         if (products[value].selectedDel) result.push(value);
       });
       return result.join(',');
-    }
-    
-    const getSelectedId = (cart) => {
-      const { items, products, details } = cart;
-      let result = [];
-      items.forEach((value, index, arr) => {
+    };
+
+    const getSelectedId = () => {
+      const { items, products } = cart;
+      const result = [];
+      items.forEach(value => {
         if (products[value].selected) result.push(value);
       });
       return result.join(',');
-    }
-    
-    const submit = (cart) => {
+    };
+
+    const submit = () => {
       const { items, products, details } = cart;
-      let adverstInfo = [], productsCart = []
+      const productsCart = [];
+      const adverstInfo = [];
 
       for (let index = 0; index < items.length; index += 1) {
         const val = items[index];
@@ -172,8 +179,9 @@ class Cart extends Component {
         if (products[val].selected) {
           productsCart.push({
             id: products[val].detail,
-            amount: products[val].quantity * details[products[val].detail].price
-          })
+            amount:
+              products[val].quantity * details[products[val].detail].price,
+          });
 
           adverstInfo.push({
             cartitemid: val,
@@ -184,10 +192,10 @@ class Cart extends Component {
             name: details[products[val].detail].name,
             price: details[products[val].detail].price,
             number: products[val].quantity,
-          })
+          });
         }
       }
-      
+
       // const productsCart = items.map(val => {
       //   return {
       //     id: products[val].id,
@@ -209,41 +217,36 @@ class Cart extends Component {
       return {
         products: productsCart,
         adverstInfo,
-      }
-    }
-    
-    
+      };
+    };
+
     if (isEdit === false) {
       // submit
-      const selectedIdStr = getSelectedId(cart);
+      const selectedIdStr = getSelectedId();
       if (!selectedIdStr) return false;
 
       navigate(SCREENS.OrderWrite, {
         ...submit(cart),
         isCart: true,
       });
-  
     } else {
       // delete
-      const selectedDelIdStr = getSelectedDelId(cart);
+      const selectedDelIdStr = getSelectedDelId();
       if (!selectedDelIdStr) return false;
-      Alert.alert(
-        '',
-        i18n.confirmDelete,
-        [
-          {
-            text: i18n.cancel,
+      Alert.alert('', i18n.confirmDelete, [
+        {
+          text: i18n.cancel,
+        },
+        {
+          text: i18n.delete,
+          onPress: () => {
+            cartDeleteRequest(selectedDelIdStr);
           },
-          {
-            text: i18n.delete,
-            onPress: () => {
-               cartDeleteRequest(selectedDelIdStr);
-            }
-          }
-        ]
-      )
+        },
+      ]);
     }
-  }
+    return true;
+  };
 
   render() {
     const {
@@ -256,62 +259,103 @@ class Cart extends Component {
       navigation,
       totalMoney,
     } = this.props;
-    const isEmptyCart = cart.items.length === 0 ? true : false;
+    const isEmptyCart = cart.items.length === 0;
     return (
       <View style={styles.container}>
         {loading && <Loader absolutePosition />}
-        {
-          !isEmptyCart && 
-          <BYHeader 
+        {!isEmptyCart && (
+          <BYHeader
             showBackButton={false}
             headerRight={this.renderHeaderRight()}
           />
-        }
-        {
-          !isEmptyCart && 
+        )}
+        {!isEmptyCart && (
           <ScrollView>
             <CartItem
               data={cart}
               navigation={navigation}
-              styleItem={{marginBottom: 25, borderTopColor: BORDER_COLOR, borderTopWidth: 1,}}
-              styleItemLeft={{paddingLeft: 0, paddingTop: 15, paddingBottom: 15,}}
+              styleItem={{
+                marginBottom: 25,
+                borderTopColor: BORDER_COLOR,
+                borderTopWidth: 1,
+              }}
+              styleItemLeft={{
+                paddingLeft: 0,
+                paddingTop: 15,
+                paddingBottom: 15,
+              }}
             />
           </ScrollView>
-        }
-        {
-          !isEmptyCart && 
+        )}
+        {!isEmptyCart && (
           <View style={styles.overview}>
-            <BYTouchable style={styles.overviewSelectAll} onPress={() => this.onPressSelectAllHandle()}>
+            <BYTouchable
+              style={styles.overviewSelectAll}
+              onPress={() => this.onPressSelectAllHandle()}
+            >
               <View style={styles.overviewIconWrap}>
-                {
-                  isEdit
-                  ? <Ionicons name={ allSelectedDel ? 'ios-radio-button-on-outline' : 'ios-radio-button-off-outline'} style={[styles.overviewIcon, allSelectedDel && styles.overviewIconSelectedDel]} />
-                  : <Ionicons name={ allSelected ? 'ios-radio-button-on-outline' : 'ios-radio-button-off-outline'} style={[styles.overviewIcon, allSelected && styles.overviewIconSelected]} />
-                }
+                {isEdit ? (
+                  <Ionicons
+                    name={
+                      allSelectedDel
+                        ? 'ios-radio-button-on-outline'
+                        : 'ios-radio-button-off-outline'
+                    }
+                    style={[
+                      styles.overviewIcon,
+                      allSelectedDel && styles.overviewIconSelectedDel,
+                    ]}
+                  />
+                ) : (
+                  <Ionicons
+                    name={
+                      allSelected
+                        ? 'ios-radio-button-on-outline'
+                        : 'ios-radio-button-off-outline'
+                    }
+                    style={[
+                      styles.overviewIcon,
+                      allSelected && styles.overviewIconSelected,
+                    ]}
+                  />
+                )}
               </View>
               <Text style={styles.overviewSelect}>{i18n.selectAll}</Text>
             </BYTouchable>
-            <Text style={styles.overviewPrice}>{!isEdit && (priceFormat(totalMoney) + ' ₫')}</Text>
-            <BYTouchable style={styles.overviewSubmit} onPress={() => this.onPressSubmitHandle()}>
-              <Text style={[styles.overviewSubmitText, isEdit && styles.overviewSubmitTextDel]}>{isEdit ? i18n.delete : i18n.buy}</Text>
+            <Text style={styles.overviewPrice}>
+              {!isEdit && `${priceFormat(totalMoney)} ₫`}
+            </Text>
+            <BYTouchable
+              style={styles.overviewSubmit}
+              onPress={() => this.onPressSubmitHandle()}
+            >
+              <Text
+                style={[
+                  styles.overviewSubmitText,
+                  isEdit && styles.overviewSubmitTextDel,
+                ]}
+              >
+                {isEdit ? i18n.delete : i18n.buy}
+              </Text>
             </BYTouchable>
           </View>
-        }
-        {
-          !loading && isEmptyCart && <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'爱生活，就不要空空荡荡'} styleText={{ marginBottom: 0 }} />
-        }
+        )}
+        {!loading &&
+          isEmptyCart && (
+            <EmptyState
+              source={ouhrigdfnjsoeijehrJpg}
+              text={i18n.noData}
+              styleText={{ marginBottom: 0 }}
+            />
+          )}
       </View>
     );
   }
 }
 export default connectLocalization(
   connect(
-  () => {
-    return (state, props) => {
-      const {
-        login,
-        cart,
-      } = state;
+    (state, props) => {
+      const { login, cart } = state;
 
       return {
         cart,
@@ -322,9 +366,9 @@ export default connectLocalization(
         allSelectedDel: cart.allSelectedDel,
         isEdit: cart.isEdit,
       };
-    }
-  },
-  {
-    ...cartActionCreators
-  })(Cart)
+    },
+    {
+      ...cartActionCreators,
+    },
+  )(Cart),
 );

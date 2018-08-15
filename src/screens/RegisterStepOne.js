@@ -1,9 +1,11 @@
+/* eslint-disable react/no-multi-comp */
+/* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Keyboard } from 'react-native';
+import { View, ScrollView, StyleSheet, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { PHONE_EXPR, SCREENS, SIDEINTERVAL } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
@@ -11,10 +13,6 @@ import BYButton from '../components/BYButton';
 import NavSidesText from '../components/NavSidesText';
 import BYTextInput from '../components/BYTextInput';
 import { connectLocalization } from '../components/Localization';
-
-import { PHONE_EXPR } from '../common/constants';
-
-import { SCREENS } from '../common/constants';
 
 import * as otpActionCreators from '../common/actions/otp';
 
@@ -28,17 +26,14 @@ const styles = StyleSheet.create({
 
 class InvitationInput extends Component {
   render() {
-    const {
-      input,
-      ...restProps
-    } = this.props;
+    const { input, ...restProps } = this.props;
     return (
       <BYTextInput
         onChangeText={input.onChange}
         value={input.value}
         {...restProps}
       />
-    )
+    );
   }
 }
 
@@ -48,55 +43,71 @@ const validate = (values, props) => {
   const errors = {};
 
   if (!PHONE_EXPR.test(phone)) {
-    errors.phone = 'phone error';
+    errors.phone = i18n.pleaseEnterCorrectPhoneNumber;
   }
   return errors;
 };
 
 class RegisterStepOne extends Component {
-
   submit = data => {
-    const {
-      phone,
-    } = data;
+    const { phone } = data;
     const {
       otpFetch,
-      navigation: { goBack, navigate },
+      navigation: { navigate },
     } = this.props;
     if (phone) {
       Keyboard.dismiss();
       otpFetch(phone);
-      navigate(SCREENS.RegisterStepTwo)
+      navigate(SCREENS.RegisterStepTwo);
     }
-  }
-  
+  };
+
   render() {
     const {
-      navigation: { goBack, navigate },
+      navigation: { goBack },
       handleSubmit,
+      i18n,
     } = this.props;
     return (
       <View style={styles.container}>
         <BYHeader />
 
         <ScrollView keyboardShouldPersistTaps="always">
-          <Field 
+          <Field
             name="phone"
             component={InputCountry}
             keyboardType="phone-pad"
-            style={{marginBottom: 30}}
+            style={{ marginBottom: 30 }}
           />
-          <View style={{ paddingLeft: SIDEINTERVAL, paddingRight: SIDEINTERVAL }}>
-            <Field 
+          <View
+            style={{ paddingLeft: SIDEINTERVAL, paddingRight: SIDEINTERVAL }}
+          >
+            <Field
               name="inviterno"
               component={InvitationInput}
-              style={{ flex: 1, paddingLeft: SIDEINTERVAL, paddingTop: 10, paddingBottom: 10, backgroundColor: '#E0E3EF', marginBottom: 75 }} 
-              placeholder={'Please enter the invitation code.(选填)'} 
-              placeholderTextColor={'#6D7592'} 
+              style={{
+                flex: 1,
+                paddingLeft: SIDEINTERVAL,
+                paddingTop: 10,
+                paddingBottom: 10,
+                backgroundColor: '#E0E3EF',
+                marginBottom: 75,
+              }}
+              placeholder={`${i18n.pleaseEnterInvitationCode}(${
+                i18n.selectFill
+              })`}
+              placeholderTextColor="#6D7592"
             />
           </View>
-          <BYButton text="Next step" style={{ marginBottom: 20 }} onPress={handleSubmit(this.submit)} />
-          <NavSidesText textLeft={'Already have an account?'} navigateLeft={() => goBack()} />
+          <BYButton
+            text={i18n.nextStep}
+            style={{ marginBottom: 20 }}
+            onPress={handleSubmit(this.submit)}
+          />
+          <NavSidesText
+            textLeft={i18n.alreadyHaveAnAccount}
+            navigateLeft={() => goBack()}
+          />
         </ScrollView>
       </View>
     );
@@ -110,24 +121,22 @@ RegisterStepOne = reduxForm({
 
 // export default RegisterStepOne;
 
-
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        // const {
-        //   login,
-        //   form: { RegisterStepOne },
-        // } = state;
-        // const msisdn = props.navigation.state.params.msisdn || '';
-        return {
-          // msisdn: login.user ? login.user.msisdn : '',
-          // formValue: RegisterStepOne ? RegisterStepOne.values : '',
-        }
-      }
+    () => () => {
+      // const {
+      //   login,
+      //   form: { RegisterStepOne },
+      // } = state;
+      // const msisdn = props.navigation.state.params.msisdn || '';
+      console.log();
+      return {
+        // msisdn: login.user ? login.user.msisdn : '',
+        // formValue: RegisterStepOne ? RegisterStepOne.values : '',
+      };
     },
     {
-      ...otpActionCreators
-    }
+      ...otpActionCreators,
+    },
   )(RegisterStepOne),
 );

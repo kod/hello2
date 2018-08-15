@@ -77,7 +77,7 @@ class TransactionPasswordStepTwo extends Component {
     if (!formValue.code) {
       Alert.alert(
         '',
-        'Vui lòng nhập mã xác nhận',
+        i18n.pleaseEnterSMSVerificationCode,
         [
           {
             text: i18n.confirm,
@@ -92,7 +92,7 @@ class TransactionPasswordStepTwo extends Component {
     if (!formValue.password) {
       Alert.alert(
         '',
-        'Vui lòng nhập 6 chữ số',
+        i18n.pleaseEnter6DigitsPassword,
         [
           {
             text: i18n.confirm,
@@ -107,7 +107,7 @@ class TransactionPasswordStepTwo extends Component {
     if (!formValue.repassword) {
       Alert.alert(
         '',
-        'Nhập lại Mật mã giao dịch',
+        i18n.pleaseEnterPasswordAgain,
         [
           {
             text: i18n.confirm,
@@ -122,7 +122,7 @@ class TransactionPasswordStepTwo extends Component {
     if (formValue.password !== formValue.repassword) {
       Alert.alert(
         '',
-        'Hai lần nhập mật mã giao dịch không giống nhau',
+        i18n.theWwoPasswordsAreNotSame,
         [
           {
             text: i18n.confirm,
@@ -148,7 +148,7 @@ class TransactionPasswordStepTwo extends Component {
             component={InputRight}
             inputRight={<ReadSeconds />}
             // inputRight={this.renderInputRightCode()}
-            placeholder="Vui lòng nhập mã xác nhận"
+            placeholder={i18n.pleaseEnterSMSVerificationCode}
             keyboardType="numeric"
             // onSubmitEditing={() => { this.password.focus(); }}
             // blurOnSubmit={false}
@@ -158,7 +158,7 @@ class TransactionPasswordStepTwo extends Component {
             name="password"
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
-            placeholder="Vui lòng nhập 6 chữ số"
+            placeholder={i18n.pleaseEnter6DigitsPassword}
             secureTextEntry
             keyboardType="numeric"
             // onSubmitEditing={() => { this.repassword.focus(); }}
@@ -170,7 +170,7 @@ class TransactionPasswordStepTwo extends Component {
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
             styleWrap={{ marginBottom: 45 }}
-            placeholder="Nhập lại Mật mã giao dịch"
+            placeholder={i18n.pleaseEnterPasswordAgain}
             secureTextEntry
             keyboardType="numeric"
             // ref={input => { this.repassword = input }}

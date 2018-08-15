@@ -60,7 +60,7 @@ class Invite extends Component {
     Clipboard.setString('hello world');
     Alert.alert(
       '',
-      '复制成功',
+      i18n.successfulCopy,
       [
         {
           text: i18n.confirm,
@@ -171,24 +171,25 @@ class Invite extends Component {
     });
 
     const { qrText } = this.state;
+    const { i18n } = this.props;
 
     return (
       <View style={stylesX.container}>
         <View style={stylesX.row1}>
           <QRCode value={qrText} size={200} />
           <Text style={stylesX.row1Title}>
-            Show this QR code or share the invitation code to your friends
+            {i18n.showQRCodeShareInvitationCodeYourFriends}
           </Text>
         </View>
         <SeparateBar />
         <View style={stylesX.row2}>
-          <Text style={stylesX.row2Left}>My inviation code</Text>
+          <Text style={stylesX.row2Left}>{i18n.myInviationCode}</Text>
           <Text style={stylesX.row2Middle}>123456789123</Text>
           <Text
             style={stylesX.row2Right}
             onPress={() => this.handleOnPressCopy()}
           >
-            COPY
+            {i18n.copy}
           </Text>
         </View>
         {this.renderMenuBottomShare()}
