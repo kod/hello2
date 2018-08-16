@@ -8,7 +8,7 @@ import NavBar2 from '../components/NavBar2';
 import { RED_COLOR } from '../styles/variables';
 import { SIDEINTERVAL, SCREENS } from '../common/constants';
 
-// import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
+import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 
 const styles = StyleSheet.create({
   container: {
@@ -73,7 +73,7 @@ class SecurityCenter extends Component {
           // backgroundColor="transparent"
         />
         <NavBar2
-          onPress={() => {}}
+          onPress={() => navigate(SCREENS.ForgotPasswordOne)}
           valueLeft={i18n.loginPassword}
           // valueMiddle={'884.000 ₫'}
           styleLeft={{ color: '#666' }}
@@ -97,4 +97,25 @@ class SecurityCenter extends Component {
   }
 }
 
-export default connectLocalization(connect(SecurityCenter));
+// export default connectLocalization(connect(SecurityCenter));
+export default connectLocalization(
+  connect(
+    state => {
+      const {
+        bannerHomeRecommend,
+        // bannerHomeRecommend,
+      } = state;
+
+      // const {
+
+      // } = props;
+
+      return {
+        bannerHomeRecommend: bannerHomeRecommend || {},
+      };
+    },
+    {
+      ...bannerHomeRecommendActionCreators,
+    },
+  )(SecurityCenter),
+);

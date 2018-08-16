@@ -10,7 +10,7 @@ export default function modifyPayPassword(state = initState, action) {
   switch (action.type) {
     case MODIFYPAYPASSWORD.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case MODIFYPAYPASSWORD.REQUEST:
       return {

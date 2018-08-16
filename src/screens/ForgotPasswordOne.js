@@ -1,17 +1,18 @@
 /* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 // import { PRIMARY_COLOR } from '../styles/variables';
-import { SCREENS, WINDOW_HEIGHT } from '../common/constants';
+import { SCREENS, WINDOW_HEIGHT, PHONE_EXPR } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import BYButton from '../components/BYButton';
 // import OtherLogin from '../components/OtherLogin';
 import { connectLocalization } from '../components/Localization';
-import i18n from '../common/reducers/i18n';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,22 +22,66 @@ const styles = StyleSheet.create({
 });
 
 class ForgotPasswordOne extends Component {
+  componentDidMount() {
+    const {
+      initialize,
+      msisdn,
+      // msisdn,
+    } = this.props;
+
+    if (msisdn) {
+      initialize({ phone: msisdn });
+    }
+  }
+
+  handleOnPressSubmit() {
+    const {
+      i18n,
+      // msisdn,
+      navigation: { navigate },
+      formValue,
+    } = this.props;
+    // if (!formValue) return false;
+    if (!PHONE_EXPR.test(formValue.phone)) {
+      Alert.alert(
+        '',
+        i18n.pleaseEnterCorrectPhoneNumber,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
+    // otpFetch(msisdn);
+    navigate(SCREENS.ForgotPasswordTwo, { msisdn: formValue.phone });
+    return true;
+  }
+
   render() {
     const {
-      navigation: { navigate },
+      i18n,
+      msisdn,
       // navigation,
     } = this.props;
+    console.log(msisdn);
     return (
       <View style={styles.container}>
         <BYHeader />
         <Field
           name="phone"
           component={InputCountry}
+          keyboardType="phone-pad"
           style={{ marginBottom: 70 }}
+          value={msisdn}
+          editable={msisdn.length === 0}
         />
         <BYButton
           text={i18n.nextStep}
-          onPress={() => navigate(SCREENS.ForgotPasswordTwo)}
+          onPress={() => this.handleOnPressSubmit()}
         />
         <View style={{ flex: 1, minHeight: WINDOW_HEIGHT * 0.2 }} />
         {/* <OtherLogin /> */}
@@ -51,4 +96,23 @@ ForgotPasswordOne = reduxForm({
   // validate,
 })(ForgotPasswordOne);
 
-export default connectLocalization(ForgotPasswordOne);
+// export default connectLocalization(ForgotPasswordOne);
+
+export default connectLocalization(
+  connect(
+    state => {
+      const {
+        form: { forgotpasswordone: forgotpasswordoneX },
+        login,
+      } = state;
+      console.log(login.user);
+      return {
+        msisdn: login.user ? login.user.msisdn : '',
+        formValue: forgotpasswordoneX ? forgotpasswordoneX.values : '',
+      };
+    },
+    {
+      ...modalActionCreators,
+    },
+  )(ForgotPasswordOne),
+);

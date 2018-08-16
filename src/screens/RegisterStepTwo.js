@@ -56,7 +56,7 @@ const validate = (values, props) => {
     errors.otp = i18n.pleaseEnterSMSVerificationCode;
   }
   if (!PWD_EXPR.test(password)) {
-    errors.password = i18n.pleaseEnter816CharactersOrNumbers;
+    errors.password = i18n.pleaseEnter820CharactersOrNumbers;
   }
   if (password !== repassword) {
     errors.repassword = i18n.pleaseEnterPasswordAgain;
@@ -116,7 +116,7 @@ class RegisterStepTwo extends Component {
             name="password"
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
-            placeholder={i18n.pleaseEnter816CharactersOrNumbers}
+            placeholder={i18n.pleaseEnter820CharactersOrNumbers}
             secureTextEntry
           />
           <Field

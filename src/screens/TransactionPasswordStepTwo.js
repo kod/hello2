@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import { WINDOW_WIDTH } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  CARD_PASSWORD_EXPR,
+  MODAL_TYPES,
+} from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import BYButton from '../components/BYButton';
@@ -15,6 +19,7 @@ import ReadSeconds from '../components/ReadSeconds';
 import { connectLocalization } from '../components/Localization';
 
 import * as modifyPayPasswordActionCreators from '../common/actions/modifyPayPassword';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -60,6 +65,26 @@ class TransactionPasswordStepTwo extends Component {
     // this.readSeconds();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { loading: prevLoading } = this.props;
+    const { loading, openModal, closeModal } = nextProps;
+
+    // if (prevAddLoading !== addLoading) {
+    //   if (addLoading) {
+    //     openModal(MODAL_TYPES.LOADER);
+    //   } else {
+
+    //   }
+    // }
+    if (prevLoading !== loading) {
+      if (loading === false) {
+        closeModal();
+      } else {
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
+  }
+
   renderInputRightClose = () => (
     <BYTouchable>
       <MaterialIcons name="cancel" style={styles.closeIcon} />
@@ -89,7 +114,7 @@ class TransactionPasswordStepTwo extends Component {
       return false;
     }
 
-    if (!formValue.password) {
+    if (!CARD_PASSWORD_EXPR.test(formValue.password)) {
       Alert.alert(
         '',
         i18n.pleaseEnter6DigitsPassword,
@@ -137,7 +162,7 @@ class TransactionPasswordStepTwo extends Component {
   }
 
   render() {
-    const { i18n } = this.props;
+    const { i18n, msisdn } = this.props;
 
     return (
       <View style={styles.container}>
@@ -146,7 +171,7 @@ class TransactionPasswordStepTwo extends Component {
           <Field
             name="code"
             component={InputRight}
-            inputRight={<ReadSeconds i18n={i18n} />}
+            inputRight={<ReadSeconds i18n={i18n} msisdn={msisdn} />}
             // inputRight={this.renderInputRightCode()}
             placeholder={i18n.pleaseEnterSMSVerificationCode}
             keyboardType="numeric"
@@ -194,9 +219,13 @@ export default connectLocalization(
   connect(
     state => {
       const {
-        form: { TransactionPasswordStepTwoX },
+        form: { TransactionPasswordStepTwo: TransactionPasswordStepTwoX },
+        modifyPayPassword,
+        login,
       } = state;
       return {
+        msisdn: login.user ? login.user.msisdn : '',
+        loading: modifyPayPassword.loading,
         formValue: TransactionPasswordStepTwoX
           ? TransactionPasswordStepTwoX.values
           : '',
@@ -204,6 +233,7 @@ export default connectLocalization(
     },
     {
       ...modifyPayPasswordActionCreators,
+      ...modalActionCreators,
     },
   )(TransactionPasswordStepTwo),
 );

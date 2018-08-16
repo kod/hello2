@@ -105,7 +105,7 @@ class RegisterStepOne extends Component {
             onPress={handleSubmit(this.submit)}
           />
           <NavSidesText
-            textLeft={i18n.alreadyHaveAnAccount}
+            textLeft={`${i18n.alreadyHaveAnAccount}?`}
             navigateLeft={() => goBack()}
           />
         </ScrollView>

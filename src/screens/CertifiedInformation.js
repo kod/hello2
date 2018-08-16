@@ -142,17 +142,14 @@ class CertifiedInformation extends Component {
       closeModal,
       // closeModal,
     } = nextProps;
-    console.log('cardSubmitLoadingcardSubmitLoadingcardSubmitLoading');
 
     if (prevAddLoading !== addLoading) {
       if (addLoading) {
-        console.log('openModalopenModalopenModalopenModalopenModal');
         openModal(MODAL_TYPES.LOADER);
       }
     }
     if (prevCardSubmitLoading !== cardSubmitLoading) {
       if (cardSubmitLoading === false) {
-        console.log('closeModalcloseModalcloseModalcloseModal');
         closeModal();
       }
     }
