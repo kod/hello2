@@ -171,5 +171,9 @@
   "subtotal": "小计",
   "myOrder": "我的订单",
   "all": "全部",
+  "month": "月",
+  "cardPassword": "卡密码",
+  "loginPassword": "登录密码",
+  "productShelves": "数量",
   "warehouse": "仓库"
 }

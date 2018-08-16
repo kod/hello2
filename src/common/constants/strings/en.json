@@ -172,5 +172,9 @@
   "subtotal": "Subtotal",
   "myOrder": "My order",
   "all": "All",
+  "month": "Month",
+  "cardPassword": "Card password",
+  "loginPassword": "Login password",
+  "productShelves": "Product shelves",
   "warehouse": "Warehouse"
 }

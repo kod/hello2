@@ -172,5 +172,9 @@
   "subtotal": "Tổng số phụ",
   "myOrder": "Đơn hàng của tôi",
   "all": "Toàn bộ",
+  "month": "Tháng",
+  "cardPassword": "Mật khẩu thẻ",
+  "loginPassword": "Mật khẩu đăng nhập",
+  "productShelves": "Kệ sản phẩm",
   "warehouse": "kho"
 }
