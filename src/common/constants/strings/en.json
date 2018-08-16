@@ -169,5 +169,8 @@
   "securitySettings": "Security Settings",
   "period": "Period",
   "availableQuota": "Available Quota",
+  "subtotal": "Subtotal",
+  "myOrder": "My order",
+  "all": "All",
   "warehouse": "Warehouse"
 }

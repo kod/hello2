@@ -169,5 +169,8 @@
   "securitySettings": "Cài đặt hệ thống bảo vệ",
   "period": "kỳ",
   "availableQuota": "Số tiền định mức khả dụng",
+  "subtotal": "Tổng số phụ",
+  "myOrder": "Đơn hàng của tôi",
+  "all": "Toàn bộ",
   "warehouse": "kho"
 }

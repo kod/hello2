@@ -168,5 +168,8 @@
   "securitySettings": "安全设置",
   "period": "期",
   "availableQuota": "可用额度",
+  "subtotal": "小计",
+  "myOrder": "我的订单",
+  "all": "全部",
   "warehouse": "仓库"
 }
