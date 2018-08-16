@@ -1,5 +1,13 @@
+/* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Image, WebView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  WebView,
+} from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,17 +17,21 @@ import { connectLocalization } from '../components/Localization';
 import BYBottomSheet from '../components/BYBottomSheet';
 import BYTouchable from '../components/BYTouchable';
 import CustomIcon from '../components/CustomIcon';
-import HeaderShareButton from '../components/HeaderShareButton';
-import ScrollableTabView from '../components/ScrollableTabView';
+// import HeaderShareButton from '../components/HeaderShareButton';
+// import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
-import ImageGetSize from "../components/ImageGetSize";
+// import ImageGetSize from "../components/ImageGetSize";
 import Comment from '../components/Comment';
 import priceFormat from '../common/helpers/priceFormat';
-import { SCREENS } from '../common/constants';
-
 
 import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  WINDOW_HEIGHT,
+  SIDEINTERVAL,
+  STATUSBAR_HEIGHT,
+  SCREENS,
+} from '../common/constants';
 
 import { makegetIsCollection } from '../common/selectors';
 
@@ -30,6 +42,9 @@ import * as mergeCheckActionCreators from '../common/actions/mergeCheck';
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as collectionActionCreators from '../common/actions/collection';
 import * as commentActionCreators from '../common/actions/comment';
+
+const aioru09230fPng = require('../images/aioru09230f.png');
+const groupon948943Png = require('../images/groupon948943.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -76,7 +91,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   productPrice: {
-    fontSize: 18, 
+    fontSize: 18,
     color: RED_COLOR,
     fontWeight: '700',
     paddingBottom: 10,
@@ -160,7 +175,7 @@ const styles = StyleSheet.create({
 
 class GrouponList extends Component {
   render() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       grouponInfoMain: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -171,13 +186,17 @@ class GrouponList extends Component {
         color: '#d5d5d5',
       },
     });
-    const {
-      item,
-    } = this.props;
+    const { item } = this.props;
     return (
-      <View style={styles.grouponInfoMain}>
-        <MasterAvatar avatar={item.headimage ? { uri: item.headimage } :require('../images/aioru09230f.png')} imageStyle={{height:30,width:30}} />
-        <Ionicons style={styles.grouponInfoItemWait} name={'ios-help-circle-outline'} />
+      <View style={stylesX.grouponInfoMain}>
+        <MasterAvatar
+          avatar={item.headimage ? { uri: item.headimage } : aioru09230fPng}
+          imageStyle={{ height: 30, width: 30 }}
+        />
+        <Ionicons
+          style={stylesX.grouponInfoItemWait}
+          name="ios-help-circle-outline"
+        />
       </View>
     );
   }
@@ -185,7 +204,7 @@ class GrouponList extends Component {
 
 class MasterAvatar extends Component {
   render() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       masterAvatar: {
         position: 'relative',
         marginRight: 8,
@@ -203,17 +222,18 @@ class MasterAvatar extends Component {
         left: 0,
         height: 10,
         width: 10,
-      }, 
+      },
     });
     const {
       style,
       imageStyle,
       avatar,
+      // avatar,
     } = this.props;
     return (
-      <View style={[styles.masterAvatar, style]}>
-        <Image style={[styles.masterAvatarImg, imageStyle]} source={avatar} />
-        <Image style={styles.masterAvatarIcon} source={require('../images/groupon948943.png')} />
+      <View style={[stylesX.masterAvatar, style]}>
+        <Image style={[stylesX.masterAvatarImg, imageStyle]} source={avatar} />
+        <Image style={stylesX.masterAvatarIcon} source={groupon948943Png} />
       </View>
     );
   }
@@ -236,7 +256,7 @@ class ProductDetail extends Component {
       collectionFetch,
       mergeGetDetailFetch,
       mergeCheckFetch,
-      mergeGetSlaveFetch,
+      // mergeGetSlaveFetch,
       mergeGetMasterFetch,
       mergeGetDetailClear,
       propertiesIds,
@@ -246,7 +266,6 @@ class ProductDetail extends Component {
 
     if (isAuthUser) {
       collectionFetch();
-      
       mergeCheckFetch({
         brandId,
       });
@@ -270,9 +289,9 @@ class ProductDetail extends Component {
   handleOnScroll = event => {
     const { productDetailOpacityFetch } = this.props;
     let opacity = 0;
-    const opacity_height = event.nativeEvent.layoutMeasurement.width * 0.8;
-    if (event.nativeEvent.contentOffset.y < opacity_height) {
-      opacity = (event.nativeEvent.contentOffset.y / opacity_height);
+    const opacityHeight = event.nativeEvent.layoutMeasurement.width * 0.8;
+    if (event.nativeEvent.contentOffset.y < opacityHeight) {
+      opacity = event.nativeEvent.contentOffset.y / opacityHeight;
     } else {
       opacity = 1;
     }
@@ -286,21 +305,30 @@ class ProductDetail extends Component {
       isCollection,
       isAuthUser,
       brandId,
-      screenProps: { mainNavigation: { navigate } },
+      screenProps: {
+        mainNavigation: { navigate },
+      },
     } = this.props;
     // const { navigate } = mainNavigation;
     if (!isAuthUser) return navigate(SCREENS.Login);
-    isCollection ? collectionRemoveFetch(brandId + '') : collectionAddFetch(brandId + '');
+    if (isCollection) {
+      collectionRemoveFetch(brandId.toString());
+    } else {
+      collectionAddFetch(brandId.toString());
+    }
+    return true;
   }
 
   handleOnPressToggleGroup = (type, val = '') => {
     const {
-      screenProps: { mainNavigation: { navigate } },
+      screenProps: {
+        mainNavigation: { navigate },
+      },
       isAuthUser,
     } = this.props;
-    
+
     if (!isAuthUser) return navigate(SCREENS.Login);
-    
+
     let isShow = false;
     switch (type) {
       case 'self':
@@ -317,19 +345,20 @@ class ProductDetail extends Component {
       menuBottomSheetType: type,
       value: val,
     });
+    return true;
   };
 
   handleOnPressJoinInGroupBuy() {
-    const {
-      value,
-    } = this.state;
+    const { value } = this.state;
 
     const {
-      screenProps: { mainNavigation: { navigate } },
+      screenProps: {
+        mainNavigation: { navigate },
+      },
     } = this.props;
 
-    this.handleOnPressToggleGroup()
-    
+    this.handleOnPressToggleGroup();
+
     navigate(SCREENS.OrderWrite, {
       groupon: true,
       mergeMasterInfo: value,
@@ -337,7 +366,7 @@ class ProductDetail extends Component {
   }
 
   renderBottomSheetGroupSelf() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         paddingLeft: WINDOW_WIDTH * 0.1,
         paddingRight: WINDOW_WIDTH * 0.1,
@@ -358,13 +387,13 @@ class ProductDetail extends Component {
         color: '#666',
         textAlign: 'center',
         marginBottom: 3,
-      },   
+      },
       createTime: {
         fontSize: 12,
         color: '#999',
         textAlign: 'center',
         marginBottom: 3,
-      },   
+      },
       proccess: {
         fontSize: 12,
         color: '#999',
@@ -403,40 +432,54 @@ class ProductDetail extends Component {
     const {
       i18n,
       masterItems,
+      // masterItems,
     } = this.props;
 
     const item = masterItems[0] || {};
     const createTime = item ? item.createTime : '';
-    
+
     return (
-      <View style={styles.container}>
-        <View style={styles.main}>
-          <View style={styles.top}>
-            <MasterAvatar avatar={item.headimage ? { uri: item.headimage } :require('../images/aioru09230f.png')} />
-            <Text style={styles.masterName}>{item.username ? item.username : item.msisdn}</Text>
-            <Text style={styles.createTime}>{`${createTime} ${i18n.startANewGroupBuying}`}</Text>
-            <Text style={styles.proccess}>{`${item.slaveNum + 1}/${item.personNum}`}</Text>
-            <EvilIcons name="close" style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
+      <View style={stylesX.container}>
+        <View style={stylesX.main}>
+          <View style={stylesX.top}>
+            <MasterAvatar
+              avatar={item.headimage ? { uri: item.headimage } : aioru09230fPng}
+            />
+            <Text style={stylesX.masterName}>
+              {item.username ? item.username : item.msisdn}
+            </Text>
+            <Text style={stylesX.createTime}>{`${createTime} ${
+              i18n.startANewGroupBuying
+            }`}</Text>
+            <Text style={stylesX.proccess}>{`${item.slaveNum + 1}/${
+              item.personNum
+            }`}</Text>
+            <EvilIcons
+              name="close"
+              style={stylesX.close}
+              onPress={() => this.handleOnPressToggleGroup()}
+            />
           </View>
-          <ScrollView style={styles.bottom}>
-            {
-              masterItems.map((val, key) => {
-                return (
-                  <View style={styles.item} key={key}>
-                    <Image style={styles.itemAvatar} source={val.headimage ? { uri: val.headimage } :require('../images/aioru09230f.png')} />
-                    <Text style={styles.itemText}>{val.username}</Text>
-                  </View>
-                )
-              })
-            }
+          <ScrollView style={stylesX.bottom}>
+            {masterItems.map((val, key) => (
+              <View style={stylesX.item} key={key}>
+                <Image
+                  style={stylesX.itemAvatar}
+                  source={
+                    val.headimage ? { uri: val.headimage } : aioru09230fPng
+                  }
+                />
+                <Text style={stylesX.itemText}>{val.username}</Text>
+              </View>
+            ))}
           </ScrollView>
         </View>
       </View>
-    )
+    );
   }
 
   renderBottomSheetGroupJoin() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         paddingLeft: WINDOW_WIDTH * 0.1,
         paddingRight: WINDOW_WIDTH * 0.1,
@@ -445,7 +488,6 @@ class ProductDetail extends Component {
         position: 'relative',
         backgroundColor: '#fff',
         borderRadius: 7,
-        
       },
       title: {
         height: 40,
@@ -478,10 +520,8 @@ class ProductDetail extends Component {
       },
     });
 
-    const {
-      value
-    } = this.state;
-    
+    const { value } = this.state;
+
     const {
       i18n,
       // screenProps: {
@@ -490,21 +530,34 @@ class ProductDetail extends Component {
     } = this.props;
 
     return (
-      <View style={styles.container}>
-        <View style={styles.main}>
-          <Text style={styles.title}>{i18n.joinInGroupBuy} {value.username ? value.username : value.msisdn}</Text>
+      <View style={stylesX.container}>
+        <View style={stylesX.main}>
+          <Text style={stylesX.title}>
+            {`${i18n.joinInGroupBuy} ${
+              value.username ? value.username : value.msisdn
+            }`}
+          </Text>
           <GrouponList item={value} />
-          <View style={styles.buttonWrap}>
-            <Text style={styles.button} onPress={() => this.handleOnPressJoinInGroupBuy()}>{i18n.joinInGroupBuy}</Text>
+          <View style={stylesX.buttonWrap}>
+            <Text
+              style={stylesX.button}
+              onPress={() => this.handleOnPressJoinInGroupBuy()}
+            >
+              {i18n.joinInGroupBuy}
+            </Text>
           </View>
-          <EvilIcons name="close" style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
+          <EvilIcons
+            name="close"
+            style={stylesX.close}
+            onPress={() => this.handleOnPressToggleGroup()}
+          />
         </View>
       </View>
-    )
+    );
   }
 
   renderBottomSheetGroupList() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         paddingLeft: WINDOW_WIDTH * 0.1,
         paddingRight: WINDOW_WIDTH * 0.1,
@@ -513,7 +566,6 @@ class ProductDetail extends Component {
         position: 'relative',
         backgroundColor: '#fff',
         borderRadius: 7,
-        
       },
       title: {
         height: 45,
@@ -546,26 +598,26 @@ class ProductDetail extends Component {
     } = this.props;
 
     return (
-      <View style={styles.container}>
-        <View style={styles.main}>
-          <Text style={styles.title}>{i18n.groupBuy}</Text>
-          <ScrollView style={styles.wrap}>
-            {
-              masterItems.map((val, key) => 
-                <View key={key}>
-                  {this.renderGrouponJoin(val)}
-                </View>
-              )
-            }
+      <View style={stylesX.container}>
+        <View style={stylesX.main}>
+          <Text style={stylesX.title}>{i18n.groupBuy}</Text>
+          <ScrollView style={stylesX.wrap}>
+            {masterItems.map((val, key) => (
+              <View key={key}>{this.renderGrouponJoin(val)}</View>
+            ))}
           </ScrollView>
-          <EvilIcons name="close" style={styles.close} onPress={() => this.handleOnPressToggleGroup()} />
+          <EvilIcons
+            name="close"
+            style={stylesX.close}
+            onPress={() => this.handleOnPressToggleGroup()}
+          />
         </View>
       </View>
-    )
+    );
   }
 
   renderGrouponJoin(val) {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       grouponJoinMain: {
         flexDirection: 'row',
         paddingBottom: 15,
@@ -604,25 +656,39 @@ class ProductDetail extends Component {
         // lineHeight: 16,
       },
     });
-    
+
     const {
       i18n,
+      // i18n,
     } = this.props;
-    
+
     return (
-      <View style={styles.grouponJoinMain}>
-        <Image style={styles.grouponJoinMainLeft} source={val.headimage ? { uri: val.headimage } :require('../images/aioru09230f.png')} />
-        <View style={styles.grouponJoinMainMiddle}>
-          <Text style={styles.grouponJoinMainRow2} numberOfLines={1}>{val.username ? val.username : val.msisdn}</Text>
-          <Text style={styles.grouponJoinMainRow1}>{i18n.need} {val.personNum - val.slaveNum - 1} {i18n.person}</Text>
+      <View style={stylesX.grouponJoinMain}>
+        <Image
+          style={stylesX.grouponJoinMainLeft}
+          source={val.headimage ? { uri: val.headimage } : aioru09230fPng}
+        />
+        <View style={stylesX.grouponJoinMainMiddle}>
+          <Text style={stylesX.grouponJoinMainRow2} numberOfLines={1}>
+            {val.username ? val.username : val.msisdn}
+          </Text>
+          <Text style={stylesX.grouponJoinMainRow1}>
+            {i18n.need} {val.personNum - val.slaveNum - 1} {i18n.person}
+          </Text>
         </View>
-        <Text style={styles.grouponJoinMainRight} onPress={() => this.handleOnPressToggleGroup('join', val)} backgroundColor="transparent">{i18n.join}</Text>
+        <Text
+          style={stylesX.grouponJoinMainRight}
+          onPress={() => this.handleOnPressToggleGroup('join', val)}
+          backgroundColor="transparent"
+        >
+          {i18n.join}
+        </Text>
       </View>
-    )
+    );
   }
 
   renderGroupon() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         marginBottom: 5,
       },
@@ -649,7 +715,7 @@ class ProductDetail extends Component {
         fontSize: 10,
         color: '#999',
         paddingRight: SIDEINTERVAL,
-      },    
+      },
       grouponInfo: {
         backgroundColor: '#fff',
         paddingLeft: SIDEINTERVAL,
@@ -712,60 +778,81 @@ class ProductDetail extends Component {
       masterItems,
       screenProps: {
         handleOnPressToggleMenuBottomSheet,
+        // handleOnPressToggleMenuBottomSheet,
       },
     } = this.props;
 
     return (
-      <View style={styles.container}>
-        {
-          masterItems.length === 0
-          &&
-          <View style={styles.groupon}>
-            <Text style={styles.grouponTitle}>{i18n.groupBuy}</Text>
-            <Text style={styles.grouponDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')}>{i18n.startGroupBuy}</Text>
-            <CustomIcon style={styles.grouponArrow} name="arrowright" />
+      <View style={stylesX.container}>
+        {masterItems.length === 0 && (
+          <View style={stylesX.groupon}>
+            <Text style={stylesX.grouponTitle}>{i18n.groupBuy}</Text>
+            <Text
+              style={stylesX.grouponDesc}
+              onPress={() => handleOnPressToggleMenuBottomSheet('select')}
+            >
+              {i18n.startGroupBuy}
+            </Text>
+            <CustomIcon style={stylesX.grouponArrow} name="arrowright" />
           </View>
-        }
-        {
-          masterItems.length > 0 && isMaster === true
-          &&
-          <BYTouchable style={styles.grouponInfo} onPress={() => this.handleOnPressToggleGroup('self')} backgroundColor="transparent">
-            <View style={styles.grouponInfoTitle}>
-              <Text style={styles.grouponInfoTitleLeft}>{i18n.groupBuy}</Text>
-              <Text style={styles.grouponInfoTitleMiddle}>{i18n.details}</Text>
-              <CustomIcon style={styles.grouponInfoTitleRight} name="arrowright" />
+        )}
+        {masterItems.length > 0 &&
+          isMaster === true && (
+            <BYTouchable
+              style={stylesX.grouponInfo}
+              onPress={() => this.handleOnPressToggleGroup('self')}
+              backgroundColor="transparent"
+            >
+              <View style={stylesX.grouponInfoTitle}>
+                <Text style={stylesX.grouponInfoTitleLeft}>
+                  {i18n.groupBuy}
+                </Text>
+                <Text style={stylesX.grouponInfoTitleMiddle}>
+                  {i18n.details}
+                </Text>
+                <CustomIcon
+                  style={stylesX.grouponInfoTitleRight}
+                  name="arrowright"
+                />
+              </View>
+              <GrouponList item={masterItems[0]} />
+            </BYTouchable>
+          )}
+        {masterItems.length > 0 &&
+          isMaster === false && (
+            <View style={stylesX.grouponJoin}>
+              <View style={stylesX.grouponJoinTitle}>
+                <Text style={stylesX.grouponJoinTitleText}>{`${
+                  masterItems.length
+                } ${i18n.personGroupBuying}`}</Text>
+                <Text
+                  style={stylesX.grouponJoinMore}
+                  backgroundColor="transparent"
+                  onPress={() => this.handleOnPressToggleGroup('list')}
+                >
+                  {i18n.more}
+                </Text>
+                <CustomIcon
+                  style={stylesX.grouponArrow}
+                  name="arrowright"
+                  onPress={() => this.handleOnPressToggleGroup('list')}
+                  backgroundColor="transparent"
+                />
+              </View>
+              {this.renderGrouponJoin(masterItems[0])}
             </View>
-            <GrouponList item={masterItems[0]} />
-          </BYTouchable>
-        }
-        {
-          masterItems.length > 0 && isMaster === false
-          &&
-          <View style={styles.grouponJoin}>
-            <View style={styles.grouponJoinTitle}>
-              <Text style={styles.grouponJoinTitleText}>{masterItems.length} {i18n.personGroupBuying}</Text>
-              <Text style={styles.grouponJoinMore} onPress={() => this.handleOnPressToggleGroup('list')} backgroundColor="transparent">{i18n.more}</Text>
-              <CustomIcon
-                style={styles.grouponArrow}
-                name="arrowright"
-                onPress={() => this.handleOnPressToggleGroup('list')}
-                backgroundColor="transparent"
-              />
-            </View>
-            {this.renderGrouponJoin(masterItems[0])}
-          </View>
-        }
+          )}
       </View>
-    )
+    );
   }
-  
+
   render() {
     const { isOpenMenuBottomSheet, menuBottomSheetType } = this.state;
     const {
       name,
       comment,
       isCollection,
-      brandId,
+      // brandId,
       i18n,
       price,
       imageUrls,
@@ -773,9 +860,7 @@ class ProductDetail extends Component {
       propertiesIdsObject,
       navigation: { navigate },
       screenProps: { mainNavigation },
-      screenProps: {
-        handleOnPressToggleMenuBottomSheet,
-      },
+      screenProps: { handleOnPressToggleMenuBottomSheet },
     } = this.props;
 
     let WebViewImages;
@@ -783,27 +868,28 @@ class ProductDetail extends Component {
       case 0:
         WebViewImages = '';
         break;
-    
+
       case 1:
         WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_70" alt="image">`;
         break;
-    
+
       default:
         WebViewImages = imageDesc.reduce((a, b, index) => {
+          let resultStr;
           if (index === 1) {
-            let resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
             resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
-            return resultStr;
           } else {
-            let resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
-            return a + resultStr;
+            resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr = a + resultStr;
           }
+          return resultStr;
         });
         break;
     }
 
-    const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${WebViewImages}</body></html>`
-    
+    const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${WebViewImages}</body></html>`;
+
     return (
       <View style={styles.container}>
         <ScrollView onScroll={this.handleOnScroll}>
@@ -812,55 +898,94 @@ class ProductDetail extends Component {
             backgroundColor="transparent"
             onPress={() => this.handleToggleCollection()}
           >
-            {
-              isCollection ? 
-              <MaterialIcons name="favorite" style={[styles.favoriteIcon, styles.favoriteIconActive]} /> : 
-              <MaterialIcons name="favorite-border" style={styles.favoriteIcon} />
-            }
+            {isCollection ? (
+              <MaterialIcons
+                name="favorite"
+                style={[styles.favoriteIcon, styles.favoriteIconActive]}
+              />
+            ) : (
+              <MaterialIcons
+                name="favorite-border"
+                style={styles.favoriteIcon}
+              />
+            )}
           </BYTouchable>
           <View style={styles.statusbarPlaceholder} />
-          <SwiperFlatList 
-            data={imageUrls} 
-            style={{ height: WINDOW_WIDTH }} 
-            styleWrap={{ height: WINDOW_WIDTH, paddingBottom: WINDOW_WIDTH * 0.03, backgroundColor: '#fff' }}
-            stylePaginationContainer={{ justifyContent: 'center' }}
-            paginationActiveColor="rgba(88,88,88,1)"
-            paginationDefaultColor="rgba(88,88,88,.5)"
-            autoplay={false}
-          />
+          {imageUrls &&
+            imageUrls.length > 0 && (
+              <SwiperFlatList
+                data={imageUrls}
+                style={{ height: WINDOW_WIDTH }}
+                styleWrap={{
+                  height: WINDOW_WIDTH,
+                  paddingBottom: WINDOW_WIDTH * 0.03,
+                  backgroundColor: '#fff',
+                }}
+                stylePaginationContainer={{ justifyContent: 'center' }}
+                paginationActiveColor="rgba(88,88,88,1)"
+                paginationDefaultColor="rgba(88,88,88,.5)"
+                autoplay={false}
+              />
+            )}
+
           <View style={styles.product}>
             <Text style={styles.productTitle}>{name}</Text>
             <Text style={styles.productPrice}>{priceFormat(price || 0)} ₫</Text>
             <View style={styles.serverinfo}>
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" />
-              <Text style={styles.serverinfoToBePaidText}>{i18n.qualityAssurance}</Text>
-              <CustomIcon style={styles.serverinfotoReceiveGoods} name="toReceiveGoods"  />
-              <Text style={styles.serverinfotoReceiveGoodsText}>{i18n.fastDelivery}</Text>
+              <Text style={styles.serverinfoToBePaidText}>
+                {i18n.qualityAssurance}
+              </Text>
+              <CustomIcon
+                style={styles.serverinfotoReceiveGoods}
+                name="toReceiveGoods"
+              />
+              <Text style={styles.serverinfotoReceiveGoodsText}>
+                {i18n.fastDelivery}
+              </Text>
             </View>
             <View style={styles.spec}>
               <Text style={styles.specTitle}>{i18n.selected}</Text>
-              <Text style={styles.specDesc} onPress={() => handleOnPressToggleMenuBottomSheet('select')}>{propertiesIdsObject.colorName} {propertiesIdsObject.versionName}</Text>
+              <Text
+                style={styles.specDesc}
+                onPress={() => handleOnPressToggleMenuBottomSheet('select')}
+              >
+                {`${propertiesIdsObject.colorName} ${
+                  propertiesIdsObject.versionName
+                }`}
+              </Text>
               <CustomIcon style={styles.specArrow} name="arrowright" />
             </View>
           </View>
           {this.renderGroupon()}
           <Comment data={comment} />
-          {
-            !!comment.length &&
+          {!!comment.length && (
             <View style={styles.commentMore}>
-              <Text style={styles.commentMoreText} onPress={() => navigate(SCREENS.ProductDetailComment)}>{i18n.more}</Text>
+              <Text
+                style={styles.commentMoreText}
+                onPress={() => navigate(SCREENS.ProductDetailComment)}
+              >
+                {i18n.more}
+              </Text>
             </View>
-          }
+          )}
           <WebView
-            source={
-              {
-                html: WebViewHTML,
-              }
-            }
+            source={{
+              html: WebViewHTML,
+            }}
             style={styles.WebView}
           />
-          <View style={[styles.commentMore, {paddingTop: SIDEINTERVAL}]}>
-            <Text style={styles.commentMoreText} onPress={() => mainNavigation.navigate(SCREENS.ProductDetailImages, { html: WebViewHTML })}>{i18n.more}</Text>
+          <View style={[styles.commentMore, { paddingTop: SIDEINTERVAL }]}>
+            <Text
+              style={styles.commentMoreText}
+              onPress={() =>
+                mainNavigation.navigate(SCREENS.ProductDetailImages, {
+                  html: WebViewHTML,
+                })
+              }
+            >
+              {i18n.more}
+            </Text>
           </View>
           {/* {
             imageDesc.map((val, key) => {
@@ -869,7 +994,9 @@ class ProductDetail extends Component {
           } */}
         </ScrollView>
         <BYBottomSheet
-          containerStyle={{justifyContent: 'center',}}
+          containerStyle={{
+            justifyContent: 'center',
+          }}
           visible={isOpenMenuBottomSheet}
           onCancel={this.handleOnPressToggleGroup}
         >
@@ -882,32 +1009,41 @@ class ProductDetail extends Component {
   }
 }
 
-export default connectLocalization(connect(
-  () => {
-    const getIsCollection = makegetIsCollection();
-    return (state, props) => {
-      const { mergeGetDetail, comment, collection, productDetail, mergeGetMaster, mergeCheck } = state;
-      const { brandId, propertiesIds } = props.screenProps;
+export default connectLocalization(
+  connect(
+    () => {
+      const getIsCollection = makegetIsCollection();
+      return (state, props) => {
+        const { mergeGetDetail, comment, mergeGetMaster, mergeCheck } = state;
+        // const { brandId, propertiesIds } = props.screenProps;
+        const {
+          screenProps: {
+            brandId,
+            propertiesIds,
+            // propertiesIds,
+          },
+        } = props;
 
-      return {
-        ...mergeGetDetail.item,
-        brandId,
-        propertiesIds,
-        masterItems: mergeGetMaster.items,
-        comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
-        isCollection: getIsCollection(state, props),
-        isAuthUser: !!state.login.user,
-        isMaster: !!mergeCheck.item.mergeMasterId
-      }
-    }
-  },
-  {
-    ...commentActionCreators,
-    ...collectionActionCreators,
-    ...orderCreateActionCreators,
-    ...mergeCheckActionCreators,
-    ...mergeGetSlaveActionCreators,
-    ...mergeGetDetailActionCreators,
-    ...mergeGetMasterActionCreators,
-  }
-)(ProductDetail));
+        return {
+          ...mergeGetDetail.item,
+          brandId,
+          propertiesIds,
+          masterItems: mergeGetMaster.items,
+          comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
+          isCollection: getIsCollection(state, props),
+          isAuthUser: !!state.login.user,
+          isMaster: !!mergeCheck.item.mergeMasterId,
+        };
+      };
+    },
+    {
+      ...commentActionCreators,
+      ...collectionActionCreators,
+      ...orderCreateActionCreators,
+      ...mergeCheckActionCreators,
+      ...mergeGetSlaveActionCreators,
+      ...mergeGetDetailActionCreators,
+      ...mergeGetMasterActionCreators,
+    },
+  )(ProductDetail),
+);

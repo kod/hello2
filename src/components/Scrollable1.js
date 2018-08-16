@@ -200,7 +200,10 @@ class Scrollable1 extends Component {
 
     return (
       <View>
-        <SwiperFlatList data={bannerSwiperList} />
+        {bannerSwiperList &&
+          bannerSwiperList.length > 0 && (
+            <SwiperFlatList data={bannerSwiperList} />
+          )}
 
         <NavImg1
           data={getSquaresInfoItems}

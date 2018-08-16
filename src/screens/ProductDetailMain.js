@@ -302,19 +302,23 @@ class ProductDetail extends Component {
             )}
           </BYTouchable>
           <View style={styles.statusbarPlaceholder} />
-          <SwiperFlatList
-            data={imageUrls}
-            style={{ height: WINDOW_WIDTH }}
-            styleWrap={{
-              height: WINDOW_WIDTH,
-              paddingBottom: WINDOW_WIDTH * 0.03,
-              backgroundColor: '#fff',
-            }}
-            stylePaginationContainer={{ justifyContent: 'center' }}
-            paginationActiveColor="rgba(88,88,88,1)"
-            paginationDefaultColor="rgba(88,88,88,.5)"
-            autoplay={false}
-          />
+          {imageUrls &&
+            imageUrls.length > 0 && (
+              <SwiperFlatList
+                data={imageUrls}
+                style={{ height: WINDOW_WIDTH }}
+                styleWrap={{
+                  height: WINDOW_WIDTH,
+                  paddingBottom: WINDOW_WIDTH * 0.03,
+                  backgroundColor: '#fff',
+                }}
+                stylePaginationContainer={{ justifyContent: 'center' }}
+                paginationActiveColor="rgba(88,88,88,1)"
+                paginationDefaultColor="rgba(88,88,88,.5)"
+                autoplay={false}
+              />
+            )}
+
           <View style={styles.product}>
             <Text style={styles.productTitle}>{name}</Text>
             <Text style={styles.productPrice}>{priceFormat(price || 0)} ₫</Text>
