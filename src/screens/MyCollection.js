@@ -9,7 +9,7 @@ import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
 import * as collectionActionCreators from '../common/actions/collection';
-import i18n from '../common/reducers/i18n';
+// import i18n from '../common/reducers/i18n';
 
 const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
 

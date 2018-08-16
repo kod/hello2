@@ -14,7 +14,7 @@ import priceFormat from '../common/helpers/priceFormat';
 import BYTouchable from './BYTouchable';
 import BYTextInput from './BYTextInput';
 import * as cartActionCreators from '../common/actions/cart';
-import i18n from '../common/reducers/i18n';
+import { connectLocalization } from './Localization';
 
 // const itemIntervalWidth = SIDEINTERVAL;
 // const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
@@ -179,6 +179,8 @@ class CartItem extends Component {
       },
     });
 
+    const { i18n } = this.props;
+
     const onChangeTextHandle = text => {
       if (text < 1 || text > CARMAXNUMBER) return false;
       const { cartNumberRequest, authUser } = this.props;
@@ -232,6 +234,7 @@ class CartItem extends Component {
 
   render() {
     const {
+      i18n,
       data,
       style,
       styleItem,
@@ -296,15 +299,17 @@ class CartItem extends Component {
   }
 }
 
-export default connect(
-  state => {
-    console.log();
-    return {
-      authUser: state.login.user,
-      isEdit: state.cart.isEdit,
-    };
-  },
-  {
-    ...cartActionCreators,
-  },
-)(CartItem);
+export default connectLocalization(
+  connect(
+    state => {
+      console.log();
+      return {
+        authUser: state.login.user,
+        isEdit: state.cart.isEdit,
+      };
+    },
+    {
+      ...cartActionCreators,
+    },
+  )(CartItem),
+);
