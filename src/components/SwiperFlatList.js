@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Text, Dimensions, Image, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
 import { withNavigation } from 'react-navigation';
 
 import BYTouchable from './BYTouchable';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from '../common/constants';
+import { WINDOW_WIDTH, SCREENS } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,35 +33,38 @@ const styles = StyleSheet.create({
     width: 10,
     height: 3,
     borderRadius: 0,
-    marginHorizontal: WINDOW_WIDTH * 0.010
-  }
+    marginHorizontal: WINDOW_WIDTH * 0.01,
+  },
 });
 
 let stylePaginationContainerparam;
 
-const Pagination = ({ data, paginationIndex, scrollToIndex, paginationDefaultColor, paginationActiveColor }) => {
-  return (
-    <View style={[styles.paginationContainer, stylePaginationContainerparam]}>
-      {data.map((_, index) => (
-        <TouchableOpacity
-          style={[
-            styles.pagination,
-            paginationIndex === index
-              ? { backgroundColor: paginationActiveColor }
-              : { backgroundColor: paginationDefaultColor }
-          ]}
-          key={index}
-          onPress={() => scrollToIndex(index)}
-        />
-      ))}
-    </View>
-  )
-}
+const Pagination = ({
+  data,
+  paginationIndex,
+  scrollToIndex,
+  paginationDefaultColor,
+  paginationActiveColor,
+}) => (
+  <View style={[styles.paginationContainer, stylePaginationContainerparam]}>
+    {data.map((_, index) => (
+      <TouchableOpacity
+        style={[
+          styles.pagination,
+          paginationIndex === index
+            ? { backgroundColor: paginationActiveColor }
+            : { backgroundColor: paginationDefaultColor },
+        ]}
+        key={index}
+        onPress={() => scrollToIndex(index)}
+      />
+    ))}
+  </View>
+);
 
 class App extends Component {
-
   render() {
-    const { 
+    const {
       data,
       styleWrap,
       style,
@@ -83,25 +86,23 @@ class App extends Component {
           PaginationComponent={Pagination}
           {...restProps}
         >
-            {
-              data && data.map((val, key) => {
-                return (
-                <BYTouchable 
-                  key={key} 
-                  backgroundColor="transparent"
-                  onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, })}
-                >
-                  <Image
-                    source={{uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`}}
-                    style={ [
-                      styles.child,
-                      style
-                    ]}
-                  />
-                </BYTouchable>
-                )
-              })
-            }
+          {data &&
+            data.map(val => (
+              <BYTouchable
+                key={val.imageUrl}
+                backgroundColor="transparent"
+                onPress={() =>
+                  navigate(SCREENS.ProductDetail, { brandId: val.brandId })
+                }
+              >
+                <Image
+                  source={{
+                    uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`,
+                  }}
+                  style={[styles.child, style]}
+                />
+              </BYTouchable>
+            ))}
         </SwiperFlatList>
       </View>
     );
