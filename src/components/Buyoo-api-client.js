@@ -7,6 +7,8 @@ const qs = require('qs');
 
 const DEBUG = true;
 
+const TIMEOUT = 7 * 1000;
+
 const BASE_URL = DEBUG ? 'http://14.162.145.248' : '';
 
 const PORT_80 = DEBUG ? ':8180' : 'https://uc.buyoo.vn';
@@ -798,19 +800,6 @@ class ReactStore {
   }
 
   // login(options) {
-  //   if (!options) {
-  //     return Promise.reject(new Error('fields required'));
-  //   }
-
-  //   // const queryString = qs.stringify(
-  //   //   Object.assign(
-  //   //     {
-  //   //       // filter,
-  //   //     },
-  //   //     options
-  //   //   )
-  //   // );
-
   //   const data = qs.stringify(options);
   //   options = {
   //     method: 'POST',
@@ -822,10 +811,7 @@ class ReactStore {
 
   //   console.log(`${BASE_URL}${PORT_80}/fun/userCenter/userAction/login`);
   //   console.log(options);
-  //   return axios(
-  //     `${BASE_URL}${PORT_80}/fun/userCenter/userAction/login`,
-  //     options,
-  //   )
+  //   return axios(`https://twitter.com/?sadf=${Math.random()}`, options)
   //     .then(res => {
   //       console.log(res);
   //       if (res.data.status !== 10000) {
@@ -836,14 +822,7 @@ class ReactStore {
   //     .catch(err => {
   //       console.log(err);
   //       throw err;
-  //       // if (err.response) {
-  //       //   throw err.response.data;
-  //       // } else {
-  //       //   throw err.message;
-  //       // }
   //     });
-
-  //   // return this.requestUrl(`${PORT_80}/fun/userCenter/userAction/login`, options);
   // }
 
   initTopDigital(options) {
@@ -1333,6 +1312,7 @@ class ReactStore {
     //   return Promise.reject('Url cannot be empty');
     // }
     options = options || {};
+    options.timeout = TIMEOUT;
     options.headers = Object.assign({}, this.headers, options.headers || {});
 
     return callApi(url, options)
