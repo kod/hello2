@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  // View,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 
 import {
   WINDOW_WIDTH,
   // WINDOW_HEIGHT,
   // SIDEINTERVAL,
 } from '../common/constants';
+import { connectLocalization } from './Localization';
+import * as otpActionCreators from '../common/actions/otp';
 
 const styles = StyleSheet.create({
   second: {
@@ -50,7 +48,10 @@ class ReadSeconds extends Component {
 
   async readSeconds() {
     const { ing } = this.state;
+    const { otpFetch, msisdn, i18n } = this.props;
+
     if (ing === false) {
+      otpFetch(msisdn, i18n);
       await this.setState({
         seconds: 30,
         ing: true,
@@ -100,4 +101,24 @@ class ReadSeconds extends Component {
   }
 }
 
-export default ReadSeconds;
+export default connectLocalization(
+  connect(
+    (state, props) => {
+      // const {
+      //   navigation: {
+      //     state: { params },
+      //   },
+      // } = props;
+
+      const { msisdn } = props;
+      return {
+        msisdn,
+        // loading: otp.loading,
+      };
+    },
+    {
+      ...otpActionCreators,
+      // ...binddataActionCreators,
+    },
+  )(ReadSeconds),
+);
