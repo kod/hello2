@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import priceFormat from '../common/helpers/priceFormat';
-import { CARMAXNUMBER } from '../common/constants';
 import BYTouchable from './BYTouchable';
-import { SCREENS } from '../common/constants';
 
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { SIDEINTERVAL, SCREENS } from '../common/constants';
 
-import BYTextInput from './BYTextInput';
+// import BYTextInput from './BYTextInput';
+import { connectLocalization } from './Localization';
+import * as cartActionCreators from '../common/actions/cart';
 
-import * as cartActionCreators from  "../common/actions/cart";
-
-const itemIntervalWidth = SIDEINTERVAL;
-const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
+// const itemIntervalWidth = SIDEINTERVAL;
+// const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
   itemWrap: {
@@ -84,9 +79,9 @@ const styles = StyleSheet.create({
 });
 
 class ProductItem2 extends Component {
-
   render() {
     const {
+      i18n,
       data,
       style,
       styleItem,
@@ -105,38 +100,68 @@ class ProductItem2 extends Component {
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
         {data &&
-          data.map((val, key) => {
-            return (
-              <BYTouchable style={[styles.item, styleItem]} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, propertiesIds: val.propertiesIds, })}>
-                <View style={[styles.itemLeft, styleItemLeft]}>
-                  <Image style={styles.itemImage} source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} />
+          data.map(val => (
+            <BYTouchable
+              style={[styles.item, styleItem]}
+              key={val.name}
+              onPress={() =>
+                navigate(SCREENS.ProductDetail, {
+                  brandId: val.brandId,
+                  propertiesIds: val.propertiesIds,
+                })
+              }
+            >
+              <View style={[styles.itemLeft, styleItemLeft]}>
+                <Image
+                  style={styles.itemImage}
+                  source={{
+                    uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`,
+                  }}
+                />
+              </View>
+              <View style={styles.itemRight}>
+                <Text style={styles.itemTitle} numberOfLines={1}>
+                  {val.name}
+                </Text>
+                <Text style={styles.itemPrice}>
+                  {`${priceFormat(val.price)} ₫`}
+                </Text>
+                <View style={styles.itemRightRow3}>
+                  <Text style={[styles.itemRightRow3Price, stylePricePrice]}>
+                    {`${priceFormat(parseInt(val.price / 12, 10))} + ' ₫'`}
+                  </Text>
+                  <Text
+                    style={[styles.itemRightRow3Periods, stylePricePeriods]}
+                  >
+                    x12 {i18n.month}
+                  </Text>
+                  {isShowNumber && (
+                    <Text style={styles.itemRightRow3Number}>
+                      x{val.number}
+                    </Text>
+                  )}
                 </View>
-                <View style={styles.itemRight}>
-                  <Text style={styles.itemTitle} numberOfLines={1}>{val.name}</Text>
-                  <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>
-                  <View style={styles.itemRightRow3}>
-                    <Text style={[styles.itemRightRow3Price, stylePricePrice]}>{priceFormat(parseInt(val.price / 12)) + ' ₫'}</Text>
-                    <Text style={[styles.itemRightRow3Periods, stylePricePeriods]}>x12 Tháng</Text>
-                    {isShowNumber && <Text style={styles.itemRightRow3Number}>x{val.number}</Text>}
-                  </View>
-                </View>
-              </BYTouchable>
-            );
-          })}
+              </View>
+            </BYTouchable>
+          ))}
       </View>
     );
   }
-};
+}
 
 export default withNavigation(
-  connect(
-    state => {
-      return {
-        authUser: state.login.user
-      }
-    },
-    {
-      ...cartActionCreators
-    }
-  )(ProductItem2)
+  connectLocalization(
+    connect(
+      state => {
+        console.log();
+        const { login } = state;
+        return {
+          authUser: login.user,
+        };
+      },
+      {
+        ...cartActionCreators,
+      },
+    )(ProductItem2),
+  ),
 );

@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  SCREENS,
+  CARMAXNUMBER,
+} from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
-import { CARMAXNUMBER } from '../common/constants';
 import BYTouchable from './BYTouchable';
-
 import BYTextInput from './BYTextInput';
+import * as cartActionCreators from '../common/actions/cart';
+import i18n from '../common/reducers/i18n';
 
-import * as cartActionCreators from  "../common/actions/cart";
-
-
-const itemIntervalWidth = SIDEINTERVAL;
-const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
+// const itemIntervalWidth = SIDEINTERVAL;
+// const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
   itemWrap: {
@@ -74,15 +76,14 @@ const styles = StyleSheet.create({
 });
 
 class CartItem extends Component {
-
-  componentDidMount() {
-    // const { cartNumberRequest, authUser } = this.props;
-    // authUser && cartNumberRequest(authUser.result, 297, 4);
-  }
+  // componentDidMount() {
+  //   // const { cartNumberRequest, authUser } = this.props;
+  //   // authUser && cartNumberRequest(authUser.result, 297, 4);
+  // }
 
   renderCartItemLeft = (id, selected) => {
     const { isEdit } = this.props;
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         width: WINDOW_WIDTH * 0.134,
         justifyContent: 'center',
@@ -98,29 +99,29 @@ class CartItem extends Component {
       },
     });
 
-    const onPressHandle = (id, selected) => {
+    const onPressHandle = () => {
       const { cartSelectRequest } = this.props;
-      cartSelectRequest(id, selected);
-    }
+      cartSelectRequest(id, !selected);
+    };
 
     return (
-      <BYTouchable
-        style={styles.container}
-        onPress={() => onPressHandle(id, !selected)}
-      >
-        {
-          selected
-          ? <Ionicons name="ios-radio-button-on-outline" style={styles.iconSelected} />
-          : <Ionicons name={'ios-radio-button-off-outline'} style={styles.icon} />
-        }
+      <BYTouchable style={stylesX.container} onPress={() => onPressHandle()}>
+        {selected ? (
+          <Ionicons
+            name="ios-radio-button-on-outline"
+            style={stylesX.iconSelected}
+          />
+        ) : (
+          <Ionicons name="ios-radio-button-off-outline" style={stylesX.icon} />
+        )}
       </BYTouchable>
     );
   };
 
   renderCartItemRight = (id, quantity) => {
-    id = id + '';
-    quantity = quantity + '';
-    const styles = StyleSheet.create({
+    id = id.toString();
+    quantity = quantity.toString();
+    const stylesX = StyleSheet.create({
       container: {
         position: 'relative',
         width: 30 + SIDEINTERVAL,
@@ -150,7 +151,7 @@ class CartItem extends Component {
         fontWeight: '900',
       },
       removeIconDisable: {
-        opacity: 0.5
+        opacity: 0.5,
       },
       textInput: {
         height: 30,
@@ -165,7 +166,7 @@ class CartItem extends Component {
         top: 30,
         left: -15 - SIDEINTERVAL,
         backgroundColor: RED_COLOR,
-        transform: [{ rotate: '90deg'}],
+        transform: [{ rotate: '90deg' }],
         display: 'none',
       },
       tipsText: {
@@ -178,52 +179,57 @@ class CartItem extends Component {
       },
     });
 
-    const onChangeTextHandle = (text, id) => {
+    const onChangeTextHandle = text => {
       if (text < 1 || text > CARMAXNUMBER) return false;
       const { cartNumberRequest, authUser } = this.props;
-      authUser && cartNumberRequest(authUser.result, id, text);
-    }
-    
+      if (authUser) cartNumberRequest(authUser.result, id, text);
+      return true;
+    };
+
     return (
-      <View style={styles.container}>
-        <View style={styles.number}>
+      <View style={stylesX.container}>
+        <View style={stylesX.number}>
           <BYTouchable
-            onPress={() => onChangeTextHandle(parseInt(quantity) - 1, id)}
+            onPress={() => onChangeTextHandle(parseInt(quantity, 10) - 1, id)}
           >
-            <Ionicons 
-              name="ios-remove" 
-              style={[styles.removeIcon, quantity === '1' && styles.removeIconDisable]} 
+            <Ionicons
+              name="ios-remove"
+              style={[
+                stylesX.removeIcon,
+                quantity === '1' && stylesX.removeIconDisable,
+              ]}
             />
           </BYTouchable>
           <BYTextInput
-            style={styles.textInput}
+            style={stylesX.textInput}
             keyboardType="numeric"
-            value={quantity} 
+            value={quantity}
             // onChangeText={(text) => onChangeTextHandle(text, id)}
             editable={false}
           />
           <BYTouchable
-            onPress={() => onChangeTextHandle(parseInt(quantity) + 1, id)}
+            onPress={() => onChangeTextHandle(parseInt(quantity, 10) + 1, id)}
           >
-            <Ionicons 
-              name="ios-add" 
+            <Ionicons
+              name="ios-add"
               style={[
-                styles.addIcon, 
-                parseInt(quantity) === CARMAXNUMBER && styles.removeIconDisable
-              ]} 
+                stylesX.addIcon,
+                parseInt(quantity, 10) === CARMAXNUMBER &&
+                  stylesX.removeIconDisable,
+              ]}
             />
           </BYTouchable>
         </View>
         <BYTouchable
-          style={styles.tips}
-          // style={styles.tips}
+          style={stylesX.tips}
+          // style={stylesX.tips}
         >
-          <Text style={styles.tipsText}>Kệ sản phẩm</Text>
+          <Text style={stylesX.tipsText}>{i18n.productShelves}</Text>
         </BYTouchable>
       </View>
     );
   };
-  
+
   render() {
     const {
       data,
@@ -242,42 +248,63 @@ class CartItem extends Component {
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
         {items &&
-          items.map((val, key) => 
-            (
-              <BYTouchable 
-                style={[styles.item, styleItem]} 
-                key={key} 
-                onPress={() => navigate(SCREENS.ProductDetail, { brandId: details[products[val].detail].brandId })}
-              >
-                {this.renderCartItemLeft(val, isEdit ? products[val].selectedDel : products[val].selected)}
-                <View style={[styles.itemLeft, styleItemLeft]}>
-                  <Image style={styles.itemImage} source={{ uri: `${details[products[val].detail].iconUrl}?x-oss-process=image/quality,Q_70` }} />
+          items.map(val => (
+            <BYTouchable
+              style={[styles.item, styleItem]}
+              key={details[products[val].detail].iconUrl}
+              onPress={() =>
+                navigate(SCREENS.ProductDetail, {
+                  brandId: details[products[val].detail].brandId,
+                })
+              }
+            >
+              {this.renderCartItemLeft(
+                val,
+                isEdit ? products[val].selectedDel : products[val].selected,
+              )}
+              <View style={[styles.itemLeft, styleItemLeft]}>
+                <Image
+                  style={styles.itemImage}
+                  source={{
+                    uri: `${
+                      details[products[val].detail].iconUrl
+                    }?x-oss-process=image/quality,Q_70`,
+                  }}
+                />
+              </View>
+              <View style={styles.itemRight}>
+                <Text style={styles.itemTitle} numberOfLines={1}>
+                  {products[val].subject}
+                </Text>
+                <Text style={styles.itemPrice}>
+                  {`${priceFormat(details[products[val].detail].price)} ₫`}
+                </Text>
+                <View style={styles.itemRightRow3}>
+                  <Text style={styles.itemRightRow3Price}>
+                    {`${priceFormat(details[products[val].detail].price)} ₫`}
+                  </Text>
+                  <Text style={styles.itemRightRow3Number}>
+                    x12 {i18n.month}
+                  </Text>
                 </View>
-                <View style={styles.itemRight}>
-                  <Text style={styles.itemTitle} numberOfLines={1}>{products[val].subject}</Text>
-                  <Text style={styles.itemPrice}>{priceFormat(details[products[val].detail].price) + ' ₫'}</Text>
-                  <View style={styles.itemRightRow3}>
-                    <Text style={styles.itemRightRow3Price}>{priceFormat(details[products[val].detail].price) + ' ₫'}</Text>
-                    <Text style={styles.itemRightRow3Number}>x12 Tháng</Text>
-                  </View>
-                </View>
-                {this.renderCartItemRight(val, products[val].quantity)}
-              </BYTouchable>
-            )
-          )}
+              </View>
+              {this.renderCartItemRight(val, products[val].quantity)}
+            </BYTouchable>
+          ))}
       </View>
     );
   }
-};
+}
 
 export default connect(
   state => {
+    console.log();
     return {
       authUser: state.login.user,
       isEdit: state.cart.isEdit,
-    }
+    };
   },
   {
-    ...cartActionCreators
-  }
+    ...cartActionCreators,
+  },
 )(CartItem);

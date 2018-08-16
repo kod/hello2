@@ -1,3 +1,4 @@
+/* eslint-disable react/no-multi-comp */
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -37,6 +38,8 @@ import {
   tradeStatusCodes,
   buttonTextForTradeStatusCodes,
 } from '../common/helpers';
+
+const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
 
 const styles = StyleSheet.create({
   container: {
@@ -100,82 +103,94 @@ class Scrollable extends Component {
     // }];
 
     const {
+      i18n,
       itemKey,
       queryOrderListItem,
       // orderItem: { items },
       navigation: { navigate },
     } = this.props;
     const module = queryOrderListItem[itemKey];
-    const items = module.items;
+    const { items } = module;
 
-    if (items.length === 0 && module.loading === false) return (
-      <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'暂无相关订单'} style={{ paddingTop: WINDOW_HEIGHT * 0.1 }} />
-    ) 
+    if (items.length === 0 && module.loading === false)
+      return (
+        <EmptyState
+          source={ouhrigdfnjsoeijehrJpg}
+          text={i18n.noData}
+          style={{ paddingTop: WINDOW_HEIGHT * 0.1 }}
+        />
+      );
 
     return (
       <View style={stylesScrollable.container}>
-        {
-          items.map((val, key) => {
-            return (
-              <View style={styles.item} key={key}>
-                <ProductItem2 
-                  data={val.goodList}
-                  stylePricePrice={{ color: '#fff' }}
-                  stylePricePeriods={{ color: '#fff' }}
-                  isShowNumber
-                />
-                <View style={stylesScrollable.totalPrice}>
-                  <Text style={stylesScrollable.price}>total: {priceFormat(val.totalAmount)} ₫</Text>
-                </View>
-                <View style={stylesScrollable.pay}>
-                  <Text style={stylesScrollable.payText}>{tradeStatusCodes(val.tradeStatus)}</Text>
-                  <Text 
-                    style={stylesScrollable.payButton} 
-                    onPress={() => navigate(SCREENS.Pay, { tradeNo: val.tradeNo, orderNo: val.orderNo, })}
-                  >
-                    {buttonTextForTradeStatusCodes(val.tradeStatus)}
-                  </Text>
-                </View>
-                <SeparateBar />
-                <SeparateBar />
-              </View>
-            )
-          })
-        }
+        {items.map(val => (
+          <View style={styles.item} key={val.tradeNo}>
+            <ProductItem2
+              data={val.goodList}
+              stylePricePrice={{ color: '#fff' }}
+              stylePricePeriods={{ color: '#fff' }}
+              isShowNumber
+            />
+            <View style={stylesScrollable.totalPrice}>
+              <Text style={stylesScrollable.price}>{`${
+                i18n.subtotal
+              }: ${priceFormat(val.totalAmount)} ₫`}</Text>
+            </View>
+            <View style={stylesScrollable.pay}>
+              <Text style={stylesScrollable.payText}>
+                {tradeStatusCodes(val.tradeStatus)}
+              </Text>
+              <Text
+                style={stylesScrollable.payButton}
+                onPress={() =>
+                  navigate(SCREENS.Pay, {
+                    tradeNo: val.tradeNo,
+                    orderNo: val.orderNo,
+                  })
+                }
+              >
+                {buttonTextForTradeStatusCodes(val.tradeStatus)}
+              </Text>
+            </View>
+            <SeparateBar />
+            <SeparateBar />
+          </View>
+        ))}
       </View>
-    )
+    );
   }
 }
 
 class Order extends Component {
   constructor(props) {
     super(props);
-  
     this.state = {
-      refreshing: false
+      refreshing: false,
     };
 
     this.onChangeTab = this.onChangeTab.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
   }
 
   componentDidMount() {
-    const {
-      queryOrderListFetch,
-      isAuthUser,
-      navigation: { navigate },
-    } = this.props;
+    // const {
+    //   queryOrderListFetch,
+    //   isAuthUser,
+    //   navigation: { navigate },
+    // } = this.props;
     // if (!isAuthUser) return navigate(SCREENS.Login);
     // queryOrderListFetch();
 
-   this._onRefresh();
+    this.onRefresh();
   }
 
-  _onRefresh(index) {
-    const { 
-      // scrollTabIndex,
+  onRefresh(index) {
+    const {
+      scrollTabIndex: scrollTabIndexX,
       queryOrderListFetch,
-     } = this.props;
-    const scrollTabIndex = index || this.props.scrollTabIndex;
+      // queryOrderListFetch,
+    } = this.props;
+    const scrollTabIndex = index || scrollTabIndexX;
     switch (scrollTabIndex) {
       case 0:
         queryOrderListFetch({
@@ -223,13 +238,13 @@ class Order extends Component {
         queryOrderListIndexFetch({
           scrollTabIndex: res.i,
         });
-        this._onRefresh(res.i);
+        this.onRefresh(res.i);
       }
     });
   }
 
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
         alignItems: 'center',
@@ -243,58 +258,66 @@ class Order extends Component {
         marginRight: 5,
       },
     });
+
+    const { i18n } = this.props;
+
     return (
-      <BYTouchable 
-        style={styles.container}
+      <BYTouchable
+        style={stylesX.container}
         backgroundColor="transparent"
         onPress={() => this.handleOnPressToggleModal('isOpenPay')}
       >
-        <Text style={styles.title}>my order</Text>
+        <Text style={stylesX.title}>{i18n.myOrder}</Text>
       </BYTouchable>
-    )
-  }
+    );
+  };
 
   render() {
+    const { refreshing } = this.state;
     const {
-      navigation: { navigate },
+      // navigation: { navigate },
       initIndex,
       i18n,
+      queryOrderListItem,
     } = this.props;
     const scrollableTabKeys = [
       {
-        tabLabel: 'ALL',
+        tabLabel: i18n.all,
       },
       {
-        tabLabel: 'Pending payment',
+        tabLabel: i18n.pendingPayment,
       },
       {
-        tabLabel: 'Pending delivery',
+        tabLabel: i18n.pendingDelivery,
       },
       {
-        tabLabel: 'Pending evaluation',
-      }
+        tabLabel: i18n.pendingEvaluation,
+      },
     ];
 
-    const content = scrollableTabKeys.map((val, key) => {
-      return (
-        <View tabLabel={val.tabLabel} style={styles.base} key={key}>
-          {this.props.queryOrderListItem[key].loading && <Loader absolutePosition />}
-          <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)} />}>
-            <Scrollable {...this.props} itemKey={key} />
-          </ScrollView>
-        </View>
-      );
-    });
+    const content = scrollableTabKeys.map((val, key) => (
+      <View tabLabel={val.tabLabel} style={styles.base} key={key}>
+        {queryOrderListItem[key].loading && <Loader absolutePosition />}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
+        >
+          <Scrollable {...this.props} itemKey={key} />
+        </ScrollView>
+      </View>
+    ));
 
     return (
       <View style={styles.container}>
-        <BYHeader  
-          headerTitle={this.renderHeaderTitle()}
-        />
-        <ScrollableTabView 
-          content={content} 
-          onChangeTab={this.onChangeTab} 
-          styleTab={styles.tab} 
+        <BYHeader headerTitle={this.renderHeaderTitle()} />
+        <ScrollableTabView
+          content={content}
+          onChangeTab={this.onChangeTab}
+          styleTab={styles.tab}
           initialPage={initIndex}
         />
       </View>
@@ -302,25 +325,31 @@ class Order extends Component {
   }
 }
 
-
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          queryOrderList,
-        } = state;
-        return {
-          initIndex: props.navigation.state.params ? props.navigation.state.params.index : 0,
-          orderItem: getOrderItem(state, props),
-          queryOrderListItem: queryOrderList.item,
-          scrollTabIndex: queryOrderList.scrollTabIndex,
-          isAuthUser: !!state.login.user,
-        }
-      }
+    () => (state, props) => {
+      const {
+        queryOrderList,
+        // queryOrderList,
+      } = state;
+      const {
+        navigation: {
+          state: {
+            params,
+            // params,
+          },
+        },
+      } = props;
+      return {
+        initIndex: params ? params.index : 0,
+        orderItem: getOrderItem(state, props),
+        queryOrderListItem: queryOrderList.item,
+        scrollTabIndex: queryOrderList.scrollTabIndex,
+        isAuthUser: !!state.login.user,
+      };
     },
     {
       ...queryOrderListActionCreators,
-    }
+    },
   )(Order),
 );
