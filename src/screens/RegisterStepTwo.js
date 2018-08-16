@@ -1,24 +1,19 @@
+/* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Keyboard } from 'react-native';
+import { StyleSheet, View, ScrollView, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
-
+// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { WINDOW_WIDTH, PWD_EXPR } from '../common/constants';
 import BYHeader from '../components/BYHeader';
 import BYButton from '../components/BYButton';
 import InputRight from '../components/InputRight';
-import BYTouchable from '../components/BYTouchable';
+// import BYTouchable from '../components/BYTouchable';
 import ReadSeconds from '../components/ReadSeconds';
 import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
-import { SCREENS } from '../common/constants';
-
-import * as registerActionCreators from "../common/actions/register";
-
-import { PHONE_EXPR, PWD_EXPR } from '../common/constants';
+import * as registerActionCreators from '../common/actions/register';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,39 +44,32 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     color: '#ccc',
   },
-})
+});
 
 const validate = (values, props) => {
-  const { 
-    otp = '',
-    password = '',
-    repassword = '',
-   } = values;
+  const { otp = '', password = '', repassword = '' } = values;
   const { i18n } = props;
+  console.log(i18n);
   const errors = {};
 
   if (!otp) {
-    errors.otp = 'place enter the code';
+    errors.otp = i18n.pleaseEnterSMSVerificationCode;
   }
   if (!PWD_EXPR.test(password)) {
-    errors.password = '8-20 password';
+    errors.password = i18n.pleaseEnter816CharactersOrNumbers;
   }
   if (password !== repassword) {
-    errors.repassword = 'confirm password';
+    errors.repassword = i18n.pleaseEnterPasswordAgain;
   }
   return errors;
 };
 
 class RegisterStepTwo extends Component {
   submit = data => {
-    const {
-      otp,
-      password,
-      repassword,
-    } = data;
+    const { otp, password, repassword } = data;
     const {
       registerFetch,
-      navigation: { goBack, navigate },
+      // navigation: { goBack, navigate },
       registerStepOneValues: { phone, inviterno },
     } = this.props;
     if (otp && password && repassword) {
@@ -91,32 +79,25 @@ class RegisterStepTwo extends Component {
         password,
         repassword,
         msisdn: phone,
-        inviterno: inviterno,
+        inviterno,
       });
       // navigate(SCREENS.RegisterStepTwo)
     }
-  }
+  };
 
-  renderInputRightCode = () => {
-    return (
-      <View style={styles.second}>
-        <Text style={styles.secondText}>gửi mã</Text>
-      </View>
-    );
-  };
-  
-  renderInputRightClose = () => {
-    return (
-      <BYTouchable>
-        <MaterialIcons name="cancel" style={styles.closeIcon} />
-      </BYTouchable>
-    );
-  };
+  // renderInputRightClose = () => {
+  //   return (
+  //     <BYTouchable>
+  //       <MaterialIcons name="cancel" style={styles.closeIcon} />
+  //     </BYTouchable>
+  //   );
+  // };
 
   render() {
     const {
+      i18n,
       handleSubmit,
-      navigation: { goBack, navigate },
+      // navigation: { goBack, navigate },
       loading,
     } = this.props;
     return (
@@ -124,30 +105,33 @@ class RegisterStepTwo extends Component {
         <BYHeader />
         <ScrollView keyboardShouldPersistTaps="always">
           {loading && <Loader absolutePosition />}
-          <Field 
+          <Field
             name="otp"
             component={InputRight}
-            inputRight={<ReadSeconds />}
-            placeholder={'place enter the code'}
+            inputRight={<ReadSeconds i18n={i18n} />}
+            placeholder={i18n.pleaseEnterSMSVerificationCode}
             keyboardType="numeric"
           />
-          <Field 
+          <Field
             name="password"
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
-            placeholder={'8-20 password'}
+            placeholder={i18n.pleaseEnter816CharactersOrNumbers}
             secureTextEntry
           />
-          <Field 
+          <Field
             name="repassword"
             component={InputRight}
             // inputRight={this.renderInputRightClose()}
             styleWrap={{ marginBottom: 45 }}
-            placeholder="confirm password"
+            placeholder={i18n.pleaseEnterPasswordAgain}
             secureTextEntry
           />
-
-          <BYButton text={'Register'} style={{ marginBottom: 30 }} onPress={handleSubmit(this.submit)} />
+          <BYButton
+            text={i18n.register}
+            style={{ marginBottom: 30 }}
+            onPress={handleSubmit(this.submit)}
+          />
         </ScrollView>
       </View>
     );
@@ -162,7 +146,8 @@ RegisterStepTwo = reduxForm({
 export default connectLocalization(
   connect(
     () => {
-      return (state, props) => {
+      console.log();
+      return state => {
         const {
           form: { RegisterStepOne },
           register,
@@ -170,11 +155,11 @@ export default connectLocalization(
         return {
           registerStepOneValues: RegisterStepOne ? RegisterStepOne.values : '',
           loading: register.loading,
-        }
-      }
+        };
+      };
     },
     {
       ...registerActionCreators,
-    }
+    },
   )(RegisterStepTwo),
 );

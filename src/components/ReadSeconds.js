@@ -84,10 +84,7 @@ class ReadSeconds extends Component {
       // seconds,
     } = this.state;
 
-    const {
-      // cc,
-      ...restProps
-    } = this.props;
+    const { i18n, ...restProps } = this.props;
 
     return (
       <View style={styles.second}>
@@ -96,7 +93,7 @@ class ReadSeconds extends Component {
           onPress={() => this.handleOnPressSeconds()}
           {...restProps}
         >
-          {ing ? seconds : 'gửi mã'}
+          {ing ? seconds : i18n.sendCode}
         </Text>
       </View>
     );

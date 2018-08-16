@@ -298,19 +298,20 @@ class OrderWrite extends Component {
 
   handleOnPressCancel() {
     const {
+      i18n,
       orderCancelFetch,
       orderNo,
       tradeNo,
       // tradeNo,
     } = this.props;
 
-    Alert.alert('', 'Xác nhận？', [
+    Alert.alert('', `${i18n.confirm}?`, [
       {
-        text: 'Hủy',
+        text: i18n.cancel,
         onPress: () => {},
       },
       {
-        text: 'Xác nhận',
+        text: i18n.confirm,
         onPress: () => {
           orderCancelFetch({
             orderno: orderNo,

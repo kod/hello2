@@ -99,10 +99,8 @@ class Login extends Component {
   submit = data => {
     const { loginFetch } = this.props;
     const { phone, password } = data;
-    console.log('submitsubmitsubmitsubmit');
     if (phone && password) {
       Keyboard.dismiss();
-      console.log('loginloginloginlogin');
       loginFetch(phone, password);
     }
   };
@@ -140,14 +138,14 @@ class Login extends Component {
           onPress={handleSubmit(this.submit)}
         />
         <NavSidesText
-          textLeft="Register now?"
-          textRight="Log in via SMS?"
+          textLeft={i18n.register}
+          textRight={i18n.loginViaSMS}
           navigateLeft={() => navigate(SCREENS.RegisterStepOne)}
           navigateRight={() => navigate(SCREENS.RegisterFastStepOne)}
         />
         <View style={{ flex: 1 }} />
         {/* <OtherLogin /> */}
-        {/* <OverlaySpinner visible={loading} /> */}
+        <OverlaySpinner visible={loading} />
       </View>
     );
   }

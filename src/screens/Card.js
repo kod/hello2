@@ -227,19 +227,20 @@ class Card extends Component {
     });
 
     const {
+      i18n,
       item: { availableBalance, cardCode, username },
     } = this.props;
 
     return (
       <View style={stylesX.container}>
-        <BYHeader
+        {/* <BYHeader
           showBackButton={false}
           headerTitle={this.renderHeaderTitle()}
-        />
+        /> */}
         <View style={stylesX.card}>
           <View style={stylesX.cardMain}>
-            <Text style={stylesX.logoText}>Buyoo</Text>
-            <Text style={stylesX.title}>available credit</Text>
+            <Text style={stylesX.logoText}>{i18n.funCard}</Text>
+            <Text style={stylesX.title}>{i18n.availableQuota}</Text>
             <Text style={stylesX.price}>{priceFormat(availableBalance)} ₫</Text>
             <View style={stylesX.info}>
               <Text style={stylesX.cardId}>
@@ -255,6 +256,7 @@ class Card extends Component {
 
   renderContent() {
     const {
+      i18n,
       initPassword,
       msisdn,
       navigation: { navigate },
@@ -269,7 +271,7 @@ class Card extends Component {
         {(!isAuthUser || status === 1) &&
           this.renderApplyStatus({
             // backgroundColor: '#147af3',
-            text: 'apply for a credit card',
+            text: i18n.applyCreditCard,
             onPress: () =>
               navigate(
                 isAuthUser ? SCREENS.CertifiedInformation : SCREENS.Login,
@@ -279,14 +281,14 @@ class Card extends Component {
         {status === 2 &&
           this.renderApplyStatus({
             // backgroundColor: '#fa534d',
-            text: '申请成功 等待审核中...',
+            text: i18n.successfulApplicationPendingReview,
             // onPress: () => navigate(SCREENS.CertifiedInformation, { isCertify: true })
           })}
         {status === 3 &&
           initPassword === 0 &&
           this.renderApplyStatus({
             // backgroundColor: '#18a873',
-            text: '激活',
+            text: i18n.activation,
             onPress: () => {
               navigate(
                 isAuthUser ? SCREENS.TransactionPasswordStepOne : SCREENS.Login,
@@ -302,7 +304,7 @@ class Card extends Component {
               navigate(SCREENS.Bill),
             )
           }
-          valueLeft="Bill"
+          valueLeft={i18n.myBill}
           // valueMiddle={'on the 5th of each month'}
         />
         <NavBar2
@@ -311,8 +313,8 @@ class Card extends Component {
               navigate(SCREENS.PeriodSelect),
             )
           }
-          valueLeft="Stage setting"
-          valueMiddle={periodHobbit ? `${periodHobbit} period` : ''}
+          valueLeft={i18n.stageSetting}
+          valueMiddle={periodHobbit ? `${periodHobbit} ${i18n.period}` : ''}
         />
         <SeparateBar />
         <NavBar2
@@ -321,7 +323,7 @@ class Card extends Component {
               navigate(SCREENS.SecurityCenter),
             )
           }
-          valueLeft="Security Settings"
+          valueLeft={i18n.securitySettings}
         />
       </View>
     );
@@ -341,6 +343,7 @@ class Card extends Component {
         <BYHeader
           headerTitle={this.renderHeaderTitle()}
           showBackButton={false}
+          isShowHeaderLine={false}
         />
         {this.renderContent()}
       </View>

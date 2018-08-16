@@ -1,15 +1,17 @@
+/* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Image, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
-import { PRIMARY_COLOR } from '../styles/variables';
+// import { PRIMARY_COLOR } from '../styles/variables';
 import { SCREENS, WINDOW_HEIGHT } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import BYButton from '../components/BYButton';
-import OtherLogin from '../components/OtherLogin';
+// import OtherLogin from '../components/OtherLogin';
 import { connectLocalization } from '../components/Localization';
+import i18n from '../common/reducers/i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,19 +23,22 @@ const styles = StyleSheet.create({
 class ForgotPasswordOne extends Component {
   render() {
     const {
-      navigation: { goBack, navigate },
-      navigation
+      navigation: { navigate },
+      // navigation,
     } = this.props;
     return (
       <View style={styles.container}>
         <BYHeader />
-        <Field 
+        <Field
           name="phone"
           component={InputCountry}
-          style={{marginBottom: 70}}
+          style={{ marginBottom: 70 }}
         />
-        <BYButton text="next" onPress={() => navigate(SCREENS.ForgotPasswordTwo)} />
-        <View style={{flex: 1, minHeight: WINDOW_HEIGHT * 0.2}} />
+        <BYButton
+          text={i18n.nextStep}
+          onPress={() => navigate(SCREENS.ForgotPasswordTwo)}
+        />
+        <View style={{ flex: 1, minHeight: WINDOW_HEIGHT * 0.2 }} />
         {/* <OtherLogin /> */}
       </View>
     );

@@ -37,31 +37,6 @@ const styles = StyleSheet.create({
 });
 
 class Settings extends Component {
-  // componentDidMount() {
-  //   const { bannerHomeRecommendFetch } = this.props;
-  //   // bannerHomeRecommendFetch();
-  // }
-
-  // handleOnPressHeaderBackButton = () => {
-  //   const { goBack } = this.props.navigation;
-  //   goBack();
-  // };
-
-  // renderHeaderTitle = () => {
-  //   return (
-  //     <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
-  //       <Text style={{ fontSize: 18, color: '#fff' }}>Settings</Text>
-  //     </View>
-  //   )
-  // }
-
-  // renderHeaderRight = () => {
-  //   return (
-  //     <View />
-  //   )
-  // }
-  //
-
   handleOnPressLogout() {
     const {
       i18n,

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { StyleSheet, View, Platform, StatusBar } from 'react-native';
-import { HeaderBackButton, withNavigation } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import { HEADER_BACKGROUND_COLOR, BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  APPBAR_HEIGHT,
+  STATUSBAR_HEIGHT,
+} from '../common/constants';
 import CustomIcon from './CustomIcon';
 import BYTouchable from './BYTouchable';
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -65,10 +68,10 @@ const styles = StyleSheet.create({
     right: 0,
     height: 1,
     backgroundColor: BORDER_COLOR,
-  }
+  },
 });
 
-class PXHeader extends Component {
+class BYHeader extends Component {
   // static propTypes = {
   //   onPressBackButton: PropTypes.func,
   //   showBackButton: PropTypes.bool,
@@ -84,7 +87,10 @@ class PXHeader extends Component {
   };
 
   handleOnPressBackButton = () => {
-    const { onPressBackButton, navigation: { goBack } } = this.props;
+    const {
+      onPressBackButton,
+      navigation: { goBack },
+    } = this.props;
     if (onPressBackButton) {
       onPressBackButton();
     } else {
@@ -92,18 +98,10 @@ class PXHeader extends Component {
     }
   };
 
-  renderHeaderLeft = () => {
-    return (
-      <View style={{}} />
-    );
-  };
+  renderHeaderLeft = () => <View />;
 
-  renderHeaderTitle = () => {
-    return (
-      <View style={{ flex: 1 }} />
-    );
-  };
-  
+  renderHeaderTitle = () => <View style={{ flex: 1 }} />;
+
   render() {
     const {
       showBackButton,
@@ -111,6 +109,7 @@ class PXHeader extends Component {
       headerRight,
       headerLeft,
       absolutePosition,
+      isShowHeaderLine = true,
     } = this.props;
 
     return (
@@ -125,20 +124,19 @@ class PXHeader extends Component {
             onPress={() => this.handleOnPressBackButton()}
             // onPress={() => this.handleOnPressBackButton()}
           >
-            {showBackButton ?
-              <CustomIcon
-                name="back"
-                style={styles.headerBack}
-                /> :
-              headerLeft || this.renderHeaderLeft()}
+            {showBackButton ? (
+              <CustomIcon name="back" style={styles.headerBack} />
+            ) : (
+              headerLeft || this.renderHeaderLeft()
+            )}
           </BYTouchable>
           {headerTitle || this.renderHeaderTitle()}
           {headerRight}
         </View>
-        <View style={styles.headerLine} />
+        {isShowHeaderLine && <View style={styles.headerLine} />}
       </View>
     );
   }
 }
 
-export default withNavigation(PXHeader);
+export default withNavigation(BYHeader);

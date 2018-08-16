@@ -1,13 +1,6 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  // Text,
-  // Image,
-} from 'react-native';
-
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import BYTextInput from './BYTextInput';
-
 import { BORDER_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
 
@@ -29,6 +22,7 @@ const styles = StyleSheet.create({
 });
 
 export default ({
+  i18n,
   inputRight,
   style,
   styleWrap,
@@ -41,7 +35,7 @@ export default ({
       <BYTextInput
         style={[styles.componentInput, styleInput]}
         underlineColorAndroid="rgba(0,0,0,.0)"
-        placeholder="confirm password"
+        placeholder={i18n.pleaseEnterPasswordAgain}
         placeholderTextColor="#ccc"
         secureTextEntry
         {...textInputProps}

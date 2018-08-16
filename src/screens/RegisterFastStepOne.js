@@ -1,11 +1,9 @@
+/* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Image, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
-
-import { PRIMARY_COLOR } from '../styles/variables';
-
+// import { PRIMARY_COLOR } from '../styles/variables';
 import { SCREENS, WINDOW_HEIGHT } from '../common/constants';
-
 import BYHeader from '../components/BYHeader';
 import InputCountry from '../components/InputCountry';
 import BYButton from '../components/BYButton';
@@ -21,19 +19,22 @@ const styles = StyleSheet.create({
 class RegisterFastStepOne extends Component {
   render() {
     const {
-      navigation: { goBack, navigate },
-      navigation
+      navigation: { navigate },
+      i18n,
     } = this.props;
     return (
       <View style={styles.container}>
         <BYHeader />
-        <Field 
+        <Field
           name="phone"
           component={InputCountry}
-          style={{marginBottom: 70}}
+          style={{ marginBottom: 70 }}
         />
-        <BYButton text="next" onPress={() => navigate(SCREENS.RegisterFastStepTwo)} />
-        <View style={{flex: 1, minHeight: WINDOW_HEIGHT * 0.2}} />
+        <BYButton
+          text={i18n.nextStep}
+          onPress={() => navigate(SCREENS.RegisterFastStepTwo)}
+        />
+        <View style={{ flex: 1, minHeight: WINDOW_HEIGHT * 0.2 }} />
         {/* <OtherLogin /> */}
       </View>
     );

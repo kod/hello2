@@ -146,7 +146,7 @@ class TransactionPasswordStepTwo extends Component {
           <Field
             name="code"
             component={InputRight}
-            inputRight={<ReadSeconds />}
+            inputRight={<ReadSeconds i18n={i18n} />}
             // inputRight={this.renderInputRightCode()}
             placeholder={i18n.pleaseEnterSMSVerificationCode}
             keyboardType="numeric"
