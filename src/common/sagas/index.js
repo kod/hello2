@@ -69,6 +69,10 @@ import {
   loginSuccessWatch,
   logoutSuccessWatch,
 } from './login';
+import {
+  changePasswordFetchWatch,
+  changePasswordSuccessWatch,
+} from './changePassword';
 import { watchError } from './error';
 import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
@@ -213,5 +217,7 @@ export default function* rootSaga() {
     loginFetchWatch(),
     loginSuccessWatch(),
     logoutSuccessWatch(),
+    changePasswordFetchWatch(),
+    changePasswordSuccessWatch(),
   ]);
 }

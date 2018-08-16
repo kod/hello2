@@ -217,6 +217,12 @@ export const LOGIN = defineAction(
   appNamespace,
 );
 
+export const CHANGE_PASSWORD = defineAction(
+  'CHANGE_PASSWORD',
+  [REQUEST, SUCCESS, FAILURE],
+  appNamespace,
+);
+
 export const LOGOUT = defineAction('LOGOUT', [SUCCESS], appNamespace);
 
 export const CART_NUMBER = defineAction(

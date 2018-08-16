@@ -799,6 +799,26 @@ class ReactStore {
     );
   }
 
+  changePassword(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+
+    return this.requestUrl(
+      `${PORT_80}/fun/userCenter/userAction/changePassword`,
+      options,
+    );
+  }
+
   // login(options) {
   //   const data = qs.stringify(options);
   //   options = {

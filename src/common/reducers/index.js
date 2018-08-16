@@ -66,6 +66,8 @@ import mergeGate from './mergeGate';
 import modal from './modal';
 import getSquaresInfo from './getSquaresInfo';
 import login from './login';
+import modifyPayPassword from './modifyPayPassword';
+import changePassword from './changePassword';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -134,6 +136,8 @@ const rootReducer = combineReducers({
   modal,
   getSquaresInfo,
   login,
+  modifyPayPassword,
+  changePassword,
   form: formReducer,
 });
 
