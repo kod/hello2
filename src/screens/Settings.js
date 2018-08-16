@@ -43,7 +43,7 @@ class Settings extends Component {
       logout,
       navigation: { goBack },
     } = this.props;
-    Alert.alert('', i18n.doYouWantToSignOut, [
+    Alert.alert('', `${i18n.doYouWantToSignOut}?`, [
       {
         text: i18n.cancel,
       },

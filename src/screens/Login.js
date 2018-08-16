@@ -73,6 +73,7 @@ class Login extends Component {
 
   renderInputRight = () => {
     const {
+      i18n,
       navigation: { navigate },
     } = this.props;
 
@@ -90,7 +91,7 @@ class Login extends Component {
             borderBottomWidth: 1,
           }}
         >
-          forgot password?
+          {`${i18n.forgetPassword}?`}
         </Text>
       </BYTouchable>
     );
