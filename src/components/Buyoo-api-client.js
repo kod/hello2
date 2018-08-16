@@ -7,7 +7,7 @@ const qs = require('qs');
 
 const DEBUG = true;
 
-const TIMEOUT = 7 * 1000;
+const TIMEOUT = 30 * 1000;
 
 const BASE_URL = DEBUG ? 'http://14.162.145.248' : '';
 
