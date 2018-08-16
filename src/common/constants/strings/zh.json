@@ -147,13 +147,14 @@
   "pleaseEnterInvitationCode": "请输入邀请码",
   "selectFill": "选填",
   "nextStep": "下一步",
-  "alreadyHaveAnAccount?": "已经有了账号?",
+  "alreadyHaveAnAccount": "已经有了账号",
   "verificationCodeIsIncorrect": "短信验证码有误",
   "pleaseEnterSMSVerificationCode": "请输入短信验证码",
+  "pleaseEnter6DigitsPassword": "请输入6位数字密码",
   "pleaseEnterPasswordAgain": "请再次输入密码",
   "theWwoPasswordsAreNotSame": "这两个密码不一样",
   "sendCode": "发送验证码",
-  "pleaseEnter816CharactersOrNumbers": "请输入8-16位字符或数字",
+  "pleaseEnter820CharactersOrNumbers": "请输入8-20位字符或数字",
   "inputError": "输入错误",
   "way": "方式",
   "date": "日期",
@@ -175,5 +176,6 @@
   "cardPassword": "卡密码",
   "loginPassword": "登录密码",
   "productShelves": "数量",
+  "forgetPassword": "忘记密码",
   "warehouse": "仓库"
 }
