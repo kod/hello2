@@ -126,7 +126,7 @@ class ProductItem1 extends Component {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
-            onEndReachedThreshold={onEndReachedThreshold || 0.5}
+            onEndReachedThreshold={onEndReachedThreshold || 0.2}
             onEndReached={loadMoreItems}
           />
         ) : null}
