@@ -177,5 +177,7 @@
   "loginPassword": "Mật khẩu đăng nhập",
   "productShelves": "Kệ sản phẩm",
   "forgetPassword": "Quên mật khẩu",
+  "signUpSuccessfully": "Đăng ký thành công",
+  "funCardApplicationSuccessfulPleaseActivate": "Ứng dụng Fun Card thành công, vui lòng kích hoạt",
   "warehouse": "kho"
 }

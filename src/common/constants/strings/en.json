@@ -177,5 +177,7 @@
   "loginPassword": "Login password",
   "productShelves": "Product shelves",
   "forgetPassword": "Forget password",
+  "signUpSuccessfully": "Sign up successfully",
+  "funCardApplicationSuccessfulPleaseActivate": "Fun Card application is successful, please activate",
   "warehouse": "Warehouse"
 }

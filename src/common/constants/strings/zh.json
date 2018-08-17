@@ -177,5 +177,7 @@
   "loginPassword": "登录密码",
   "productShelves": "数量",
   "forgetPassword": "忘记密码",
+  "signUpSuccessfully": "注册成功",
+  "funCardApplicationSuccessfulPleaseActivate": "Fun Card申请成功，请激活",
   "warehouse": "仓库"
 }
