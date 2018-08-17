@@ -138,7 +138,7 @@ class Scrollable extends Component {
             </View>
             <View style={stylesScrollable.pay}>
               <Text style={stylesScrollable.payText}>
-                {tradeStatusCodes(val.tradeStatus)}
+                {tradeStatusCodes(val.tradeStatus, i18n)}
               </Text>
               <Text
                 style={stylesScrollable.payButton}
@@ -149,7 +149,7 @@ class Scrollable extends Component {
                   })
                 }
               >
-                {buttonTextForTradeStatusCodes(val.tradeStatus)}
+                {buttonTextForTradeStatusCodes(val.tradeStatus, i18n)}
               </Text>
             </View>
             <SeparateBar />

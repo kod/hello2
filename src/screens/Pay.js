@@ -524,7 +524,7 @@ class OrderWrite extends Component {
 
     const {
       // navigation: { navigate },
-      // i18n,
+      i18n,
       // addressItems,
       getUserInfoById,
       cardQuery,
@@ -559,7 +559,9 @@ class OrderWrite extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Text style={styles.status}>{tradeStatusCodes(tradeStatus)}</Text>
+          <Text style={styles.status}>
+            {tradeStatusCodes(tradeStatus, i18n)}
+          </Text>
           <Address
             addressSelectedItem={addressSelectedItem}
             // onPress={() => navigate(SCREENS.Address, { isSelect: true })}
