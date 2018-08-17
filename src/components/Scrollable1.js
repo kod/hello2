@@ -29,6 +29,7 @@ import ProductItem2 from './ProductItem2';
 import FloorTitle from './FloorTitle';
 import NavImg1 from './NavImg1';
 import SeparateBar from './SeparateBar';
+import { navigateCheckLogin } from '../common/helpers';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
@@ -157,6 +158,7 @@ class Scrollable1 extends Component {
   handleOnPressNavImg1(val) {
     const {
       navigation: { navigate },
+      isAuthUser,
     } = this.props;
     const { linkUrl } = val;
     const htmlRegexResult = linkUrl.match(HTML_REGEX);
@@ -166,11 +168,11 @@ class Scrollable1 extends Component {
         break;
 
       case 'order':
-        navigate(SCREENS.Order, { index: 0 });
+        navigateCheckLogin(isAuthUser, navigate, 'Order', { index: 0 });
         break;
 
       case 'couponcenter':
-        navigate(SCREENS.CouponMy);
+        navigateCheckLogin(isAuthUser, navigate, 'CouponMy');
         break;
 
       case 'prepaid':
@@ -257,6 +259,7 @@ export default connect(
       adverstInfo,
       mergeGetInfo,
       getSquaresInfo,
+      login,
     } = state;
 
     // const {
@@ -270,6 +273,7 @@ export default connect(
       adverstInfo: adverstInfo || {},
       mergeGetInfo: mergeGetInfo || {},
       getSquaresInfoItems: getSquaresInfo.items,
+      isAuthUser: !!login.user,
     };
   },
   {
