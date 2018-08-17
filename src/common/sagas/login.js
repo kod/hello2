@@ -27,16 +27,15 @@ import { queryOrderListClear } from '../actions/queryOrderList';
 import buyoo from '../helpers/apiClient';
 import i18n from '../helpers/i18n';
 
-import { SCREENS } from '../constants';
+// import { SCREENS } from '../constants';
 import { LOGIN, LOGOUT } from '../constants/actionTypes';
 import { encryptMD5 } from '../../components/AuthEncrypt';
 
 export function* loginFetchWatchHandle(action) {
-  const { msisdn, password } = action.payload;
+  const { msisdn, password = '', otp = '', screen = '' } = action.payload;
   try {
     const Key = 'userKey';
     const provider = Platform.OS === 'ios' ? '1' : '2';
-    const otp = '';
     const appid = DeviceInfo.getDeviceId() || '';
 
     const encrypt = encryptMD5(
@@ -75,8 +74,6 @@ export function* loginFetchWatchHandle(action) {
         encryption: encrypt,
       },
     ]);
-    console.log(JSON.stringify(response));
-    console.log(response);
 
     if (response.status !== 10000) {
       yield put(loginFetchFailure());
@@ -94,7 +91,7 @@ export function* loginFetchWatchHandle(action) {
           break;
       }
     } else {
-      yield put(loginFetchSuccess(response));
+      yield put(loginFetchSuccess(response, screen));
     }
   } catch (err) {
     yield put(loginFetchFailure());
@@ -102,15 +99,15 @@ export function* loginFetchWatchHandle(action) {
   }
 }
 
-export function* loginSuccessWatchHandle() {
-  // const { screen } = action.payload;
+export function* loginSuccessWatchHandle(action) {
+  const { screen } = action.payload;
   try {
     yield put(userCertificateInfoFetch());
 
     yield put(cartRequest());
     yield put(cardQueryFetch());
 
-    yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [SCREENS.Login]);
+    yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [screen]);
   } catch (err) {
     console.warn(err);
   }

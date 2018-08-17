@@ -1,10 +1,11 @@
 import { LOGIN, LOGOUT } from '../constants/actionTypes';
 
-export function loginFetchSuccess(user) {
+export function loginFetchSuccess(user, screen) {
   return {
     type: LOGIN.SUCCESS,
     payload: {
       user,
+      screen,
     },
   };
 }
@@ -16,12 +17,14 @@ export function loginFetchFailure() {
   };
 }
 
-export function loginFetch(msisdn, password) {
+export function loginFetch({ msisdn, password, otp, screen }) {
   return {
     type: LOGIN.REQUEST,
     payload: {
       msisdn,
       password,
+      otp,
+      screen,
     },
   };
 }

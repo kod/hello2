@@ -63,11 +63,11 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    const {
-      loginFailure,
-      // loginFailure,
-    } = this.props;
-    loginFailure();
+    // const {
+    //   loginFailure,
+    //   // loginFailure,
+    // } = this.props;
+    // loginFailure();
     this.closeLoginScreen.remove();
   }
 
@@ -102,7 +102,7 @@ class Login extends Component {
     const { phone, password } = data;
     if (phone && password) {
       Keyboard.dismiss();
-      loginFetch(phone, password);
+      loginFetch({ msisdn: phone, password, screen: SCREENS.Login });
     }
   };
 
@@ -123,6 +123,7 @@ class Login extends Component {
           placeholder={i18n.pleaseEnterYourPhoneNumber}
           keyboardType="phone-pad"
           returnKeyType="next"
+          autoFocus
         />
         <Field
           name="password"

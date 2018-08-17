@@ -11,14 +11,11 @@ export const BUYOO = 'Buyoo';
 export const BUYOO_VN = `${BUYOO}.vn`;
 
 export const PHONE_EXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
-export const PWD_EXPR = /^.{8,20}$/; // 密码
-// export const EMAIL_EXPR = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/; // 邮箱
 export const EMAIL_EXPR = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/; // 邮箱
 export const NAME_EXPR = /^.*\s.*$/; // 越南姓名
 export const IDENTIFICATION_EXPR = /^(\d{9}|\d{12})$/; // 越南身份证
 export const CARD_PASSWORD_EXPR = /^\d{6}$/; // 卡密码
 export const LOGIN_PASSWORD_EXPR = /^[\w~!@#$%^&*()_+`\-=[\]{}\\|;:,./<>?]{8,20}$/; // 登录密码
-
 export const HTML_REGEX = /html\/(\w+).html/;
 export const BRANDID_REGEX = /brandId=(\d+)/;
 export const CLASSIFYID_REGEX = /classifyId=(\d+)/;
