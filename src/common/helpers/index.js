@@ -1,3 +1,5 @@
+import { SCREENS } from '../constants';
+
 export const addressJoin = item =>
   item.address +
   (item.division4thName ? ', ' : '') +
@@ -141,5 +143,19 @@ export const submitDuplicateFreeze = (submitfreeze, self, callback) => {
     self.setTimeoutId = setTimeout(() => {
       self.setState({ submitfreeze: false });
     }, 2000);
+  }
+};
+
+// navigateCheckLogin
+export const navigateCheckLogin = (
+  isAuthUser,
+  navigate,
+  screensName,
+  params = {},
+) => {
+  if (isAuthUser) {
+    navigate(SCREENS.screensName, params);
+  } else {
+    navigate(SCREENS.Login);
   }
 };
