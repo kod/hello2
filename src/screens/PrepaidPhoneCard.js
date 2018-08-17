@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import PrepaidBrand from "../components/PrepaidBrand";
-import ButtonSelect from "../components/ButtonSelect";
+import PrepaidBrand from '../components/PrepaidBrand';
+import ButtonSelect from '../components/ButtonSelect';
 import CustomIcon from '../components/CustomIcon';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
@@ -13,11 +13,14 @@ import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
 import priceFormat from '../common/helpers/priceFormat';
-import { PROVIDER_TYPE_MAP } from '../common/constants';
 
-import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
-
+import { RED_COLOR } from '../styles/variables';
+import {
+  SIDEINTERVAL,
+  APPBAR_HEIGHT,
+  STATUSBAR_HEIGHT,
+  PROVIDER_TYPE_MAP,
+} from '../common/constants';
 
 import * as getProvidersCardActionCreators from '../common/actions/getProvidersCard';
 import * as getProvidersValueActionCreators from '../common/actions/getProvidersValue';
@@ -57,17 +60,19 @@ class PrepaidPhoneCard extends Component {
           text: 5,
         },
       ],
-    }
+    };
 
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
     this.prepaidBrandCallback = this.prepaidBrandCallback.bind(this);
     this.buttonSelectPriceCallback = this.buttonSelectPriceCallback.bind(this);
-    this.buttonSelectNumberCallback = this.buttonSelectNumberCallback.bind(this);
+    this.buttonSelectNumberCallback = this.buttonSelectNumberCallback.bind(
+      this,
+    );
   }
-  
+
   componentDidMount() {
     const { getProvidersCardFetch } = this.props;
-    getProvidersCardFetch()
+    getProvidersCardFetch();
   }
 
   buttonSelectPriceCallback(val, key) {
@@ -75,23 +80,21 @@ class PrepaidPhoneCard extends Component {
       priceIndex: key,
     });
   }
-  
+
   buttonSelectNumberCallback(val, key) {
     this.setState({
       numberItemIndex: key,
     });
   }
-  
-  prepaidBrandCallback(val, key) {
-    const {
-      getProvidersValueFetch,
-    } = this.props;
+
+  prepaidBrandCallback(val) {
+    const { getProvidersValueFetch } = this.props;
 
     getProvidersValueFetch({
       providerName: val.providerName,
       providerCode: val.providerCode,
-      providerType: PROVIDER_TYPE_MAP['phoneCard'],
-    })
+      providerType: PROVIDER_TYPE_MAP.phoneCard,
+    });
   }
 
   isProcessSubmit() {
@@ -106,23 +109,26 @@ class PrepaidPhoneCard extends Component {
       loading,
       payWayButtons,
       ProvidersValueItems,
+      // ProvidersValueItems,
     } = this.props;
 
+    let result;
+
     if (
-      buttonSelectNumber[numberItemIndex] && 
-      buttonSelectNumber[numberItemIndex].text > 0 && 
-      loading === false && 
+      buttonSelectNumber[numberItemIndex] &&
+      buttonSelectNumber[numberItemIndex].text > 0 &&
+      loading === false &&
       payWayButtons[payWayIndex] &&
       ProvidersValueItems[priceIndex] &&
       ProvidersValueItems[priceIndex].price > 0
     ) {
-      return true;
-    } else {      
-      return false;
+      result = true;
+    } else {
+      result = false;
     }
-
+    return result;
   }
-  
+
   handleOnPressToggleModal = (key, val) => {
     this.setState({
       [key]: typeof val !== 'boolean' ? !this.state[key] : val,
@@ -149,14 +155,16 @@ class PrepaidPhoneCard extends Component {
         BYtype: 'Prepaid',
         BYpayway: payWayButtons[payWayIndex].payway,
         ordertype: '7',
-        goodsdetail: JSON.stringify([{
-          number: buttonSelectNumber[numberItemIndex].text,
-          cartitemid: 0,
-          productid: ProvidersValueItems[priceIndex].id,
-          rechargeaccount: '',
-          rechargecode: providerCode,
-          repaymentamount: '',
-        }])
+        goodsdetail: JSON.stringify([
+          {
+            number: buttonSelectNumber[numberItemIndex].text,
+            cartitemid: 0,
+            productid: ProvidersValueItems[priceIndex].id,
+            rechargeaccount: '',
+            rechargecode: providerCode,
+            repaymentamount: '',
+          },
+        ]),
       });
     }
   }
@@ -164,12 +172,13 @@ class PrepaidPhoneCard extends Component {
   actionSheetCallback(ret) {
     if (ret.buttonIndex < 0) return false;
     this.setState({
-      payWayIndex: ret.buttonIndex
+      payWayIndex: ret.buttonIndex,
     });
+    return true;
   }
-  
+
   renderContent() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
       },
@@ -237,44 +246,55 @@ class PrepaidPhoneCard extends Component {
       numberItemIndex,
       buttonSelectNumber,
     } = this.state;
-    
-    const {
-      providersItems,
-      ProvidersValueItems,
-      payWayButtons,
-    } = this.props;
+
+    const { providersItems, ProvidersValueItems, payWayButtons } = this.props;
 
     const number = buttonSelectNumber[numberItemIndex].text;
-    
+
     return (
-      <View style={styles.container}>
+      <View style={stylesX.container}>
         <View style={{ height: 20 }} />
-        <Text style={styles.title}>Chọn nhà mạng</Text>
-        <PrepaidBrand data={providersItems} callback={this.prepaidBrandCallback} />
-        <Text style={styles.title}>Chọn nhà mạng</Text>
-        <ButtonSelect data={ProvidersValueItems} callback={this.buttonSelectPriceCallback} />
-        <Text style={styles.title}>Chọn mệnh giá và số lượng thẻ</Text>
-        <ButtonSelect data={buttonSelectNumber} style={{ marginBottom: 10 }} callback={this.buttonSelectNumberCallback} />
-        <BYTouchable style={styles.payMethod} onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}>
-          <Text style={styles.payMethodLeft}>Payment method</Text>
-          <Text style={styles.payMethodMiddle}>{payWayButtons[payWayIndex].text}</Text>
-          <CustomIcon style={styles.payMethodRight} name="arrowright" />
+        <Text style={stylesX.title}>Chọn nhà mạng</Text>
+        <PrepaidBrand
+          data={providersItems}
+          callback={this.prepaidBrandCallback}
+        />
+        <Text style={stylesX.title}>Chọn nhà mạng</Text>
+        <ButtonSelect
+          data={ProvidersValueItems}
+          callback={this.buttonSelectPriceCallback}
+        />
+        <Text style={stylesX.title}>Chọn mệnh giá và số lượng thẻ</Text>
+        <ButtonSelect
+          data={buttonSelectNumber}
+          style={{ marginBottom: 10 }}
+          callback={this.buttonSelectNumberCallback}
+        />
+        <BYTouchable
+          style={stylesX.payMethod}
+          onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}
+        >
+          <Text style={stylesX.payMethodLeft}>Payment method</Text>
+          <Text style={stylesX.payMethodMiddle}>
+            {payWayButtons[payWayIndex].text}
+          </Text>
+          <CustomIcon style={stylesX.payMethodRight} name="arrowright" />
         </BYTouchable>
-        <View style={styles.price}>
-          <Text style={styles.priceTitle}>金额</Text>
-          <View style={styles.priceMain}>
-            <Text style={styles.priceRed}>{ProvidersValueItems[priceIndex] && priceFormat(ProvidersValueItems[priceIndex].price * number )} ₫</Text>
+        <View style={stylesX.price}>
+          <Text style={stylesX.priceTitle}>金额</Text>
+          <View style={stylesX.priceMain}>
+            <Text style={stylesX.priceRed}>{ProvidersValueItems[priceIndex] && priceFormat(ProvidersValueItems[priceIndex].price * number )} ₫</Text>
             {
               ProvidersValueItems[priceIndex] && 
               (ProvidersValueItems[priceIndex].price - ProvidersValueItems[priceIndex].orgPrice) !== 0 &&
-              <Text style={styles.priceGrey}>(已优惠{priceFormat(ProvidersValueItems[priceIndex].orgPrice * number - ProvidersValueItems[priceIndex].price * number)} ₫)</Text>
+              <Text style={stylesX.priceGrey}>(已优惠{priceFormat(ProvidersValueItems[priceIndex].orgPrice * number - ProvidersValueItems[priceIndex].price * number)} ₫)</Text>
             }
           </View>
         </View>
         <BYButton 
           text={'支付'} 
           styleWrap={{ marginBottom: 50 }} 
-          style={!this.isProcessSubmit() && styles.byButton} 
+          style={!this.isProcessSubmit() && stylesX.byButton} 
           onPress={() => this.handleOnPressSubmit()} 
         />
       </View>

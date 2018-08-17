@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import ButtonSelect from "../components/ButtonSelect";
+import ButtonSelect from '../components/ButtonSelect';
 import CustomIcon from '../components/CustomIcon';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';

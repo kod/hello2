@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import PrepaidBrand from "../components/PrepaidBrand";
-import ButtonSelect from "../components/ButtonSelect";
+import PrepaidBrand from '../components/PrepaidBrand';
+import ButtonSelect from '../components/ButtonSelect';
 import CustomIcon from '../components/CustomIcon';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
