@@ -308,78 +308,78 @@ class ProductDetail extends Component {
   };
 
   // 是否有改组合商品
-  productPartner(propertiesIdsObject) {
-    const { productDetail } = this.props;
-    return productDetail.filter(val =>
-      Object.values(propertiesIdsObject).every(
-        val1 => val.propertiesIds.indexOf(val1.toString()) !== -1,
-      ),
-    )[0];
-  }
+  // productPartner(propertiesIdsObject) {
+  //   const { productDetail } = this.props;
+  //   return productDetail.filter(val =>
+  //     Object.values(propertiesIdsObject).every(
+  //       val1 => val.propertiesIds.indexOf(val1.toString()) !== -1,
+  //     ),
+  //   )[0];
+  // }
 
-  handleOnPressselectVersion(id, name) {
-    const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
-    const object = {
-      colorId: propertiesIdsObject.colorId,
-      colorName: propertiesIdsObject.colorName,
-      versionId: id,
-      versionName: name,
-    };
-    const productDetail = this.productPartner({
-      colorId: object.colorId,
-      versionId: object.versionId,
-    });
-    if (productDetail) {
-      productDetailSelect(object, productDetail);
-    } else {
-      Alert.alert(
-        '',
-        i18n.soldOut,
-        [
-          {
-            text: i18n.confirm,
-            onPress: () => {},
-          },
-        ],
-        // { cancelable: false },
-      );
-    }
-  }
+  // handleOnPressselectVersion(id, name) {
+  //   const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
+  //   const object = {
+  //     colorId: propertiesIdsObject.colorId,
+  //     colorName: propertiesIdsObject.colorName,
+  //     versionId: id,
+  //     versionName: name,
+  //   };
+  //   const productDetail = this.productPartner({
+  //     colorId: object.colorId,
+  //     versionId: object.versionId,
+  //   });
+  //   if (productDetail) {
+  //     productDetailSelect(object, productDetail);
+  //   } else {
+  //     Alert.alert(
+  //       '',
+  //       i18n.soldOut,
+  //       [
+  //         {
+  //           text: i18n.confirm,
+  //           onPress: () => {},
+  //         },
+  //       ],
+  //       // { cancelable: false },
+  //     );
+  //   }
+  // }
 
-  handleOnPressselectColor(id, name) {
-    const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
-    const object = {
-      colorId: id,
-      colorName: name,
-      versionId: propertiesIdsObject.versionId,
-      versionName: propertiesIdsObject.versionName,
-    };
-    const productDetail = this.productPartner({
-      colorId: object.colorId,
-      versionId: object.versionId,
-    });
-    if (productDetail) {
-      productDetailSelect(object, productDetail);
-    } else {
-      Alert.alert(
-        '',
-        i18n.soldOut,
-        [
-          {
-            text: i18n.confirm,
-            onPress: () => {},
-          },
-        ],
-        // { cancelable: false },
-      );
-    }
-  }
+  // handleOnPressselectColor(id, name) {
+  //   const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
+  //   const object = {
+  //     colorId: id,
+  //     colorName: name,
+  //     versionId: propertiesIdsObject.versionId,
+  //     versionName: propertiesIdsObject.versionName,
+  //   };
+  //   const productDetail = this.productPartner({
+  //     colorId: object.colorId,
+  //     versionId: object.versionId,
+  //   });
+  //   if (productDetail) {
+  //     productDetailSelect(object, productDetail);
+  //   } else {
+  //     Alert.alert(
+  //       '',
+  //       i18n.soldOut,
+  //       [
+  //         {
+  //           text: i18n.confirm,
+  //           onPress: () => {},
+  //         },
+  //       ],
+  //       // { cancelable: false },
+  //     );
+  //   }
+  // }
 
-  handleOnPresschangeNumber(number) {
-    const { productDetailNumberFetch, numbers } = this.props;
-    if (number < 1 || number > numbers) return false;
-    return productDetailNumberFetch(number);
-  }
+  // handleOnPresschangeNumber(number) {
+  //   const { productDetailNumberFetch, numbers } = this.props;
+  //   if (number < 1 || number > numbers) return false;
+  //   return productDetailNumberFetch(number);
+  // }
 
   handleOnPressBuy() {
     const {

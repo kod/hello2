@@ -31,6 +31,7 @@ import {
 } from '../common/constants';
 
 import * as modalActionCreators from '../common/actions/modal';
+import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -246,7 +247,7 @@ class ParamsSelectModal extends Component {
 
   // 是否有改组合商品
   productPartner(propertiesIdsObject) {
-    const { productDetail } = this.props;
+    const { product_detail: productDetail } = this.props;
     return productDetail.filter(val =>
       Object.values(propertiesIdsObject).every(
         val1 => val.propertiesIds.indexOf(val1.toString()) !== -1,
@@ -461,7 +462,6 @@ export default connect(
       mergeGetMaster,
     } = state;
 
-    console.log(props);
     const {
       brandId,
       // navigation,
@@ -482,7 +482,6 @@ export default connect(
     // const groupon = navigation.state.params.groupon;
     const propertiesIdsUsed = propertiesIds || '';
     const item = groupon ? mergeGetDetail.item : productDetailInfo.item;
-    console.log(item);
     return {
       ...item,
       brandId: brandIdUsed,
@@ -495,7 +494,7 @@ export default connect(
     };
   },
   {
-    // ...cityInfosActionCreators,
+    ...productDetailInfoActionCreators,
     ...modalActionCreators,
   },
 )(ParamsSelectModal);
