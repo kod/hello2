@@ -4,7 +4,7 @@ import { StyleSheet, View, ScrollView, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { WINDOW_WIDTH, PWD_EXPR } from '../common/constants';
+import { WINDOW_WIDTH, LOGIN_PASSWORD_EXPR } from '../common/constants';
 import BYHeader from '../components/BYHeader';
 import BYButton from '../components/BYButton';
 import InputRight from '../components/InputRight';
@@ -49,17 +49,16 @@ const styles = StyleSheet.create({
 const validate = (values, props) => {
   const { otp = '', password = '', repassword = '' } = values;
   const { i18n } = props;
-  console.log(i18n);
   const errors = {};
 
   if (!otp) {
     errors.otp = i18n.pleaseEnterSMSVerificationCode;
   }
-  if (!PWD_EXPR.test(password)) {
+  if (!LOGIN_PASSWORD_EXPR.test(password)) {
     errors.password = i18n.pleaseEnter820CharactersOrNumbers;
   }
   if (password !== repassword) {
-    errors.repassword = i18n.pleaseEnterPasswordAgain;
+    errors.repassword = i18n.theWwoPasswordsAreNotSame;
   }
   return errors;
 };
@@ -96,6 +95,7 @@ class RegisterStepTwo extends Component {
   render() {
     const {
       i18n,
+      msisdn,
       handleSubmit,
       // navigation: { goBack, navigate },
       loading,
@@ -108,9 +108,10 @@ class RegisterStepTwo extends Component {
           <Field
             name="otp"
             component={InputRight}
-            inputRight={<ReadSeconds i18n={i18n} />}
+            inputRight={<ReadSeconds i18n={i18n} msisdn={msisdn} />}
             placeholder={i18n.pleaseEnterSMSVerificationCode}
             keyboardType="numeric"
+            autoFocus
           />
           <Field
             name="password"
@@ -147,12 +148,20 @@ export default connectLocalization(
   connect(
     () => {
       console.log();
-      return state => {
+      return (state, props) => {
         const {
           form: { RegisterStepOne },
           register,
         } = state;
+        const {
+          navigation: {
+            state: {
+              params: { msisdn },
+            },
+          },
+        } = props;
         return {
+          msisdn,
           registerStepOneValues: RegisterStepOne ? RegisterStepOne.values : '',
           loading: register.loading,
         };

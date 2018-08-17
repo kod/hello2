@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable no-class-assign */
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Keyboard } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
@@ -52,13 +52,14 @@ class RegisterStepOne extends Component {
   submit = data => {
     const { phone } = data;
     const {
-      otpFetch,
+      // otpFetch,
       navigation: { navigate },
     } = this.props;
     if (phone) {
-      Keyboard.dismiss();
-      otpFetch(phone);
-      navigate(SCREENS.RegisterStepTwo);
+      // Keyboard.dismiss();
+      // otpFetch(phone);
+      // navigate(SCREENS.RegisterStepTwo);
+      navigate(SCREENS.RegisterStepTwo, { msisdn: phone });
     }
   };
 
@@ -78,6 +79,7 @@ class RegisterStepOne extends Component {
             component={InputCountry}
             keyboardType="phone-pad"
             style={{ marginBottom: 30 }}
+            autoFocus
           />
           <View
             style={{ paddingLeft: SIDEINTERVAL, paddingRight: SIDEINTERVAL }}
