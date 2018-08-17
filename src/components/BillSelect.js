@@ -234,7 +234,7 @@ class BillSelect extends Component {
         visible={visible}
         onRequestClose={onRequestClose}
       >
-        <Text style={styles.mask} onPress={onRequestClose}></Text>
+        <Text style={styles.mask} onPress={onRequestClose} />
         {this.renderBillSelect()}
       </Modal>
     );

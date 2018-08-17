@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal } from 'react-native';
-import { RED_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
+import { SIDEINTERVAL } from '../common/constants';
 import BYTouchable from './BYTouchable';
-
-import { BORDER_COLOR } from '../styles/variables';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,36 +44,40 @@ class ActionSheet extends Component {
     const {
       callback,
       onRequestClose,
+      // onRequestClose,
     } = this.props;
     onRequestClose();
     callback({
-      buttonIndex: key
+      buttonIndex: key,
     });
   }
-  
+
   renderActionSheet() {
+    const { i18n } = this.props;
     const {
-      cancelTitle = 'Cancel',
+      cancelTitle = i18n.cancel,
       buttons = [],
+      // buttons = [],
     } = this.props;
 
     return (
       <View style={styles.container}>
-        {
-          buttons.map((val, key) => 
-            <BYTouchable
-              style={styles.item}
-              key={key}
-              onPress={() => this.handleOnPress(key)}
-            >
-              <Text style={styles.buttonItem}>{val}</Text>
-            </BYTouchable>)
-        }
+        {buttons.map((val, key) => (
+          <BYTouchable
+            style={styles.item}
+            key={key}
+            onPress={() => this.handleOnPress(key)}
+          >
+            <Text style={styles.buttonItem}>{val}</Text>
+          </BYTouchable>
+        ))}
         <BYTouchable
           onPress={() => this.handleOnPress(-1)}
           // onPress={() => this.handleOnPress(-1)}
         >
-          <Text style={[styles.buttonItem, styles.buttonItemCancel]}>{cancelTitle}</Text>
+          <Text style={[styles.buttonItem, styles.buttonItemCancel]}>
+            {cancelTitle}
+          </Text>
         </BYTouchable>
       </View>
     );
@@ -85,19 +87,17 @@ class ActionSheet extends Component {
     const {
       visible,
       onRequestClose,
+      // onRequestClose,
     } = this.props;
 
     return (
-      <Modal 
+      <Modal
         transparent
         animationType="fade"
         visible={visible}
         onRequestClose={onRequestClose}
       >
-        <Text
-          style={styles.mask} 
-          onPress={onRequestClose}
-        ></Text>
+        <Text style={styles.mask} onPress={onRequestClose} />
         {this.renderActionSheet()}
       </Modal>
     );

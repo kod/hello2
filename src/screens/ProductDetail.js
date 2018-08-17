@@ -10,7 +10,7 @@ import {
   Platform,
   InteractionManager,
   // DeviceEventEmitter,
-  Alert,
+  // Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 // import EvilIcons from 'react-native-vector-icons/EvilIcons';

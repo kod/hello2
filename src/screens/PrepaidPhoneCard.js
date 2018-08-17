@@ -195,7 +195,7 @@ class PrepaidPhoneCard extends Component {
         height: 50,
         backgroundColor: '#f5f5f5',
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: 20,
       },
       payMethodLeft: {
         flex: 1,
@@ -247,7 +247,12 @@ class PrepaidPhoneCard extends Component {
       buttonSelectNumber,
     } = this.state;
 
-    const { providersItems, ProvidersValueItems, payWayButtons } = this.props;
+    const {
+      providersItems,
+      ProvidersValueItems,
+      payWayButtons,
+      i18n,
+    } = this.props;
 
     const number = buttonSelectNumber[numberItemIndex].text;
 
@@ -281,46 +286,53 @@ class PrepaidPhoneCard extends Component {
           <CustomIcon style={stylesX.payMethodRight} name="arrowright" />
         </BYTouchable>
         <View style={stylesX.price}>
-          <Text style={stylesX.priceTitle}>金额</Text>
+          <Text style={stylesX.priceTitle}>{i18n.sum}</Text>
           <View style={stylesX.priceMain}>
-            <Text style={stylesX.priceRed}>{ProvidersValueItems[priceIndex] && priceFormat(ProvidersValueItems[priceIndex].price * number )} ₫</Text>
-            {
-              ProvidersValueItems[priceIndex] && 
-              (ProvidersValueItems[priceIndex].price - ProvidersValueItems[priceIndex].orgPrice) !== 0 &&
-              <Text style={stylesX.priceGrey}>(已优惠{priceFormat(ProvidersValueItems[priceIndex].orgPrice * number - ProvidersValueItems[priceIndex].price * number)} ₫)</Text>
-            }
+            <Text style={stylesX.priceRed}>
+              {`${ProvidersValueItems[priceIndex] &&
+                priceFormat(ProvidersValueItems[priceIndex].price * number)} ₫`}
+            </Text>
+            {ProvidersValueItems[priceIndex] &&
+              ProvidersValueItems[priceIndex].price -
+                ProvidersValueItems[priceIndex].orgPrice !==
+                0 && (
+                <Text style={stylesX.priceGrey}>
+                  {`已优惠${priceFormat(
+                    ProvidersValueItems[priceIndex].orgPrice * number -
+                      ProvidersValueItems[priceIndex].price * number,
+                  )} ₫`}
+                </Text>
+              )}
           </View>
         </View>
-        <BYButton 
-          text={'支付'} 
-          styleWrap={{ marginBottom: 50 }} 
-          style={!this.isProcessSubmit() && stylesX.byButton} 
-          onPress={() => this.handleOnPressSubmit()} 
+        <BYButton
+          text={i18n.payment}
+          styleWrap={{ marginBottom: 50 }}
+          style={!this.isProcessSubmit() && stylesX.byButton}
+          onPress={() => this.handleOnPressSubmit()}
         />
       </View>
-    )
+    );
   }
-  
+
   render() {
+    const { isOpenActionSheet } = this.state;
+
     const {
-      isOpenActionSheet,
-    } = this.state;
-    
-    const {
-      screenProps: {i18n},
+      // screenProps: { i18n },
       payWayButtons,
       loading,
     } = this.props;
 
     return (
       <View style={styles.container}>
-        <ScrollView>
-          {this.renderContent()}
-        </ScrollView>
-        <ActionSheet 
+        <ScrollView>{this.renderContent()}</ScrollView>
+        <ActionSheet
           visible={isOpenActionSheet}
-          onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
-          buttons={payWayButtons.map((val, key) => val.text)}
+          onRequestClose={() =>
+            this.handleOnPressToggleModal('isOpenActionSheet')
+          }
+          buttons={payWayButtons.map(val => val.text)}
           callback={this.actionSheetCallback}
         />
         {loading && <Loader absolutePosition />}
@@ -331,30 +343,29 @@ class PrepaidPhoneCard extends Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          getProvidersCard,
-          getProvidersValue,
-        } = state;
+    () => state => {
+      const {
+        getProvidersCard,
+        getProvidersValue,
+        // getProvidersValue,
+      } = state;
 
-        // const {
+      // const {
 
-        // } = props;
+      // } = props;
 
-        return {
-          providersItems: getProvidersCard.items,
-          loading: getProvidersValue.loading,
-          providerCode: getProvidersValue['phoneCard'].providerCode,
-          ProvidersValueItems: getProvidersValue['phoneCard'].items,
-          payWayButtons: getProvidersValue['phoneCard'].payWayButtons,
-        }
-      }
+      return {
+        providersItems: getProvidersCard.items,
+        loading: getProvidersValue.loading,
+        providerCode: getProvidersValue.phoneCard.providerCode,
+        ProvidersValueItems: getProvidersValue.phoneCard.items,
+        payWayButtons: getProvidersValue.phoneCard.payWayButtons,
+      };
     },
     {
       ...getProvidersCardActionCreators,
       ...getProvidersValueActionCreators,
       ...orderCreateActionCreators,
-    }
+    },
   )(PrepaidPhoneCard),
 );

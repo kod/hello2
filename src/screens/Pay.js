@@ -108,11 +108,13 @@ const styles = StyleSheet.create({
 class OrderWrite extends Component {
   constructor(props) {
     super(props);
+
+    const { i18n } = this.props;
     this.state = {
       isOpenActionSheet: false,
       // isOpenBottomSheet: false,
       isOpenEnterPassword: false,
-      payWayButtons: ['Buyoo Card', 'Internet Banking'],
+      payWayButtons: [i18n.funCard, i18n.internetBanking],
       payWayIndex: 0,
       paypassword: '',
     };
@@ -216,7 +218,7 @@ class OrderWrite extends Component {
           return this.handleOnPressToggleModal('isOpenEnterPassword');
 
         if (paywayNow === 5) {
-          Alert.alert('', '当前可用额度不够, 其余金额将通过网银支付', [
+          Alert.alert('', i18n.amountNotEnoughWillPaidOnlineBanking, [
             { text: i18n.cancel },
             {
               text: i18n.confirm,
@@ -246,10 +248,10 @@ class OrderWrite extends Component {
         // 已开通信用卡
         if (initPassword !== 1) {
           // 未设置支付密码
-          Alert.alert('', '您尚未设置交易密码?', [
+          Alert.alert('', i18n.youHaveNotSetCardPasswordYet, [
             { text: i18n.cancel },
             {
-              text: '去设置',
+              text: i18n.goToSet,
               onPress: () => navigate(SCREENS.TransactionPasswordStepOne),
             },
           ]);
@@ -257,7 +259,7 @@ class OrderWrite extends Component {
           alreadyPaypassword();
         }
       } else {
-        Alert.alert('', '您尚未开通信用卡是否现在去开通?', [
+        Alert.alert('', i18n.didYouOpenYourCreditCardNow, [
           {
             text: i18n.cancel,
           },
@@ -375,6 +377,7 @@ class OrderWrite extends Component {
     // }
 
     const {
+      i18n,
       queryOrderItem: {
         tradeStatus,
         advance,
@@ -385,7 +388,7 @@ class OrderWrite extends Component {
     return (
       <View style={stylesX.nav}>
         <View style={stylesX.navLeft}>
-          <Text style={stylesX.navLeftTop}>Trà lần đầu</Text>
+          <Text style={stylesX.navLeftTop}>{i18n.firstPayment}</Text>
           <Text style={stylesX.navLeftBottom}>{priceFormat(advance)} ₫</Text>
         </View>
         {tradeStatus === '10000' && (
@@ -393,7 +396,7 @@ class OrderWrite extends Component {
             style={stylesX.navCancel}
             onPress={() => this.handleOnPressCancel()}
           >
-            Cancel Order
+            {i18n.cancelOrder}
           </Text>
         )}
         {tradeStatus === '10000' && (
@@ -401,7 +404,7 @@ class OrderWrite extends Component {
             style={stylesX.navRight}
             onPress={() => this.handleOnPressSubmit()}
           >
-            Pay
+            {i18n.payment}
           </Text>
         )}
       </View>
@@ -581,12 +584,12 @@ class OrderWrite extends Component {
               tradeStatus === '10000' &&
               this.handleOnPressToggleModal('isOpenActionSheet')
             }
-            valueLeft="Order amount"
+            valueLeft={i18n.orderAmount}
             valueMiddle={payWayButtons[payWayIndex]}
           />
           <NavBar2
             // onPress={() => this.handleOnPressToggleBottomSheet()}
-            valueLeft="Coupon value"
+            valueLeft={i18n.couponValue}
             valueMiddle={couponValue}
             isShowRight={false}
           />
