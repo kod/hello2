@@ -36,6 +36,7 @@ import * as cardQueryActionCreators from '../common/actions/cardQuery';
 const hh8d9sadiua8Jpg = require('../images/hh8d9sadiua8.jpg');
 const hh9834ire843Png = require('../images/hh9834ire843.png');
 const hh98344roi34Png = require('../images/hh98344roi34.png');
+const jafsdbufnlPng = require('../images/jafsdbufnl.png');
 // const kasdifghosjfilPng = require('../images/kasdifghosjfil.png');
 
 const styles = StyleSheet.create({
@@ -129,44 +130,68 @@ class Card extends Component {
         marginLeft: 5,
         marginRight: 5,
       },
+      cardActivationImage: {
+        height: 170,
+        width: 'auto',
+        resizeMode: 'contain',
+        marginBottom: 5,
+      },
+      cardActivationText: {
+        fontSize: 14,
+        color: '#666',
+        textAlign: 'center',
+        marginBottom: 30,
+      },
     });
+
+    const { i18n, status } = this.props;
 
     return (
       <View style={stylesX.applyStatus}>
-        <View style={stylesX.swiperWrap}>
-          <Swiper
-            style={stylesX.wrapper}
-            dot={<View style={stylesX.dot} />}
-            activeDot={<View style={stylesX.activeDot} />}
-            paginationStyle={{
-              bottom: 15,
-            }}
-            loop
-            autoplay
-          >
-            <View style={stylesX.slide}>
-              <Image
-                style={stylesX.image}
-                source={hh98344roi34Png}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={stylesX.slide}>
-              <Image
-                style={stylesX.image}
-                source={hh9834ire843Png}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={stylesX.slide}>
-              <Image
-                style={stylesX.image}
-                source={hh8d9sadiua8Jpg}
-                resizeMode="cover"
-              />
-            </View>
-          </Swiper>
-        </View>
+        {status !== 3 && (
+          <View style={stylesX.swiperWrap}>
+            <Swiper
+              style={stylesX.wrapper}
+              dot={<View style={stylesX.dot} />}
+              activeDot={<View style={stylesX.activeDot} />}
+              paginationStyle={{
+                bottom: 15,
+              }}
+              loop
+              autoplay
+            >
+              <View style={stylesX.slide}>
+                <Image
+                  style={stylesX.image}
+                  source={hh98344roi34Png}
+                  resizeMode="cover"
+                />
+              </View>
+              <View style={stylesX.slide}>
+                <Image
+                  style={stylesX.image}
+                  source={hh9834ire843Png}
+                  resizeMode="cover"
+                />
+              </View>
+              <View style={stylesX.slide}>
+                <Image
+                  style={stylesX.image}
+                  source={hh8d9sadiua8Jpg}
+                  resizeMode="cover"
+                />
+              </View>
+            </Swiper>
+          </View>
+        )}
+        {status === 3 && (
+          <View>
+            <Image style={stylesX.cardActivationImage} source={jafsdbufnlPng} />
+            <Text style={stylesX.cardActivationText}>
+              {i18n.funCardApplicationSuccessfulPleaseActivate}
+            </Text>
+          </View>
+        )}
         {/* <Image style={stylesX.cardImage} source={kasdifghosjfilPng} /> */}
         <BYButton
           text={text}
