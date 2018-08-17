@@ -127,7 +127,7 @@ export function* registerSuccessWatchHandle(/* action */) {
     //   from,
     // } = action.payload;
 
-    Alert.alert('', '注册成功', [
+    Alert.alert('', i18n.signUpSuccessfully, [
       {
         text: i18n.confirm,
         onPress: () => {

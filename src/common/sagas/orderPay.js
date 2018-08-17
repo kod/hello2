@@ -1,17 +1,17 @@
-import { Platform, DeviceEventEmitter } from 'react-native';
-import { takeEvery, apply, put, select } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
+import { Platform } from 'react-native';
+import { takeEvery, apply, put, select, Alert } from 'redux-saga/effects';
+import moment from 'moment';
 import { SCREENS } from '../constants';
-import { orderPayFetchSuccess, orderPayFetchFailure } from '../actions/orderPay';
 import {
-  cardQueryFetch,
-} from '../actions/cardQuery';
+  orderPayFetchSuccess,
+  orderPayFetchFailure,
+} from '../actions/orderPay';
+import { cardQueryFetch } from '../actions/cardQuery';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { ORDER_PAY } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
-
+import i18n from '../helpers/i18n';
 import { getAuthUserFunid } from '../selectors';
 
 import NavigatorService from '../../navigations/NavigatorService';
@@ -41,26 +41,26 @@ export function* orderPayFetchWatchHandle(action) {
       [
         {
           key: 'tradeno',
-          value: tradeno
+          value: tradeno,
         },
         {
           key: 'orderno',
-          value: orderno
+          value: orderno,
         },
         {
           key: 'payway',
-          value: payway
+          value: payway,
         },
         {
           key: 'paypassword',
-          value: paypassword
+          value: paypassword,
         },
         {
           key: 'payvalue',
-          value: payvalue
+          value: payvalue,
         },
       ],
-      Key
+      Key,
     );
 
     const options = [
@@ -73,12 +73,12 @@ export function* orderPayFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        tradeno: tradeno,
-        orderno: orderno,
-        payway: payway,
-        paypassword: paypassword,
-        payvalue: payvalue,
-      }
+        tradeno,
+        orderno,
+        payway,
+        paypassword,
+        payvalue,
+      },
     ];
 
     if (payway !== 1) {
@@ -93,30 +93,28 @@ export function* orderPayFetchWatchHandle(action) {
     if (response.code !== 10000) {
       yield put(orderPayFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(
+        orderPayFetchSuccess({
+          ret: response,
+          BYtype,
+        }),
+      );
     }
-
-    yield put(orderPayFetchSuccess({
-      ret: response,
-      BYtype,
-    }));
   } catch (err) {
     yield put(orderPayFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
+  return true;
 }
 
-export function* orderPayFetchWatch(res) {
+export function* orderPayFetchWatch() {
   yield takeEvery(ORDER_PAY.REQUEST, orderPayFetchWatchHandle);
 }
 
-
 export function* orderPaySuccessWatchHandle(action) {
   try {
-    const {
-      BYtype,
-      ret,
-    } = action.payload;
+    const { BYtype } = action.payload;
     // yield NavigatorService.navigate(SCREENS.Pay, {
     //   tradeNo,
     //   orderNo,
@@ -129,28 +127,22 @@ export function* orderPaySuccessWatchHandle(action) {
         //   ret,
         // ]);
         break;
-    
+
       default:
         yield put(cardQueryFetch());
-        Alert.alert(
-          '',
-          '支付成功',
-          [
-            // { text: i18n.cancel },
-            { 
-              text: i18n.confirm, 
-              onPress: () => {
-                NavigatorService.pop(3);
-              }
-            }
-          ]
-        )
+        Alert.alert('', i18n.successfulCopy, [
+          // { text: i18n.cancel },
+          {
+            text: i18n.confirm,
+            onPress: () => {
+              NavigatorService.pop(3);
+            },
+          },
+        ]);
         break;
     }
-
-
   } catch (err) {
-    
+    console.warn(err);
   }
 }
 
