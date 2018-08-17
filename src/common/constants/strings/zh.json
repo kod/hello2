@@ -179,5 +179,14 @@
   "forgetPassword": "忘记密码",
   "signUpSuccessfully": "注册成功",
   "funCardApplicationSuccessfulPleaseActivate": "Fun Card申请成功，请激活",
+  "noteSubscriberLockedChargeWillNotAblePerformService": "注意：订户已被锁定费用（SIM卡被锁定在两个方向，由于错误输入电话代码而被卡住多次，...）将无法执行此服务。",
+  "goToSet": "去设置",
+  "amountNotEnoughWillPaidOnlineBanking": "当前可用额度不够, 其余金额将通过网银支付",
+  "youHaveNotSetCardPasswordYet": "您尚未设置交易密码",
+  "didYouOpenYourCreditCardNow": "您尚未开通信用卡是否现在去开通?",
+  "firstPayment": "首付",
+  "cancelOrder": "取消订单",
+  "orderAmount": "订单金额",
+  "couponValue": "优惠券金额",
   "warehouse": "仓库"
 }

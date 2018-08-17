@@ -179,5 +179,14 @@
   "forgetPassword": "Forget password",
   "signUpSuccessfully": "Sign up successfully",
   "funCardApplicationSuccessfulPleaseActivate": "Fun Card application is successful, please activate",
+  "noteSubscriberLockedChargeWillNotAblePerformService": "Note: Subscriber is locked charge (sim card is locked in two directions, sim blocked due to wrong entry phone code several times, ...) will not be able to perform this service.",
+  "goToSet": "Go to set",
+  "amountNotEnoughWillPaidOnlineBanking": "The current available amount is not enough, and the remaining amount will be paid through online banking",
+  "youHaveNotSetCardPasswordYet": "You have not set a card password yet",
+  "didYouOpenYourCreditCardNow": "Did you open your credit card now?",
+  "firstPayment": "First payment",
+  "cancelOrder": "Cancel order",
+  "orderAmount": "Order amount",
+  "couponValue": "Coupon value",
   "warehouse": "Warehouse"
 }

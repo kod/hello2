@@ -179,5 +179,14 @@
   "forgetPassword": "Quên mật khẩu",
   "signUpSuccessfully": "Đăng ký thành công",
   "funCardApplicationSuccessfulPleaseActivate": "Ứng dụng Fun Card thành công, vui lòng kích hoạt",
+  "noteSubscriberLockedChargeWillNotAblePerformService": "Lưu ý: Thuê bao bị khóa chiều nạp tiền (sim bị khóa 2 chiều, sim bị khóa do nhập sai mã thẻ điện thoại trước đó nhiều lần, ...) sẽ không thể thực hiện được dịch vụ này.",
+  "goToSet": "Đi tới bộ",
+  "amountNotEnoughWillPaidOnlineBanking": "Số tiền hiện có là không đủ và số tiền còn lại sẽ được thanh toán qua ngân hàng trực tuyến.",
+  "youHaveNotSetCardPasswordYet": "Bạn chưa đặt mật khẩu thẻ",
+  "didYouOpenYourCreditCardNow": "Bạn đã mở thẻ tín dụng của mình ngay bây giờ để mở nó chưa?",
+  "firstPayment": "Trả lần đầu",
+  "cancelOrder": "Hủy đơn hàng",
+  "orderAmount": "Tổng giá trị đơn hàng",
+  "couponValue": "Giá trị phiếu giảm giá",
   "warehouse": "kho"
 }
