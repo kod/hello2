@@ -100,10 +100,10 @@ class ProductItem2 extends Component {
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
         {data &&
-          data.map(val => (
+          data.map((val, key) => (
             <BYTouchable
               style={[styles.item, styleItem]}
-              key={val.name}
+              key={key}
               onPress={() =>
                 navigate(SCREENS.ProductDetail, {
                   brandId: val.brandId,
