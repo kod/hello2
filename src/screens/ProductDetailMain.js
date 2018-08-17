@@ -236,11 +236,12 @@ class ProductDetail extends Component {
       name,
       comment,
       isCollection,
-      // brandId,
+      brandId,
       i18n,
       price,
       imageUrls,
       imageDesc,
+      propertiesIds,
       propertiesIdsObject,
       navigation: { navigate },
       screenProps: { mainNavigation },
@@ -349,6 +350,8 @@ class ProductDetail extends Component {
                     price,
                     numbers,
                     propertiesIdsObject,
+                    brandId,
+                    propertiesIds,
                     // callback: ret => console.log(ret),
                   })
                 }

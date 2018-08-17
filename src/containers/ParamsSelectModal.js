@@ -5,7 +5,8 @@ import {
   Image,
   StyleSheet,
   Modal,
-  // Platform,
+  Alert,
+  // Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -243,6 +244,80 @@ class ParamsSelectModal extends Component {
     closeModal();
   };
 
+  // 是否有改组合商品
+  productPartner(propertiesIdsObject) {
+    const { productDetail } = this.props;
+    return productDetail.filter(val =>
+      Object.values(propertiesIdsObject).every(
+        val1 => val.propertiesIds.indexOf(val1.toString()) !== -1,
+      ),
+    )[0];
+  }
+
+  handleOnPressselectVersion(id, name) {
+    const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
+    const object = {
+      colorId: propertiesIdsObject.colorId,
+      colorName: propertiesIdsObject.colorName,
+      versionId: id,
+      versionName: name,
+    };
+    const productDetail = this.productPartner({
+      colorId: object.colorId,
+      versionId: object.versionId,
+    });
+    if (productDetail) {
+      productDetailSelect(object, productDetail);
+    } else {
+      Alert.alert(
+        '',
+        i18n.soldOut,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+    }
+  }
+
+  handleOnPressselectColor(id, name) {
+    const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
+    const object = {
+      colorId: id,
+      colorName: name,
+      versionId: propertiesIdsObject.versionId,
+      versionName: propertiesIdsObject.versionName,
+    };
+    const productDetail = this.productPartner({
+      colorId: object.colorId,
+      versionId: object.versionId,
+    });
+    if (productDetail) {
+      productDetailSelect(object, productDetail);
+    } else {
+      Alert.alert(
+        '',
+        i18n.soldOut,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+    }
+  }
+
+  handleOnPresschangeNumber(number) {
+    const { productDetailNumberFetch, numbers } = this.props;
+    if (number < 1 || number > numbers) return false;
+    return productDetailNumberFetch(number);
+  }
+
   renderContent() {
     const {
       i18n,
@@ -377,18 +452,46 @@ class ParamsSelectModal extends Component {
 }
 
 export default connect(
-  state => {
+  (state, props) => {
     const {
-      // cityInfos,
       modal: { modalProps = {} },
+      mergeCheck,
+      mergeGetDetail,
+      productDetailInfo,
+      mergeGetMaster,
     } = state;
 
-    // const {
-    // } = this.props;
+    console.log(props);
+    const {
+      brandId,
+      // navigation,
+      // navigation: {
+      //   state: {
+      //     params: {
+      //       groupon,
+      //       // groupon,
+      //     },
+      //   },
+      // },
+      propertiesIds,
+      // navigation,
+    } = props;
 
+    const groupon = false;
+    const brandIdUsed = brandId;
+    // const groupon = navigation.state.params.groupon;
+    const propertiesIdsUsed = propertiesIds || '';
+    const item = groupon ? mergeGetDetail.item : productDetailInfo.item;
+    console.log(item);
     return {
+      ...item,
+      brandId: brandIdUsed,
+      groupon,
+      isMaster: !!mergeCheck.item.mergeMasterId,
+      propertiesIds: propertiesIdsUsed,
+      masterItems: mergeGetMaster.items,
+      isAuthUser: !!state.login.user,
       modalProps,
-      // loading: cityInfos.loading,
     };
   },
   {
