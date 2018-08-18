@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Linking, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
-import { SCREENS } from '../common/constants';
+// import { SCREENS, SIDEINTERVAL } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import NavBar1 from '../components/NavBar1';
 import BYTouchable from '../components/BYTouchable';
-import { RED_COLOR } from '../styles/variables';
-import { SIDEINTERVAL } from '../common/constants';
+// import { RED_COLOR } from '../styles/variables';
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
 import * as authActionCreators from '../common/actions/auth';
@@ -31,30 +29,29 @@ const styles = StyleSheet.create({
   buttonTouchable: {
     padding: 16,
   },
-})
+});
 
 class QrCodeScanner extends Component {
-
-  componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
+  constructor(props) {
+    super(props);
+    this.onSuccess = this.onSuccess.bind(this);
   }
+  // componentDidMount() {
+  //   const { bannerHomeRecommendFetch } = this.props;
+  //   // bannerHomeRecommendFetch();
+  // }
 
   onSuccess(e) {
     const {
       i18n,
       // i18n,
     } = this.props;
-    Alert.alert(
-      '',
-      e.data,
-      [
-        { 
-          text: i18n.confirm, 
-          onPress: () => {}
-        }
-      ]
-    )
+    Alert.alert('', e.data, [
+      {
+        text: i18n.confirm,
+        onPress: () => {},
+      },
+    ]);
 
     // Linking
     //   .openURL(e.data)
@@ -62,7 +59,7 @@ class QrCodeScanner extends Component {
   }
 
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
         alignItems: 'center',
@@ -77,30 +74,21 @@ class QrCodeScanner extends Component {
       },
     });
     return (
-      <BYTouchable 
-        style={styles.container}
-        backgroundColor="transparent"
-      >
-        <Text style={styles.title}>Scan QR Code</Text>
+      <BYTouchable style={stylesX.container} backgroundColor="transparent">
+        <Text style={stylesX.title}>Scan QR Code</Text>
       </BYTouchable>
-    )
-  }
+    );
+  };
 
   render() {
-    const {
-      bannerHomeRecommend,
-      navigation: { navigate },
-      i18n 
-    } = this.props;
-    
+    // const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
+
     return (
       <View style={styles.container}>
-        <BYHeader  
-          headerTitle={this.renderHeaderTitle()}
-        />
+        <BYHeader headerTitle={this.renderHeaderTitle()} />
         <QRCodeScanner
-          onRead={this.onSuccess.bind(this)}
-          showMarker={true}
+          onRead={this.onSuccess}
+          showMarker
           // topContent={
           //   <Text style={styles.centerText} />
           // }
@@ -115,36 +103,22 @@ class QrCodeScanner extends Component {
   }
 }
 
-export default connectLocalization(connect(
-  () => {
-    return (state, props) => {
-      const {
-        bannerHomeRecommend,
-      } = state;
+export default connectLocalization(
+  connect(
+    () => state => {
+      const { bannerHomeRecommend } = state;
 
       // const {
 
       // } = props;
 
       return {
-        bannerHomeRecommend: bannerHomeRecommend || {}
-      }
-    }
-  },
-  {
-    ...bannerHomeRecommendActionCreators,
-    ...authActionCreators,
-  }
-)(QrCodeScanner));
-
-
-// function mapStateToProps(state, props) {
-//   const { bannerHomeRecommend } = state;
-//   return {
-//     bannerHomeRecommend: bannerHomeRecommend || {}
-//   };
-// }
-
-// export default connectLocalization(
-//   connect(mapStateToProps, { ...bannerHomeRecommendActionCreators, ...authActionCreators })(QrCodeScanner)
-// );
+        bannerHomeRecommend: bannerHomeRecommend || {},
+      };
+    },
+    {
+      ...bannerHomeRecommendActionCreators,
+      ...authActionCreators,
+    },
+  )(QrCodeScanner),
+);

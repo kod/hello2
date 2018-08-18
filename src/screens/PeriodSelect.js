@@ -251,9 +251,9 @@ class PeriodSelect extends Component {
           />
         </View>
         <View style={styles.tips}>
-          <Text style={styles.tipsTitle}>说明:</Text>
-          <Text style={styles.tipsText}>1. 每月26日为出账日，出账日之前的账单可以在此处修改分期数; 出账日之后的账单不可以再修改分期数。</Text>
-          <Text style={styles.tipsText}>2. 请根据自己的消费情况设置合理的分期数，以免影响到个人还款信用。</Text>
+          <Text style={styles.tipsTitle}>{i18n.description}:</Text>
+          <Text style={styles.tipsText}>{`1. ${i18n.descriptionOne}`}</Text>
+          <Text style={styles.tipsText}>{`2. ${i18n.descriptionTwo}`}</Text>
         </View>
       </View>
     );

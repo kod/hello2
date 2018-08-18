@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { SCREENS } from '../common/constants';
-
 import { connectLocalization } from '../components/Localization';
-import BYHeader from '../components/BYHeader';
+// import BYHeader from '../components/BYHeader';
 import CustomIcon from '../components/CustomIcon';
 import BYTouchable from '../components/BYTouchable';
 import NavBar2 from '../components/NavBar2';
-import SeparateBar from '../components/SeparateBar';
+// import SeparateBar from '../components/SeparateBar';
 
-import { PRIMARY_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, APPBAR_HEIGHT, } from '../common/constants';
+import { PRIMARY_COLOR } from '../styles/variables';
+import {
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  STATUSBAR_HEIGHT,
+  APPBAR_HEIGHT,
+} from '../common/constants';
 
 import * as billDetailsActionCreators from '../common/actions/billDetails';
-import * as authActionCreators from '../common/actions/auth';
+// import * as authActionCreators from '../common/actions/auth';
 import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({
@@ -49,13 +52,12 @@ const styles = StyleSheet.create({
 });
 
 class BillDetail extends Component {
-
   componentDidMount() {
     const {
       billDetailsFetch,
       id,
-      isAuthUser,
-      navigation: { navigate },
+      // isAuthUser,
+      // navigation: { navigate },
     } = this.props;
     // if (!isAuthUser) return navigate(SCREENS.Login);
 
@@ -65,7 +67,7 @@ class BillDetail extends Component {
   }
 
   renderContent() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
       },
@@ -105,54 +107,62 @@ class BillDetail extends Component {
       },
     });
 
-    const {
-      billDetailsItem,
-    } = this.props;
+    const { i18n, billDetailsItem, activeMonth } = this.props;
 
     return (
-      <View style={styles.container}>
-        <View style={styles.main}>
-          <Text style={styles.title}>Payment in April.</Text>
-          <Text style={styles.price}>{priceFormat(billDetailsItem.amountBill)} ₫</Text>
-          <View style={styles.bill}>
-            <View style={styles.billItem}>
-              <Text style={styles.billText}>{priceFormat(billDetailsItem.monthBill)}</Text>
-              <Text style={styles.billText}>This month's bill</Text>
+      <View style={stylesX.container}>
+        <View style={stylesX.main}>
+          <Text style={stylesX.title}>{`${i18n.month} ${activeMonth}`}</Text>
+          <Text style={stylesX.price}>
+            {`${priceFormat(billDetailsItem.amountBill)} ₫`}
+          </Text>
+          <View style={stylesX.bill}>
+            <View style={stylesX.billItem}>
+              <Text style={stylesX.billText}>
+                {`${priceFormat(billDetailsItem.monthBill)}`}
+              </Text>
+              <Text style={stylesX.billText}>{i18n.currentBill}</Text>
             </View>
-            <View style={styles.billItem}>
-              <Text style={styles.billText}>{priceFormat(billDetailsItem.historicalBill)}</Text>
-              <Text style={styles.billText}>This history's bill</Text>
+            <View style={stylesX.billItem}>
+              <Text style={stylesX.billText}>
+                {priceFormat(billDetailsItem.historicalBill)}
+              </Text>
+              <Text style={stylesX.billText}>{i18n.pastBill}</Text>
             </View>
           </View>
         </View>
-        <View style={styles.items}>
-          <NavBar2 
-            valueLeft={'Principal'} 
-            valueMiddle={`${priceFormat(billDetailsItem.principal)} ₫`} 
+        <View style={stylesX.items}>
+          <NavBar2
+            valueLeft={i18n.principal}
+            valueMiddle={`${priceFormat(billDetailsItem.principal)} ₫`}
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
             backgroundColor="transparent"
           />
-          <NavBar2 
-            valueLeft={'Interest'} 
-            valueMiddle={`${priceFormat(billDetailsItem.interest)} ₫`} 
+          <NavBar2
+            valueLeft={i18n.interest}
+            valueMiddle={`${priceFormat(billDetailsItem.interest)} ₫`}
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
             backgroundColor="transparent"
           />
-          <NavBar2 
-            valueLeft={'Accountant bill date'} 
-            valueMiddle={`${moment(billDetailsItem.billData).format('DD-MM')}`} 
+          <NavBar2
+            valueLeft={i18n.billingDate}
+            valueMiddle={`${moment(billDetailsItem.billData).format(
+              'YYYY-DD-MM',
+            )}`}
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
             backgroundColor="transparent"
           />
-          <NavBar2 
-            valueLeft={'Latest repayment date'} 
-            valueMiddle={`${moment(billDetailsItem.expireDate).format('DD-MM')}`} 
+          <NavBar2
+            valueLeft={i18n.finalRepaymentDate}
+            valueMiddle={`${moment(billDetailsItem.expireDate).format(
+              'YYYY-DD-MM',
+            )}`}
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
@@ -160,28 +170,26 @@ class BillDetail extends Component {
           />
         </View>
       </View>
-    )
+    );
   }
 
   render() {
-    const { bannerHomeRecommend, navigation: { navigate, goBack }, i18n, billDetailsItem, } = this.props;
+    const {
+      navigation: { goBack },
+      // i18n,
+      billDetailsItem,
+    } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <BYTouchable onPress={() => goBack()}>
-            <CustomIcon
-              name="back"
-              style={styles.headerBack}
-            />
+            <CustomIcon name="back" style={styles.headerBack} />
           </BYTouchable>
           <Text style={styles.title} />
         </View>
-        <ScrollView >
-          {
-            !!billDetailsItem.amountBill && 
-            this.renderContent()
-          }
+        <ScrollView>
+          {!!billDetailsItem.amountBill && this.renderContent()}
         </ScrollView>
       </View>
     );
@@ -189,21 +197,19 @@ class BillDetail extends Component {
 }
 
 export default connectLocalization(
-    connect(
-    () => {
-      return (state, props) => {
-        const {
-          billDetails,
-        } = state;
-        return {
-          isAuthUser: !!state.login.user,
-          id: props.navigation.state.params.id,
-          billDetailsItem: billDetails.item,
-        }
-      }
+  connect(
+    () => (state, props) => {
+      const { billDetails, bill } = state;
+      const { navigation } = props;
+      return {
+        isAuthUser: !!state.login.user,
+        id: navigation.state.params.id,
+        billDetailsItem: billDetails.item,
+        activeMonth: bill.activeMonth,
+      };
     },
     {
       ...billDetailsActionCreators,
-    }
+    },
   )(BillDetail),
 );
