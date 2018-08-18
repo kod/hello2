@@ -105,7 +105,7 @@ export function* registerFetchWatchHandle(action) {
           break;
 
         default:
-          yield put(addError(i18n.verificationCodeError));
+          yield put(addError(i18n.verificationCodeIsIncorrect));
           break;
       }
     } else {

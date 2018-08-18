@@ -86,6 +86,10 @@ export function* loginFetchWatchHandle(action) {
           yield put(addError(i18n.wrongPhoneNumberOrPassword));
           break;
 
+        case 70002:
+          yield put(addError(i18n.verificationCodeIsIncorrect));
+          break;
+
         default:
           yield put(addError(response.result));
           break;
