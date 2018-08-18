@@ -151,7 +151,7 @@ class BillDetail extends Component {
           <NavBar2
             valueLeft={i18n.billingDate}
             valueMiddle={`${moment(billDetailsItem.billData).format(
-              'YYYY-DD-MM',
+              'DD-MM-YYYY',
             )}`}
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
@@ -161,7 +161,7 @@ class BillDetail extends Component {
           <NavBar2
             valueLeft={i18n.finalRepaymentDate}
             valueMiddle={`${moment(billDetailsItem.expireDate).format(
-              'YYYY-DD-MM',
+              'DD-MM-YYYY',
             )}`}
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
