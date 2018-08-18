@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
 
-import { SCREENS, WINDOW_WIDTH } from '../common/constants';
+import { WINDOW_WIDTH, SIDEINTERVAL, MODAL_TYPES } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
-import ActionSheet from '../components/ActionSheet';
 import Loader from '../components/Loader';
-import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { SIDEINTERVAL } from '../common/constants';
+import { PRIMARY_COLOR } from '../styles/variables';
 
 import * as collectFilesActionCreators from '../common/actions/collectFiles';
 import * as authActionCreators from '../common/actions/auth';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-})
+});
 
 class Evalution extends Component {
   constructor(props) {
     super(props);
 
+    const { i18n } = this.props;
+
     this.state = {
-      isOpenActionSheet: false,
-      payWayButtons: ['相册', '拍照'],
+      payWayButtons: [i18n.album, i18n.takePhoto],
       starNumber: 3,
       textValue: '',
     };
@@ -47,32 +47,29 @@ class Evalution extends Component {
     // collectFilesFetch();
   }
 
-  createResizedImageImageResizer({ uri, width, height}) {
-    const {
-      collectFilesFetch 
-    } = this.props;
+  createResizedImageImageResizer({ uri, width, height }) {
+    const { collectFilesFetch } = this.props;
 
-    ImageResizer.createResizedImage(uri, width, height, 'JPEG', 50).then((response) => {
+    ImageResizer.createResizedImage(uri, width, height, 'JPEG', 50)
+      .then(response => {
         collectFilesFetch({
           files: {
             // uri: uri,
             uri: response.uri,
             name: response.name,
-          }
+          },
         });
-
-    }).catch((err) => {
-      console.dir(err);
-    });
-
+      })
+      .catch(err => {
+        console.dir(err);
+      });
   }
 
   actionSheetCallback(ret) {
-    const {
-      navigation: { navigate }
-    } = this.props;
+    // const {
+    //   navigation: { navigate },
+    // } = this.props;
     if (ret.buttonIndex === -1) return false;
-
 
     if (ret.buttonIndex === 0) {
       // 相册
@@ -85,7 +82,7 @@ class Evalution extends Component {
           uri: image.path,
           width: image.width,
           height: image.height,
-        })
+        });
       });
     } else {
       // 拍照
@@ -98,9 +95,10 @@ class Evalution extends Component {
           uri: image.path,
           width: image.width,
           height: image.height,
-        })
+        });
       });
     }
+    return true;
   }
 
   handleOnPressToggleModal = (key, val) => {
@@ -112,25 +110,28 @@ class Evalution extends Component {
   handleOnPressStar(index) {
     this.setState({
       starNumber: index,
-    })
+    });
   }
 
   handleOnLongPressImgDel(index) {
-    const {
-      collectFilesRemove,
-    } = this.props;
+    const { collectFilesRemove } = this.props;
     collectFilesRemove(index);
     // this.setState({
     //   images: this.state.images.splice(index, 1),
     // })
   }
-  
+
   handleOnPressSelectPics() {
-    this.handleOnPressToggleModal('isOpenActionSheet')
+    const { payWayButtons } = this.state;
+    const { openModal } = this.props;
+    openModal(MODAL_TYPES.ACTIONSHEET, {
+      callback: ret => this.actionSheetCallback(ret),
+      buttons: payWayButtons,
+    });
   }
 
   renderContent() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
       },
@@ -218,93 +219,82 @@ class Evalution extends Component {
       },
     });
 
-    const {
-      starNumber,
-      textValue,
-    } = this.state;
+    const { starNumber, textValue } = this.state;
 
-    const {
-      loading,
-      images,
-    } = this.props;
-    
+    const { images, i18n } = this.props;
+
     return (
-      <View style={styles.container}>
-        <View style={styles.startWrap}>
-          {
-            [0,1,2,3,4].map((val) => 
-              <FontAwesome 
-                style={starNumber > val ? styles.starIconActive : styles.starIcon } 
-                name="star" 
-                key={val}
-                onPress={() => this.handleOnPressStar(val + 1)}
-              />
-            )
-          }
+      <View style={stylesX.container}>
+        <View style={stylesX.startWrap}>
+          {[0, 1, 2, 3, 4].map(val => (
+            <FontAwesome
+              style={
+                starNumber > val ? stylesX.starIconActive : stylesX.starIcon
+              }
+              name="star"
+              key={val}
+              onPress={() => this.handleOnPressStar(val + 1)}
+            />
+          ))}
         </View>
-        <View style={styles.mainWrap}>
-          <View style={styles.main}>
+        <View style={stylesX.mainWrap}>
+          <View style={stylesX.main}>
             <BYTextInput
-              style={styles.textInput}
-              placeholder="please enter your name"
+              style={stylesX.textInput}
+              placeholder={i18n.pleaseEnterYourComment}
               placeholderTextColor="#ccc"
               onChangeText={val => this.setState({ textValue: val })}
               value={textValue}
               maxLength={150}
               numberOfLines={3}
-              multiline={true}
+              multiline
             />
-            <View style={styles.pics}>
-              {
-                images.map((val, key) => {
-                  return (
-                    <View style={styles.imageItem} key={key}>
-                      <Text style={styles.imageItemOnLongPress} onLongPress={() => this.handleOnLongPressImgDel(key)} />
-                      <Image style={styles.imageItemImage} source={{ uri: val }} />
-                      {/* <Image style={styles.imageItemImage} source={require('../images/viemnam.png')} /> */}
-                    </View>
-                  )
-                })
-              }
-              <BYTouchable style={styles.selectPics} onPress={() => this.handleOnPressSelectPics()}>
-                <FontAwesome  style={ styles.cameraIcon } name="camera" />
-                <Text style={styles.cameraText}>0/5</Text>
+            <View style={stylesX.pics}>
+              {images.map((val, key) => (
+                <View style={stylesX.imageItem} key={key}>
+                  <Text
+                    style={stylesX.imageItemOnLongPress}
+                    onLongPress={() => this.handleOnLongPressImgDel(key)}
+                  />
+                  <Image style={stylesX.imageItemImage} source={{ uri: val }} />
+                  {/* <Image style={stylesX.imageItemImage} source={require('../images/viemnam.png')} /> */}
+                </View>
+              ))}
+              <BYTouchable
+                style={stylesX.selectPics}
+                onPress={() => this.handleOnPressSelectPics()}
+              >
+                <FontAwesome style={stylesX.cameraIcon} name="camera" />
+                <Text style={stylesX.cameraText}>0/5</Text>
               </BYTouchable>
             </View>
           </View>
-          <Text style={styles.tips}>your comment will be anonymous</Text>
-          <Text style={styles.tips}>长按删除图片</Text>
+          <Text style={stylesX.tips}>{i18n.yourCommentAnonymous}</Text>
+          <Text style={stylesX.tips}>{i18n.longPressDeletePicture}</Text>
         </View>
-        <BYButton text={'publish'} styleWrap={styles.button} onPress={() => {}} />
+        <BYButton
+          text={i18n.submit}
+          styleWrap={styles.button}
+          onPress={() => {}}
+        />
       </View>
-    )
+    );
   }
-  
+
   render() {
-    const {
-      isOpenActionSheet,
-      payWayButtons,
-    } = this.state;
+    // const { payWayButtons } = this.state;
 
     const {
-      collectFiles,
-      navigation: { navigate },
+      // collectFiles,
+      // navigation: { navigate },
       loading,
-      i18n,
+      // i18n,
     } = this.props;
 
     return (
       <View style={styles.container}>
         <BYHeader />
-        <ScrollView>
-          {this.renderContent()}
-        </ScrollView>
-        <ActionSheet 
-          visible={isOpenActionSheet}
-          onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
-          buttons={payWayButtons}
-          callback={this.actionSheetCallback}
-        />
+        <ScrollView>{this.renderContent()}</ScrollView>
         {loading && <Loader absolutePosition />}
       </View>
     );
@@ -313,40 +303,26 @@ class Evalution extends Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          collectFiles,
-        } = state;
+    () => state => {
+      const {
+        collectFiles,
+        // collectFiles,
+      } = state;
 
-        // const {
+      // const {
 
-        // } = props;
+      // } = props;
 
-        return {
-          collectFiles: collectFiles,
-          loading: collectFiles.loading,
-          images: collectFiles.images,
-        }
-      }
+      return {
+        collectFiles,
+        loading: collectFiles.loading,
+        images: collectFiles.images,
+      };
     },
     {
       ...collectFilesActionCreators,
       ...authActionCreators,
-    }
-  )(Evalution)
+      ...modalActionCreators,
+    },
+  )(Evalution),
 );
-
-
-// function mapStateToProps(state, props) {
-//   const { collectFiles } = state;
-//   return {
-//     collectFiles: collectFiles,
-//     loading: collectFiles.loading,
-//     images: collectFiles.images,
-//   };
-// }
-
-// export default connectLocalization(
-//   connect(mapStateToProps, { ...collectFilesActionCreators, ...authActionCreators })(Evalution)
-// );

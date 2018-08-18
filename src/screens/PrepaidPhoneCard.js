@@ -8,7 +8,6 @@ import ButtonSelect from '../components/ButtonSelect';
 import CustomIcon from '../components/CustomIcon';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
-import ActionSheet from '../components/ActionSheet';
 import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
@@ -20,11 +19,13 @@ import {
   APPBAR_HEIGHT,
   STATUSBAR_HEIGHT,
   PROVIDER_TYPE_MAP,
+  MODAL_TYPES,
 } from '../common/constants';
 
 import * as getProvidersCardActionCreators from '../common/actions/getProvidersCard';
 import * as getProvidersValueActionCreators from '../common/actions/getProvidersValue';
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +40,6 @@ class PrepaidPhoneCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenActionSheet: false,
       priceIndex: 0,
       payWayIndex: 0,
       numberItemIndex: 0,
@@ -248,6 +248,7 @@ class PrepaidPhoneCard extends Component {
     } = this.state;
 
     const {
+      openModal,
       providersItems,
       ProvidersValueItems,
       payWayButtons,
@@ -277,7 +278,12 @@ class PrepaidPhoneCard extends Component {
         />
         <BYTouchable
           style={stylesX.payMethod}
-          onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}
+          onPress={() =>
+            openModal(MODAL_TYPES.ACTIONSHEET, {
+              callback: ret => this.actionSheetCallback(ret),
+              buttons: payWayButtons.map(val => val.text),
+            })
+          }
         >
           <Text style={stylesX.payMethodLeft}>Payment method</Text>
           <Text style={stylesX.payMethodMiddle}>
@@ -316,25 +322,15 @@ class PrepaidPhoneCard extends Component {
   }
 
   render() {
-    const { isOpenActionSheet } = this.state;
-
     const {
       // screenProps: { i18n },
-      payWayButtons,
+      // payWayButtons,
       loading,
     } = this.props;
 
     return (
       <View style={styles.container}>
         <ScrollView>{this.renderContent()}</ScrollView>
-        <ActionSheet
-          visible={isOpenActionSheet}
-          onRequestClose={() =>
-            this.handleOnPressToggleModal('isOpenActionSheet')
-          }
-          buttons={payWayButtons.map(val => val.text)}
-          callback={this.actionSheetCallback}
-        />
         {loading && <Loader absolutePosition />}
       </View>
     );
@@ -366,6 +362,7 @@ export default connectLocalization(
       ...getProvidersCardActionCreators,
       ...getProvidersValueActionCreators,
       ...orderCreateActionCreators,
+      ...modalActionCreators,
     },
   )(PrepaidPhoneCard),
 );

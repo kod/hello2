@@ -21,8 +21,6 @@ import BYModal from '../components/BYModal';
 import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
-import BillSelect from '../components/BillSelect';
-import ActionSheet from '../components/ActionSheet';
 import { connectLocalization } from '../components/Localization';
 
 import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
@@ -32,6 +30,7 @@ import {
   APPBAR_HEIGHT,
   STATUSBAR_HEIGHT,
   SCREENS,
+  MODAL_TYPES,
 } from '../common/constants';
 
 import * as searchMonthActionCreators from '../common/actions/searchMonth';
@@ -39,6 +38,9 @@ import * as billActionCreators from '../common/actions/bill';
 import * as billByYearActionCreators from '../common/actions/billByYear';
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as queryGoodsActionCreators from '../common/actions/queryGoods';
+import * as modalActionCreators from '../common/actions/modal';
+
+const jafsdbufnlPng = require('../images/jafsdbufnl.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -64,14 +66,12 @@ class Bill extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenBillSelect: false,
       isOpenPay: false,
-      isOpenActionSheet: false,
       // isOpenEnterPassword: false,
       isShowGoods: false,
       payWayButtons: ['Repayment records'],
       // price: '1082500',
-    }
+    };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
     // this.enterPasswordCallback = this.enterPasswordCallback.bind(this);
   }
@@ -80,6 +80,7 @@ class Bill extends Component {
     let { activeMonth } = this.props;
     const {
       queryGoodsFetch,
+      billByYearFetch,
       activeYear,
       // isAuthUser,
       // navigation: { navigate },
@@ -93,10 +94,31 @@ class Bill extends Component {
       createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
     });
 
+    billByYearFetch({
+      year: activeYear,
+      init: true,
+    });
+
     this.billPayResult_addListener = DeviceEventEmitter.addListener(
       SCREENS.Bill,
       () => {},
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      activeYear: prevActiveYear,
+      activeMonth: prevActiveMonth,
+    } = this.props;
+    let { activeMonth } = nextProps;
+    const { activeYear, queryGoodsFetch } = nextProps;
+
+    if (prevActiveYear !== activeYear || prevActiveMonth !== activeMonth) {
+      if (activeMonth < 10) activeMonth = `0${activeMonth}`;
+      queryGoodsFetch({
+        createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -124,15 +146,16 @@ class Bill extends Component {
 
   actionSheetCallback(ret) {
     const {
-      navigation: { navigate }
+      navigation: { navigate },
     } = this.props;
 
     if (ret.buttonIndex === -1) return false;
     if (ret.buttonIndex === 0) navigate(SCREENS.RepaymentRecord);
+    return true;
   }
 
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
         alignItems: 'center',
@@ -155,23 +178,26 @@ class Bill extends Component {
     });
 
     const {
+      i18n,
+      openModal,
       activeMonth,
+      // activeMonth,
     } = this.props;
-    
+
     return (
-      <BYTouchable 
-        style={styles.container}
+      <BYTouchable
+        style={stylesX.container}
         backgroundColor="transparent"
-        onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}
+        onPress={() => openModal(MODAL_TYPES.BILLSELECT)}
       >
-        <Text style={styles.title}>tháng {activeMonth}</Text>
-        <Ionicons style={styles.arrow} name={'ios-arrow-down'} />
+        <Text style={stylesX.title}>{`${i18n.month} ${activeMonth}`}</Text>
+        <Ionicons style={stylesX.arrow} name="ios-arrow-down" />
       </BYTouchable>
-    )
-  }
+    );
+  };
 
   renderHeaderRight = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -185,16 +211,24 @@ class Bill extends Component {
         paddingTop: 2,
       },
     });
+
+    const { payWayButtons } = this.state;
+    const { openModal } = this.props;
     return (
-      <BYTouchable 
-        style={styles.container}
+      <BYTouchable
+        style={stylesX.container}
         backgroundColor="transparent"
-        onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}
+        onPress={() =>
+          openModal(MODAL_TYPES.ACTIONSHEET, {
+            callback: ret => this.actionSheetCallback(ret),
+            buttons: payWayButtons,
+          })
+        }
       >
-        <Entypo style={styles.arrow} name={'dots-three-vertical'} />
+        <Entypo style={stylesX.arrow} name="dots-three-vertical" />
       </BYTouchable>
-    )
-  }
+    );
+  };
 
   handleOnPressToggleModal = (key, val) => {
     this.setState({
@@ -211,21 +245,24 @@ class Bill extends Component {
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
-    this.handleOnPressToggleModal('isOpenPay')
+    this.handleOnPressToggleModal('isOpenPay');
 
     orderCreateFetch({
       // BYPayPassword: ret.val,
       BYtype: 'billPay',
-      goodsdetail: JSON.stringify([{
-        number: 0,
-        cartitemid: 0,
-        productid: 0,
-        rechargeaccount: '',
-        rechargecode: '',
-        repaymentamount: price,
-      }])
+      goodsdetail: JSON.stringify([
+        {
+          number: 0,
+          cartitemid: 0,
+          productid: 0,
+          rechargeaccount: '',
+          rechargecode: '',
+          repaymentamount: price,
+        },
+      ]),
     });
 
+    return true;
     // this.handleOnPressToggleModal('isOpenEnterPassword');
   }
 
@@ -244,11 +281,12 @@ class Bill extends Component {
       date: moment().format('YYYY-MM-DD HH:mm:ss'),
     });
 
-    this.handleOnPressToggleModal('isOpenPay')
+    this.handleOnPressToggleModal('isOpenPay');
+    return true;
   }
-  
-  renderPay() {    
-    const styles = StyleSheet.create({
+
+  renderPay() {
+    const stylesX = StyleSheet.create({
       container: {
         position: 'relative',
         backgroundColor: '#fff',
@@ -319,46 +357,53 @@ class Bill extends Component {
     // } = this.state;
 
     const {
+      i18n,
       price,
       billPriceFetch,
       searchMonthLoading,
+      // searchMonthLoading,
     } = this.props;
-    
+
     return (
-      <View style={styles.container}>
-        {
-          searchMonthLoading && 
-          <View style={styles.mask}>
+      <View style={stylesX.container}>
+        {searchMonthLoading && (
+          <View style={stylesX.mask}>
             <Loader absolutePosition />
           </View>
-        }
-        <View style={styles.close}>
-          <EvilIcons style={styles.closeIcon} name="close" onPress={() => this.handleOnPressToggleModal('isOpenPay')} />
+        )}
+        <View style={stylesX.close}>
+          <EvilIcons
+            style={stylesX.closeIcon}
+            name="close"
+            onPress={() => this.handleOnPressToggleModal('isOpenPay')}
+          />
         </View>
-        <Text style={styles.title}>Repayment</Text>
-        <View style={styles.wrap}>
-          <View style={styles.enterPrice}>
+        <Text style={stylesX.title}>{i18n.repayment}</Text>
+        <View style={stylesX.wrap}>
+          <View style={stylesX.enterPrice}>
             <BYTextInput
-              style={styles.textInput}
+              style={stylesX.textInput}
               keyboardType="numeric"
-              value={price} 
-              onChangeText={(text) => billPriceFetch(text)}
+              value={price}
+              onChangeText={text => billPriceFetch(text)}
             />
-            <Text style={styles.enterPriceText}>change amount</Text>
+            <Text style={stylesX.enterPriceText}>change amount</Text>
           </View>
         </View>
-        <Text style={styles.tips}>remaining in this period {priceFormat(price)} ₫</Text>
-        <BYButton 
-          text={'pay'} 
-          styleWrap={{ marginBottom: SIDEINTERVAL * 2 }} 
+        <Text style={stylesX.tips}>{`remaining in this period ${priceFormat(
+          price,
+        )} ₫`}</Text>
+        <BYButton
+          text={i18n.payment}
+          styleWrap={{ marginBottom: SIDEINTERVAL * 2 }}
           onPress={() => this.handleOnPressPaySubmit()}
         />
       </View>
-    )
+    );
   }
 
   renderGoods() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       goods: {
         paddingLeft: SIDEINTERVAL,
         paddingRight: SIDEINTERVAL,
@@ -394,25 +439,23 @@ class Bill extends Component {
       },
     });
 
-    const {
-      queryGoodsItems,
-    } = this.props;
-    
+    const { queryGoodsItems } = this.props;
+    console.log(queryGoodsItems);
     return (
-      <View style={styles.goods}>
-        {
-          queryGoodsItems.map((val, key) => {
-            return (
-              <View style={styles.item} key={key}>
-                <Text style={styles.title}>{key + 1}. {val.name}</Text>
-                <View style={styles.bottom}>
-                  <Text style={styles.price}>{priceFormat(val.totalAmount)} ₫</Text>
-                  <Text style={styles.date}>{moment(val.createTime).format('DD-MM')}</Text>
-                </View>
-              </View>
-            )
-          })
-        }
+      <View style={stylesX.goods}>
+        {queryGoodsItems.map((val, key) => (
+          <View style={stylesX.item} key={key}>
+            <Text style={stylesX.title}>{`${key + 1}. ${val.name}`}</Text>
+            <View style={stylesX.bottom}>
+              <Text style={stylesX.price}>
+                {`${priceFormat(val.totalAmount)} ₫`}
+              </Text>
+              <Text style={stylesX.date}>
+                {moment(val.createTime).format('DD-MM')}
+              </Text>
+            </View>
+          </View>
+        ))}
         {/* <View style={styles.item}>
           <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
            <View style={styles.bottom}>
@@ -434,13 +477,17 @@ class Bill extends Component {
             <Text style={styles.date}>16-05</Text>
            </View>
         </View> */}
-        <Ionicons style={styles.arrow} name={'ios-arrow-up'} onPress={() => this.setState({ isShowGoods: false })} />
+        <Ionicons
+          style={styles.arrow}
+          name="ios-arrow-up"
+          onPress={() => this.setState({ isShowGoods: false })}
+        />
       </View>
-    )
+    );
   }
-  
+
   renderContent() {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
         paddingLeft: SIDEINTERVAL * 2,
@@ -527,102 +574,116 @@ class Bill extends Component {
       },
     });
 
+    const { isShowGoods } = this.state;
+
     const {
-      isShowGoods,
-    } = this.state;
-    
-    const {
+      i18n,
       billMonthItem,
-      navigation: { navigate }
+      navigation: { navigate },
     } = this.props;
 
+    console.log(billMonthItem);
+
     return (
-      <View style={styles.container}>
-        <View style={styles.main}>
-          {
-            billMonthItem.status !== 10002 &&
-            <View style={styles.topOne}>
-              <Text style={styles.price}>{priceFormat(billMonthItem.waitingAmount)} ₫</Text>
-              <View style={styles.detailWrap}>
-                <Text style={styles.detail} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })}>query the detail</Text>
+      <View style={stylesX.container}>
+        <View style={stylesX.main}>
+          {billMonthItem.status !== 10002 && (
+            <View style={stylesX.topOne}>
+              <Text style={stylesX.price}>
+                {`${priceFormat(billMonthItem.waitingAmount)} ₫`}
+              </Text>
+              <View style={stylesX.detailWrap}>
+                <Text
+                  style={stylesX.detail}
+                  onPress={() =>
+                    navigate(SCREENS.BillDetail, { id: billMonthItem.id })
+                  }
+                >
+                  query the detail
+                </Text>
               </View>
-              {
-                billMonthItem.status !== 10002 && billMonthItem.status !== 10000 &&
-                <BYButton text={'pay'} styleWrap={styles.button} onPress={() => this.handleOnPressPay()} />
-              }
-              <Text style={styles.tips}>latest repayment date 5th</Text>
+              {billMonthItem.status !== 10002 &&
+                billMonthItem.status !== 10000 && (
+                  <BYButton
+                    text={i18n.payment}
+                    styleWrap={stylesX.button}
+                    onPress={() => this.handleOnPressPay()}
+                  />
+                )}
+              <Text style={stylesX.tips}>
+                {i18n.theFinalRepaymentDate5thEachMonth}
+              </Text>
             </View>
-          }
-          {
-            billMonthItem.status === 10002 &&
-            <View style={styles.topTwo}>
-              <Image style={styles.image} source={require('../images/jafsdbufnl.png')} />
-              <Text style={styles.topTwoTitle}>The bill has been paid off this month.</Text>
-              <View style={styles.topTwoTextWrap}>
-                <Text style={styles.topTwoTextOne}>Has also {priceFormat(billMonthItem.waitingAmount)} ₫</Text>
-                <Text style={styles.topTwoTextTwo} onPress={() => navigate(SCREENS.BillDetail, { id: billMonthItem.id })}>query the detail</Text>
+          )}
+          {billMonthItem.status === 10002 && (
+            <View style={stylesX.topTwo}>
+              <Image style={stylesX.image} source={jafsdbufnlPng} />
+              <Text style={stylesX.topTwoTitle}>
+                {i18n.thisMonthBillPaidOff}
+              </Text>
+              <View style={stylesX.topTwoTextWrap}>
+                <Text style={stylesX.topTwoTextOne}>
+                  {`Has also ${priceFormat(billMonthItem.waitingAmount)} ₫`}
+                </Text>
+                <Text
+                  style={stylesX.topTwoTextTwo}
+                  onPress={() =>
+                    navigate(SCREENS.BillDetail, { id: billMonthItem.id })
+                  }
+                >
+                  query the detail
+                </Text>
               </View>
             </View>
-          }
-          <View style={styles.bottom}>
-            <Text style={styles.bottomText} onPress={() => this.setState({ isShowGoods: !this.state.isShowGoods })}>Expenses record ></Text>
+          )}
+          <View style={stylesX.bottom}>
+            <Text
+              style={stylesX.bottomText}
+              onPress={() => this.setState({ isShowGoods: !isShowGoods })}
+            >
+              {`Expenses record >`}
+            </Text>
           </View>
-          {
-            isShowGoods && 
-            this.renderGoods()
-          }
+          {isShowGoods && this.renderGoods()}
         </View>
       </View>
-    )
+    );
   }
 
   render() {
     const {
-      isOpenBillSelect,
-      isOpenActionSheet,
       // isOpenEnterPassword,
       isOpenPay,
-      payWayButtons,
     } = this.state;
     const {
       isOverdue,
-      navigation: { navigate },
+      openModal,
+      // navigation: { navigate },
       i18n,
       billMonthItem,
     } = this.props;
-    
+
     return (
       <View style={styles.container}>
         <BYHeader
           headerTitle={this.renderHeaderTitle()}
           headerRight={this.renderHeaderRight()}
         />
-        <ScrollView>
-          {
-            !!billMonthItem.month &&
-            this.renderContent()
-          }
-        </ScrollView>
-        {
-          isOverdue && 
-          <Text style={styles.alert} onPress={() => this.handleOnPressToggleModal('isOpenBillSelect')}>您有账单已逾期，请尽快还款!</Text>
-        }
-        <BillSelect 
-          visible={isOpenBillSelect}
-          onRequestClose={() => this.handleOnPressToggleModal('isOpenBillSelect')}
-        />
+        <ScrollView>{!!billMonthItem.month && this.renderContent()}</ScrollView>
+        {isOverdue && (
+          <Text
+            style={styles.alert}
+            onPress={() => openModal(MODAL_TYPES.BILLSELECT)}
+          >
+            {i18n.youBillsExpiredPleaseRepayPossible}
+          </Text>
+        )}
         <BYModal
           visible={isOpenPay}
           onRequestClose={() => this.handleOnPressToggleModal('isOpenPay')}
         >
           {this.renderPay()}
         </BYModal>
-        <ActionSheet 
-          visible={isOpenActionSheet}
-          onRequestClose={() => this.handleOnPressToggleModal('isOpenActionSheet')}
-          buttons={payWayButtons}
-          callback={this.actionSheetCallback}
-        />
         {/* <EnterPassword 
           visible={isOpenEnterPassword}
           onRequestClose={() => this.handleOnPressToggleModal('isOpenEnterPassword')}
@@ -635,28 +696,27 @@ class Bill extends Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          bill,
-          billByYear,
-          queryGoods,
-          searchMonth,
-        } = state;
-        return {
-          billMonthItem: getBillMonthItem(state, props),
-          // billTotalMoney: getBillTotalMoney(state, props),
-          searchMonthItem: searchMonth.item,
-          searchMonthLoading: searchMonth.loading,
-          price: bill.price,
-          activeYear: bill.activeYear,
-          activeMonth: bill.activeMonth,
-          isOverdue: billByYear.isOverdue,
-          billByYearItems: billByYear.items,
-          queryGoodsItems: queryGoods.items,
-          isAuthUser: !!state.login.user,
-        }
-      }
+    () => (state, props) => {
+      const {
+        bill,
+        billByYear,
+        queryGoods,
+        searchMonth,
+        // searchMonth,
+      } = state;
+      return {
+        billMonthItem: getBillMonthItem(state, props),
+        // billTotalMoney: getBillTotalMoney(state, props),
+        searchMonthItem: searchMonth.item,
+        searchMonthLoading: searchMonth.loading,
+        price: bill.price,
+        activeYear: bill.activeYear,
+        activeMonth: bill.activeMonth,
+        isOverdue: billByYear.isOverdue,
+        billByYearItems: billByYear.items,
+        queryGoodsItems: queryGoods.items,
+        isAuthUser: !!state.login.user,
+      };
     },
     {
       ...billActionCreators,
@@ -664,6 +724,7 @@ export default connectLocalization(
       ...orderCreateActionCreators,
       ...queryGoodsActionCreators,
       ...searchMonthActionCreators,
-    }
+      ...modalActionCreators,
+    },
   )(Bill),
 );

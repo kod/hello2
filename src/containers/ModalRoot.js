@@ -4,11 +4,15 @@ import { MODAL_TYPES } from '../common/constants';
 import AddressAddModal from './AddressAddModal';
 import ParamsSelectModal from './ParamsSelectModal';
 import LoaderModal from './LoaderModal';
+import ActionSheetModal from './ActionSheetModal';
+import BillSelectModal from './BillSelectModal';
 
 const MODAL_COMPONENTS = {
   [MODAL_TYPES.ADDRESSADD]: AddressAddModal,
   [MODAL_TYPES.PARAMSSELECT]: ParamsSelectModal,
   [MODAL_TYPES.LOADER]: LoaderModal,
+  [MODAL_TYPES.ACTIONSHEET]: ActionSheetModal,
+  [MODAL_TYPES.BILLSELECT]: BillSelectModal,
 };
 
 const ModalRoot = ({ modal: { modalType, modalProps } }) => {

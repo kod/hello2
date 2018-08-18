@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { withNavigation } from 'react-navigation';
+// import { withNavigation } from 'react-navigation';
 import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import {
   WINDOW_HEIGHT,
@@ -12,11 +12,12 @@ import {
 
 import priceFormat from '../common/helpers/priceFormat';
 import { billStatusCodes } from '../common/helpers';
-
-import BYTouchable from './BYTouchable';
+import BYTouchable from '../components/BYTouchable';
+import { connectLocalization } from '../components/Localization';
 
 import * as billActionCreators from '../common/actions/bill';
 import * as billByYearActionCreators from '../common/actions/billByYear';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   mask: {
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class BillSelect extends Component {
+class AddressAddModal extends Component {
   // constructor(props) {
   //   super(props);
 
@@ -33,21 +34,26 @@ class BillSelect extends Component {
   //   };
   // }
 
-  componentDidMount() {
-    const {
-      activeYear,
-      billByYearFetch,
-      // navigation: { navigate },
-      // isAuthUser,
-    } = this.props;
+  // componentDidMount() {
+  //   const {
+  //     activeYear,
+  //     billByYearFetch,
+  //     // navigation: { navigate },
+  //     // isAuthUser,
+  //   } = this.props;
 
-    // if (!isAuthUser) return navigate(SCREENS.Login);
+  //   // if (!isAuthUser) return navigate(SCREENS.Login);
 
-    billByYearFetch({
-      year: activeYear,
-      init: true,
-    });
-  }
+  //   billByYearFetch({
+  //     year: activeYear,
+  //     init: true,
+  //   });
+  // }
+
+  handleOnModalClose = () => {
+    const { closeModal } = this.props;
+    closeModal();
+  };
 
   handleOnPressYear(year) {
     const {
@@ -66,16 +72,16 @@ class BillSelect extends Component {
     if (!val.month) return false;
     const {
       billMonthFetch,
-      onRequestClose,
+      // onRequestClose,
       // onRequestClose,
     } = this.props;
 
     billMonthFetch(val.month);
-    onRequestClose();
+    this.handleOnModalClose();
     return false;
   }
 
-  renderBillSelect() {
+  renderContent() {
     const stylesX = StyleSheet.create({
       container: {
         flex: 1,
@@ -148,6 +154,7 @@ class BillSelect extends Component {
     } = this.props;
 
     const {
+      i18n,
       // onRequestClose,
       billByYearItems,
       // billByYearItems,
@@ -209,7 +216,7 @@ class BillSelect extends Component {
                         val.status === 10007 && stylesX.itemTipsActive,
                       ]}
                     >
-                      {val.status && billStatusCodes(val.status)}
+                      {val.status && billStatusCodes(val.status, i18n)}
                     </Text>
                   }
                 </BYTouchable>
@@ -220,46 +227,61 @@ class BillSelect extends Component {
     );
   }
 
-  render() {
-    const {
-      visible,
-      onRequestClose,
-      // onRequestClose,
-    } = this.props;
+  // render() {
+  //   const {
+  //     visible,
+  //     onRequestClose,
+  //     // onRequestClose,
+  //   } = this.props;
 
+  //   return (
+  //     <Modal
+  //       transparent
+  //       animationType="fade"
+  //       visible={visible}
+  //       onRequestClose={onRequestClose}
+  //     >
+  //       <Text style={styles.mask} onPress={onRequestClose} />
+  //       {this.renderContent()}
+  //     </Modal>
+  //   );
+  // }
+  render() {
     return (
       <Modal
-        transparent
         animationType="fade"
-        visible={visible}
-        onRequestClose={onRequestClose}
+        transparent
+        visible
+        onRequestClose={this.handleOnModalClose}
       >
-        <Text style={styles.mask} onPress={onRequestClose} />
-        {this.renderBillSelect()}
+        <View style={{ flex: 1 }}>
+          <Text style={styles.mask} onPress={this.handleOnModalClose} />
+          {this.renderContent()}
+        </View>
       </Modal>
     );
   }
 }
 
-export default withNavigation(
+export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          bill,
-          billByYear,
-        } = state;
-        return {
-          isAuthUser: !!state.login.user,
-          activeYear: bill.activeYear,
-          activeMonth: bill.activeMonth,
-          billByYearItems: billByYear.items,
-        }
-      }
+    () => state => {
+      const {
+        bill,
+        billByYear,
+        // billByYear,
+      } = state;
+      return {
+        isAuthUser: !!state.login.user,
+        activeYear: bill.activeYear,
+        activeMonth: bill.activeMonth,
+        billByYearItems: billByYear.items,
+      };
     },
     {
       ...billActionCreators,
       ...billByYearActionCreators,
-    }
-  )(BillSelect)
+      ...modalActionCreators,
+    },
+  )(AddressAddModal),
 );

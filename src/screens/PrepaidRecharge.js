@@ -8,7 +8,6 @@ import CustomIcon from '../components/CustomIcon';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
-import ActionSheet from '../components/ActionSheet';
 import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
@@ -17,6 +16,7 @@ import {
   SIDEINTERVAL,
   APPBAR_HEIGHT,
   STATUSBAR_HEIGHT,
+  MODAL_TYPES,
 } from '../common/constants';
 
 import { RED_COLOR } from '../styles/variables';
@@ -24,6 +24,7 @@ import { RED_COLOR } from '../styles/variables';
 import * as prepaidActionCreators from '../common/actions/prepaid';
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as getPhoneRechargeActionCreators from '../common/actions/getPhoneRecharge';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   containerWrap: {
@@ -145,7 +146,6 @@ class PrepaidRecharge extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenActionSheet: false,
       // payWayButtons: ['信用卡', '网银'],
       payWayIndex: 0,
       phoneNumber: '',
@@ -414,6 +414,7 @@ class PrepaidRecharge extends Component {
 
     const {
       i18n,
+      openModal,
       errorText,
       providerIcon,
       payWayButtons,
@@ -453,7 +454,12 @@ class PrepaidRecharge extends Component {
         <ButtonSelect data={items} callback={this.buttonSelectPriceCallback} />
         <BYTouchable
           style={styles.payMethod}
-          onPress={() => this.handleOnPressToggleModal('isOpenActionSheet')}
+          onPress={() =>
+            openModal(MODAL_TYPES.ACTIONSHEET, {
+              callback: ret => this.actionSheetCallback(ret),
+              buttons: payWayButtons.map(val => val.text),
+            })
+          }
         >
           <Text style={styles.payMethodLeft}>Payment method</Text>
           <Text style={styles.payMethodMiddle}>
@@ -486,28 +492,15 @@ class PrepaidRecharge extends Component {
 
   render() {
     const {
-      isOpenActionSheet,
-      // isOpenActionSheet,
-    } = this.state;
-
-    const {
       loading,
       orderCreateLoading,
-      payWayButtons,
+      // payWayButtons,
       // screenProps: { i18n },
     } = this.props;
 
     return (
       <View style={styles.containerWrap}>
         <ScrollView>{this.renderContent()}</ScrollView>
-        <ActionSheet
-          visible={isOpenActionSheet}
-          onRequestClose={() =>
-            this.handleOnPressToggleModal('isOpenActionSheet')
-          }
-          buttons={payWayButtons.map(val => val.text)}
-          callback={this.actionSheetCallback}
-        />
         {(loading || orderCreateLoading) && <Loader absolutePosition />}
       </View>
     );
@@ -542,6 +535,7 @@ export default connectLocalization(
       ...prepaidActionCreators,
       ...orderCreateActionCreators,
       ...getPhoneRechargeActionCreators,
+      ...modalActionCreators,
     },
   )(PrepaidRecharge),
 );

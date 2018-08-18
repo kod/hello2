@@ -17,7 +17,6 @@ import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 // import BYTouchable from '../components/BYTouchable';
 // import BYModal from '../components/BYModal';
-import ActionSheet from '../components/ActionSheet';
 import EnterPassword from '../components/EnterPassword';
 import Address from '../components/Address';
 import Loader from '../components/Loader';
@@ -29,7 +28,7 @@ import {
   // WINDOW_HEIGHT,
   SIDEINTERVAL,
   // APPBAR_HEIGHT,
-  // STATUSBAR_HEIGHT,
+  MODAL_TYPES,
   SCREENS,
 } from '../common/constants';
 
@@ -43,6 +42,7 @@ import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoByI
 import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
 import * as orderCancelActionCreators from '../common/actions/orderCancel';
+import * as modalActionCreators from '../common/actions/modal';
 
 import { tradeStatusCodes } from '../common/helpers';
 import priceFormat from '../common/helpers/priceFormat';
@@ -111,7 +111,6 @@ class OrderWrite extends Component {
 
     const { i18n } = this.props;
     this.state = {
-      isOpenActionSheet: false,
       // isOpenBottomSheet: false,
       isOpenEnterPassword: false,
       payWayButtons: [i18n.funCard, i18n.internetBanking],
@@ -214,9 +213,16 @@ class OrderWrite extends Component {
       }
 
       const alreadyPaypassword = () => {
-        if (paypassword.length === 0)
-          return this.handleOnPressToggleModal('isOpenEnterPassword');
-
+        const { payWayButtons } = this.state;
+        const { openModal } = this.props;
+        if (paypassword.length === 0) {
+          openModal(MODAL_TYPES.ACTIONSHEET, {
+            callback: ret => this.actionSheetCallback(ret),
+            buttons: payWayButtons,
+          });
+          return true;
+          // return this.handleOnPressToggleModal('isOpenEnterPassword');
+        }
         if (paywayNow === 5) {
           Alert.alert('', i18n.amountNotEnoughWillPaidOnlineBanking, [
             { text: i18n.cancel },
@@ -411,114 +417,8 @@ class OrderWrite extends Component {
     );
   }
 
-  // renderBottomSheet() {
-  //   const styles = StyleSheet.create({
-  //     container: {
-  //       backgroundColor: '#fff',
-  //     },
-  //     closeWrap: {
-  //       alignItems: 'flex-end',
-  //       justifyContent: 'center',
-  //       paddingRight: WINDOW_WIDTH * 0.02,
-  //     },
-  //     close: {
-  //       paddingTop: SIDEINTERVAL,
-  //       fontSize: 24,
-  //       color: '#666',
-  //     },
-  //     scrollview: {
-  //       height: WINDOW_HEIGHT * 0.5,
-  //     },
-  //     title: {
-  //       flexDirection: 'row',
-  //       borderBottomColor: BORDER_COLOR,
-  //       borderBottomWidth: 1,
-  //     },
-  //     titleItem: {
-  //       color: '#333',
-  //       width: WINDOW_WIDTH / 3,
-  //       height: 45,
-  //       lineHeight: 45,
-  //       textAlign: 'center',
-  //     },
-  //     item: {
-  //       flexDirection: 'row',
-  //       borderBottomColor: BORDER_COLOR,
-  //       borderBottomWidth: 1,
-  //     },
-  //     itemText: {
-  //       color: '#666',
-  //       width: WINDOW_WIDTH / 3,
-  //       height: 45,
-  //       lineHeight: 45,
-  //       textAlign: 'center',
-  //     },
-  //   });
-
-  //   return (
-  //     <View style={styles.container}>
-  //       <BYTouchable style={styles.closeWrap} onPress={() => this.handleOnPressToggleBottomSheet()}>
-  //         <EvilIcons style={styles.close} name="close" />
-  //       </BYTouchable>
-  //       <View style={styles.title}>
-  //         <Text style={styles.titleItem}>periods</Text>
-  //         <Text style={styles.titleItem}>supply</Text>
-  //         <Text style={styles.titleItem}>principalprincipal</Text>
-  //       </View>
-  //       <ScrollView style={styles.scrollview}>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //         <View style={styles.item}>
-  //           <Text style={styles.itemText}>1st periods</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //           <Text style={styles.itemText}>4349.230.43</Text>
-  //         </View>
-  //       </ScrollView>
-  //     </View>
-  //   )
-  // }
-
   renderContent() {
     const {
-      // isOpenActionSheet,
       // isOpenBottomSheet,
       // isOpenEnterPassword,
       payWayButtons,
@@ -528,6 +428,7 @@ class OrderWrite extends Component {
     const {
       // navigation: { navigate },
       i18n,
+      openModal,
       // addressItems,
       getUserInfoById,
       cardQuery,
@@ -582,7 +483,10 @@ class OrderWrite extends Component {
           <NavBar2
             onPress={() =>
               tradeStatus === '10000' &&
-              this.handleOnPressToggleModal('isOpenActionSheet')
+              openModal(MODAL_TYPES.ACTIONSHEET, {
+                callback: ret => this.actionSheetCallback(ret),
+                buttons: payWayButtons,
+              })
             }
             valueLeft={i18n.orderAmount}
             valueMiddle={payWayButtons[payWayIndex]}
@@ -601,10 +505,9 @@ class OrderWrite extends Component {
 
   render() {
     const {
-      isOpenActionSheet,
       // isOpenBottomSheet,
       isOpenEnterPassword,
-      payWayButtons,
+      // payWayButtons,
       // payWayIndex,
     } = this.state;
 
@@ -636,14 +539,6 @@ class OrderWrite extends Component {
         >
           {this.renderBottomSheet()}
         </BYModal> */}
-        <ActionSheet
-          visible={isOpenActionSheet}
-          onRequestClose={() =>
-            this.handleOnPressToggleModal('isOpenActionSheet')
-          }
-          buttons={payWayButtons}
-          callback={this.actionSheetCallback}
-        />
         <EnterPassword
           visible={isOpenEnterPassword}
           onRequestClose={() =>
@@ -709,6 +604,7 @@ export default connectLocalization(
       ...cardSubmitActionCreators,
       ...cardQueryActionCreators,
       ...orderCancelActionCreators,
+      ...modalActionCreators,
     },
   )(OrderWrite),
 );

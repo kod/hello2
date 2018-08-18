@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal } from 'react-native';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
-import BYTouchable from './BYTouchable';
+import BYTouchable from '../components/BYTouchable';
+import { connectLocalization } from '../components/Localization';
+
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,29 +35,36 @@ const styles = StyleSheet.create({
   },
 });
 
-class ActionSheet extends Component {
+class ActionSheetModal extends Component {
   // constructor(props) {
   //   super(props);
   //   this.state = {
   //     isOpenActionSheet: true,
   //   };
   // }
+  static propTypes = {
+    callback: PropTypes.func.isRequired,
+    buttons: PropTypes.array.isRequired,
+  };
 
   componentDidMount() {}
 
+  handleOnModalClose = () => {
+    const { closeModal } = this.props;
+    closeModal();
+  };
+
   handleOnPress(key) {
     const {
-      callback,
-      onRequestClose,
-      // onRequestClose,
+      modalProps: { callback = () => {} },
     } = this.props;
-    onRequestClose();
+    this.handleOnModalClose();
     callback({
       buttonIndex: key,
     });
   }
 
-  renderActionSheet() {
+  renderContent() {
     const { i18n } = this.props;
     const {
       cancelTitle = i18n.cancel,
@@ -65,7 +77,7 @@ class ActionSheet extends Component {
         {buttons.map((val, key) => (
           <BYTouchable
             style={styles.item}
-            key={key}
+            key={val}
             onPress={() => this.handleOnPress(key)}
           >
             <Text style={styles.buttonItem}>{val}</Text>
@@ -83,25 +95,64 @@ class ActionSheet extends Component {
     );
   }
 
-  render() {
-    const {
-      visible,
-      onRequestClose,
-      // onRequestClose,
-    } = this.props;
+  // render() {
+  //   const {
+  //     visible,
+  //     onRequestClose,
+  //     // onRequestClose,
+  //   } = this.props;
 
+  //   return (
+  //     <Modal
+  //       transparent
+  //       animationType="fade"
+  //       visible={visible}
+  //       onRequestClose={onRequestClose}
+  //     >
+  //       <Text style={styles.mask} onPress={onRequestClose} />
+  //       {this.renderContent()}
+  //     </Modal>
+  //   );
+  // }
+  render() {
     return (
       <Modal
-        transparent
         animationType="fade"
-        visible={visible}
-        onRequestClose={onRequestClose}
+        transparent
+        visible
+        onRequestClose={this.handleOnModalClose}
       >
-        <Text style={styles.mask} onPress={onRequestClose} />
-        {this.renderActionSheet()}
+        <View style={{ flex: 1 }}>
+          <Text style={styles.mask} onPress={this.handleOnModalClose} />
+          {this.renderContent()}
+        </View>
       </Modal>
     );
   }
 }
 
-export default ActionSheet;
+export default connectLocalization(
+  connect(
+    (state, props) => {
+      const {
+        modal: { modalProps = {} },
+      } = state;
+
+      const {
+        callback,
+        buttons,
+        // buttons,
+      } = props;
+      console.log(props);
+
+      return {
+        callback,
+        buttons,
+        modalProps,
+      };
+    },
+    {
+      ...modalActionCreators,
+    },
+  )(ActionSheetModal),
+);
