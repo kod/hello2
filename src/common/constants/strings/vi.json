@@ -205,5 +205,18 @@
   "pleaseEnterYourComment": "Vui lòng nhập nhận xét của bạn",
   "yourCommentAnonymous": "Nhận xét của bạn sẽ được ẩn danh",
   "longPressDeletePicture": "Nhấn và giữ để xóa ảnh",
+  "noBill": "Không có hóa đơn",
+  "repaymentRecord": "Hồ sơ thanh toán",
+  "expensesRecord": "Hồ sơ chi phí",
+  "seeDetails": "Xem chi tiết",
+  "havenPaidAmount": "Khoản chưa thanh toán",
+  "changeAmount": "Thay đổi nhiều",
+  "scanQRCode": "Quét mã QR",
+  "permissionCamera": "Quyền sử dụng máy ảnh",
+  "needPermissionCameraPhone": "Chúng tôi cần sự cho phép của bạn để sử dụng điện thoại camera của bạn",
+  "thisPhoneNumberNotSupportCharging": "Số điện thoại này không hỗ trợ nạp tiền",
+  "reduction": "GIẢM",
+  "selectYourHomeNetwork": "Chọn nhà mạng",
+  "chooseFaceValueAndNumberCards": "Chọn mệnh giá và số lượng thẻ",
   "warehouse": "kho"
 }

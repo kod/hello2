@@ -205,5 +205,18 @@
   "pleaseEnterYourComment": "Please enter your comment",
   "yourCommentAnonymous": "Your comment will be anonymous",
   "longPressDeletePicture": "Long press to delete the picture",
+  "noBill": "No bill",
+  "repaymentRecord": "Repayment record",
+  "expensesRecord": "Expenses record",
+  "seeDetails": "See details",
+  "havenPaidAmount": "Haven't paid amount",
+  "changeAmount": "Change amount",
+  "scanQRCode": "Scan QR Code",
+  "permissionCamera": "Permission camera",
+  "needPermissionCameraPhone": "We need your permission to use your camera phone",
+  "thisPhoneNumberNotSupportCharging": "This phone number does not support charging",
+  "reduction": "Reduction",
+  "selectYourHomeNetwork": "Select your home network",
+  "chooseFaceValueAndNumberCards": "Choose the face value and number of cards",
   "warehouse": "Warehouse"
 }

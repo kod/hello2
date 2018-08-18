@@ -205,5 +205,18 @@
   "pleaseEnterYourComment": "请输入你的评论",
   "yourCommentAnonymous": "您的评价会以匿名的形式展现",
   "longPressDeletePicture": "长按删除图片",
+  "noBill": "没有账单",
+  "repaymentRecord": "还款记录",
+  "expensesRecord": "消费记录",
+  "seeDetails": "查看详情",
+  "havenPaidAmount": "待还金额",
+  "changeAmount": "修改金额",
+  "scanQRCode": "扫描二维码",
+  "permissionCamera": "允许使用相机",
+  "needPermissionCameraPhone": "我们需要您的许可才能使用您的拍照手机",
+  "thisPhoneNumberNotSupportCharging": "此电话号码不支持直冲",
+  "reduction": "已优惠",
+  "selectYourHomeNetwork": "选择供应商",
+  "chooseFaceValueAndNumberCards": "选择面值和卡数",
   "warehouse": "仓库"
 }
