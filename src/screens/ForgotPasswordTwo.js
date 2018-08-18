@@ -111,7 +111,7 @@ class ForgotPasswordTwo extends Component {
       return false;
     }
 
-    if (!LOGIN_PASSWORD_EXPR.test(formValue.password)) {
+    if (!formValue.password || !LOGIN_PASSWORD_EXPR.test(formValue.password)) {
       Alert.alert(
         '',
         i18n.pleaseEnter820CharactersOrNumbers,

@@ -67,7 +67,6 @@ class ForgotPasswordOne extends Component {
       msisdn,
       // navigation,
     } = this.props;
-    console.log(msisdn);
     return (
       <View style={styles.container}>
         <BYHeader />
@@ -78,6 +77,8 @@ class ForgotPasswordOne extends Component {
           style={{ marginBottom: 70 }}
           value={msisdn}
           editable={msisdn.length === 0}
+          autoFocus
+          i18n={i18n}
         />
         <BYButton
           text={i18n.nextStep}
@@ -105,7 +106,6 @@ export default connectLocalization(
         form: { forgotpasswordone: forgotpasswordoneX },
         login,
       } = state;
-      console.log(login.user);
       return {
         msisdn: login.user ? login.user.msisdn : '',
         formValue: forgotpasswordoneX ? forgotpasswordoneX.values : '',
