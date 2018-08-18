@@ -80,6 +80,7 @@ class RegisterStepOne extends Component {
             keyboardType="phone-pad"
             style={{ marginBottom: 30 }}
             autoFocus
+            i18n={i18n}
           />
           <View
             style={{ paddingLeft: SIDEINTERVAL, paddingRight: SIDEINTERVAL }}

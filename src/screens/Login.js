@@ -123,7 +123,8 @@ class Login extends Component {
           placeholder={i18n.pleaseEnterYourPhoneNumber}
           keyboardType="phone-pad"
           returnKeyType="next"
-          autoFocus
+          i18n={i18n}
+          // autoFocus
         />
         <Field
           name="password"

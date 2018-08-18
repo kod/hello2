@@ -61,6 +61,7 @@ class RegisterFastStepOne extends Component {
           keyboardType="phone-pad"
           // returnKeyType="next"
           autoFocus
+          i18n={i18n}
         />
         <BYButton
           text={i18n.nextStep}
