@@ -474,7 +474,7 @@ class PrepaidRecharge extends Component {
               items[buttonIndex].price,
             )} ₫`}</Text>
             {items[buttonIndex].price - items[buttonIndex].orgPrice !== 0 && (
-              <Text style={styles.priceGrey}>{`已优惠${priceFormat(
+              <Text style={styles.priceGrey}>{`${i18n.reduction} ${priceFormat(
                 items[buttonIndex].orgPrice - items[buttonIndex].price,
               )} ₫`}</Text>
             )}

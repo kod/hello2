@@ -206,7 +206,7 @@ class AddressAddModal extends Component {
                     >
                       {val.totalAmount
                         ? `${priceFormat(val.totalAmount)} ₫`
-                        : 'no bill'}
+                        : i18n.noBill}
                     </Text>
                   </View>
                   {

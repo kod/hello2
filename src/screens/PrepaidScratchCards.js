@@ -251,7 +251,7 @@ class PrepaidPhoneCard extends Component {
     return (
       <View style={styles.container}>
         <View style={{ height: 20 }} />
-        <Text style={styles.title}>Chọn nhà mạng</Text>
+        <Text style={styles.title}>{i18n.selectYourHomeNetwork}</Text>
         <PrepaidBrand
           data={providersItems}
           callback={this.prepaidBrandCallback}
@@ -293,10 +293,12 @@ class PrepaidPhoneCard extends Component {
               ProvidersValueItems[priceIndex].price -
                 ProvidersValueItems[priceIndex].orgPrice !==
                 0 && (
-                <Text style={styles.priceGrey}>{`已优惠${priceFormat(
-                  ProvidersValueItems[priceIndex].orgPrice * number -
-                    ProvidersValueItems[priceIndex].price * number,
-                )} ₫`}</Text>
+                <Text style={styles.priceGrey}>
+                  {`${i18n.reduction} ${priceFormat(
+                    ProvidersValueItems[priceIndex].orgPrice * number -
+                      ProvidersValueItems[priceIndex].price * number,
+                  )} ₫`}
+                </Text>
               )}
           </View>
         </View>

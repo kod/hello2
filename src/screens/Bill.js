@@ -65,11 +65,14 @@ const styles = StyleSheet.create({
 class Bill extends Component {
   constructor(props) {
     super(props);
+
+    const { i18n } = this.props;
+
     this.state = {
       isOpenPay: false,
       // isOpenEnterPassword: false,
       isShowGoods: false,
-      payWayButtons: ['Repayment records'],
+      payWayButtons: [i18n.repaymentRecord],
       // price: '1082500',
     };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
@@ -387,10 +390,10 @@ class Bill extends Component {
               value={price}
               onChangeText={text => billPriceFetch(text)}
             />
-            <Text style={stylesX.enterPriceText}>change amount</Text>
+            <Text style={stylesX.enterPriceText}>{i18n.changeAmount}</Text>
           </View>
         </View>
-        <Text style={stylesX.tips}>{`remaining in this period ${priceFormat(
+        <Text style={stylesX.tips}>{`${i18n.havenPaidAmount}: ${priceFormat(
           price,
         )} ₫`}</Text>
         <BYButton
@@ -599,7 +602,7 @@ class Bill extends Component {
                     navigate(SCREENS.BillDetail, { id: billMonthItem.id })
                   }
                 >
-                  query the detail
+                  {i18n.seeDetails}
                 </Text>
               </View>
               {billMonthItem.status !== 10002 &&
@@ -631,7 +634,7 @@ class Bill extends Component {
                     navigate(SCREENS.BillDetail, { id: billMonthItem.id })
                   }
                 >
-                  query the detail
+                  {i18n.seeDetails}
                 </Text>
               </View>
             </View>
@@ -641,7 +644,7 @@ class Bill extends Component {
               style={stylesX.bottomText}
               onPress={() => this.setState({ isShowGoods: !isShowGoods })}
             >
-              {`Expenses record >`}
+              {`${i18n.expensesRecord} >`}
             </Text>
           </View>
           {isShowGoods && this.renderGoods()}

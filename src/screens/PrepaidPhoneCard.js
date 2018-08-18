@@ -303,7 +303,7 @@ class PrepaidPhoneCard extends Component {
                 ProvidersValueItems[priceIndex].orgPrice !==
                 0 && (
                 <Text style={stylesX.priceGrey}>
-                  {`已优惠${priceFormat(
+                  {`${i18n.reduction} ${priceFormat(
                     ProvidersValueItems[priceIndex].orgPrice * number -
                       ProvidersValueItems[priceIndex].price * number,
                   )} ₫`}

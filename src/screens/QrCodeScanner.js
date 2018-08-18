@@ -73,15 +73,18 @@ class QrCodeScanner extends Component {
         marginRight: 5,
       },
     });
+
+    const { i18n } = this.props;
+
     return (
       <BYTouchable style={stylesX.container} backgroundColor="transparent">
-        <Text style={stylesX.title}>Scan QR Code</Text>
+        <Text style={stylesX.title}>{i18n.scanQRCode}</Text>
       </BYTouchable>
     );
   };
 
   render() {
-    // const { bannerHomeRecommend, navigation: { navigate }, i18n } = this.props;
+    // const { i18n } = this.props;
 
     return (
       <View style={styles.container}>
@@ -89,6 +92,8 @@ class QrCodeScanner extends Component {
         <QRCodeScanner
           onRead={this.onSuccess}
           showMarker
+          // permissionDialogTitle={i18n.permissionCamera}
+          // permissionDialogMessage={i18n.needPermissionCameraPhone}
           // topContent={
           //   <Text style={styles.centerText} />
           // }
