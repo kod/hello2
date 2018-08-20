@@ -91,7 +91,6 @@ class AboutAs extends Component {
     Linking.canOpenURL(url)
       .then(supported => {
         if (!supported) {
-          // DeviceEventEmitter.emit('showToast', '无法打开邮箱');
           // console.log('Can\'t handle url: ' + url);
         } else {
           return Linking.openURL(url);

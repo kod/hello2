@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
-// import Toast from 'react-native-easy-toast';
 import { connectLocalization } from '../../components/Localization';
 import BYStatusBar from '../../components/BYStatusBar';
 import Loader from '../../components/Loader';
@@ -25,13 +24,6 @@ const styles = StyleSheet.create({
 
 class App extends Component {
   componentDidMount() {
-    // this.showToastListener = DeviceEventEmitter.addListener(
-    //   'showToast',
-    //   text => {
-    //     this.toast.show(text);
-    //   },
-    // );
-
     const { rehydrated } = this.props;
     if (rehydrated) {
       // call when reopen app after exit by back button on android
@@ -48,7 +40,6 @@ class App extends Component {
   }
 
   // componentWillUnmount() {
-  //   this.showToastListener.remove();
   // }
 
   render() {
@@ -71,12 +62,6 @@ class App extends Component {
         {renderComponent}
         <BYStatusBar />
         <ModalRoot />
-        {/* <Toast
-          ref={ref => {
-            this.toast = ref;
-          }}
-          opacity={0.7}
-        /> */}
       </View>
     );
   }

@@ -25,7 +25,6 @@ export function* handleAlertError(action) {
   //     viewTopInset: Platform.OS === 'ios' ? 10 : 0,
   //   },
   // ]);
-  // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [ 'showToast', error]);
   Alert.alert('', error, [
     {
       text: i18n.confirm,
