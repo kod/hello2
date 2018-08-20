@@ -25,7 +25,8 @@ import BannerHomeType from './BannerHomeType';
 // import FeaturedGoodsItem from './FeaturedGoodsItem';
 // import CustomIcon from './CustomIcon';
 // import ProductItem1 from './ProductItem1';
-import ProductItem2 from './ProductItem2';
+// import ProductItem2 from './ProductItem2';
+import ProductItem1 from './ProductItem1';
 import FloorTitle from './FloorTitle';
 import NavImg1 from './NavImg1';
 import SeparateBar from './SeparateBar';
@@ -244,7 +245,11 @@ class Scrollable1 extends Component {
           style={{ borderBottomColor: BORDER_COLOR, borderBottomWidth: 1 }}
         />
 
-        <ProductItem2 data={adverstInfoList} />
+        {/* <ProductItem2 data={adverstInfoList} /> */}
+        <ProductItem1
+          data={adverstInfoList}
+          style={{ backgroundColor: '#fff' }}
+        />
       </View>
     );
   }
