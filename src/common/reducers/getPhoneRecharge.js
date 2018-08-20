@@ -21,17 +21,19 @@ const initState = {
       orgPrice: 30000,
     },
   ],
-  payWayButtons: [{
-    text: '网银',
-    payway: 2,
-  }],
+  payWayButtons: [
+    {
+      text: '网银',
+      payway: 2,
+    },
+  ],
 };
 
 export default function getPhoneRecharge(state = initState, action) {
   switch (action.type) {
     case GET_PHONE_RECHARGE.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case GET_PHONE_RECHARGE.REQUEST:
       return {
@@ -45,7 +47,10 @@ export default function getPhoneRecharge(state = initState, action) {
         loaded: true,
         items: action.payload.items,
         providerCode: action.payload.providerCode,
-        payWayButtons: action.payload.supCreditCard === 0 ? [{text: '网银', payway: 2}] : [{text: '信用卡', payway: 1}, {text: '网银', payway: 2}],
+        payWayButtons:
+          action.payload.supCreditCard === 0
+            ? [{ text: '网银', payway: 2 }]
+            : [{ text: '信用卡', payway: 1 }, { text: '网银', payway: 2 }],
       };
     case GET_PHONE_RECHARGE.FAILURE:
       return {
