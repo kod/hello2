@@ -4,7 +4,7 @@ export function orderPayFetchSuccess(params) {
   return {
     type: ORDER_PAY.SUCCESS,
     payload: {
-      ...params
+      ...params,
     },
   };
 }
@@ -12,15 +12,11 @@ export function orderPayFetchSuccess(params) {
 export function orderPayFetchFailure() {
   return {
     type: ORDER_PAY.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function orderPayFetch(
-  params
-) {
+export function orderPayFetch(params) {
   return {
     type: ORDER_PAY.REQUEST,
     payload: {
@@ -32,7 +28,6 @@ export function orderPayFetch(
 export function orderPayClear() {
   return {
     type: ORDER_PAY.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

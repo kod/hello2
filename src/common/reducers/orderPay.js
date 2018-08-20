@@ -10,7 +10,7 @@ export default function orderPay(state = initState, action) {
   switch (action.type) {
     case ORDER_PAY.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case ORDER_PAY.REQUEST:
       return {
