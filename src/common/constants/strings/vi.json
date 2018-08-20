@@ -220,5 +220,11 @@
   "chooseFaceValueAndNumberCards": "Chọn mệnh giá và số lượng thẻ",
   "unsettledBills": "Hóa đơn chưa xuất",
   "cardPasswordError": "Lỗi mật khẩu thẻ",
+  "chooseFaceValue": "Chọn mệnh giá",
+  "paymentMethod": "Phương thức thanh toán",
+  "salary": "Sự lương",
+  "share": "Chia sẻ",
+  "collect": "Sưu tập",
+  "service": "Dịch vụ",
   "warehouse": "kho"
 }

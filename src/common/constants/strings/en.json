@@ -220,5 +220,11 @@
   "chooseFaceValueAndNumberCards": "Choose the face value and number of cards",
   "unsettledBills": "Unsettled bills",
   "cardPasswordError": "Card password error",
+  "chooseFaceValue": "Choose face value",
+  "paymentMethod": "Payment method",
+  "salary": "Salary",
+  "share": "Share",
+  "collect": "Collect",
+  "service": "Service",
   "warehouse": "Warehouse"
 }

@@ -220,5 +220,11 @@
   "chooseFaceValueAndNumberCards": "选择面值和卡数",
   "unsettledBills": "未出账",
   "cardPasswordError": "卡密码错误",
+  "chooseFaceValue": "选择面额",
+  "paymentMethod": "支付方式",
+  "salary": "薪水",
+  "share": "分享",
+  "collect": "收藏",
+  "service": "服务",
   "warehouse": "仓库"
 }
