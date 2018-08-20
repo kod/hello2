@@ -256,12 +256,12 @@ class PrepaidPhoneCard extends Component {
           data={providersItems}
           callback={this.prepaidBrandCallback}
         />
-        <Text style={styles.title}>Chọn nhà mạng</Text>
+        <Text style={styles.title}>{i18n.chooseFaceValue}</Text>
         <ButtonSelect
           data={ProvidersValueItems}
           callback={this.buttonSelectPriceCallback}
         />
-        <Text style={styles.title}>Chọn mệnh giá và số lượng thẻ</Text>
+        <Text style={styles.title}>{i18n.salary}</Text>
         <ButtonSelect
           data={buttonSelectNumber}
           style={{ marginBottom: 10 }}
@@ -276,7 +276,7 @@ class PrepaidPhoneCard extends Component {
             })
           }
         >
-          <Text style={styles.payMethodLeft}>Payment method</Text>
+          <Text style={styles.payMethodLeft}>{i18n.paymentMethod}</Text>
           <Text style={styles.payMethodMiddle}>
             {payWayButtons[payWayIndex].text}
           </Text>

@@ -425,7 +425,7 @@ class PrepaidRecharge extends Component {
     return (
       <View style={styles.container}>
         <View style={{ height: 20 }} />
-        <Text style={styles.title}>Chọn nhà mạng</Text>
+        <Text style={styles.title}>{i18n.pleaseEnterYourPhoneNumber}</Text>
         <View style={styles.phoneNumberWrap}>
           <View style={styles.phoneNumber}>
             <BYTextInput
@@ -450,7 +450,7 @@ class PrepaidRecharge extends Component {
             </View>
           )}
         </View>
-        <Text style={styles.title}>Chọn nhà mạng</Text>
+        <Text style={styles.title}>{i18n.chooseFaceValue}</Text>
         <ButtonSelect data={items} callback={this.buttonSelectPriceCallback} />
         <BYTouchable
           style={styles.payMethod}
@@ -461,7 +461,7 @@ class PrepaidRecharge extends Component {
             })
           }
         >
-          <Text style={styles.payMethodLeft}>Payment method</Text>
+          <Text style={styles.payMethodLeft}>{i18n.paymentMethod}</Text>
           <Text style={styles.payMethodMiddle}>
             {payWayButtons[payWayIndex].text || ''}
           </Text>
