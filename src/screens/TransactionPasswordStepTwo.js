@@ -177,7 +177,7 @@ class TransactionPasswordStepTwo extends Component {
             keyboardType="numeric"
             // onSubmitEditing={() => { this.password.focus(); }}
             // blurOnSubmit={false}
-            // autoFocus={true}
+            autoFocus
           />
           <Field
             name="password"
