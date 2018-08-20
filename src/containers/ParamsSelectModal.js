@@ -389,7 +389,7 @@ class ParamsSelectModal extends Component {
           ))}
         </View>
         <View style={styles.paramNumber}>
-          <Text style={styles.paramNumberText}>số lượng</Text>
+          <Text style={styles.paramNumberText}>{i18n.amount}</Text>
           <View style={styles.paramNumberChange}>
             <BYTouchable
               onPress={() =>

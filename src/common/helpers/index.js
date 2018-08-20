@@ -74,7 +74,7 @@ export const buttonTextForTradeStatusCodes = (code = 10000, i18n) => {
 
 export const billStatusCodes = (code = 10000, i18n) => {
   const codes = {
-    10000: '未出账',
+    10000: i18n.unsettledBills,
     10001: '已出账',
     10002: '已还清',
     10007: i18n.overdue, // '已逾期'
@@ -107,7 +107,7 @@ export const payWayToText = (payWay, i18n) => {
   payWay += '';
   switch (payWay) {
     case '1':
-      result = '信用卡支付';
+      result = i18n.funCard;
       break;
 
     case '2':
