@@ -21,6 +21,7 @@ import BYModal from '../components/BYModal';
 import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
+import EmptyState from '../components/EmptyState';
 import { connectLocalization } from '../components/Localization';
 
 import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
@@ -41,6 +42,7 @@ import * as queryGoodsActionCreators from '../common/actions/queryGoods';
 import * as modalActionCreators from '../common/actions/modal';
 
 const jafsdbufnlPng = require('../images/jafsdbufnl.png');
+const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
 
 const styles = StyleSheet.create({
   container: {
@@ -70,13 +72,11 @@ class Bill extends Component {
 
     this.state = {
       isOpenPay: false,
-      // isOpenEnterPassword: false,
       isShowGoods: false,
       payWayButtons: [i18n.repaymentRecord],
       // price: '1082500',
     };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
-    // this.enterPasswordCallback = this.enterPasswordCallback.bind(this);
   }
 
   componentDidMount() {
@@ -127,25 +127,6 @@ class Bill extends Component {
   componentWillUnmount() {
     this.billPayResult_addListener.remove();
   }
-
-  // async enterPasswordCallback(ret) {
-  //   const {
-  //     price,
-  //     orderCreateFetch,
-  //   } = this.props;
-  //   orderCreateFetch({
-  //     BYPayPassword: ret.val,
-  //     BYtype: 'billPay',
-  //     goodsdetail: JSON.stringify([{
-  //       number: 0,
-  //       cartitemid: 0,
-  //       productid: 0,
-  //       rechargeaccount: '',
-  //       rechargecode: '',
-  //       repaymentamount: price,
-  //     }])
-  //   });
-  // }
 
   actionSheetCallback(ret) {
     const {
@@ -266,7 +247,6 @@ class Bill extends Component {
     });
 
     return true;
-    // this.handleOnPressToggleModal('isOpenEnterPassword');
   }
 
   handleOnPressPay() {
@@ -393,9 +373,9 @@ class Bill extends Component {
             <Text style={stylesX.enterPriceText}>{i18n.changeAmount}</Text>
           </View>
         </View>
-        <Text style={stylesX.tips}>{`${i18n.havenPaidAmount}: ${priceFormat(
-          price,
-        )} ₫`}</Text>
+        <Text style={stylesX.tips}>
+          {`${i18n.havenPaidAmount}: ${priceFormat(price)} ₫`}
+        </Text>
         <BYButton
           text={i18n.payment}
           styleWrap={{ marginBottom: SIDEINTERVAL * 2 }}
@@ -443,7 +423,6 @@ class Bill extends Component {
     });
 
     const { queryGoodsItems } = this.props;
-    console.log(queryGoodsItems);
     return (
       <View style={stylesX.goods}>
         {queryGoodsItems.map((val, key) => (
@@ -585,8 +564,6 @@ class Bill extends Component {
       navigation: { navigate },
     } = this.props;
 
-    console.log(billMonthItem);
-
     return (
       <View style={stylesX.container}>
         <View style={stylesX.main}>
@@ -654,10 +631,7 @@ class Bill extends Component {
   }
 
   render() {
-    const {
-      // isOpenEnterPassword,
-      isOpenPay,
-    } = this.state;
+    const { isOpenPay } = this.state;
     const {
       isOverdue,
       openModal,
@@ -672,7 +646,18 @@ class Bill extends Component {
           headerTitle={this.renderHeaderTitle()}
           headerRight={this.renderHeaderRight()}
         />
-        <ScrollView>{!!billMonthItem.month && this.renderContent()}</ScrollView>
+        {/* 当前月份是否存在账单 */}
+        {billMonthItem.month ? (
+          <ScrollView>{this.renderContent()}</ScrollView>
+        ) : (
+          <EmptyState
+            source={ouhrigdfnjsoeijehrJpg}
+            text={i18n.noBill}
+            styleText={{ marginBottom: 0 }}
+          />
+        )}
+        {/* <ScrollView>{!!billMonthItem.month && this.renderContent()}</ScrollView> */}
+        {/* 是否有逾期，有则提示还款 */}
         {isOverdue && (
           <Text
             style={styles.alert}
@@ -687,11 +672,6 @@ class Bill extends Component {
         >
           {this.renderPay()}
         </BYModal>
-        {/* <EnterPassword 
-          visible={isOpenEnterPassword}
-          onRequestClose={() => this.handleOnPressToggleModal('isOpenEnterPassword')}
-          callback={this.enterPasswordCallback}
-        /> */}
       </View>
     );
   }
