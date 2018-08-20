@@ -218,5 +218,7 @@
   "reduction": "GIẢM",
   "selectYourHomeNetwork": "Chọn nhà mạng",
   "chooseFaceValueAndNumberCards": "Chọn mệnh giá và số lượng thẻ",
+  "unsettledBills": "Hóa đơn chưa xuất",
+  "cardPasswordError": "Lỗi mật khẩu thẻ",
   "warehouse": "kho"
 }

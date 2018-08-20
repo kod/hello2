@@ -218,5 +218,7 @@
   "reduction": "Reduction",
   "selectYourHomeNetwork": "Select your home network",
   "chooseFaceValueAndNumberCards": "Choose the face value and number of cards",
+  "unsettledBills": "Unsettled bills",
+  "cardPasswordError": "Card password error",
   "warehouse": "Warehouse"
 }

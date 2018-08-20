@@ -218,5 +218,7 @@
   "reduction": "已优惠",
   "selectYourHomeNetwork": "选择供应商",
   "chooseFaceValueAndNumberCards": "选择面值和卡数",
+  "unsettledBills": "未出账",
+  "cardPasswordError": "卡密码错误",
   "warehouse": "仓库"
 }
