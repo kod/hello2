@@ -35,8 +35,8 @@ ext {
     targetSdkVersion = 27
     googlePlayServicesVersion = '12.0.1'
     supportLibVersion = "27.1.1"
-    versionCode = 115
-    versionName = "1.1.5"
+    versionCode = 116
+    versionName = "1.1.6"
     applicationId = "com.reactstore"
     minSdkVersion = 16
 }
