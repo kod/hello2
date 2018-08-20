@@ -41,9 +41,6 @@ const ScrollViewPullUp = {
       const y = event.nativeEvent.contentOffset.y;
       const height = event.nativeEvent.layoutMeasurement.height;
       const contentHeight = event.nativeEvent.contentSize.height;
-      // console.log('offsetY-->' + y);
-      // console.log('height-->' + height);
-      // console.log('contentHeight-->' + contentHeight);
 
       // 距离底部
       if(y + height >= contentHeight - 300){

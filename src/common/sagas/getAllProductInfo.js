@@ -91,7 +91,6 @@ export function* getAllProductInfoFetchWatchHandle(action) {
         }),
         Schemas.GETALLPRODUCTINFO_ARRAY,
       );
-      console.log(normalized);
       yield put(
         getAllProductInfoFetchSuccess(
           normalized.entities,

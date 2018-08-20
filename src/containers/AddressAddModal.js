@@ -138,7 +138,6 @@ class AddressAddModal extends Component {
   };
 
   handleOnPressCitySelect(id, name, key) {
-    console.log(this.props);
     let item;
 
     const {

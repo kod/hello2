@@ -555,17 +555,6 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         {this.renderMainContent()}
-        {/* <BYBottomSheet
-          visible={isOpenMenuBottomSheet}
-          onCancel={this.handleOnPressToggleMenuBottomSheet}
-          // listenCloseModal={() => this.handleOnPressToggleMenuBottomSheet()}
-        >
-          {menuBottomSheetType === 'select'
-            ? openModal(MODAL_TYPES.PARAMSSELECT, {
-                callback: ret => console.log(ret),
-              })
-            : this.renderMenuBottomShare()}
-        </BYBottomSheet> */}
       </View>
     );
   }

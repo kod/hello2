@@ -25,7 +25,6 @@ class RegisterFastStepOne extends Component {
       navigation: { navigate },
       formValue,
     } = this.props;
-    console.log(formValue);
     // if (!formValue) return false;
     if (!PHONE_EXPR.test(formValue.phone)) {
       Alert.alert(

@@ -51,8 +51,6 @@ export function* changePasswordFetchWatchHandle(action) {
         encryption: encrypt,
       },
     ]);
-    console.log(JSON.stringify(response));
-    console.log(response);
 
     if (response.status !== 10000) {
       yield put(changePasswordFetchFailure());

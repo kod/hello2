@@ -352,7 +352,6 @@ class ProductDetail extends Component {
                     propertiesIdsObject,
                     brandId,
                     propertiesIds,
-                    // callback: ret => console.log(ret),
                   })
                 }
               >

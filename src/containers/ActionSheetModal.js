@@ -143,7 +143,6 @@ export default connectLocalization(
         buttons,
         // buttons,
       } = props;
-      console.log(props);
 
       return {
         callback,

@@ -444,8 +444,6 @@ class OrderWrite extends Component {
         // advance,
       },
     } = this.props;
-    console.log(this.props);
-    console.log(advance);
 
     return (
       <View style={stylesX.nav}>

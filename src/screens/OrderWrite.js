@@ -269,9 +269,6 @@ class OrderWrite extends Component {
       return false;
     }
 
-    // console.log(object);
-    // console.log(JSON.stringify(object));
-
     return orderCreateFetch(getObject());
   }
 
@@ -460,8 +457,6 @@ export default connectLocalization(
         // const isCart = props.navigation.state.params.isCart;
         // const cartProducts = props.navigation.state.params.products;
         // const cartAdverstInfo = props.navigation.state.params.adverstInfo;
-        console.log(groupon);
-        console.log(mergeMasterInfo);
         return {
           couponSelectItem: couponSelect.item,
           groupon,

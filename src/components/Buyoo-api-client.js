@@ -829,11 +829,8 @@ class ReactStore {
   //     data,
   //   };
 
-  //   console.log(`${BASE_URL}${PORT_80}/fun/userCenter/userAction/login`);
-  //   console.log(options);
   //   return axios(`https://twitter.com/?sadf=${Math.random()}`, options)
   //     .then(res => {
-  //       console.log(res);
   //       if (res.data.status !== 10000) {
   //         throw new Error(res.data.result);
   //       }

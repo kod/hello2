@@ -57,15 +57,14 @@ class TransactionPasswordStepOne extends Component {
   //   this.handleOnPressSubmit = this.handleOnPressSubmit.bind(this);
   // }
 
-  componentDidMount() {
-    const {
-      msisdn,
-      // initialize,
-      // msisdn,
-    } = this.props;
-    // initialize({ phone: msisdn });
-    console.log(msisdn);
-  }
+  // componentDidMount() {
+  //   const {
+  //     msisdn,
+  //     // initialize,
+  //     // msisdn,
+  //   } = this.props;
+  //   // initialize({ phone: msisdn });
+  // }
 
   handleOnPressSubmit() {
     const {

@@ -98,17 +98,6 @@ class Scrollable1 extends Component {
     this.handleOnPressNavImg1 = this.handleOnPressNavImg1.bind(this);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const { adverstInfo } = this.props;
-  //   const { adverstInfo: prevAdverstInfo } = nextProps;
-  //   // const { isBookmark } = this.state;
-  //   console.log(this.props);
-  //   console.log(nextProps);
-  //   console.log('==========');
-  //   console.log(adverstInfo);
-  //   console.log(prevAdverstInfo);
-  // }
-
   componentDidMount() {
     const {
       bannerSwiperFetch,
