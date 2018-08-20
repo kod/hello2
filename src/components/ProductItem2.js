@@ -128,7 +128,7 @@ class ProductItem2 extends Component {
                 </Text>
                 <View style={styles.itemRightRow3}>
                   <Text style={[styles.itemRightRow3Price, stylePricePrice]}>
-                    {`${priceFormat(parseInt(val.price / 12, 10))} + ' ₫'`}
+                    {`${priceFormat(parseInt(val.price / 12, 10))} ₫`}
                   </Text>
                   <Text
                     style={[styles.itemRightRow3Periods, stylePricePeriods]}

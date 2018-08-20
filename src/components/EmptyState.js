@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { WINDOW_WIDTH, WINDOW_HEIGHT } from '../common/constants';
 
 const styles = StyleSheet.create({
   empty: {
@@ -20,11 +20,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ style, styleImage, styleText, source, text, ...restProps }) => {
-  return (
-    <View style={[styles.empty, style]} {...restProps}>
-      <Image style={[styles.emptyImg, styleImage]} source={source} />
-      <Text style={[styles.emptyText, styleText]}>{text}</Text>
-    </View>
-  );
-};
+export default ({
+  style,
+  styleImage,
+  styleText,
+  source,
+  text,
+  ...restProps
+}) => (
+  <View style={[styles.empty, style]} {...restProps}>
+    <Image style={[styles.emptyImg, styleImage]} source={source} />
+    <Text style={[styles.emptyText, styleText]}>{text}</Text>
+  </View>
+);
