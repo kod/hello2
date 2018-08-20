@@ -154,7 +154,7 @@ export const navigateCheckLogin = (
   params = {},
 ) => {
   if (isAuthUser) {
-    navigate(SCREENS.screensName, params);
+    navigate(SCREENS[screensName], params);
   } else {
     navigate(SCREENS.Login);
   }
