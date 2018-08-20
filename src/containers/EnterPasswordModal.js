@@ -1,11 +1,16 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal } from 'react-native';
-import { RED_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
-import BYTouchable from './BYTouchable';
+import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { RED_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, SIDEINTERVAL, SCREENS } from '../common/constants';
+import BYTouchable from '../components/BYTouchable';
+import { connectLocalization } from '../components/Localization';
+
+import * as modalActionCreators from '../common/actions/modal';
 
 const inputPasswordBackgroundItemWidth = (WINDOW_WIDTH - SIDEINTERVAL * 2) / 6;
 
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class EnterPassword extends Component {
+class EnterPasswordModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -124,8 +129,7 @@ class EnterPassword extends Component {
 
   async handleOnPressNumber(val) {
     const {
-      callback,
-      onRequestClose,
+      modalProps: { callback = () => {} },
     } = this.props;
 
     await this.setState({
@@ -136,89 +140,120 @@ class EnterPassword extends Component {
       callback({
         val: this.state.password,
       });
-      onRequestClose();
+      this.handleOnModalClose();
     }
   }
 
-  handleOnPressBackspace(val) {
+  handleOnModalClose = () => {
+    const { closeModal } = this.props;
+    closeModal();
+  };
+
+  handleOnPressBackspace() {
+    const { password } = this.state;
     this.setState({
-      password: this.state.password.slice(0, this.state.password.length - 1),
+      password: password.slice(0, password.length - 1),
     });
   }
-  
-  renderEnterPassword() {
-    const {
-      password,
-      keyboardItems,
-      passwordLength,
-    } = this.state;
-    
-    const {
-      title = 'Transaction password',
-      onRequestClose,
-    } = this.props;
+
+  renderContent() {
+    const { password, keyboardItems, passwordLength } = this.state;
+    const { i18n } = this.props;
+    const { title = i18n.cardPassword, navigate } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title} onPress={() => onRequestClose()}>{title}</Text>
-          <EvilIcons style={styles.close} name="close" onPress={() => onRequestClose()} />
+          <Text style={styles.title} onPress={() => this.handleOnModalClose()}>
+            {title}
+          </Text>
+          <EvilIcons
+            style={styles.close}
+            name="close"
+            onPress={() => this.handleOnModalClose()}
+          />
         </View>
         <View style={styles.inputPassword}>
           <View style={styles.inputPasswordBackground}>
-            {
-              passwordLength.map((val, key) => <View style={styles.inputPasswordBackgroundItem} key={key} />)
-            }
+            {passwordLength.map((val, key) => (
+              <View style={styles.inputPasswordBackgroundItem} key={key} />
+            ))}
           </View>
           <View style={styles.inputPasswordDot}>
-            {
-              password.split('').map((val, key) => <FontAwesome style={styles.inputPasswordDotItem} name={'circle'} key={key} />)
-            }
+            {password.split('').map((val, key) => (
+              <FontAwesome
+                style={styles.inputPasswordDotItem}
+                name="circle"
+                key={key}
+              />
+            ))}
           </View>
         </View>
-        <Text style={styles.forget}>forgot password?</Text>
+        <Text
+          style={styles.forget}
+          onPress={() => {
+            this.handleOnModalClose();
+            navigate(SCREENS.ForgotPasswordOne);
+          }}
+        >
+          {`${i18n.forgetPassword}?`}
+        </Text>
         <View style={styles.keyboard}>
-          {
-            keyboardItems.map((val, key) =>
-              <BYTouchable
-                key={key}
-                onPress={() => this.handleOnPressNumber(key + 1)}
-              >
-                <Text style={styles.keyboardItem}>{key + 1}</Text>
-              </BYTouchable>
-            )
-          }
+          {keyboardItems.map((val, key) => (
+            <BYTouchable
+              key={key}
+              onPress={() => this.handleOnPressNumber(key + 1)}
+            >
+              <Text style={styles.keyboardItem}>{key + 1}</Text>
+            </BYTouchable>
+          ))}
           <Text style={[styles.keyboardItem, styles.keyboardItemEmpty]} />
-          <BYTouchable
-            onPress={() => this.handleOnPressNumber(0)}><Text style={styles.keyboardItem}>0</Text></BYTouchable>
-          <BYTouchable
-            onPress={() => this.handleOnPressBackspace()}><Ionicons style={styles.keyboardItemBackspace} name={'ios-backspace-outline'} /></BYTouchable>
+          <BYTouchable onPress={() => this.handleOnPressNumber(0)}>
+            <Text style={styles.keyboardItem}>0</Text>
+          </BYTouchable>
+          <BYTouchable onPress={() => this.handleOnPressBackspace()}>
+            <Ionicons
+              style={styles.keyboardItemBackspace}
+              name="ios-backspace-outline"
+            />
+          </BYTouchable>
         </View>
       </View>
     );
   }
 
   render() {
-    const {
-      visible,
-      onRequestClose,
-    } = this.props;
-
     return (
-      <Modal 
-        transparent
+      <Modal
         animationType="fade"
-        visible={visible}
-        onRequestClose={onRequestClose}
+        transparent
+        visible
+        onRequestClose={this.handleOnModalClose}
       >
-        <Text
-          style={styles.mask} 
-          onPress={onRequestClose}
-        ></Text>
-        {this.renderEnterPassword()}
+        <View style={{ flex: 1 }}>
+          <Text style={styles.mask} onPress={this.handleOnModalClose} />
+          {this.renderContent()}
+        </View>
       </Modal>
     );
   }
 }
 
-export default EnterPassword;
+// export default EnterPassword;
+
+export default connectLocalization(
+  connect(
+    () => state => {
+      const {
+        modal: { modalProps = {} },
+        // billByYear,
+      } = state;
+      return {
+        modalProps,
+      };
+    },
+    {
+      ...modalActionCreators,
+    },
+  )(EnterPasswordModal),
+);

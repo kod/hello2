@@ -5,19 +5,15 @@ import {
   View,
   ScrollView,
   Alert,
-  // Alert,
+  DeviceEventEmitter,
 } from 'react-native';
 import { connect } from 'react-redux';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-// import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import { NavigationActions } from 'react-navigation';
 
 import ProductItem2 from '../components/ProductItem2';
 import NavBar2 from '../components/NavBar2';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-// import BYTouchable from '../components/BYTouchable';
-// import BYModal from '../components/BYModal';
-import EnterPassword from '../components/EnterPassword';
 import Address from '../components/Address';
 import Loader from '../components/Loader';
 import SeparateBar from '../components/SeparateBar';
@@ -25,14 +21,15 @@ import SeparateBar from '../components/SeparateBar';
 import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import {
   WINDOW_WIDTH,
-  // WINDOW_HEIGHT,
   SIDEINTERVAL,
-  // APPBAR_HEIGHT,
   MODAL_TYPES,
   SCREENS,
 } from '../common/constants';
 
 import { getAddressSelectedItem } from '../common/selectors';
+
+import { tradeStatusCodes, submitDuplicateFreeze } from '../common/helpers';
+import priceFormat from '../common/helpers/priceFormat';
 
 import * as addressActionCreators from '../common/actions/address';
 import * as authActionCreators from '../common/actions/auth';
@@ -43,9 +40,6 @@ import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
 import * as orderCancelActionCreators from '../common/actions/orderCancel';
 import * as modalActionCreators from '../common/actions/modal';
-
-import { tradeStatusCodes } from '../common/helpers';
-import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({
   container: {
@@ -111,8 +105,7 @@ class OrderWrite extends Component {
 
     const { i18n } = this.props;
     this.state = {
-      // isOpenBottomSheet: false,
-      isOpenEnterPassword: false,
+      submitfreeze: false,
       payWayButtons: [i18n.funCard, i18n.internetBanking],
       payWayIndex: 0,
       paypassword: '',
@@ -124,15 +117,48 @@ class OrderWrite extends Component {
   componentDidMount() {
     const {
       // isAuthUser,
+      i18n,
       addressFetch,
       orderNo,
       tradeNo,
       queryOrderFetch,
       cardQueryFetch,
       getUserInfoByIdFetch,
-      // navigation: { navigate },
+      navigation,
+      // navigation: { pop },
     } = this.props;
     // if (!isAuthUser) return navigate(SCREENS.Login);
+
+    this.screenListener = DeviceEventEmitter.addListener(SCREENS.Pay, () => {
+      cardQueryFetch();
+      queryOrderFetch({
+        orderNo,
+        tradeNo,
+      });
+      Alert.alert('', i18n.successfulCopy, [
+        // { text: i18n.cancel },
+        {
+          text: i18n.confirm,
+          onPress: () => {
+            navigation.dispatch(
+              NavigationActions.reset({
+                index: 1,
+                actions: [
+                  NavigationActions.navigate({ routeName: SCREENS.Index }),
+                  NavigationActions.navigate({
+                    routeName: SCREENS.Pay,
+                    params: {
+                      orderNo,
+                      tradeNo,
+                    },
+                  }),
+                ],
+              }),
+            );
+          },
+        },
+      ]);
+    });
 
     addressFetch();
     getUserInfoByIdFetch();
@@ -147,6 +173,23 @@ class OrderWrite extends Component {
     // navigate(SCREENS.TransactionPasswordStepOne);
     // this.handleOnPressToggleBottomSheet();
     // }, 300);
+  }
+
+  componentWillUnmount() {
+    this.screenListener.remove();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { loading: prevLoading } = this.props;
+    const { loading, openModal, closeModal } = nextProps;
+
+    if (prevLoading !== loading) {
+      if (loading === false) {
+        closeModal();
+      } else {
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
   }
 
   actionSheetCallback(ret) {
@@ -180,6 +223,7 @@ class OrderWrite extends Component {
 
   handleOnPressSubmit = () => {
     const {
+      submitfreeze,
       payWayIndex,
       paypassword,
       // paypassword,
@@ -208,44 +252,53 @@ class OrderWrite extends Component {
 
     const creditCard = () => {
       let paywayNow = 1;
+      // 判断额度是否充足，来选择支付方式
       if (cardQuery.item.availableBalance) {
         paywayNow = cardQuery.item.availableBalance < advance ? 5 : 1;
       }
 
       const alreadyPaypassword = () => {
-        const { payWayButtons } = this.state;
+        // const { payWayButtons } = this.state;
         const { openModal } = this.props;
         if (paypassword.length === 0) {
-          openModal(MODAL_TYPES.ACTIONSHEET, {
-            callback: ret => this.actionSheetCallback(ret),
-            buttons: payWayButtons,
+          openModal(MODAL_TYPES.ENTERPASSWORD, {
+            callback: ret => this.enterPasswordCallback(ret),
+            navigate,
           });
           return true;
-          // return this.handleOnPressToggleModal('isOpenEnterPassword');
         }
         if (paywayNow === 5) {
+          // 提示额度不足
           Alert.alert('', i18n.amountNotEnoughWillPaidOnlineBanking, [
             { text: i18n.cancel },
             {
               text: i18n.confirm,
               onPress: () => {
-                orderPayFetch({
-                  orderno: orderNo,
-                  tradeno: tradeNo,
-                  payway: paywayNow,
-                  paypassword,
-                  payvalue: advance - cardQuery.item.availableBalance,
-                });
+                submitDuplicateFreeze(submitfreeze, this, () =>
+                  orderPayFetch({
+                    orderno: orderNo,
+                    tradeno: tradeNo,
+                    payway: paywayNow,
+                    paypassword,
+                    payvalue: advance - cardQuery.item.availableBalance,
+                    screen: SCREENS.Pay,
+                  }),
+                );
+                this.setState({ paypassword: '' });
               },
             },
           ]);
         } else {
-          orderPayFetch({
-            orderno: orderNo,
-            tradeno: tradeNo,
-            payway: paywayNow,
-            paypassword,
-          });
+          submitDuplicateFreeze(submitfreeze, this, () =>
+            orderPayFetch({
+              orderno: orderNo,
+              tradeno: tradeNo,
+              payway: paywayNow,
+              paypassword,
+              screen: SCREENS.Pay,
+            }),
+          );
+          this.setState({ paypassword: '' });
         }
         return false;
       };
@@ -282,6 +335,7 @@ class OrderWrite extends Component {
         orderno: orderNo,
         tradeno: tradeNo,
         payway,
+        screen: SCREENS.Pay,
       });
     };
 
@@ -386,10 +440,12 @@ class OrderWrite extends Component {
       i18n,
       queryOrderItem: {
         tradeStatus,
-        advance,
+        advance = 0,
         // advance,
       },
     } = this.props;
+    console.log(this.props);
+    console.log(advance);
 
     return (
       <View style={stylesX.nav}>
@@ -418,12 +474,7 @@ class OrderWrite extends Component {
   }
 
   renderContent() {
-    const {
-      // isOpenBottomSheet,
-      // isOpenEnterPassword,
-      payWayButtons,
-      payWayIndex,
-    } = this.state;
+    const { payWayButtons, payWayIndex } = this.state;
 
     const {
       // navigation: { navigate },
@@ -504,48 +555,10 @@ class OrderWrite extends Component {
   }
 
   render() {
-    const {
-      // isOpenBottomSheet,
-      isOpenEnterPassword,
-      // payWayButtons,
-      // payWayIndex,
-    } = this.state;
-
-    // const {
-    //   navigation: { navigate },
-    //   i18n,
-    //   addressItems,
-    //   queryOrderItem: {
-    //     goodsDetail,
-    //     address,
-    //     couponValue,
-    //     username,
-    //     msisdn,
-    //     division1stName,
-    //     division2ndName,
-    //     division3rdName,
-    //     division4thName,
-    //     tradeStatus,
-    //   },
-    // } = this.props;
-
     return (
       <View style={styles.container}>
         <BYHeader />
         {this.renderContent()}
-        {/* <BYModal
-          visible={isOpenBottomSheet}
-          onRequestClose={() => this.handleOnPressToggleModal('isOpenBottomSheet')}
-        >
-          {this.renderBottomSheet()}
-        </BYModal> */}
-        <EnterPassword
-          visible={isOpenEnterPassword}
-          onRequestClose={() =>
-            this.handleOnPressToggleModal('isOpenEnterPassword')
-          }
-          callback={this.enterPasswordCallback}
-        />
       </View>
     );
   }
@@ -561,7 +574,7 @@ export default connectLocalization(
           queryOrder,
           getUserInfoById,
           cardQuery,
-          // cardQuery,
+          orderPay,
         } = state;
 
         const {
@@ -576,12 +589,8 @@ export default connectLocalization(
           },
         } = props;
 
-        // const {
-        //   orderNo,
-        //   tradeNo,
-        // } = props.navigation.state.params;
-
         return {
+          loading: orderPay.loading,
           addressSelectedItem: getAddressSelectedItem(state, props),
           addressItems: address.items,
           isAuthUser: !!state.login.user,

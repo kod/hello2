@@ -1,12 +1,16 @@
-import { Platform } from 'react-native';
-import { takeEvery, apply, put, select, Alert } from 'redux-saga/effects';
+import {
+  Platform,
+  // Alert,
+  DeviceEventEmitter,
+} from 'react-native';
+import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
 import { SCREENS } from '../constants';
 import {
   orderPayFetchSuccess,
   orderPayFetchFailure,
 } from '../actions/orderPay';
-import { cardQueryFetch } from '../actions/cardQuery';
+// import { cardQueryFetch } from '../actions/cardQuery';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { ORDER_PAY } from '../constants/actionTypes';
@@ -25,6 +29,7 @@ export function* orderPayFetchWatchHandle(action) {
       payway,
       paypassword = '',
       payvalue = 0,
+      screen = '',
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
@@ -92,12 +97,21 @@ export function* orderPayFetchWatchHandle(action) {
 
     if (response.code !== 10000) {
       yield put(orderPayFetchFailure());
-      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
+      switch (response.code) {
+        case 60051:
+          yield put(addError(i18n.cardPasswordError));
+          break;
+
+        default:
+          yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
+          break;
+      }
     } else {
       yield put(
         orderPayFetchSuccess({
           ret: response,
           BYtype,
+          screen,
         }),
       );
     }
@@ -114,33 +128,29 @@ export function* orderPayFetchWatch() {
 
 export function* orderPaySuccessWatchHandle(action) {
   try {
-    const { BYtype } = action.payload;
-    // yield NavigatorService.navigate(SCREENS.Pay, {
-    //   tradeNo,
-    //   orderNo,
-    // });
+    const { screen } = action.payload;
+    yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [screen]);
+    // switch (screen) {
+    //   case 'billPay':
+    //     // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
+    //     //   SCREENS.Bill,
+    //     //   ret,
+    //     // ]);
+    //     break;
 
-    switch (BYtype) {
-      case 'billPay':
-        // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
-        //   SCREENS.Bill,
-        //   ret,
-        // ]);
-        break;
-
-      default:
-        yield put(cardQueryFetch());
-        Alert.alert('', i18n.successfulCopy, [
-          // { text: i18n.cancel },
-          {
-            text: i18n.confirm,
-            onPress: () => {
-              NavigatorService.pop(3);
-            },
-          },
-        ]);
-        break;
-    }
+    //   default:
+    //     yield put(cardQueryFetch());
+    //     Alert.alert('', i18n.successfulCopy, [
+    //       // { text: i18n.cancel },
+    //       {
+    //         text: i18n.confirm,
+    //         onPress: () => {
+    //           NavigatorService.pop(3);
+    //         },
+    //       },
+    //     ]);
+    //     break;
+    // }
   } catch (err) {
     console.warn(err);
   }
