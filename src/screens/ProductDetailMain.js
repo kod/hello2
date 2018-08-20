@@ -10,7 +10,7 @@ import {
   WebView,
 } from 'react-native';
 import { connect } from 'react-redux';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { connectLocalization } from '../components/Localization';
 
@@ -18,7 +18,7 @@ import CustomIcon from '../components/CustomIcon';
 // import HeaderShareButton from '../components/HeaderShareButton';
 // import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
-import BYTouchable from '../components/BYTouchable';
+// import BYTouchable from '../components/BYTouchable';
 import BYCacheImage from '../components/BYCacheImage';
 import Comment from '../components/Comment';
 import priceFormat from '../common/helpers/priceFormat';
@@ -38,10 +38,10 @@ import {
   MODAL_TYPES,
 } from '../common/constants';
 
-import { makegetIsCollection } from '../common/selectors';
+// import { getIsCollection } from '../common/selectors';
 
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
-import * as collectionActionCreators from '../common/actions/collection';
+// import * as collectionActionCreators from '../common/actions/collection';
 import * as commentActionCreators from '../common/actions/comment';
 import * as modalActionCreators from '../common/actions/modal';
 
@@ -176,17 +176,17 @@ class ProductDetail extends Component {
   componentDidMount() {
     const {
       commentFetch,
-      collectionFetch,
+      // collectionFetch,
       productDetailInfoFetch,
       productDetailInfoClear,
       propertiesIds,
       brandId,
-      isAuthUser,
+      // isAuthUser,
     } = this.props;
 
-    if (isAuthUser) {
-      collectionFetch();
-    }
+    // if (isAuthUser) {
+    //   collectionFetch();
+    // }
 
     productDetailInfoClear(brandId);
     productDetailInfoFetch(brandId, propertiesIds);
@@ -205,22 +205,22 @@ class ProductDetail extends Component {
     productDetailOpacityFetch(opacity);
   };
 
-  handleToggleCollection() {
-    const {
-      collectionAddFetch,
-      collectionRemoveFetch,
-      isCollection,
-      isAuthUser,
-      // navigation,
-      brandId,
-      screenProps: { mainNavigation },
-    } = this.props;
-    const { navigate } = mainNavigation;
-    if (!isAuthUser) return navigate(SCREENS.Login);
-    return isCollection
-      ? collectionRemoveFetch(brandId.toString())
-      : collectionAddFetch(brandId.toString());
-  }
+  // handleToggleCollection() {
+  //   const {
+  //     collectionAddFetch,
+  //     collectionRemoveFetch,
+  //     isCollection,
+  //     isAuthUser,
+  //     // navigation,
+  //     brandId,
+  //     screenProps: { mainNavigation },
+  //   } = this.props;
+  //   const { navigate } = mainNavigation;
+  //   if (!isAuthUser) return navigate(SCREENS.Login);
+  //   return isCollection
+  //     ? collectionRemoveFetch(brandId.toString())
+  //     : collectionAddFetch(brandId.toString());
+  // }
 
   renderItem = ({ item }) => (
     <BYCacheImage
@@ -235,7 +235,7 @@ class ProductDetail extends Component {
     const {
       name,
       comment,
-      isCollection,
+      // isCollection,
       brandId,
       i18n,
       price,
@@ -285,7 +285,7 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <ScrollView onScroll={this.handleOnScroll}>
-          <BYTouchable
+          {/* <BYTouchable
             style={styles.favorite}
             backgroundColor="transparent"
             onPress={() => this.handleToggleCollection()}
@@ -301,7 +301,7 @@ class ProductDetail extends Component {
                 style={styles.favoriteIcon}
               />
             )}
-          </BYTouchable>
+          </BYTouchable> */}
           <View style={styles.statusbarPlaceholder} />
           {imageUrls &&
             imageUrls.length > 0 && (
@@ -399,7 +399,7 @@ class ProductDetail extends Component {
 export default connectLocalization(
   connect(
     () => {
-      const getIsCollection = makegetIsCollection();
+      console.log();
       return (state, props) => {
         const {
           productDetailInfo,
@@ -420,14 +420,14 @@ export default connectLocalization(
           brandId,
           propertiesIds,
           comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
-          isCollection: getIsCollection(state, props),
+          // isCollection: getIsCollection(state, props),
           isAuthUser: !!state.login.user,
         };
       };
     },
     {
       ...commentActionCreators,
-      ...collectionActionCreators,
+      // ...collectionActionCreators,
       ...productDetailInfoActionCreators,
       ...modalActionCreators,
     },

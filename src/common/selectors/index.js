@@ -7,7 +7,7 @@ import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 import Schemas from '../constants/schemas';
 
-const defaultArray = [];
+// const defaultArray = [];
 const defaultObject = {};
 // const defaultString = '';
 
@@ -154,17 +154,16 @@ export const makegetProductDetailColorVersionList = () => {
   });
 };
 
-export const makegetIsCollection = () =>
-  createSelector(
-    [getProductDetailInfoItem, getCollectionItems],
-    (productDetailInfoItem, collectionItems) => {
-      if (!productDetailInfoItem.brandId || !collectionItems.details)
-        return false;
-      return collectionItems.details.some(
-        val => val.brandId === productDetailInfoItem.brandId,
-      );
-    },
-  );
+export const getIsCollection = createSelector(
+  [getProductDetailInfoItem, getCollectionItems],
+  (productDetailInfoItem, collectionItems) => {
+    if (!productDetailInfoItem.brandId || !collectionItems.details)
+      return false;
+    return collectionItems.details.some(
+      val => val.brandId === productDetailInfoItem.brandId,
+    );
+  },
+);
 
 export const makegetSchoolName = () =>
   createSelector(

@@ -15,6 +15,8 @@ import {
 import { connect } from 'react-redux';
 // import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {
   BORDER_COLOR,
@@ -29,13 +31,16 @@ import {
   // STATUSBAR_HEIGHT,
 } from '../common/constants';
 
+import { getIsCollection } from '../common/selectors';
+
 import * as productDetailActionCreators from '../common/actions/productDetail';
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
 import * as cartActionCreators from '../common/actions/cart';
+import * as collectionActionCreators from '../common/actions/collection';
 
 // import BYBottomSheet from '../components/BYBottomSheet';
 // import BYTextInput from '../components/BYTextInput';
-// import BYTouchable from '../components/BYTouchable';
+import BYTouchable from '../components/BYTouchable';
 import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
 import ProductDetailTabNavigator from '../navigations/ProductDetailTabNavigator';
@@ -55,17 +60,50 @@ const styles = StyleSheet.create({
     borderTopColor: BORDER_COLOR,
     borderTopWidth: 1,
   },
-  operateLeft: {
-    flex: 1,
-    height: 49,
-    lineHeight: 49,
-    textAlign: 'center',
-    fontSize: 14,
-    color: '#666',
+  operateIcon: {
+    width: (WINDOW_WIDTH * 9) / 24,
+    // flex: 9,
     backgroundColor: '#fff',
+    flexDirection: 'row',
+  },
+  operateIconItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // textAlign: 'center',
+  },
+  operateIconItemIcon: {
+    fontSize: 16,
+  },
+  operateIconItemActive: {
+    color: PRIMARY_COLOR,
+  },
+  favoriteItem: {
+    fontSize: 18,
+  },
+  favoriteIconActive: {
+    color: PRIMARY_COLOR,
+  },
+  operateIconItemText: {
+    fontSize: 10,
+  },
+  operateLeft: {
+    width: (WINDOW_WIDTH * 5) / 24,
+    // flex: 5,
+    height: 49,
+    lineHeight: 10 * 1.618,
+    textAlign: 'center',
+    fontSize: 10,
+    paddingTop: 5,
+    paddingLeft: SIDEINTERVAL,
+    paddingRight: SIDEINTERVAL,
+    color: '#fff',
+    backgroundColor: '#81bbf9',
+    flexWrap: 'wrap',
   },
   operateRight: {
-    flex: 1,
+    width: (WINDOW_WIDTH * 10) / 24,
+    // flex: 10,
     height: 49,
     lineHeight: 49,
     textAlign: 'center',
@@ -245,17 +283,19 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
-    // const {
-    //   brandId,
-    // } = this.props;
+    const {
+      isAuthUser,
+      collectionFetch,
+      // isAuthUser,
+    } = this.props;
 
     InteractionManager.runAfterInteractions(() => {
       this.setState({ mounting: false });
     });
 
-    // setTimeout(() => {
-    //   this.handleOnPressToggleMenuBottomSheet('share');
-    // }, 300);
+    if (isAuthUser) {
+      collectionFetch();
+    }
   }
 
   handleOnPressToggleMenuBottomSheet = type => {
@@ -307,80 +347,6 @@ class ProductDetail extends Component {
     return cartAddRequest(JSON.stringify(param));
   };
 
-  // 是否有改组合商品
-  // productPartner(propertiesIdsObject) {
-  //   const { productDetail } = this.props;
-  //   return productDetail.filter(val =>
-  //     Object.values(propertiesIdsObject).every(
-  //       val1 => val.propertiesIds.indexOf(val1.toString()) !== -1,
-  //     ),
-  //   )[0];
-  // }
-
-  // handleOnPressselectVersion(id, name) {
-  //   const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
-  //   const object = {
-  //     colorId: propertiesIdsObject.colorId,
-  //     colorName: propertiesIdsObject.colorName,
-  //     versionId: id,
-  //     versionName: name,
-  //   };
-  //   const productDetail = this.productPartner({
-  //     colorId: object.colorId,
-  //     versionId: object.versionId,
-  //   });
-  //   if (productDetail) {
-  //     productDetailSelect(object, productDetail);
-  //   } else {
-  //     Alert.alert(
-  //       '',
-  //       i18n.soldOut,
-  //       [
-  //         {
-  //           text: i18n.confirm,
-  //           onPress: () => {},
-  //         },
-  //       ],
-  //       // { cancelable: false },
-  //     );
-  //   }
-  // }
-
-  // handleOnPressselectColor(id, name) {
-  //   const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
-  //   const object = {
-  //     colorId: id,
-  //     colorName: name,
-  //     versionId: propertiesIdsObject.versionId,
-  //     versionName: propertiesIdsObject.versionName,
-  //   };
-  //   const productDetail = this.productPartner({
-  //     colorId: object.colorId,
-  //     versionId: object.versionId,
-  //   });
-  //   if (productDetail) {
-  //     productDetailSelect(object, productDetail);
-  //   } else {
-  //     Alert.alert(
-  //       '',
-  //       i18n.soldOut,
-  //       [
-  //         {
-  //           text: i18n.confirm,
-  //           onPress: () => {},
-  //         },
-  //       ],
-  //       // { cancelable: false },
-  //     );
-  //   }
-  // }
-
-  // handleOnPresschangeNumber(number) {
-  //   const { productDetailNumberFetch, numbers } = this.props;
-  //   if (number < 1 || number > numbers) return false;
-  //   return productDetailNumberFetch(number);
-  // }
-
   handleOnPressBuy() {
     const {
       groupon,
@@ -394,13 +360,24 @@ class ProductDetail extends Component {
     });
   }
 
+  handleToggleCollection() {
+    const {
+      collectionAddFetch,
+      collectionRemoveFetch,
+      isCollection,
+      isAuthUser,
+      brandId,
+      navigation: { navigate },
+    } = this.props;
+    if (!isAuthUser) return navigate(SCREENS.Login);
+    return isCollection
+      ? collectionRemoveFetch(brandId.toString())
+      : collectionAddFetch(brandId.toString());
+  }
+
   renderMainContent() {
     const { mounting } = this.state;
     const {
-      // id,
-      // orgPrice,
-      // name,
-      // productDetailNumber,
       i18n,
       screenProps,
       productDetailOpacity,
@@ -414,21 +391,12 @@ class ProductDetail extends Component {
       brandId,
       navigation,
       groupon,
-      // masterItems,
       isMaster,
-      // isAuthUser,
-      // navigation: { navigate },
+      isCollection,
     } = this.props;
     if (mounting) {
       return <Loader />;
     }
-
-    // let operateGroupRightText = '';
-    // if (isAuthUser) {
-    //   operateGroupRightText = '';
-    // } else {
-    //   operateGroupRightText = 'Start Group buying';
-    // }
 
     return (
       <View style={styles.container}>
@@ -486,6 +454,60 @@ class ProductDetail extends Component {
           </View>
         ) : (
           <View style={styles.operate}>
+            <View style={styles.operateIcon}>
+              <BYTouchable style={styles.operateIconItem}>
+                <SimpleLineIcons
+                  style={[
+                    styles.operateIconItemIcon,
+                    styles.operateIconItemActive,
+                  ]}
+                  name="share"
+                />
+                <Text
+                  style={[
+                    styles.operateIconItemText,
+                    styles.operateIconItemActive,
+                  ]}
+                >
+                  {i18n.share}
+                </Text>
+              </BYTouchable>
+              <BYTouchable
+                style={styles.operateIconItem}
+                onPress={() => this.handleToggleCollection()}
+              >
+                {isCollection ? (
+                  <MaterialIcons
+                    name="favorite"
+                    style={[styles.favoriteItem, styles.operateIconItemActive]}
+                  />
+                ) : (
+                  <MaterialIcons
+                    name="favorite-border"
+                    style={styles.favoriteItem}
+                  />
+                )}
+                {/* <MaterialIcons
+                  style={[styles.operateIconItemIcon, { fontSize: 17 }]}
+                  name="favorite-border"
+                /> */}
+                <Text
+                  style={[
+                    styles.operateIconItemText,
+                    isCollection && styles.operateIconItemActive,
+                  ]}
+                >
+                  {i18n.collect}
+                </Text>
+              </BYTouchable>
+              <BYTouchable style={styles.operateIconItem}>
+                <MaterialIcons
+                  style={styles.operateIconItemIcon}
+                  name="chat-bubble-outline"
+                />
+                <Text style={styles.operateIconItemText}>{i18n.service}</Text>
+              </BYTouchable>
+            </View>
             <Text
               style={styles.operateLeft}
               onPress={() => this.handleOnPressAddCart()}
@@ -552,11 +574,7 @@ class ProductDetail extends Component {
   render() {
     // const { isOpenMenuBottomSheet, menuBottomSheetType } = this.state;
 
-    return (
-      <View style={styles.container}>
-        {this.renderMainContent()}
-      </View>
-    );
+    return <View style={styles.container}>{this.renderMainContent()}</View>;
   }
 }
 
@@ -598,12 +616,14 @@ export default connectLocalization(
         propertiesIds: propertiesIdsUsed,
         masterItems: mergeGetMaster.items,
         isAuthUser: !!state.login.user,
+        isCollection: getIsCollection(state, props),
       };
     },
     {
       ...productDetailActionCreators,
       ...productDetailInfoActionCreators,
       ...cartActionCreators,
+      ...collectionActionCreators,
     },
   )(ProductDetail),
 );
