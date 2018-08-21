@@ -239,5 +239,7 @@
   "waitingForDelivery": "Chờ giao hàng",
   "view": "Xem lại",
   "evaluation": "Đánh giá",
+  "received": "Đã nhận",
+  "haveFinished": "Đã hoàn thành",
   "warehouse": "kho"
 }

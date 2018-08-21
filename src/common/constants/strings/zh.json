@@ -239,5 +239,7 @@
   "waitingForDelivery": "待发货",
   "view": "查看",
   "evaluation": "评论",
+  "received": "已领取",
+  "haveFinished": "已领完",
   "warehouse": "仓库"
 }

@@ -239,5 +239,7 @@
   "waitingForDelivery": "Waiting for delivery",
   "view": "View",
   "evaluation": "Evaluation",
+  "received": "Received",
+  "haveFinished": "Have finished",
   "warehouse": "Warehouse"
 }
