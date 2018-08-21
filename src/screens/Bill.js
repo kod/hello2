@@ -603,7 +603,9 @@ class Bill extends Component {
               </Text>
               <View style={stylesX.topTwoTextWrap}>
                 <Text style={stylesX.topTwoTextOne}>
-                  {`Has also ${priceFormat(billMonthItem.waitingAmount)} ₫`}
+                  {`${i18n.hasAlso} ${priceFormat(
+                    billMonthItem.waitingAmount,
+                  )} ₫`}
                 </Text>
                 <Text
                   style={stylesX.topTwoTextTwo}

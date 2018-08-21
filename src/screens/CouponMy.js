@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
-import { SCREENS, WINDOW_WIDTH } from '../common/constants';
+import { SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import CouponItem from '../components/CouponItem';
+// import CouponItem from '../components/CouponItem';
 import BYTouchable from '../components/BYTouchable';
 
-import CouponMyTabNavigator from "../navigations/CouponMyTabNavigator";
+import CouponMyTabNavigator from '../navigations/CouponMyTabNavigator';
 
-import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { SIDEINTERVAL } from '../common/constants';
+// import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 
 import * as getVoucherActionCreators from '../common/actions/getVoucher';
 import * as receiveVoucherActionCreators from '../common/actions/receiveVoucher';
 import * as getVoucherListActionCreators from '../common/actions/getVoucherList';
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-})
+});
 
 class Coupon extends Component {
   constructor(props) {
@@ -34,9 +32,7 @@ class Coupon extends Component {
   }
 
   componentDidMount() {
-    const {
-      getVoucherListFetch,
-    } = this.props;
+    const { getVoucherListFetch } = this.props;
     getVoucherListFetch({
       status: 0,
     });
@@ -46,7 +42,6 @@ class Coupon extends Component {
     getVoucherListFetch({
       status: 2,
     });
-
   }
 
   handlerOnPress(val) {
@@ -59,25 +54,23 @@ class Coupon extends Component {
     if (!isAuthUser) return navigate(SCREENS.Login);
 
     if (val.status !== 1) {
-      const title = val.status === 0 ? '已领取' : '已领完';
-      Alert.alert(
-        '',
-        title,
-        [{ 
-            text: i18n.confirm, 
-            onPress: () => {}
-        }]
-      )
+      const title = val.status === 0 ? i18n.received : i18n.haveFinished;
+      Alert.alert('', title, [
+        {
+          text: i18n.confirm,
+          onPress: () => {},
+        },
+      ]);
       return false;
     }
 
-    receiveVoucherFetch({
-      voucherid: val.id
+    return receiveVoucherFetch({
+      voucherid: val.id,
     });
   }
-  
+
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
         alignItems: 'center',
@@ -91,21 +84,21 @@ class Coupon extends Component {
         marginRight: 5,
       },
     });
+
+    const { i18n } = this.props;
+
     return (
-      <BYTouchable 
-        style={styles.container}
-        backgroundColor="transparent"
-      >
-        <Text style={styles.title}>my coupon</Text>
+      <BYTouchable style={stylesX.container} backgroundColor="transparent">
+        <Text style={stylesX.title}>{i18n.myCoupon}</Text>
       </BYTouchable>
-    )
-  }
+    );
+  };
 
   render() {
     const {
-      items,
+      // items,
       navigation,
-      i18n,
+      // i18n,
       couponMyPast,
       couponMyUnused,
       couponMyUsed,
@@ -113,15 +106,13 @@ class Coupon extends Component {
 
     return (
       <View style={styles.container}>
-        <BYHeader  
-          headerTitle={this.renderHeaderTitle()}
-        />
-        <CouponMyTabNavigator  
+        <BYHeader headerTitle={this.renderHeaderTitle()} />
+        <CouponMyTabNavigator
           screenProps={{
             mainNavigation: navigation,
             couponMyPast,
             couponMyUnused,
-            couponMyUsed,      
+            couponMyUsed,
           }}
         />
       </View>
@@ -129,12 +120,13 @@ class Coupon extends Component {
   }
 }
 
-export default connectLocalization(connect(
-  () => {
-    return (state, props) => {
+export default connectLocalization(
+  connect(
+    () => state => {
       const {
         getVoucher,
         getVoucherList,
+        // getVoucherList,
       } = state;
 
       // const {
@@ -147,12 +139,12 @@ export default connectLocalization(connect(
         couponMyUsed: getVoucherList.CouponMyUsed.length,
         items: getVoucher.items,
         isAuthUser: !!state.login.user,
-      }
-    }
-  },
-  {
-    ...getVoucherActionCreators,
-    ...receiveVoucherActionCreators,
-    ...getVoucherListActionCreators,
-  }
-)(Coupon));
+      };
+    },
+    {
+      ...getVoucherActionCreators,
+      ...receiveVoucherActionCreators,
+      ...getVoucherListActionCreators,
+    },
+  )(Coupon),
+);

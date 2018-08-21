@@ -7,11 +7,13 @@ const initState = {
   recharge: [],
   phoneCard: {
     items: [],
-    payWayButtons: [{text: '网银', payway: 2}],
+    supCreditCard: null,
+    // payWayButtons: [{text: '网银', payway: 2}],
   },
   scratchCards: {
     items: [],
-    payWayButtons: [{text: '网银', payway: 2}],
+    supCreditCard: null,
+    // payWayButtons: [{text: '网银', payway: 2}],
   },
 };
 
@@ -19,7 +21,7 @@ export default function getProvidersValue(state = initState, action) {
   switch (action.type) {
     case GET_PROVIDERS_VALUE.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case GET_PROVIDERS_VALUE.REQUEST:
       return {
@@ -34,7 +36,8 @@ export default function getProvidersValue(state = initState, action) {
         [action.payload.providerName]: {
           providerCode: action.payload.providerCode,
           items: action.payload.items,
-          payWayButtons: action.payload.supCreditCard === 0 ? [{text: '网银', payway: 2}] : [{text: '信用卡', payway: 1}, {text: '网银', payway: 2}],
+          supCreditCard: action.payload.supCreditCard,
+          // payWayButtons: action.payload.supCreditCard === 0 ? [{text: '网银', payway: 2}] : [{text: '信用卡', payway: 1}, {text: '网银', payway: 2}],
         },
       };
     case GET_PROVIDERS_VALUE.FAILURE:

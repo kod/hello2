@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Alert, } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { SCREENS, WINDOW_WIDTH } from '../common/constants';
+import { SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
@@ -11,18 +11,19 @@ import BYTouchable from '../components/BYTouchable';
 import EmptyState from '../components/EmptyState';
 import Loader from '../components/Loader';
 
-import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { SIDEINTERVAL } from '../common/constants';
+// import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 
 import * as judgeVoucherActionCreators from '../common/actions/judgeVoucher';
 import * as couponSelectActionCreators from '../common/actions/couponSelect';
+
+const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-})
+});
 
 class CouponSelect extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class CouponSelect extends Component {
     const {
       judgeVoucherFetch,
       products,
+      // products,
     } = this.props;
     judgeVoucherFetch({
       products,
@@ -49,12 +51,12 @@ class CouponSelect extends Component {
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
     if (val.status === 0) return false;
-    couponSelectFetch(val)
-    goBack();
+    couponSelectFetch(val);
+    return goBack();
   }
-  
+
   renderHeaderTitle = () => {
-    const styles = StyleSheet.create({
+    const stylesX = StyleSheet.create({
       container: {
         flex: 1,
         alignItems: 'center',
@@ -68,79 +70,82 @@ class CouponSelect extends Component {
         marginRight: 5,
       },
     });
+
+    const { i18n } = this.props;
+
     return (
-      <BYTouchable 
-        style={styles.container}
-        backgroundColor="transparent"
-      >
-        <Text style={styles.title}>Choose a coupon</Text>
+      <BYTouchable style={stylesX.container} backgroundColor="transparent">
+        <Text style={stylesX.title}>{i18n.chooseCoupon}</Text>
       </BYTouchable>
-    )
-  }
+    );
+  };
 
   renderContent() {
     const {
       items,
-      navigation: { navigate },
-      i18n,
-      loading,
+      // navigation: { navigate },
+      // i18n,
+      // loading,
     } = this.props;
 
-    return (
-      <CouponItem data={items} onPress={this.handlerOnPress} />
-    )
+    return <CouponItem data={items} onPress={this.handlerOnPress} />;
   }
-  
+
   render() {
     const {
       items,
-      navigation: { navigate },
+      // navigation: { navigate },
       i18n,
       loading,
     } = this.props;
 
     if (loading) return <Loader />;
-    
+
     return (
       <View style={styles.container}>
-        <BYHeader  
-          headerTitle={this.renderHeaderTitle()}
-        />
-        {
-          items.length > 0 
-          ?
+        <BYHeader headerTitle={this.renderHeaderTitle()} />
+        {items.length > 0 ? (
           this.renderContent()
-          :
-          <EmptyState source={require('../images/ouhrigdfnjsoeijehr.jpg')} text={'暂无优惠券可领'} styleText={{ marginBottom: 0 }} />
-        }
+        ) : (
+          <EmptyState
+            source={ouhrigdfnjsoeijehrJpg}
+            text={i18n.temporarilyUnableReceiveVoucher}
+            styleText={{ marginBottom: 0 }}
+          />
+        )}
       </View>
     );
   }
 }
 
-export default connectLocalization(connect(
-  () => {
-    return (state, props) => {
+export default connectLocalization(
+  connect(
+    () => (state, props) => {
       const {
         judgeVoucher,
+        // judgeVoucher,
       } = state;
 
-      // const {
+      const {
+        navigation: {
+          state: {
+            params: { products },
+          },
+        },
+      } = props;
 
-      // } = props;
-
-      const products = props.navigation.state.params.products;
+      // const products = props.navigation.state.params.products;
 
       return {
         products,
         loading: judgeVoucher.loading,
         items: judgeVoucher.items,
         isAuthUser: !!state.login.user,
-      }
-    }
-  },
-  {
-    ...judgeVoucherActionCreators,
-    ...couponSelectActionCreators,
-  }
-)(CouponSelect));
+      };
+    },
+    {
+      ...judgeVoucherActionCreators,
+      ...couponSelectActionCreators,
+    },
+  )(CouponSelect),
+);

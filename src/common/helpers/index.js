@@ -33,7 +33,7 @@ export const tradeStatusCodes = (code = 10000, i18n) => {
     20001: '交易结束，不可退款',
     20002: '交易拒绝, 全额退款',
     20003: '交易支付超时, 订单退回',
-    30000: '等待发货',
+    30000: i18n.waitingForDelivery, // 等待发货
     30001: '已收货,未评价',
     30002: '已收货,已评价',
     30003: '等待拼单',
@@ -49,34 +49,34 @@ export const tradeStatusCodes = (code = 10000, i18n) => {
 
 export const buttonTextForTradeStatusCodes = (code = 10000, i18n) => {
   const codes = {
-    10000: i18n.payment, // Pay
-    10001: 'View',
-    10002: 'View',
-    10003: 'View',
-    10004: 'View',
-    20000: 'View',
-    20001: 'View',
-    20002: 'View',
-    20003: 'View',
-    30000: 'View',
-    30001: 'evaluation',
-    30002: 'View',
-    30003: 'View',
-    40000: 'View', // 取消交易理由
-    40001: 'View', // 取消交易理由
-    40002: 'View', // 取消交易理由
-    40003: 'View', // 取消交易理由
-    40004: 'View', // 取消交易理由
-    40005: 'View', // 取消交易理由
+    10000: i18n.payment, // '交易创建，等待买家付款'
+    10001: i18n.view, // '交易支付成功',
+    10002: i18n.view, // '交易支付失败'
+    10003: i18n.view, // '交易支付等待',
+    10004: i18n.view, // '交易成功,等待审核(新流程)',
+    20000: i18n.view, // '未付款交易超时关闭，或支付完成后全额退款',
+    20001: i18n.view, // '交易结束，不可退款',
+    20002: i18n.view, // '交易拒绝, 全额退款',
+    20003: i18n.view, // '交易支付超时, 订单退回',
+    30000: i18n.view, // i18n.waitingForDelivery, // 等待发货
+    30001: i18n.evaluation, // '已收货,未评价',
+    30002: i18n.view, // '已收货,已评价',
+    30003: i18n.view, // '等待拼单',
+    40000: i18n.view, // '交易取消(其他)', // 取消交易理由
+    40001: i18n.view, // '操作有误', // 取消交易理由
+    40002: i18n.view, // '错误下单', // 取消交易理由
+    40003: i18n.view, // '其他渠道价格更低', // 取消交易理由
+    40004: i18n.view, // '分期错误', // 取消交易理由
+    40005: i18n.view, // '不想买了', // 取消交易理由
   };
   return codes[code];
 };
 
 export const billStatusCodes = (code = 10000, i18n) => {
   const codes = {
-    10000: i18n.unsettledBills,
-    10001: '已出账',
-    10002: '已还清',
+    10000: i18n.unsettledBills, // 未出账
+    10001: i18n.billed, // 已出账
+    10002: i18n.hasPaidOff, // 已还清
     10007: i18n.overdue, // '已逾期'
   };
   return codes[code];
@@ -107,15 +107,15 @@ export const payWayToText = (payWay, i18n) => {
   payWay += '';
   switch (payWay) {
     case '1':
-      result = i18n.funCard;
+      result = i18n.funCard; // 信用卡
       break;
 
     case '2':
-      result = i18n.internetBanking; // '网银支付'
+      result = i18n.internetBanking; // 网银支付
       break;
 
     case '5':
-      result = '混合支付';
+      result = i18n.mixedPayment; // 混合支付
       break;
     default:
       break;

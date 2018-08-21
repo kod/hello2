@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 
 import CouponMyItem from '../screens/CouponMyItem';
@@ -6,31 +5,31 @@ import { SCREENS } from '../common/constants';
 
 import { PRIMARY_COLOR } from '../styles/variables';
 
-import CustomIcon from '../components/CustomIcon';
+// import CustomIcon from '../components/CustomIcon';
 
 const TabContainer = TabNavigator(
   {
     [SCREENS.CouponMyUnused]: {
       screen: CouponMyItem,
       navigationOptions: ({ screenProps: { i18n, couponMyUnused } }) => ({
-        tabBarLabel: `未使用(${couponMyUnused})`,
+        tabBarLabel: `${i18n.notUsed}(${couponMyUnused})`,
         // tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={15} color={tintColor} />
-      })
+      }),
     },
     [SCREENS.CouponMyUsed]: {
       screen: CouponMyItem,
       navigationOptions: ({ screenProps: { i18n, couponMyUsed } }) => ({
-      tabBarLabel: `已使用(${couponMyUsed})`,
+        tabBarLabel: `${i18n.used}(${couponMyUsed})`,
         // tabBarIcon: ({ tintColor }) => <CustomIcon name="classify" size={16} color={tintColor} />
-      })
+      }),
     },
     [SCREENS.CouponMyPast]: {
       screen: CouponMyItem,
       navigationOptions: ({ screenProps: { i18n, couponMyPast } }) => ({
-        tabBarLabel: `已过期(${couponMyPast})`,
+        tabBarLabel: `${i18n.expired}(${couponMyPast})`,
         // tabBarIcon: ({ tintColor }) => <CustomIcon name="card" size={14} color={tintColor} />
-      })
-    }
+      }),
+    },
   },
   {
     lazy: true,
@@ -66,8 +65,8 @@ const TabContainer = TabNavigator(
       //   padding: 0,
       //   margin: 0
       // }
-    }
-  }
+    },
+  },
 );
 
 export default TabContainer;
