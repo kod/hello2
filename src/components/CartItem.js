@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -24,9 +24,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   item: {
+    position: 'relative',
     flexDirection: 'row',
     borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 1,
+    zIndex: 100,
+  },
+  disable: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    backgroundColor: 'rgba(0,0,0,.1)',
+    zIndex: 999,
   },
   itemLeft: {
     // width: WINDOW_WIDTH * 0.25,
@@ -118,7 +129,7 @@ class CartItem extends Component {
     );
   };
 
-  renderCartItemRight = (id, quantity) => {
+  renderCartItemRight = (id, quantity, status) => {
     id = id.toString();
     quantity = quantity.toString();
     const stylesX = StyleSheet.create({
@@ -176,6 +187,10 @@ class CartItem extends Component {
         textAlign: 'center',
         fontSize: 11,
         color: '#fff',
+        display: 'none',
+      },
+      itemDisable: {
+        display: 'flex',
       },
     });
 
@@ -222,11 +237,10 @@ class CartItem extends Component {
             />
           </BYTouchable>
         </View>
-        <BYTouchable
-          style={stylesX.tips}
-          // style={stylesX.tips}
-        >
-          <Text style={stylesX.tipsText}>{i18n.productShelves}</Text>
+        <BYTouchable style={[stylesX.tips, status !== 1 || styles.itemDisable]}>
+          <Text style={[stylesX.tipsText, status !== 1 || styles.itemDisable]}>
+            {i18n.productShelves}
+          </Text>
         </BYTouchable>
       </View>
     );
@@ -261,6 +275,9 @@ class CartItem extends Component {
                 })
               }
             >
+              {products[val].status !== 1 && (
+                <TouchableOpacity style={styles.disable} activeOpacity={1} />
+              )}
               {this.renderCartItemLeft(
                 val,
                 isEdit ? products[val].selectedDel : products[val].selected,
@@ -291,7 +308,11 @@ class CartItem extends Component {
                   </Text>
                 </View>
               </View>
-              {this.renderCartItemRight(val, products[val].quantity)}
+              {this.renderCartItemRight(
+                val,
+                products[val].quantity,
+                products[val].status,
+              )}
             </BYTouchable>
           ))}
       </View>
