@@ -62,6 +62,7 @@ class Settings extends Component {
       // bannerHomeRecommend,
       navigation: { navigate },
       i18n,
+      isAuthUser,
     } = this.props;
 
     const navBar1List = [
@@ -107,12 +108,14 @@ class Settings extends Component {
             style={{ marginBottom: 30 }}
             styleItemLeft={{ flex: 3 }}
           />
-          <BYTouchable
-            style={styles.logout}
-            onPress={() => this.handleOnPressLogout()}
-          >
-            <Text style={styles.logoutText}>{i18n.signOut}</Text>
-          </BYTouchable>
+          {isAuthUser && (
+            <BYTouchable
+              style={styles.logout}
+              onPress={() => this.handleOnPressLogout()}
+            >
+              <Text style={styles.logoutText}>{i18n.signOut}</Text>
+            </BYTouchable>
+          )}
         </ScrollView>
       </View>
     );
@@ -125,6 +128,7 @@ export default connectLocalization(
       const {
         bannerHomeRecommend,
         // bannerHomeRecommend,
+        login,
       } = state;
 
       // const {
@@ -132,6 +136,7 @@ export default connectLocalization(
       // } = props;
 
       return {
+        isAuthUser: !!login.user,
         bannerHomeRecommend: bannerHomeRecommend || {},
       };
     },
