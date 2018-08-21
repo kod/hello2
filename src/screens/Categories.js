@@ -172,6 +172,7 @@ class Categories extends Component {
       },
       scrollViewLeft: {
         width: WINDOW_WIDTH * 0.25,
+        height: WINDOW_HEIGHT - APPBAR_HEIGHT - STATUSBAR_HEIGHT - 55,
         borderRightColor: BORDER_COLOR,
         borderRightWidth: 1,
       },
