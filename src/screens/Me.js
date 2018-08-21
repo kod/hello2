@@ -164,11 +164,16 @@ class Me extends Component {
     const {
       // queryOrderListIndexFetch,
       navigation: { navigate },
+      authUser,
     } = this.props;
     // await queryOrderListIndexFetch({
     //   scrollTabIndex: index,
     // });
-    navigate(SCREENS.Order, { index });
+    if (authUser) {
+      navigate(SCREENS.Order, { index });
+    } else {
+      navigate(SCREENS.Login);
+    }
   }
 
   // renderHeaderBottom() {
