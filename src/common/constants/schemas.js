@@ -16,11 +16,9 @@ const productsSchema = new schema.Entity(
 
 const getAllProductInfoSchema = new schema.Entity(
   'getAllProductInfo',
-  // {
-  //   detail: detailsSchema,
-  // },
+  {},
   {
-    idAttribute: 'id',
+    idAttribute: 'brandId',
   },
 );
 
