@@ -96,6 +96,7 @@ class Scrollable1 extends Component {
   constructor(props) {
     super(props);
     this.handleOnPressNavImg1 = this.handleOnPressNavImg1.bind(this);
+    this.handleOnBannerHomeType = this.handleOnBannerHomeType.bind(this);
   }
 
   componentDidMount() {
@@ -142,6 +143,18 @@ class Scrollable1 extends Component {
       third_classfy_id: thirdClassfyIdRegexResult
         ? thirdClassfyIdRegexResult[1]
         : '0',
+    });
+  }
+
+  handleOnBannerHomeType(val) {
+    const {
+      navigation: { navigate },
+    } = this.props;
+    navigate(SCREENS.CateList, {
+      parent_id: '0',
+      classfy_id: val.classfyId || '0',
+      sub_classfy_id: val.subClassfyId || '0',
+      third_classfy_id: val.thirdClassfyId || '0',
     });
   }
 
@@ -226,7 +239,11 @@ class Scrollable1 extends Component {
           style={{ paddingTop: 0, backgroundColor: '#fff' }}
         />
 
-        <BannerHomeType data={bannerHomeType} style={{ paddingBottom: 15 }} />
+        <BannerHomeType
+          data={bannerHomeType}
+          style={{ paddingBottom: 15 }}
+          callback={this.handleOnBannerHomeType}
+        />
 
         <FloorTitle
           title={`/${i18n.featuredEvents}/`}
