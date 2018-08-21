@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import BYTouchable from './BYTouchable';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { SIDEINTERVAL } from '../common/constants';
 import CustomIcon from './CustomIcon';
 import { connectLocalization } from './Localization';
 
@@ -10,12 +10,12 @@ const styles = StyleSheet.create({
     height: 45,
     justifyContent: 'center',
     backgroundColor: '#fff',
-    position: 'relative'
+    position: 'relative',
   },
   componentText: {
     textAlign: 'center',
     fontSize: 14,
-    color: '#333'
+    color: '#333',
   },
   componentMore: {
     position: 'absolute',
@@ -25,32 +25,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: SIDEINTERVAL,
-    paddingRight: SIDEINTERVAL
+    paddingRight: SIDEINTERVAL,
   },
   componentMoreText: {
     fontSize: 11,
     color: '#ccc',
-    marginRight: 2
+    marginRight: 2,
   },
   componentMoreIcon: {
     fontSize: 8,
     color: '#ccc',
-    paddingTop: 2
-  }
+    paddingTop: 2,
+  },
 });
 
-const HeaderShareButton = ({ title, isMore, i18n, ...restProps }) => {
-  return (
-    <BYTouchable {...restProps}>
-      <View style={styles.component}>
-        <Text style={styles.componentText}>{title}</Text>
-        {isMore && <View style={styles.componentMore}>
+const HeaderShareButton = ({ title, isMore, i18n, ...restProps }) => (
+  <BYTouchable {...restProps}>
+    <View style={styles.component}>
+      <Text style={styles.componentText}>{title}</Text>
+      {isMore && (
+        <View style={styles.componentMore}>
           <Text style={styles.componentMoreText}>{i18n.more}</Text>
           <CustomIcon name="arrowright" style={styles.componentMoreIcon} />
-        </View>}
-      </View>
-    </BYTouchable>
-  );
-}
+        </View>
+      )}
+    </View>
+  </BYTouchable>
+);
 
 export default connectLocalization(HeaderShareButton);
