@@ -28,15 +28,11 @@ import {
   WINDOW_WIDTH,
   SCREENS,
   SIDEINTERVAL,
+  MODAL_TYPES,
   // STATUSBAR_HEIGHT,
 } from '../common/constants';
 
 import { getIsCollection } from '../common/selectors';
-
-import * as productDetailActionCreators from '../common/actions/productDetail';
-import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
-import * as cartActionCreators from '../common/actions/cart';
-import * as collectionActionCreators from '../common/actions/collection';
 
 // import BYBottomSheet from '../components/BYBottomSheet';
 // import BYTextInput from '../components/BYTextInput';
@@ -46,6 +42,12 @@ import Loader from '../components/Loader';
 import ProductDetailTabNavigator from '../navigations/ProductDetailTabNavigator';
 import ProductDetailGrouponTabNavigator from '../navigations/ProductDetailGrouponTabNavigator';
 import priceFormat from '../common/helpers/priceFormat';
+
+import * as productDetailActionCreators from '../common/actions/productDetail';
+import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
+import * as cartActionCreators from '../common/actions/cart';
+import * as collectionActionCreators from '../common/actions/collection';
+import * as modalActionCreators from '../common/actions/modal';
 
 const zalofunPng = require('../images/zalofun.png');
 const googleplusPng = require('../images/googleplus.png');
@@ -393,6 +395,7 @@ class ProductDetail extends Component {
       groupon,
       isMaster,
       isCollection,
+      openModal,
     } = this.props;
     if (mounting) {
       return <Loader />;
@@ -455,7 +458,10 @@ class ProductDetail extends Component {
         ) : (
           <View style={styles.operate}>
             <View style={styles.operateIcon}>
-              <BYTouchable style={styles.operateIconItem}>
+              <BYTouchable
+                style={styles.operateIconItem}
+                onPress={() => openModal(MODAL_TYPES.SHARE)}
+              >
                 <SimpleLineIcons
                   style={[
                     styles.operateIconItemIcon,
@@ -624,6 +630,7 @@ export default connectLocalization(
       ...productDetailInfoActionCreators,
       ...cartActionCreators,
       ...collectionActionCreators,
+      ...modalActionCreators,
     },
   )(ProductDetail),
 );

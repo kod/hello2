@@ -7,6 +7,7 @@ import LoaderModal from './LoaderModal';
 import ActionSheetModal from './ActionSheetModal';
 import BillSelectModal from './BillSelectModal';
 import EnterPasswordModal from './EnterPasswordModal';
+import ShareModal from './ShareModal';
 
 const MODAL_COMPONENTS = {
   [MODAL_TYPES.ADDRESSADD]: AddressAddModal,
@@ -15,6 +16,7 @@ const MODAL_COMPONENTS = {
   [MODAL_TYPES.ACTIONSHEET]: ActionSheetModal,
   [MODAL_TYPES.BILLSELECT]: BillSelectModal,
   [MODAL_TYPES.ENTERPASSWORD]: EnterPasswordModal,
+  [MODAL_TYPES.SHARE]: ShareModal,
 };
 
 const ModalRoot = ({ modal: { modalType, modalProps } }) => {
