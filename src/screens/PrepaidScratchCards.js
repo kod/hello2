@@ -96,7 +96,9 @@ const styles = StyleSheet.create({
 class PrepaidPhoneCard extends Component {
   constructor(props) {
     super(props);
+    const { i18n } = this.props;
     this.state = {
+      payWayButtons: [{ text: i18n.internetBanking, payway: 2 }],
       priceIndex: 0,
       payWayIndex: 0,
       numberItemIndex: 0,
@@ -132,6 +134,22 @@ class PrepaidPhoneCard extends Component {
     get3GProvidersCardFetch();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { supCreditCard: prevSupCreditCard } = this.props;
+    const { supCreditCard, i18n } = nextProps;
+    if (supCreditCard !== prevSupCreditCard) {
+      this.setState({
+        payWayButtons:
+          supCreditCard === 0
+            ? [{ text: i18n.internetBanking, payway: 2 }]
+            : [
+                { text: i18n.funCard, payway: 1 },
+                { text: i18n.internetBanking, payway: 2 },
+              ],
+      });
+    }
+  }
+
   buttonSelectPriceCallback(val, key) {
     this.setState({
       priceIndex: key,
@@ -160,9 +178,10 @@ class PrepaidPhoneCard extends Component {
       payWayIndex,
       numberItemIndex,
       buttonSelectNumber,
+      payWayButtons,
     } = this.state;
 
-    const { loading, payWayButtons, ProvidersValueItems } = this.props;
+    const { loading, ProvidersValueItems } = this.props;
 
     let result;
 
@@ -193,13 +212,14 @@ class PrepaidPhoneCard extends Component {
       payWayIndex,
       numberItemIndex,
       buttonSelectNumber,
+      payWayButtons,
     } = this.state;
 
     const {
-      payWayButtons,
       ProvidersValueItems,
       orderCreateFetch,
       providerCode,
+      // providerCode,
     } = this.props;
 
     if (this.isProcessSubmit()) {
@@ -235,6 +255,7 @@ class PrepaidPhoneCard extends Component {
       priceIndex,
       numberItemIndex,
       buttonSelectNumber,
+      payWayButtons,
     } = this.state;
 
     const {
@@ -242,7 +263,6 @@ class PrepaidPhoneCard extends Component {
       openModal,
       providersItems,
       ProvidersValueItems,
-      payWayButtons,
       // payWayButtons,
     } = this.props;
 
@@ -315,7 +335,6 @@ class PrepaidPhoneCard extends Component {
   render() {
     const {
       // screenProps: { i18n },
-      // payWayButtons,
       loading,
     } = this.props;
 
@@ -346,7 +365,8 @@ export default connectLocalization(
         loading: getProvidersValue.loading,
         providerCode: getProvidersValue.scratchCards.providerCode,
         ProvidersValueItems: getProvidersValue.scratchCards.items,
-        payWayButtons: getProvidersValue.scratchCards.payWayButtons,
+        supCreditCard: getProvidersValue.scratchCards.supCreditCard,
+        // payWayButtons: getProvidersValue.scratchCards.payWayButtons,
       };
     },
     {

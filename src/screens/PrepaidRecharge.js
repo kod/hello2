@@ -145,8 +145,9 @@ const styles = StyleSheet.create({
 class PrepaidRecharge extends Component {
   constructor(props) {
     super(props);
+    const { i18n } = this.props;
     this.state = {
-      // payWayButtons: ['信用卡', '网银'],
+      payWayButtons: [{ text: i18n.internetBanking, payway: 2 }],
       payWayIndex: 0,
       phoneNumber: '',
       buttonIndex: 0,
@@ -160,6 +161,22 @@ class PrepaidRecharge extends Component {
   // componentDidMount() {
   //   const { bannerSwiperFetch } = this.props;
   // }
+
+  componentWillReceiveProps(nextProps) {
+    const { supCreditCard: prevSupCreditCard } = this.props;
+    const { supCreditCard, i18n } = nextProps;
+    if (supCreditCard !== prevSupCreditCard) {
+      this.setState({
+        payWayButtons:
+          supCreditCard === 0
+            ? [{ text: i18n.internetBanking, payway: 2 }]
+            : [
+                { text: i18n.funCard, payway: 1 },
+                { text: i18n.internetBanking, payway: 2 },
+              ],
+      });
+    }
+  }
 
   buttonSelectPriceCallback(val, key) {
     this.setState({
@@ -186,6 +203,7 @@ class PrepaidRecharge extends Component {
       payWayIndex,
       buttonIndex,
       phoneNumber,
+      payWayButtons,
       // phoneNumber,
     } = this.state;
 
@@ -193,7 +211,6 @@ class PrepaidRecharge extends Component {
       loading,
       items,
       errorText,
-      payWayButtons,
       // payWayButtons,
     } = this.props;
 
@@ -219,6 +236,7 @@ class PrepaidRecharge extends Component {
       payWayIndex,
       buttonIndex,
       phoneNumber,
+      payWayButtons,
       // phoneNumber,
     } = this.state;
 
@@ -226,7 +244,6 @@ class PrepaidRecharge extends Component {
       items,
       orderCreateFetch,
       providerCode,
-      payWayButtons,
       // payWayButtons,
     } = this.props;
 
@@ -409,6 +426,7 @@ class PrepaidRecharge extends Component {
       phoneNumber,
       buttonIndex,
       payWayIndex,
+      payWayButtons,
       // payWayIndex,
     } = this.state;
 
@@ -417,7 +435,6 @@ class PrepaidRecharge extends Component {
       openModal,
       errorText,
       providerIcon,
-      payWayButtons,
       items,
       // items,
     } = this.props;
@@ -494,7 +511,6 @@ class PrepaidRecharge extends Component {
     const {
       loading,
       orderCreateLoading,
-      // payWayButtons,
       // screenProps: { i18n },
     } = this.props;
 
@@ -524,7 +540,8 @@ export default connectLocalization(
       return {
         errorText: prepaid.errorText,
         providerIcon: prepaid.providerIcon,
-        payWayButtons: getPhoneRecharge.payWayButtons,
+        // payWayButtons: getPhoneRecharge.payWayButtons,
+        supCreditCard: getPhoneRecharge.supCreditCard,
         providerCode: getPhoneRecharge.providerCode,
         items: getPhoneRecharge.items,
         loading: getPhoneRecharge.loading,
