@@ -226,5 +226,18 @@
   "share": "Share",
   "collect": "Collect",
   "service": "Service",
+  "hasPaidOff": "Has paid off",
+  "billed": "Billed",
+  "mixedPayment": "Mixed payment",
+  "hasAlso": "Has also",
+  "discountCode": "Discount code",
+  "temporarilyUnableReceiveVoucher": "Temporarily unable to receive the voucher",
+  "chooseCoupon": "Choose a coupon",
+  "notUsed": "Not used",
+  "used": "Used",
+  "expired": "Expired",
+  "waitingForDelivery": "Waiting for delivery",
+  "view": "View",
+  "evaluation": "Evaluation",
   "warehouse": "Warehouse"
 }
