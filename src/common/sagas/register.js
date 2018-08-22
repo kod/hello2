@@ -126,14 +126,19 @@ export function* registerSuccessWatchHandle(/* action */) {
     //   from,
     // } = action.payload;
 
-    Alert.alert('', i18n.signUpSuccessfully, [
-      {
-        text: i18n.confirm,
-        onPress: () => {
-          NavigatorService.pop(2);
+    Alert.alert(
+      '',
+      i18n.signUpSuccessfully,
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => {
+            NavigatorService.pop(2);
+          },
         },
-      },
-    ]);
+      ],
+      { cancelable: false },
+    );
   } catch (error) {
     yield put(addError(typeof err === 'string' ? error : error.toString()));
   }
