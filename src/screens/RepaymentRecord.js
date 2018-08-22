@@ -118,7 +118,9 @@ class RepaymentRecord extends Component {
             </View>
             <View style={styles.cell}>
               <Text style={styles.textLeft}>{i18n.way}</Text>
-              <Text style={styles.textRight}>{payWayToText(val.payWay)}</Text>
+              <Text style={styles.textRight}>
+                {payWayToText(val.payWay, i18n)}
+              </Text>
             </View>
           </View>
         ))}
