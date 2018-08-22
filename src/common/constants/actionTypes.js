@@ -79,6 +79,12 @@ export const NEW_COMPUTER = defineAction(
   appNamespace,
 );
 
+export const ADD_EVALUATION = defineAction(
+  'ADD_EVALUATION',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const TOP_COMPUTER = defineAction(
   'TOP_COMPUTER',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

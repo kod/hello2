@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  DeviceEventEmitter,
+  Alert,
+} from 'react-native';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
 
-import { WINDOW_WIDTH, SIDEINTERVAL, MODAL_TYPES } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  MODAL_TYPES,
+  SCREENS,
+} from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
@@ -15,10 +28,12 @@ import BYButton from '../components/BYButton';
 import BYTouchable from '../components/BYTouchable';
 import Loader from '../components/Loader';
 import { PRIMARY_COLOR } from '../styles/variables';
+import { submitDuplicateFreeze } from '../common/helpers';
 
 import * as collectFilesActionCreators from '../common/actions/collectFiles';
 import * as authActionCreators from '../common/actions/auth';
 import * as modalActionCreators from '../common/actions/modal';
+import * as addEvaluationActionCreators from '../common/actions/addEvaluation';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,22 +50,60 @@ class Evalution extends Component {
 
     this.state = {
       payWayButtons: [i18n.album, i18n.takePhoto],
-      starNumber: 3,
+      starNumber: 5,
       textValue: '',
+      submitfreeze: false,
     };
 
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
   }
 
   componentDidMount() {
-    // const { collectFilesFetch } = this.props;
-    // collectFilesFetch();
+    const {
+      i18n,
+      navigation: {
+        pop,
+        // goBack,
+      },
+    } = this.props;
+
+    this.screenListener = DeviceEventEmitter.addListener(
+      SCREENS.Evalution,
+      () => {
+        Alert.alert('', i18n.success, [
+          {
+            text: i18n.confirm,
+            onPress: () => {
+              pop(1);
+            },
+          },
+        ]);
+      },
+    );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { addEvaluationLoading: prevAddEvaluationLoading } = this.props;
+    const {
+      addEvaluationLoading,
+      openModal,
+      closeModal,
+      // closeModal,
+    } = nextProps;
+
+    if (prevAddEvaluationLoading !== addEvaluationLoading) {
+      if (addEvaluationLoading === false) {
+        closeModal();
+      } else {
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
   }
 
   createResizedImageImageResizer({ uri, width, height }) {
     const { collectFilesFetch } = this.props;
 
-    ImageResizer.createResizedImage(uri, width, height, 'JPEG', 50)
+    ImageResizer.createResizedImage(uri, width * 0.5, height * 0.5, 'JPEG', 30)
       .then(response => {
         collectFilesFetch({
           files: {
@@ -111,6 +164,33 @@ class Evalution extends Component {
     this.setState({
       starNumber: index,
     });
+  }
+
+  handleOnPressSubmit() {
+    const { starNumber, textValue, submitfreeze } = this.state;
+    const {
+      images,
+      addEvaluationFetch,
+      tradeNo,
+      orderNo,
+      brandId,
+      // orderNo,
+    } = this.props;
+    submitDuplicateFreeze(submitfreeze, this, () =>
+      addEvaluationFetch({
+        screen: SCREENS.Evalution,
+        trade_no: tradeNo,
+        order_no: orderNo,
+        comments: JSON.stringify([
+          {
+            brand_id: brandId,
+            image_urls: images.join('|'),
+            content: textValue,
+            score: starNumber,
+          },
+        ]),
+      }),
+    );
   }
 
   handleOnLongPressImgDel(index) {
@@ -265,7 +345,7 @@ class Evalution extends Component {
                 onPress={() => this.handleOnPressSelectPics()}
               >
                 <FontAwesome style={stylesX.cameraIcon} name="camera" />
-                <Text style={stylesX.cameraText}>0/5</Text>
+                <Text style={stylesX.cameraText}>{`${images.length}/5`}</Text>
               </BYTouchable>
             </View>
           </View>
@@ -274,8 +354,8 @@ class Evalution extends Component {
         </View>
         <BYButton
           text={i18n.submit}
-          styleWrap={styles.button}
-          onPress={() => {}}
+          styleWrap={stylesX.button}
+          onPress={() => this.handleOnPressSubmit()}
         />
       </View>
     );
@@ -303,19 +383,28 @@ class Evalution extends Component {
 
 export default connectLocalization(
   connect(
-    () => state => {
+    () => (state, props) => {
       const {
         collectFiles,
+        addEvaluation,
         // collectFiles,
       } = state;
 
-      // const {
-
-      // } = props;
+      const {
+        navigation: {
+          state: {
+            params: { orderNo, tradeNo, brandId },
+          },
+        },
+      } = props;
 
       return {
         collectFiles,
+        orderNo,
+        tradeNo,
+        brandId,
         loading: collectFiles.loading,
+        addEvaluationLoading: addEvaluation.loading,
         images: collectFiles.images,
       };
     },
@@ -323,6 +412,7 @@ export default connectLocalization(
       ...collectFilesActionCreators,
       ...authActionCreators,
       ...modalActionCreators,
+      ...addEvaluationActionCreators,
     },
   )(Evalution),
 );

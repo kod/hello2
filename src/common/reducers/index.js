@@ -68,6 +68,7 @@ import getSquaresInfo from './getSquaresInfo';
 import login from './login';
 import modifyPayPassword from './modifyPayPassword';
 import changePassword from './changePassword';
+import addEvaluation from './addEvaluation';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -138,6 +139,7 @@ const rootReducer = combineReducers({
   login,
   modifyPayPassword,
   changePassword,
+  addEvaluation,
   form: formReducer,
 });
 

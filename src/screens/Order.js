@@ -92,6 +92,36 @@ const stylesScrollable = StyleSheet.create({
 });
 
 class Scrollable extends Component {
+  handleOnPressOperate(val) {
+    const {
+      // i18n,
+      // itemKey,
+      // queryOrderListItem,
+      // orderItem: { items },
+      navigation: { navigate },
+    } = this.props;
+    console.log(val);
+    switch (parseInt(val.tradeStatus, 10)) {
+      case 10000:
+        navigate(SCREENS.Pay, {
+          tradeNo: val.tradeNo,
+          orderNo: val.orderNo,
+        });
+        break;
+
+      case 30001:
+        navigate(SCREENS.Evalution, {
+          tradeNo: val.tradeNo,
+          orderNo: val.orderNo,
+          brandId: val.goodList[0].brandId,
+        });
+        break;
+
+      default:
+        break;
+    }
+  }
+
   render() {
     // const adverstInfo = [{
     //   brandId: detailItem.brandId,
@@ -142,12 +172,7 @@ class Scrollable extends Component {
               </Text>
               <Text
                 style={stylesScrollable.payButton}
-                onPress={() =>
-                  navigate(SCREENS.Pay, {
-                    tradeNo: val.tradeNo,
-                    orderNo: val.orderNo,
-                  })
-                }
+                onPress={() => this.handleOnPressOperate(val)}
               >
                 {buttonTextForTradeStatusCodes(val.tradeStatus, i18n)}
               </Text>
