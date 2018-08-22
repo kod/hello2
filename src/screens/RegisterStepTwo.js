@@ -4,16 +4,22 @@ import { StyleSheet, View, ScrollView, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { WINDOW_WIDTH, LOGIN_PASSWORD_EXPR } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  LOGIN_PASSWORD_EXPR,
+  MODAL_TYPES,
+} from '../common/constants';
 import BYHeader from '../components/BYHeader';
 import BYButton from '../components/BYButton';
 import InputRight from '../components/InputRight';
 // import BYTouchable from '../components/BYTouchable';
 import ReadSeconds from '../components/ReadSeconds';
-import Loader from '../components/Loader';
+// import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
+import { submitDuplicateFreeze } from '../common/helpers';
 import * as registerActionCreators from '../common/actions/register';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -64,8 +70,30 @@ const validate = (values, props) => {
 };
 
 class RegisterStepTwo extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      submitfreeze: false,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { loading: prevLoading } = this.props;
+    const { loading, openModal, closeModal } = nextProps;
+
+    if (prevLoading !== loading) {
+      if (loading === false) {
+        closeModal();
+      } else {
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
+  }
+
   submit = data => {
     const { otp, password, repassword } = data;
+    const { submitfreeze } = this.state;
     const {
       registerFetch,
       // navigation: { goBack, navigate },
@@ -73,13 +101,16 @@ class RegisterStepTwo extends Component {
     } = this.props;
     if (otp && password && repassword) {
       Keyboard.dismiss();
-      registerFetch({
-        otp,
-        password,
-        repassword,
-        msisdn: phone,
-        inviterno,
-      });
+      submitDuplicateFreeze(submitfreeze, this, () =>
+        registerFetch({
+          otp,
+          password,
+          repassword,
+          msisdn: phone,
+          inviterno,
+        }),
+      );
+
       // navigate(SCREENS.RegisterStepTwo)
     }
   };
@@ -98,13 +129,11 @@ class RegisterStepTwo extends Component {
       msisdn,
       handleSubmit,
       // navigation: { goBack, navigate },
-      loading,
     } = this.props;
     return (
       <View style={styles.container}>
         <BYHeader />
         <ScrollView keyboardShouldPersistTaps="always">
-          {loading && <Loader absolutePosition />}
           <Field
             name="otp"
             component={InputRight}
@@ -169,6 +198,7 @@ export default connectLocalization(
     },
     {
       ...registerActionCreators,
+      ...modalActionCreators,
     },
   )(RegisterStepTwo),
 );
