@@ -175,7 +175,7 @@ class Scrollable1 extends Component {
         break;
 
       case 'couponcenter':
-        navigateCheckLogin(isAuthUser, navigate, 'CouponMy');
+        navigate(SCREENS.Coupon);
         break;
 
       case 'prepaid':
