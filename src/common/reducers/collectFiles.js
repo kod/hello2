@@ -4,14 +4,14 @@ const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
-  images: ['https://vnimg.buyoo.xyz/usercollect/1/20180626160830_40Y.png', 'https://vnimg.buyoo.xyz/usercollect/1/20180626162332_4ck.jpg', 'https://vnoss.buyoo.club/commodity/img/provider/gmobile.jpg'],
+  images: [],
 };
 
 export default function collectFiles(state = initState, action) {
   switch (action.type) {
     case COLLECT_FILES.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case COLLECT_FILES.REQUEST:
       return {
@@ -23,10 +23,7 @@ export default function collectFiles(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        images: [
-          ...state.images,
-          action.payload.item,
-        ]
+        images: [...state.images, action.payload.item],
       };
     case COLLECT_FILES.FAILURE:
       return {
@@ -39,9 +36,7 @@ export default function collectFiles(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        images: state.images.filter((val, key) => {
-          return key !== action.payload.index
-        }),
+        images: state.images.filter((val, key) => key !== action.payload.index),
       };
     default:
       return state;
