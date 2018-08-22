@@ -73,7 +73,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+        entryFile: "index.js"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -146,7 +146,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -157,8 +157,9 @@ android {
 }
 
 dependencies {
-    compile (project(':react-native-camera')) {
-      exclude group: "com.android.support", module: 'support-v4'
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation(project(':react-native-camera')) {
+        exclude group: "com.android.support", module: 'support-v4'
     }
     implementation project(':react-native-image-resizer')
     implementation project(':react-native-image-crop-picker')
@@ -167,8 +168,8 @@ dependencies {
     implementation project(':react-native-spinkit')
     implementation project(':react-native-device-info')
     implementation project(':react-native-localization')
+    implementation project(':react-native-fbsdk')
     implementation project(':react-native-vector-icons')
-    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:" + rootProject.ext.buildToolsVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
