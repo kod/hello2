@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   DeviceEventEmitter,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -32,6 +33,7 @@ import {
   STATUSBAR_HEIGHT,
   SCREENS,
   MODAL_TYPES,
+  MINIMUM_PAYMENT_AMOUNT,
 } from '../common/constants';
 
 import * as searchMonthActionCreators from '../common/actions/searchMonth';
@@ -74,7 +76,7 @@ class Bill extends Component {
       isOpenPay: false,
       isShowGoods: false,
       payWayButtons: [i18n.repaymentRecord],
-      // price: '1082500',
+      totalPrice: '0',
     };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
   }
@@ -110,17 +112,32 @@ class Bill extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
+      orderCreateLoading: prevOrderCreateLoading,
       activeYear: prevActiveYear,
       activeMonth: prevActiveMonth,
     } = this.props;
     let { activeMonth } = nextProps;
-    const { activeYear, queryGoodsFetch } = nextProps;
+    const {
+      activeYear,
+      queryGoodsFetch,
+      orderCreateLoading,
+      openModal,
+      closeModal,
+    } = nextProps;
 
     if (prevActiveYear !== activeYear || prevActiveMonth !== activeMonth) {
       if (activeMonth < 10) activeMonth = `0${activeMonth}`;
       queryGoodsFetch({
         createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
       });
+    }
+
+    if (orderCreateLoading !== prevOrderCreateLoading) {
+      if (orderCreateLoading === true) {
+        openModal(MODAL_TYPES.LOADER);
+      } else {
+        closeModal();
+      }
     }
   }
 
@@ -222,12 +239,48 @@ class Bill extends Component {
 
   handleOnPressPaySubmit() {
     const {
+      i18n,
       price,
+      totalPrice,
       orderCreateFetch,
       isAuthUser,
       navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
+
+    if (parseInt(price, 10) < MINIMUM_PAYMENT_AMOUNT) {
+      Alert.alert(
+        '',
+        `还款金额不能小于${MINIMUM_PAYMENT_AMOUNT}`,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
+
+    if (
+      parseInt(totalPrice, 10) - parseInt(price, 10) !== 0 &&
+      parseInt(totalPrice, 10) - parseInt(price, 10) < MINIMUM_PAYMENT_AMOUNT
+    ) {
+      Alert.alert(
+        '',
+        `还款金额，请等于${totalPrice}或小于${totalPrice -
+          MINIMUM_PAYMENT_AMOUNT}`,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
 
     this.handleOnPressToggleModal('isOpenPay');
 
@@ -342,6 +395,7 @@ class Bill extends Component {
     const {
       i18n,
       price,
+      totalPrice,
       billPriceFetch,
       searchMonthLoading,
       // searchMonthLoading,
@@ -374,7 +428,7 @@ class Bill extends Component {
           </View>
         </View>
         <Text style={stylesX.tips}>
-          {`${i18n.havenPaidAmount}: ${priceFormat(price)} ₫`}
+          {`${i18n.havenPaidAmount}: ${priceFormat(totalPrice)} ₫`}
         </Text>
         <BYButton
           text={i18n.payment}
@@ -438,29 +492,8 @@ class Bill extends Component {
             </View>
           </View>
         ))}
-        {/* <View style={styles.item}>
-          <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
-           <View style={styles.bottom}>
-            <Text style={styles.price}>666.000 ₫</Text>
-            <Text style={styles.date}>16-05</Text>
-           </View>
-        </View>
-        <View style={styles.item}>
-          <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
-           <View style={styles.bottom}>
-            <Text style={styles.price}>666.000 ₫</Text>
-            <Text style={styles.date}>16-05</Text>
-           </View>
-        </View>
-        <View style={styles.item}>
-          <Text style={styles.title}>1. [buyoo] apple iPhone 6 tthree kinds of goods for you.</Text>
-           <View style={styles.bottom}>
-            <Text style={styles.price}>666.000 ₫</Text>
-            <Text style={styles.date}>16-05</Text>
-           </View>
-        </View> */}
         <Ionicons
-          style={styles.arrow}
+          style={stylesX.arrow}
           name="ios-arrow-up"
           onPress={() => this.setState({ isShowGoods: false })}
         />
@@ -640,6 +673,8 @@ class Bill extends Component {
       // navigation: { navigate },
       i18n,
       billMonthItem,
+      // billByYearLoading,
+      billByYearLoaded,
     } = this.props;
 
     return (
@@ -648,17 +683,21 @@ class Bill extends Component {
           headerTitle={this.renderHeaderTitle()}
           headerRight={this.renderHeaderRight()}
         />
+
+        {billByYearLoaded === false && <Loader />}
+
         {/* 当前月份是否存在账单 */}
-        {billMonthItem.month ? (
-          <ScrollView>{this.renderContent()}</ScrollView>
-        ) : (
-          <EmptyState
-            source={ouhrigdfnjsoeijehrJpg}
-            text={i18n.noBill}
-            styleText={{ marginBottom: 0 }}
-          />
-        )}
-        {/* <ScrollView>{!!billMonthItem.month && this.renderContent()}</ScrollView> */}
+        {billByYearLoaded === true &&
+          (billMonthItem.month ? (
+            <ScrollView>{this.renderContent()}</ScrollView>
+          ) : (
+            <EmptyState
+              source={ouhrigdfnjsoeijehrJpg}
+              text={i18n.noBill}
+              styleText={{ marginBottom: 0 }}
+            />
+          ))}
+
         {/* 是否有逾期，有则提示还款 */}
         {isOverdue && (
           <Text
@@ -687,18 +726,23 @@ export default connectLocalization(
         billByYear,
         queryGoods,
         searchMonth,
+        orderCreate,
         // searchMonth,
       } = state;
       return {
+        orderCreateLoading: orderCreate.loading,
         billMonthItem: getBillMonthItem(state, props),
         // billTotalMoney: getBillTotalMoney(state, props),
         searchMonthItem: searchMonth.item,
         searchMonthLoading: searchMonth.loading,
         price: bill.price,
+        totalPrice: bill.totalPrice,
         activeYear: bill.activeYear,
         activeMonth: bill.activeMonth,
         isOverdue: billByYear.isOverdue,
         billByYearItems: billByYear.items,
+        // billByYearLoading: billByYear.loading,
+        billByYearLoaded: billByYear.loaded,
         queryGoodsItems: queryGoods.items,
         isAuthUser: !!state.login.user,
       };
