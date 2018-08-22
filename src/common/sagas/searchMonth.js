@@ -1,14 +1,17 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
-import { SCREENS } from '../constants';
-import { searchMonthFetchSuccess, searchMonthFetchFailure } from '../actions/searchMonth';
-import { billPriceFetch, } from '../actions/bill';
+import moment from 'moment';
+// import { NavigationActions } from 'react-navigation';
+// import { SCREENS } from '../constants';
+import {
+  searchMonthFetchSuccess,
+  searchMonthFetchFailure,
+} from '../actions/searchMonth';
+import { billPriceFetch } from '../actions/bill';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { SEARCH_MONTH } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 import {
   getAuthUserFunid,
@@ -18,13 +21,11 @@ import {
   getBillNowMonth,
 } from '../selectors';
 
-import NavigatorService from '../../navigations/NavigatorService';
+// import NavigatorService from '../../navigations/NavigatorService';
 
 export function* searchMonthFetchWatchHandle(action) {
   try {
-    const {
-      date,
-    } = action.payload;
+    const { date } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
     const Key = 'settleKey';
@@ -40,14 +41,14 @@ export function* searchMonthFetchWatchHandle(action) {
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'date',
-          value: date
+          value: date,
         },
       ],
-      Key
+      Key,
     );
 
     const options = [
@@ -60,8 +61,8 @@ export function* searchMonthFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        date: date,
-      }
+        date,
+      },
     ];
 
     const response = yield apply(buyoo, buyoo.searchMonth, options);
@@ -69,24 +70,24 @@ export function* searchMonthFetchWatchHandle(action) {
     if (response.code !== 10000) {
       yield put(searchMonthFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(
+        searchMonthFetchSuccess({
+          result: response.result,
+        }),
+      );
     }
-
-    yield put(searchMonthFetchSuccess({
-      result: response.result,
-    }));
   } catch (err) {
     yield put(searchMonthFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
-export function* searchMonthFetchWatch(res) {
+export function* searchMonthFetchWatch() {
   yield takeEvery(SEARCH_MONTH.REQUEST, searchMonthFetchWatchHandle);
 }
 
-
-export function* searchMonthSuccessWatchHandle(action) {
+export function* searchMonthSuccessWatchHandle() {
   try {
     // const {
     //   isHaveBill
@@ -95,24 +96,29 @@ export function* searchMonthSuccessWatchHandle(action) {
     // getBillByYearItems,
     // getBillNowYear,
     // getBillNowMonth,
-  
+
     const searchMonthItem = yield select(getSearchMonthItem);
     const billByYearItems = yield select(getBillByYearItems);
     const billNowYear = yield select(getBillNowYear);
     const billNowMonth = yield select(getBillNowMonth);
     let result = 0;
     if (searchMonthItem.totalWaitingAmount && billByYearItems[billNowYear]) {
-      if (billByYearItems[billNowYear][billNowMonth - 1].status && billByYearItems[billNowYear][billNowMonth - 1].status !== 10000) {
-        result = searchMonthItem.totalWaitingAmount + billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
+      if (
+        billByYearItems[billNowYear][billNowMonth - 1].status &&
+        billByYearItems[billNowYear][billNowMonth - 1].status !== 10000
+      ) {
+        // result = 全部逾期待还的金额 + 当月待还金额（如果已出账）
+        result =
+          searchMonthItem.totalWaitingAmount +
+          billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
       } else {
         result = searchMonthItem.totalWaitingAmount;
       }
     }
 
     yield put(billPriceFetch(result.toString()));
-
   } catch (err) {
-    
+    console.log(err);
   }
 }
 

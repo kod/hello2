@@ -12,7 +12,7 @@ export default function orderCreate(state = initState, action) {
   switch (action.type) {
     case ORDER_CREATE.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case ORDER_CREATE.REQUEST:
       return {

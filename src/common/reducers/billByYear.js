@@ -12,7 +12,7 @@ export default function billByYear(state = initState, action) {
   switch (action.type) {
     case BILL_BY_YEAR.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case BILL_BY_YEAR.REQUEST:
       return {
@@ -28,7 +28,7 @@ export default function billByYear(state = initState, action) {
         items: {
           ...state.items,
           [action.payload.year]: action.payload.result,
-        }
+        },
       };
     case BILL_BY_YEAR.FAILURE:
       return {

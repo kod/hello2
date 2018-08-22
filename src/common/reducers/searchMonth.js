@@ -11,7 +11,7 @@ export default function searchMonth(state = initState, action) {
   switch (action.type) {
     case SEARCH_MONTH.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case SEARCH_MONTH.REQUEST:
       return {
