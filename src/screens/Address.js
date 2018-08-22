@@ -255,7 +255,7 @@ class Address extends Component {
           </ScrollView>
         )}
         <Text style={styles.add} onPress={() => navigate(SCREENS.AddressAdd)}>
-          add address
+          {i18n.addAddress}
         </Text>
       </View>
     );
