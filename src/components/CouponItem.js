@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import moment from 'moment';
 
 import BYTouchable from './BYTouchable';
 import CustomIcon from './CustomIcon';
 
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS } from '../common/constants';
+import { WINDOW_WIDTH, SIDEINTERVAL } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 
-import { RED_COLOR , PRIMARY_COLOR} from '../styles/variables';
+import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
+
+const couponBluePng = require('../images/couponBlue.png');
+const couponRedPng = require('../images/couponRed.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 11,
     paddingLeft: SIDEINTERVAL * 2,
-    backgroundColor: 'rgba(66, 66, 66, 0.5)'
+    backgroundColor: 'rgba(66, 66, 66, 0.5)',
   },
   left: {
     flex: 1,
@@ -86,60 +89,78 @@ class CouponItem extends Component {
   render() {
     const {
       isCouponCenter = true,
-      data, 
+      data,
       onPress,
+      // onPress,
       ...restProps
     } = this.props;
-    
+
     return (
       <View style={[styles.container]} {...restProps}>
-        {data.map((val, key) => (
-          val.voucherType === 1 
-          ?
-          <BYTouchable 
-            style={[styles.item, isCouponCenter && val.status !== 1 && styles.itemDisable]} 
-            key={key} 
-            onPress={() => onPress && onPress(val)} 
-            backgroundColor="transparent"
-          > 
-            <Image style={styles.image} source={require('../images/couponBlue.png')} />
-            <View style={styles.bottom}>
-              <View style={styles.left}>
-                <Text style={styles.price}>{priceFormat(val.voucherValue)} vnd</Text>
-                <Text style={styles.text1}>{val.voucherName}</Text>
-                <Text style={styles.text2}>{val.voucherDesc}</Text>
-              </View>
-              {
-                onPress && 
-                <CustomIcon style={styles.arrow} name="arrowright" />
-              }
-              <Text style={styles.date}>{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
-            </View>
-          </BYTouchable>
-          :
-          <BYTouchable 
-            style={[styles.item, isCouponCenter && val.status !== 1 && styles.itemDisable]} 
-            key={key} 
-            onPress={() => onPress && onPress(val)} 
-            backgroundColor="transparent"
-          >
-            <Image style={styles.image} source={require('../images/couponRed.png')} />
-            <View style={[styles.bottom, styles.bottomRed]}>
-              <View style={styles.left}>
-                <Text style={styles.price}>{ 100 - val.voucherValue }% OFF</Text>
-                <Text style={styles.text1}>{val.voucherName}</Text>
-                <Text style={styles.text2}>{val.voucherDesc}</Text>
-              </View>
-              {
-                onPress && 
-                <CustomIcon style={styles.arrow} name="arrowright" />
-              }
-              <Text style={styles.date}>{moment(val.startTime).format('YYYY-MM-DD')}-{moment(val.expireTime).format('YYYY-MM-DD')}</Text>
-            </View>
-          </BYTouchable>
-        ))}
-    </View>
-  );
+        {data.map(
+          (val, key) =>
+            val.voucherType === 1 ? (
+              <BYTouchable
+                style={[
+                  styles.item,
+                  isCouponCenter && val.status !== 1 && styles.itemDisable,
+                ]}
+                key={key}
+                onPress={() => onPress && onPress(val)}
+                backgroundColor="transparent"
+              >
+                <Image style={styles.image} source={couponBluePng} />
+                <View style={styles.bottom}>
+                  <View style={styles.left}>
+                    <Text style={styles.price}>
+                      {priceFormat(val.voucherValue)} ₫
+                    </Text>
+                    <Text style={styles.text1}>{val.voucherName}</Text>
+                    <Text style={styles.text2}>{val.voucherDesc}</Text>
+                  </View>
+                  {onPress && (
+                    <CustomIcon style={styles.arrow} name="arrowright" />
+                  )}
+                  <Text style={styles.date}>
+                    {`${moment(val.startTime).format('DD/MM/YYYY')}-${moment(
+                      val.expireTime,
+                    ).format('DD/MM/YYYY')}`}
+                  </Text>
+                </View>
+              </BYTouchable>
+            ) : (
+              <BYTouchable
+                style={[
+                  styles.item,
+                  isCouponCenter && val.status !== 1 && styles.itemDisable,
+                ]}
+                key={key}
+                onPress={() => onPress && onPress(val)}
+                backgroundColor="transparent"
+              >
+                <Image style={styles.image} source={couponRedPng} />
+                <View style={[styles.bottom, styles.bottomRed]}>
+                  <View style={styles.left}>
+                    <Text style={styles.price}>
+                      {`${100 - val.voucherValue}% OFF`}
+                    </Text>
+                    <Text style={styles.text1}>{val.voucherName}</Text>
+                    <Text style={styles.text2}>{val.voucherDesc}</Text>
+                  </View>
+                  {onPress && (
+                    <CustomIcon style={styles.arrow} name="arrowright" />
+                  )}
+                  <Text style={styles.date}>
+                    {`${moment(val.startTime).format('DD/MM/YYYY')}-${moment(
+                      val.expireTime,
+                    ).format('DD/MM/YYYY')}`}
+                  </Text>
+                </View>
+              </BYTouchable>
+            ),
+        )}
+      </View>
+    );
   }
 }
 
