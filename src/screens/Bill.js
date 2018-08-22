@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import priceFormat from '../common/helpers/priceFormat';
+import { billInitDate } from '../common/helpers';
 import { getBillMonthItem } from '../common/selectors';
 
 import Loader from '../components/Loader';
@@ -87,6 +88,7 @@ class Bill extends Component {
       queryGoodsFetch,
       billByYearFetch,
       activeYear,
+      billMonthFetch,
       // isAuthUser,
       // navigation: { navigate },
     } = this.props;
@@ -94,7 +96,8 @@ class Bill extends Component {
 
     // let nowTimeStr = moment().format('YYYY-MM-DD HH:mm:ss');
     if (activeMonth < 10) activeMonth = `0${activeMonth}`;
-
+    const billInitDateResult = billInitDate();
+    billMonthFetch(billInitDateResult.month);
     queryGoodsFetch({
       createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
     });
