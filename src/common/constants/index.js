@@ -63,7 +63,6 @@ export const MODAL_TYPES = {
 export const SCREENS = {
   Address: 'Address',
   AddressAdd: 'AddressAdd',
-  AddressEdit: 'AddressEdit',
   AboutAs: 'AboutAs',
   Bill: 'Bill',
   BillDetail: 'BillDetail',

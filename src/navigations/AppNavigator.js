@@ -2,7 +2,6 @@ import { StackNavigator } from 'react-navigation';
 import { SCREENS } from '../common/constants';
 import Address from '../screens/Address';
 import AddressAdd from '../screens/AddressAdd';
-// import AddressEdit from '../screens/AddressEdit';
 import AppTabNavigator from './AppTabNavigator';
 import Bill from '../screens/Bill';
 import BillDetail from '../screens/BillDetail';
@@ -157,12 +156,6 @@ const RouteConfigs = {
       header: null,
     },
   },
-  // [SCREENS.AddressEdit]: {
-  //   screen: AddressEdit,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
   [SCREENS.CertifiedInformation]: {
     screen: CertifiedInformation,
     navigationOptions: {
