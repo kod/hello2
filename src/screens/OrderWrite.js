@@ -343,15 +343,15 @@ class OrderWrite extends Component {
       },
     });
 
-    // const {
-    //   detailItem: { price, productDetailNumber },
-    //   couponSelectItem,
-    // } = this.props;
+    const {
+      // detailItem: { price, productDetailNumber },
+      i18n,
+    } = this.props;
 
     return (
       <View style={stylesX.nav}>
         <View style={stylesX.navLeft}>
-          <Text style={stylesX.navLeftTop}>Trà lần đầu</Text>
+          <Text style={stylesX.navLeftTop}>{i18n.subtotal}</Text>
           <Text style={stylesX.navLeftBottom}>{this.calcMoney()} ₫</Text>
         </View>
         <Text

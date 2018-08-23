@@ -251,10 +251,13 @@ class Bill extends Component {
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
-    if (parseInt(price, 10) < MINIMUM_PAYMENT_AMOUNT) {
+    if (~~price < MINIMUM_PAYMENT_AMOUNT) {
       Alert.alert(
         '',
-        `还款金额不能小于${MINIMUM_PAYMENT_AMOUNT}`,
+        i18n.minimumRepaymentAmount.replace(
+          'MINIMUM_PAYMENT_AMOUNT',
+          MINIMUM_PAYMENT_AMOUNT,
+        ),
         [
           {
             text: i18n.confirm,
@@ -272,8 +275,9 @@ class Bill extends Component {
     ) {
       Alert.alert(
         '',
-        `还款金额，请等于${totalPrice}或小于${totalPrice -
-          MINIMUM_PAYMENT_AMOUNT}`,
+        i18n.repaymentAmountEqualOrLess
+          .replace('AAA', totalPrice)
+          .replace('BBB', MINIMUM_PAYMENT_AMOUNT),
         [
           {
             text: i18n.confirm,

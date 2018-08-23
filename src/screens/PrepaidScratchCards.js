@@ -303,7 +303,7 @@ class PrepaidPhoneCard extends Component {
           <CustomIcon style={styles.payMethodRight} name="arrowright" />
         </BYTouchable>
         <View style={styles.price}>
-          <Text style={styles.priceTitle}>{i18n.sum}</Text>
+          <Text style={styles.priceTitle}>{i18n.orderAmount}</Text>
           <View style={styles.priceMain}>
             <Text style={styles.priceRed}>
               {`${ProvidersValueItems[priceIndex] &&

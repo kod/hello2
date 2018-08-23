@@ -318,7 +318,7 @@ class OrderWrite extends Component {
           alreadyPaypassword();
         }
       } else {
-        Alert.alert('', i18n.didYouOpenYourCreditCardNow, [
+        Alert.alert('', `${i18n.didYouOpenYourCreditCardNow}?`, [
           {
             text: i18n.cancel,
           },

@@ -442,7 +442,7 @@ class PrepaidRecharge extends Component {
     return (
       <View style={styles.container}>
         <View style={{ height: 20 }} />
-        <Text style={styles.title}>{i18n.pleaseEnterYourPhoneNumber}</Text>
+        <Text style={styles.title}>{i18n.enterMobileNumberRecharged}</Text>
         <View style={styles.phoneNumberWrap}>
           <View style={styles.phoneNumber}>
             <BYTextInput
@@ -485,7 +485,7 @@ class PrepaidRecharge extends Component {
           <CustomIcon style={styles.payMethodRight} name="arrowright" />
         </BYTouchable>
         <View style={styles.price}>
-          <Text style={styles.priceTitle}>{i18n.sum}</Text>
+          <Text style={styles.priceTitle}>{i18n.orderAmount}</Text>
           <View style={styles.priceMain}>
             <Text style={styles.priceRed}>{`${priceFormat(
               items[buttonIndex].price,
