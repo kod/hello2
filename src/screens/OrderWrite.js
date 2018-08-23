@@ -283,18 +283,22 @@ class OrderWrite extends Component {
 
     if (isCart) {
       // money
-      money = cartAdverstInfo.reduce((a, b, index) => {
-        let result;
-        if (index === 1) {
-          const aTotalMoney = a.price * a.number;
-          const bTotalMoney = b.price * b.number;
-          result = aTotalMoney + bTotalMoney;
-        } else {
-          const bTotalMoney = b.price * b.number;
-          result = a + bTotalMoney;
-        }
-        return result;
-      });
+      if (cartAdverstInfo.length === 1) {
+        money = cartAdverstInfo[0].price * cartAdverstInfo[0].number;
+      } else {
+        money = cartAdverstInfo.reduce((a, b, index) => {
+          let result;
+          if (index === 1) {
+            const aTotalMoney = a.price * a.number;
+            const bTotalMoney = b.price * b.number;
+            result = aTotalMoney + bTotalMoney;
+          } else {
+            const bTotalMoney = b.price * b.number;
+            result = a + bTotalMoney;
+          }
+          return result;
+        });
+      }
     } else {
       money = productDetailNumber * price;
     }
