@@ -118,6 +118,10 @@ class Scrollable extends Component {
         break;
 
       default:
+        navigate(SCREENS.Pay, {
+          tradeNo: val.tradeNo,
+          orderNo: val.orderNo,
+        });
         break;
     }
   }
@@ -137,10 +141,13 @@ class Scrollable extends Component {
       itemKey,
       queryOrderListItem,
       // orderItem: { items },
-      navigation: { navigate },
+      // navigation: { navigate },
     } = this.props;
+    console.log(queryOrderListItem);
+    console.log(queryOrderListItem[itemKey]);
     const module = queryOrderListItem[itemKey];
     const { items } = module;
+    console.log(items);
 
     if (items.length === 0 && module.loading === false)
       return (
