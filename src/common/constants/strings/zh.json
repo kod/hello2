@@ -242,5 +242,16 @@
   "received": "已领取",
   "haveFinished": "已领完",
   "addAddress": "提交地址",
+  "minimumRepaymentAmount": "还款金额不能小于MINIMUM_PAYMENT_AMOUNT",
+  "repaymentAmountEqualOrLess": "还款金额，请等于AAA或小于BBB",
+  "transactionComplete": "交易完成",
+  "transactionPaymentWaiting": "交易支付等待",
+  "orderPendingAudit": "订单审核中",
+  "paymentOvertimeClosed": "支付超时，已关闭",
+  "endTransactionNonRefundable": "交易结束，不可退款",
+  "transactionRejectedFullRefund": "交易拒绝, 全额退款",
+  "waitingForTheOrder": "等待拼单",
+  "cancelTransaction": "交易取消",
+  "enterMobileNumberRecharged": "输入待充值的手机号码",
   "warehouse": "仓库"
 }

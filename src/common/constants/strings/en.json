@@ -242,5 +242,16 @@
   "received": "Received",
   "haveFinished": "Have finished",
   "addAddress": "Add address",
+  "minimumRepaymentAmount": "The repayment amount cannot be less than MINIMUM_PAYMENT_AMOUNT",
+  "repaymentAmountEqualOrLess": "Repayment amount, please equal AAA or less than BBB",
+  "transactionComplete": "Transaction complete",
+  "transactionPaymentWaiting": "Transaction payment waiting",
+  "orderPendingAudit": "Order pending audit",
+  "paymentOvertimeClosed": "Payment overtime, closed",
+  "endTransactionNonRefundable": "End of transaction, non-refundable",
+  "transactionRejectedFullRefund": "Transaction rejected, full refund",
+  "waitingForTheOrder": "Waiting for the order",
+  "cancelTransaction": "Cancel transaction",
+  "enterMobileNumberRecharged": "Enter the mobile number to be recharged",
   "warehouse": "Warehouse"
 }
