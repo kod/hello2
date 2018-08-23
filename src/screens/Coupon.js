@@ -10,10 +10,11 @@ import EmptyState from '../components/EmptyState';
 import Loader from '../components/Loader';
 
 // import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
-import { SCREENS } from '../common/constants';
+import { SCREENS, MODAL_TYPES } from '../common/constants';
 
 import * as getVoucherActionCreators from '../common/actions/getVoucher';
 import * as receiveVoucherActionCreators from '../common/actions/receiveVoucher';
+import * as modalActionCreators from '../common/actions/modal';
 
 const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
 
@@ -34,6 +35,19 @@ class Coupon extends Component {
   componentDidMount() {
     const { getVoucherFetch } = this.props;
     getVoucherFetch();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { receiveVoucherLoading: prevReceiveVoucherLoading } = this.props;
+    const { receiveVoucherLoading, openModal, closeModal } = nextProps;
+
+    if (prevReceiveVoucherLoading !== receiveVoucherLoading) {
+      if (receiveVoucherLoading === false) {
+        closeModal();
+      } else {
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
   }
 
   handlerOnPress(val) {
@@ -103,7 +117,7 @@ class Coupon extends Component {
       // navigation: { navigate },
       i18n,
       loading,
-      receiveVoucherLoading,
+      // receiveVoucherLoading,
     } = this.props;
 
     if (loading) return <Loader />;
@@ -111,7 +125,7 @@ class Coupon extends Component {
     return (
       <View style={styles.container}>
         <BYHeader headerTitle={this.renderHeaderTitle()} />
-        {receiveVoucherLoading && <Loader absolutePosition />}
+        {/* {receiveVoucherLoading && <Loader absolutePosition />} */}
         {items.length > 0 ? (
           this.renderContent()
         ) : (
@@ -149,6 +163,7 @@ export default connectLocalization(
     {
       ...getVoucherActionCreators,
       ...receiveVoucherActionCreators,
+      ...modalActionCreators,
     },
   )(Coupon),
 );
