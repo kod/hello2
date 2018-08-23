@@ -139,7 +139,7 @@ class Address extends Component {
       addressRemoveFetch,
       // addressRemoveFetch,
     } = this.props;
-    Alert.alert('', '确定删除？', [
+    Alert.alert('', `${i18n.confirmDelete}？`, [
       {
         text: i18n.cancel,
       },
