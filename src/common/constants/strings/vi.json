@@ -78,6 +78,7 @@
   "shippingAddress": "Sổ địa chỉ của bạn",
   "soldOut": "Hết hàng",
   "success": "Thành công",
+  "failed": "Thất bại: ",
   "startANewGroupBuying": "bắt đầu mua nhóm mới",
   "startGroupBuy": "Bắt đầu mua nhóm",
   "anErrorOccurred": "Đã xảy ra lỗi",
@@ -242,5 +243,7 @@
   "received": "Đã nhận",
   "haveFinished": "Đã hoàn thành",
   "addAddress": "Thêm địa chỉ",
-  "warehouse": "kho"
+  "warehouse": "kho",
+  "shareProduct1": "Tôi phát hiện trên buyoo.vn có ",
+  "shareProduct2": ", bảo đảm hàng chính hãng, siêu rẻ, mau mau mua 1 món hàng thôi"
 }

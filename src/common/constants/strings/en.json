@@ -78,6 +78,7 @@
   "shippingAddress": "Shipping address",
   "soldOut": "Sold Out",
   "success": "Success",
+  "failed": "Failed: ",
   "startANewGroupBuying": "start a new group buying",
   "startGroupBuy": "Start group buy",
   "anErrorOccurred": "An error occurred",
@@ -242,5 +243,7 @@
   "received": "Received",
   "haveFinished": "Have finished",
   "addAddress": "Add address",
-  "warehouse": "Warehouse"
+  "warehouse": "Warehouse",
+  "shareProduct1": "I found ",
+  "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one?"
 }
