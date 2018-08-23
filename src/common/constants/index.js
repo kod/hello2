@@ -61,6 +61,7 @@ export const MODAL_TYPES = {
 };
 
 export const SCREENS = {
+  Computer: 'Computer',
   Address: 'Address',
   AddressAdd: 'AddressAdd',
   AboutAs: 'AboutAs',

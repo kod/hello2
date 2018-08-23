@@ -46,6 +46,7 @@ import Prepaid from '../screens/Prepaid';
 import Cart from '../screens/Cart';
 import AboutAs from '../screens/AboutAs';
 import CouponSelect from '../screens/CouponSelect';
+import Computer from '../screens/Computer';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -56,6 +57,12 @@ const RouteConfigs = {
   },
   [SCREENS.ProductDetail]: {
     screen: ProductDetail,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.Computer]: {
+    screen: Computer,
     navigationOptions: {
       header: null,
     },
