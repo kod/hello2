@@ -108,11 +108,17 @@ class Cart extends Component {
   }
 
   renderHeaderRight = () => {
-    const { isEdit, i18n, cartEditRequest, cartEditInitRequest } = this.props;
+    const {
+      isEdit,
+      i18n,
+      cartEditRequest,
+      cartEditInitRequest,
+      cart: { items },
+    } = this.props;
 
     const onPressHandle = () => {
       cartEditRequest();
-      if (isEdit) cartEditInitRequest();
+      if (items.length !== 1 && isEdit) cartEditInitRequest();
     };
 
     return (
@@ -224,6 +230,11 @@ class Cart extends Component {
       // submit
       const selectedIdStr = getSelectedId();
       if (!selectedIdStr) return false;
+
+      console.log({
+        ...submit(cart),
+        isCart: true,
+      });
 
       navigate(SCREENS.OrderWrite, {
         ...submit(cart),

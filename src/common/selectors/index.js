@@ -234,7 +234,7 @@ export const getCartTotalMoney = createSelector(
     if (items.length === 0) {
       return 0;
     } else if (items.length === 1) {
-      return products[items[0]].selected
+      return products[items[0]] && products[items[0]].selected
         ? details[products[items[0]].detail].price * products[items[0]].quantity
         : 0;
     } else {
