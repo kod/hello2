@@ -98,7 +98,7 @@ class Coupon extends Component {
     const {
       // items,
       navigation,
-      // i18n,
+      i18n,
       couponMyPast,
       couponMyUnused,
       couponMyUsed,
@@ -109,6 +109,7 @@ class Coupon extends Component {
         <BYHeader headerTitle={this.renderHeaderTitle()} />
         <CouponMyTabNavigator
           screenProps={{
+            i18n,
             mainNavigation: navigation,
             couponMyPast,
             couponMyUnused,
