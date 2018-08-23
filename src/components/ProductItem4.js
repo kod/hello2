@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 10,
     lineHeight: 10 * 1.5,
-    height: 30,
+    // height: 30,
     marginBottom: 3,
     // backgroundColor: '#f00',
   },
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     // paddingLeft: paddingInerval,
     // paddingRight: paddingInerval,
     fontWeight: '700',
-    marginBottom: 10,
+    marginBottom: 15,
   },
 });
 
