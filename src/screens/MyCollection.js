@@ -45,6 +45,7 @@ class MyCollection extends Component {
 
   render() {
     const {
+      i18n,
       items,
       loading,
       // navigation: { navigate },
