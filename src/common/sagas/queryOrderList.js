@@ -1,34 +1,34 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
-import { SCREENS } from '../constants';
-import { queryOrderListFetchSuccess, queryOrderListFetchFailure } from '../actions/queryOrderList';
+// import { NavigationActions } from 'react-navigation';
+// import { SCREENS } from '../constants';
+import moment from 'moment';
+import {
+  queryOrderListFetchSuccess,
+  queryOrderListFetchFailure,
+} from '../actions/queryOrderList';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
-import { QUERY_ORDER_LIST, QUERY_ORDER_LIST_INDEX } from '../constants/actionTypes';
+import {
+  QUERY_ORDER_LIST,
+  QUERY_ORDER_LIST_INDEX,
+} from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
-
-import NavigatorService from '../../navigations/NavigatorService';
 
 import {
   getAuthUser,
   getAuthUserFunid,
-  getQueryOrderListScrollTabIndex,
+  // getQueryOrderListScrollTabIndex,
   getQueryOrderListRows,
 } from '../selectors';
 
 export function* queryOrderListFetchWatchHandle(action) {
   try {
-    const {
-      page = 1,
-      index = 0,
-      status,
-    } = action.payload;
+    const { page = 1, index = 0, status } = action.payload;
     // const scrollTabIndex =  yield select(getQueryOrderListScrollTabIndex);
     const rows = yield select(getQueryOrderListRows);
     const authUser = yield select(getAuthUser);
-    
+
     const funid = authUser ? yield select(getAuthUserFunid) : '';
 
     const Key = 'tradeKey';
@@ -44,22 +44,22 @@ export function* queryOrderListFetchWatchHandle(action) {
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'page',
-          value: page
+          value: page,
         },
         {
           key: 'rows',
-          value: rows
+          value: rows,
         },
         {
           key: 'status',
-          value: status
+          value: status,
         },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.queryOrderList, [
@@ -72,81 +72,75 @@ export function* queryOrderListFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        page: page,
-        rows: rows,
-        status: status,
-      }
+        page,
+        rows,
+        status,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(queryOrderListFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
-    }
-
-    yield put(queryOrderListFetchSuccess({
-      page,
-      index,
-      count: response.count,
-      result: response.details.map((val, key) => {
-        return {
-          ...val,
-          goodList: val.goodList.map((val1, key1) => {
-            return {
+    } else {
+      yield put(
+        queryOrderListFetchSuccess({
+          page,
+          index,
+          count: response.count,
+          result: response.details.map(val => ({
+            ...val,
+            goodList: val.goodList.map(val1 => ({
               ...val1,
               imageUrl: val1.iconUrl,
               price: val1.totalAmount,
               propertiesIds: '',
-            }
-          }),
-        }
-      }),
-      // tradeNo: response.result.tradeNo,
-      // orderNo: response.result.orderNo,
-    }));
+            })),
+          })),
+          // tradeNo: response.result.tradeNo,
+          // orderNo: response.result.orderNo,
+        }),
+      );
+    }
   } catch (err) {
     yield put(queryOrderListFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
-export function* queryOrderListFetchWatch(res) {
+export function* queryOrderListFetchWatch() {
   yield takeEvery(QUERY_ORDER_LIST.REQUEST, queryOrderListFetchWatchHandle);
 }
 
-export function* queryOrderListSuccessWatchHandle(action) {
-  try {
-    // const { tradeNo, orderNo } = action.payload;
-    // yield NavigatorService.navigate(SCREENS.Pay, {
-    //   tradeNo,
-    //   orderNo,
-    // });
-  } catch (err) {
-    
-  }
+export function* queryOrderListSuccessWatchHandle() {
+  // try {
+  //   // const { tradeNo, orderNo } = action.payload;
+  //   // yield NavigatorService.navigate(SCREENS.Pay, {
+  //   //   tradeNo,
+  //   //   orderNo,
+  //   // });
+  // } catch (err) {}
 }
 
 export function* queryOrderListSuccessWatch() {
   yield takeEvery(QUERY_ORDER_LIST.SUCCESS, queryOrderListSuccessWatchHandle);
 }
 
-export function* queryOrderListIndexFetchWatchHandle(action) {
-  try {
-    const {
-      type,
-    } = action.payload;
-    if (type !== 'open') return false;
-
-
-    // yield NavigatorService.navigate(SCREENS.Pay, {
-    //   tradeNo,
-    //   orderNo,
-    // });
-  } catch (err) {
-    
-  }
+export function* queryOrderListIndexFetchWatchHandle() {
+  // try {
+  //   const {
+  //     type,
+  //   } = action.payload;
+  //   if (type !== 'open') return false;
+  //   // yield NavigatorService.navigate(SCREENS.Pay, {
+  //   //   tradeNo,
+  //   //   orderNo,
+  //   // });
+  // } catch (err) {}
 }
 
 export function* queryOrderListIndexFetchWatch() {
-  yield takeEvery(QUERY_ORDER_LIST_INDEX.REQUEST, queryOrderListIndexFetchWatchHandle);
+  yield takeEvery(
+    QUERY_ORDER_LIST_INDEX.REQUEST,
+    queryOrderListIndexFetchWatchHandle,
+  );
 }
