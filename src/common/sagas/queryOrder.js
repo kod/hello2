@@ -1,22 +1,22 @@
 import { Platform } from 'react-native';
-import { takeEvery, apply, put, select } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
+import { takeEvery, apply, put } from 'redux-saga/effects';
+import moment from 'moment';
+// import { NavigationActions } from 'react-navigation';
 import { SCREENS } from '../constants';
-import { queryOrderFetchSuccess, queryOrderFetchFailure } from '../actions/queryOrder';
+import {
+  queryOrderFetchSuccess,
+  queryOrderFetchFailure,
+} from '../actions/queryOrder';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { QUERY_ORDER } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 import NavigatorService from '../../navigations/NavigatorService';
 
 export function* queryOrderFetchWatchHandle(action) {
   try {
-    const {
-      orderNo,
-      tradeNo,
-    } = action.payload;
+    const { orderNo, tradeNo } = action.payload;
 
     const Key = 'tradeKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
@@ -31,17 +31,17 @@ export function* queryOrderFetchWatchHandle(action) {
       [
         {
           key: 'orderNo',
-          value: orderNo
+          value: orderNo,
         },
         {
           key: 'tradeNo',
-          value: tradeNo
+          value: tradeNo,
         },
       ],
-      Key
+      Key,
     );
 
-    const response = yield apply(buyoo, buyoo.queryOrder, [
+    let response = yield apply(buyoo, buyoo.queryOrder, [
       {
         // appId: 'VNOYX9GI72QE',
         // method: 'fun.trade.query',
@@ -52,45 +52,43 @@ export function* queryOrderFetchWatchHandle(action) {
         // version: '2.0',
         // orderNo: '220180606173139579374083127',
         // tradeNo: '210320180606173139579121',
-        appId: appId,
+        appId,
         method,
         charset,
-        signType: signType,
+        signType,
         encrypt,
         timestamp,
         version,
-        orderNo: orderNo,
-        tradeNo: tradeNo,
-      }
+        orderNo,
+        tradeNo,
+      },
     ]);
 
     response = {
       ...response,
-      goodsDetail: response.goodsDetail.map((val, key) => {
+      goodsDetail: response.goodsDetail.map(val => {
         val.price = val.totalAmount;
         val.orgPrice = val.totalOrgAmount;
         val.imageUrl = val.iconUrl;
         return val;
-      })
-    }
+      }),
+    };
 
     if (response.code !== 10000) {
       yield put(queryOrderFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(queryOrderFetchSuccess(response));
     }
-
-    yield put(queryOrderFetchSuccess(response));
   } catch (err) {
     yield put(queryOrderFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
-export function* queryOrderFetchWatch(res) {
+export function* queryOrderFetchWatch() {
   yield takeEvery(QUERY_ORDER.REQUEST, queryOrderFetchWatchHandle);
 }
-
 
 export function* queryOrderSuccessWatchHandle(action) {
   try {
@@ -100,7 +98,7 @@ export function* queryOrderSuccessWatchHandle(action) {
       orderNo,
     });
   } catch (err) {
-    
+    console.warn(err);
   }
 }
 
