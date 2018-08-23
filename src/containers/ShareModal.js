@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, Modal, Image } from 'react-native';
-import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, Modal, Image, NativeModules} from 'react-native';
+import {connect} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
-// import { SIDEINTERVAL } from '../common/constants';
 import BYTouchable from '../components/BYTouchable';
-import { connectLocalization } from '../components/Localization';
+import {connectLocalization} from '../components/Localization';
+import {ShareApi} from 'react-native-fbsdk';
 
 import * as modalActionCreators from '../common/actions/modal';
 
 // const zalofunPng = require('../images/zalofun.png');
 // const googleplusPng = require('../images/googleplus.png');
 const facebooklogoPng = require('../images/facebooklogo.png');
+const FBSDK = require('react-native-fbsdk');
+const {
+  ShareDialog,
+} = FBSDK;
 
 const styles = StyleSheet.create({
   mask: {
@@ -66,26 +68,56 @@ class ShareModal extends Component {
   //   callback: PropTypes.func.isRequired,
   // };
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
 
   handleOnModalClose = () => {
-    const { closeModal } = this.props;
+    const {closeModal} = this.props;
     closeModal();
   };
 
-  handleOnPress(key) {
-    switch (key) {
-      case 'fb':
-        console.log('fb');
-        break;
+  handleFBShare() {
+    const {
+      brandId,
+      typeId,
+      id,
+      i18n,
+      name
+    } = this.props;
 
-      default:
-        break;
-    }
+    let link = "https://www.buyoo.vn/html/details.html?";
+    link += "typeId=";
+    link += typeId;
+    link += "&brandId=";
+    link += brandId;
+    link += "&id=";
+    link += id;
+    shareStr = i18n.shareProduct1 + name + i18n.shareProduct2
+    let shareLinkContent = {
+      contentType: 'link',
+      contentUrl: link,
+      contentDescription: shareStr,
+    };
+
+    ShareDialog.canShow(shareLinkContent).then(
+      (canShow) => {
+        if (canShow) {
+          return ShareDialog.show(shareLinkContent);
+        }
+      }
+    ).then(
+      (result) => {
+        console.log("success")
+      },
+      (error) => {
+        NativeModules.Toast.show(i18n.failed + error);
+      }
+    );
+
   }
 
   renderContent() {
-    const { i18n } = this.props;
+    const {i18n} = this.props;
     // const {
     //   cancelTitle = i18n.cancel,
     //   buttons = [],
@@ -95,15 +127,15 @@ class ShareModal extends Component {
     return (
       <View style={styles.contanier}>
         <View style={styles.title}>
-          <Ionicons style={styles.titleIcon} name="ios-paper-plane" />
+          <Ionicons style={styles.titleIcon} name="ios-paper-plane"/>
           <Text style={styles.titleText}>{i18n.share}</Text>
         </View>
         <View style={styles.main}>
           <BYTouchable
             style={styles.itemWrap}
-            onPress={() => this.handleOnPress('fb')}
+            onPress={() => this.handleFBShare()}
           >
-            <Image style={styles.item} source={facebooklogoPng} />
+            <Image style={styles.item} source={facebooklogoPng}/>
           </BYTouchable>
           {/* <BYTouchable style={styles.itemWrap}>
             <Image style={styles.item} source={googleplusPng} />
@@ -140,8 +172,8 @@ class ShareModal extends Component {
         visible
         onRequestClose={this.handleOnModalClose}
       >
-        <View style={{ flex: 1 }}>
-          <Text style={styles.mask} onPress={this.handleOnModalClose} />
+        <View style={{flex: 1}}>
+          <Text style={styles.mask} onPress={this.handleOnModalClose}/>
           {this.renderContent()}
         </View>
       </Modal>
@@ -153,12 +185,16 @@ export default connectLocalization(
   connect(
     (state, props) => {
       const {
-        modal: { modalProps = {} },
+        modal: {modalProps = {}},
       } = state;
 
       const {
         callback,
         buttons,
+        brandId,
+        typeId,
+        id,
+        name,
         // buttons,
       } = props;
 
@@ -166,6 +202,10 @@ export default connectLocalization(
         callback,
         buttons,
         modalProps,
+        brandId,
+        typeId,
+        id,
+        name
       };
     },
     {

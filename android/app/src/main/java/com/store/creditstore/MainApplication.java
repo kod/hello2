@@ -2,36 +2,29 @@ package com.store.creditstore;
 
 import android.app.Application;
 
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
+import com.burnweb.rnwebview.RNWebViewPackage;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.facebook.react.ReactApplication;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.react.rnspinkit.RNSpinkitPackage;
-import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-import fr.bamlab.rnimageresizer.ImageResizerPackage;
-import com.reactnative.ivpusic.imagepicker.PickerPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import org.reactnative.camera.RNCameraPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import org.reactnative.camera.RNCameraPackage;
-import fr.bamlab.rnimageresizer.ImageResizerPackage;
-import com.reactnative.ivpusic.imagepicker.PickerPackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
-import com.react.rnspinkit.RNSpinkitPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.soloader.SoLoader;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
+
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import org.reactnative.camera.RNCameraPackage;
 
 import java.util.Arrays;
 import java.util.List;
+
+import fr.bamlab.rnimageresizer.ImageResizerPackage;
 
 public class MainApplication extends Application implements ReactApplication {
     private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
@@ -60,7 +53,9 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNSpinkitPackage(),
                     new RNDeviceInfo(),
                     new ReactNativeLocalizationPackage(),
-                    new VectorIconsPackage()
+                    new VectorIconsPackage(),
+                    new RNWebViewPackage(),
+                    new NativePackage()
             );
         }
 

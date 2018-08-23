@@ -78,6 +78,7 @@
   "shippingAddress": "我的地址",
   "soldOut": "无货",
   "success": "成功",
+  "failed": "失败：",
   "startANewGroupBuying": "开始新的团购",
   "startGroupBuy": "开始团购",
   "anErrorOccurred": "发生错误",
@@ -253,5 +254,7 @@
   "waitingForTheOrder": "等待拼单",
   "cancelTransaction": "交易取消",
   "enterMobileNumberRecharged": "输入待充值的手机号码",
-  "warehouse": "仓库"
+  "warehouse": "仓库",
+  "shareProduct1": "我在buyoo.vn发现了",
+  "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }

@@ -78,6 +78,7 @@
   "shippingAddress": "Shipping address",
   "soldOut": "Sold Out",
   "success": "Success",
+  "failed": "Failed: ",
   "startANewGroupBuying": "start a new group buying",
   "startGroupBuy": "Start group buy",
   "anErrorOccurred": "An error occurred",
@@ -253,5 +254,7 @@
   "waitingForTheOrder": "Waiting for the order",
   "cancelTransaction": "Cancel transaction",
   "enterMobileNumberRecharged": "Enter the mobile number to be recharged",
-  "warehouse": "Warehouse"
+  "warehouse": "Warehouse",
+  "shareProduct1": "I found ",
+  "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one?"
 }

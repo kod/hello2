@@ -4,8 +4,17 @@ import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import Loader from './Loader';
 import BYHeader from './BYHeader';
 // import { PRIMARY_COLOR } from '../styles/colors';
-import { PRIMARY_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, SCREENS } from '../common/constants';
+import {PRIMARY_COLOR} from '../styles/variables';
+import {WINDOW_WIDTH, SCREENS} from '../common/constants';
+import {NativeModules} from 'react-native';
+
+let WebViewAndroid = require('react-native-webview-android');
+const WEBVIEW_REF = 'webview';
+
+//被拦截的url包含的字符串，此处可以写完整的url
+const INTERCEPT_URL1 = 'intent://';
+const INTERCEPT_URL2 = 'http://';
+const INTERCEPT_URL3 = 'https://';
 
 const styles = StyleSheet.create({
   container: {
@@ -67,6 +76,25 @@ class BYWebView extends Component {
     this.setState(newState);
   };
 
+  onShouldStartLoadWithRequest = (event) => {
+    let url = event.url;
+    console.log('------------url----------' + url);
+    if (url && 0 !== url.length) {
+      if (url.startsWith('intent')) {
+        NativeModules.IntentHandler.jump(url, (success) => {
+          alert(success)
+        }, (error) => {
+          alert(error)
+        })
+      } else if (url.startsWith('http') || url.startsWith('https')) {
+        //TODO
+      } else {
+        console.log('-------未拦截住url----------');
+      }
+    }
+    return true;
+  };
+
   handleOnPressBackButton() {
     const {
       navigation: {
@@ -106,12 +134,24 @@ class BYWebView extends Component {
           value={progress}
           backgroundColorOnComplete="#fff"
         />
-        {loadedOnce && loading && <Loader absolutePosition />}
-        <WebView
+        {loadedOnce && loading && <Loader absolutePosition/>}
+        {/*<WebView*/}
+        {/*source={source}*/}
+        {/*renderLoading={this.renderLoader}*/}
+        {/*onLoadStart={this.handleOnLoadStart}*/}
+        {/*onLoadEnd={this.handleOnLoadEnd}*/}
+        {/*startInLoadingState*/}
+        {/*{...otherProps}*/}
+        {/*/>*/}
+        <WebViewAndroid
+          ref={WEBVIEW_REF}
           source={source}
           renderLoading={this.renderLoader}
           onLoadStart={this.handleOnLoadStart}
           onLoadEnd={this.handleOnLoadEnd}
+          injectFilterInterceptArray={[INTERCEPT_URL1, INTERCEPT_URL2, INTERCEPT_URL3]}
+          allowInterceptUrl={true}
+          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           startInLoadingState
           {...otherProps}
         />
