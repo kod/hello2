@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   },
   mask: {
     flex: 1,
+    backgroundColor: 'rgba(0,0,0,.3)',
   },
   operate: {
     flexDirection: 'row',
@@ -444,7 +445,7 @@ class ParamsSelectModal extends Component {
         onRequestClose={this.handleOnModalClose}
       >
         <View style={{ flex: 1 }}>
-          <Text style={styles.mask} />
+          <Text style={styles.mask} onPress={this.handleOnModalClose} />
           {this.renderContent()}
         </View>
       </Modal>
