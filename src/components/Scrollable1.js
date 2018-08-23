@@ -183,6 +183,10 @@ class Scrollable1 extends Component {
         navigate(SCREENS.Prepaid);
         break;
 
+      case 'computerPage':
+        navigate(SCREENS.Scrollable3);
+        break;
+
       default:
         console.warn('error');
         break;
