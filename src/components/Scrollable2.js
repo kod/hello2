@@ -6,7 +6,7 @@ import SwiperFlatList from './SwiperFlatList';
 import BrandList from './BrandList';
 import PhoneAdBaner from './PhoneAdBaner';
 import FloorTitle from './FloorTitle';
-import ProductItem1 from './ProductItem1';
+import ProductItem4 from './ProductItem4';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 // import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
@@ -44,7 +44,7 @@ class Scrollable2 extends Component {
           style={{ paddingTop: 10, backgroundColor: '#fff' }}
         />
 
-        <ProductItem1 data={phoneAdList} style={{ backgroundColor: '#fff' }} />
+        <ProductItem4 data={phoneAdList} style={{ backgroundColor: '#fff' }} />
 
         {/* <FeaturedGoodsItem data={bannerHomeRecommend} /> */}
       </View>

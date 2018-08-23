@@ -27,6 +27,7 @@ import BannerHomeType from './BannerHomeType';
 // import ProductItem1 from './ProductItem1';
 // import ProductItem2 from './ProductItem2';
 import ProductItem1 from './ProductItem1';
+import ProductItem4 from './ProductItem4';
 import FloorTitle from './FloorTitle';
 import NavImg1 from './NavImg1';
 import SeparateBar from './SeparateBar';
@@ -230,7 +231,7 @@ class Scrollable1 extends Component {
               <CustomIcon name="arrowright" style={styles.groupBuyTitleMoreIcon} />
             </View>
           </View>
-          <ProductItem1 data={mergeGetInfoList} groupon={true} />
+          <ProductItem4 data={mergeGetInfoList} groupon={true} />
         </View> */}
 
         <FloorTitle
@@ -252,7 +253,7 @@ class Scrollable1 extends Component {
         />
 
         {/* <ProductItem2 data={adverstInfoList} /> */}
-        <ProductItem1
+        <ProductItem4
           data={adverstInfoList}
           style={{ backgroundColor: '#fff' }}
         />

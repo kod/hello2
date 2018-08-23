@@ -6,7 +6,7 @@ import { SCREENS } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import ProductItem1 from '../components/ProductItem1';
+import ProductItem4 from '../components/ProductItem4';
 import Loader from '../components/Loader';
 import { RED_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
@@ -91,7 +91,7 @@ class GroupBuyList extends Component {
     
     return (
       <View style={styles.container}>
-        <ProductItem1 data={items} groupon={true} />
+        <ProductItem4 data={items} groupon={true} />
         {ScrollViewPullUp.scrollViewFooter(pulluploading)}
       </View>
     )
