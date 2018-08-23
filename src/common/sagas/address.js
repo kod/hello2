@@ -166,7 +166,6 @@ export function* addressAddFetchWatchHandle(action) {
       ],
       Key,
     );
-
     const response = yield apply(buyoo, buyoo.useraddaddr, [
       {
         appId,
@@ -206,20 +205,7 @@ export function* addressAddSuccessWatchHandle(action) {
   const { screen } = action.payload;
   try {
     yield put(addressFetch());
-    Alert.alert(
-      '',
-      i18n.success,
-      [
-        {
-          text: i18n.confirm,
-          onPress: () => {
-            apply(DeviceEventEmitter, DeviceEventEmitter.emit, [screen]);
-            // NavigatorService.pop(1);
-          },
-        },
-      ],
-      { cancelable: false },
-    );
+    yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [screen]);
   } catch (err) {
     console.log(err);
   }

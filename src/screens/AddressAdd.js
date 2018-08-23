@@ -109,6 +109,7 @@ class AddressAdd extends Component {
 
   componentDidMount() {
     const {
+      i18n,
       initialize,
       navigation: {
         goBack,
@@ -119,7 +120,19 @@ class AddressAdd extends Component {
     this.screenListener = DeviceEventEmitter.addListener(
       SCREENS.AddressAdd,
       () => {
-        goBack();
+        Alert.alert(
+          '',
+          i18n.success,
+          [
+            {
+              text: i18n.confirm,
+              onPress: () => {
+                goBack();
+              },
+            },
+          ],
+          { cancelable: false },
+        );
       },
     );
 
@@ -135,6 +148,19 @@ class AddressAdd extends Component {
   componentWillUnmount() {
     clearTimeout(this.setTimeoutId);
     this.screenListener.remove();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { loading: prevLoading } = this.props;
+    const { loading, openModal, closeModal } = nextProps;
+
+    if (prevLoading !== loading) {
+      if (loading === false) {
+        closeModal();
+      } else {
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
   }
 
   callbackToggleMenuBottomSheet(ret) {
@@ -398,9 +424,11 @@ export default connectLocalization(
       const {
         cityInfos,
         form,
+        userAddAddr,
         // form,
       } = state;
       return {
+        loading: userAddAddr.loading,
         addressAddInfo: form.AddressAdd ? form.AddressAdd : {},
         division2ndItems: cityInfos.division2nd,
         division3rdItems: cityInfos.division3rd,
