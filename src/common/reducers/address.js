@@ -1,7 +1,4 @@
-import {
-  ADDRESS,
-  ADDRESS_SELECT,
-} from '../constants/actionTypes';
+import { ADDRESS, ADDRESS_SELECT } from '../constants/actionTypes';
 
 const initState = {
   loading: false,
@@ -15,7 +12,7 @@ export default function address(state = initState, action) {
   switch (action.type) {
     case ADDRESS.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case ADDRESS.REQUEST:
       return {
