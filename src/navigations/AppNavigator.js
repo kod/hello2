@@ -47,6 +47,7 @@ import Cart from '../screens/Cart';
 import AboutAs from '../screens/AboutAs';
 import CouponSelect from '../screens/CouponSelect';
 import Computer from '../screens/Computer';
+import Mobile from '../screens/Mobile';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -63,6 +64,12 @@ const RouteConfigs = {
   },
   [SCREENS.Computer]: {
     screen: Computer,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.Mobile]: {
+    screen: Mobile,
     navigationOptions: {
       header: null,
     },
