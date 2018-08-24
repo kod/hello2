@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   itemPrice: {
     fontSize: 11,
-    color: '#999',
+    // color: '#999',
     marginBottom: 6,
   },
   itemRightRow3: {
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     color: '#666',
     paddingTop: 2,
     flex: 1,
-    textAlign: 'right',
+    // textAlign: 'right',
   },
 });
 
@@ -136,14 +136,14 @@ class ProductItem2 extends Component {
                   {`${priceFormat(val.price)} ₫`}
                 </Text>
                 <View style={styles.itemRightRow3}>
-                  <Text style={[styles.itemRightRow3Price, stylePricePrice]}>
+                  {/* <Text style={[styles.itemRightRow3Price, stylePricePrice]}>
                     {`${priceFormat(parseInt(val.price / 12, 10))} ₫`}
                   </Text>
                   <Text
                     style={[styles.itemRightRow3Periods, stylePricePeriods]}
                   >
                     x12 {i18n.month}
-                  </Text>
+                  </Text> */}
                   {isShowNumber && (
                     <Text style={styles.itemRightRow3Number}>
                       x{val.number}

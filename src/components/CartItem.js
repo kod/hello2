@@ -296,16 +296,16 @@ class CartItem extends Component {
                 <Text style={styles.itemTitle} numberOfLines={1}>
                   {products[val].subject}
                 </Text>
-                <Text style={styles.itemPrice}>
+                {/* <Text style={styles.itemPrice}>
                   {`${priceFormat(details[products[val].detail].price)} ₫`}
-                </Text>
+                </Text> */}
                 <View style={styles.itemRightRow3}>
                   <Text style={styles.itemRightRow3Price}>
                     {`${priceFormat(details[products[val].detail].price)} ₫`}
                   </Text>
-                  <Text style={styles.itemRightRow3Number}>
+                  {/* <Text style={styles.itemRightRow3Number}>
                     x12 {i18n.month}
-                  </Text>
+                  </Text> */}
                 </View>
               </View>
               {this.renderCartItemRight(
