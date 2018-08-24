@@ -1,15 +1,17 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { topComputerFetchSuccess, topComputerFetchFailure } from '../actions/topComputer';
+import moment from 'moment';
+import {
+  topComputerFetchSuccess,
+  topComputerFetchFailure,
+} from '../actions/topComputer';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { TOP_COMPUTER } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
-export function* topComputerFetchWatchHandle(action) {
+export function* topComputerFetchWatchHandle() {
   try {
-    const { params = {} } = action.payload;
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.computer.topad';
@@ -17,9 +19,9 @@ export function* topComputerFetchWatchHandle(action) {
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '1.0';
 
-    let typeid = '2';
-    let pagesize = '5';
-    let currentpage = '1';
+    const typeid = '2';
+    const pagesize = '5';
+    const currentpage = '1';
 
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
@@ -27,18 +29,18 @@ export function* topComputerFetchWatchHandle(action) {
       [
         {
           key: 'typeid',
-          value: typeid
+          value: typeid,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
         {
           key: 'currentpage',
-          value: currentpage
-        }
+          value: currentpage,
+        },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.initTopComputer, [
@@ -50,23 +52,22 @@ export function* topComputerFetchWatchHandle(action) {
         encrypt,
         timestamp,
         version,
-        typeid: typeid,
-        pagesize: pagesize,
-        currentpage: currentpage
-      }
+        typeid,
+        pagesize,
+        currentpage,
+      },
     ]);
 
-
-    let computeradImgList = [];
+    const computeradImgList = [];
     let classfyinfo = [];
 
     if (response.code === 10000) {
       const array = response.computerltopadinfo;
       for (let index = 0; index < array.length; index += 1) {
         const element = array[index];
-        computeradImgList.push(element.imageUrl);
+        computeradImgList.push(element);
       }
-      classfyinfo = response.classfyinfo;
+      ({ classfyinfo } = response);
     }
 
     // yield put(topComputerFetchSuccess(response));

@@ -19,10 +19,7 @@ class Scrollable3 extends Component {
 
   render() {
     const { topComputer, newComputer, i18n } = this.props;
-    const {
-      classfyinfo,
-      computeradImgList: { computeradImgList },
-    } = topComputer;
+    const { classfyinfo, computeradImgList } = topComputer;
     const { computernewList, computernewBanerList } = newComputer;
     // const computeradImgList = topComputer.computeradImgList;
 
