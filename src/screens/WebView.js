@@ -75,13 +75,14 @@ class WebView extends Component {
   render() {
     const {
       navigation: { state },
-      // i18n,
+      i18n,
     } = this.props;
     return (
       <BYWebView
         {...this.props}
         source={{ uri: state.params.source }}
         from={state.params.from}
+        i18n={i18n}
       />
     );
   }

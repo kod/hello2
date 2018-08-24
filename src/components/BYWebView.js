@@ -1,17 +1,18 @@
+/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
-import { View, WebView, StyleSheet } from 'react-native';
+import { View, NativeModules, StyleSheet, Alert } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import Loader from './Loader';
 import BYHeader from './BYHeader';
 // import { PRIMARY_COLOR } from '../styles/colors';
-import {PRIMARY_COLOR} from '../styles/variables';
-import {WINDOW_WIDTH, SCREENS} from '../common/constants';
-import {NativeModules} from 'react-native';
+import { PRIMARY_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, SCREENS } from '../common/constants';
 
-let WebViewAndroid = require('react-native-webview-android');
+const WebViewAndroid = require('react-native-webview-android');
+
 const WEBVIEW_REF = 'webview';
 
-//被拦截的url包含的字符串，此处可以写完整的url
+// 被拦截的url包含的字符串，此处可以写完整的url
 const INTERCEPT_URL1 = 'intent://';
 const INTERCEPT_URL2 = 'http://';
 const INTERCEPT_URL3 = 'https://';
@@ -37,6 +38,10 @@ class BYWebView extends Component {
       loadedOnce: false,
       progress: 30,
     };
+
+    this.onShouldStartLoadWithRequest = this.onShouldStartLoadWithRequest.bind(
+      this,
+    );
   }
 
   componentDidMount() {
@@ -76,18 +81,29 @@ class BYWebView extends Component {
     this.setState(newState);
   };
 
-  onShouldStartLoadWithRequest = (event) => {
-    let url = event.url;
-    console.log('------------url----------' + url);
-    if (url && 0 !== url.length) {
+  onShouldStartLoadWithRequest = event => {
+    const { i18n } = this.props;
+    const { url } = event;
+    console.log(`------------url---------- ${url}`);
+    if (url && url.length !== 0) {
       if (url.startsWith('intent')) {
-        NativeModules.IntentHandler.jump(url, (success) => {
-          alert(success)
-        }, (error) => {
-          alert(error)
-        })
+        NativeModules.IntentHandler.jump(
+          url,
+          success => {
+            Alert.alert('', success, [
+              {
+                text: i18n.confirm,
+                onPress: () => {},
+              },
+            ]);
+            // 回到上个页面
+          },
+          error => {
+            alert(error);
+          },
+        );
       } else if (url.startsWith('http') || url.startsWith('https')) {
-        //TODO
+        // TODO
       } else {
         console.log('-------未拦截住url----------');
       }
@@ -134,23 +150,27 @@ class BYWebView extends Component {
           value={progress}
           backgroundColorOnComplete="#fff"
         />
-        {loadedOnce && loading && <Loader absolutePosition/>}
-        {/*<WebView*/}
-        {/*source={source}*/}
-        {/*renderLoading={this.renderLoader}*/}
-        {/*onLoadStart={this.handleOnLoadStart}*/}
-        {/*onLoadEnd={this.handleOnLoadEnd}*/}
-        {/*startInLoadingState*/}
-        {/*{...otherProps}*/}
-        {/*/>*/}
+        {loadedOnce && loading && <Loader absolutePosition />}
+        {/* <WebView
+          source={source}
+          renderLoading={this.renderLoader}
+          onLoadStart={this.handleOnLoadStart}
+          onLoadEnd={this.handleOnLoadEnd}
+          startInLoadingState
+          {...otherProps}
+        /> */}
         <WebViewAndroid
           ref={WEBVIEW_REF}
           source={source}
           renderLoading={this.renderLoader}
           onLoadStart={this.handleOnLoadStart}
           onLoadEnd={this.handleOnLoadEnd}
-          injectFilterInterceptArray={[INTERCEPT_URL1, INTERCEPT_URL2, INTERCEPT_URL3]}
-          allowInterceptUrl={true}
+          injectFilterInterceptArray={[
+            INTERCEPT_URL1,
+            INTERCEPT_URL2,
+            INTERCEPT_URL3,
+          ]}
+          allowInterceptUrl
           onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           startInLoadingState
           {...otherProps}
