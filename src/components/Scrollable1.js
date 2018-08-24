@@ -171,19 +171,38 @@ class Scrollable1 extends Component {
         break;
 
       case 'order':
+        // 我的订单
         navigateCheckLogin(isAuthUser, navigate, 'Order', { index: 0 });
         break;
 
       case 'couponcenter':
+        // 领券中心
         navigate(SCREENS.Coupon);
         break;
 
       case 'prepaid':
+        // 充值
         navigate(SCREENS.Prepaid);
         break;
 
       case 'computerPage':
+        // 电脑
         navigate(SCREENS.Computer);
+        break;
+
+      case 'cellphoneBanner':
+        // 手机
+        navigate(SCREENS.Mobile);
+        break;
+
+      case 'watch':
+        // 手表
+        navigate(SCREENS.CateList, {
+          parent_id: '7',
+          classfy_id: '0',
+          sub_classfy_id: '0',
+          third_classfy_id: '0',
+        });
         break;
 
       default:
