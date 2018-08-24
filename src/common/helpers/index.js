@@ -1,4 +1,12 @@
-import { SCREENS } from '../constants';
+import { NavigationActions } from 'react-navigation';
+import {
+  HTML_REGEX,
+  BRANDID_REGEX,
+  CLASSIFYID_REGEX,
+  SUBCLASSFYID_REGEX,
+  THIRDCLASSFYID_REGEX,
+  SCREENS,
+} from '../constants';
 
 export const addressJoin = item =>
   item.address +
@@ -157,5 +165,103 @@ export const navigateCheckLogin = (
     navigate(SCREENS[screensName], params);
   } else {
     navigate(SCREENS.Login);
+  }
+};
+
+export const analyzeUrlNavigate = (
+  linkUrl,
+  navigation,
+  isAuthUser = false,
+  isQrCode = false,
+) => {
+  const { navigate } = navigation;
+  const htmlRegexResult = linkUrl.match(HTML_REGEX);
+
+  const customNavigate = (routeName, params = {}) => {
+    if (isQrCode) {
+      navigation.dispatch(
+        NavigationActions.reset({
+          index: 1,
+          actions: [
+            NavigationActions.navigate({ routeName: SCREENS.Index }),
+            NavigationActions.navigate({ routeName }),
+          ],
+        }),
+      );
+    } else {
+      navigate(routeName, params);
+    }
+  };
+
+  const navImg1More = () => {
+    const brandIdRegexResult = linkUrl.match(BRANDID_REGEX);
+    const classifyIdRegexResult = linkUrl.match(CLASSIFYID_REGEX);
+    const subClassfyIdRegexResult = linkUrl.match(SUBCLASSFYID_REGEX);
+    const thirdClassfyIdRegexResult = linkUrl.match(THIRDCLASSFYID_REGEX);
+    navigate(SCREENS.CateList, {
+      parent_id: brandIdRegexResult ? brandIdRegexResult[1] : '0',
+      classfy_id: classifyIdRegexResult ? classifyIdRegexResult[1] : '0',
+      sub_classfy_id: subClassfyIdRegexResult
+        ? subClassfyIdRegexResult[1]
+        : '0',
+      third_classfy_id: thirdClassfyIdRegexResult
+        ? thirdClassfyIdRegexResult[1]
+        : '0',
+    });
+  };
+
+  switch (htmlRegexResult[1]) {
+    case 'more':
+      navImg1More(linkUrl);
+      break;
+
+    case 'order':
+      // 我的订单
+      if (isAuthUser) {
+        customNavigate(SCREENS.Order, { index: 0 });
+      } else {
+        customNavigate(SCREENS.Login);
+      }
+
+      // navigateCheckLogin(isAuthUser, navigate, 'Order', { index: 0 });
+      break;
+
+    case 'couponcenter':
+      // 领券中心
+      // navigate(SCREENS.Coupon);
+      customNavigate(SCREENS.Coupon);
+      break;
+
+    case 'prepaid':
+      // 充值
+      // navigate(SCREENS.Prepaid);
+      customNavigate(SCREENS.Prepaid);
+      break;
+
+    case 'computerPage':
+      // 电脑
+      // navigate(SCREENS.Computer);
+      customNavigate(SCREENS.Computer);
+      break;
+
+    case 'cellphoneBanner':
+      // 手机
+      // navigate(SCREENS.Mobile);
+      customNavigate(SCREENS.Mobile);
+      break;
+
+    case 'watch':
+      // 手表
+      customNavigate(SCREENS.CateList, {
+        parent_id: '7',
+        classfy_id: '0',
+        sub_classfy_id: '0',
+        third_classfy_id: '0',
+      });
+      break;
+
+    default:
+      alert('error');
+      break;
   }
 };

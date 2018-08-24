@@ -33,7 +33,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ data, style, onPress, ...restProps }) => (
+export default ({
+  data,
+  style,
+  onPress,
+  navigation,
+  isAuthUser,
+  ...restProps
+}) => (
   <View style={[styles.nav1, style]} {...restProps}>
     {data.map(val => (
       <BYTouchable
@@ -47,7 +54,7 @@ export default ({ data, style, onPress, ...restProps }) => (
           },
         ]}
         key={val.id}
-        onPress={() => onPress(val)}
+        onPress={() => onPress(val.linkUrl, navigation, isAuthUser)}
       >
         <Image
           style={[styles.nav1ItemImg, val.styleImg]}

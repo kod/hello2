@@ -11,11 +11,7 @@ import { connect } from 'react-redux';
 // import { RED_COLOR } from '../styles/variables';
 
 import {
-  HTML_REGEX,
-  BRANDID_REGEX,
-  CLASSIFYID_REGEX,
-  SUBCLASSFYID_REGEX,
-  THIRDCLASSFYID_REGEX,
+  // HTML_REGEX,
   SCREENS,
 } from '../common/constants';
 
@@ -30,7 +26,7 @@ import ProductItem4 from './ProductItem4';
 import FloorTitle from './FloorTitle';
 import NavImg1 from './NavImg1';
 import SeparateBar from './SeparateBar';
-import { navigateCheckLogin } from '../common/helpers';
+import { analyzeUrlNavigate } from '../common/helpers';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
@@ -95,7 +91,6 @@ import { BORDER_COLOR } from '../styles/variables';
 class Scrollable1 extends Component {
   constructor(props) {
     super(props);
-    this.handleOnPressNavImg1 = this.handleOnPressNavImg1.bind(this);
     this.handleOnBannerHomeType = this.handleOnBannerHomeType.bind(this);
   }
 
@@ -126,26 +121,6 @@ class Scrollable1 extends Component {
     // });
   }
 
-  navImg1More(linkUrl) {
-    const {
-      navigation: { navigate },
-    } = this.props;
-    const brandIdRegexResult = linkUrl.match(BRANDID_REGEX);
-    const classifyIdRegexResult = linkUrl.match(CLASSIFYID_REGEX);
-    const subClassfyIdRegexResult = linkUrl.match(SUBCLASSFYID_REGEX);
-    const thirdClassfyIdRegexResult = linkUrl.match(THIRDCLASSFYID_REGEX);
-    navigate(SCREENS.CateList, {
-      parent_id: brandIdRegexResult ? brandIdRegexResult[1] : '0',
-      classfy_id: classifyIdRegexResult ? classifyIdRegexResult[1] : '0',
-      sub_classfy_id: subClassfyIdRegexResult
-        ? subClassfyIdRegexResult[1]
-        : '0',
-      third_classfy_id: thirdClassfyIdRegexResult
-        ? thirdClassfyIdRegexResult[1]
-        : '0',
-    });
-  }
-
   handleOnBannerHomeType(val) {
     const {
       navigation: { navigate },
@@ -158,66 +133,15 @@ class Scrollable1 extends Component {
     });
   }
 
-  handleOnPressNavImg1(val) {
-    const {
-      navigation: { navigate },
-      isAuthUser,
-    } = this.props;
-    const { linkUrl } = val;
-    const htmlRegexResult = linkUrl.match(HTML_REGEX);
-    switch (htmlRegexResult[1]) {
-      case 'more':
-        this.navImg1More(linkUrl);
-        break;
-
-      case 'order':
-        // 我的订单
-        navigateCheckLogin(isAuthUser, navigate, 'Order', { index: 0 });
-        break;
-
-      case 'couponcenter':
-        // 领券中心
-        navigate(SCREENS.Coupon);
-        break;
-
-      case 'prepaid':
-        // 充值
-        navigate(SCREENS.Prepaid);
-        break;
-
-      case 'computerPage':
-        // 电脑
-        navigate(SCREENS.Computer);
-        break;
-
-      case 'cellphoneBanner':
-        // 手机
-        navigate(SCREENS.Mobile);
-        break;
-
-      case 'watch':
-        // 手表
-        navigate(SCREENS.CateList, {
-          parent_id: '7',
-          classfy_id: '0',
-          sub_classfy_id: '0',
-          third_classfy_id: '0',
-        });
-        break;
-
-      default:
-        console.warn('error');
-        break;
-    }
-  }
-
   render() {
     const {
+      isAuthUser,
       bannerSwiper,
       bannerHomeType,
       // promotionInfo,
       // mergeGetInfo,
       adverstInfo,
+      navigation,
       // navigation: { navigate },
       i18n,
       getSquaresInfoItems,
@@ -236,7 +160,9 @@ class Scrollable1 extends Component {
         <NavImg1
           data={getSquaresInfoItems}
           style={{ paddingTop: 5, paddingBottom: 5 }}
-          onPress={this.handleOnPressNavImg1}
+          onPress={analyzeUrlNavigate}
+          navigation={navigation}
+          isAuthUser={isAuthUser}
         />
 
         <SeparateBar />

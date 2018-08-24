@@ -8,6 +8,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
+import { analyzeUrlNavigate } from '../common/helpers';
 // import { RED_COLOR } from '../styles/variables';
 
 import * as bannerHomeRecommendActionCreators from '../common/actions/bannerHomeRecommend';
@@ -43,15 +44,17 @@ class QrCodeScanner extends Component {
 
   onSuccess(e) {
     const {
-      i18n,
       // i18n,
+      isAuthUser,
+      navigation,
     } = this.props;
-    Alert.alert('', e.data, [
-      {
-        text: i18n.confirm,
-        onPress: () => {},
-      },
-    ]);
+    analyzeUrlNavigate(e.data, navigation, isAuthUser, true);
+    // Alert.alert('', e.data, [
+    //   {
+    //     text: i18n.confirm,
+    //     onPress: () => {},
+    //   },
+    // ]);
 
     // Linking
     //   .openURL(e.data)
@@ -111,14 +114,14 @@ class QrCodeScanner extends Component {
 export default connectLocalization(
   connect(
     () => state => {
-      const { bannerHomeRecommend } = state;
+      const { login } = state;
 
       // const {
 
       // } = props;
 
       return {
-        bannerHomeRecommend: bannerHomeRecommend || {},
+        isAuthUser: !!login.user,
       };
     },
     {
