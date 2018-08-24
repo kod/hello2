@@ -129,14 +129,11 @@ class SearchResult extends Component {
         marginRight: 5,
       },
     });
+    const { i18n } = this.props;
     return (
-      <BYTouchable
-        style={stylesX.container}
-        backgroundColor="transparent"
-        onPress={() => this.handleOnPressToggleModal('isOpenPay')}
-      >
-        <Text style={stylesX.title}>search</Text>
-      </BYTouchable>
+      <View style={stylesX.container}>
+        <Text style={stylesX.title}>{i18n.search}</Text>
+      </View>
     );
   };
 
@@ -173,7 +170,7 @@ class SearchResult extends Component {
           />
         </View>
         {items.length > 0 && (
-          <Text style={styles.title}>historical search</Text>
+          <Text style={styles.title}>{i18n.historicalSearch}</Text>
         )}
         <View style={styles.history}>
           {items.map(val => (
