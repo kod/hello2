@@ -1,28 +1,41 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
-import priceFormat from '../common/helpers/priceFormat';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { SIDEINTERVAL } from '../common/constants';
+import BYTouchable from './BYTouchable';
 
 const styles = StyleSheet.create({
   component: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingLeft: SIDEINTERVAL,
-    paddingRight: SIDEINTERVAL
+    paddingRight: SIDEINTERVAL,
   },
   componentText: {
     fontSize: 11,
     color: '#0076F7',
     borderBottomColor: '#0076F7',
     borderBottomWidth: 1,
-  }
+  },
+  touchable: {
+    paddingTop: SIDEINTERVAL,
+    paddingBottom: SIDEINTERVAL,
+  },
 });
 
-export default ({ style, textLeft, textRight, navigateLeft, navigateRight, ...restProps }) => {
-  return (
-    <View style={styles.component} {...restProps}>
-      <Text style={styles.componentText} onPress={navigateLeft}>{textLeft}</Text>
-      <Text style={styles.componentText} onPress={navigateRight}>{textRight}</Text>
-    </View>
-  );
-};
+export default ({
+  style,
+  textLeft,
+  textRight,
+  navigateLeft,
+  navigateRight,
+  ...restProps
+}) => (
+  <View style={styles.component} {...restProps}>
+    <BYTouchable style={styles.touchable} onPress={navigateLeft}>
+      <Text style={styles.componentText}>{textLeft}</Text>
+    </BYTouchable>
+    <BYTouchable style={styles.touchable} onPress={navigateRight}>
+      <Text style={styles.componentText}>{textRight}</Text>
+    </BYTouchable>
+  </View>
+);
