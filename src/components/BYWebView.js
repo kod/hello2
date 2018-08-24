@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
-import { View, NativeModules, StyleSheet, Alert } from 'react-native';
+import { View, NativeModules, StyleSheet, Alert, WebView } from 'react-native';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import Loader from './Loader';
 import BYHeader from './BYHeader';
@@ -121,7 +121,7 @@ class BYWebView extends Component {
       from,
     } = this.props;
     switch (from) {
-      case SCREENS.Pay:
+      case SCREENS.Repayment:
         pop(2);
         break;
 
@@ -151,15 +151,15 @@ class BYWebView extends Component {
           backgroundColorOnComplete="#fff"
         />
         {loadedOnce && loading && <Loader absolutePosition />}
-        {/* <WebView
+        <WebView
           source={source}
           renderLoading={this.renderLoader}
           onLoadStart={this.handleOnLoadStart}
           onLoadEnd={this.handleOnLoadEnd}
           startInLoadingState
           {...otherProps}
-        /> */}
-        <WebViewAndroid
+        />
+        {/* <WebViewAndroid
           ref={WEBVIEW_REF}
           source={source}
           renderLoading={this.renderLoader}
@@ -171,10 +171,10 @@ class BYWebView extends Component {
             INTERCEPT_URL3,
           ]}
           allowInterceptUrl
-          onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
+          // onShouldStartLoadWithRequest={this.onShouldStartLoadWithRequest}
           startInLoadingState
           {...otherProps}
-        />
+        /> */}
       </View>
     );
   }

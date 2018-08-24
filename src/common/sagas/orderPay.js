@@ -87,6 +87,7 @@ export function* orderPayFetchWatchHandle(action) {
     ];
 
     if (payway !== 1) {
+      yield put(orderPayFetchFailure());
       NavigatorService.navigate(SCREENS.WebView, {
         source: buyoo.orderPayInternetBank(options[0]),
         from: SCREENS.Pay,
