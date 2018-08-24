@@ -73,6 +73,12 @@ export const AD_PHONE = defineAction(
   appNamespace,
 );
 
+export const GET_NEWEST_INFO = defineAction(
+  'GET_NEWEST_INFO',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const NEW_COMPUTER = defineAction(
   'NEW_COMPUTER',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

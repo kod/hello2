@@ -41,6 +41,7 @@ import * as topComputerActionCreators from '../common/actions/topComputer';
 import * as newComputerActionCreators from '../common/actions/newComputer';
 import * as adDigitalActionCreators from '../common/actions/adDigital';
 import * as getSquaresInfoActionCreators from '../common/actions/getSquaresInfo';
+import * as getNewestInfoActionCreators from '../common/actions/getNewestInfo';
 
 const styles = StyleSheet.create({
   base: {
@@ -134,6 +135,7 @@ class Main extends Component {
       newComputerFetch,
       adDigitalFetch,
       getSquaresInfoFetch,
+      getNewestInfoFetch,
     } = this.props;
     switch (scrollTabIndex) {
       case 0:
@@ -151,7 +153,7 @@ class Main extends Component {
         });
         // mergeGetInfoFetch();
         getSquaresInfoFetch();
-
+        getNewestInfoFetch();
         break;
 
       case 1:
@@ -278,6 +280,7 @@ export default connectLocalization(
       ...newComputerActionCreators,
       ...adDigitalActionCreators,
       ...getSquaresInfoActionCreators,
+      ...getNewestInfoActionCreators,
     },
   )(Main),
 );

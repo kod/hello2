@@ -70,6 +70,7 @@ import modifyPayPassword from './modifyPayPassword';
 import changePassword from './changePassword';
 import addEvaluation from './addEvaluation';
 import userAddAddr from './userAddAddr';
+import getNewestInfo from './getNewestInfo';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -142,6 +143,7 @@ const rootReducer = combineReducers({
   changePassword,
   addEvaluation,
   userAddAddr,
+  getNewestInfo,
   form: formReducer,
 });
 

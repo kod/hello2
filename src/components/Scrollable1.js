@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import {
-  // StyleSheet,
+  StyleSheet,
   View,
-  // Text,
+  Text,
   // Image,
 } from 'react-native';
 import { connect } from 'react-redux';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-
-// import { RED_COLOR } from '../styles/variables';
 
 import {
   // HTML_REGEX,
+  SIDEINTERVAL,
   SCREENS,
 } from '../common/constants';
 
@@ -23,10 +21,13 @@ import BannerHomeType from './BannerHomeType';
 // import ProductItem1 from './ProductItem1';
 // import ProductItem2 from './ProductItem2';
 import ProductItem4 from './ProductItem4';
+import ProductItem5 from './ProductItem5';
 import FloorTitle from './FloorTitle';
 import NavImg1 from './NavImg1';
 import SeparateBar from './SeparateBar';
 import { analyzeUrlNavigate } from '../common/helpers';
+
+import { BORDER_COLOR, RED_COLOR } from '../styles/variables';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
@@ -34,59 +35,65 @@ import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
 import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
 import * as getSquaresInfoActionCreators from '../common/actions/getSquaresInfo';
-
-import { BORDER_COLOR } from '../styles/variables';
+import * as getNewestInfoActionCreators from '../common/actions/getNewestInfo';
 
 // const itemIntervalWidth = SIDEINTERVAL;
 // const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
-// const styles = StyleSheet.create({
-//   groupBuy: {
-//     position: 'relative',
-//     zIndex: -2,
-//     paddingTop: 20,
-//     backgroundColor: '#fff',
-//     marginBottom: 5,
-//   },
-//   groupBuyBackground: {
-//     position: 'absolute',
-//     top: 0,
-//     right: 0,
-//     left: 0,
-//     zIndex: -1,
-//     height: itemWidth + 60,
-//     backgroundColor: '#fa534d',
-//   },
-//   groupBuyImageBackground: {
-//     height: WINDOW_WIDTH * 0.2976,
-//     width: WINDOW_WIDTH,
-//   },
-//   groupBuyTitle: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     paddingLeft: SIDEINTERVAL,
-//     paddingRight: WINDOW_WIDTH * 0.03,
-//     marginBottom: 20
-//   },
-//   groupBuyTitleText: {
-//     color: '#fff',
-//     fontSize: 16
-//   },
-//   groupBuyTitleRight: {
-//     flexDirection: 'row',
-//     alignItems: 'center'
-//   },
-//   groupBuyTitleMore: {
-//     color: '#fff',
-//     fontSize: 11,
-//     marginRight: 1
-//   },
-//   groupBuyTitleMoreIcon: {
-//     color: '#fff',
-//     fontSize: 8,
-//     paddingTop: 2
-//   },
-// });
+const styles = StyleSheet.create({
+  // groupBuy: {
+  //   position: 'relative',
+  //   zIndex: -2,
+  //   paddingTop: 20,
+  //   backgroundColor: '#fff',
+  //   marginBottom: 5,
+  // },
+  // groupBuyBackground: {
+  //   position: 'absolute',
+  //   top: 0,
+  //   right: 0,
+  //   left: 0,
+  //   zIndex: -1,
+  //   height: itemWidth + 60,
+  //   backgroundColor: '#fa534d',
+  // },
+  // groupBuyImageBackground: {
+  //   height: WINDOW_WIDTH * 0.2976,
+  //   width: WINDOW_WIDTH,
+  // },
+  // groupBuyTitle: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   paddingLeft: SIDEINTERVAL,
+  //   paddingRight: WINDOW_WIDTH * 0.03,
+  //   marginBottom: 20
+  // },
+  // groupBuyTitleText: {
+  //   color: '#fff',
+  //   fontSize: 16
+  // },
+  // groupBuyTitleRight: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center'
+  // },
+  // groupBuyTitleMore: {
+  //   color: '#fff',
+  //   fontSize: 11,
+  //   marginRight: 1
+  // },
+  // groupBuyTitleMoreIcon: {
+  //   color: '#fff',
+  //   fontSize: 8,
+  //   paddingTop: 2
+  // },
+  hotTittle: {
+    color: RED_COLOR,
+    paddingLeft: SIDEINTERVAL,
+    paddingTop: SIDEINTERVAL,
+    paddingBottom: SIDEINTERVAL,
+    backgroundColor: '#fff',
+  },
+});
 
 class Scrollable1 extends Component {
   constructor(props) {
@@ -101,8 +108,10 @@ class Scrollable1 extends Component {
       promotionInfoFetch,
       adverstInfoFetch,
       getSquaresInfoFetch,
+      getNewestInfoFetch,
       // mergeGetInfoFetch,
     } = this.props;
+    getNewestInfoFetch();
     bannerSwiperFetch('one');
     bannerHomeTypeFetch();
     promotionInfoFetch();
@@ -145,6 +154,7 @@ class Scrollable1 extends Component {
       // navigation: { navigate },
       i18n,
       getSquaresInfoItems,
+      getNewestInfoItems,
     } = this.props;
     // const mergeGetInfoList = mergeGetInfo.items;
     const bannerSwiperList = bannerSwiper.items;
@@ -166,6 +176,13 @@ class Scrollable1 extends Component {
         />
 
         <SeparateBar />
+        <SeparateBar />
+
+        <Text style={styles.hotTittle}>{i18n.hotNewProduct}</Text>
+        <ProductItem5
+          data={getNewestInfoItems}
+          style={{ backgroundColor: '#fff' }}
+        />
 
         {/* 暂时屏蔽拼单功能 */}
         {/* <View style={styles.groupBuy}>
@@ -219,6 +236,7 @@ export default connect(
       adverstInfo,
       mergeGetInfo,
       getSquaresInfo,
+      getNewestInfo,
       login,
     } = state;
 
@@ -227,6 +245,7 @@ export default connect(
     // } = props;
 
     return {
+      getNewestInfoItems: getNewestInfo.items,
       bannerSwiper: bannerSwiper.one || {},
       bannerHomeType: bannerHomeType || {},
       promotionInfo: promotionInfo || {},
@@ -243,5 +262,6 @@ export default connect(
     ...mergeGetInfoActionCreators,
     ...adverstInfoActionCreators,
     ...getSquaresInfoActionCreators,
+    ...getNewestInfoActionCreators,
   },
 )(Scrollable1);
