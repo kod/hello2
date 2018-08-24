@@ -9,9 +9,10 @@ import { WINDOW_WIDTH, SIDEINTERVAL, SCREENS } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 
 const itemIntervalWidth = SIDEINTERVAL;
-const itemWidth =
-  (WINDOW_WIDTH - itemIntervalWidth * 4) / 3 - WINDOW_WIDTH * 0.02;
-// const paddingInerval = SIDEINTERVAL / 2;
+const itemWidth = parseInt(
+  (WINDOW_WIDTH - itemIntervalWidth * 4) / 3 - WINDOW_WIDTH * 0.03,
+  10,
+);
 
 const styles = StyleSheet.create({
   itemWrap: {
@@ -30,8 +31,8 @@ const styles = StyleSheet.create({
     marginBottom: itemIntervalWidth,
   },
   itemImg: {
-    width: itemWidth - 2,
-    height: itemWidth - 2,
+    width: itemWidth,
+    height: itemWidth,
     marginBottom: 5,
   },
   itemText: {
@@ -73,7 +74,12 @@ class ProductItem5 extends Component {
     } = this.props;
 
     return (
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={[styles.itemWrap, style]} {...restProps}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={[styles.itemWrap, style]}
+        {...restProps}
+      >
         {data.map((val, key) => (
           <BYTouchable
             style={styles.item}
