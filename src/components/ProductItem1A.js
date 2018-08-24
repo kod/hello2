@@ -115,7 +115,7 @@ class ProductItem1 extends Component {
           <FlatList
             data={items}
             renderItem={this.renderItem}
-            keyExtractor={item => item.brandId}
+            keyExtractor={item => item.id}
             getItemLayout={(data, index) => ({
               length: WINDOW_WIDTH / 2,
               offset: (WINDOW_WIDTH / 2) * index,
