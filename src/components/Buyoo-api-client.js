@@ -26,7 +26,7 @@ function callApi(url, options) {
   }
   return axios(finalUrl, options)
     .then(res => {
-      if (DEBUG) console.log(res.data);
+      if (DEBUG) console.log(JSON.stringify(res.data));
       return res.data;
     })
     .catch(err => {
