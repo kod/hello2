@@ -25,7 +25,10 @@ function callApi(url, options) {
     console.log(options);
   }
   return axios(finalUrl, options)
-    .then(res => res.data)
+    .then(res => {
+      if (DEBUG) console.log(res.data);
+      return res.data;
+    })
     .catch(err => {
       if (err.response) {
         throw err.response.data;
