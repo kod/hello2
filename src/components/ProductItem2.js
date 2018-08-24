@@ -79,6 +79,20 @@ const styles = StyleSheet.create({
 });
 
 class ProductItem2 extends Component {
+  onPressHandle(val) {
+    const {
+      navigation: { navigate, goBack },
+    } = this.props;
+    if (val.isOnPress === false) {
+      goBack(null);
+    } else {
+      navigate(SCREENS.ProductDetail, {
+        brandId: val.brandId,
+        propertiesIds: val.propertiesIds,
+      });
+    }
+  }
+
   render() {
     const {
       i18n,
@@ -92,7 +106,7 @@ class ProductItem2 extends Component {
       itemLeft,
       itemRight,
       cartNumberRequest,
-      navigation: { navigate },
+      // navigation: { navigate },
       isShowNumber = false,
       ...restProps
     } = this.props;
@@ -104,12 +118,7 @@ class ProductItem2 extends Component {
             <BYTouchable
               style={[styles.item, styleItem]}
               key={key}
-              onPress={() =>
-                navigate(SCREENS.ProductDetail, {
-                  brandId: val.brandId,
-                  propertiesIds: val.propertiesIds,
-                })
-              }
+              onPress={() => this.onPressHandle(val)}
             >
               <View style={[styles.itemLeft, styleItemLeft]}>
                 <Image

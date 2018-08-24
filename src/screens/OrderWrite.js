@@ -391,9 +391,9 @@ class OrderWrite extends Component {
             name: detailItem.name,
             price: detailItem.price,
             number: detailItem.productDetailNumber,
+            isOnPress: false,
           },
         ];
-
     return (
       <View style={styles.container}>
         {(getUserInfoById.loading || orderCreate.loading) && (
