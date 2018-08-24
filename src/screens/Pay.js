@@ -537,7 +537,7 @@ class OrderWrite extends Component {
                 buttons: payWayButtons,
               })
             }
-            valueLeft={i18n.orderAmount}
+            valueLeft={i18n.paymentMethod}
             valueMiddle={payWayButtons[payWayIndex]}
           />
           <NavBar2
