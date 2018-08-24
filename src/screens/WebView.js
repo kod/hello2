@@ -44,7 +44,7 @@ class WebView extends Component {
     } = this.props;
 
     switch (state.params.from) {
-      case SCREENS.Repayment:
+      case SCREENS.Pay:
         this.backHandler = BackHandler.addEventListener(
           'hardwareBackPress',
           () => pop(2),
@@ -63,7 +63,7 @@ class WebView extends Component {
     } = this.props;
 
     switch (state.params.from) {
-      case SCREENS.Repayment:
+      case SCREENS.Pay:
         this.backHandler.remove();
         break;
 

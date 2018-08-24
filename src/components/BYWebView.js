@@ -121,7 +121,7 @@ class BYWebView extends Component {
       from,
     } = this.props;
     switch (from) {
-      case SCREENS.Repayment:
+      case SCREENS.Pay:
         pop(2);
         break;
 
