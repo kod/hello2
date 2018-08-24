@@ -38,7 +38,7 @@ class Scrollable3 extends Component {
         <PhoneAdBaner data={computernewBanerList} />
 
         <FloorTitle
-          title={`/${i18n.goodOnesRecommendation}/`}
+          title={`- ${i18n.goodOnesRecommendation} -`}
           isMore
           style={{ paddingTop: 10, backgroundColor: '#fff' }}
         />

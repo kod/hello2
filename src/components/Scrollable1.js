@@ -200,7 +200,7 @@ class Scrollable1 extends Component {
         </View> */}
 
         <FloorTitle
-          title={`/${i18n.brandOnSale}/`}
+          title={`- ${i18n.brandOnSale} -`}
           isMore={false}
           style={{ paddingTop: 0, backgroundColor: '#fff' }}
         />
@@ -212,7 +212,7 @@ class Scrollable1 extends Component {
         />
 
         <FloorTitle
-          title={`/${i18n.featuredEvents}/`}
+          title={`- ${i18n.featuredEvents} -`}
           isMore={false}
           style={{ borderBottomColor: BORDER_COLOR, borderBottomWidth: 1 }}
         />
