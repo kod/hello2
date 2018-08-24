@@ -278,7 +278,7 @@ class OrderWrite extends Component {
                   orderPayFetch({
                     orderno: orderNo,
                     tradeno: tradeNo,
-                    payway: paywayNow,
+                    payway: '2', // 如果额度不足，目前默认使用网银支付剩余的钱
                     paypassword,
                     payvalue: advance - cardQuery.item.availableBalance,
                     screen: SCREENS.Pay,
