@@ -26,7 +26,6 @@ import BannerHomeType from './BannerHomeType';
 // import CustomIcon from './CustomIcon';
 // import ProductItem1 from './ProductItem1';
 // import ProductItem2 from './ProductItem2';
-import ProductItem1 from './ProductItem1';
 import ProductItem4 from './ProductItem4';
 import FloorTitle from './FloorTitle';
 import NavImg1 from './NavImg1';
@@ -184,7 +183,7 @@ class Scrollable1 extends Component {
         break;
 
       case 'computerPage':
-        navigate(SCREENS.Scrollable3);
+        navigate(SCREENS.Computer);
         break;
 
       default:
