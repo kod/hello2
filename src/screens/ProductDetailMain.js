@@ -22,6 +22,7 @@ import SwiperFlatList from '../components/SwiperFlatList';
 import BYCacheImage from '../components/BYCacheImage';
 import Comment from '../components/Comment';
 import priceFormat from '../common/helpers/priceFormat';
+import { jointWebViewImages } from '../common/helpers';
 
 import {
   RED_COLOR,
@@ -255,32 +256,37 @@ class ProductDetail extends Component {
       numbers,
     } = this.props;
 
-    let WebViewImages;
-    switch (imageDesc.length) {
-      case 0:
-        WebViewImages = '';
-        break;
+    // let WebViewImages;
+    // switch (imageDesc.length) {
+    //   case 0:
+    //     WebViewImages = '';
+    //     break;
 
-      case 1:
-        WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_70" alt="image">`;
-        break;
+    //   case 1:
+    //     WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_70" alt="image">`;
+    //     break;
 
-      default:
-        WebViewImages = imageDesc.reduce((a, b, index) => {
-          let resultStr = '';
-          if (index === 1) {
-            resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
-            resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
-          } else {
-            resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
-            resultStr = a + resultStr;
-          }
-          return resultStr;
-        });
-        break;
-    }
+    //   default:
+    //     WebViewImages = imageDesc.reduce((a, b, index) => {
+    //       let resultStr = '';
+    //       if (index === 1) {
+    //         if (a)
+    //           resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
+    //         if (b)
+    //           resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+    //       } else {
+    //         if (b)
+    //           resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+    //         resultStr = a + resultStr;
+    //       }
+    //       return resultStr;
+    //     });
+    //     break;
+    // }
 
-    const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${WebViewImages}</body></html>`;
+    const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${jointWebViewImages(
+      imageDesc,
+    )}</body></html>`;
 
     return (
       <View style={styles.container}>

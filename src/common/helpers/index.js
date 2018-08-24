@@ -265,3 +265,34 @@ export const analyzeUrlNavigate = (
       break;
   }
 };
+
+export const jointWebViewImages = images => {
+  let WebViewImages;
+  switch (images.length) {
+    case 0:
+      WebViewImages = '';
+      break;
+
+    case 1:
+      WebViewImages = `<img src="${images}?x-oss-process=image/quality,Q_70" alt="image">`;
+      break;
+
+    default:
+      WebViewImages = images.reduce((a, b, index) => {
+        let resultStr = '';
+        if (index === 1) {
+          if (a)
+            resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
+          if (b)
+            resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+        } else {
+          if (b)
+            resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+          resultStr = a + resultStr;
+        }
+        return resultStr;
+      });
+      break;
+  }
+  return WebViewImages;
+};
