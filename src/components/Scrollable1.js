@@ -183,7 +183,7 @@ class Scrollable1 extends Component {
           data={getNewestInfoItems}
           style={{ backgroundColor: '#fff' }}
         />
-
+        <SeparateBar />
         {/* 暂时屏蔽拼单功能 */}
         {/* <View style={styles.groupBuy}>
           <View style={styles.groupBuyBackground}>
