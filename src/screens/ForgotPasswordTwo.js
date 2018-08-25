@@ -53,7 +53,6 @@ class ForgotPasswordTwo extends Component {
             text: i18n.confirm,
             onPress: () => {
               pop(2);
-              // NavigatorService.navigate(SCREENS.Card);
             },
           },
         ]);

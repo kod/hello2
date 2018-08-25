@@ -21,8 +21,6 @@ import {
   getBillNowMonth,
 } from '../selectors';
 
-// import NavigatorService from '../../navigations/NavigatorService';
-
 export function* searchMonthFetchWatchHandle(action) {
   try {
     const { date } = action.payload;

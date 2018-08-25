@@ -15,8 +15,6 @@ import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
 import { getAuthUserFunid } from '../selectors';
 
-// import NavigatorService from '../../navigations/NavigatorService';
-
 export function* billByYearFetchWatchHandle(action) {
   try {
     const { year, init = false } = action.payload;
@@ -148,7 +146,7 @@ export function* billByYearSuccessWatchHandle() {
   //       [
   //         {
   //           text: i18n.confirm,
-  //           onPress: () => { NavigatorService.pop(1); }
+  //           onPress: () => { NavigatoXXXrService.pop(1); }
   //         }
   //       ]
   //     )

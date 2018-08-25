@@ -28,8 +28,6 @@ import {
 } from '../selectors';
 // import i18n from '../helpers/i18n';
 
-// import NavigatorService from '../../navigations/NavigatorService';
-
 export function* userCertificateInfoFetchWatchHandle(/* action */) {
   try {
     // const {  } = action.payload;

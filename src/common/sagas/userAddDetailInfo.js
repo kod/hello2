@@ -19,8 +19,6 @@ import {
 } from '../selectors';
 // import i18n from '../helpers/i18n';
 
-// import NavigatorService from '../../navigations/NavigatorService';
-
 export function* userAddDetailInfoFetchWatchHandle(/* action */) {
   try {
     const funid = yield select(getAuthUserFunid);

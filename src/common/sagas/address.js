@@ -26,8 +26,6 @@ import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
 import i18n from '../helpers/i18n';
 
-// import NavigatorService from '../../navigations/NavigatorService';
-
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
 
 export function* addressFetchWatchHandle(/* action */) {

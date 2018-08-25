@@ -93,7 +93,6 @@ export function* modifyPayPasswordSuccessWatchHandle() {
         text: i18n.confirm,
         onPress: () => {
           NavigatorService.pop(3);
-          // NavigatorService.navigate(SCREENS.Card);
         },
       },
     ]);

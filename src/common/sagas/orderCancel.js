@@ -110,10 +110,6 @@ export function* orderCancelSuccessWatchHandle(action) {
       orderno,
       tradeno,
     } = action.payload;
-    // yield NavigatorService.navigate(SCREENS.Pay, {
-    //   tradeNo,
-    //   orderNo,
-    // });
     yield put(
       queryOrderFetch({
         orderNo: orderno,

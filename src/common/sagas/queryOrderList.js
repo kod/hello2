@@ -113,11 +113,6 @@ export function* queryOrderListFetchWatch() {
 
 export function* queryOrderListSuccessWatchHandle() {
   // try {
-  //   // const { tradeNo, orderNo } = action.payload;
-  //   // yield NavigatorService.navigate(SCREENS.Pay, {
-  //   //   tradeNo,
-  //   //   orderNo,
-  //   // });
   // } catch (err) {}
 }
 
@@ -131,10 +126,6 @@ export function* queryOrderListIndexFetchWatchHandle() {
   //     type,
   //   } = action.payload;
   //   if (type !== 'open') return false;
-  //   // yield NavigatorService.navigate(SCREENS.Pay, {
-  //   //   tradeNo,
-  //   //   orderNo,
-  //   // });
   // } catch (err) {}
 }
 

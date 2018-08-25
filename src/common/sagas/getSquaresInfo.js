@@ -101,11 +101,6 @@ export function* getSquaresInfoFetchWatch() {
 //     //   orderNo,
 //     // } = action.payload;
 
-//     // yield NavigatorService.navigate(SCREENS.Pay, {
-//     //   tradeNo,
-//     //   orderNo,
-//     // });
-
 //   } catch (err) {
 
 //   }
