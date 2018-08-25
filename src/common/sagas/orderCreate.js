@@ -1,16 +1,16 @@
 import { Platform, DeviceEventEmitter } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
+import moment from 'moment';
 import { SCREENS } from '../constants';
-import { orderCreateFetchSuccess, orderCreateFetchFailure } from '../actions/orderCreate';
+import {
+  orderCreateFetchSuccess,
+  orderCreateFetchFailure,
+} from '../actions/orderCreate';
 import { orderPayFetch } from '../actions/orderPay';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { ORDER_CREATE } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
-
-import NavigatorService from '../../navigations/NavigatorService';
 
 import { getAuthUserFunid } from '../selectors';
 
@@ -43,44 +43,44 @@ export function* orderCreateFetchWatchHandle(action) {
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'ordertype',
-          value: ordertype
+          value: ordertype,
         },
         {
           key: 'addrid',
-          value: addrid
+          value: addrid,
         },
         {
           key: 'currency',
-          value: currency
+          value: currency,
         },
         {
           key: 'subject',
-          value: subject
+          value: subject,
         },
         {
           key: 'remark',
-          value: remark
+          value: remark,
         },
         {
           key: 'goodsdetail',
-          value: goodsdetail
+          value: goodsdetail,
         },
         {
           key: 'mergedetail',
-          value: mergedetail
+          value: mergedetail,
         },
         {
           key: 'coupondetail',
-          value: coupondetail
+          value: coupondetail,
         },
       ],
-      Key
+      Key,
     );
-    
+
     const response = yield apply(buyoo, buyoo.orderCreate, [
       {
         appid: appId,
@@ -91,48 +91,43 @@ export function* orderCreateFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        currency: currency,
-        ordertype: ordertype,
-        addrid: addrid,
-        goodsdetail: goodsdetail,
-        mergedetail: mergedetail,
-        coupondetail: coupondetail,
-        subject: subject,
-        remark: remark,
-      }
+        currency,
+        ordertype,
+        addrid,
+        goodsdetail,
+        mergedetail,
+        coupondetail,
+        subject,
+        remark,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(orderCreateFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(
+        orderCreateFetchSuccess({
+          BYtype,
+          BYpayway,
+          tradeNo: response.result.tradeNo,
+          orderNo: response.result.orderNo,
+        }),
+      );
     }
-
-    yield put(orderCreateFetchSuccess({
-      BYtype,
-      BYpayway,
-      tradeNo: response.result.tradeNo,
-      orderNo: response.result.orderNo,
-    }));
   } catch (err) {
     yield put(orderCreateFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
-export function* orderCreateFetchWatch(res) {
+export function* orderCreateFetchWatch() {
   yield takeEvery(ORDER_CREATE.REQUEST, orderCreateFetchWatchHandle);
 }
 
-
 export function* orderCreateSuccessWatchHandle(action) {
   try {
-    const {
-      tradeNo,
-      orderNo,
-      BYtype,
-      BYpayway,
-    } = action.payload;
+    const { tradeNo, orderNo, BYtype, BYpayway } = action.payload;
     switch (BYtype) {
       case 'normal':
         yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
@@ -148,7 +143,6 @@ export function* orderCreateSuccessWatchHandle(action) {
         break;
 
       case 'billPay':
-
         yield put(
           orderPayFetch({
             orderno: orderNo,
@@ -156,13 +150,11 @@ export function* orderCreateSuccessWatchHandle(action) {
             payway: BYpayway,
             paypassword: '123456',
             BYtype,
-          })
+          }),
         );
-  
         break;
 
       case 'Prepaid':
-
         yield put(
           orderPayFetch({
             orderno: orderNo,
@@ -170,11 +162,10 @@ export function* orderCreateSuccessWatchHandle(action) {
             payway: BYpayway,
             paypassword: '123456',
             BYtype,
-          })
+          }),
         );
-  
         break;
-    
+
       default:
         break;
     }
