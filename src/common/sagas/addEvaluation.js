@@ -58,22 +58,6 @@ export function* addEvaluationFetchWatchHandle(action) {
       Key,
     );
 
-    console.log({
-      appId,
-      method,
-      charset,
-      signType,
-      encrypt,
-      timestamp,
-      version,
-      funid,
-      msisdn,
-      username: msisdn,
-      trade_no,
-      order_no,
-      comments,
-    });
-
     const response = yield apply(buyoo, buyoo.addEvaluation, [
       {
         appId,

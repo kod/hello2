@@ -100,7 +100,7 @@ class Scrollable extends Component {
       // orderItem: { items },
       navigation: { navigate },
     } = this.props;
-    console.log(val);
+
     switch (parseInt(val.tradeStatus, 10)) {
       case 10000:
         navigate(SCREENS.Pay, {
@@ -143,11 +143,9 @@ class Scrollable extends Component {
       // orderItem: { items },
       // navigation: { navigate },
     } = this.props;
-    console.log(queryOrderListItem);
-    console.log(queryOrderListItem[itemKey]);
+
     const module = queryOrderListItem[itemKey];
     const { items } = module;
-    console.log(items);
 
     if (items.length === 0 && module.loading === false)
       return (

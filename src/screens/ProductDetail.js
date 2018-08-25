@@ -8,7 +8,7 @@ import {
   Platform,
   InteractionManager,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -27,12 +27,12 @@ import {
   // STATUSBAR_HEIGHT,
 } from '../common/constants';
 
-import {getIsCollection} from '../common/selectors';
+import { getIsCollection } from '../common/selectors';
 
 // import BYBottomSheet from '../components/BYBottomSheet';
 // import BYTextInput from '../components/BYTextInput';
 import BYTouchable from '../components/BYTouchable';
-import {connectLocalization} from '../components/Localization';
+import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
 import ProductDetailTabNavigator from '../navigations/ProductDetailTabNavigator';
 import ProductDetailGrouponTabNavigator from '../navigations/ProductDetailGrouponTabNavigator';
@@ -43,8 +43,6 @@ import * as productDetailInfoActionCreators from '../common/actions/productDetai
 import * as cartActionCreators from '../common/actions/cart';
 import * as collectionActionCreators from '../common/actions/collection';
 import * as modalActionCreators from '../common/actions/modal';
-import NavigatorService from "../navigations/NavigatorService";
-import buyoo from "../common/helpers/apiClient";
 
 const zalofunPng = require('../images/zalofun.png');
 const googleplusPng = require('../images/googleplus.png');
@@ -289,7 +287,7 @@ class ProductDetail extends Component {
     } = this.props;
 
     InteractionManager.runAfterInteractions(() => {
-      this.setState({mounting: false});
+      this.setState({ mounting: false });
     });
 
     if (isAuthUser) {
@@ -315,7 +313,7 @@ class ProductDetail extends Component {
   handleOnPressGroupBuy = () => {
     const {
       isAuthUser,
-      navigation: {navigate},
+      navigation: { navigate },
     } = this.props;
 
     if (!isAuthUser) return navigate(SCREENS.Login);
@@ -329,7 +327,7 @@ class ProductDetail extends Component {
       isAuthUser,
       cartAddRequest,
       // navigation,
-      navigation: {navigate},
+      navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
@@ -350,7 +348,7 @@ class ProductDetail extends Component {
     const {
       groupon,
       isAuthUser,
-      navigation: {navigate},
+      navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
@@ -366,7 +364,7 @@ class ProductDetail extends Component {
       isCollection,
       isAuthUser,
       brandId,
-      navigation: {navigate},
+      navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
     return isCollection
@@ -375,26 +373,21 @@ class ProductDetail extends Component {
   }
 
   handleToggleShare = () => {
-    const {
-      openModal,
-      brandId,
-      typeId,
-      id,
-    } = this.props;
+    const { openModal, brandId, typeId, id } = this.props;
 
-    let product_type_id = 0;
-    if (typeId !== undefined){
-      product_type_id = typeId;
+    let productTypeId = 0;
+    if (typeId !== undefined) {
+      productTypeId = typeId;
     }
-    let product_id = 0;
-    if (id !== undefined){
-      product_id = id;
+    let productId = 0;
+    if (id !== undefined) {
+      productId = id;
     }
     openModal(MODAL_TYPES.SHARE, {
       brandId,
-      typeId: product_type_id,
-      id: product_id,
-    })
+      typeId: productTypeId,
+      id: productId,
+    });
   };
 
   handleToggleService() {
@@ -404,38 +397,37 @@ class ProductDetail extends Component {
       brandId,
       typeId,
       name,
-      navigation: {navigate},
+      navigation: { navigate },
     } = this.props;
-    console.log("handleToggleService");
-    let linkStr = "http://m.me/Buyoo.vn?ref=";
-    let funIdStr = "";
+    // console.log("handleToggleService");
+    let linkStr = 'http://m.me/Buyoo.vn?ref=';
+    let funIdStr = '';
     let typeID = 0;
-    if (undefined !== typeId){
+    if (undefined !== typeId) {
       typeID = typeId;
     }
     if (isAuthUser) {
-      funIdStr = funid
+      funIdStr = funid;
     }
-    let shareName = "";
-    if (undefined !== name){
-      shareName = name
+    let shareName = '';
+    if (undefined !== name) {
+      shareName = name;
     }
-    let param =
-      {
-        brand_id: brandId,
-        fun_id: funIdStr,
-        type_id: typeID,
-        name: shareName
-      };
+    const param = {
+      brand_id: brandId,
+      fun_id: funIdStr,
+      type_id: typeID,
+      name: shareName,
+    };
     linkStr += JSON.stringify(param);
-    console.log(linkStr);
+    // console.log(linkStr);
     navigate(SCREENS.WebView, {
       source: linkStr,
     });
   }
 
   renderMainContent() {
-    const {mounting} = this.state;
+    const { mounting } = this.state;
     const {
       i18n,
       screenProps,
@@ -454,7 +446,7 @@ class ProductDetail extends Component {
       isCollection,
     } = this.props;
     if (mounting) {
-      return <Loader/>;
+      return <Loader />;
     }
 
     return (
@@ -625,12 +617,12 @@ class ProductDetail extends Component {
     return (
       <View style={styles1.contanier}>
         <View style={styles1.title}>
-          <Ionicons style={styles1.titleIcon} name="ios-paper-plane"/>
+          <Ionicons style={styles1.titleIcon} name="ios-paper-plane" />
           <Text style={styles1.titleText}>tap to share</Text>
         </View>
         <View style={styles1.main}>
-          <Image style={styles1.item} source={zalofunPng}/>
-          <Image style={styles1.item} source={googleplusPng}/>
+          <Image style={styles1.item} source={zalofunPng} />
+          <Image style={styles1.item} source={googleplusPng} />
         </View>
       </View>
     );
