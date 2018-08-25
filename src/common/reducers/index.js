@@ -71,6 +71,7 @@ import changePassword from './changePassword';
 import addEvaluation from './addEvaluation';
 import userAddAddr from './userAddAddr';
 import getNewestInfo from './getNewestInfo';
+import getAdverstTopInfo from './getAdverstTopInfo';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -144,6 +145,7 @@ const rootReducer = combineReducers({
   addEvaluation,
   userAddAddr,
   getNewestInfo,
+  getAdverstTopInfo,
   form: formReducer,
 });
 

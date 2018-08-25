@@ -119,6 +119,7 @@ import { judgeVoucherFetchWatch } from './judgeVoucher';
 import { getSquaresInfoFetchWatch } from './getSquaresInfo';
 import { addEvaluationFetchWatch } from './addEvaluation';
 import { getNewestInfoFetchWatch } from './getNewestInfo';
+import { getAdverstTopInfoFetchWatch } from './getAdverstTopInfo';
 
 export default function* rootSaga() {
   yield all([
@@ -223,5 +224,6 @@ export default function* rootSaga() {
     changePasswordSuccessWatch(),
     addEvaluationFetchWatch(),
     getNewestInfoFetchWatch(),
+    getAdverstTopInfoFetchWatch(),
   ]);
 }

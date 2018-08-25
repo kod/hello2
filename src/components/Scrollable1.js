@@ -29,13 +29,14 @@ import { analyzeUrlNavigate } from '../common/helpers';
 
 import { BORDER_COLOR, RED_COLOR } from '../styles/variables';
 
-import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
+// import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
 import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
 import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
 import * as mergeGetInfoActionCreators from '../common/actions/mergeGetInfo';
 import * as getSquaresInfoActionCreators from '../common/actions/getSquaresInfo';
 import * as getNewestInfoActionCreators from '../common/actions/getNewestInfo';
+import * as getAdverstTopInfoActionCreators from '../common/actions/getAdverstTopInfo';
 
 // const itemIntervalWidth = SIDEINTERVAL;
 // const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
@@ -103,7 +104,8 @@ class Scrollable1 extends Component {
 
   componentDidMount() {
     const {
-      bannerSwiperFetch,
+      // bannerSwiperFetch,
+      getAdverstTopInfoFetch,
       bannerHomeTypeFetch,
       promotionInfoFetch,
       adverstInfoFetch,
@@ -112,7 +114,8 @@ class Scrollable1 extends Component {
       // mergeGetInfoFetch,
     } = this.props;
     getNewestInfoFetch();
-    bannerSwiperFetch('one');
+    getAdverstTopInfoFetch();
+    // bannerSwiperFetch('one');
     bannerHomeTypeFetch();
     promotionInfoFetch();
     getSquaresInfoFetch();
@@ -145,7 +148,8 @@ class Scrollable1 extends Component {
   render() {
     const {
       isAuthUser,
-      bannerSwiper,
+      // bannerSwiper,
+      getAdverstTopInfoItems,
       bannerHomeType,
       // promotionInfo,
       // mergeGetInfo,
@@ -157,14 +161,16 @@ class Scrollable1 extends Component {
       getNewestInfoItems,
     } = this.props;
     // const mergeGetInfoList = mergeGetInfo.items;
-    const bannerSwiperList = bannerSwiper.items;
+    // const bannerSwiperList = bannerSwiper.items;
     const adverstInfoList = adverstInfo.items;
 
+    console.log('getAdverstTopInfoItemsgetAdverstTopInfoItemsgetAdverstTopInfoItemsgetAdverstTopInfoItems');
+    console.log(getAdverstTopInfoItems);
     return (
       <View>
-        {bannerSwiperList &&
-          bannerSwiperList.length > 0 && (
-            <SwiperFlatList data={bannerSwiperList} />
+        {getAdverstTopInfoItems &&
+          getAdverstTopInfoItems.length > 0 && (
+            <SwiperFlatList data={getAdverstTopInfoItems} />
           )}
 
         <NavImg1
@@ -230,7 +236,8 @@ class Scrollable1 extends Component {
 export default connect(
   state => {
     const {
-      bannerSwiper,
+      // bannerSwiper,
+      getAdverstTopInfo,
       bannerHomeType,
       promotionInfo,
       adverstInfo,
@@ -246,7 +253,8 @@ export default connect(
 
     return {
       getNewestInfoItems: getNewestInfo.items,
-      bannerSwiper: bannerSwiper.one || {},
+      // bannerSwiper: bannerSwiper.one || {},
+      getAdverstTopInfoItems: getAdverstTopInfo.items,
       bannerHomeType: bannerHomeType || {},
       promotionInfo: promotionInfo || {},
       adverstInfo: adverstInfo || {},
@@ -256,12 +264,13 @@ export default connect(
     };
   },
   {
-    ...bannerSwiperActionCreators,
+    // ...bannerSwiperActionCreators,
     ...bannerHomeTypeActionCreators,
     ...promotionInfoActionCreators,
     ...mergeGetInfoActionCreators,
     ...adverstInfoActionCreators,
     ...getSquaresInfoActionCreators,
     ...getNewestInfoActionCreators,
+    ...getAdverstTopInfoActionCreators,
   },
 )(Scrollable1);

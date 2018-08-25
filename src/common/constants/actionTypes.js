@@ -97,6 +97,12 @@ export const TOP_COMPUTER = defineAction(
   appNamespace,
 );
 
+export const GET_ADVERST_TOP_INFO = defineAction(
+  'GET_ADVERST_TOP_INFO',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const MERGE_GETINFO = defineAction(
   'MERGE_GETINFO',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
