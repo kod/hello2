@@ -52,7 +52,6 @@ class BYBottomSheet extends Component {
     if (visible && !modalVisible) {
       this.setState({ modalVisible: visible });
       // if want to support orientation
-      // const newHeight = height || (Dimensions.get('window').height - APPBAR_HEIGHT - STATUSBAR_HEIGHT);
       Animated.timing(animatedHeight, {
         toValue: height,
         duration,

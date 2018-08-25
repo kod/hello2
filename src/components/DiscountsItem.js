@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Dimensions, ImageBackground } from 'react-native';
+import { WINDOW_WIDTH } from '../common/constants';
 
-const { width, height } = Dimensions.get('window');
+const width = WINDOW_WIDTH;
 const width3_interval = width * 0.03 * 4;
 const width3_item = (width - width3_interval) / 3;
 
