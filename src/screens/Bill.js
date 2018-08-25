@@ -251,42 +251,44 @@ class Bill extends Component {
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
 
-    if (~~price < MINIMUM_PAYMENT_AMOUNT) {
-      Alert.alert(
-        '',
-        i18n.minimumRepaymentAmount.replace(
-          'MINIMUM_PAYMENT_AMOUNT',
-          MINIMUM_PAYMENT_AMOUNT,
-        ),
-        [
-          {
-            text: i18n.confirm,
-            onPress: () => {},
-          },
-        ],
-        // { cancelable: false },
-      );
-      return false;
-    }
+    if (totalPrice >= MINIMUM_PAYMENT_AMOUNT) {
+      if (~~price < MINIMUM_PAYMENT_AMOUNT) {
+        Alert.alert(
+          '',
+          i18n.minimumRepaymentAmount.replace(
+            'MINIMUM_PAYMENT_AMOUNT',
+            MINIMUM_PAYMENT_AMOUNT,
+          ),
+          [
+            {
+              text: i18n.confirm,
+              onPress: () => {},
+            },
+          ],
+          // { cancelable: false },
+        );
+        return false;
+      }
 
-    if (
-      parseInt(totalPrice, 10) - parseInt(price, 10) !== 0 &&
-      parseInt(totalPrice, 10) - parseInt(price, 10) < MINIMUM_PAYMENT_AMOUNT
-    ) {
-      Alert.alert(
-        '',
-        i18n.repaymentAmountEqualOrLess
-          .replace('AAA', totalPrice)
-          .replace('BBB', MINIMUM_PAYMENT_AMOUNT),
-        [
-          {
-            text: i18n.confirm,
-            onPress: () => {},
-          },
-        ],
-        // { cancelable: false },
-      );
-      return false;
+      if (
+        parseInt(totalPrice, 10) - parseInt(price, 10) !== 0 &&
+        parseInt(totalPrice, 10) - parseInt(price, 10) < MINIMUM_PAYMENT_AMOUNT
+      ) {
+        Alert.alert(
+          '',
+          i18n.repaymentAmountEqualOrLess
+            .replace('AAA', totalPrice)
+            .replace('BBB', MINIMUM_PAYMENT_AMOUNT),
+          [
+            {
+              text: i18n.confirm,
+              onPress: () => {},
+            },
+          ],
+          // { cancelable: false },
+        );
+        return false;
+      }
     }
 
     this.handleOnPressToggleModal('isOpenPay');
