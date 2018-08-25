@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {
   HTML_REGEX,
@@ -169,13 +170,14 @@ export const navigateCheckLogin = (
   }
 };
 
-export const analyzeUrlNavigate = (
+export const analyzeUrlNavigate = ({
   linkUrl,
   navigation,
+  i18n = {},
   isAuthUser = false,
   isQrCode = false,
-) => {
-  const { navigate } = navigation;
+}) => {
+  const { navigate, goBack } = navigation;
   const htmlRegexResult = linkUrl.match(HTML_REGEX);
 
   let brandIdRegexResult = null;
@@ -216,69 +218,83 @@ export const analyzeUrlNavigate = (
     });
   };
 
-  switch (htmlRegexResult[1]) {
-    case 'more':
-      navImg1More(linkUrl);
-      break;
+  if (!htmlRegexResult) {
+    Alert.alert(
+      '',
+      i18n.error,
+      [
+        {
+          text: i18n.confirm,
+          onPress: () => goBack(),
+        },
+      ],
+      { cancelable: false },
+    );
+  } else {
+    switch (htmlRegexResult[1]) {
+      case 'more':
+        navImg1More(linkUrl);
+        break;
 
-    case 'order':
-      // 我的订单
-      if (isAuthUser) {
-        customNavigate(SCREENS.Order, { index: 0 });
-      } else {
-        customNavigate(SCREENS.Login);
-      }
+      case 'order':
+        // 我的订单
+        if (isAuthUser) {
+          customNavigate(SCREENS.Order, { index: 0 });
+        } else {
+          customNavigate(SCREENS.Login);
+        }
 
-      // navigateCheckLogin(isAuthUser, navigate, 'Order', { index: 0 });
-      break;
+        // navigateCheckLogin(isAuthUser, navigate, 'Order', { index: 0 });
+        break;
 
-    case 'couponcenter':
-      // 领券中心
-      // navigate(SCREENS.Coupon);
-      customNavigate(SCREENS.Coupon);
-      break;
+      case 'couponcenter':
+        // 领券中心
+        // navigate(SCREENS.Coupon);
+        customNavigate(SCREENS.Coupon);
+        break;
 
-    case 'prepaid':
-      // 充值
-      // navigate(SCREENS.Prepaid);
-      customNavigate(SCREENS.Prepaid);
-      break;
+      case 'prepaid':
+        // 充值
+        // navigate(SCREENS.Prepaid);
+        customNavigate(SCREENS.Prepaid);
+        break;
 
-    case 'computerPage':
-      // 电脑
-      // navigate(SCREENS.Computer);
-      customNavigate(SCREENS.Computer);
-      break;
+      case 'computerPage':
+        // 电脑
+        // navigate(SCREENS.Computer);
+        customNavigate(SCREENS.Computer);
+        break;
 
-    case 'cellphoneBanner':
-      // 手机
-      // navigate(SCREENS.Mobile);
-      customNavigate(SCREENS.Mobile);
-      break;
+      case 'cellphoneBanner':
+        // 手机
+        // navigate(SCREENS.Mobile);
+        customNavigate(SCREENS.Mobile);
+        break;
 
-    case 'details':
-      // 商品详情
-      brandIdRegexResult = linkUrl.match(BRANDID_REGEX);
-      if (brandIdRegexResult) {
-        customNavigate(SCREENS.ProductDetail, {
-          brandId: brandIdRegexResult[1],
+      case 'details':
+        // 商品详情
+        brandIdRegexResult = linkUrl.match(BRANDID_REGEX);
+        if (brandIdRegexResult) {
+          customNavigate(SCREENS.ProductDetail, {
+            brandId: brandIdRegexResult[1],
+          });
+        }
+        break;
+
+      case 'watch':
+        // 手表
+        customNavigate(SCREENS.CateList, {
+          parent_id: '7',
+          classfy_id: '0',
+          sub_classfy_id: '0',
+          third_classfy_id: '0',
         });
-      }
-      break;
+        break;
 
-    case 'watch':
-      // 手表
-      customNavigate(SCREENS.CateList, {
-        parent_id: '7',
-        classfy_id: '0',
-        sub_classfy_id: '0',
-        third_classfy_id: '0',
-      });
-      break;
-
-    default:
-      alert('error');
-      break;
+      default:
+        alert('error');
+        break;
+    }
   }
 };
 

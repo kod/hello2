@@ -76,7 +76,7 @@ class App extends Component {
     } = this.props;
 
     if (val.actionUrl) {
-      analyzeUrlNavigate(val.actionUrl, navigation);
+      analyzeUrlNavigate({ linkUrl: val.actionUrl, navigation });
     } else {
       navigate(SCREENS.ProductDetail, { brandId: val.brandId });
     }

@@ -45,10 +45,17 @@ class QrCodeScanner extends Component {
   onSuccess(e) {
     const {
       // i18n,
+      i18n,
       isAuthUser,
       navigation,
     } = this.props;
-    analyzeUrlNavigate(e.data, navigation, isAuthUser, true);
+    analyzeUrlNavigate({
+      linkUrl: e.data,
+      navigation,
+      i18n,
+      isAuthUser,
+      isQrCode: true,
+    });
     // Alert.alert('', e.data, [
     //   {
     //     text: i18n.confirm,

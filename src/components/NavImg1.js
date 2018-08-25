@@ -39,6 +39,7 @@ export default ({
   onPress,
   navigation,
   isAuthUser,
+  i18n,
   ...restProps
 }) => (
   <View style={[styles.nav1, style]} {...restProps}>
@@ -54,7 +55,9 @@ export default ({
           },
         ]}
         key={val.id}
-        onPress={() => onPress(val.linkUrl, navigation, isAuthUser)}
+        onPress={() =>
+          onPress({ linkUrl: val.linkUrl, navigation, isAuthUser, i18n })
+        }
       >
         <Image
           style={[styles.nav1ItemImg, val.styleImg]}

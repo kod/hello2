@@ -164,8 +164,6 @@ class Scrollable1 extends Component {
     // const bannerSwiperList = bannerSwiper.items;
     const adverstInfoList = adverstInfo.items;
 
-    console.log('getAdverstTopInfoItemsgetAdverstTopInfoItemsgetAdverstTopInfoItemsgetAdverstTopInfoItems');
-    console.log(getAdverstTopInfoItems);
     return (
       <View>
         {getAdverstTopInfoItems &&
@@ -179,6 +177,7 @@ class Scrollable1 extends Component {
           onPress={analyzeUrlNavigate}
           navigation={navigation}
           isAuthUser={isAuthUser}
+          i18n={i18n}
         />
 
         <SeparateBar />
