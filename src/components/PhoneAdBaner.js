@@ -5,6 +5,8 @@ import { withNavigation } from 'react-navigation';
 import { WINDOW_WIDTH, SCREENS } from '../common/constants';
 
 import BYTouchable from './BYTouchable';
+import ImageGetSize from './ImageGetSize';
+import SeparateBar from './SeparateBar';
 
 const styles = StyleSheet.create({
   itemWrap: {
@@ -39,12 +41,17 @@ class PhoneAdBaner extends Component {
               navigate(SCREENS.ProductDetail, { brandId: val.brandId, groupon })
             }
           >
-            <Image
+            <ImageGetSize
+              uri={`${val.imageUrl}?x-oss-process=image/quality,Q_70`}
+              key={key}
+            />
+            <SeparateBar />
+            {/* <Image
               source={{
                 uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`,
               }}
               style={styles.itemImg}
-            />
+            /> */}
           </BYTouchable>
         ))}
       </View>
