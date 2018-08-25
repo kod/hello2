@@ -5,6 +5,7 @@ import {
   CLASSIFYID_REGEX,
   SUBCLASSFYID_REGEX,
   THIRDCLASSFYID_REGEX,
+  OSS_IMAGE_QUALITY,
   SCREENS,
 } from '../constants';
 
@@ -274,7 +275,7 @@ export const jointWebViewImages = images => {
       break;
 
     case 1:
-      WebViewImages = `<img src="${images}?x-oss-process=image/quality,Q_70" alt="image">`;
+      WebViewImages = `<img src="${images}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
       break;
 
     default:
@@ -282,12 +283,12 @@ export const jointWebViewImages = images => {
         let resultStr = '';
         if (index === 1) {
           if (a)
-            resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr = `<img src="${a}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
           if (b)
-            resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr += `<img src="${b}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
         } else {
           if (b)
-            resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr = `<img src="${b}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
           resultStr = a + resultStr;
         }
         return resultStr;

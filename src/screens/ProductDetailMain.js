@@ -37,6 +37,7 @@ import {
   STATUSBAR_HEIGHT,
   SCREENS,
   MODAL_TYPES,
+  OSS_IMAGE_QUALITY,
 } from '../common/constants';
 
 // import { getIsCollection } from '../common/selectors';
@@ -225,7 +226,7 @@ class ProductDetail extends Component {
 
   renderItem = ({ item }) => (
     <BYCacheImage
-      uri={`${item}?x-oss-process=image/quality,Q_70`}
+      uri={`${item}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`}
       key={item}
       // style={imageStyle}
       // onFoundImageSize={this.handleOnFoundImageSize}
@@ -263,7 +264,7 @@ class ProductDetail extends Component {
     //     break;
 
     //   case 1:
-    //     WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_70" alt="image">`;
+    //     WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
     //     break;
 
     //   default:
@@ -271,12 +272,12 @@ class ProductDetail extends Component {
     //       let resultStr = '';
     //       if (index === 1) {
     //         if (a)
-    //           resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
+    //           resultStr = `<img src="${a}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
     //         if (b)
-    //           resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+    //           resultStr += `<img src="${b}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
     //       } else {
     //         if (b)
-    //           resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+    //           resultStr = `<img src="${b}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
     //         resultStr = a + resultStr;
     //       }
     //       return resultStr;

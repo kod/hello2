@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 
 import BYTouchable from './BYTouchable';
 
-import { WINDOW_WIDTH, SCREENS } from '../common/constants';
+import { WINDOW_WIDTH, SCREENS, OSS_IMAGE_QUALITY } from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -97,7 +97,9 @@ class App extends Component {
               >
                 <Image
                   source={{
-                    uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`,
+                    uri: `${
+                      val.imageUrl
+                    }?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
                   }}
                   style={[styles.child, style]}
                 />

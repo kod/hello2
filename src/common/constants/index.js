@@ -1,8 +1,8 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
 
 export const CARMAXNUMBER = 50;
-
 export const MINIMUM_PAYMENT_AMOUNT = 10000; // 最小支付金额
+export const OSS_IMAGE_QUALITY = 70; // 图片压缩比例；1-100；100：不压缩；
 
 export const SUPPORT_CENTER_URL = 'https://buyoo.vn/html/paystepM.html';
 export const HOW_TO_BUY_URL = 'https://buyoo.vn/html/paystepM.html';

@@ -31,6 +31,7 @@ import {
   SIDEINTERVAL,
   STATUSBAR_HEIGHT,
   SCREENS,
+  OSS_IMAGE_QUALITY,
 } from '../common/constants';
 
 import { makegetIsCollection } from '../common/selectors';
@@ -870,17 +871,17 @@ class ProductDetail extends Component {
         break;
 
       case 1:
-        WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_70" alt="image">`;
+        WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
         break;
 
       default:
         WebViewImages = imageDesc.reduce((a, b, index) => {
           let resultStr;
           if (index === 1) {
-            resultStr = `<img src="${a}?x-oss-process=image/quality,Q_70" alt="image">`;
-            resultStr += `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr = `<img src="${a}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
+            resultStr += `<img src="${b}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
           } else {
-            resultStr = `<img src="${b}?x-oss-process=image/quality,Q_70" alt="image">`;
+            resultStr = `<img src="${b}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
             resultStr = a + resultStr;
           }
           return resultStr;
@@ -989,7 +990,7 @@ class ProductDetail extends Component {
           </View>
           {/* {
             imageDesc.map((val, key) => {
-              return <ImageGetSize uri={`${val}?x-oss-process=image/quality,Q_70`} key={key} />
+              return <ImageGetSize uri={`${val}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`} key={key} />
             })
           } */}
         </ScrollView>

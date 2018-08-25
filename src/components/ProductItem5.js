@@ -5,7 +5,12 @@ import { withNavigation } from 'react-navigation';
 import BYTouchable from './BYTouchable';
 
 import { RED_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, SIDEINTERVAL, SCREENS } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  SCREENS,
+  OSS_IMAGE_QUALITY,
+} from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 
 const itemIntervalWidth = SIDEINTERVAL;
@@ -91,7 +96,9 @@ class ProductItem5 extends Component {
             <Image
               style={styles.itemImg}
               source={{
-                uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`,
+                uri: `${
+                  val.imageUrl
+                }?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
               }}
             />
             <Text numberOfLines={2} style={styles.itemText}>

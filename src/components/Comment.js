@@ -6,7 +6,7 @@ import {
   BORDER_COLOR,
   PRIMARY_COLOR,
 } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, OSS_IMAGE_QUALITY } from '../common/constants';
 
 const styles = StyleSheet.create({
   componentWrap: {
@@ -98,7 +98,7 @@ export default ({ data, styleWrap, style, ...restProps }) => {
             <View style={styles.componentimageWrap}>
               {
                 val.imageUrls.map((val, key) => 
-                  <Image style={styles.componentimageItem} source={{ uri: `${val}?x-oss-process=image/quality,Q_70` }} key={key} />
+                  <Image style={styles.componentimageItem} source={{ uri: `${val}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }} key={key} />
                 )
               }
               {/* <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />

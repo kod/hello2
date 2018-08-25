@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, } from '../common/constants';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, SCREENS, OSS_IMAGE_QUALITY } from '../common/constants';
 import { withNavigation } from 'react-navigation';
 
 import BYTouchable from './BYTouchable';
@@ -45,7 +45,7 @@ class BrandList extends Component {
             key={key} 
             onPress={() => navigate(SCREENS.CateList, { parent_id: val.parentId, classfy_id: val.id })}
           >
-            <Image source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} style={styles.itemImg} />
+            <Image source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }} style={styles.itemImg} />
           </BYTouchable>
         ))}
       </View>

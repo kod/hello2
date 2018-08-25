@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
-import { WINDOW_WIDTH } from '../common/constants';
+import { WINDOW_WIDTH, OSS_IMAGE_QUALITY } from '../common/constants';
 
 const width = WINDOW_WIDTH;
 const width3_interval = width * 0.03 * 4;
@@ -15,7 +15,7 @@ export default ({ data }) => {
           return (
             <View style={{ flexDirection: 'row', marginBottom: 15, borderBottomColor: '#f2f2f2', borderBottomWidth: StyleSheet.hairlineWidth }} key={key}>
               <View style={{ flex: 1, paddingRight: 10, paddingLeft: 10 }}>
-                <Image source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} style={{ width: 'auto', height: 120 }} />
+                <Image source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }} style={{ width: 'auto', height: 120 }} />
               </View>
               <View style={{ flex: 2 }}>
                 <Text style={{ color: '#333', marginBottom: 60 }}>{ val.name }</Text>

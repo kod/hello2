@@ -6,7 +6,7 @@ import priceFormat from '../common/helpers/priceFormat';
 import BYTouchable from './BYTouchable';
 
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
-import { SIDEINTERVAL, SCREENS } from '../common/constants';
+import { SIDEINTERVAL, SCREENS, OSS_IMAGE_QUALITY } from '../common/constants';
 
 // import BYTextInput from './BYTextInput';
 import { connectLocalization } from './Localization';
@@ -124,7 +124,7 @@ class ProductItem2 extends Component {
                 <Image
                   style={styles.itemImage}
                   source={{
-                    uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`,
+                    uri: `${val.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
                   }}
                 />
               </View>

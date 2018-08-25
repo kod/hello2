@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Dimensions, ImageBackground } from 'react-native';
-import { WINDOW_WIDTH } from '../common/constants';
+import { WINDOW_WIDTH, OSS_IMAGE_QUALITY } from '../common/constants';
 
 const width = WINDOW_WIDTH;
 const width3_interval = width * 0.03 * 4;
@@ -14,7 +14,7 @@ export default ({ data }) => {
         items.details.map((val, key) => {
           return (
             <View style={{ marginLeft: '3%', width: width3_item, marginBottom: 15 }} key={key}>
-              <Image source={{ uri: `${val.image}?x-oss-process=image/quality,Q_70` }} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
+              <Image source={{ uri: `${val.image}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }} style={{ width: 'auto', height: 100, marginBottom: 10 }} />
               <Text numberOfLines={2} style={{ fontSize: 11, color: '#333', marginBottom: 2, height: 26 }}>{ val.name }</Text>
               <Text style={{ fontSize: 11, color: '#999', marginBottom: 0, textDecorationLine: 'line-through', textDecorationStyle: 'solid' }}>3,690,000 ₫</Text>
               <View style={{ position: 'relative', zIndex: 55, paddingTop: 5, paddingBottom: 15 }}>

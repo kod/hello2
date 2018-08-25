@@ -9,6 +9,7 @@ import {
   SIDEINTERVAL,
   SCREENS,
   CARMAXNUMBER,
+  OSS_IMAGE_QUALITY,
 } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import BYTouchable from './BYTouchable';
@@ -288,7 +289,7 @@ class CartItem extends Component {
                   source={{
                     uri: `${
                       details[products[val].detail].iconUrl
-                    }?x-oss-process=image/quality,Q_70`,
+                    }?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
                   }}
                 />
               </View>

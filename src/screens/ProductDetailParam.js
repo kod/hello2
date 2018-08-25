@@ -25,7 +25,7 @@ import { jointWebViewImages } from '../common/helpers';
 //   PRIMARY_COLOR,
 // } from '../styles/variables';
 
-import { WINDOW_WIDTH, STATUSBAR_HEIGHT } from '../common/constants';
+import { WINDOW_WIDTH, STATUSBAR_HEIGHT, OSS_IMAGE_QUALITY } from '../common/constants';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 
@@ -44,7 +44,7 @@ class ProductDetailParam extends Component {
   // }
 
   renderItem = item => (
-    <BYCacheImage uri={`${item}?x-oss-process=image/quality,Q_70`} key={item} />
+    <BYCacheImage uri={`${item}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`} key={item} />
   );
 
   render() {

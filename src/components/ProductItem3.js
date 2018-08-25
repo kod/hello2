@@ -3,10 +3,9 @@ import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
 import BYTouchable from './BYTouchable';
-import { SCREENS } from '../common/constants';
 
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL } from '../common/constants';
+import { WINDOW_WIDTH, OSS_IMAGE_QUALITY, SIDEINTERVAL, SCREENS } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 
 const itemIntervalWidth = SIDEINTERVAL;
@@ -69,7 +68,7 @@ class ProductItem3 extends Component {
     
     return (
       <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.ProductDetail, { brandId: item.brandId, groupon })}>
-        <Image style={styles.itemImg} source={{ uri: `${item.imageUrl}?x-oss-process=image/quality,Q_70` }} />
+        <Image style={styles.itemImg} source={{ uri: `${item.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }} />
         <Text numberOfLines={2} style={styles.itemText}>
           {item.name}
         </Text>
@@ -100,7 +99,7 @@ class ProductItem3 extends Component {
         {/* {data.map((val, key) => {
           return (
             <BYTouchable style={styles.item} key={key} onPress={() => navigate(SCREENS.ProductDetail, { brandId: val.brandId, groupon })}>
-              <Image style={styles.itemImg} source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70` }} />
+              <Image style={styles.itemImg} source={{ uri: `${val.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }} />
               <Text numberOfLines={2} style={styles.itemText}>{val.name}</Text>
               {!!val.orgPrice && <Text style={styles.itemOrgPrice}>{priceFormat(val.orgPrice) + ' ₫'}</Text>}
               <Text style={styles.itemPrice}>{priceFormat(val.price) + ' ₫'}</Text>

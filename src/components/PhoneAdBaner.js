@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
-import { WINDOW_WIDTH, SCREENS } from '../common/constants';
+import { WINDOW_WIDTH, SCREENS, OSS_IMAGE_QUALITY } from '../common/constants';
 
 import BYTouchable from './BYTouchable';
 import ImageGetSize from './ImageGetSize';
@@ -42,13 +42,13 @@ class PhoneAdBaner extends Component {
             }
           >
             <ImageGetSize
-              uri={`${val.imageUrl}?x-oss-process=image/quality,Q_70`}
+              uri={`${val.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`}
               key={key}
             />
             <SeparateBar />
             {/* <Image
               source={{
-                uri: `${val.imageUrl}?x-oss-process=image/quality,Q_70`,
+                uri: `${val.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
               }}
               style={styles.itemImg}
             /> */}
