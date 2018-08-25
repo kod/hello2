@@ -4,8 +4,14 @@ import SwiperFlatList from 'react-native-swiper-flatlist';
 import { withNavigation } from 'react-navigation';
 
 import BYTouchable from './BYTouchable';
+import { analyzeUrlNavigate } from '../common/helpers';
 
-import { WINDOW_WIDTH, SCREENS, OSS_IMAGE_QUALITY } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  SCREENS,
+  OSS_IMAGE_QUALITY,
+  // BRANDID_REGEX,
+} from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -63,13 +69,26 @@ const Pagination = ({
 );
 
 class App extends Component {
+  onPressHandle(val) {
+    const {
+      navigation,
+      navigation: { navigate },
+    } = this.props;
+
+    if (val.actionUrl) {
+      analyzeUrlNavigate(val.actionUrl, navigation);
+    } else {
+      navigate(SCREENS.ProductDetail, { brandId: val.brandId });
+    }
+  }
+
   render() {
     const {
       data,
       styleWrap,
       style,
       stylePaginationContainer,
-      navigation: { navigate },
+      // navigation: { navigate },
       ...restProps
     } = this.props;
     stylePaginationContainerparam = stylePaginationContainer;
@@ -91,9 +110,7 @@ class App extends Component {
               <BYTouchable
                 key={val.imageUrl}
                 backgroundColor="transparent"
-                onPress={() =>
-                  navigate(SCREENS.ProductDetail, { brandId: val.brandId })
-                }
+                onPress={() => this.onPressHandle(val)}
               >
                 <Image
                   source={{

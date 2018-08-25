@@ -178,6 +178,11 @@ export const analyzeUrlNavigate = (
   const { navigate } = navigation;
   const htmlRegexResult = linkUrl.match(HTML_REGEX);
 
+  let brandIdRegexResult = null;
+  let classifyIdRegexResult = null;
+  let subClassfyIdRegexResult = null;
+  let thirdClassfyIdRegexResult = null;
+
   const customNavigate = (routeName, params = {}) => {
     if (isQrCode) {
       navigation.dispatch(
@@ -195,10 +200,10 @@ export const analyzeUrlNavigate = (
   };
 
   const navImg1More = () => {
-    const brandIdRegexResult = linkUrl.match(BRANDID_REGEX);
-    const classifyIdRegexResult = linkUrl.match(CLASSIFYID_REGEX);
-    const subClassfyIdRegexResult = linkUrl.match(SUBCLASSFYID_REGEX);
-    const thirdClassfyIdRegexResult = linkUrl.match(THIRDCLASSFYID_REGEX);
+    brandIdRegexResult = linkUrl.match(BRANDID_REGEX);
+    classifyIdRegexResult = linkUrl.match(CLASSIFYID_REGEX);
+    subClassfyIdRegexResult = linkUrl.match(SUBCLASSFYID_REGEX);
+    thirdClassfyIdRegexResult = linkUrl.match(THIRDCLASSFYID_REGEX);
     navigate(SCREENS.CateList, {
       parent_id: brandIdRegexResult ? brandIdRegexResult[1] : '0',
       classfy_id: classifyIdRegexResult ? classifyIdRegexResult[1] : '0',
@@ -249,6 +254,16 @@ export const analyzeUrlNavigate = (
       // 手机
       // navigate(SCREENS.Mobile);
       customNavigate(SCREENS.Mobile);
+      break;
+
+    case 'details':
+      // 商品详情
+      brandIdRegexResult = linkUrl.match(BRANDID_REGEX);
+      if (brandIdRegexResult) {
+        customNavigate(SCREENS.ProductDetail, {
+          brandId: brandIdRegexResult[1],
+        });
+      }
       break;
 
     case 'watch':
