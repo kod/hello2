@@ -7,7 +7,7 @@ import {
   searchMonthFetchSuccess,
   searchMonthFetchFailure,
 } from '../actions/searchMonth';
-import { billPriceFetch } from '../actions/bill';
+import { billPriceFetch, billTotalPriceFetch } from '../actions/bill';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { SEARCH_MONTH } from '../constants/actionTypes';
@@ -117,6 +117,7 @@ export function* searchMonthSuccessWatchHandle() {
     }
 
     yield put(billPriceFetch(result.toString()));
+    yield put(billTotalPriceFetch(result.toString()));
   } catch (err) {
     console.log(err);
   }

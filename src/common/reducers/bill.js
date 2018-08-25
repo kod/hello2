@@ -1,4 +1,9 @@
-import { BILL_YEAR, BILL_MONTH, BILL_PRICE } from '../constants/actionTypes';
+import {
+  BILL_YEAR,
+  BILL_MONTH,
+  BILL_PRICE,
+  BILL_TOTAL_PRICE,
+} from '../constants/actionTypes';
 import { billInitDate } from '../helpers';
 
 const billInitDateResult = billInitDate();
@@ -30,6 +35,11 @@ export default function bill(state = initState, action) {
         price: action.payload.price,
         totalPrice:
           state.totalPrice === -1 ? action.payload.price : state.totalPrice,
+      };
+    case BILL_TOTAL_PRICE.REQUEST:
+      return {
+        ...state,
+        totalPrice: action.payload.totalPrice,
       };
     default:
       return state;

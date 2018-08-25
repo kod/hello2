@@ -537,6 +537,12 @@ export const BILL_MONTH = defineAction('BILL_MONTH', [REQUEST], appNamespace);
 
 export const BILL_PRICE = defineAction('BILL_PRICE', [REQUEST], appNamespace);
 
+export const BILL_TOTAL_PRICE = defineAction(
+  'BILL_TOTAL_PRICE',
+  [REQUEST],
+  appNamespace,
+);
+
 export const COLLECT_FILES = defineAction(
   'COLLECT_FILES',
   [REQUEST, SUCCESS, FAILURE, REMOVE],

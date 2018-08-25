@@ -1,4 +1,9 @@
-import { BILL_YEAR, BILL_MONTH, BILL_PRICE } from '../constants/actionTypes';
+import {
+  BILL_YEAR,
+  BILL_MONTH,
+  BILL_PRICE,
+  BILL_TOTAL_PRICE,
+} from '../constants/actionTypes';
 
 export function billYearFetch(year) {
   return {
@@ -23,6 +28,15 @@ export function billPriceFetch(price) {
     type: BILL_PRICE.REQUEST,
     payload: {
       price,
+    },
+  };
+}
+
+export function billTotalPriceFetch(totalPrice) {
+  return {
+    type: BILL_TOTAL_PRICE.REQUEST,
+    payload: {
+      totalPrice,
     },
   };
 }
