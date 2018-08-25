@@ -164,21 +164,21 @@ class Card extends Component {
                 <Image
                   style={stylesX.image}
                   source={hh98344roi34Png}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 />
               </View>
               <View style={stylesX.slide}>
                 <Image
                   style={stylesX.image}
                   source={hh9834ire843Png}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 />
               </View>
               <View style={stylesX.slide}>
                 <Image
                   style={stylesX.image}
                   source={hh8d9sadiua8Jpg}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 />
               </View>
             </Swiper>
