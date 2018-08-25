@@ -36,7 +36,7 @@ class Scrollable3 extends Component {
 
         <FloorTitle
           title={`- ${i18n.goodOnesRecommendation} -`}
-          isMore
+          isMore={false}
           style={{ paddingTop: 10, backgroundColor: '#fff' }}
         />
 
