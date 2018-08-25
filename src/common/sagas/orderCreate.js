@@ -127,7 +127,7 @@ export function* orderCreateFetchWatch() {
 
 export function* orderCreateSuccessWatchHandle(action) {
   try {
-    const { tradeNo, orderNo, BYtype, BYpayway } = action.payload;
+    const { tradeNo, orderNo, BYtype /* BYpayway */ } = action.payload;
     switch (BYtype) {
       case 'normal':
         yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
@@ -147,8 +147,8 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            payway: BYpayway,
-            paypassword: '123456',
+            payway: '2', // 账单还款全部使用网银
+            // paypassword: '123456',
             BYtype,
           }),
         );
@@ -159,8 +159,9 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            payway: BYpayway,
-            paypassword: '123456',
+            payway: '2', // 充值目前只支持网银
+            // payway: BYpayway,
+            // paypassword: '123456',
             BYtype,
           }),
         );
