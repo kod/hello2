@@ -147,9 +147,9 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            // payway: '2', // 账单还款全部使用网银
-            payway: BYpayway,
-            paypassword: '123456',
+            payway: '2', // 账单还款全部使用网银
+            // payway: BYpayway,
+            // paypassword: '123456',
             BYtype,
           }),
         );
@@ -160,9 +160,9 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            // payway: '2', // 充值目前只支持网银
-            payway: BYpayway,
-            paypassword: '123456',
+            payway: '2', // 充值目前只支持网银
+            // payway: BYpayway,
+            // paypassword: '123456',
             BYtype,
           }),
         );
