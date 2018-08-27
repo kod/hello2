@@ -12,19 +12,15 @@ export function commentFetchSuccess(items) {
 export function commentFetchFailure() {
   return {
     type: COMMENT.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function commentFetch(
-  brand_id
-) {
+export function commentFetch(brandId) {
   return {
     type: COMMENT.REQUEST,
     payload: {
-      brand_id,
+      brand_id: brandId,
     },
   };
 }
@@ -32,7 +28,6 @@ export function commentFetch(
 export function commentClear() {
   return {
     type: COMMENT.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }
