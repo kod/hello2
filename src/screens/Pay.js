@@ -180,8 +180,20 @@ class OrderWrite extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { loading: prevLoading } = this.props;
-    const { loading, openModal, closeModal } = nextProps;
+    const {
+      loading: prevLoading,
+      queryOrderItem: prevQueryOrderItem,
+    } = this.props;
+    const { loading, openModal, closeModal, queryOrderItem } = nextProps;
+
+    if (
+      prevQueryOrderItem.payWay !== queryOrderItem.payWay &&
+      queryOrderItem.payWay !== 0
+    ) {
+      this.setState({
+        payWayIndex: queryOrderItem.payWay - 1,
+      });
+    }
 
     if (prevLoading !== loading) {
       if (loading === false) {
