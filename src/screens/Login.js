@@ -10,9 +10,9 @@ import {
   Keyboard,
   DeviceEventEmitter,
 } from 'react-native';
-import OverlaySpinner from 'react-native-loading-spinner-overlay';
+// import OverlaySpinner from 'react-native-loading-spinner-overlay';
 
-import { SIDEINTERVAL, SCREENS } from '../common/constants';
+import { SIDEINTERVAL, SCREENS, MODAL_TYPES } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
@@ -25,6 +25,7 @@ import NavSidesText from '../components/NavSidesText';
 
 import * as authActionCreators from '../common/actions/auth';
 import * as loginActionCreators from '../common/actions/login';
+import * as modalActionCreators from '../common/actions/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -71,6 +72,19 @@ class Login extends Component {
     this.closeLoginScreen.remove();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { loading: prevLoading } = this.props;
+    const { loading, openModal, closeModal } = nextProps;
+
+    if (prevLoading !== loading) {
+      if (loading === false) {
+        closeModal();
+      } else {
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
+  }
+
   renderInputRight = () => {
     const {
       i18n,
@@ -112,7 +126,7 @@ class Login extends Component {
       navigation: { navigate },
       handleSubmit,
       i18n,
-      auth: { loading },
+      // auth: { loading },
     } = this.props;
     return (
       <View style={styles.container}>
@@ -148,7 +162,7 @@ class Login extends Component {
         />
         <View style={{ flex: 1 }} />
         {/* <OtherLogin /> */}
-        <OverlaySpinner visible={loading} />
+        {/* <OverlaySpinner visible={loading} /> */}
       </View>
     );
   }
@@ -163,15 +177,17 @@ Login = reduxForm({
 export default connectLocalization(
   connect(
     state => {
-      console.log();
+      const { login } = state;
       return {
-        auth: state.login,
+        auth: login,
+        loading: login.loading,
         // auth: state.login,
       };
     },
     {
       ...authActionCreators,
       ...loginActionCreators,
+      ...modalActionCreators,
     },
   )(Login),
 );
