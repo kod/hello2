@@ -5,8 +5,10 @@ import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import {
   WINDOW_WIDTH,
   SIDEINTERVAL,
-  OSS_IMAGE_QUALITY,
+  // OSS_IMAGE_QUALITY,
 } from '../common/constants';
+
+const imageItemWidth = (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3;
 
 const styles = StyleSheet.create({
   componentWrap: {
@@ -62,8 +64,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   componentimageItem: {
-    width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
-    height: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
+    width: imageItemWidth,
+    height: imageItemWidth,
     marginRight: SIDEINTERVAL,
     marginBottom: SIDEINTERVAL,
     resizeMode: 'cover',
@@ -102,7 +104,10 @@ export default ({ data, styleWrap, style, ...restProps }) => (
                 style={styles.componentimageItem}
                 key={key1}
                 source={{
-                  uri: `${val1}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
+                  uri: `${val1}?x-oss-process=image/resize,w_${parseInt(
+                    imageItemWidth,
+                    10,
+                  ) * 2}`,
                 }}
               />
             ))}
