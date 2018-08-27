@@ -5,9 +5,21 @@ const initState = {
   loaded: false,
   refreshing: false,
   items: [],
+  one: {
+    loading: false,
+    items: [],
+  },
+  two: {
+    loaded: false,
+    items: [],
+  },
+  four: {
+    refreshing: false,
+    items: [],
+  },
 };
 
-export default function bannerSwiper(state = {}, action) {
+export default function bannerSwiper(state = initState, action) {
   switch (action.type) {
     case BANNER_SWIPER.CLEAR:
       return {
@@ -29,7 +41,7 @@ export default function bannerSwiper(state = {}, action) {
           ...state[action.payload.swiperId],
           loading: false,
           loaded: true,
-          items: action.payload.items
+          items: action.payload.items,
         },
       };
     case BANNER_SWIPER.FAILURE:
@@ -40,7 +52,7 @@ export default function bannerSwiper(state = {}, action) {
           loading: false,
           loaded: true,
         },
-    };
+      };
     default:
       return state;
   }

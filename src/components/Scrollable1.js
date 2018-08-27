@@ -25,11 +25,12 @@ import ProductItem5 from './ProductItem5';
 import FloorTitle from './FloorTitle';
 import NavImg1 from './NavImg1';
 import SeparateBar from './SeparateBar';
+import PhoneAdBaner from './PhoneAdBaner';
 import { analyzeUrlNavigate } from '../common/helpers';
 
 import { BORDER_COLOR, RED_COLOR } from '../styles/variables';
 
-// import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
+import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 import * as bannerHomeTypeActionCreators from '../common/actions/bannerHomeType';
 import * as promotionInfoActionCreators from '../common/actions/promotionInfo';
 import * as adverstInfoActionCreators from '../common/actions/adverstInfo';
@@ -104,7 +105,7 @@ class Scrollable1 extends Component {
 
   componentDidMount() {
     const {
-      // bannerSwiperFetch,
+      bannerSwiperFetch,
       getAdverstTopInfoFetch,
       bannerHomeTypeFetch,
       promotionInfoFetch,
@@ -115,7 +116,7 @@ class Scrollable1 extends Component {
     } = this.props;
     getNewestInfoFetch();
     getAdverstTopInfoFetch();
-    // bannerSwiperFetch('one');
+    bannerSwiperFetch('one');
     bannerHomeTypeFetch();
     promotionInfoFetch();
     getSquaresInfoFetch();
@@ -148,7 +149,7 @@ class Scrollable1 extends Component {
   render() {
     const {
       isAuthUser,
-      // bannerSwiper,
+      bannerSwiper,
       getAdverstTopInfoItems,
       bannerHomeType,
       // promotionInfo,
@@ -161,9 +162,8 @@ class Scrollable1 extends Component {
       getNewestInfoItems,
     } = this.props;
     // const mergeGetInfoList = mergeGetInfo.items;
-    // const bannerSwiperList = bannerSwiper.items;
+    const bannerSwiperList = bannerSwiper.items;
     const adverstInfoList = adverstInfo.items;
-
     return (
       <View>
         {getAdverstTopInfoItems &&
@@ -189,6 +189,9 @@ class Scrollable1 extends Component {
           style={{ backgroundColor: '#fff' }}
         />
         <SeparateBar />
+
+        <PhoneAdBaner data={bannerSwiperList} />
+
         {/* 暂时屏蔽拼单功能 */}
         {/* <View style={styles.groupBuy}>
           <View style={styles.groupBuyBackground}>
@@ -235,7 +238,7 @@ class Scrollable1 extends Component {
 export default connect(
   state => {
     const {
-      // bannerSwiper,
+      bannerSwiper,
       getAdverstTopInfo,
       bannerHomeType,
       promotionInfo,
@@ -252,7 +255,7 @@ export default connect(
 
     return {
       getNewestInfoItems: getNewestInfo.items,
-      // bannerSwiper: bannerSwiper.one || {},
+      bannerSwiper: bannerSwiper.one || {},
       getAdverstTopInfoItems: getAdverstTopInfo.items,
       bannerHomeType: bannerHomeType || {},
       promotionInfo: promotionInfo || {},
@@ -263,7 +266,7 @@ export default connect(
     };
   },
   {
-    // ...bannerSwiperActionCreators,
+    ...bannerSwiperActionCreators,
     ...bannerHomeTypeActionCreators,
     ...promotionInfoActionCreators,
     ...mergeGetInfoActionCreators,

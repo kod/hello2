@@ -61,7 +61,7 @@ export default connect(
     // } = props;
 
     return {
-      bannerSwiper: bannerSwiper.two || {},
+      bannerSwiper: bannerSwiper.two,
       adPhone,
       // promotionInfo: promotionInfo || {},
       // bannerHomeRecommend: bannerHomeRecommend || {},

@@ -56,7 +56,7 @@ export default connect(
     // } = props;
 
     return {
-      bannerSwiper: bannerSwiper.four || {},
+      bannerSwiper: bannerSwiper.four,
       adDigital,
     };
   },
