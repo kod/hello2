@@ -28,7 +28,7 @@ import BYHeader from '../components/BYHeader';
 import SeparateBar from '../components/SeparateBar';
 import NavBar1 from '../components/NavBar1';
 
-const icAvatarPng = require('../images/ic_avatar.png');
+const icAvatarPng = require('../images/ic_launcher_round.png');
 
 const styles = StyleSheet.create({
   container: {
