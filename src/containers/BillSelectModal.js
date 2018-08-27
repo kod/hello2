@@ -204,8 +204,8 @@ class AddressAddModal extends Component {
                         key + 1 === activeMonth && stylesX.itemActive,
                       ]}
                     >
-                      {val.totalAmount
-                        ? `${priceFormat(val.totalAmount)} ₫`
+                      {val.waitingAmount
+                        ? `${priceFormat(val.waitingAmount)} ₫`
                         : i18n.noBill}
                     </Text>
                   </View>

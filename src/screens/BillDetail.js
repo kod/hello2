@@ -114,7 +114,9 @@ class BillDetail extends Component {
         <View style={stylesX.main}>
           <Text style={stylesX.title}>{`${i18n.month} ${activeMonth}`}</Text>
           <Text style={stylesX.price}>
-            {`${priceFormat(billDetailsItem.amountBill)} ₫`}
+            {`${priceFormat(
+              parseInt(billDetailsItem.amountBill + billDetailsItem.fee, 10),
+            )} ₫`}
           </Text>
           <View style={stylesX.bill}>
             <View style={stylesX.billItem}>
@@ -143,6 +145,14 @@ class BillDetail extends Component {
           <NavBar2
             valueLeft={i18n.interest}
             valueMiddle={`${priceFormat(billDetailsItem.interest)} ₫`}
+            styleLeft={{ color: '#999' }}
+            styleMiddle={{ color: '#666' }}
+            isShowRight={false}
+            backgroundColor="transparent"
+          />
+          <NavBar2
+            valueLeft={'逾期费用'}
+            valueMiddle={`${priceFormat(billDetailsItem.fee)} ₫`}
             styleLeft={{ color: '#999' }}
             styleMiddle={{ color: '#666' }}
             isShowRight={false}
