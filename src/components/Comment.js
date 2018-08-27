@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, } from 'react-native';
-import BYTouchable from './BYTouchable';
+import React from 'react';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { BORDER_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import {
-  BORDER_COLOR,
-  PRIMARY_COLOR,
-} from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, OSS_IMAGE_QUALITY } from '../common/constants';
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  OSS_IMAGE_QUALITY,
+} from '../common/constants';
 
 const styles = StyleSheet.create({
   componentWrap: {
     // paddingLeft: SIDEINTERVAL,
     // paddingRight: SIDEINTERVAL
   },
-  component: {
-    backgroundColor: PRIMARY_COLOR
-  },
+  // component: {
+  //   backgroundColor: PRIMARY_COLOR,
+  // },
   component: {
     backgroundColor: '#fff',
-    paddingLeft: SIDEINTERVAL
+    paddingLeft: SIDEINTERVAL,
   },
   componentTitle: {
     flexDirection: 'row',
@@ -26,29 +26,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomColor: BORDER_COLOR,
     borderBottomWidth: 1,
-    marginBottom: 10
+    marginBottom: 10,
   },
   componentAcount: {
     fontSize: 11,
     color: '#333',
-    paddingRight: 15
+    paddingRight: 15,
   },
   componentStar: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
   componentStarIcon: {
     color: '#ccc',
-    marginRight: 3
+    marginRight: 3,
   },
   componentStarIconActive: {
     color: PRIMARY_COLOR,
-    marginRight: 3
+    marginRight: 3,
   },
   componentTime: {
     fontSize: 11,
     color: '#CCCCCC',
-    paddingRight: SIDEINTERVAL
+    paddingRight: SIDEINTERVAL,
   },
   componentDesc: {
     color: '#999',
@@ -59,55 +59,55 @@ const styles = StyleSheet.create({
   },
   componentimageWrap: {
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   componentimageItem: {
     width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
     height: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
     marginRight: SIDEINTERVAL,
     marginBottom: SIDEINTERVAL,
-    resizeMode: 'cover'
-  }
+    resizeMode: 'cover',
+  },
 });
 
-export default ({ data, styleWrap, style, ...restProps }) => {
-  return (
-    <View style={[styles.componentWrap, styleWrap]}>
-      {
-        data && 
-        !!data.length &&
-        data.map((val, key) => 
-          <View style={[styles.component, style]} key={key}>
-            <View style={styles.componentTitle}>
-              <Text style={styles.componentAcount}>{val.username}</Text>
-              <View style={styles.componentStar}>
-                {
-                  [0,1,2,3,4].map((val1) => 
-                    <FontAwesome style={val.score > val1 ? styles.componentStarIconActive : styles.componentStarIcon } name="star" key={val1} />
-                  )
-                }
-                {/* <FontAwesome style={styles.componentStarIconActive} name="star" />
-                <FontAwesome style={styles.componentStarIconActive} name="star" />
-                <FontAwesome style={styles.componentStarIcon} name="star" />
-                <FontAwesome style={styles.componentStarIcon} name="star" />
-                <FontAwesome style={styles.componentStarIcon} name="star" /> */}
-              </View>
-              <Text style={styles.componentTime}>{val.updateTime}</Text>
+export default ({ data, styleWrap, style, ...restProps }) => (
+  <View style={[styles.componentWrap, styleWrap]} {...restProps}>
+    {data &&
+      !!data.length &&
+      data.map((val, key) => (
+        <View style={[styles.component, style]} key={key}>
+          <View style={styles.componentTitle}>
+            <Text style={styles.componentAcount}>{val.username}</Text>
+            <View style={styles.componentStar}>
+              {[0, 1, 2, 3, 4].map(val1 => (
+                <FontAwesome
+                  style={
+                    val.score > val1
+                      ? styles.componentStarIconActive
+                      : styles.componentStarIcon
+                  }
+                  name="star"
+                  key={val1}
+                />
+              ))}
             </View>
-            <Text style={styles.componentDesc} numberOfLines={3}>{val.content}</Text>
-            <View style={styles.componentimageWrap}>
-              {
-                val.imageUrls.map((val, key) => 
-                  <Image style={styles.componentimageItem} source={{ uri: `${val}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }} key={key} />
-                )
-              }
-              {/* <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />
-              <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} />
-              <Image style={styles.componentimageItem} source={require('../images/viemnam.png')} /> */}
-            </View>
+            <Text style={styles.componentTime}>{val.updateTime}</Text>
           </View>
-        )
-      }
-    </View>
-  );
-};
+          <Text style={styles.componentDesc} numberOfLines={3}>
+            {val.content}
+          </Text>
+          <View style={styles.componentimageWrap}>
+            {val.imageUrls.map((val1, key1) => (
+              <Image
+                style={styles.componentimageItem}
+                key={key1}
+                source={{
+                  uri: `${val1}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
+                }}
+              />
+            ))}
+          </View>
+        </View>
+      ))}
+  </View>
+);
