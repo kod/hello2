@@ -332,6 +332,11 @@ class Me extends Component {
         tips: '',
       },
       {
+        name: i18n.inviteFriends,
+        func: () => this.handleOnNavBar1Callback(SCREENS.Invite),
+        tips: '',
+      },
+      {
         name: i18n.myCollection,
         func: () => this.handleOnNavBar1Callback(SCREENS.MyCollection),
         tips: '',
@@ -351,11 +356,6 @@ class Me extends Component {
         func: () => this.handleOnNavBar1Callback(SCREENS.Address),
         tips: '',
       },
-      // {
-      //   name: i18n.inviteFriends,
-      //   func: () => this.handleOnNavBar1Callback(SCREENS.Invite),
-      //   tips: '',
-      // },
       // {
       //   name: i18n.aboutAs,
       //   func: () => this.handleOnNavBar1Callback(SCREENS.AboutAs),
