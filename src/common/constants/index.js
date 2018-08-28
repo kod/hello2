@@ -13,6 +13,9 @@ export const SERVICE_EMAIL = 'service.vn@buyoo.aisa';
 export const SERVICE_PHONE = '1900555506';
 export const BUYOO = 'Buyoo';
 export const BUYOO_VN = `${BUYOO}.vn`;
+export const ZALO = `zalo`;
+export const GOOGLE_PLUS = `google+`;
+export const FACEBOOK = `facebook`;
 
 export const PHONE_EXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
 export const EMAIL_EXPR = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/; // 邮箱
