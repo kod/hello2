@@ -4,8 +4,10 @@ export const CARMAXNUMBER = 50;
 export const MINIMUM_PAYMENT_AMOUNT = 10000; // 最小支付金额
 export const OSS_IMAGE_QUALITY = 70; // 图片压缩比例；1-100；100：不压缩；
 
-export const SUPPORT_CENTER_URL = 'https://buyoo.vn/html/paystepM.html';
-export const HOW_TO_BUY_URL = 'https://buyoo.vn/html/paystepM.html';
+export const DOMAIN = 'https://buyoo.vn';
+export const SHARE_URL = `${DOMAIN}/html/downloadApp.html?userID=XXX`;
+export const SUPPORT_CENTER_URL = `${DOMAIN}/html/paystepM.html`;
+export const HOW_TO_BUY_URL = `${DOMAIN}/html/paystepM.html`;
 export const BUSINESS_EMAIL = 'business.vn@buyoo.aisa';
 export const SERVICE_EMAIL = 'service.vn@buyoo.aisa';
 export const SERVICE_PHONE = '1900555506';
@@ -23,6 +25,8 @@ export const BRANDID_REGEX = /brandId=(\d+)/;
 export const CLASSIFYID_REGEX = /classifyId=(\d+)/;
 export const SUBCLASSFYID_REGEX = /subClassfyId=(\d+)/;
 export const THIRDCLASSFYID_REGEX = /thirdClassfyId=(\d+)/;
+export const SHAREID_REGEX = /userID=([A-Z0-9]+)/;
+export const INVITATION_CODE_REGEX = /₫ ([A-Z0-9]+) ₫/;
 
 export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);
 export const WINDOW_HEIGHT = Math.floor(Dimensions.get('window').height);

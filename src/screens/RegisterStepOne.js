@@ -49,8 +49,13 @@ const validate = (values, props) => {
 };
 
 class RegisterStepOne extends Component {
+  componentDidMount() {
+    const { initialize, inviterno } = this.props;
+    initialize({ inviterno });
+  }
+
   submit = data => {
-    const { phone } = data;
+    const { phone, inviterno } = data;
     const {
       // otpFetch,
       navigation: { navigate },
@@ -59,7 +64,7 @@ class RegisterStepOne extends Component {
       // Keyboard.dismiss();
       // otpFetch(phone);
       // navigate(SCREENS.RegisterStepTwo);
-      navigate(SCREENS.RegisterStepTwo, { msisdn: phone });
+      navigate(SCREENS.RegisterStepTwo, { msisdn: phone, inviterno });
     }
   };
 
@@ -68,6 +73,7 @@ class RegisterStepOne extends Component {
       navigation: { goBack },
       handleSubmit,
       i18n,
+      inviterno,
     } = this.props;
     return (
       <View style={styles.container}>
@@ -100,6 +106,7 @@ class RegisterStepOne extends Component {
                 i18n.selectFill
               })`}
               placeholderTextColor="#6D7592"
+              editable={inviterno === ''}
             />
           </View>
           <BYButton
@@ -126,15 +133,23 @@ RegisterStepOne = reduxForm({
 
 export default connectLocalization(
   connect(
-    () => () => {
+    (state, props) => {
       // const {
       //   login,
       //   form: { RegisterStepOne },
       // } = state;
-      // const msisdn = props.navigation.state.params.msisdn || '';
-      console.log();
+
+      const {
+        navigation: {
+          state: {
+            params,
+            // param,
+          },
+        },
+      } = props;
+
       return {
-        // msisdn: login.user ? login.user.msisdn : '',
+        inviterno: params ? params.id || '' : '',
         // formValue: RegisterStepOne ? RegisterStepOne.values : '',
       };
     },

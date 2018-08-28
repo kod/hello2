@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { Alert, Clipboard } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {
   HTML_REGEX,
@@ -6,9 +6,32 @@ import {
   CLASSIFYID_REGEX,
   SUBCLASSFYID_REGEX,
   THIRDCLASSFYID_REGEX,
+  SHAREID_REGEX,
+  INVITATION_CODE_REGEX,
   OSS_IMAGE_QUALITY,
   SCREENS,
 } from '../constants';
+
+const invitationCodeNavigate = (navigation, id) => {
+  navigation.dispatch(
+    NavigationActions.reset({
+      index: 2,
+      actions: [
+        NavigationActions.navigate({
+          routeName: SCREENS.Index,
+          params: { invitationCodeNavigate: true },
+        }),
+        NavigationActions.navigate({ routeName: SCREENS.Login }),
+        NavigationActions.navigate({
+          routeName: SCREENS.RegisterStepOne,
+          params: {
+            id,
+          },
+        }),
+      ],
+    }),
+  );
+};
 
 export const addressJoin = item =>
   item.address +
@@ -180,6 +203,7 @@ export const analyzeUrlNavigate = ({
   const { navigate, goBack } = navigation;
   const htmlRegexResult = linkUrl.match(HTML_REGEX);
 
+  let shareIdResult = null;
   let brandIdRegexResult = null;
   let classifyIdRegexResult = null;
   let subClassfyIdRegexResult = null;
@@ -192,7 +216,7 @@ export const analyzeUrlNavigate = ({
           index: 1,
           actions: [
             NavigationActions.navigate({ routeName: SCREENS.Index }),
-            NavigationActions.navigate({ routeName }),
+            NavigationActions.navigate({ routeName, params }),
           ],
         }),
       );
@@ -291,6 +315,18 @@ export const analyzeUrlNavigate = ({
         });
         break;
 
+      case 'downloadApp':
+        // 邀请注册
+        shareIdResult = linkUrl.match(SHAREID_REGEX);
+        invitationCodeNavigate(
+          navigation,
+          shareIdResult ? shareIdResult[1] : '',
+        );
+        // customNavigate(SCREENS.RegisterStepOne, {
+        //   id: shareIdResult ? shareIdResult[1] : '',
+        // });
+        break;
+
       default:
         alert('error');
         break;
@@ -298,6 +334,10 @@ export const analyzeUrlNavigate = ({
   }
 };
 
+/**
+ * webView图片拼接
+ * @param {array} images
+ */
 export const jointWebViewImages = images => {
   let WebViewImages;
   switch (images.length) {
@@ -327,4 +367,30 @@ export const jointWebViewImages = images => {
       break;
   }
   return WebViewImages;
+};
+
+export const invitationCodeForClipboard = async (navigation, i18n) => {
+  const clipboardContent = await Clipboard.getString();
+  const invitationCodeResult = clipboardContent.match(INVITATION_CODE_REGEX);
+  if (invitationCodeResult) {
+    Alert.alert(
+      `${i18n.registerNow}?`,
+      `Mã mời: ${invitationCodeResult[1]}`,
+      [
+        {
+          text: i18n.cancel,
+        },
+        {
+          text: i18n.registerNow,
+          onPress: () => {
+            invitationCodeNavigate(
+              navigation,
+              invitationCodeResult ? invitationCodeResult[1] : '',
+            );
+          },
+        },
+      ],
+      // { cancelable: false },
+    );
+  }
 };

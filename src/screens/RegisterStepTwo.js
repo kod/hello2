@@ -185,12 +185,13 @@ export default connectLocalization(
         const {
           navigation: {
             state: {
-              params: { msisdn },
+              params: { msisdn, inviterno },
             },
           },
         } = props;
         return {
           msisdn,
+          inviterno,
           registerStepOneValues: RegisterStepOne ? RegisterStepOne.values : '',
           loading: register.loading,
         };

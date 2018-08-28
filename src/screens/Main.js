@@ -28,6 +28,7 @@ import { connectLocalization } from '../components/Localization';
 // import CustomIcon from '../components/CustomIcon';
 // import BYTouchable from '../components/BYTouchable';
 import SearchHeader from '../components/SearchHeader';
+import { invitationCodeForClipboard } from '../common/helpers';
 
 import * as i18nActionCreators from '../common/actions/i18n';
 import * as scrollableTabViewActionCreators from '../common/actions/scrollableTabView';
@@ -101,24 +102,19 @@ class Main extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const {
-  //     navigation: { navigate },
-  //     i18n,
-  //     setLanguage,
-  //   } = this.props;
+  componentDidMount() {
+    const {
+      i18n,
+      navigation,
+      navigation: {
+        state: { params },
+      },
+      isAuthUser,
+    } = this.props;
 
-  //   // setTimeout(() => {
-  //   //   // navigate(SCREENS.WebView, {
-  //   //   //   source: 'https://buyoo.vn/html/about.html'
-  //   //   // });
-  //   //   navigate(SCREENS.Pay, {
-  //   //     tradeNo: '210320180613100829786253',
-  //   //     orderNo: '220180613100829817675838324',
-  //   //   });
-
-  //   // }, 300);
-  // }
+    if (params === undefined && isAuthUser === false)
+      invitationCodeForClipboard(navigation, i18n);
+  }
 
   onDataArrived() {}
 
@@ -255,6 +251,7 @@ export default connectLocalization(
   connect(
     state => {
       const {
+        login,
         scrollableTabView,
         // scrollableTabView,
       } = state;
@@ -264,6 +261,7 @@ export default connectLocalization(
       // } = props;
 
       return {
+        isAuthUser: !!login.user,
         scrollTabIndex: scrollableTabView.index,
       };
     },
