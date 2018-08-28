@@ -10,7 +10,7 @@ export default function register(state = initState, action) {
   switch (action.type) {
     case REGISTER.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case REGISTER.REQUEST:
       return {
