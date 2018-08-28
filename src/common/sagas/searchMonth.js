@@ -96,23 +96,24 @@ export function* searchMonthSuccessWatchHandle() {
     // getBillNowMonth,
 
     const searchMonthItem = yield select(getSearchMonthItem);
-    const billByYearItems = yield select(getBillByYearItems);
-    const billNowYear = yield select(getBillNowYear);
-    const billNowMonth = yield select(getBillNowMonth);
+    // const billByYearItems = yield select(getBillByYearItems);
+    // const billNowYear = yield select(getBillNowYear);
+    // const billNowMonth = yield select(getBillNowMonth);
     let result = 0;
-    if (searchMonthItem.totalWaitingAmount && billByYearItems[billNowYear]) {
-      if (
-        billByYearItems[billNowYear][billNowMonth - 1].status &&
-        billByYearItems[billNowYear][billNowMonth - 1].status !== 10000
-      ) {
-        // result = 全部逾期待还的金额 + 当月待还金额（如果已出账）
-        result =
-          searchMonthItem.totalWaitingAmount +
-          billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
-      } else {
-        result = searchMonthItem.totalWaitingAmount;
-      }
-    }
+    result = searchMonthItem.totalWaitingAmount + searchMonthItem.waitingAmount;
+    // if (searchMonthItem.totalWaitingAmount && billByYearItems[billNowYear]) {
+    //   if (
+    //     billByYearItems[billNowYear][billNowMonth - 1].status &&
+    //     billByYearItems[billNowYear][billNowMonth - 1].status !== 10000
+    //   ) {
+    //     // result = 全部逾期待还的金额 + 当月待还金额（如果已出账）
+    //     result =
+    //       searchMonthItem.totalWaitingAmount +
+    //       billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
+    //   } else {
+    //     result = searchMonthItem.totalWaitingAmount;
+    //   }
+    // }
 
     yield put(billPriceFetch(result.toString()));
     yield put(billTotalPriceFetch(result.toString()));
