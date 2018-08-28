@@ -394,3 +394,24 @@ export const invitationCodeForClipboard = async (navigation, i18n) => {
     );
   }
 };
+
+/**
+ * 字母大写工具包
+ * capitalize: 字符串中第一个单词首字母大写
+ * perCapitalize: 字符串中每一个单词首字母大写
+ * 示例：
+ * capitalizeTool().capitalize('react') // React
+ * capitalizeTool().perCapitalize('react native') // React Native
+ */
+export const capitalizeTool = () => {
+  const capitalize = word => word[0].toUpperCase() + word.slice(1);
+  const perCapitalize = str =>
+    str
+      .split(' ')
+      .map(val => capitalize(val))
+      .join(' ');
+  return {
+    capitalize,
+    perCapitalize,
+  };
+};
