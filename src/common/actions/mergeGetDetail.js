@@ -5,14 +5,13 @@ import {
   PRODUCT_DETAIL_OPACITY,
 } from '../constants/actionTypes';
 
-export function mergeGetDetailFetchSuccess(product_detail, detail, propertiesIds, colorVersionList, imageDesc) {
+export function mergeGetDetailFetchSuccess(product_detail, detail, propertiesIds, imageDesc) {
   return {
     type: MERGE_GETDETAIL.SUCCESS,
     payload: {
       product_detail,
       detail,
       propertiesIds,
-      colorVersionList,
       imageDesc,
     },
   };

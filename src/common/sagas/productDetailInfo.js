@@ -1,85 +1,81 @@
+/* eslint-disable camelcase */
 import { Platform, Alert } from 'react-native';
-import { normalize } from 'normalizr';
+// import { normalize } from 'normalizr';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { productDetailInfoFetchSuccess, productDetailInfoFetchFailure } from '../actions/productDetailInfo';
+import moment from 'moment';
+import {
+  productDetailInfoFetchSuccess,
+  productDetailInfoFetchFailure,
+} from '../actions/productDetailInfo';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { PRODUCT_DETAIL_INFO } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 import NavigatorService from '../../navigations/NavigatorService';
 import i18n from '../helpers/i18n';
 
 export function* productDetailInfoFetchWatchHandle(action) {
+  // 获取默认显示商品(库存不为0)
+  const getProductDetail = data => {
+    let productDetailResult = {};
+    let propertiesIdsResult = '';
 
-  const get_propertiesIds = (propertiesIds, properties_detail) => {
-
-    let result = {
-      colorId: 0,
-      versionId: 0,
-    };
-
-    propertiesIds = propertiesIds.split('-');
-    propertiesIds.forEach((id1, key) => {
-      properties_detail.forEach((val1, key1) => {
-        const id2 = val1.id;
-        if (parseInt(id1) !== id2) return false;
-        if (val1.image) {
-          result.colorId = id2;
-          result.colorName = val1.value;
-        } else {
-          result.versionId = id2;
-          result.versionName = val1.value;
-        }
-      })
-    });
-    return result;
-  }
-
-  const get_productDetail = (propertiesIdsResult, product_detail) => {
-    let result = {};
-    const propertiesArray = [];
-    
-    if (propertiesIdsResult.colorId) propertiesArray.push(propertiesIdsResult.colorId);
-    if (propertiesIdsResult.versionId) propertiesArray.push(propertiesIdsResult.versionId);
-
-    if (!propertiesArray.length) return {};
-
-    return product_detail.filter((val, key) => {
-      return propertiesArray.every((val1, key1) => {
-        return val.propertiesIds.indexOf(val1 + '') !== -1;
-      })
-    })[0];
-
-    // product_detail.forEach((val, key) => {
-    //   const item = propertiesArray.every((val1, key1) => {
-    //     return val.propertiesIds.indexOf(val1 + '') !== -1;
-    //   })
-    //   if (item) result = val;
-    // });
-    // return result;
-  };
-
-  const productDetailColorVersionList = (properties_detail) => {
-    let result = {
-      product_color: [],
-      product_version: [],
-    }
-
-    properties_detail.forEach((val, key) => {
-      if (val.image) {
-        result.product_color.push(val);
-      } else {
-        result.product_version.push(val);
+    Object.keys(data).forEach(val => {
+      if (propertiesIdsResult === '' && data[val].numbers > 0) {
+        productDetailResult = data[val];
+        propertiesIdsResult = val;
       }
     });
+
+    return {
+      productDetailResult,
+      propertiesIdsResult,
+    };
+  };
+
+  // 属性归类
+  const makePropertiesDetail = array => {
+    const propertiesArray = [];
+    const propertiesObject = {};
+    const propertiesObjectForId = {};
+    array.forEach(val => {
+      if (propertiesArray.indexOf(val.name) === -1)
+        propertiesArray.push(val.name);
+
+      propertiesObjectForId[val.id] = val;
+      if (propertiesObject[val.name]) {
+        // 已存在
+        propertiesObject[val.name].push(val);
+      } else {
+        // 不存在
+        propertiesObject[val.name] = [];
+        propertiesObject[val.name].push(val);
+      }
+    });
+    return {
+      propertiesArray: propertiesArray.sort(),
+      propertiesObject,
+      propertiesObjectForId,
+    };
+  };
+
+  // 商品归类
+  const roductDetailForPropertiesIds = array => {
+    const result = {};
+    array.forEach(val => {
+      // // 库存大于0才加入列表
+      // if (val.numbers > 0)
+      result[
+        val.propertiesIds
+          .split('-')
+          .sort()
+          .join('-')
+      ] = val;
+    });
     return result;
   };
-  
-  const {
-    brand_id,
-  } = action.payload;
-  let propertiesIds = action.payload.propertiesIds;
+
+  const { brand_id } = action.payload;
 
   try {
     const Key = 'commodityKey';
@@ -95,23 +91,23 @@ export function* productDetailInfoFetchWatchHandle(action) {
       [
         {
           key: 'brand_id',
-          value: brand_id
+          value: brand_id,
         },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.getProductDetailInfo, [
       {
-        appId: appId,
+        appId,
         method,
         charset,
-        signType: signType,
+        signType,
         encrypt,
         timestamp,
         version,
-        brand_id: brand_id,
-      }
+        brand_id,
+      },
     ]);
 
     if (response.code !== 10000) {
@@ -121,46 +117,42 @@ export function* productDetailInfoFetchWatchHandle(action) {
         '',
         response.msg,
         [
-          { 
-            text: i18n.confirm, 
-            onPress: () => { NavigatorService.pop(1); }
-          }
-        ]
-      )
+          {
+            text: i18n.confirm,
+            onPress: () => {
+              NavigatorService.pop(1);
+            },
+          },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      const { properties_detail, brand_detail } = response;
 
-      return false;
-    }
-
-    const { properties_detail, brand_detail } = response;
-
-    const product_detail = response.product_detail.map((val, key) => {
-      val.imageUrls = val.imageUrls.split('|').map((val, key) => {
-        const result = {}
-        result.imageUrl = val;
-        return result;
+      const product_detail = response.product_detail.map(val => {
+        val.imageUrls = val.imageUrls.split('|').map(val1 => {
+          const result = {};
+          result.imageUrl = val1;
+          return result;
+        });
+        val.goodsProperties = val.goodsProperties.split('|');
+        return val;
       });
-      val.goodsProperties = val.goodsProperties.split('|');
-      return val;
-    });
 
-    propertiesIds = propertiesIds || product_detail[0].propertiesIds;
-    
-    const imageDesc = brand_detail.desc.split('|');
-    
-    const propertiesIdsResult = get_propertiesIds(propertiesIds, properties_detail)
-    
-    const productDetailResult = get_productDetail(propertiesIdsResult, product_detail);
-    
-    const productDetailColorVersionListResult = productDetailColorVersionList(properties_detail);
+      const imageDesc = brand_detail.desc.split('|');
 
-    yield put(productDetailInfoFetchSuccess(
-      product_detail,
-      productDetailResult,
-      propertiesIdsResult,
-      productDetailColorVersionListResult,
-      imageDesc,
-    ));
+      const productDetailSort = roductDetailForPropertiesIds(product_detail);
 
+      yield put(
+        productDetailInfoFetchSuccess({
+          product_detail,
+          imageDesc,
+          ...getProductDetail(productDetailSort),
+          ...makePropertiesDetail(properties_detail),
+          productDetailSort,
+        }),
+      );
+    }
   } catch (err) {
     yield put(productDetailInfoFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -168,5 +160,8 @@ export function* productDetailInfoFetchWatchHandle(action) {
 }
 
 export function* productDetailInfoFetchWatch() {
-  yield takeEvery(PRODUCT_DETAIL_INFO.REQUEST, productDetailInfoFetchWatchHandle);
+  yield takeEvery(
+    PRODUCT_DETAIL_INFO.REQUEST,
+    productDetailInfoFetchWatchHandle,
+  );
 }

@@ -10,14 +10,15 @@ const initState = {
   loaded: false,
   refreshing: false,
   item: {
-    colorArray: [],
-    versionArray: [],
-    propertiesIdsObject: {},
+    propertiesIdsObject: '',
     imageDesc: [],
-    goodsProperties: [],
     imageUrls: [],
     productDetailOpacity: 0,
     productDetailNumber: 1,
+    propertiesArray: [],
+    propertiesObject: {},
+    propertiesObjectForId: {},
+    productDetailSort: {},
   },
 };
 
@@ -41,12 +42,13 @@ export default function productDetailInfo(state = initState, action) {
           ...state.item,
           ...action.payload.detail,
           imageUrls: action.payload.detail.imageUrls,
-          colorArray: action.payload.colorVersionList.product_color,
-          versionArray: action.payload.colorVersionList.product_version,
           propertiesIdsObject: action.payload.propertiesIds,
           imageDesc: action.payload.imageDesc,
-          product_detail: action.payload.product_detail,
-        }
+          propertiesArray: action.payload.propertiesArray,
+          propertiesObject: action.payload.propertiesObject,
+          propertiesObjectForId: action.payload.propertiesObjectForId,
+          productDetailSort: action.payload.productDetailSort,
+        },
       };
     case PRODUCT_DETAIL_INFO.FAILURE:
       return {
@@ -64,7 +66,7 @@ export default function productDetailInfo(state = initState, action) {
           ...state.item,
           ...action.payload.productDetail,
           propertiesIdsObject: action.payload.propertiesIdsObject,
-        }
+        },
       };
     case PRODUCT_DETAIL_NUMBER.REQUEST:
       return {
@@ -72,7 +74,7 @@ export default function productDetailInfo(state = initState, action) {
         item: {
           ...state.item,
           productDetailNumber: action.payload.number,
-        }
+        },
       };
     case PRODUCT_DETAIL_OPACITY.REQUEST:
       return {
@@ -80,9 +82,9 @@ export default function productDetailInfo(state = initState, action) {
         item: {
           ...state.item,
           productDetailOpacity: action.payload.opacity,
-        }
+        },
       };
-  default:
+    default:
       return state;
   }
 }

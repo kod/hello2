@@ -5,14 +5,12 @@ import {
   Image,
   StyleSheet,
   Modal,
-  Alert,
   // Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-// import Loader from '../components/Loader';
 import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
 import priceFormat from '../common/helpers/priceFormat';
@@ -27,7 +25,6 @@ import {
   WINDOW_WIDTH,
   // SCREENS,
   SIDEINTERVAL,
-  // STATUSBAR_HEIGHT,
 } from '../common/constants';
 
 import * as modalActionCreators from '../common/actions/modal';
@@ -41,55 +38,6 @@ const styles = StyleSheet.create({
   mask: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,.3)',
-  },
-  operate: {
-    flexDirection: 'row',
-    borderTopColor: BORDER_COLOR,
-    borderTopWidth: 1,
-  },
-  operateLeft: {
-    flex: 1,
-    height: 49,
-    lineHeight: 49,
-    textAlign: 'center',
-    fontSize: 14,
-    color: '#666',
-    backgroundColor: '#fff',
-  },
-  operateRight: {
-    flex: 1,
-    height: 49,
-    lineHeight: 49,
-    textAlign: 'center',
-    fontSize: 14,
-    color: '#fff',
-    backgroundColor: PRIMARY_COLOR,
-  },
-  operateGroupLeft: {
-    flex: 3,
-    height: 49,
-    paddingTop: 5,
-    backgroundColor: '#fff',
-    paddingLeft: SIDEINTERVAL,
-  },
-  operateGroupLeftOldPrice: {
-    textDecorationLine: 'line-through',
-    textDecorationStyle: 'solid',
-    color: '#999',
-    fontSize: 12,
-  },
-  operateGroupLeftPrice: {
-    color: RED_COLOR,
-    fontSize: 16,
-  },
-  operateGroupRight: {
-    flex: 2,
-    height: 49,
-    lineHeight: 49,
-    textAlign: 'center',
-    fontSize: 14,
-    color: '#fff',
-    backgroundColor: PRIMARY_COLOR,
   },
   paramClose: {
     paddingTop: WINDOW_WIDTH * 0.03,
@@ -122,35 +70,6 @@ const styles = StyleSheet.create({
   paramHave: {
     color: '#999',
     fontSize: 11,
-  },
-  paramTitle: {
-    color: '#666',
-    paddingLeft: SIDEINTERVAL,
-    paddingTop: 20,
-    marginBottom: 8,
-  },
-  paramColor: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingLeft: SIDEINTERVAL,
-    // marginBottom: 20,
-  },
-  paramColorItem: {
-    // width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
-    height: 35,
-    lineHeight: 35,
-    textAlign: 'center',
-    marginRight: SIDEINTERVAL,
-    marginBottom: SIDEINTERVAL,
-    color: '#999',
-    borderColor: BORDER_COLOR,
-    borderWidth: 1,
-    paddingLeft: WINDOW_WIDTH * 0.05,
-    paddingRight: WINDOW_WIDTH * 0.05,
-  },
-  paramColorItemAcitve: {
-    borderColor: PRIMARY_COLOR,
-    color: PRIMARY_COLOR,
   },
   paramNumber: {
     flexDirection: 'row',
@@ -218,101 +137,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     backgroundColor: PRIMARY_COLOR,
   },
+  buttonDisable: {
+    opacity: 0.5,
+  },
 });
 
 class ParamsSelectModal extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     addressIndex: 0, // 显示哪个ScrollView
-  //     division2ndID: null,
-  //     division3rdID: null,
-  //     division4thID: null,
-  //     division2ndName: null,
-  //     division3rdName: null,
-  //     division4thName: null,
-  //   };
-  // }
-
-  // componentDidMount() {
-  //   const {
-  //     cityInfosFetch,
-  //     modalProps: { params },
-  //   } = this.props;
-  // }
-
   handleOnModalClose = () => {
     const { closeModal } = this.props;
     closeModal();
   };
-
-  // 是否有改组合商品
-  productPartner(propertiesIdsObject) {
-    const { product_detail: productDetail } = this.props;
-    return productDetail.filter(val =>
-      Object.values(propertiesIdsObject).every(
-        val1 => val.propertiesIds.indexOf(val1.toString()) !== -1,
-      ),
-    )[0];
-  }
-
-  handleOnPressselectVersion(id, name) {
-    const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
-    const object = {
-      colorId: propertiesIdsObject.colorId,
-      colorName: propertiesIdsObject.colorName,
-      versionId: id,
-      versionName: name,
-    };
-    const productDetail = this.productPartner({
-      colorId: object.colorId,
-      versionId: object.versionId,
-    });
-    if (productDetail) {
-      productDetailSelect(object, productDetail);
-    } else {
-      Alert.alert(
-        '',
-        i18n.soldOut,
-        [
-          {
-            text: i18n.confirm,
-            onPress: () => {},
-          },
-        ],
-        // { cancelable: false },
-      );
-    }
-  }
-
-  handleOnPressselectColor(id, name) {
-    const { productDetailSelect, propertiesIdsObject, i18n } = this.props;
-    const object = {
-      colorId: id,
-      colorName: name,
-      versionId: propertiesIdsObject.versionId,
-      versionName: propertiesIdsObject.versionName,
-    };
-    const productDetail = this.productPartner({
-      colorId: object.colorId,
-      versionId: object.versionId,
-    });
-    if (productDetail) {
-      productDetailSelect(object, productDetail);
-    } else {
-      Alert.alert(
-        '',
-        i18n.soldOut,
-        [
-          {
-            text: i18n.confirm,
-            onPress: () => {},
-          },
-        ],
-        // { cancelable: false },
-      );
-    }
-  }
 
   handleOnPresschangeNumber(number) {
     const { productDetailNumberFetch, numbers } = this.props;
@@ -320,19 +154,96 @@ class ParamsSelectModal extends Component {
     return productDetailNumberFetch(number);
   }
 
+  handleOnChangeProperties(key, val) {
+    const {
+      productDetailSelect,
+      productDetailSort,
+      propertiesIdsObject,
+    } = this.props;
+    const array = propertiesIdsObject.split('-');
+    array[key] = val.toString();
+    const result = array.sort().join('-');
+    if (propertiesIdsObject !== result)
+      productDetailSelect(result, productDetailSort[result]);
+  }
+
+  renderPropertiesIds() {
+    const stylesX = StyleSheet.create({
+      wrap: {},
+      item: {},
+      title: {
+        color: '#666',
+        paddingLeft: SIDEINTERVAL,
+        paddingTop: 15,
+        marginBottom: 8,
+      },
+      properties: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingLeft: SIDEINTERVAL,
+        // marginBottom: 20,
+      },
+      propertiesItem: {
+        // width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
+        height: 35,
+        lineHeight: 35,
+        textAlign: 'center',
+        marginRight: SIDEINTERVAL,
+        marginBottom: SIDEINTERVAL,
+        color: '#999',
+        borderColor: BORDER_COLOR,
+        borderWidth: 1,
+        paddingLeft: WINDOW_WIDTH * 0.05,
+        paddingRight: WINDOW_WIDTH * 0.05,
+      },
+      propertiesItemAcitve: {
+        borderColor: PRIMARY_COLOR,
+        color: PRIMARY_COLOR,
+      },
+    });
+
+    const {
+      propertiesArray,
+      propertiesObject,
+      propertiesIdsObject,
+    } = this.props;
+
+    return (
+      <View style={stylesX.wrap}>
+        {propertiesArray.map((val, key) => (
+          <View style={stylesX.item} key={val}>
+            <Text style={stylesX.title}>{val}</Text>
+            <View style={stylesX.properties}>
+              {propertiesObject[val].map(val1 => (
+                <Text
+                  style={[
+                    stylesX.propertiesItem,
+                    val1.id ===
+                      parseInt(propertiesIdsObject.split('-')[key], 10) &&
+                      stylesX.propertiesItemAcitve,
+                  ]}
+                  onPress={() => this.handleOnChangeProperties(key, val1.id)}
+                  key={val1.value}
+                >
+                  {val1.value}
+                </Text>
+              ))}
+            </View>
+          </View>
+        ))}
+      </View>
+    );
+  }
+
   renderContent() {
     const {
       i18n,
       productDetailNumber,
-      colorArray,
-      versionArray,
       imageUrls,
       price,
       numbers,
-      propertiesIdsObject,
+      // propertiesIdsObject,
     } = this.props;
-
-    const { colorId = 0, versionId = 0 } = propertiesIdsObject;
 
     return (
       <View style={{ backgroundColor: '#fff' }}>
@@ -357,38 +268,7 @@ class ParamsSelectModal extends Component {
             </Text>
           </View>
         </View>
-        <Text style={styles.paramTitle}>{i18n.color}</Text>
-        <View style={styles.paramColor}>
-          {colorArray.map(val => (
-            <Text
-              style={[
-                styles.paramColorItem,
-                val.id === colorId && styles.paramColorItemAcitve,
-              ]}
-              onPress={() => this.handleOnPressselectColor(val.id, val.value)}
-              key={val.value}
-            >
-              {val.value}
-            </Text>
-          ))}
-        </View>
-        {!!versionArray.length && (
-          <Text style={styles.paramTitle}>RAM & {i18n.memory}</Text>
-        )}
-        <View style={styles.paramColor}>
-          {versionArray.map(val => (
-            <Text
-              style={[
-                styles.paramColorItem,
-                val.id === versionId && styles.paramColorItemAcitve,
-              ]}
-              onPress={() => this.handleOnPressselectVersion(val.id, val.value)}
-              key={val.value}
-            >
-              {val.value}
-            </Text>
-          ))}
-        </View>
+        {this.renderPropertiesIds()}
         <View style={styles.paramNumber}>
           <Text style={styles.paramNumberText}>{i18n.amount}</Text>
           <View style={styles.paramNumberChange}>
@@ -428,8 +308,11 @@ class ParamsSelectModal extends Component {
           </View>
         </View>
         <View style={styles.buttonWrap}>
-          <Text style={styles.button} onPress={() => this.handleOnModalClose()}>
-            confirm
+          <Text
+            style={[styles.button, !(numbers > 0) && styles.buttonDisable]}
+            onPress={() => this.handleOnModalClose()}
+          >
+            {numbers > 0 ? i18n.confirm : i18n.soldOut}
           </Text>
         </View>
       </View>
@@ -466,29 +349,17 @@ export default connect(
     const {
       brandId,
       // navigation,
-      // navigation: {
-      //   state: {
-      //     params: {
-      //       groupon,
-      //       // groupon,
-      //     },
-      //   },
-      // },
-      propertiesIds,
-      // navigation,
     } = props;
 
     const groupon = false;
     const brandIdUsed = brandId;
     // const groupon = navigation.state.params.groupon;
-    const propertiesIdsUsed = propertiesIds || '';
     const item = groupon ? mergeGetDetail.item : productDetailInfo.item;
     return {
       ...item,
       brandId: brandIdUsed,
       groupon,
       isMaster: !!mergeCheck.item.mergeMasterId,
-      propertiesIds: propertiesIdsUsed,
       masterItems: mergeGetMaster.items,
       isAuthUser: !!state.login.user,
       modalProps,

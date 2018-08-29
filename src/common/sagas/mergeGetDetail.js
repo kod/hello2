@@ -136,13 +136,10 @@ export function* mergeGetDetailFetchWatchHandle(action) {
     
     const productDetailResult = get_productDetail(propertiesIdsResult, productdetails);
     
-    const productDetailColorVersionListResult = productDetailColorVersionList(propertydetails);
-
     yield put(mergeGetDetailFetchSuccess(
       productdetails,
       productDetailResult,
       propertiesIdsResult,
-      productDetailColorVersionListResult,
       imageDesc,
     ));
   } catch (err) {

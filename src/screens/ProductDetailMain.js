@@ -4,31 +4,19 @@ import {
   Text,
   View,
   ScrollView,
-  // Dimensions,
-  // Image,
-  // FlatList,
   WebView,
+  // WebView,
 } from 'react-native';
 import { connect } from 'react-redux';
-// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-// import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { connectLocalization } from '../components/Localization';
 
 import CustomIcon from '../components/CustomIcon';
-// import HeaderShareButton from '../components/HeaderShareButton';
-// import ScrollableTabView from '../components/ScrollableTabView';
 import SwiperFlatList from '../components/SwiperFlatList';
-// import BYTouchable from '../components/BYTouchable';
-import BYCacheImage from '../components/BYCacheImage';
 import Comment from '../components/Comment';
 import priceFormat from '../common/helpers/priceFormat';
 import { jointWebViewImages } from '../common/helpers';
 
-import {
-  RED_COLOR,
-  BORDER_COLOR,
-  // PRIMARY_COLOR,
-} from '../styles/variables';
+import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
 
 import {
   WINDOW_WIDTH,
@@ -37,13 +25,9 @@ import {
   STATUSBAR_HEIGHT,
   SCREENS,
   MODAL_TYPES,
-  OSS_IMAGE_QUALITY,
 } from '../common/constants';
 
-// import { getIsCollection } from '../common/selectors';
-
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
-// import * as collectionActionCreators from '../common/actions/collection';
 import * as commentActionCreators from '../common/actions/comment';
 import * as modalActionCreators from '../common/actions/modal';
 
@@ -55,31 +39,6 @@ const styles = StyleSheet.create({
   statusbarPlaceholder: {
     height: STATUSBAR_HEIGHT,
     backgroundColor: '#fff',
-  },
-  favorite: {
-    position: 'absolute',
-    zIndex: 333,
-    top: WINDOW_WIDTH - WINDOW_WIDTH * 0.05,
-    right: WINDOW_WIDTH * 0.03,
-    height: 50,
-    width: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  favoriteIcon: {
-    fontSize: 20,
-    color: '#999',
-    borderRadius: 100,
-    elevation: 4,
-    backgroundColor: '#fff',
-    margin: 0,
-    height: 35,
-    lineHeight: 35,
-    width: 35,
-    textAlign: 'center',
-  },
-  favoriteIconActive: {
-    color: RED_COLOR,
   },
   product: {
     paddingLeft: SIDEINTERVAL,
@@ -178,17 +137,11 @@ class ProductDetail extends Component {
   componentDidMount() {
     const {
       commentFetch,
-      // collectionFetch,
       productDetailInfoFetch,
       productDetailInfoClear,
       propertiesIds,
       brandId,
-      // isAuthUser,
     } = this.props;
-
-    // if (isAuthUser) {
-    //   collectionFetch();
-    // }
 
     productDetailInfoClear(brandId);
     productDetailInfoFetch(brandId, propertiesIds);
@@ -207,37 +160,10 @@ class ProductDetail extends Component {
     productDetailOpacityFetch(opacity);
   };
 
-  // handleToggleCollection() {
-  //   const {
-  //     collectionAddFetch,
-  //     collectionRemoveFetch,
-  //     isCollection,
-  //     isAuthUser,
-  //     // navigation,
-  //     brandId,
-  //     screenProps: { mainNavigation },
-  //   } = this.props;
-  //   const { navigate } = mainNavigation;
-  //   if (!isAuthUser) return navigate(SCREENS.Login);
-  //   return isCollection
-  //     ? collectionRemoveFetch(brandId.toString())
-  //     : collectionAddFetch(brandId.toString());
-  // }
-
-  renderItem = ({ item }) => (
-    <BYCacheImage
-      uri={`${item}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`}
-      key={item}
-      // style={imageStyle}
-      // onFoundImageSize={this.handleOnFoundImageSize}
-    />
-  );
-
   render() {
     const {
       name,
       comment,
-      // isCollection,
       brandId,
       i18n,
       price,
@@ -245,45 +171,13 @@ class ProductDetail extends Component {
       imageDesc,
       propertiesIds,
       propertiesIdsObject,
+      propertiesObjectForId,
       navigation: { navigate },
       screenProps: { mainNavigation },
-      // screenProps: {
-      //   handleOnPressToggleMenuBottomSheet,
-      // },
       openModal,
       productDetailNumber,
-      colorArray,
-      versionArray,
       numbers,
     } = this.props;
-
-    // let WebViewImages;
-    // switch (imageDesc.length) {
-    //   case 0:
-    //     WebViewImages = '';
-    //     break;
-
-    //   case 1:
-    //     WebViewImages = `<img src="${imageDesc}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
-    //     break;
-
-    //   default:
-    //     WebViewImages = imageDesc.reduce((a, b, index) => {
-    //       let resultStr = '';
-    //       if (index === 1) {
-    //         if (a)
-    //           resultStr = `<img src="${a}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
-    //         if (b)
-    //           resultStr += `<img src="${b}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
-    //       } else {
-    //         if (b)
-    //           resultStr = `<img src="${b}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}" alt="image">`;
-    //         resultStr = a + resultStr;
-    //       }
-    //       return resultStr;
-    //     });
-    //     break;
-    // }
 
     const WebViewHTML = `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${jointWebViewImages(
       imageDesc,
@@ -292,23 +186,6 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <ScrollView onScroll={this.handleOnScroll}>
-          {/* <BYTouchable
-            style={styles.favorite}
-            backgroundColor="transparent"
-            onPress={() => this.handleToggleCollection()}
-          >
-            {isCollection ? (
-              <MaterialIcons
-                name="favorite"
-                style={[styles.favoriteIcon, styles.favoriteIconActive]}
-              />
-            ) : (
-              <MaterialIcons
-                name="favorite-border"
-                style={styles.favoriteIcon}
-              />
-            )}
-          </BYTouchable> */}
           <View style={styles.statusbarPlaceholder} />
           {imageUrls &&
             imageUrls.length > 0 && (
@@ -351,8 +228,6 @@ class ProductDetail extends Component {
                   openModal(MODAL_TYPES.PARAMSSELECT, {
                     i18n,
                     productDetailNumber,
-                    colorArray,
-                    versionArray,
                     imageUrls,
                     price,
                     numbers,
@@ -362,8 +237,15 @@ class ProductDetail extends Component {
                   })
                 }
               >
-                {`${propertiesIdsObject.colorName} `}
-                {propertiesIdsObject.versionName}
+                {propertiesIdsObject
+                  .split('-')
+                  .map(
+                    val =>
+                      propertiesObjectForId[val]
+                        ? propertiesObjectForId[val].value
+                        : '',
+                  )
+                  .join('  ')}
               </Text>
               <CustomIcon style={styles.specArrow} name="arrowright" />
             </View>
@@ -411,7 +293,6 @@ export default connectLocalization(
         const {
           productDetailInfo,
           comment,
-          // collection,
           // productDetail,
         } = state;
         const {
@@ -427,14 +308,12 @@ export default connectLocalization(
           brandId,
           propertiesIds,
           comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
-          // isCollection: getIsCollection(state, props),
           isAuthUser: !!state.login.user,
         };
       };
     },
     {
       ...commentActionCreators,
-      // ...collectionActionCreators,
       ...productDetailInfoActionCreators,
       ...modalActionCreators,
     },

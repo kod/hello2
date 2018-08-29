@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   PRODUCT_DETAIL_INFO,
   PRODUCT_DETAIL_SELECT,
@@ -5,15 +6,27 @@ import {
   PRODUCT_DETAIL_OPACITY,
 } from '../constants/actionTypes';
 
-export function productDetailInfoFetchSuccess(product_detail, detail, propertiesIds, colorVersionList, imageDesc) {
+export function productDetailInfoFetchSuccess({
+  product_detail,
+  productDetailResult,
+  propertiesIdsResult,
+  imageDesc,
+  propertiesArray,
+  propertiesObject,
+  propertiesObjectForId,
+  productDetailSort,
+}) {
   return {
     type: PRODUCT_DETAIL_INFO.SUCCESS,
     payload: {
       product_detail,
-      detail,
-      propertiesIds,
-      colorVersionList,
+      detail: productDetailResult,
+      propertiesIds: propertiesIdsResult,
       imageDesc,
+      propertiesArray,
+      propertiesObject,
+      propertiesObjectForId,
+      productDetailSort,
     },
   };
 }
@@ -21,16 +34,11 @@ export function productDetailInfoFetchSuccess(product_detail, detail, properties
 export function productDetailInfoFetchFailure() {
   return {
     type: PRODUCT_DETAIL_INFO.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function productDetailInfoFetch(
-  brand_id,
-  propertiesIds,
-) {
+export function productDetailInfoFetch(brand_id, propertiesIds) {
   return {
     type: PRODUCT_DETAIL_INFO.REQUEST,
     payload: {
@@ -44,7 +52,7 @@ export function productDetailInfoClear(brand_id) {
   return {
     type: PRODUCT_DETAIL_INFO.CLEAR,
     payload: {
-      brand_id
+      brand_id,
     },
   };
 }
@@ -59,9 +67,7 @@ export function productDetailSelect(propertiesIdsObject, productDetail) {
   };
 }
 
-export function productDetailNumberFetch(
-  number,
-) {
+export function productDetailNumberFetch(number) {
   return {
     type: PRODUCT_DETAIL_NUMBER.REQUEST,
     payload: {
@@ -70,9 +76,7 @@ export function productDetailNumberFetch(
   };
 }
 
-export function productDetailOpacityFetch(
-  opacity = 0,
-) {
+export function productDetailOpacityFetch(opacity = 0) {
   return {
     type: PRODUCT_DETAIL_OPACITY.REQUEST,
     payload: {

@@ -29,8 +29,6 @@ import {
 
 import { getIsCollection } from '../common/selectors';
 
-// import BYBottomSheet from '../components/BYBottomSheet';
-// import BYTextInput from '../components/BYTextInput';
 import BYTouchable from '../components/BYTouchable';
 import { connectLocalization } from '../components/Localization';
 import Loader from '../components/Loader';
@@ -67,7 +65,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // textAlign: 'center',
   },
   operateIconItemIcon: {
     fontSize: 16,
@@ -134,132 +131,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     backgroundColor: PRIMARY_COLOR,
   },
-  paramClose: {
-    paddingTop: WINDOW_WIDTH * 0.03,
-    paddingRight: WINDOW_WIDTH * 0.03,
-    // marginBottom: 5,
-  },
-  paramCloseIcon: {
-    color: '#ccc',
-    fontSize: 24,
-    textAlign: 'right',
-  },
-  paramInfo: {
-    paddingLeft: SIDEINTERVAL,
-    paddingRight: SIDEINTERVAL,
-    flexDirection: 'row',
-  },
-  paramImage: {
-    height: 60,
-    width: 60,
-    borderColor: BORDER_COLOR,
-    borderWidth: 1,
-    marginRight: SIDEINTERVAL,
-  },
-  paramPrice: {
-    color: RED_COLOR,
-    fontSize: 18,
-    paddingTop: 10,
-    fontWeight: '700',
-  },
-  paramHave: {
-    color: '#999',
-    fontSize: 11,
-  },
-  paramTitle: {
-    color: '#666',
-    paddingLeft: SIDEINTERVAL,
-    paddingTop: 20,
-    marginBottom: 8,
-  },
-  paramColor: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingLeft: SIDEINTERVAL,
-    // marginBottom: 20,
-  },
-  paramColorItem: {
-    // width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
-    height: 35,
-    lineHeight: 35,
-    textAlign: 'center',
-    marginRight: SIDEINTERVAL,
-    marginBottom: SIDEINTERVAL,
-    color: '#999',
-    borderColor: BORDER_COLOR,
-    borderWidth: 1,
-    paddingLeft: WINDOW_WIDTH * 0.05,
-    paddingRight: WINDOW_WIDTH * 0.05,
-  },
-  paramColorItemAcitve: {
-    borderColor: PRIMARY_COLOR,
-    color: PRIMARY_COLOR,
-  },
-  paramNumber: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: SIDEINTERVAL,
-    paddingRight: SIDEINTERVAL,
-    paddingTop: 10,
-    marginBottom: 50,
-  },
-  paramNumberText: {
-    flex: 1,
-    color: '#666',
-  },
-  paramNumberChange: {
-    flexDirection: 'row',
-  },
-  paramNumberRemoveIcon: {
-    height: 30,
-    lineHeight: 30,
-    width: 30,
-    textAlign: 'center',
-    fontSize: 18,
-    color: '#999',
-    backgroundColor: '#fff',
-    fontWeight: '900',
-    borderColor: BORDER_COLOR,
-    borderWidth: 1,
-  },
-  paramNumberAddIcon: {
-    height: 30,
-    lineHeight: 30,
-    width: 30,
-    textAlign: 'center',
-    fontSize: 18,
-    color: '#999',
-    backgroundColor: '#fff',
-    fontWeight: '900',
-    borderColor: BORDER_COLOR,
-    borderWidth: 1,
-  },
-  paramNumberIconDisable: {
+  disable: {
     opacity: 0.5,
-  },
-  paramNumberTextInput: {
-    height: 30,
-    width: 30,
-    backgroundColor: '#fff',
-    textAlign: 'center',
-    fontSize: 11,
-    color: '#666',
-    borderTopColor: BORDER_COLOR,
-    borderBottomColor: BORDER_COLOR,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-  },
-  buttonWrap: {
-    paddingLeft: SIDEINTERVAL,
-    paddingRight: SIDEINTERVAL,
-    paddingBottom: SIDEINTERVAL * 2,
-  },
-  button: {
-    height: 50,
-    lineHeight: 50,
-    textAlign: 'center',
-    color: '#fff',
-    backgroundColor: PRIMARY_COLOR,
   },
 });
 
@@ -268,7 +141,7 @@ class ProductDetail extends Component {
     super(props);
 
     this.state = {
-      isOpenMenuBottomSheet: false,
+      // isOpenMenuBottomSheet: false,
       // menuBottomSheetType: 'select',
       mounting: true,
     };
@@ -295,20 +168,20 @@ class ProductDetail extends Component {
     }
   }
 
-  handleOnPressToggleMenuBottomSheet = type => {
-    const {
-      isOpenMenuBottomSheet,
-      // isOpenMenuBottomSheet,
-    } = this.state;
-    const newState = {
-      isOpenMenuBottomSheet: !isOpenMenuBottomSheet,
-      menuBottomSheetType: type,
-    };
-    // if (selectedImageIndex !== null) {
-    //   newState.selectedImageIndex = selectedImageIndex;
-    // }
-    this.setState(newState);
-  };
+  // handleOnPressToggleMenuBottomSheet = type => {
+  //   const {
+  //     isOpenMenuBottomSheet,
+  //     // isOpenMenuBottomSheet,
+  //   } = this.state;
+  //   const newState = {
+  //     isOpenMenuBottomSheet: !isOpenMenuBottomSheet,
+  //     menuBottomSheetType: type,
+  //   };
+  //   // if (selectedImageIndex !== null) {
+  //   //   newState.selectedImageIndex = selectedImageIndex;
+  //   // }
+  //   this.setState(newState);
+  // };
 
   handleOnPressGroupBuy = () => {
     const {
@@ -346,12 +219,13 @@ class ProductDetail extends Component {
 
   handleOnPressBuy() {
     const {
+      numbers,
       groupon,
       isAuthUser,
       navigation: { navigate },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
-
+    if (!(numbers > 0)) return false;
     return navigate(SCREENS.OrderWrite, {
       groupon,
     });
@@ -432,18 +306,14 @@ class ProductDetail extends Component {
       i18n,
       screenProps,
       productDetailOpacity,
-      propertiesIds,
-      propertiesIdsObject,
-      imageUrls,
       price,
       mergePrice,
-      imageDesc,
-      goodsProperties,
       brandId,
       navigation,
       groupon,
       isMaster,
       isCollection,
+      numbers,
     } = this.props;
     if (mounting) {
       return <Loader />;
@@ -456,16 +326,8 @@ class ProductDetail extends Component {
             screenProps={{
               ...screenProps,
               BYopacity: productDetailOpacity,
-              swiper: imageUrls,
-              propertiesIdsObject,
-              propertiesIds,
-              price,
-              imageDesc,
-              goodsProperties,
               brandId,
               mainNavigation: navigation,
-              handleOnPressToggleMenuBottomSheet: this
-                .handleOnPressToggleMenuBottomSheet,
             }}
           />
         ) : (
@@ -473,16 +335,8 @@ class ProductDetail extends Component {
             screenProps={{
               ...screenProps,
               BYopacity: productDetailOpacity,
-              swiper: imageUrls,
-              propertiesIdsObject,
-              propertiesIds,
-              price,
-              imageDesc,
-              goodsProperties,
               brandId,
               mainNavigation: navigation,
-              handleOnPressToggleMenuBottomSheet: this
-                .handleOnPressToggleMenuBottomSheet,
             }}
           />
         )}
@@ -572,10 +426,10 @@ class ProductDetail extends Component {
               {i18n.addToCart}
             </Text>
             <Text
-              style={styles.operateRight}
+              style={[styles.operateRight, !(numbers > 0) && styles.disable]}
               onPress={() => this.handleOnPressBuy()}
             >
-              {i18n.buy}
+              {numbers > 0 ? i18n.buy : i18n.soldOut}
             </Text>
           </View>
         )}
@@ -614,11 +468,14 @@ class ProductDetail extends Component {
         width: 40,
       },
     });
+
+    const { i18n } = this.props;
+
     return (
       <View style={styles1.contanier}>
         <View style={styles1.title}>
           <Ionicons style={styles1.titleIcon} name="ios-paper-plane" />
-          <Text style={styles1.titleText}>tap to share</Text>
+          <Text style={styles1.titleText}>{i18n.share}</Text>
         </View>
         <View style={styles1.main}>
           <Image style={styles1.item} source={zalofunPng} />
@@ -629,8 +486,6 @@ class ProductDetail extends Component {
   }
 
   render() {
-    // const { isOpenMenuBottomSheet, menuBottomSheetType } = this.state;
-
     return <View style={styles.container}>{this.renderMainContent()}</View>;
   }
 }
@@ -656,21 +511,15 @@ export default connectLocalization(
             },
           },
         },
-        propertiesIds,
-        // navigation,
       } = props;
 
       const brandIdUsed = brandId || navigation.state.params.brandId;
-      // const groupon = navigation.state.params.groupon;
-      const propertiesIdsUsed =
-        propertiesIds || navigation.state.params.propertiesIds || '';
       const item = groupon ? mergeGetDetail.item : productDetailInfo.item;
       return {
         ...item,
         brandId: brandIdUsed,
         groupon,
         isMaster: !!mergeCheck.item.mergeMasterId,
-        propertiesIds: propertiesIdsUsed,
         masterItems: mergeGetMaster.items,
         funid: state.login.user ? state.login.user.result : null,
         isAuthUser: !!state.login.user,

@@ -10,8 +10,6 @@ const initState = {
   loaded: false,
   refreshing: false,
   item: {
-    colorArray: [],
-    versionArray: [],
     propertiesIdsObject: {},
     imageDesc: [],
     goodsProperties: [],
@@ -41,12 +39,10 @@ export default function mergeGetDetail(state = initState, action) {
           ...state.item,
           ...action.payload.detail,
           imageUrls: action.payload.detail.imageUrls,
-          colorArray: action.payload.colorVersionList.product_color,
-          versionArray: action.payload.colorVersionList.product_version,
           propertiesIdsObject: action.payload.propertiesIds,
           imageDesc: action.payload.imageDesc,
           product_detail: action.payload.product_detail,
-        }
+        },
       };
     case MERGE_GETDETAIL.FAILURE:
       return {
@@ -64,7 +60,7 @@ export default function mergeGetDetail(state = initState, action) {
           ...state.item,
           ...action.payload.productDetail,
           propertiesIdsObject: action.payload.propertiesIdsObject,
-        }
+        },
       };
     case PRODUCT_DETAIL_NUMBER.REQUEST:
       return {
@@ -72,7 +68,7 @@ export default function mergeGetDetail(state = initState, action) {
         item: {
           ...state.item,
           productDetailNumber: action.payload.number,
-        }
+        },
       };
     case PRODUCT_DETAIL_OPACITY.REQUEST:
       return {
@@ -80,9 +76,9 @@ export default function mergeGetDetail(state = initState, action) {
         item: {
           ...state.item,
           productDetailOpacity: action.payload.opacity,
-        }
+        },
       };
-  default:
+    default:
       return state;
   }
 }
