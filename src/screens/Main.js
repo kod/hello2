@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   ScrollView,
-  // ListView,
+  AppState,
   StyleSheet,
   View,
   // Text,
@@ -103,6 +103,21 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
+    this.runInvitationCodeForClipboard();
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange = nextAppState => {
+    if (nextAppState === 'active') {
+      this.runInvitationCodeForClipboard();
+    }
+  };
+
+  runInvitationCodeForClipboard = () => {
     const {
       i18n,
       navigation,
@@ -114,7 +129,7 @@ class Main extends Component {
 
     if (params === undefined && isAuthUser === false)
       invitationCodeForClipboard(navigation, i18n);
-  }
+  };
 
   onDataArrived() {}
 
