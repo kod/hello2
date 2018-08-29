@@ -148,7 +148,7 @@ class Categories extends Component {
                     onPress={() =>
                       navigate(SCREENS.CateList, {
                         parent_id: val1.parentId,
-                        classfy_id: val1.id,
+                        sub_classfy_id: val1.id,
                       })
                     }
                   >
