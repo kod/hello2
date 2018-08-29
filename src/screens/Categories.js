@@ -78,25 +78,24 @@ class Categories extends Component {
     });
 
     const {
-      // levelOne,
-      levelTwo,
-      levelOneIndex,
+      items,
+      itemsIndex,
       // navigation: { navigate },
     } = this.props;
 
     return (
       <ScrollView style={stylesX.scrollViewRight}>
         <View style={stylesX.main}>
-          {levelTwo.map(
+          {items.map(
             (val, key) =>
-              levelOneIndex === key && this.renderScrollViewRightItem(val, key),
+              itemsIndex === key && this.renderScrollViewRightItem(key),
           )}
         </View>
       </ScrollView>
     );
   }
 
-  renderScrollViewRightItem(val, key) {
+  renderScrollViewRightItem(key) {
     const stylesX = StyleSheet.create({
       rightItemTitle: {
         fontSize: 11,
@@ -125,14 +124,13 @@ class Categories extends Component {
       rightItemSubItemText: {
         textAlign: 'center',
         fontSize: 11,
-        lineHeight: 11 * 1.618,
         color: '#666',
       },
     });
 
     const {
-      // levelOne,
-      levelTwo,
+      itemsList,
+      itemsClassfy,
       navigation: { navigate },
     } = this.props;
 
@@ -140,25 +138,57 @@ class Categories extends Component {
       <View style={stylesX.rightItem} key={key}>
         <Text style={stylesX.rightItemTitle} />
         <View style={stylesX.rightItemMain}>
-          {levelTwo.length !== 0 &&
-            val.map(val1 => (
-              <BYTouchable
-                style={stylesX.rightItemSubItem}
-                key={val1.imageUrl}
-                onPress={() =>
-                  navigate(SCREENS.CateList, {
-                    parent_id: val1.parentId,
-                    classfy_id: val1.id,
-                  })
-                }
-              >
-                <Image
-                  style={stylesX.rightItemSubItemImage}
-                  source={{ uri: val1.imageUrl }}
-                />
-                <Text style={stylesX.rightItemSubItemText}>{val1.name}</Text>
-              </BYTouchable>
-            ))}
+          {itemsList.length !== 0 &&
+            itemsList[key].map(
+              val1 =>
+                val1.status === '1' ? (
+                  <BYTouchable
+                    style={stylesX.rightItemSubItem}
+                    key={val1.image}
+                    onPress={() =>
+                      navigate(SCREENS.CateList, {
+                        parent_id: val1.parentId,
+                        classfy_id: val1.id,
+                      })
+                    }
+                  >
+                    <Image
+                      style={stylesX.rightItemSubItemImage}
+                      source={{ uri: val1.image }}
+                    />
+                    <Text style={stylesX.rightItemSubItemText}>
+                      {val1.name}
+                    </Text>
+                  </BYTouchable>
+                ) : null,
+            )}
+        </View>
+        <Text style={stylesX.rightItemTitle} />
+        <View style={stylesX.rightItemMain}>
+          {itemsClassfy.length !== 0 &&
+            itemsClassfy[key].map(
+              val1 =>
+                val1.status === '1' ? (
+                  <BYTouchable
+                    style={stylesX.rightItemSubItem}
+                    key={val1.imageUrl}
+                    onPress={() =>
+                      navigate(SCREENS.CateList, {
+                        parent_id: val1.parentId,
+                        classfy_id: val1.id,
+                      })
+                    }
+                  >
+                    <Image
+                      style={stylesX.rightItemSubItemImage}
+                      source={{ uri: val1.imageUrl }}
+                    />
+                    <Text style={stylesX.rightItemSubItemText}>
+                      {val1.name}
+                    </Text>
+                  </BYTouchable>
+                ) : null,
+            )}
         </View>
       </View>
     );
@@ -176,10 +206,7 @@ class Categories extends Component {
         borderRightColor: BORDER_COLOR,
         borderRightWidth: 1,
       },
-      main: {
-        // paddingTop: SIDEINTERVAL,
-        // paddingBottom: SIDEINTERVAL,
-      },
+      main: {},
       item: {
         position: 'relative',
         alignItems: 'center',
@@ -208,10 +235,9 @@ class Categories extends Component {
     });
 
     const {
-      levelOne,
+      items,
       getMenuIndexFetch,
-      levelOneIndex,
-      // loading,
+      itemsIndex,
       // loading,
     } = this.props;
 
@@ -219,7 +245,7 @@ class Categories extends Component {
       <View style={stylesX.content}>
         <ScrollView style={stylesX.scrollViewLeft}>
           <View style={stylesX.main}>
-            {levelOne.map((val, key) => (
+            {items.map((val, key) => (
               <BYTouchable
                 style={stylesX.item}
                 key={val.image}
@@ -228,7 +254,7 @@ class Categories extends Component {
                 <Image style={stylesX.itemImage} source={{ uri: val.image }} />
                 <Text style={stylesX.itemText}>{val.name}</Text>
 
-                {levelOneIndex === key && <View style={stylesX.itemActive} />}
+                {itemsIndex === key && <View style={stylesX.itemActive} />}
               </BYTouchable>
             ))}
           </View>
@@ -239,12 +265,7 @@ class Categories extends Component {
   }
 
   render() {
-    const {
-      // getMenu,
-      // navigation: { navigate },
-      // i18n,
-      loaded,
-    } = this.props;
+    const { loaded } = this.props;
 
     if (!loaded) return <Loader />;
 
@@ -277,10 +298,10 @@ export default connectLocalization(
         return {
           loading: getMenu.loading,
           loaded: getMenu.loaded,
-          levelOne: getMenu.levelOne,
-          levelTwo: getMenu.levelTwo,
-          levelOneIndex: getMenu.levelOneIndex,
-          levelTwoIndex: getMenu.levelTwoIndex,
+          items: getMenu.items,
+          itemsList: getMenu.itemsList,
+          itemsClassfy: getMenu.itemsClassfy,
+          itemsIndex: getMenu.itemsIndex,
         };
       };
     },

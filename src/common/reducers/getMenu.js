@@ -4,9 +4,10 @@ const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
-  levelOne: [],
-  levelTwo: [],
-  levelOneIndex: 0,
+  items: [],
+  itemsList: [],
+  itemsClassfy: [],
+  itemsIndex: 0,
 };
 
 export default function getMenu(state = initState, action) {
@@ -25,8 +26,9 @@ export default function getMenu(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        levelOne: action.payload.levelOne,
-        levelTwo: action.payload.levelTwo,
+        items: action.payload.items,
+        itemsList: action.payload.itemsList,
+        itemsClassfy: action.payload.itemsClassfy,
       };
     case GET_MENU.FAILURE:
       return {
@@ -37,7 +39,7 @@ export default function getMenu(state = initState, action) {
     case GET_MENU_INDEX.REQUEST:
       return {
         ...state,
-        levelOneIndex: action.payload.index,
+        itemsIndex: action.payload.index,
       };
     default:
       return state;

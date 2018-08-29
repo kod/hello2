@@ -12,15 +12,11 @@ export function getMenuFetchSuccess(params) {
 export function getMenuFetchFailure() {
   return {
     type: GET_MENU.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function getMenuFetch(
-  params
-) {
+export function getMenuFetch(params) {
   return {
     type: GET_MENU.REQUEST,
     payload: {
@@ -32,8 +28,7 @@ export function getMenuFetch(
 export function getMenuClear() {
   return {
     type: GET_MENU.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }
 
@@ -41,7 +36,7 @@ export function getMenuIndexFetch(index) {
   return {
     type: GET_MENU_INDEX.REQUEST,
     payload: {
-      index
+      index,
     },
   };
 }
