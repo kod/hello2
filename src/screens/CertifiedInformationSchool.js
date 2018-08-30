@@ -198,7 +198,7 @@ class CertifiedInformationSchool extends Component {
               <MaterialIcons style={{ fontSize: 24 }} name="arrow-drop-down" />
             </View>
           </View>
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <View style={styles.main}>
               <Text style={styles.label}>{i18n.graduationTime}</Text>
               <DatePicker
@@ -230,7 +230,7 @@ class CertifiedInformationSchool extends Component {
               />
               <MaterialIcons style={{ fontSize: 24 }} name="arrow-drop-down" />
             </View>
-          </View>
+          </View> */}
           <BYButton
             text={i18n.confirm}
             style={{ marginBottom: 30 }}

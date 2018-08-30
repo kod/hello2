@@ -7,7 +7,10 @@ export function certifiedInformationFetchSuccess(certUser) {
   return {
     type: CERTIFIED_INFORMATION.SUCCESS,
     payload: {
-      certUser,
+      certUser: {
+        ...certUser,
+        graduationtime: '2020-11-11 11:11:11.0',
+      },
     },
   };
 }
