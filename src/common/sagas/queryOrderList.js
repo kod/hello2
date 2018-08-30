@@ -19,14 +19,12 @@ import {
   getAuthUser,
   getAuthUserFunid,
   // getQueryOrderListScrollTabIndex,
-  getQueryOrderListRows,
 } from '../selectors';
 
 export function* queryOrderListFetchWatchHandle(action) {
   try {
-    const { page = 1, index = 0, status } = action.payload;
+    const { page = 1, index = 0, status, rows = 100 } = action.payload;
     // const scrollTabIndex =  yield select(getQueryOrderListScrollTabIndex);
-    const rows = yield select(getQueryOrderListRows);
     const authUser = yield select(getAuthUser);
 
     const funid = authUser ? yield select(getAuthUserFunid) : '';

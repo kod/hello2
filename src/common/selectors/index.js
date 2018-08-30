@@ -36,7 +36,6 @@ export const getCertifiedInformationCertUser = state =>
 export const getQueryOrderListItem = state => state.queryOrderList.item;
 export const getQueryOrderListScrollTabIndex = state =>
   state.queryOrderList.scrollTabIndex;
-export const getQueryOrderListRows = state => state.queryOrderList.rows;
 
 const getProps = (state, props) => props;
 const selectEntities = state => state.entities;
