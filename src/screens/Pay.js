@@ -6,9 +6,11 @@ import {
   ScrollView,
   Alert,
   DeviceEventEmitter,
+  Clipboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import moment from 'moment';
 
 import ProductItem2 from '../components/ProductItem2';
 import NavBar2 from '../components/NavBar2';
@@ -397,6 +399,25 @@ class OrderWrite extends Component {
     ]);
   }
 
+  async handleOnPressCopy(val) {
+    const { i18n, isAuthUser } = this.props;
+
+    if (isAuthUser) {
+      Clipboard.setString(val);
+      Alert.alert(
+        '',
+        i18n.successfulCopy,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+    }
+  }
+
   renderBottom() {
     const stylesX = StyleSheet.create({
       nav: {
@@ -505,6 +526,8 @@ class OrderWrite extends Component {
         division3rdName,
         division4thName,
         tradeStatus,
+        sourceOrderType,
+        rechargeCard,
       },
     } = this.props;
 
@@ -521,21 +544,76 @@ class OrderWrite extends Component {
 
     if (getUserInfoById.loading || cardQuery.loading) return <Loader />;
 
+    const stylesX = StyleSheet.create({
+      card: {
+        paddingLeft: SIDEINTERVAL,
+        paddingRight: SIDEINTERVAL,
+        marginBottom: 15,
+      },
+      cardMain: {
+        backgroundColor: '#f5f6f7',
+      },
+      cardItem: {
+        paddingLeft: SIDEINTERVAL,
+        paddingRight: SIDEINTERVAL,
+        paddingTop: 10,
+        paddingBottom: 5,
+      },
+      cardItemText: {
+        fontSize: 12,
+      },
+      cardItemValue: {
+        flexDirection: 'row',
+        marginBottom: 10,
+      },
+      cardItemNumber: {
+        flex: 1,
+        height: 25,
+        lineHeight: 25,
+        color: '#333',
+        fontWeight: '700',
+      },
+      cardItemCopy: {
+        height: 25,
+        minWidth: WINDOW_WIDTH * 0.1,
+        paddingLeft: WINDOW_WIDTH * 0.03,
+        paddingRight: WINDOW_WIDTH * 0.03,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 14,
+        borderWidth: 1,
+        borderColor: '#0076F7',
+        marginRight: 1,
+      },
+      cardItemCopyText: {
+        color: '#0076F7',
+        fontSize: 11,
+      },
+      cardItemTime: {
+        color: '#aaa',
+        fontSize: 12,
+        marginBottom: 10,
+      },
+    });
+
     return (
       <View style={styles.container}>
         <ScrollView>
           <Text style={styles.status}>
             {tradeStatusCodes(tradeStatus, i18n)}
           </Text>
-          <Address
-            addressSelectedItem={addressSelectedItem}
-            // onPress={() => navigate(SCREENS.Address, { isSelect: true })}
-          />
+          {sourceOrderType !== 3 && (
+            <Address
+              addressSelectedItem={addressSelectedItem}
+              // onPress={() => navigate(SCREENS.Address, { isSelect: true })}
+            />
+          )}
           <SeparateBar />
           <ProductItem2
             data={goodsDetail}
             stylePricePrice={{ color: '#666' }}
             isShowNumber
+            isPress={sourceOrderType !== 3}
           />
           <Text style={styles.totalPrice}>
             {priceFormat(advance + couponValue)} ₫
@@ -558,6 +636,47 @@ class OrderWrite extends Component {
             valueMiddle={couponValue}
             isShowRight={false}
           />
+          <View style={{ height: 5 }} />
+          <View style={stylesX.card}>
+            <View style={stylesX.cardMain}>
+              {rechargeCard &&
+                rechargeCard.map(val => (
+                  <View style={stylesX.cardItem} key={val.cardCode}>
+                    <Text style={stylesX.cardItemText}>{i18n.cardNum}</Text>
+                    <View style={stylesX.cardItemValue}>
+                      <Text style={stylesX.cardItemNumber}>{val.cardCode}</Text>
+                      <View style={stylesX.cardItemCopy}>
+                        <Text
+                          style={stylesX.cardItemCopyText}
+                          onPress={() => this.handleOnPressCopy(val.cardCode)}
+                        >
+                          {i18n.copy}
+                        </Text>
+                      </View>
+                    </View>
+                    <Text style={stylesX.cardItemText}>{i18n.password}</Text>
+                    <View style={stylesX.cardItemValue}>
+                      <Text style={stylesX.cardItemNumber}>
+                        {val.cardPassword}
+                      </Text>
+                      <View style={stylesX.cardItemCopy}>
+                        <Text
+                          style={stylesX.cardItemCopyText}
+                          onPress={() =>
+                            this.handleOnPressCopy(val.cardPassword)
+                          }
+                        >
+                          {i18n.copy}
+                        </Text>
+                      </View>
+                    </View>
+                    <Text style={stylesX.cardItemTime}>
+                      {`${i18n.usefulDate}: ${moment().format('DD-MM-YYYY')}`}
+                    </Text>
+                  </View>
+                ))}
+            </View>
+          </View>
         </ScrollView>
         {this.renderBottom()}
       </View>

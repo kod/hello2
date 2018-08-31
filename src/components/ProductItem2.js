@@ -82,10 +82,13 @@ class ProductItem2 extends Component {
   onPressHandle(val) {
     const {
       navigation: { navigate, goBack },
+      isPress = true,
     } = this.props;
     if (val.isOnPress === false) {
       goBack(null);
-    } else {
+    } else if (val.tradeStatus === '32' || val.tradeStatus === '33') {
+      navigate(SCREENS.Prepaid);
+    } else if (isPress) {
       navigate(SCREENS.ProductDetail, {
         brandId: val.brandId,
         propertiesIds: val.propertiesIds,
