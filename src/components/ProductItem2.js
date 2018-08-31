@@ -8,12 +8,8 @@ import BYTouchable from './BYTouchable';
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
 import { SIDEINTERVAL, SCREENS, OSS_IMAGE_QUALITY } from '../common/constants';
 
-// import BYTextInput from './BYTextInput';
 import { connectLocalization } from './Localization';
 import * as cartActionCreators from '../common/actions/cart';
-
-// const itemIntervalWidth = SIDEINTERVAL;
-// const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
 
 const styles = StyleSheet.create({
   itemWrap: {
@@ -25,7 +21,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   itemLeft: {
-    // width: WINDOW_WIDTH * 0.25,
     alignItems: 'center',
     paddingLeft: SIDEINTERVAL,
     paddingTop: 18,
@@ -34,14 +29,14 @@ const styles = StyleSheet.create({
   itemImage: {
     width: 60,
     height: 60,
-    // backgroundColor: '#0f0',
     borderColor: BORDER_COLOR,
     borderWidth: 1,
   },
   itemRight: {
     flex: 1,
-    paddingTop: 18,
-    // paddingBottom: 18,
+    justifyContent: 'space-around',
+    paddingTop: 5,
+    paddingBottom: 5,
     paddingLeft: SIDEINTERVAL,
     paddingRight: SIDEINTERVAL,
   },
@@ -53,7 +48,6 @@ const styles = StyleSheet.create({
   },
   itemPrice: {
     fontSize: 11,
-    // color: '#999',
     marginBottom: 6,
   },
   itemRightRow3: {
@@ -73,8 +67,8 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#666',
     paddingTop: 2,
+    textAlign: 'right',
     flex: 1,
-    // textAlign: 'right',
   },
 });
 
@@ -109,7 +103,6 @@ class ProductItem2 extends Component {
       itemLeft,
       itemRight,
       cartNumberRequest,
-      // navigation: { navigate },
       isShowNumber = false,
       ...restProps
     } = this.props;
@@ -127,7 +120,9 @@ class ProductItem2 extends Component {
                 <Image
                   style={styles.itemImage}
                   source={{
-                    uri: `${val.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
+                    uri: `${
+                      val.imageUrl
+                    }?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
                   }}
                 />
               </View>
@@ -135,14 +130,14 @@ class ProductItem2 extends Component {
                 <Text style={styles.itemTitle} numberOfLines={1}>
                   {val.name}
                 </Text>
-                <Text style={styles.itemPrice}>
+                {/* <Text style={styles.itemPrice}>
                   {`${priceFormat(val.price)} ₫`}
-                </Text>
+                </Text> */}
                 <View style={styles.itemRightRow3}>
-                  {/* <Text style={[styles.itemRightRow3Price, stylePricePrice]}>
-                    {`${priceFormat(parseInt(val.price / 12, 10))} ₫`}
+                  <Text style={[styles.itemRightRow3Price, stylePricePrice]}>
+                    {`${priceFormat(val.price)} ₫`}
                   </Text>
-                  <Text
+                  {/* <Text
                     style={[styles.itemRightRow3Periods, stylePricePeriods]}
                   >
                     x12 {i18n.month}
@@ -165,7 +160,6 @@ export default withNavigation(
   connectLocalization(
     connect(
       state => {
-        console.log();
         const { login } = state;
         return {
           authUser: login.user,
