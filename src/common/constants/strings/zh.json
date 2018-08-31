@@ -137,7 +137,7 @@
   "userNotExist": "用户不存在",
   "wrongPhoneNumberOrPassword": "手机或者密码输入错误",
   "funCard": "Fun Card",
-  "successfulCopy": "支付成功",
+  "successfulCopy": "复制成功",
   "showQRCodeShareInvitationCodeYourFriends": "显示此二维码或分享邀请码给您的朋友",
   "myInviationCode": "我的邀请码",
   "copy": "复制",
@@ -263,5 +263,8 @@
   "downloadExperienceRightAway": "扫描下载即可体验",
   "shareTip": "请让您的朋友扫描此二维码进行注册，以完成邀请。",
   "registerNow": "立即注册",
+  "cardNum": "卡号",
+  "password": "密码",
+  "usefulDate": "有效期",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }
