@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import { StyleSheet, View, Platform, StatusBar } from 'react-native';
+import { StyleSheet, View, Platform, StatusBar, Text } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { HEADER_BACKGROUND_COLOR, BORDER_COLOR } from '../styles/variables';
 import {
@@ -100,7 +100,32 @@ class BYHeader extends Component {
 
   renderHeaderLeft = () => <View />;
 
-  renderHeaderTitle = () => <View style={{ flex: 1 }} />;
+  // renderHeaderTitle = () => <View style={{ flex: 1 }} />;
+
+  renderHeaderTitle = () => {
+    const stylesX = StyleSheet.create({
+      container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingRight: 40,
+        flexDirection: 'row',
+      },
+      title: {
+        fontSize: 16,
+        color: '#333',
+        marginRight: 5,
+      },
+    });
+
+    const { title = '' } = this.props;
+
+    return (
+      <View style={stylesX.container}>
+        <Text style={stylesX.title}>{title}</Text>
+      </View>
+    );
+  };
 
   render() {
     const {
