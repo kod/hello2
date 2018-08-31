@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SIDEINTERVAL } from '../common/constants';
 import CustomIcon from './CustomIcon';
 import BYTouchable from './BYTouchable';
@@ -72,7 +73,7 @@ export default ({
         <Text style={styles.cellItem1Middle} numberOfLines={1}>
           {val.tips}
         </Text>
-        <CustomIcon style={styles.cellItem1Right} name="arrowright" />
+        <Ionicons name="ios-arrow-forward" style={styles.cellItem1Right} />
       </BYTouchable>
     ))}
   </View>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import BYTouchable from './BYTouchable';
 import { SIDEINTERVAL } from '../common/constants';
-import CustomIcon from './CustomIcon';
 import { connectLocalization } from './Localization';
 
 const styles = StyleSheet.create({
@@ -46,7 +47,7 @@ const HeaderShareButton = ({ title, isMore, i18n, ...restProps }) => (
       {isMore && (
         <View style={styles.componentMore}>
           <Text style={styles.componentMoreText}>{i18n.more}</Text>
-          <CustomIcon name="arrowright" style={styles.componentMoreIcon} />
+          <Ionicons name="ios-arrow-forward" style={styles.componentMoreIcon} />
         </View>
       )}
     </View>

@@ -6,6 +6,7 @@ import {
   // Image,
 } from 'react-native';
 import { connect } from 'react-redux';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {
   // HTML_REGEX,
@@ -201,7 +202,7 @@ class Scrollable1 extends Component {
             <Text style={styles.groupBuyTitleText}>{i18n.groupBuy}</Text>
             <View style={styles.groupBuyTitleRight}>
               <Text style={styles.groupBuyTitleMore} onPress={() => navigate(SCREENS.GroupBuyList)}>{i18n.more}</Text>
-              <CustomIcon name="arrowright" style={styles.groupBuyTitleMoreIcon} />
+              <Ionicons name="ios-arrow-forward" style={styles.groupBuyTitleMoreIcon} />
             </View>
           </View>
           <ProductItem4 data={mergeGetInfoList} groupon={true} />

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import moment from 'moment';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import BYTouchable from './BYTouchable';
-import CustomIcon from './CustomIcon';
 
 import { WINDOW_WIDTH, SIDEINTERVAL } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     paddingLeft: SIDEINTERVAL,
     paddingRight: SIDEINTERVAL * 1.8,
     color: '#fff',
+    fontSize: 16,
   },
 });
 
@@ -119,7 +120,7 @@ class CouponItem extends Component {
                     <Text style={styles.text2}>{val.voucherDesc}</Text>
                   </View>
                   {onPress && (
-                    <CustomIcon style={styles.arrow} name="arrowright" />
+                    <Ionicons name="ios-arrow-forward" style={styles.arrow} />
                   )}
                   <Text style={styles.date}>
                     {`${moment(val.startTime).format('DD/MM/YYYY')}-${moment(
@@ -148,7 +149,7 @@ class CouponItem extends Component {
                     <Text style={styles.text2}>{val.voucherDesc}</Text>
                   </View>
                   {onPress && (
-                    <CustomIcon style={styles.arrow} name="arrowright" />
+                    <Ionicons name="ios-arrow-forward" style={styles.arrow} />
                   )}
                   <Text style={styles.date}>
                     {`${moment(val.startTime).format('DD/MM/YYYY')}-${moment(

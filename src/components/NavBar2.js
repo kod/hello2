@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import { SIDEINTERVAL } from '../common/constants';
 import CustomIcon from './CustomIcon';
 import BYTouchable from './BYTouchable';
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
   },
   componentRight: {
     color: '#999',
-    fontSize: 9,
+    fontSize: 16,
   },
 });
 
@@ -61,7 +63,7 @@ export default (
         isShowRight &&
         (componentRight ?
         componentRight :
-        <CustomIcon style={[styles.componentRight, styleRight]} name="arrowright" />)
+        <Ionicons name="ios-arrow-forward" style={[styles.componentRight, styleRight]} />)
       }
     </BYTouchable>
   )
