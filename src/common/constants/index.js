@@ -3,6 +3,7 @@ import { Dimensions, Platform, StatusBar } from 'react-native';
 export const CARMAXNUMBER = 50;
 export const MINIMUM_PAYMENT_AMOUNT = 10000; // 最小支付金额
 export const OSS_IMAGE_QUALITY = 70; // 图片压缩比例；1-100；100：不压缩；
+export const LINE_HEIGHT_RATIO = 1.618; // 行高
 
 export const DOMAIN = 'https://buyoo.vn';
 export const SHARE_URL = `${DOMAIN}/html/downloadApp.html?userID=XXX`;
@@ -13,9 +14,14 @@ export const SERVICE_EMAIL = 'service.vn@buyoo.aisa';
 export const SERVICE_PHONE = '1900555506';
 export const BUYOO = 'Buyoo';
 export const BUYOO_VN = `${BUYOO}.vn`;
-export const ZALO = `zalo`;
-export const GOOGLE_PLUS = `google+`;
-export const FACEBOOK = `facebook`;
+export const ZALO = 'zalo';
+export const GOOGLE_PLUS = 'google+';
+export const FACEBOOK = 'facebook';
+export const MONETARY = '₫'; // 货币单位
+
+export const CREDIT_PAYWAY = 1;
+export const INTERNET_BANK_PAYWAY = 2;
+export const OFFLINE_PAYWAY = 5;
 
 export const PHONE_EXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
 export const EMAIL_EXPR = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/; // 邮箱
@@ -108,6 +114,7 @@ export const SCREENS = {
   PrepaidRecharge: 'PrepaidRecharge',
   PrepaidScratchCards: 'PrepaidScratchCards',
   ProductDetail: 'ProductDetail',
+  OrderDetail: 'OrderDetail',
   ProductDetailComment: 'ProductDetailComment',
   ProductDetailImages: 'ProductDetailImages',
   ProductDetailMain: 'ProductDetailMain',
