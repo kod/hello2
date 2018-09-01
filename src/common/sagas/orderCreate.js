@@ -1,7 +1,7 @@
 import { Platform, DeviceEventEmitter } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
-import { SCREENS } from '../constants';
+import { SCREENS, INTERNET_BANK_PAYWAY } from '../constants';
 import {
   orderCreateFetchSuccess,
   orderCreateFetchFailure,
@@ -101,7 +101,6 @@ export function* orderCreateFetchWatchHandle(action) {
         remark,
       },
     ]);
-
     if (response.code !== 10000) {
       yield put(orderCreateFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
@@ -147,7 +146,7 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            payway: '2', // 账单还款全部使用网银
+            payway: INTERNET_BANK_PAYWAY, // 账单还款全部使用网银
             // payway: BYpayway,
             // paypassword: '123456',
             BYtype,
@@ -160,7 +159,7 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            payway: '2', // 充值目前只支持网银
+            payway: INTERNET_BANK_PAYWAY, // 充值目前只支持网银
             // payway: BYpayway,
             // paypassword: '123456',
             BYtype,

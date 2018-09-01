@@ -103,6 +103,14 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    const {
+      // i18n,
+      navigation: { navigate },
+    } = this.props;
+    navigate(SCREENS.Pay, {
+      tradeNo: '000000210320180831175214339862',
+      orderNo: '220180831175214339057235266',
+    });
     AppState.addEventListener('change', this.handleAppStateChange);
     this.runInvitationCodeForClipboard();
   }

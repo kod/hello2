@@ -225,7 +225,7 @@ class Bill extends Component {
         onPress={() =>
           openModal(MODAL_TYPES.ACTIONSHEET, {
             callback: ret => this.actionSheetCallback(ret),
-            buttons: payWayButtons,
+            data: payWayButtons,
           })
         }
       >

@@ -10,6 +10,9 @@ import {
   INVITATION_CODE_REGEX,
   OSS_IMAGE_QUALITY,
   SCREENS,
+  CREDIT_PAYWAY,
+  INTERNET_BANK_PAYWAY,
+  OFFLINE_PAYWAY,
 } from '../constants';
 
 const invitationCodeNavigate = (navigation, id) => {
@@ -137,25 +140,40 @@ export const billInitDate = () => {
 
 export const payWayToText = (payWay, i18n) => {
   let result = '';
-  payWay += '';
-  switch (payWay) {
-    case '1':
+  switch (~~payWay) {
+    case CREDIT_PAYWAY:
       result = i18n.funCard; // 信用卡
       break;
 
-    case '2':
+    case INTERNET_BANK_PAYWAY:
       result = i18n.internetBanking; // 网银支付
       break;
 
-    case '5':
-      result = i18n.mixedPayment; // 混合支付
+    case OFFLINE_PAYWAY:
+      result = i18n.paymentCollectingShop; // 线下支付
       break;
+
     default:
       break;
   }
 
   return result;
 };
+
+export const payWayArray = i18n => [
+  {
+    key: CREDIT_PAYWAY,
+    value: i18n.funCard,
+  },
+  {
+    key: INTERNET_BANK_PAYWAY,
+    value: i18n.internetBanking,
+  },
+  {
+    key: OFFLINE_PAYWAY,
+    value: i18n.paymentCollectingShop,
+  },
+];
 
 export const judge = (boolean, trueFunc, falseFunc = () => {}) => {
   if (boolean) {

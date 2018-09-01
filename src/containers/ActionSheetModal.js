@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 
 class ActionSheetModal extends Component {
   static propTypes = {
-    callback: PropTypes.func.isRequired,
+    // callback: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired,
   };
 
@@ -100,7 +100,7 @@ class ActionSheetModal extends Component {
           <FlatList
             data={data}
             renderItem={renderItem || this.renderItem}
-            keyExtractor={item => `${item || item[keyExtractor]}`}
+            keyExtractor={item => `${item[keyExtractor] || item}`}
           />
           <BYTouchable onPress={() => this.handleOnPress(-1)}>
             <Text style={[styles.buttonItem, styles.buttonItemCancel]}>
@@ -132,7 +132,7 @@ class ActionSheetModal extends Component {
 export default connectLocalization(
   connect(
     (state, props) => {
-      const { callback = () => {}, data, title = '' } = props;
+      const { callback = () => {}, data = [], title = '' } = props;
 
       return {
         callback,

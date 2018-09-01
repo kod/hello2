@@ -6,42 +6,58 @@ import {
   ScrollView,
   Alert,
   DeviceEventEmitter,
-  Clipboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import moment from 'moment';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import ProductItem2 from '../components/ProductItem2';
 import NavBar2 from '../components/NavBar2';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
-import Address from '../components/Address';
+import BYTouchable from '../components/BYTouchable';
 import Loader from '../components/Loader';
 import SeparateBar from '../components/SeparateBar';
 
-import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import {
+  RED_COLOR,
+  PRIMARY_COLOR,
+  FONT_COLOR_FIFTH,
+  BACKGROUND_COLOR_PRIMARY,
+  FONT_SIZE_THIRD,
+  FONT_COLOR_PRIMARY,
+  FONT_SIZE_SECOND,
+  FONT_COLOR_THIRD,
+  FONT_COLOR_SECOND,
+  FONT_SIZE_FIRST,
+  BORDER_COLOR_FIRST,
+  FONT_COLOR_FIRST,
+} from '../styles/variables';
 import {
   WINDOW_WIDTH,
   SIDEINTERVAL,
   MODAL_TYPES,
   SCREENS,
+  LINE_HEIGHT_RATIO,
+  CREDIT_PAYWAY,
+  MONETARY,
+  FIRST_PAYMENT_RATE,
+  REPAYMENT_MONTH,
 } from '../common/constants';
 
-import { getAddressSelectedItem } from '../common/selectors';
+// import { getAddressSelectedItem } from '../common/selectors';
 
-import { tradeStatusCodes, submitDuplicateFreeze } from '../common/helpers';
+import {
+  submitDuplicateFreeze,
+  payWayToText,
+  payWayArray,
+} from '../common/helpers';
 import priceFormat from '../common/helpers/priceFormat';
 
-import * as addressActionCreators from '../common/actions/address';
-import * as authActionCreators from '../common/actions/auth';
 import * as queryOrderActionCreators from '../common/actions/queryOrder';
-import * as orderPayActionCreators from '../common/actions/orderPay';
-import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
-import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
-import * as orderCancelActionCreators from '../common/actions/orderCancel';
 import * as modalActionCreators from '../common/actions/modal';
+
+const ppp = 1000000;
 
 const styles = StyleSheet.create({
   container: {
@@ -106,10 +122,15 @@ class OrderWrite extends Component {
     super(props);
 
     const { i18n } = this.props;
+
     this.state = {
       submitfreeze: false,
-      payWayButtons: [i18n.funCard, i18n.internetBanking],
-      payWayIndex: 0,
+      payWayIndex: CREDIT_PAYWAY,
+      firstPaymentRateArray: [],
+      firstPaymentRateIndex: 0,
+      repaymentMonthArray: REPAYMENT_MONTH,
+      repaymentMonthIndex: 0,
+      payWayButtons: payWayArray(i18n),
       paypassword: '',
     };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
@@ -118,18 +139,19 @@ class OrderWrite extends Component {
 
   componentDidMount() {
     const {
-      // isAuthUser,
+      isAuthUser,
       i18n,
-      addressFetch,
+      // addressFetch,
       orderNo,
       tradeNo,
       queryOrderFetch,
       cardQueryFetch,
-      getUserInfoByIdFetch,
+      // getUserInfoByIdFetch,
       navigation,
-      // navigation: { pop },
+      navigation: { navigate },
     } = this.props;
-    // if (!isAuthUser) return navigate(SCREENS.Login);
+
+    if (!isAuthUser) return navigate(SCREENS.Login);
 
     this.screenListener = DeviceEventEmitter.addListener(SCREENS.Pay, () => {
       cardQueryFetch();
@@ -162,8 +184,10 @@ class OrderWrite extends Component {
       ]);
     });
 
-    addressFetch();
-    getUserInfoByIdFetch();
+    this.initArrayForFirstPaymentRate();
+
+    // addressFetch();
+    // getUserInfoByIdFetch();
     cardQueryFetch();
 
     queryOrderFetch({
@@ -175,35 +199,46 @@ class OrderWrite extends Component {
     // navigate(SCREENS.TransactionPasswordStepOne);
     // this.handleOnPressToggleBottomSheet();
     // }, 300);
+    return true;
   }
 
   componentWillUnmount() {
     this.screenListener.remove();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      loading: prevLoading,
-      queryOrderItem: prevQueryOrderItem,
-    } = this.props;
-    const { loading, openModal, closeModal, queryOrderItem } = nextProps;
+  // componentWillReceiveProps(nextProps) {
+  //   const {
+  //     loading: prevLoading,
+  //     queryOrderItem: prevQueryOrderItem,
+  //   } = this.props;
+  //   const { loading, openModal, closeModal, queryOrderItem } = nextProps;
 
-    if (
-      prevQueryOrderItem.payWay !== queryOrderItem.payWay &&
-      queryOrderItem.payWay !== 0
-    ) {
-      this.setState({
-        payWayIndex: queryOrderItem.payWay - 1,
-      });
-    }
+  //   if (
+  //     prevQueryOrderItem.payWay !== queryOrderItem.payWay &&
+  //     queryOrderItem.payWay !== 0
+  //   ) {
+  //     this.setState({
+  //       payWayIndex: queryOrderItem.payWay,
+  //     });
+  //   }
 
-    if (prevLoading !== loading) {
-      if (loading === false) {
-        closeModal();
-      } else {
-        openModal(MODAL_TYPES.LOADER);
-      }
-    }
+  //   if (prevLoading !== loading) {
+  //     if (loading === false) {
+  //       closeModal();
+  //     } else {
+  //       openModal(MODAL_TYPES.LOADER);
+  //     }
+  //   }
+  // }
+
+  actionSheetFirstPaymentRateCallback(buttonIndex) {
+    // const { payWayButtons } = this.state;
+    const { closeModal } = this.props;
+    closeModal();
+    if (buttonIndex === -1) return false;
+    return this.setState({
+      firstPaymentRateIndex: buttonIndex,
+    });
   }
 
   actionSheetCallback(ret) {
@@ -262,7 +297,7 @@ class OrderWrite extends Component {
     if (!isAuthUser) return navigate(SCREENS.Login);
     if (!userType) return getUserInfoByIdFetch();
 
-    const payway = payWayIndex === 0 ? 1 : 2;
+    const payway = payWayIndex;
 
     const creditCard = () => {
       let paywayNow = 1;
@@ -372,311 +407,304 @@ class OrderWrite extends Component {
     return true;
   };
 
-  handleOnPressCancel() {
+  initArrayForFirstPaymentRate = () => {
+    const firstPaymentRateArray = FIRST_PAYMENT_RATE;
+    this.setState({
+      firstPaymentRateArray: firstPaymentRateArray.map(val => ({
+        key: val === 0 ? 1 : val,
+        value: ppp * val,
+      })),
+    });
+  };
+
+  makeFirstPaymentText() {
     const {
-      i18n,
-      orderCancelFetch,
-      orderNo,
-      tradeNo,
-      // tradeNo,
-    } = this.props;
-
-    Alert.alert('', `${i18n.confirm}?`, [
-      {
-        text: i18n.cancel,
-        onPress: () => {},
-      },
-      {
-        text: i18n.confirm,
-        onPress: () => {
-          orderCancelFetch({
-            orderno: orderNo,
-            tradeno: tradeNo,
-            status: '40000',
-          });
-        },
-      },
-    ]);
-  }
-
-  async handleOnPressCopy(val) {
-    const { i18n, isAuthUser } = this.props;
-
-    if (isAuthUser) {
-      Clipboard.setString(val);
-      Alert.alert(
-        '',
-        i18n.successfulCopy,
-        [
-          {
-            text: i18n.confirm,
-            onPress: () => {},
-          },
-        ],
-        // { cancelable: false },
-      );
+      firstPaymentRateArray: rateArray,
+      firstPaymentRateIndex: rateIndex,
+    } = this.state;
+    const { i18n } = this.props;
+    let result = '';
+    if (rateArray[rateIndex]) {
+      result =
+        rateArray[rateIndex].value === 0
+          ? i18n.useDownPayment
+          : `${i18n.firstPayment} ${rateArray[rateIndex].value} ${MONETARY}`;
+    } else {
+      result = i18n.useDownPayment;
     }
+    return result;
   }
+
+  renderFirstPaymentRateItem = ({ item, index }) => {
+    const { firstPaymentRateIndex } = this.state;
+    const stylesX = StyleSheet.create({
+      item: {
+        paddingLeft: SIDEINTERVAL,
+      },
+      main: {
+        paddingRight: SIDEINTERVAL,
+        borderBottomColor: BORDER_COLOR_FIRST,
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      },
+      buttonItem: {
+        height: 45,
+        lineHeight: 45,
+      },
+      firstPaymentRateActive: {
+        color: FONT_COLOR_PRIMARY,
+      },
+    });
+    return (
+      <BYTouchable
+        style={stylesX.item}
+        onPress={() => this.actionSheetFirstPaymentRateCallback(index)}
+      >
+        <View style={stylesX.main}>
+          <Text
+            style={[
+              stylesX.buttonItem,
+              index === firstPaymentRateIndex && stylesX.firstPaymentRateActive,
+            ]}
+          >
+            {item.key}
+          </Text>
+          <Text
+            style={[
+              stylesX.buttonItem,
+              index === firstPaymentRateIndex && stylesX.firstPaymentRateActive,
+            ]}
+          >
+            {item.value}
+          </Text>
+        </View>
+      </BYTouchable>
+    );
+  };
 
   renderBottom() {
     const stylesX = StyleSheet.create({
-      nav: {
-        flexDirection: 'row',
-        borderTopWidth: 1,
-        borderTopColor: BORDER_COLOR,
-      },
-      navLeft: {
-        flex: 1,
-      },
-      navLeftTop: {
-        color: RED_COLOR,
-        fontSize: 11,
-        textAlign: 'center',
-        paddingTop: 10,
-      },
-      navLeftBottom: {
-        color: RED_COLOR,
-        fontSize: 14,
-        textAlign: 'center',
-        fontWeight: '700',
-      },
-      navCancel: {
-        flex: 1,
+      container: {},
+      text: {
         height: 55,
         lineHeight: 55,
         textAlign: 'center',
-        color: '#fff',
-        backgroundColor: '#ccc',
-      },
-      navRight: {
-        flex: 1,
-        height: 55,
-        lineHeight: 55,
-        textAlign: 'center',
-        color: '#fff',
-        backgroundColor: PRIMARY_COLOR,
+        backgroundColor: BACKGROUND_COLOR_PRIMARY,
+        color: FONT_COLOR_FIFTH,
+        fontSize: FONT_SIZE_THIRD,
       },
     });
 
-    // const handleOnPressSubmit = () => {
-    //   const {
-    //     payWayIndex,
-    //   } = this.state;
-    //   const {
-    //     orderNo,
-    //     tradeNo,
-    //   } = this.props;
-    //   this.goPay();
-    // }
-
-    const {
-      i18n,
-      queryOrderItem: {
-        tradeStatus,
-        advance = 0,
-        // advance,
-      },
-    } = this.props;
+    const { i18n } = this.props;
 
     return (
-      <View style={stylesX.nav}>
-        <View style={stylesX.navLeft}>
-          <Text style={stylesX.navLeftTop}>{i18n.subtotal}</Text>
-          <Text style={stylesX.navLeftBottom}>{priceFormat(advance)} ₫</Text>
+      <View style={stylesX.container}>
+        <Text
+          style={stylesX.text}
+          onPress={() => this.handleOnPressSubmit()}
+        >
+          银行卡支付 3.000.000 ￥
+        </Text>
+      </View>
+    );
+  }
+
+  renderRepaymentMonth() {
+    const stylesX = StyleSheet.create({
+      repaymentMonth: {
+        paddingLeft: SIDEINTERVAL,
+      },
+      repaymentMonthMain: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        borderBottomColor: BORDER_COLOR_FIRST,
+        borderBottomWidth: 1,
+      },
+      repaymentMonthItem: {
+        width: (WINDOW_WIDTH - SIDEINTERVAL * 4) / 3,
+        marginRight: SIDEINTERVAL,
+        marginBottom: 15,
+        borderWidth: 1,
+        borderColor: BORDER_COLOR_FIRST,
+      },
+      repaymentMonthItemActive: {
+        backgroundColor: BACKGROUND_COLOR_PRIMARY,
+        borderColor: BACKGROUND_COLOR_PRIMARY,
+      },
+      repaymentMonthItemTop: {
+        color: FONT_COLOR_FIRST,
+        fontSize: FONT_SIZE_SECOND,
+        lineHeight: FONT_SIZE_SECOND * LINE_HEIGHT_RATIO,
+        textAlign: 'center',
+        paddingTop: 5,
+      },
+      repaymentMonthItemTopActive: {
+        color: FONT_COLOR_FIFTH,
+      },
+      repaymentMonthItemBottom: {
+        color: FONT_COLOR_THIRD,
+        fontSize: FONT_SIZE_FIRST,
+        lineHeight: FONT_COLOR_THIRD * LINE_HEIGHT_RATIO,
+        textAlign: 'center',
+        marginBottom: 10,
+      },
+      repaymentMonthItemBottomActive: {
+        color: FONT_COLOR_FIFTH,
+        opacity: 0.5,
+      },
+    });
+
+    const {
+      repaymentMonthIndex,
+      repaymentMonthArray,
+      firstPaymentRateArray: rateArray,
+      firstPaymentRateIndex: rateIndex,
+    } = this.state;
+    const { i18n } = this.props;
+
+    const rate = rateArray[rateIndex] ? rateArray[rateIndex].key : 1;
+
+    const price = ppp * rate;
+
+    return (
+      <View style={stylesX.repaymentMonth}>
+        <View style={stylesX.repaymentMonthMain}>
+          {repaymentMonthArray.map((val, key) => (
+            <BYTouchable
+              style={[
+                stylesX.repaymentMonthItem,
+                repaymentMonthIndex === key && stylesX.repaymentMonthItemActive,
+              ]}
+              key={val}
+              onPress={() =>
+                this.setState({
+                  repaymentMonthIndex: key,
+                })
+              }
+            >
+              <Text
+                style={[
+                  stylesX.repaymentMonthItemTop,
+                  repaymentMonthIndex === key &&
+                    stylesX.repaymentMonthItemTopActive,
+                ]}
+              >
+                {`${val} kỳ`}
+              </Text>
+              <Text
+                style={[
+                  stylesX.repaymentMonthItemBottom,
+                  repaymentMonthIndex === key &&
+                    stylesX.repaymentMonthItemBottomActive,
+                ]}
+              >
+                {`${parseInt(
+                  price / val,
+                  10,
+                )} ${MONETARY}/${i18n.month.toLowerCase()}`}
+              </Text>
+            </BYTouchable>
+          ))}
         </View>
-        {tradeStatus === '10000' && (
-          <Text
-            style={stylesX.navCancel}
-            onPress={() => this.handleOnPressCancel()}
-          >
-            {i18n.cancelOrder}
-          </Text>
-        )}
-        {tradeStatus === '10000' && (
-          <Text
-            style={stylesX.navRight}
-            onPress={() => this.handleOnPressSubmit()}
-          >
-            {i18n.payment}
-          </Text>
-        )}
       </View>
     );
   }
 
   renderContent() {
-    const { payWayButtons, payWayIndex } = this.state;
+    const stylesX = StyleSheet.create({
+      container: {
+        flex: 1,
+      },
+      funCard: {
+        paddingLeft: SIDEINTERVAL,
+        paddingRight: SIDEINTERVAL,
+        paddingTop: 8,
+        paddingBottom: 8,
+      },
+      funCardTop: {
+        fontSize: FONT_SIZE_SECOND,
+        lineHeight: FONT_SIZE_SECOND * LINE_HEIGHT_RATIO,
+        color: FONT_COLOR_SECOND,
+      },
+      funCardBottom: {
+        fontSize: FONT_SIZE_FIRST,
+        lineHeight: FONT_SIZE_SECOND * LINE_HEIGHT_RATIO,
+        color: FONT_COLOR_THIRD,
+      },
+      alert: {
+        color: FONT_COLOR_THIRD,
+        fontSize: 20,
+      },
+    });
 
+    const { payWayIndex, payWayButtons, firstPaymentRateArray } = this.state;
     const {
       // navigation: { navigate },
       i18n,
       openModal,
-      // addressItems,
-      getUserInfoById,
-      cardQuery,
-      queryOrderItem: {
-        advance,
-        goodsDetail,
-        address,
-        couponValue,
-        username,
-        msisdn,
-        division1stName,
-        division2ndName,
-        division3rdName,
-        division4thName,
-        tradeStatus,
-        sourceOrderType,
-        rechargeCard,
-      },
+      queryOrderItem: { advance },
+      queryOrderLoaded,
     } = this.props;
 
-    const addressSelectedItem = {
-      id: 1,
-      address,
-      username,
-      msisdn,
-      division1stName,
-      division2ndName,
-      division3rdName,
-      division4thName,
-    };
-
-    if (getUserInfoById.loading || cardQuery.loading) return <Loader />;
-
-    const stylesX = StyleSheet.create({
-      card: {
-        paddingLeft: SIDEINTERVAL,
-        paddingRight: SIDEINTERVAL,
-        marginBottom: 15,
-      },
-      cardMain: {
-        backgroundColor: '#f5f6f7',
-      },
-      cardItem: {
-        paddingLeft: SIDEINTERVAL,
-        paddingRight: SIDEINTERVAL,
-        paddingTop: 10,
-        paddingBottom: 5,
-      },
-      cardItemText: {
-        fontSize: 12,
-      },
-      cardItemValue: {
-        flexDirection: 'row',
-        marginBottom: 10,
-      },
-      cardItemNumber: {
-        flex: 1,
-        height: 25,
-        lineHeight: 25,
-        color: '#333',
-        fontWeight: '700',
-      },
-      cardItemCopy: {
-        height: 25,
-        minWidth: WINDOW_WIDTH * 0.1,
-        paddingLeft: WINDOW_WIDTH * 0.03,
-        paddingRight: WINDOW_WIDTH * 0.03,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 14,
-        borderWidth: 1,
-        borderColor: '#0076F7',
-        marginRight: 1,
-      },
-      cardItemCopyText: {
-        color: '#0076F7',
-        fontSize: 11,
-      },
-      cardItemTime: {
-        color: '#aaa',
-        fontSize: 12,
-        marginBottom: 10,
-      },
-    });
+    if (!queryOrderLoaded) return <Loader />;
 
     return (
-      <View style={styles.container}>
+      <View style={stylesX.container}>
         <ScrollView>
-          <Text style={styles.status}>
-            {tradeStatusCodes(tradeStatus, i18n)}
-          </Text>
-          {sourceOrderType !== 3 && (
-            <Address
-              addressSelectedItem={addressSelectedItem}
-              // onPress={() => navigate(SCREENS.Address, { isSelect: true })}
-            />
-          )}
-          <SeparateBar />
-          <ProductItem2
-            data={goodsDetail}
-            stylePricePrice={{ color: '#666' }}
-            isShowNumber
-            isPress={sourceOrderType !== 3}
+          <NavBar2
+            valueLeft={i18n.totalMoney}
+            valueMiddle={`${priceFormat(advance)} ${MONETARY}`}
+            isShowRight={false}
           />
-          <Text style={styles.totalPrice}>
-            {priceFormat(advance + couponValue)} ₫
-          </Text>
+          <SeparateBar />
+          <View style={stylesX.funCard}>
+            <Text style={stylesX.funCardTop}>{i18n.funCard}</Text>
+            <Text style={stylesX.funCardBottom}>
+              {`${i18n.availableQuota}: 950.000.000 ${MONETARY}`}
+            </Text>
+          </View>
           <SeparateBar />
           <NavBar2
             onPress={() =>
-              tradeStatus === '10000' &&
               openModal(MODAL_TYPES.ACTIONSHEET, {
                 callback: ret => this.actionSheetCallback(ret),
-                buttons: payWayButtons,
+                data: payWayButtons.map(val => val.value),
               })
             }
             valueLeft={i18n.paymentMethod}
-            valueMiddle={payWayButtons[payWayIndex]}
+            valueMiddle={payWayToText(payWayIndex, i18n)}
+            isShowBorderBottom
           />
           <NavBar2
-            // onPress={() => this.handleOnPressToggleBottomSheet()}
-            valueLeft={i18n.couponValue}
-            valueMiddle={couponValue}
+            onPress={() =>
+              openModal(MODAL_TYPES.ACTIONSHEET, {
+                data: firstPaymentRateArray.map(val => ({
+                  key: val.value === 0 ? i18n.fullPayment : `${val.key * 100}%`,
+                  value: `${val.value} ${MONETARY}`,
+                })),
+                title: i18n.firstPayment,
+                renderItem: this.renderFirstPaymentRateItem,
+                keyExtractor: 'key',
+              })
+            }
+            valueLeft={i18n.installment}
+            valueMiddle={this.makeFirstPaymentText()}
+            // valueMiddle={`3.763.500 ${MONETARY}`}
+            styleMiddle={{ color: FONT_COLOR_PRIMARY }}
             isShowRight={false}
           />
-          <View style={{ height: 5 }} />
-          <View style={stylesX.card}>
-            <View style={stylesX.cardMain}>
-              {rechargeCard &&
-                rechargeCard.map(val => (
-                  <View style={stylesX.cardItem} key={val.cardCode}>
-                    <Text style={stylesX.cardItemText}>{i18n.cardNum}</Text>
-                    <View style={stylesX.cardItemValue}>
-                      <Text style={stylesX.cardItemNumber}>{val.cardCode}</Text>
-                      <View style={stylesX.cardItemCopy}>
-                        <Text
-                          style={stylesX.cardItemCopyText}
-                          onPress={() => this.handleOnPressCopy(val.cardCode)}
-                        >
-                          {i18n.copy}
-                        </Text>
-                      </View>
-                    </View>
-                    <Text style={stylesX.cardItemText}>{i18n.password}</Text>
-                    <View style={stylesX.cardItemValue}>
-                      <Text style={stylesX.cardItemNumber}>
-                        {val.cardPassword}
-                      </Text>
-                      <View style={stylesX.cardItemCopy}>
-                        <Text
-                          style={stylesX.cardItemCopyText}
-                          onPress={() =>
-                            this.handleOnPressCopy(val.cardPassword)
-                          }
-                        >
-                          {i18n.copy}
-                        </Text>
-                      </View>
-                    </View>
-                    <Text style={stylesX.cardItemTime}>
-                      {`${i18n.usefulDate}: ${moment().format('DD-MM-YYYY')}`}
-                    </Text>
-                  </View>
-                ))}
-            </View>
-          </View>
+          {this.renderRepaymentMonth()}
+          <NavBar2
+            valueLeft={i18n.monthlyPayment}
+            valueMiddle={`3.763.500 ${MONETARY}`}
+            componentRight={
+              <MaterialCommunityIcons
+                name="alert-circle-outline"
+                style={stylesX.alert}
+              />
+            }
+          />
         </ScrollView>
         {this.renderBottom()}
       </View>
@@ -695,53 +723,36 @@ class OrderWrite extends Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      console.log();
-      return (state, props) => {
-        const {
-          address,
-          queryOrder,
-          getUserInfoById,
-          cardQuery,
-          orderPay,
-        } = state;
+    () => (state, props) => {
+      const {
+        // address,
+        login,
+        queryOrder,
+      } = state;
 
-        const {
-          navigation: {
-            state: {
-              params: {
-                orderNo,
-                tradeNo,
-                // tradeNo,
-              },
+      const {
+        navigation: {
+          state: {
+            params: {
+              orderNo,
+              tradeNo,
+              // tradeNo,
             },
           },
-        } = props;
+        },
+      } = props;
 
-        return {
-          loading: orderPay.loading,
-          addressSelectedItem: getAddressSelectedItem(state, props),
-          addressItems: address.items,
-          isAuthUser: !!state.login.user,
-          queryOrderItem: queryOrder.item,
-          orderNo,
-          tradeNo,
-          cardQuery,
-          getUserInfoById,
-          initPassword: getUserInfoById.item.initPassword || null,
-          userType: getUserInfoById.item.userType || null,
-        };
+      return {
+        isAuthUser: !!login.user,
+        orderNo,
+        tradeNo,
+        queryOrderItem: queryOrder.item,
+        queryOrderLoaded: queryOrder.loaded,
       };
     },
     {
-      ...addressActionCreators,
-      ...authActionCreators,
       ...queryOrderActionCreators,
-      ...orderPayActionCreators,
-      ...getUserInfoByIdActionCreators,
-      ...cardSubmitActionCreators,
       ...cardQueryActionCreators,
-      ...orderCancelActionCreators,
       ...modalActionCreators,
     },
   )(OrderWrite),

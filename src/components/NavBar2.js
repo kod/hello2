@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -76,7 +77,7 @@ export default ({
         ))}
       {isShowRight &&
         (componentRight ? (
-          { componentRight }
+          componentRight
         ) : (
           <Ionicons
             name="ios-arrow-forward"

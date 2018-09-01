@@ -12,7 +12,7 @@ import { NavigationActions } from 'react-navigation';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 // import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import { SCREENS } from '../common/constants';
+import { SCREENS, SIDEINTERVAL } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 // import { createOrderno } from '../common/helpers';
 
@@ -23,9 +23,9 @@ import BYHeader from '../components/BYHeader';
 // import BYTouchable from '../components/BYTouchable';
 import Address from '../components/Address';
 import Loader from '../components/Loader';
+import SeparateBar from '../components/SeparateBar';
 
 import {
-  // SIDEINTERVAL,
   RED_COLOR,
   PRIMARY_COLOR,
   BORDER_COLOR,
@@ -37,6 +37,7 @@ import * as authActionCreators from '../common/actions/auth';
 import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as couponSelectActionCreators from '../common/actions/couponSelect';
+import * as modalActionCreators from '../common/actions/modal';
 
 import { getAddressSelectedItem } from '../common/selectors';
 // import { addressJoin } from '../common/helpers';
@@ -47,19 +48,28 @@ const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: '#fff',
   },
-  bar: {
-    backgroundColor: '#f5f5f5',
-    height: 5,
-  },
 });
 
 class OrderWrite extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
+  constructor(props) {
+    super(props);
 
-  //   };
-  // }
+    // const { i18n } = this.props;
+    // this.state = {
+    //   payWayButtons: [
+    //     {
+    //       key: i18n.onlinePay,
+    //       value: 1, // 在线支付默认为信用卡
+    //     },
+    //     {
+    //       key: i18n.paymentCollectingShop,
+    //       value: 5,
+    //     },
+    //   ],
+    //   payWayIndex: 0,
+    // };
+    this.actionSheetCallback = this.actionSheetCallback.bind(this);
+  }
 
   componentDidMount() {
     const {
@@ -84,6 +94,10 @@ class OrderWrite extends Component {
               index: 1,
               actions: [
                 NavigationActions.navigate({ routeName: SCREENS.Index }),
+                NavigationActions.navigate({
+                  routeName: SCREENS.OrderDetail,
+                  params,
+                }),
                 NavigationActions.navigate({ routeName: SCREENS.Pay, params }),
               ],
             });
@@ -150,6 +164,7 @@ class OrderWrite extends Component {
   }
 
   handleOnPressSubmit() {
+    // const { payWayIndex, payWayButtons } = this.state;
     const {
       addressSelectedId,
       isAuthUser,
@@ -270,6 +285,7 @@ class OrderWrite extends Component {
     }
 
     return orderCreateFetch(getObject());
+    // return orderCreateFetch(getObject(), payWayButtons[payWayIndex].value);
   }
 
   calcMoney() {
@@ -315,6 +331,13 @@ class OrderWrite extends Component {
     return priceFormat(money);
   }
 
+  // actionSheetCallback(ret) {
+  //   if (ret.buttonIndex === -1) return false;
+  //   return this.setState({
+  //     payWayIndex: ret.buttonIndex,
+  //   });
+  // }
+
   renderBottom() {
     const stylesX = StyleSheet.create({
       nav: {
@@ -323,52 +346,45 @@ class OrderWrite extends Component {
         borderTopColor: BORDER_COLOR,
       },
       navLeft: {
-        flex: 1,
-      },
-      navLeftTop: {
-        color: RED_COLOR,
-        fontSize: 11,
-        textAlign: 'center',
-        paddingTop: 10,
+        flex: 2,
       },
       navLeftBottom: {
         color: RED_COLOR,
-        fontSize: 14,
-        textAlign: 'center',
+        fontSize: 18,
+        paddingLeft: SIDEINTERVAL,
         fontWeight: '700',
+        height: 50,
+        lineHeight: 50,
       },
       navRight: {
         flex: 1,
-        height: 55,
-        lineHeight: 55,
+        height: 50,
+        lineHeight: 50,
         textAlign: 'center',
         color: '#fff',
         backgroundColor: PRIMARY_COLOR,
       },
     });
 
-    const {
-      // detailItem: { price, productDetailNumber },
-      i18n,
-    } = this.props;
+    const { i18n } = this.props;
 
     return (
       <View style={stylesX.nav}>
         <View style={stylesX.navLeft}>
-          <Text style={stylesX.navLeftTop}>{i18n.subtotal}</Text>
           <Text style={stylesX.navLeftBottom}>{this.calcMoney()} ₫</Text>
         </View>
         <Text
           style={stylesX.navRight}
           onPress={() => this.handleOnPressSubmit()}
         >
-          Submit
+          {i18n.submitOrder}
         </Text>
       </View>
     );
   }
 
-  render() {
+  renderContent() {
+    // const { payWayButtons, payWayIndex } = this.state;
     const {
       // navigation: { navigate },
       i18n,
@@ -379,6 +395,9 @@ class OrderWrite extends Component {
       getUserInfoById,
       orderCreate,
       couponSelectItem,
+      // openModal,
+      addressLoaded,
+      getUserInfoByIdLoaded,
     } = this.props;
     const adverstInfo = isCart
       ? cartAdverstInfo
@@ -394,23 +413,37 @@ class OrderWrite extends Component {
             isOnPress: false,
           },
         ];
+
+    if (addressLoaded === false || getUserInfoByIdLoaded === false)
+      return <Loader />;
+
     return (
       <View style={styles.container}>
         {(getUserInfoById.loading || orderCreate.loading) && (
           <Loader absolutePosition />
         )}
-        <BYHeader />
         <ScrollView>
           <Address
             addressSelectedItem={addressSelectedItem}
             onPress={() => this.handleOnPressAddress()}
           />
-          <View style={styles.bar} />
+          <SeparateBar />
           <ProductItem2
             data={adverstInfo}
             stylePricePrice={{ color: '#666' }}
             isShowNumber
           />
+          <SeparateBar />
+          {/* <NavBar2
+            onPress={() =>
+              openModal(MODAL_TYPES.ACTIONSHEET, {
+                callback: ret => this.actionSheetCallback(ret),
+                buttons: payWayButtons.map(val => val.key),
+              })
+            }
+            valueLeft={i18n.paymentMethod}
+            valueMiddle={payWayButtons[payWayIndex].key}
+          /> */}
           <NavBar2
             onPress={() => this.handleOnPressCoupon()}
             valueLeft={i18n.useVoucher}
@@ -425,59 +458,67 @@ class OrderWrite extends Component {
       </View>
     );
   }
+
+  render() {
+    const { i18n } = this.props;
+    return (
+      <View style={styles.container}>
+        <BYHeader title={i18n.fillOrder} />
+        {this.renderContent()}
+      </View>
+    );
+  }
 }
 
 export default connectLocalization(
   connect(
-    () => {
-      console.log();
-      return (state, props) => {
-        const {
-          address,
-          getUserInfoById,
-          mergeGetDetail,
-          orderCreate,
-          productDetailInfo,
-          couponSelect,
-        } = state;
-        const {
-          navigation: {
-            state: {
-              params: {
-                groupon,
-                mergeMasterInfo,
-                isCart,
-                products,
-                adverstInfo,
-              },
+    () => (state, props) => {
+      const {
+        address,
+        getUserInfoById,
+        mergeGetDetail,
+        orderCreate,
+        productDetailInfo,
+        couponSelect,
+      } = state;
+      const {
+        navigation: {
+          state: {
+            params: {
+              groupon,
+              mergeMasterInfo,
+              isCart,
+              products,
+              adverstInfo,
+              // adverstInfo,
             },
           },
-        } = props;
-        // const groupon = props.navigation.state.params.groupon;
-        // const mergeMasterInfo = props.navigation.state.params.mergeMasterInfo;
-        const detailItem = groupon
-          ? mergeGetDetail.item
-          : productDetailInfo.item;
-        // const isCart = props.navigation.state.params.isCart;
-        // const cartProducts = props.navigation.state.params.products;
-        // const cartAdverstInfo = props.navigation.state.params.adverstInfo;
-        return {
-          couponSelectItem: couponSelect.item,
-          groupon,
-          mergeMasterInfo,
-          isCart,
-          cartProducts: products,
-          cartAdverstInfo: adverstInfo,
-          detailItem,
-          orderCreate,
-          addressSelectedItem: getAddressSelectedItem(state, props),
-          addressItems: address.items,
-          addressSelectedId: address.addressSelectedId,
-          funid: state.login.user ? state.login.user.result : null,
-          isAuthUser: !!state.login.user,
-          getUserInfoById,
-          userType: getUserInfoById.item.userType || null,
-        };
+        },
+      } = props;
+      // const groupon = props.navigation.state.params.groupon;
+      // const mergeMasterInfo = props.navigation.state.params.mergeMasterInfo;
+      const detailItem = groupon ? mergeGetDetail.item : productDetailInfo.item;
+      // const isCart = props.navigation.state.params.isCart;
+      // const cartProducts = props.navigation.state.params.products;
+      // const cartAdverstInfo = props.navigation.state.params.adverstInfo;
+      return {
+        couponSelectItem: couponSelect.item,
+        groupon,
+        mergeMasterInfo,
+        isCart,
+        cartProducts: products,
+        cartAdverstInfo: adverstInfo,
+        detailItem,
+        orderCreate,
+        addressSelectedItem: getAddressSelectedItem(state, props),
+        addressItems: address.items,
+        addressLoaded: address.loaded,
+        addressSelectedId: address.addressSelectedId,
+        funid: state.login.user ? state.login.user.result : null,
+        isAuthUser: !!state.login.user,
+        getUserInfoById,
+        getUserInfoByIdLoaded: getUserInfoById.loaded,
+        userType: getUserInfoById.item.userType || null,
       };
     },
     {
@@ -486,6 +527,7 @@ export default connectLocalization(
       ...getUserInfoByIdActionCreators,
       ...orderCreateActionCreators,
       ...couponSelectActionCreators,
+      ...modalActionCreators,
     },
   )(OrderWrite),
 );

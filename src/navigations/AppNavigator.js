@@ -48,6 +48,7 @@ import AboutAs from '../screens/AboutAs';
 import CouponSelect from '../screens/CouponSelect';
 import Computer from '../screens/Computer';
 import Mobile from '../screens/Mobile';
+import OrderDetail from '../screens/OrderDetail';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -58,6 +59,12 @@ const RouteConfigs = {
   },
   [SCREENS.ProductDetail]: {
     screen: ProductDetail,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.OrderDetail]: {
+    screen: OrderDetail,
     navigationOptions: {
       header: null,
     },

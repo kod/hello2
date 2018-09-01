@@ -77,8 +77,11 @@ class ProductItem2 extends Component {
     const {
       navigation: { navigate, goBack },
       isPress = true,
+      onPress,
     } = this.props;
-    if (val.isOnPress === false) {
+    if (onPress) {
+      onPress();
+    } else if (val.isOnPress === false) {
       goBack(null);
     } else if (val.tradeStatus === '32' || val.tradeStatus === '33') {
       navigate(SCREENS.Prepaid);

@@ -126,6 +126,17 @@ class Scrollable extends Component {
     }
   }
 
+  handleOnPressGoods(val) {
+    const {
+      navigation: { navigate },
+    } = this.props;
+
+    navigate(SCREENS.OrderDetail, {
+      tradeNo: val.tradeNo,
+      orderNo: val.orderNo,
+    });
+  }
+
   render() {
     // const adverstInfo = [{
     //   brandId: detailItem.brandId,
@@ -162,9 +173,10 @@ class Scrollable extends Component {
           <View style={styles.item} key={val.tradeNo}>
             <ProductItem2
               data={val.goodList}
-              stylePricePrice={{ color: '#fff' }}
-              stylePricePeriods={{ color: '#fff' }}
+              stylePricePrice={{ color: '#666' }}
+              stylePricePeriods={{ color: '#666' }}
               isShowNumber
+              onPress={() => this.handleOnPressGoods(val)}
             />
             <View style={stylesScrollable.totalPrice}>
               <Text style={stylesScrollable.price}>{`${

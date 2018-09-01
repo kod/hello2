@@ -11,7 +11,7 @@ export default function queryOrder(state = initState, action) {
   switch (action.type) {
     case QUERY_ORDER.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case QUERY_ORDER.REQUEST:
       return {
