@@ -474,7 +474,7 @@ class PrepaidRecharge extends Component {
           onPress={() =>
             openModal(MODAL_TYPES.ACTIONSHEET, {
               callback: ret => this.actionSheetCallback(ret),
-              buttons: payWayButtons.map(val => val.text),
+              data: payWayButtons.map(val => val.text),
             })
           }
         >

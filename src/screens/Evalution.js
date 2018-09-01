@@ -206,7 +206,7 @@ class Evalution extends Component {
     const { openModal } = this.props;
     openModal(MODAL_TYPES.ACTIONSHEET, {
       callback: ret => this.actionSheetCallback(ret),
-      buttons: payWayButtons,
+      data: payWayButtons,
     });
   }
 
