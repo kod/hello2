@@ -45,6 +45,9 @@ export const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 44;
 export const STATUSBAR_HEIGHT =
   Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 
+export const FIRST_PAYMENT_RATE = [0, 0.1, 0.2, 0.3, 0.4, 0.5]; // 首付比例
+export const REPAYMENT_MONTH = [3, 6, 9, 12]; // 分期数
+
 export const COUPONMY_TABNAVIGATOR_MAP = {
   CouponMyUnused: 1,
   CouponMyUsed: 2,
