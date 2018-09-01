@@ -4,7 +4,7 @@ export function orderCreateFetchSuccess(params) {
   return {
     type: ORDER_CREATE.SUCCESS,
     payload: {
-      ...params
+      ...params,
     },
   };
 }
@@ -12,15 +12,11 @@ export function orderCreateFetchSuccess(params) {
 export function orderCreateFetchFailure() {
   return {
     type: ORDER_CREATE.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function orderCreateFetch(
-  params
-) {
+export function orderCreateFetch(params) {
   return {
     type: ORDER_CREATE.REQUEST,
     payload: {
@@ -32,7 +28,6 @@ export function orderCreateFetch(
 export function orderCreateClear() {
   return {
     type: ORDER_CREATE.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }
