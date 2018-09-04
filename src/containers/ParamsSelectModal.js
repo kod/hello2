@@ -154,15 +154,45 @@ class ParamsSelectModal extends Component {
     return productDetailNumberFetch(number);
   }
 
-  handleOnChangeProperties(key, val) {
+  handleOnChangeProperties(valId) {
     const {
       productDetailSelect,
       productDetailSort,
       propertiesIdsObject,
+      propertiesObject,
     } = this.props;
-    const array = propertiesIdsObject.split('-');
-    array[key] = val.toString();
-    const result = array.sort().join('-');
+    /**
+     * 查找目标id对应的属性
+     * 返回 属性Array
+     */
+    const findProperties = id => {
+      let result = '';
+      Object.keys(propertiesObject).forEach(a => {
+        if (result === '') {
+          propertiesObject[a].forEach(b => {
+            if (result === '') {
+              if (b.id === id) result = propertiesObject[a];
+            }
+          });
+        }
+      });
+      return result;
+    };
+
+    const replaceProperties = propertiesArray => {
+      // 找出需要被替换下的值
+      const array = propertiesIdsObject.split('-');
+      let replaceIndex = -1;
+      array.forEach((val, index) => {
+        propertiesArray.forEach(val1 => {
+          if (parseInt(val, 10) === val1.id) replaceIndex = index;
+        });
+      });
+      array[replaceIndex] = valId;
+      return array.sort().join('-');
+    };
+    const result = replaceProperties(findProperties(valId));
+
     if (propertiesIdsObject !== result)
       productDetailSelect(result, productDetailSort[result]);
   }
@@ -210,7 +240,7 @@ class ParamsSelectModal extends Component {
 
     return (
       <View style={stylesX.wrap}>
-        {propertiesArray.map((val, key) => (
+        {propertiesArray.map(val => (
           <View style={stylesX.item} key={val}>
             <Text style={stylesX.title}>{val}</Text>
             <View style={stylesX.properties}>
@@ -218,11 +248,10 @@ class ParamsSelectModal extends Component {
                 <Text
                   style={[
                     stylesX.propertiesItem,
-                    val1.id ===
-                      parseInt(propertiesIdsObject.split('-')[key], 10) &&
+                    propertiesIdsObject.indexOf(val1.id) !== -1 &&
                       stylesX.propertiesItemAcitve,
                   ]}
-                  onPress={() => this.handleOnChangeProperties(key, val1.id)}
+                  onPress={() => this.handleOnChangeProperties(val1.id)}
                   key={val1.value}
                 >
                   {val1.value}
