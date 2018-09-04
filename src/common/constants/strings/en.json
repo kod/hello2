@@ -280,5 +280,8 @@
   "firstPaymentRate": "First payment rate",
   "fullPayment": "Full payment",
   "monthlyPayment": "Monthly payment",
+  "remainingReturned": "Remaining to be returned",
+  "billingDetails": "Billing details",
+  "stagingDetails": "Staging details",
   "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one"
 }

@@ -280,5 +280,8 @@
   "firstPaymentRate": "首付比例",
   "fullPayment": "全款",
   "monthlyPayment": "月供",
+  "remainingReturned": "剩余待还",
+  "billingDetails": "账单详情",
+  "stagingDetails": "分期详情",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }

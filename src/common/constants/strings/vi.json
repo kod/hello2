@@ -196,7 +196,7 @@
   "youBillsExpiredPleaseRepayPossible": "Hãy thanh toán ngay ! Hóa đơn của bạn đã quá hạn thanh toán!",
   "finalRepaymentDate": "Ngày hoàn trả cuối cùng",
   "billingDate": "Ngày thanh toán",
-  "interest": "Tiền lãi",
+  "interest": "Phí dịch vụ",
   "currentBill": "Hoá đơn kì này",
   "pastBill": "Hóa đơn kì trước",
   "theFinalRepaymentDate5thEachMonth": "Ngày hoàn trả cuối cùng là ngày 5 mỗi tháng.",
@@ -269,7 +269,7 @@
   "fillOrder": "Điền Đơn đặt hàng",
   "pleaseSelectShippingAddress": "Vui lòng chọn địa chỉ nhận hàng của bạn",
   "submitOrder": "Gửi đơn hàng",
-  "paymentCollectingShop": "Thanh toán tại cửa hàng thu hộ",
+  "paymentCollectingShop": "Thanh toán cửa hàng tiện ích",
   "onlinePay": "Thanh toán trực tuyến",
   "remainTime1": "Còn: $days$ngày $hours$giờ $minutes$phút",
   "remainTime2": "Còn: $hours$giờ $minutes$phút",
@@ -280,5 +280,8 @@
   "firstPaymentRate": "Tỉ lệ thanh toán lần đầu",
   "fullPayment": "Trả toàn bộ",
   "monthlyPayment": "Trả góp hàng tháng",
+  "remainingReturned": "Còn lại để được trả lại",
+  "billingDetails": "Chi tiết thanh toán",
+  "stagingDetails": "Chi tiết dàn dựng",
   "shareProduct2": ", bảo đảm hàng chính hãng, siêu rẻ, mau mau mua 1 món hàng thôi"
 }
