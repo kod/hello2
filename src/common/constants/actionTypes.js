@@ -531,6 +531,12 @@ export const SEARCH_MONTH = defineAction(
   appNamespace,
 );
 
+export const SEARCH_MONTH_DETAIL = defineAction(
+  'SEARCH_MONTH_DETAIL',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const BILL_BY_YEAR = defineAction(
   'BILL_BY_YEAR',
   [REQUEST, SUCCESS, FAILURE],

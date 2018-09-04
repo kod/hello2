@@ -73,6 +73,10 @@ import {
   changePasswordFetchWatch,
   changePasswordSuccessWatch,
 } from './changePassword';
+import {
+  searchMonthDetailFetchWatch,
+  // searchMonthDetailSuccessWatch,
+} from './searchMonthDetail';
 import { watchError } from './error';
 import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
@@ -193,6 +197,8 @@ export default function* rootSaga() {
     billByYearSuccessWatch(),
     searchMonthFetchWatch(),
     searchMonthSuccessWatch(),
+    searchMonthDetailFetchWatch(),
+    // searchMonthDetailSuccessWatch(),
     repaymentRecordFetchWatch(),
     repaymentRecordSuccessWatch(),
     billDetailsFetchWatch(),
