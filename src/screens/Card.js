@@ -34,8 +34,8 @@ import { judge } from '../common/helpers';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
 
 const hh8d9sadiua8Jpg = require('../images/hh8d9sadiua8.jpg');
-const hh9834ire843Png = require('../images/hh9834ire843.png');
-const hh98344roi34Png = require('../images/hh98344roi34.png');
+const WechatIMG6104Png = require('../images/WechatIMG6104.png');
+const WechatIMG6103Png = require('../images/WechatIMG6103.png');
 const jafsdbufnlPng = require('../images/jafsdbufnl.png');
 // const kasdifghosjfilPng = require('../images/kasdifghosjfil.png');
 
@@ -163,14 +163,14 @@ class Card extends Component {
               <View style={stylesX.slide}>
                 <Image
                   style={stylesX.image}
-                  source={hh98344roi34Png}
+                  source={WechatIMG6103Png}
                   resizeMode="contain"
                 />
               </View>
               <View style={stylesX.slide}>
                 <Image
                   style={stylesX.image}
-                  source={hh9834ire843Png}
+                  source={WechatIMG6104Png}
                   resizeMode="contain"
                 />
               </View>
@@ -322,7 +322,7 @@ class Card extends Component {
             },
           })}
         <SeparateBar />
-        <SeparateBar />
+        {/* <SeparateBar /> */}
         <NavBar2
           onPress={() =>
             judge(status === 3 && initPassword === 1, () =>
@@ -332,7 +332,7 @@ class Card extends Component {
           valueLeft={i18n.myBill}
           // valueMiddle={'on the 5th of each month'}
         />
-        <NavBar2
+        {/* <NavBar2
           onPress={() =>
             judge(status === 3 && initPassword === 1, () =>
               navigate(SCREENS.PeriodSelect),
@@ -340,8 +340,8 @@ class Card extends Component {
           }
           valueLeft={i18n.stageSetting}
           valueMiddle={periodHobbit ? `${periodHobbit} ${i18n.period}` : ''}
-        />
-        <SeparateBar />
+        /> */}
+        {/* <SeparateBar /> */}
         <NavBar2
           onPress={() =>
             judge(status === 3 && initPassword === 1, () =>
