@@ -425,7 +425,7 @@ export const CARD_QUERY = defineAction(
 
 export const QUERY_ORDER = defineAction(
   'QUERY_ORDER',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 
@@ -437,7 +437,7 @@ export const CREATE_DISORDER = defineAction(
 
 export const RETURN_MONEY = defineAction(
   'RETURN_MONEY',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 

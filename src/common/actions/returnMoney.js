@@ -4,7 +4,7 @@ export function returnMoneyFetchSuccess(item) {
   return {
     type: RETURN_MONEY.SUCCESS,
     payload: {
-      item
+      item,
     },
   };
 }
@@ -12,19 +12,17 @@ export function returnMoneyFetchSuccess(item) {
 export function returnMoneyFetchFailure() {
   return {
     type: RETURN_MONEY.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function returnMoneyFetch(
-  params
-) {
+export function returnMoneyFetch(totalamounts, repaymentmonths, payrate) {
   return {
     type: RETURN_MONEY.REQUEST,
     payload: {
-      ...params
+      totalamounts,
+      repaymentmonths,
+      payrate,
     },
   };
 }
@@ -32,7 +30,6 @@ export function returnMoneyFetch(
 export function returnMoneyClear() {
   return {
     type: RETURN_MONEY.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

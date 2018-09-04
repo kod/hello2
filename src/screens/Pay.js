@@ -8,7 +8,7 @@ import {
   DeviceEventEmitter,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
+// import { NavigationActions } from 'react-navigation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import NavBar2 from '../components/NavBar2';
@@ -39,6 +39,8 @@ import {
   SCREENS,
   LINE_HEIGHT_RATIO,
   CREDIT_PAYWAY,
+  INTERNET_BANK_PAYWAY,
+  OFFLINE_PAYWAY,
   MONETARY,
   FIRST_PAYMENT_RATE,
   REPAYMENT_MONTH,
@@ -53,11 +55,11 @@ import {
 } from '../common/helpers';
 import priceFormat from '../common/helpers/priceFormat';
 
+import * as orderPayActionCreators from '../common/actions/orderPay';
+import * as returnMoneyActionCreators from '../common/actions/returnMoney';
 import * as queryOrderActionCreators from '../common/actions/queryOrder';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
 import * as modalActionCreators from '../common/actions/modal';
-
-const ppp = 1000000;
 
 const styles = StyleSheet.create({
   container: {
@@ -125,13 +127,15 @@ class OrderWrite extends Component {
 
     this.state = {
       submitfreeze: false,
+      payWayButtons: payWayArray(i18n),
       payWayIndex: CREDIT_PAYWAY,
       firstPaymentRateArray: [],
       firstPaymentRateIndex: 0,
       repaymentMonthArray: REPAYMENT_MONTH,
       repaymentMonthIndex: 0,
-      payWayButtons: payWayArray(i18n),
       paypassword: '',
+      isUseFirstPay: false, // 是否可选择首付
+      // isEnoughUseCredit: true, // 额度是否达到分期要求（暂时不启用）
     };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
     this.enterPasswordCallback = this.enterPasswordCallback.bind(this);
@@ -141,14 +145,12 @@ class OrderWrite extends Component {
     const {
       isAuthUser,
       i18n,
-      // addressFetch,
       orderNo,
       tradeNo,
       queryOrderFetch,
       cardQueryFetch,
-      // getUserInfoByIdFetch,
-      navigation,
-      navigation: { navigate },
+      // navigation,
+      navigation: { navigate, pop },
     } = this.props;
 
     if (!isAuthUser) return navigate(SCREENS.Login);
@@ -164,30 +166,26 @@ class OrderWrite extends Component {
         {
           text: i18n.confirm,
           onPress: () => {
-            navigation.dispatch(
-              NavigationActions.reset({
-                index: 1,
-                actions: [
-                  NavigationActions.navigate({ routeName: SCREENS.Index }),
-                  NavigationActions.navigate({
-                    routeName: SCREENS.Pay,
-                    params: {
-                      orderNo,
-                      tradeNo,
-                    },
-                  }),
-                ],
-              }),
-            );
+            pop(1);
+            // navigation.dispatch(
+            //   NavigationActions.reset({
+            //     index: 1,
+            //     actions: [
+            //       NavigationActions.navigate({ routeName: SCREENS.Index }),
+            //       NavigationActions.navigate({
+            //         routeName: SCREENS.Pay,
+            //         params: {
+            //           orderNo,
+            //           tradeNo,
+            //         },
+            //       }),
+            //     ],
+            //   }),
+            // );
           },
         },
       ]);
     });
-
-    this.initArrayForFirstPaymentRate();
-
-    // addressFetch();
-    // getUserInfoByIdFetch();
     cardQueryFetch();
 
     queryOrderFetch({
@@ -203,33 +201,157 @@ class OrderWrite extends Component {
   }
 
   componentWillUnmount() {
+    const { cardQueryClear, queryOrderClear, returnMoneyClear } = this.props;
+    cardQueryClear();
+    queryOrderClear();
+    returnMoneyClear();
     this.screenListener.remove();
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const {
-  //     loading: prevLoading,
-  //     queryOrderItem: prevQueryOrderItem,
-  //   } = this.props;
-  //   const { loading, openModal, closeModal, queryOrderItem } = nextProps;
+  componentWillReceiveProps(nextProps) {
+    const { isUseFirstPay } = this.state;
+    const {
+      queryOrderLoaded: prevQueryOrderLoaded,
+      cardQueryLoaded: prevCardQueryLoaded,
+      orderPayLoading: prevOrderPayLoading,
+    } = this.props;
+    const {
+      queryOrderLoaded,
+      cardQueryLoaded,
+      queryOrderItem,
+      cardQueryItem,
+      orderPayLoading,
+      closeModal,
+      openModal,
+    } = nextProps;
 
-  //   if (
-  //     prevQueryOrderItem.payWay !== queryOrderItem.payWay &&
-  //     queryOrderItem.payWay !== 0
-  //   ) {
-  //     this.setState({
-  //       payWayIndex: queryOrderItem.payWay,
-  //     });
-  //   }
+    if (prevOrderPayLoading !== orderPayLoading) {
+      if (orderPayLoading === false) {
+        closeModal();
+      } else {
+        openModal(MODAL_TYPES.LOADER);
+      }
+    }
 
-  //   if (prevLoading !== loading) {
-  //     if (loading === false) {
-  //       closeModal();
-  //     } else {
-  //       openModal(MODAL_TYPES.LOADER);
-  //     }
-  //   }
-  // }
+    if (
+      prevQueryOrderLoaded !== queryOrderLoaded &&
+      queryOrderLoaded === true &&
+      cardQueryLoaded === true
+    ) {
+      this.initArrayForFirstPaymentRate(queryOrderItem, () => {
+        if (isUseFirstPay)
+          this.initFirstPaymentRateIndex(queryOrderItem, cardQueryItem);
+      });
+    }
+
+    if (
+      prevCardQueryLoaded !== cardQueryLoaded &&
+      cardQueryLoaded === true &&
+      queryOrderLoaded === true
+    ) {
+      this.initArrayForFirstPaymentRate(queryOrderItem, () => {
+        if (isUseFirstPay)
+          this.initFirstPaymentRateIndex(queryOrderItem, cardQueryItem);
+      });
+    }
+  }
+
+  initArrayForFirstPaymentRate(queryOrderItem, callback) {
+    const { repaymentMonthArray } = this.state;
+    const { returnMoneyFetch } = this.props;
+    const { advance } = queryOrderItem;
+    const firstPaymentRateArray = FIRST_PAYMENT_RATE;
+
+    returnMoneyFetch(
+      advance.toString(),
+      repaymentMonthArray.join(','),
+      firstPaymentRateArray.join(','),
+    );
+
+    this.setState(
+      {
+        firstPaymentRateArray: firstPaymentRateArray.map(val => ({
+          key: val,
+          value: advance * val,
+        })),
+      },
+      callback,
+    );
+  }
+
+  initFirstPaymentRateIndex(queryOrderItem, cardQueryItem) {
+    const {
+      firstPaymentRateArray,
+      // firstPaymentRateIndex,
+      // repaymentMonthArray,
+      // repaymentMonthIndex,
+    } = this.state;
+    const { advance } = queryOrderItem;
+    const { status, availableBalance } = cardQueryItem;
+
+    const notEnough = () => {
+      const result = [];
+      // 如果支付金额，大于可用额度 + 最大首付金额；则不能使用分期
+      if (
+        advance >
+        availableBalance +
+          firstPaymentRateArray[firstPaymentRateArray.length - 1].value
+      ) {
+        console.log('不能使用分期');
+        // 不能使用分期(暂时不启用)
+        // this.setState({
+        //   isEnoughUseCredit: false,
+        // });
+      } else {
+        // 首付 + 分期
+        console.log('首付 + 分期');
+        firstPaymentRateArray.forEach(val => {
+          if (availableBalance + val.value >= advance) {
+            result.push(val);
+          }
+        });
+        this.setState(
+          {
+            firstPaymentRateArray: result,
+          },
+          () => {
+            // const {
+            //   firstPaymentRateArray: newFirstPaymentRateArray,
+            // } = this.state;
+            // returnMoneyFetch(
+            //   advance.toString(),
+            //   repaymentMonthArray.join(','),
+            //   newFirstPaymentRateArray.map(val => val.key).join(','),
+            // );
+          },
+        );
+      }
+    };
+
+    if (status === 3) {
+      // 已激活信用卡
+      if (availableBalance >= advance) {
+        // 卡额度充足
+        console.log('卡额度充足');
+      } else {
+        // 卡额度充不足
+        console.log('卡额度充不足');
+        notEnough();
+      }
+    }
+  }
+
+  initPayWayIndex(callback) {
+    const {
+      cardQueryItem: { status },
+    } = this.props;
+    this.setState(
+      {
+        payWayIndex: status === 3 ? CREDIT_PAYWAY : INTERNET_BANK_PAYWAY,
+      },
+      callback,
+    );
+  }
 
   actionSheetFirstPaymentRateCallback(buttonIndex) {
     // const { payWayButtons } = this.state;
@@ -242,25 +364,25 @@ class OrderWrite extends Component {
   }
 
   actionSheetCallback(ret) {
+    const { payWayButtons } = this.state;
     if (ret.buttonIndex === -1) return false;
     return this.setState({
-      payWayIndex: ret.buttonIndex,
+      payWayIndex: payWayButtons[ret.buttonIndex].key,
     });
   }
 
-  async enterPasswordCallback(ret) {
-    // const {
-    //   orderNo,
-    //   tradeNo,
-    // } = this.props;
-
-    await this.setState({
-      paypassword: ret.val,
-    });
-    this.handleOnPressSubmit();
+  enterPasswordCallback(ret) {
+    this.setState(
+      {
+        paypassword: ret.val,
+      },
+      () => {
+        this.handleOnPressSubmit();
+      },
+    );
   }
 
-  handleOnPressToggleModal = (key, val) => {
+  handleOnPressToggleModal(key, val) {
     const {
       key: [key1],
       // [key],
@@ -268,46 +390,28 @@ class OrderWrite extends Component {
     this.setState({
       [key]: typeof val !== 'boolean' ? !key1 : val,
     });
-  };
+  }
 
-  handleOnPressSubmit = () => {
+  handleOnPressSubmit() {
     const {
       submitfreeze,
       payWayIndex,
       paypassword,
-      // paypassword,
+      repaymentMonthIndex: monthIndex,
+      repaymentMonthArray: monthArray,
     } = this.state;
     const {
       i18n,
       isAuthUser,
-      initPassword,
-      userType,
-      orderNo,
-      tradeNo,
-      getUserInfoByIdFetch,
-      // cardSubmitFetch,
       orderPayFetch,
       navigation: { navigate },
-      cardQuery,
-      queryOrderItem: {
-        advance,
-        // advance,
-      },
+      queryOrderItem: { advance, orderNo, tradeNo },
+      cardQueryItem: { status, initPassword, availableBalance },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
-    if (!userType) return getUserInfoByIdFetch();
-
-    const payway = payWayIndex;
 
     const creditCard = () => {
-      let paywayNow = 1;
-      // 判断额度是否充足，来选择支付方式
-      if (cardQuery.item.availableBalance) {
-        paywayNow = cardQuery.item.availableBalance < advance ? 5 : 1;
-      }
-
       const alreadyPaypassword = () => {
-        // const { payWayButtons } = this.state;
         const { openModal } = this.props;
         if (paypassword.length === 0) {
           openModal(MODAL_TYPES.ENTERPASSWORD, {
@@ -316,57 +420,44 @@ class OrderWrite extends Component {
           });
           return true;
         }
-        if (paywayNow === 5) {
-          // 提示额度不足
-          Alert.alert('', i18n.amountNotEnoughWillPaidOnlineBanking, [
-            { text: i18n.cancel },
-            {
-              text: i18n.confirm,
-              onPress: () => {
-                submitDuplicateFreeze(submitfreeze, this, () =>
-                  orderPayFetch({
-                    orderno: orderNo,
-                    tradeno: tradeNo,
-                    payway: '2', // 如果额度不足，目前默认使用网银支付剩余的钱
-                    paypassword,
-                    payvalue: advance - cardQuery.item.availableBalance,
-                    screen: SCREENS.Pay,
-                  }),
-                );
-                this.setState({ paypassword: '' });
-              },
-            },
-          ]);
-        } else {
-          submitDuplicateFreeze(submitfreeze, this, () =>
-            orderPayFetch({
-              orderno: orderNo,
-              tradeno: tradeNo,
-              payway: paywayNow,
-              paypassword,
-              screen: SCREENS.Pay,
-            }),
-          );
-          this.setState({ paypassword: '' });
-        }
-        return false;
+        const calcPayrate = () => {
+          const payvalue = 0; // 首付
+          let payrate = 100; // 首付比例
+          if (advance > availableBalance) {
+            // 额度不足
+            // payvalue = advance - availableBalance;
+            payrate = parseInt(payvalue / advance, 10);
+          }
+          return payrate;
+        };
+
+        submitDuplicateFreeze(submitfreeze, this, () =>
+          orderPayFetch({
+            orderno: orderNo,
+            tradeno: tradeNo,
+            payway: payWayIndex,
+            paypassword,
+            payrate: calcPayrate(),
+            repaymentmonth: monthArray[monthIndex],
+            payvalue: advance,
+            screen: SCREENS.Pay,
+          }),
+        );
+        return this.setState({ paypassword: '' });
       };
-      // const paywayNow = cardQuery.item.availableBalance
-      if (userType === 3) {
-        // 已开通信用卡
-        if (initPassword !== 1) {
-          // 未设置支付密码
-          Alert.alert('', i18n.youHaveNotSetCardPasswordYet, [
-            { text: i18n.cancel },
-            {
-              text: i18n.goToSet,
-              onPress: () => navigate(SCREENS.TransactionPasswordStepOne),
-            },
-          ]);
-        } else {
-          alreadyPaypassword();
-        }
-      } else {
+
+      if (status === 3 && initPassword === 0) {
+        Alert.alert('', i18n.funCardApplicationSuccessfulPleaseActivate, [
+          { text: i18n.cancel },
+          {
+            text: i18n.activation,
+            onPress: () => navigate(SCREENS.TransactionPasswordStepOne),
+          },
+        ]);
+        return false;
+      }
+
+      if (status !== 3) {
         Alert.alert('', `${i18n.didYouOpenYourCreditCardNow}?`, [
           {
             text: i18n.cancel,
@@ -376,54 +467,49 @@ class OrderWrite extends Component {
             onPress: () => navigate(SCREENS.Card),
           },
         ]);
+        return false;
       }
+
+      return alreadyPaypassword();
     };
 
-    const internetBank = () => {
-      orderPayFetch({
-        orderno: orderNo,
-        tradeno: tradeNo,
-        payway,
-        screen: SCREENS.Pay,
-      });
-    };
-
-    switch (payway) {
-      case 1:
+    console.log(payWayIndex);
+    switch (payWayIndex) {
+      case CREDIT_PAYWAY:
         creditCard();
         break;
 
-      case 2:
-        internetBank();
+      case INTERNET_BANK_PAYWAY: // 网银
+      case OFFLINE_PAYWAY: // 线下支付
+        submitDuplicateFreeze(submitfreeze, this, () =>
+          orderPayFetch({
+            orderno: orderNo,
+            tradeno: tradeNo,
+            payway: payWayIndex,
+            paypassword: '',
+            payrate: 100,
+            repaymentmonth: 0,
+            payvalue: advance,
+            screen: SCREENS.Pay,
+          }),
+        );
         break;
-
-      // case 5:
-      //   creditCard();
-      //   break;
 
       default:
         break;
     }
     return true;
-  };
-
-  initArrayForFirstPaymentRate = () => {
-    const firstPaymentRateArray = FIRST_PAYMENT_RATE;
-    this.setState({
-      firstPaymentRateArray: firstPaymentRateArray.map(val => ({
-        key: val === 0 ? 1 : val,
-        value: ppp * val,
-      })),
-    });
-  };
+  }
 
   makeFirstPaymentText() {
     const {
+      isUseFirstPay,
       firstPaymentRateArray: rateArray,
       firstPaymentRateIndex: rateIndex,
     } = this.state;
     const { i18n } = this.props;
     let result = '';
+    if (isUseFirstPay === false) return result;
     if (rateArray[rateIndex]) {
       result =
         rateArray[rateIndex].value === 0
@@ -431,6 +517,92 @@ class OrderWrite extends Component {
           : `${i18n.firstPayment} ${rateArray[rateIndex].value} ${MONETARY}`;
     } else {
       result = i18n.useDownPayment;
+    }
+    return result;
+  }
+
+  makePayButtonText() {
+    const { payWayIndex } = this.state;
+    const {
+      i18n,
+      queryOrderItem: { advance },
+      cardQueryItem: { availableBalance },
+    } = this.props;
+    let result = '';
+
+    switch (payWayIndex) {
+      case CREDIT_PAYWAY:
+        if (advance > availableBalance) {
+          // 额度不足
+          result = `组合支付 ${priceFormat(advance)} ${MONETARY}`;
+        } else {
+          // 额度足够
+          result = `func card 支付 ${priceFormat(advance)} ${MONETARY}`;
+        }
+        break;
+
+      case INTERNET_BANK_PAYWAY:
+        result = `网银支付 ${priceFormat(advance)} ${MONETARY}`;
+        break;
+
+      case OFFLINE_PAYWAY:
+        result = `${i18n.paymentCollectingShop} ${priceFormat(
+          advance,
+        )} ${MONETARY}`;
+        break;
+
+      default:
+        break;
+    }
+    return result;
+  }
+
+  getPerMonthPrice2() {
+    const {
+      repaymentMonthIndex: monthIndex,
+      repaymentMonthArray: monthArray,
+      firstPaymentRateArray: rateArray,
+      firstPaymentRateIndex: rateIndex,
+    } = this.state;
+    const {
+      queryOrderItem: { advance = 0 },
+      returnMoneyItems,
+    } = this.props;
+
+    const rate = rateArray[rateIndex]
+      ? rateArray[rateIndex].key || '0.0'
+      : '0.0';
+    const month = monthArray[monthIndex];
+
+    let result = 0;
+    if (returnMoneyItems[`${advance}_${month}_${rate}`]) {
+      result =
+        returnMoneyItems[`${advance}_${month}_${rate}`][0].principal +
+        returnMoneyItems[`${advance}_${month}_${rate}`][0].interest;
+    }
+    return result;
+  }
+
+  getPerMonthPriceArray() {
+    const {
+      repaymentMonthIndex: monthIndex,
+      repaymentMonthArray: monthArray,
+      firstPaymentRateArray: rateArray,
+      firstPaymentRateIndex: rateIndex,
+    } = this.state;
+    const {
+      queryOrderItem: { advance = 0 },
+      returnMoneyItems,
+    } = this.props;
+
+    const rate = rateArray[rateIndex]
+      ? rateArray[rateIndex].key || '0.0'
+      : '0.0';
+    const month = monthArray[monthIndex];
+
+    let result = [];
+    if (returnMoneyItems[`${advance}_${month}_${rate}`]) {
+      result = returnMoneyItems[`${advance}_${month}_${rate}`];
     }
     return result;
   }
@@ -487,8 +659,13 @@ class OrderWrite extends Component {
     const stylesX = StyleSheet.create({
       container: {},
       text: {
-        height: 55,
-        lineHeight: 55,
+        // minHeight: 55,
+        // lineHeight: 55,
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: SIDEINTERVAL * 0.5,
+        paddingRight: SIDEINTERVAL * 0.5,
+        flexWrap: 'wrap',
         textAlign: 'center',
         backgroundColor: BACKGROUND_COLOR_PRIMARY,
         color: FONT_COLOR_FIFTH,
@@ -496,15 +673,10 @@ class OrderWrite extends Component {
       },
     });
 
-    const { i18n } = this.props;
-
     return (
       <View style={stylesX.container}>
-        <Text
-          style={stylesX.text}
-          onPress={() => this.handleOnPressSubmit()}
-        >
-          银行卡支付 3.000.000 ￥
+        <Text style={stylesX.text} onPress={() => this.handleOnPressSubmit()}>
+          {this.makePayButtonText()}
         </Text>
       </View>
     );
@@ -561,11 +733,24 @@ class OrderWrite extends Component {
       firstPaymentRateArray: rateArray,
       firstPaymentRateIndex: rateIndex,
     } = this.state;
-    const { i18n } = this.props;
+    const {
+      i18n,
+      queryOrderItem: { advance = 0 },
+    } = this.props;
 
-    const rate = rateArray[rateIndex] ? rateArray[rateIndex].key : 1;
-
-    const price = ppp * rate;
+    const rate = rateArray[rateIndex]
+      ? rateArray[rateIndex].key || '0.0'
+      : '0.0';
+    const getPerMonthPrice = month => {
+      const { returnMoneyItems } = this.props;
+      let result = 0;
+      if (returnMoneyItems[`${advance}_${month}_${rate}`]) {
+        result =
+          returnMoneyItems[`${advance}_${month}_${rate}`][0].principal +
+          returnMoneyItems[`${advance}_${month}_${rate}`][0].interest;
+      }
+      return result;
+    };
 
     return (
       <View style={stylesX.repaymentMonth}>
@@ -590,7 +775,7 @@ class OrderWrite extends Component {
                     stylesX.repaymentMonthItemTopActive,
                 ]}
               >
-                {`${val} kỳ`}
+                {`${val} ${i18n.period}`}
               </Text>
               <Text
                 style={[
@@ -599,9 +784,8 @@ class OrderWrite extends Component {
                     stylesX.repaymentMonthItemBottomActive,
                 ]}
               >
-                {`${parseInt(
-                  price / val,
-                  10,
+                {`${getPerMonthPrice(
+                  val,
                 )} ${MONETARY}/${i18n.month.toLowerCase()}`}
               </Text>
             </BYTouchable>
@@ -638,16 +822,24 @@ class OrderWrite extends Component {
       },
     });
 
-    const { payWayIndex, payWayButtons, firstPaymentRateArray } = this.state;
+    const {
+      payWayIndex,
+      payWayButtons,
+      firstPaymentRateArray,
+      isUseFirstPay,
+    } = this.state;
     const {
       // navigation: { navigate },
       i18n,
       openModal,
       queryOrderItem: { advance },
+      cardQueryItem: { status: cardStatus, availableBalance },
       queryOrderLoaded,
+      cardQueryLoaded,
     } = this.props;
 
-    if (!queryOrderLoaded) return <Loader />;
+    if (queryOrderLoaded === false || cardQueryLoaded === false)
+      return <Loader />;
 
     return (
       <View style={stylesX.container}>
@@ -658,12 +850,16 @@ class OrderWrite extends Component {
             isShowRight={false}
           />
           <SeparateBar />
-          <View style={stylesX.funCard}>
-            <Text style={stylesX.funCardTop}>{i18n.funCard}</Text>
-            <Text style={stylesX.funCardBottom}>
-              {`${i18n.availableQuota}: 950.000.000 ${MONETARY}`}
-            </Text>
-          </View>
+          {cardStatus === 3 && (
+            <View style={stylesX.funCard}>
+              <Text style={stylesX.funCardTop}>{i18n.funCard}</Text>
+              <Text style={stylesX.funCardBottom}>
+                {`${i18n.availableQuota}: ${priceFormat(
+                  availableBalance,
+                )} ${MONETARY}`}
+              </Text>
+            </View>
+          )}
           <SeparateBar />
           <NavBar2
             onPress={() =>
@@ -676,35 +872,59 @@ class OrderWrite extends Component {
             valueMiddle={payWayToText(payWayIndex, i18n)}
             isShowBorderBottom
           />
-          <NavBar2
-            onPress={() =>
-              openModal(MODAL_TYPES.ACTIONSHEET, {
-                data: firstPaymentRateArray.map(val => ({
-                  key: val.value === 0 ? i18n.fullPayment : `${val.key * 100}%`,
-                  value: `${val.value} ${MONETARY}`,
-                })),
-                title: i18n.firstPayment,
-                renderItem: this.renderFirstPaymentRateItem,
-                keyExtractor: 'key',
-              })
-            }
-            valueLeft={i18n.installment}
-            valueMiddle={this.makeFirstPaymentText()}
-            // valueMiddle={`3.763.500 ${MONETARY}`}
-            styleMiddle={{ color: FONT_COLOR_PRIMARY }}
-            isShowRight={false}
-          />
-          {this.renderRepaymentMonth()}
-          <NavBar2
-            valueLeft={i18n.monthlyPayment}
-            valueMiddle={`3.763.500 ${MONETARY}`}
-            componentRight={
-              <MaterialCommunityIcons
-                name="alert-circle-outline"
-                style={stylesX.alert}
+          {payWayIndex === CREDIT_PAYWAY && (
+            <View style={{ flex: 1 }}>
+              <NavBar2
+                onPress={() =>
+                  isUseFirstPay &&
+                  openModal(MODAL_TYPES.ACTIONSHEET, {
+                    data: firstPaymentRateArray.map(val => ({
+                      key:
+                        val.value === 0
+                          ? i18n.fullPayment
+                          : `${val.key * 100}%`,
+                      value: `${val.value} ${MONETARY}`,
+                    })),
+                    title: i18n.firstPayment,
+                    renderItem: this.renderFirstPaymentRateItem,
+                    keyExtractor: 'key',
+                  })
+                }
+                valueLeft={i18n.installment}
+                valueMiddle={this.makeFirstPaymentText()}
+                styleMiddle={{ color: FONT_COLOR_PRIMARY }}
+                isShowRight={false}
               />
-            }
-          />
+              {this.renderRepaymentMonth()}
+              <NavBar2
+                onPress={() =>
+                  openModal(MODAL_TYPES.PERMONTHPRICE, {
+                    data: this.getPerMonthPriceArray(),
+                  })
+                }
+                valueLeft={i18n.monthlyPayment}
+                valueMiddle={`${priceFormat(
+                  this.getPerMonthPrice2(),
+                )} ${MONETARY}`}
+                componentRight={
+                  <MaterialCommunityIcons
+                    name="alert-circle-outline"
+                    style={stylesX.alert}
+                  />
+                }
+              />
+              {cardStatus === 3 &&
+                advance > availableBalance && (
+                  <NavBar2
+                    valueLeft={i18n.firstPayment}
+                    valueMiddle={`${priceFormat(
+                      advance - availableBalance,
+                    )} ${MONETARY}`}
+                    isShowRight={false}
+                  />
+                )}
+            </View>
+          )}
         </ScrollView>
         {this.renderBottom()}
       </View>
@@ -728,6 +948,9 @@ export default connectLocalization(
         // address,
         login,
         queryOrder,
+        cardQuery,
+        returnMoney,
+        orderPay,
       } = state;
 
       const {
@@ -746,11 +969,17 @@ export default connectLocalization(
         isAuthUser: !!login.user,
         orderNo,
         tradeNo,
+        returnMoneyItems: returnMoney.items,
         queryOrderItem: queryOrder.item,
+        cardQueryItem: cardQuery.item,
         queryOrderLoaded: queryOrder.loaded,
+        cardQueryLoaded: cardQuery.loaded,
+        orderPayLoading: orderPay.loading,
       };
     },
     {
+      ...orderPayActionCreators,
+      ...returnMoneyActionCreators,
       ...queryOrderActionCreators,
       ...cardQueryActionCreators,
       ...modalActionCreators,

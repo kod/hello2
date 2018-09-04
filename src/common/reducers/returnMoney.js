@@ -5,17 +5,13 @@ const initState = {
   loaded: false,
   refreshing: false,
   items: {},
-  payrateValue: 0.1,
-  repaymentmonthsValue: 3,
-  payrateList: [0.1, 0.2, 0.3, 0.4, 0.5, 1],
-  repaymentmonthsList: [3, 6, 9, 12],
 };
 
 export default function returnMoney(state = initState, action) {
   switch (action.type) {
     case RETURN_MONEY.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case RETURN_MONEY.REQUEST:
       return {

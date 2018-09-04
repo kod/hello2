@@ -51,25 +51,25 @@ const styles = StyleSheet.create({
 });
 
 class OrderWrite extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    // const { i18n } = this.props;
-    // this.state = {
-    //   payWayButtons: [
-    //     {
-    //       key: i18n.onlinePay,
-    //       value: 1, // 在线支付默认为信用卡
-    //     },
-    //     {
-    //       key: i18n.paymentCollectingShop,
-    //       value: 5,
-    //     },
-    //   ],
-    //   payWayIndex: 0,
-    // };
-    this.actionSheetCallback = this.actionSheetCallback.bind(this);
-  }
+  //   const { i18n } = this.props;
+  //   this.state = {
+  //     payWayButtons: [
+  //       {
+  //         key: i18n.onlinePay,
+  //         value: 1, // 在线支付默认为信用卡
+  //       },
+  //       {
+  //         key: i18n.paymentCollectingShop,
+  //         value: 5,
+  //       },
+  //     ],
+  //     payWayIndex: 0,
+  //   };
+  //   this.actionSheetCallback = this.actionSheetCallback.bind(this);
+  // }
 
   componentDidMount() {
     const {
@@ -91,7 +91,7 @@ class OrderWrite extends Component {
         switch (type) {
           case 'orderCreateSuccess':
             resetAction = NavigationActions.reset({
-              index: 1,
+              index: 2,
               actions: [
                 NavigationActions.navigate({ routeName: SCREENS.Index }),
                 NavigationActions.navigate({

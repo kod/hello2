@@ -83,29 +83,43 @@ export const tradeStatusCodes = (code = 10000, i18n) => {
   return codes[code];
 };
 
-export const buttonTextForTradeStatusCodes = (code = 10000, i18n) => {
-  const codes = {
-    10000: i18n.payment, // '交易创建，等待买家付款'
-    10001: i18n.view, // '交易支付成功',
-    10002: i18n.view, // '交易支付失败'
-    10003: i18n.view, // '交易支付等待',
-    10004: i18n.view, // '交易成功,等待审核(新流程)',
-    20000: i18n.view, // '未付款交易超时关闭，或支付完成后全额退款',
-    20001: i18n.view, // '交易结束，不可退款',
-    20002: i18n.view, // '交易拒绝, 全额退款',
-    20003: i18n.view, // '交易支付超时, 订单退回',
-    30000: i18n.view, // '等待发货',
-    30001: i18n.evaluation, // '已收货,未评价',
-    30002: i18n.view, // '已收货,已评价',
-    30003: i18n.view, // '等待拼单',
-    40000: i18n.view, // '交易取消(其他)', // 取消交易理由
-    40001: i18n.view, // '操作有误', // 取消交易理由
-    40002: i18n.view, // '错误下单', // 取消交易理由
-    40003: i18n.view, // '其他渠道价格更低', // 取消交易理由
-    40004: i18n.view, // '分期错误', // 取消交易理由
-    40005: i18n.view, // '不想买了', // 取消交易理由
-  };
-  return codes[code];
+// 不同订单状态下，可以的操作
+export const operateForTradeStatusCodes = (code = 10000, i18n) => {
+  let result = [];
+  switch (~~code) {
+    case 10000:
+      result = [i18n.payment];
+      break;
+
+    case 30001:
+      result = [i18n.evaluation];
+      break;
+
+    case 10001:
+    case 10002:
+    case 10003:
+    case 10004:
+    case 20000:
+    case 20001:
+    case 20002:
+    case 20003:
+    case 30000:
+    case 30002:
+    case 30003:
+    case 40000:
+    case 40001:
+    case 40002:
+    case 40003:
+    case 40004:
+    case 40005:
+      result = [i18n.view];
+      break;
+
+    default:
+      result = [i18n.view];
+      break;
+  }
+  return result;
 };
 
 export const billStatusCodes = (code = 10000, i18n) => {

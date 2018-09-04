@@ -36,7 +36,7 @@ import {
 import priceFormat from '../common/helpers/priceFormat';
 import {
   tradeStatusCodes,
-  buttonTextForTradeStatusCodes,
+  operateForTradeStatusCodes,
 } from '../common/helpers';
 
 const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
@@ -60,6 +60,9 @@ const stylesScrollable = StyleSheet.create({
   },
   totalPrice: {
     paddingLeft: SIDEINTERVAL,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   price: {
     height: 40,
@@ -72,11 +75,14 @@ const stylesScrollable = StyleSheet.create({
   },
   pay: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingLeft: SIDEINTERVAL,
+    // paddingLeft: SIDEINTERVAL,
     paddingRight: SIDEINTERVAL,
-    height: 50,
+    paddingTop: 10,
+    // paddingBottom: 15,
+    // height: 50,
+    flexWrap: 'wrap',
   },
   payButton: {
     height: 25,
@@ -85,6 +91,8 @@ const stylesScrollable = StyleSheet.create({
     color: PRIMARY_COLOR,
     paddingLeft: WINDOW_WIDTH * 0.05,
     paddingRight: WINDOW_WIDTH * 0.05,
+    marginLeft: SIDEINTERVAL,
+    marginBottom: 10,
     borderRadius: 14,
     borderColor: PRIMARY_COLOR,
     borderWidth: 1,
@@ -92,24 +100,24 @@ const stylesScrollable = StyleSheet.create({
 });
 
 class Scrollable extends Component {
-  handleOnPressOperate(val) {
+  handleOnPressOperate(operateText, val) {
     const {
-      // i18n,
+      i18n,
       // itemKey,
       // queryOrderListItem,
       // orderItem: { items },
       navigation: { navigate },
     } = this.props;
 
-    switch (parseInt(val.tradeStatus, 10)) {
-      case 10000:
+    switch (operateText) {
+      case i18n.payment:
         navigate(SCREENS.Pay, {
           tradeNo: val.tradeNo,
           orderNo: val.orderNo,
         });
         break;
 
-      case 30001:
+      case i18n.evaluation:
         navigate(SCREENS.Evalution, {
           tradeNo: val.tradeNo,
           orderNo: val.orderNo,
@@ -118,7 +126,7 @@ class Scrollable extends Component {
         break;
 
       default:
-        navigate(SCREENS.Pay, {
+        navigate(SCREENS.OrderDetail, {
           tradeNo: val.tradeNo,
           orderNo: val.orderNo,
         });
@@ -179,22 +187,26 @@ class Scrollable extends Component {
               onPress={() => this.handleOnPressGoods(val)}
             />
             <View style={stylesScrollable.totalPrice}>
+              <Text style={stylesScrollable.payText}>
+                {tradeStatusCodes(val.tradeStatus, i18n)}
+              </Text>
               <Text style={stylesScrollable.price}>{`${
                 i18n.subtotal
               }: ${priceFormat(val.totalAmount)} ₫`}</Text>
             </View>
             <View style={stylesScrollable.pay}>
-              <Text style={stylesScrollable.payText}>
+              {/* <Text style={stylesScrollable.payText}>
                 {tradeStatusCodes(val.tradeStatus, i18n)}
-              </Text>
-              <Text
-                style={stylesScrollable.payButton}
-                onPress={() => this.handleOnPressOperate(val)}
-              >
-                {buttonTextForTradeStatusCodes(val.tradeStatus, i18n)}
-              </Text>
+              </Text> */}
+              {operateForTradeStatusCodes(val.tradeStatus, i18n).map(val1 => (
+                <Text
+                  style={stylesScrollable.payButton}
+                  onPress={() => this.handleOnPressOperate(val1, val)}
+                >
+                  {val1}
+                </Text>
+              ))}
             </View>
-            <SeparateBar />
             <SeparateBar />
           </View>
         ))}

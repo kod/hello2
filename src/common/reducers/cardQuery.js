@@ -23,7 +23,11 @@ export default function cardQuery(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        item: action.payload.item,
+        item: {
+          ...action.payload.item,
+          // status: 0,
+          // availableBalance: 9000000,
+        },
       };
     case CARD_QUERY.FAILURE:
       return {

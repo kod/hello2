@@ -1,19 +1,18 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { returnMoneyFetchSuccess, returnMoneyFetchFailure } from '../actions/returnMoney';
+import moment from 'moment';
+import {
+  returnMoneyFetchSuccess,
+  returnMoneyFetchFailure,
+} from '../actions/returnMoney';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { RETURN_MONEY } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 export function* returnMoneyFetchWatchHandle(action) {
   try {
-    const {
-      totalamounts,
-      payrate,
-      repaymentmonths,
-    } = action.payload;
+    const { totalamounts, payrate, repaymentmonths } = action.payload;
 
     const Key = 'settleKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
@@ -28,18 +27,18 @@ export function* returnMoneyFetchWatchHandle(action) {
       [
         {
           key: 'totalamounts',
-          value: totalamounts
+          value: totalamounts,
         },
         {
           key: 'repaymentmonths',
-          value: repaymentmonths
+          value: repaymentmonths,
         },
         {
           key: 'payrate',
-          value: payrate
-        }
+          value: payrate,
+        },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.returnMoney, [
@@ -51,19 +50,18 @@ export function* returnMoneyFetchWatchHandle(action) {
         encrypt,
         timestamp,
         version,
-        totalamounts: totalamounts,
-        repaymentmonths: repaymentmonths,
-        payrate: payrate
-      }
+        totalamounts,
+        repaymentmonths,
+        payrate,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(returnMoneyFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(returnMoneyFetchSuccess(response.details));
     }
-
-    yield put(returnMoneyFetchSuccess(response.details));
   } catch (err) {
     yield put(returnMoneyFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
