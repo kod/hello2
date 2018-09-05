@@ -199,15 +199,17 @@ class Scrollable extends Component {
               {/* <Text style={stylesScrollable.payText}>
                 {tradeStatusCodes(val.tradeStatus, i18n)}
               </Text> */}
-              {operateForTradeStatusCodes(val.tradeStatus, i18n).map(val1 => (
-                <Text
-                  style={stylesScrollable.payButton}
-                  onPress={() => this.handleOnPressOperate(val1, val)}
-                  key={val1.tradeNo}
-                >
-                  {val1}
-                </Text>
-              ))}
+              {operateForTradeStatusCodes(val.tradeStatus, i18n).map(
+                (val1, index1) => (
+                  <Text
+                    style={stylesScrollable.payButton}
+                    onPress={() => this.handleOnPressOperate(val1, val)}
+                    key={index1}
+                  >
+                    {val1}
+                  </Text>
+                ),
+              )}
             </View>
             <SeparateBar />
           </View>
