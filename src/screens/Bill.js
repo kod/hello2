@@ -24,9 +24,18 @@ import BYTouchable from '../components/BYTouchable';
 import BYTextInput from '../components/BYTextInput';
 import BYButton from '../components/BYButton';
 import EmptyState from '../components/EmptyState';
+import NavBar2 from '../components/NavBar2';
+import SeparateBar from '../components/SeparateBar';
 import { connectLocalization } from '../components/Localization';
 
-import { RED_COLOR, PRIMARY_COLOR, BORDER_COLOR } from '../styles/variables';
+import {
+  RED_COLOR,
+  PRIMARY_COLOR,
+  BORDER_COLOR,
+  FONT_COLOR_FOURTH,
+  FONT_SIZE_FIRST,
+  FONT_COLOR_THIRD,
+} from '../styles/variables';
 import {
   WINDOW_WIDTH,
   SIDEINTERVAL,
@@ -35,13 +44,14 @@ import {
   SCREENS,
   MODAL_TYPES,
   MINIMUM_PAYMENT_AMOUNT,
+  MONETARY,
 } from '../common/constants';
 
 import * as searchMonthActionCreators from '../common/actions/searchMonth';
 import * as billActionCreators from '../common/actions/bill';
 import * as billByYearActionCreators from '../common/actions/billByYear';
-import * as orderCreateActionCreators from '../common/actions/orderCreate';
-import * as queryGoodsActionCreators from '../common/actions/queryGoods';
+// import * as orderCreateActionCreators from '../common/actions/orderCreate';
+import * as billDetailsActionCreators from '../common/actions/billDetails';
 import * as modalActionCreators from '../common/actions/modal';
 
 const jafsdbufnlPng = require('../images/jafsdbufnl.png');
@@ -50,7 +60,6 @@ const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
     position: 'relative',
   },
   alert: {
@@ -75,7 +84,6 @@ class Bill extends Component {
 
     this.state = {
       isOpenPay: false,
-      isShowGoods: false,
       payWayButtons: [i18n.repaymentRecord],
       totalPrice: '0',
     };
@@ -85,28 +93,37 @@ class Bill extends Component {
   componentDidMount() {
     let { activeMonth } = this.props;
     const {
-      queryGoodsFetch,
+      // queryGoodsFetch,
       billByYearFetch,
       activeYear,
       billMonthFetch,
-      // isAuthUser,
-      // navigation: { navigate },
+      billMonthItem,
+      billDetailsFetch,
+      isAuthUser,
+      navigation: { navigate },
     } = this.props;
-    // if (!isAuthUser) return navigate(SCREENS.Login);
+    if (!isAuthUser) {
+      navigate(SCREENS.Login);
+    } else {
+      // let nowTimeStr = moment().format('YYYY-MM-DD HH:mm:ss');
+      if (activeMonth < 10) activeMonth = `0${activeMonth}`;
+      const billInitDateResult = billInitDate();
+      billMonthFetch(billInitDateResult.month);
+      if (billMonthItem.id) {
+        billDetailsFetch({
+          summaryid: billMonthItem.id,
+        });
+      }
 
-    // let nowTimeStr = moment().format('YYYY-MM-DD HH:mm:ss');
-    if (activeMonth < 10) activeMonth = `0${activeMonth}`;
-    const billInitDateResult = billInitDate();
-    billMonthFetch(billInitDateResult.month);
-    queryGoodsFetch({
-      createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
-    });
+      // queryGoodsFetch({
+      //   createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
+      // });
 
-    billByYearFetch({
-      year: activeYear,
-      init: true,
-    });
-
+      billByYearFetch({
+        year: activeYear,
+        init: true,
+      });
+    }
     this.billPayResult_addListener = DeviceEventEmitter.addListener(
       SCREENS.Bill,
       () => {},
@@ -115,33 +132,40 @@ class Bill extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      orderCreateLoading: prevOrderCreateLoading,
+      // orderCreateLoading: prevOrderCreateLoading,
       activeYear: prevActiveYear,
       activeMonth: prevActiveMonth,
     } = this.props;
     let { activeMonth } = nextProps;
     const {
       activeYear,
-      queryGoodsFetch,
-      orderCreateLoading,
-      openModal,
-      closeModal,
+      // queryGoodsFetch,
+      // orderCreateLoading,
+      // openModal,
+      // closeModal,
+      billMonthItem,
+      billDetailsFetch,
     } = nextProps;
 
     if (prevActiveYear !== activeYear || prevActiveMonth !== activeMonth) {
       if (activeMonth < 10) activeMonth = `0${activeMonth}`;
-      queryGoodsFetch({
-        createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
-      });
+      if (billMonthItem.id) {
+        billDetailsFetch({
+          summaryid: billMonthItem.id,
+        });
+      }
+      // queryGoodsFetch({
+      //   createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
+      // });
     }
 
-    if (orderCreateLoading !== prevOrderCreateLoading) {
-      if (orderCreateLoading === true) {
-        openModal(MODAL_TYPES.LOADER);
-      } else {
-        closeModal();
-      }
-    }
+    // if (orderCreateLoading !== prevOrderCreateLoading) {
+    //   if (orderCreateLoading === true) {
+    //     openModal(MODAL_TYPES.LOADER);
+    //   } else {
+    //     closeModal();
+    //   }
+    // }
   }
 
   componentWillUnmount() {
@@ -441,70 +465,8 @@ class Bill extends Component {
         </Text>
         <BYButton
           text={i18n.payment}
-          styleWrap={{ marginBottom: SIDEINTERVAL * 2 }}
+          styleWrap={{ marginBottom: SIDEINTERVAL }}
           onPress={() => this.handleOnPressPaySubmit()}
-        />
-      </View>
-    );
-  }
-
-  renderGoods() {
-    const stylesX = StyleSheet.create({
-      goods: {
-        paddingLeft: SIDEINTERVAL,
-        paddingRight: SIDEINTERVAL,
-      },
-      item: {
-        marginBottom: 20,
-      },
-      title: {
-        fontSize: 14,
-        color: '#ccc',
-        lineHeight: 14 * 1.618,
-        marginBottom: 5,
-      },
-      bottom: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-      },
-      price: {
-        fontSize: 16,
-        color: '#999',
-      },
-      date: {
-        fontSize: 11,
-        color: '#ccc',
-      },
-      arrow: {
-        backgroundColor: '#f5f5f5',
-        height: 40,
-        lineHeight: 40,
-        textAlign: 'center',
-        marginBottom: 30,
-        color: '#666',
-      },
-    });
-
-    const { queryGoodsItems } = this.props;
-    return (
-      <View style={stylesX.goods}>
-        {queryGoodsItems.map((val, key) => (
-          <View style={stylesX.item} key={key}>
-            <Text style={stylesX.title}>{`${key + 1}. ${val.name}`}</Text>
-            <View style={stylesX.bottom}>
-              <Text style={stylesX.price}>
-                {`${priceFormat(val.totalAmount)} ₫`}
-              </Text>
-              <Text style={stylesX.date}>
-                {moment(val.createTime).format('DD-MM')}
-              </Text>
-            </View>
-          </View>
-        ))}
-        <Ionicons
-          style={stylesX.arrow}
-          name="ios-arrow-up"
-          onPress={() => this.setState({ isShowGoods: false })}
         />
       </View>
     );
@@ -514,17 +476,19 @@ class Bill extends Component {
     const stylesX = StyleSheet.create({
       container: {
         flex: 1,
-        paddingLeft: SIDEINTERVAL * 2,
-        paddingRight: SIDEINTERVAL * 2,
-        paddingTop: SIDEINTERVAL * 2,
-        paddingBottom: SIDEINTERVAL * 2,
       },
       main: {
-        flex: 1,
         backgroundColor: '#fff',
+        marginBottom: 15,
       },
       topOne: {
         paddingTop: 60,
+      },
+      topOneTips: {
+        textAlign: 'center',
+        fontSize: FONT_SIZE_FIRST,
+        color: FONT_COLOR_THIRD,
+        marginBottom: 5,
       },
       price: {
         fontSize: 30,
@@ -540,28 +504,24 @@ class Bill extends Component {
         fontSize: 12,
         color: PRIMARY_COLOR,
         textAlign: 'center',
-        // backgroundColor: '#f00',
-        // borderBottomWidth: 1,
-        // borderBottomColor: PRIMARY_COLOR,
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: SIDEINTERVAL,
         paddingRight: SIDEINTERVAL,
       },
       button: {
-        paddingLeft: SIDEINTERVAL * 2,
-        paddingRight: SIDEINTERVAL * 2,
-        marginBottom: 10,
+        paddingLeft: SIDEINTERVAL,
+        paddingRight: SIDEINTERVAL,
+        marginBottom: 20,
       },
       tips: {
         fontSize: 11,
         color: '#ccc',
         textAlign: 'center',
-        marginBottom: 60,
+        marginBottom: 40,
       },
       bottom: {
-        paddingLeft: SIDEINTERVAL,
-        paddingRight: SIDEINTERVAL,
+        marginBottom: 0,
       },
       bottomText: {
         fontSize: 14,
@@ -593,21 +553,25 @@ class Bill extends Component {
         marginBottom: 25,
       },
       topTwoTextOne: {
-        fontSize: 11,
+        fontSize: 12,
         color: '#ccc',
         marginRight: 5,
       },
       topTwoTextTwo: {
         color: PRIMARY_COLOR,
-        fontSize: 11,
+        fontSize: 12,
+      },
+      cool: {
+        textAlign: 'center',
+        color: FONT_COLOR_FOURTH,
+        marginBottom: 15,
       },
     });
-
-    const { isShowGoods } = this.state;
 
     const {
       i18n,
       billMonthItem,
+      billDetailsItem,
       navigation: { navigate },
     } = this.props;
 
@@ -616,14 +580,19 @@ class Bill extends Component {
         <View style={stylesX.main}>
           {billMonthItem.status !== 10002 && (
             <View style={stylesX.topOne}>
+              <Text style={stylesX.topOneTips}>
+                {`${i18n.remainingReturned}(${MONETARY})`}
+              </Text>
               <Text style={stylesX.price}>
-                {`${priceFormat(billMonthItem.waitingAmount)} ₫`}
+                {`${priceFormat(billMonthItem.waitingAmount)} ${MONETARY}`}
               </Text>
               <View style={stylesX.detailWrap}>
                 <Text
                   style={stylesX.detail}
                   onPress={() =>
-                    navigate(SCREENS.BillDetail, { id: billMonthItem.id })
+                    navigate(SCREENS.BillDetail, {
+                      expireDate: billDetailsItem.expireDate,
+                    })
                   }
                 >
                   {i18n.seeDetails}
@@ -657,7 +626,9 @@ class Bill extends Component {
                 <Text
                   style={stylesX.topTwoTextTwo}
                   onPress={() =>
-                    navigate(SCREENS.BillDetail, { id: billMonthItem.id })
+                    navigate(SCREENS.BillDetail, {
+                      expireDate: billDetailsItem.expireDate,
+                    })
                   }
                 >
                   {i18n.seeDetails}
@@ -665,16 +636,39 @@ class Bill extends Component {
               </View>
             </View>
           )}
-          <View style={stylesX.bottom}>
-            <Text
-              style={stylesX.bottomText}
-              onPress={() => this.setState({ isShowGoods: !isShowGoods })}
-            >
-              {`${i18n.expensesRecord} >`}
-            </Text>
-          </View>
-          {isShowGoods && this.renderGoods()}
+          <SeparateBar />
+          {!!billDetailsItem.expireDate && (
+            <View style={stylesX.bottom}>
+              <NavBar2
+                valueLeft={i18n.principal}
+                valueMiddle={`${priceFormat(billDetailsItem.principal)} ₫`}
+                isShowRight={false}
+              />
+              <NavBar2
+                valueLeft={i18n.interest}
+                valueMiddle={`${priceFormat(
+                  billDetailsItem.interest,
+                )} ${MONETARY}`}
+                isShowRight={false}
+              />
+              <NavBar2
+                valueLeft={i18n.billingDate}
+                valueMiddle={`${moment(billDetailsItem.billData).format(
+                  'DD-MM-YYYY',
+                )}`}
+                isShowRight={false}
+              />
+              <NavBar2
+                valueLeft={i18n.finalRepaymentDate}
+                valueMiddle={`${moment(billDetailsItem.expireDate).format(
+                  'DD-MM-YYYY',
+                )}`}
+                isShowRight={false}
+              />
+            </View>
+          )}
         </View>
+        <Text style={stylesX.cool}>Buyoo provides security</Text>
       </View>
     );
   }
@@ -740,13 +734,12 @@ export default connectLocalization(
         billByYear,
         queryGoods,
         searchMonth,
-        orderCreate,
-        // searchMonth,
+        // orderCreate,
+        billDetails,
       } = state;
       return {
-        orderCreateLoading: orderCreate.loading,
+        // orderCreateLoading: orderCreate.loading,
         billMonthItem: getBillMonthItem(state, props),
-        // billTotalMoney: getBillTotalMoney(state, props),
         searchMonthItem: searchMonth.item,
         searchMonthLoading: searchMonth.loading,
         price: bill.price,
@@ -755,17 +748,17 @@ export default connectLocalization(
         activeMonth: bill.activeMonth,
         isOverdue: billByYear.isOverdue,
         billByYearItems: billByYear.items,
-        // billByYearLoading: billByYear.loading,
         billByYearLoaded: billByYear.loaded,
         queryGoodsItems: queryGoods.items,
         isAuthUser: !!state.login.user,
+        billDetailsItem: billDetails.item,
       };
     },
     {
       ...billActionCreators,
       ...billByYearActionCreators,
-      ...orderCreateActionCreators,
-      ...queryGoodsActionCreators,
+      // ...orderCreateActionCreators,
+      ...billDetailsActionCreators,
       ...searchMonthActionCreators,
       ...modalActionCreators,
     },

@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
 import { connectLocalization } from '../components/Localization';
-// import BYHeader from '../components/BYHeader';
-import CustomIcon from '../components/CustomIcon';
+import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
-import NavBar2 from '../components/NavBar2';
-// import SeparateBar from '../components/SeparateBar';
 
-import { PRIMARY_COLOR } from '../styles/variables';
+import {
+  PRIMARY_COLOR,
+  FONT_SIZE_THIRD,
+  FONT_COLOR_SECOND,
+  FONT_COLOR_FIRST,
+  FONT_SIZE_FIRST,
+  BORDER_COLOR_FIRST,
+  FONT_COLOR_THIRD,
+} from '../styles/variables';
 import {
   WINDOW_WIDTH,
   SIDEINTERVAL,
   STATUSBAR_HEIGHT,
   APPBAR_HEIGHT,
+  SCREENS,
+  MONETARY,
 } from '../common/constants';
 
-import * as billDetailsActionCreators from '../common/actions/billDetails';
-// import * as authActionCreators from '../common/actions/auth';
+import * as searchMonthDetailActionCreators from '../common/actions/searchMonthDetail';
+import Loader from '../components/Loader';
 import priceFormat from '../common/helpers/priceFormat';
 
 const styles = StyleSheet.create({
@@ -54,16 +62,18 @@ const styles = StyleSheet.create({
 class BillDetail extends Component {
   componentDidMount() {
     const {
-      billDetailsFetch,
-      id,
-      // isAuthUser,
-      // navigation: { navigate },
+      searchMonthDetailFetch,
+      isAuthUser,
+      expireDate,
+      navigation: { navigate },
     } = this.props;
-    // if (!isAuthUser) return navigate(SCREENS.Login);
-
-    billDetailsFetch({
-      summaryid: id,
-    });
+    if (!isAuthUser) {
+      navigate(SCREENS.Login);
+    } else {
+      searchMonthDetailFetch({
+        expiredate: expireDate,
+      });
+    }
   }
 
   renderContent() {
@@ -71,136 +81,107 @@ class BillDetail extends Component {
       container: {
         flex: 1,
       },
-      main: {
-        paddingTop: 15,
-        backgroundColor: PRIMARY_COLOR,
-        paddingLeft: SIDEINTERVAL,
-        paddingRight: SIDEINTERVAL,
-      },
-      title: {
-        fontSize: 11,
-        color: '#fff',
-        marginBottom: 5,
-        textAlign: 'center',
-      },
-      price: {
-        fontSize: 30,
-        fontWeight: '700',
-        color: '#fff',
-        marginBottom: 20,
-        textAlign: 'center',
-      },
-      items: {
-        paddingTop: SIDEINTERVAL,
-        paddingBottom: SIDEINTERVAL,
-      },
-      bill: {
+      item: {
         flexDirection: 'row',
-        marginBottom: 25,
+        alignItems: 'center',
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomColor: BORDER_COLOR_FIRST,
+        borderBottomWidth: 1,
       },
-      billItem: {
+      itemLeft: {
+        width: WINDOW_WIDTH * 0.1,
+        color: FONT_COLOR_FIRST,
+        textAlign: 'center',
+      },
+      itemMiddle: {
         flex: 1,
       },
-      billText: {
+      itemMiddleTop: {
+        color: FONT_COLOR_FIRST,
+        flexWrap: 'wrap',
+        marginBottom: 5,
+      },
+      itemMiddleBottom: {
+        flexDirection: 'row',
+      },
+      itemMiddleBottomLeft: {
+        flex: 1,
+        fontSize: FONT_SIZE_THIRD,
+        color: FONT_COLOR_THIRD,
+      },
+      itemMiddleBottomRight: {
+        flex: 1,
+        fontSize: FONT_SIZE_FIRST,
+        color: FONT_COLOR_THIRD,
+        textAlign: 'right',
+        paddingTop: 5,
+      },
+      itemRight: {
+        width: WINDOW_WIDTH * 0.1,
+        color: FONT_COLOR_SECOND,
+        fontSize: FONT_SIZE_THIRD,
         textAlign: 'center',
-        color: '#82bcf9',
       },
     });
 
-    const { i18n, billDetailsItem, activeMonth } = this.props;
+    const {
+      loaded,
+      items,
+      navigation: { navigate },
+    } = this.props;
+
+    if (loaded === false) return <Loader />;
 
     return (
-      <View style={stylesX.container}>
-        <View style={stylesX.main}>
-          <Text style={stylesX.title}>{`${i18n.month} ${activeMonth}`}</Text>
-          <Text style={stylesX.price}>
-            {`${priceFormat(
-              parseInt(billDetailsItem.amountBill + billDetailsItem.fee, 10),
-            )} ₫`}
-          </Text>
-          <View style={stylesX.bill}>
-            <View style={stylesX.billItem}>
-              <Text style={stylesX.billText}>
-                {`${priceFormat(billDetailsItem.monthBill)}`}
-              </Text>
-              <Text style={stylesX.billText}>{i18n.currentBill}</Text>
-            </View>
-            <View style={stylesX.billItem}>
-              <Text style={stylesX.billText}>
-                {priceFormat(billDetailsItem.historicalBill)}
-              </Text>
-              <Text style={stylesX.billText}>{i18n.pastBill}</Text>
-            </View>
-          </View>
+      <ScrollView>
+        <View style={stylesX.container}>
+          {items.map((val, index) => (
+            <BYTouchable
+              style={stylesX.item}
+              key={val.billId}
+              onPress={() =>
+                navigate(SCREENS.StagingDetails, {
+                  orderno: val.orderNo,
+                  tradeno: val.tradeNo,
+                  productName: val.productName,
+                  createDate: val.createDate,
+                })
+              }
+            >
+              <Text style={stylesX.itemLeft}>{index + 1}</Text>
+              <View style={stylesX.itemMiddle}>
+                <Text style={stylesX.itemMiddleTop} numberOfLines={2}>
+                  {`[${val.currPeriod}/${val.totalPeriod}] ${val.productName}`}
+                </Text>
+                <View style={stylesX.itemMiddleBottom}>
+                  <Text style={stylesX.itemMiddleBottomLeft}>
+                    {`${priceFormat(val.amount)} ${MONETARY}`}
+                  </Text>
+                  <Text style={stylesX.itemMiddleBottomRight}>
+                    {moment(val.createDate).format('DD-MM-YYYY')}
+                  </Text>
+                </View>
+              </View>
+              <Ionicons style={stylesX.itemRight} name="ios-arrow-forward" />
+            </BYTouchable>
+          ))}
         </View>
-        <View style={stylesX.items}>
-          <NavBar2
-            valueLeft={i18n.principal}
-            valueMiddle={`${priceFormat(billDetailsItem.principal)} ₫`}
-            styleLeft={{ color: '#999' }}
-            styleMiddle={{ color: '#666' }}
-            isShowRight={false}
-            backgroundColor="transparent"
-          />
-          <NavBar2
-            valueLeft={i18n.interest}
-            valueMiddle={`${priceFormat(billDetailsItem.interest)} ₫`}
-            styleLeft={{ color: '#999' }}
-            styleMiddle={{ color: '#666' }}
-            isShowRight={false}
-            backgroundColor="transparent"
-          />
-          <NavBar2
-            valueLeft={'逾期费用'}
-            valueMiddle={`${priceFormat(billDetailsItem.fee)} ₫`}
-            styleLeft={{ color: '#999' }}
-            styleMiddle={{ color: '#666' }}
-            isShowRight={false}
-            backgroundColor="transparent"
-          />
-          <NavBar2
-            valueLeft={i18n.billingDate}
-            valueMiddle={`${moment(billDetailsItem.billData).format(
-              'DD-MM-YYYY',
-            )}`}
-            styleLeft={{ color: '#999' }}
-            styleMiddle={{ color: '#666' }}
-            isShowRight={false}
-            backgroundColor="transparent"
-          />
-          <NavBar2
-            valueLeft={i18n.finalRepaymentDate}
-            valueMiddle={`${moment(billDetailsItem.expireDate).format(
-              'DD-MM-YYYY',
-            )}`}
-            styleLeft={{ color: '#999' }}
-            styleMiddle={{ color: '#666' }}
-            isShowRight={false}
-            backgroundColor="transparent"
-          />
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 
   render() {
     const {
-      navigation: { goBack },
-      // i18n,
-      billDetailsItem,
+      // navigation: { goBack },
+      i18n,
+      // billDetailsItem,
     } = this.props;
 
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <BYTouchable onPress={() => goBack()}>
-            <CustomIcon name="back" style={styles.headerBack} />
-          </BYTouchable>
-          <Text style={styles.title} />
-        </View>
-        <ScrollView>
-          {!!billDetailsItem.amountBill && this.renderContent()}
-        </ScrollView>
+        <BYHeader title={i18n.billingDetails} />
+        {this.renderContent()}
       </View>
     );
   }
@@ -209,17 +190,17 @@ class BillDetail extends Component {
 export default connectLocalization(
   connect(
     () => (state, props) => {
-      const { billDetails, bill } = state;
+      const { searchMonthDetail, login } = state;
       const { navigation } = props;
       return {
-        isAuthUser: !!state.login.user,
-        id: navigation.state.params.id,
-        billDetailsItem: billDetails.item,
-        activeMonth: bill.activeMonth,
+        isAuthUser: !!login.user,
+        expireDate: navigation.state.params.expireDate,
+        items: searchMonthDetail.items,
+        loaded: searchMonthDetail.loaded,
       };
     },
     {
-      ...billDetailsActionCreators,
+      ...searchMonthDetailActionCreators,
     },
   )(BillDetail),
 );

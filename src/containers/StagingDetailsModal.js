@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   RED_COLOR,
   BORDER_COLOR_FIRST,
@@ -13,7 +14,7 @@ import {
   FONT_COLOR_FIRST,
 } from '../styles/variables';
 import { WINDOW_HEIGHT, MONETARY } from '../common/constants';
-import BYTouchable from '../components/BYTouchable';
+import { billStatusCodes } from '../common/helpers';
 import NavBar2 from '../components/NavBar2';
 import { connectLocalization } from '../components/Localization';
 import priceFormat from '../common/helpers/priceFormat';
@@ -64,8 +65,11 @@ const styles = StyleSheet.create({
 
 class PerMonthPriceModal extends Component {
   static propTypes = {
-    // callback: PropTypes.func.isRequired,
-    // data: PropTypes.array.isRequired,
+    periods: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired,
+    interest: PropTypes.number.isRequired,
+    principal: PropTypes.number.isRequired,
+    expireDate: PropTypes.string.isRequired,
   };
 
   componentDidMount() {}
@@ -84,32 +88,37 @@ class PerMonthPriceModal extends Component {
   }
 
   renderContent() {
-    const { i18n } = this.props;
-    // const { data } = this.props;
+    const {
+      i18n,
+      periods,
+      status,
+      interest,
+      principal,
+      expireDate,
+    } = this.props;
 
     return (
       <View style={styles.container}>
         <ScrollView style={styles.main}>
-          <Text style={styles.row1}>1/6期(已还)</Text>
-          <Text style={styles.row2}>690.000 d</Text>
+          <Text style={styles.row1}>
+            {`${periods} ${i18n.period}(${billStatusCodes(status, i18n)})`}
+          </Text>
+          <Text style={styles.row2}>
+            {`${priceFormat(interest + principal)} ${MONETARY}`}
+          </Text>
           <NavBar2
-            valueLeft={i18n.totalMoney}
-            valueMiddle={`111`}
+            valueLeft={i18n.principal}
+            valueMiddle={`${priceFormat(principal)} ${MONETARY}`}
             isShowRight={false}
           />
           <NavBar2
-            valueLeft={i18n.totalMoney}
-            valueMiddle={`111`}
+            valueLeft={i18n.interest}
+            valueMiddle={`${priceFormat(interest)} ${MONETARY}`}
             isShowRight={false}
           />
           <NavBar2
-            valueLeft={i18n.totalMoney}
-            valueMiddle={`111`}
-            isShowRight={false}
-          />
-          <NavBar2
-            valueLeft={i18n.totalMoney}
-            valueMiddle={`111`}
+            valueLeft={i18n.finalRepaymentDate}
+            valueMiddle={`${moment(expireDate).format('DD-MM-YYYY')}`}
             isShowRight={false}
           />
         </ScrollView>
@@ -143,9 +152,15 @@ class PerMonthPriceModal extends Component {
 export default connectLocalization(
   connect(
     (state, props) => {
-      const { data = [] } = props;
+      const { periods, status, interest, principal, expireDate } = props;
 
-      return { data };
+      return {
+        periods,
+        status,
+        interest,
+        principal,
+        expireDate,
+      };
     },
     {
       ...modalActionCreators,

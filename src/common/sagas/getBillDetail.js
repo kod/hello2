@@ -14,7 +14,7 @@ import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import { getAuthUserFunid } from '../selectors';
 
 export function* getBillDetailFetchWatchHandle(action) {
-  const { expiredate } = action.payload;
+  const { tradeno, orderno } = action.payload;
   try {
     const funid = yield select(getAuthUserFunid);
 
@@ -34,8 +34,12 @@ export function* getBillDetailFetchWatchHandle(action) {
           value: funid,
         },
         {
-          key: 'expiredate',
-          value: expiredate,
+          key: 'tradeno',
+          value: tradeno,
+        },
+        {
+          key: 'orderno',
+          value: orderno,
         },
       ],
       Key,
@@ -51,7 +55,8 @@ export function* getBillDetailFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        expiredate,
+        tradeno,
+        orderno,
       },
     ];
 
@@ -70,8 +75,6 @@ export function* getBillDetailFetchWatchHandle(action) {
       );
     }
   } catch (err) {
-    console.log('errerrerrerrerrerrerrerrerr');
-    console.log(err);
     yield put(getBillDetailFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
