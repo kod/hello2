@@ -12,7 +12,7 @@ import { NavigationActions } from 'react-navigation';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 // import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import { SCREENS, SIDEINTERVAL } from '../common/constants';
+import { SCREENS, SIDEINTERVAL, MONETARY } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 // import { createOrderno } from '../common/helpers';
 
@@ -371,7 +371,9 @@ class OrderWrite extends Component {
     return (
       <View style={stylesX.nav}>
         <View style={stylesX.navLeft}>
-          <Text style={stylesX.navLeftBottom}>{this.calcMoney()} ₫</Text>
+          <Text style={stylesX.navLeftBottom}>
+            {`${this.calcMoney()} ${MONETARY}`}
+          </Text>
         </View>
         <Text
           style={stylesX.navRight}

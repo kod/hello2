@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
-import { WINDOW_WIDTH, OSS_IMAGE_QUALITY } from '../common/constants';
+import { WINDOW_WIDTH, OSS_IMAGE_QUALITY, MONETARY } from '../common/constants';
 
 const width = WINDOW_WIDTH;
 const width3_interval = width * 0.03 * 4;
@@ -19,8 +19,8 @@ export default ({ data }) => {
               </View>
               <View style={{ flex: 2 }}>
                 <Text style={{ color: '#333', marginBottom: 60 }}>{ val.name }</Text>
-                <Text style={{ color: '#aaa' }}>{ val.minprice } ₫起</Text>
-                <Text style={{ color: '#4f9ff1', marginBottom: 15 }}>月供: { (val.minprice/2/12).toFixed(0) } ₫起</Text>
+                <Text style={{ color: '#aaa' }}>{`${val.minprice} ${MONETARY}起`}</Text>
+                <Text style={{ color: '#4f9ff1', marginBottom: 15 }}>{`月供: ${(val.minprice/2/12).toFixed(0)} ${MONETARY}起`}</Text>
               </View>
             </View>
           );

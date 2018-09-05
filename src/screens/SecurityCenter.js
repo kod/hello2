@@ -66,7 +66,6 @@ class SecurityCenter extends Component {
         <NavBar2
           onPress={() => navigate(SCREENS.TransactionPasswordStepOne)}
           valueLeft={i18n.cardPassword}
-          // valueMiddle={'884.000 ₫'}
           styleLeft={{ color: '#666' }}
           // styleMiddle={{ color: '#666' }}
           // isShowRight={false}
@@ -75,7 +74,6 @@ class SecurityCenter extends Component {
         <NavBar2
           onPress={() => navigate(SCREENS.ForgotPasswordOne)}
           valueLeft={i18n.loginPassword}
-          // valueMiddle={'884.000 ₫'}
           styleLeft={{ color: '#666' }}
           // styleMiddle={{ color: '#666' }}
           // isShowRight={false}

@@ -24,6 +24,7 @@ import {
   SCREENS,
   SIDEINTERVAL,
   MODAL_TYPES,
+  MONETARY,
   // STATUSBAR_HEIGHT,
 } from '../common/constants';
 
@@ -344,10 +345,10 @@ class ProductDetail extends Component {
           <View style={styles.operate}>
             <View style={styles.operateGroupLeft}>
               <Text style={styles.operateGroupLeftOldPrice}>
-                Price before: {priceFormat(price || 0)} ₫
+                Price before: {`${priceFormat(price || 0)} ${MONETARY}`}
               </Text>
               <Text style={styles.operateGroupLeftPrice}>
-                {priceFormat(mergePrice || 0)} ₫
+                {`${priceFormat(mergePrice || 0)} ${MONETARY}`}
               </Text>
             </View>
             <Text

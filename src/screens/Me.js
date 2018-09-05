@@ -176,32 +176,6 @@ class Me extends Component {
     }
   }
 
-  // renderHeaderBottom() {
-  //   // const { authUser } = this.props;
-
-  //   const list = [
-  //     {
-  //       price: '6,205,000',
-  //       text: 'April stay also(₫)',
-  //     },
-  //     {
-  //       price: '7,205,000',
-  //       text: 'May stay also(₫)',
-  //     },
-  //   ];
-
-  //   return (
-  //     <View style={styles.headerBottom}>
-  //       {list.map((val, key) => (
-  //         <View style={styles.headerItem} key={key}>
-  //           <Text style={styles.headerItemPrice}>{val.price}</Text>
-  //           <Text style={styles.headerItemText}>{val.text}</Text>
-  //         </View>
-  //       ))}
-  //     </View>
-  //   );
-  // }
-
   renderNav1() {
     const {
       screenProps: { i18n },

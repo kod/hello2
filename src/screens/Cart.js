@@ -11,6 +11,7 @@ import {
   SCREENS,
   SIDEINTERVAL,
   APPBAR_HEIGHT,
+  MONETARY,
 } from '../common/constants';
 import { getCartTotalMoney } from '../common/selectors';
 import * as cartActionCreators from '../common/actions/cart';
@@ -334,7 +335,7 @@ class Cart extends Component {
               <Text style={styles.overviewSelect}>{i18n.selectAll}</Text>
             </BYTouchable>
             <Text style={styles.overviewPrice}>
-              {!isEdit && `${priceFormat(totalMoney)} ₫`}
+              {!isEdit && `${priceFormat(totalMoney)} ${MONETARY}`}
             </Text>
             <BYTouchable
               style={styles.overviewSubmit}

@@ -32,6 +32,7 @@ import {
   STATUSBAR_HEIGHT,
   SCREENS,
   OSS_IMAGE_QUALITY,
+  MONETARY,
 } from '../common/constants';
 
 import { makegetIsCollection } from '../common/selectors';
@@ -931,7 +932,7 @@ class ProductDetail extends Component {
 
           <View style={styles.product}>
             <Text style={styles.productTitle}>{name}</Text>
-            <Text style={styles.productPrice}>{priceFormat(price || 0)} ₫</Text>
+            <Text style={styles.productPrice}>{`${priceFormat(price || 0)} ${MONETARY}`}</Text>
             <View style={styles.serverinfo}>
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" />
               <Text style={styles.serverinfoToBePaidText}>

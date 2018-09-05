@@ -26,6 +26,7 @@ import {
   SIDEINTERVAL,
   MODAL_TYPES,
   SCREENS,
+  MONETARY,
 } from '../common/constants';
 
 import { getAddressSelectedItem } from '../common/selectors';
@@ -507,7 +508,9 @@ class OrderDetail extends Component {
       <View style={stylesX.nav}>
         <View style={stylesX.navLeft}>
           <Text style={stylesX.navLeftTop}>{i18n.subtotal}</Text>
-          <Text style={stylesX.navLeftBottom}>{priceFormat(advance)} ₫</Text>
+          <Text style={stylesX.navLeftBottom}>{`${priceFormat(
+            advance,
+          )} ${MONETARY}`}</Text>
         </View>
         {tradeStatus === '10000' && (
           <Text
@@ -707,7 +710,7 @@ class OrderDetail extends Component {
             isPress={sourceOrderType !== 3}
           />
           <Text style={styles.totalPrice}>
-            {priceFormat(advance + couponValue)} ₫
+            {`${priceFormat(advance + couponValue)} ${MONETARY}`}
           </Text>
           <SeparateBar />
           {tradeStatus !== '10000' && (

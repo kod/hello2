@@ -1,4 +1,5 @@
 import { GET_PHONE_RECHARGE } from '../constants/actionTypes';
+import { MONETARY } from '../constants';
 
 const initState = {
   loading: false,
@@ -6,17 +7,17 @@ const initState = {
   refreshing: false,
   items: [
     {
-      text: '10,000 ₫',
+      text: `10,000 ${MONETARY}`,
       price: 10000,
       orgPrice: 10000,
     },
     {
-      text: '20,000 ₫',
+      text: `20,000 ${MONETARY}`,
       price: 20000,
       orgPrice: 20000,
     },
     {
-      text: '30,000 ₫',
+      text: `30,000 ${MONETARY}`,
       price: 30000,
       orgPrice: 30000,
     },

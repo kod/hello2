@@ -10,6 +10,7 @@ import {
   SCREENS,
   CARMAXNUMBER,
   OSS_IMAGE_QUALITY,
+  MONETARY,
 } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import BYTouchable from './BYTouchable';
@@ -298,11 +299,13 @@ class CartItem extends Component {
                   {products[val].subject}
                 </Text>
                 {/* <Text style={styles.itemPrice}>
-                  {`${priceFormat(details[products[val].detail].price)} ₫`}
+                  {`${priceFormat(details[products[val].detail].price)} ${MONETARY}`}
                 </Text> */}
                 <View style={styles.itemRightRow3}>
                   <Text style={styles.itemRightRow3Price}>
-                    {`${priceFormat(details[products[val].detail].price)} ₫`}
+                    {`${priceFormat(
+                      details[products[val].detail].price,
+                    )} ${MONETARY}`}
                   </Text>
                   {/* <Text style={styles.itemRightRow3Number}>
                     x12 {i18n.month}

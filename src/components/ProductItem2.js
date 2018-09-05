@@ -6,7 +6,12 @@ import priceFormat from '../common/helpers/priceFormat';
 import BYTouchable from './BYTouchable';
 
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
-import { SIDEINTERVAL, SCREENS, OSS_IMAGE_QUALITY } from '../common/constants';
+import {
+  SIDEINTERVAL,
+  SCREENS,
+  OSS_IMAGE_QUALITY,
+  MONETARY,
+} from '../common/constants';
 
 import { connectLocalization } from './Localization';
 import * as cartActionCreators from '../common/actions/cart';
@@ -134,11 +139,11 @@ class ProductItem2 extends Component {
                   {val.name}
                 </Text>
                 {/* <Text style={styles.itemPrice}>
-                  {`${priceFormat(val.price)} ₫`}
+                  {`${priceFormat(val.price)} ${MONETARY}`}
                 </Text> */}
                 <View style={styles.itemRightRow3}>
                   <Text style={[styles.itemRightRow3Price, stylePricePrice]}>
-                    {`${priceFormat(val.price)} ₫`}
+                    {`${priceFormat(val.price)} ${MONETARY}`}
                   </Text>
                   {/* <Text
                     style={[styles.itemRightRow3Periods, stylePricePeriods]}

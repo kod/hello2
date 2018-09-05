@@ -17,6 +17,7 @@ import {
   APPBAR_HEIGHT,
   STATUSBAR_HEIGHT,
   MODAL_TYPES,
+  MONETARY,
 } from '../common/constants';
 
 import { RED_COLOR } from '../styles/variables';
@@ -489,11 +490,11 @@ class PrepaidRecharge extends Component {
           <View style={styles.priceMain}>
             <Text style={styles.priceRed}>{`${priceFormat(
               items[buttonIndex].price,
-            )} ₫`}</Text>
+            )} ${MONETARY}`}</Text>
             {items[buttonIndex].price - items[buttonIndex].orgPrice !== 0 && (
               <Text style={styles.priceGrey}>{`${i18n.reduction} ${priceFormat(
                 items[buttonIndex].orgPrice - items[buttonIndex].price,
-              )} ₫`}</Text>
+              )} ${MONETARY}`}</Text>
             )}
           </View>
         </View>

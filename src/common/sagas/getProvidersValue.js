@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
-import { SCREENS } from '../constants';
+import { SCREENS, MONETARY } from '../constants';
 import { getProvidersValueFetchSuccess, getProvidersValueFetchFailure } from '../actions/getProvidersValue';
 import { prepaidFetch } from '../actions/prepaid';
 import { addError } from '../actions/error';
@@ -75,7 +75,7 @@ export function* getProvidersValueFetchWatchHandle(action) {
         ...response.result,
         providerName: PROVIDER_TYPE_MAP[providerType],
         items: response.result.productInfos.map((val, key) => {
-          val.text = `${priceFormat(val.price)} ₫`;
+          val.text = `${priceFormat(val.price)} ${MONETARY}`;
           return val;
         }),
       })

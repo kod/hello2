@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import BYTouchable from './BYTouchable';
 
-import { WINDOW_WIDTH, SIDEINTERVAL } from '../common/constants';
+import { WINDOW_WIDTH, SIDEINTERVAL, MONETARY } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 
 import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
@@ -114,7 +114,7 @@ class CouponItem extends Component {
                 <View style={styles.bottom}>
                   <View style={styles.left}>
                     <Text style={styles.price}>
-                      {priceFormat(val.voucherValue)} ₫
+                      {`${priceFormat(val.voucherValue)} ${MONETARY}`}
                     </Text>
                     <Text style={styles.text1}>{val.voucherName}</Text>
                     <Text style={styles.text2}>{val.voucherDesc}</Text>

@@ -461,7 +461,7 @@ class Bill extends Component {
           </View>
         </View>
         <Text style={stylesX.tips}>
-          {`${i18n.havenPaidAmount}: ${priceFormat(totalPrice)} ₫`}
+          {`${i18n.havenPaidAmount}: ${priceFormat(totalPrice)} ${MONETARY}`}
         </Text>
         <BYButton
           text={i18n.payment}
@@ -621,7 +621,7 @@ class Bill extends Component {
                 <Text style={stylesX.topTwoTextOne}>
                   {`${i18n.hasAlso} ${priceFormat(
                     billMonthItem.waitingAmount,
-                  )} ₫`}
+                  )} ${MONETARY}`}
                 </Text>
                 <Text
                   style={stylesX.topTwoTextTwo}
@@ -641,7 +641,9 @@ class Bill extends Component {
             <View style={stylesX.bottom}>
               <NavBar2
                 valueLeft={i18n.principal}
-                valueMiddle={`${priceFormat(billDetailsItem.principal)} ₫`}
+                valueMiddle={`${priceFormat(
+                  billDetailsItem.principal,
+                )} ${MONETARY}`}
                 isShowRight={false}
               />
               <NavBar2

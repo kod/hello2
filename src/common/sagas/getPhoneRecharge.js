@@ -13,6 +13,7 @@ import { GET_PHONE_RECHARGE } from '../constants/actionTypes';
 import priceFormat from '../helpers/priceFormat';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import i18n from '../helpers/i18n';
+import { MONETARY } from '../constants';
 
 export function* getPhoneRechargeFetchWatchHandle(action) {
   try {
@@ -88,7 +89,7 @@ export function* getPhoneRechargeFetchWatchHandle(action) {
         getPhoneRechargeFetchSuccess({
           ...response.result,
           items: response.result.productInfos.map(val => {
-            val.text = `${priceFormat(val.price)} ₫`;
+            val.text = `${priceFormat(val.price)} ${MONETARY}`;
             return val;
           }),
         }),

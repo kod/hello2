@@ -18,6 +18,7 @@ import {
   STATUSBAR_HEIGHT,
   PROVIDER_TYPE_MAP,
   MODAL_TYPES,
+  MONETARY,
 } from '../common/constants';
 
 import * as get3GProvidersCardActionCreators from '../common/actions/get3GProvidersCard';
@@ -307,7 +308,9 @@ class PrepaidPhoneCard extends Component {
           <View style={styles.priceMain}>
             <Text style={styles.priceRed}>
               {`${ProvidersValueItems[priceIndex] &&
-                priceFormat(ProvidersValueItems[priceIndex].price * number)} ₫`}
+                priceFormat(
+                  ProvidersValueItems[priceIndex].price * number,
+                )} ${MONETARY}`}
             </Text>
             {ProvidersValueItems[priceIndex] &&
               ProvidersValueItems[priceIndex].price -
@@ -317,7 +320,7 @@ class PrepaidPhoneCard extends Component {
                   {`${i18n.reduction} ${priceFormat(
                     ProvidersValueItems[priceIndex].orgPrice * number -
                       ProvidersValueItems[priceIndex].price * number,
-                  )} ₫`}
+                  )} ${MONETARY}`}
                 </Text>
               )}
           </View>

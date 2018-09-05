@@ -8,7 +8,7 @@ import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
 import priceFormat from '../common/helpers/priceFormat';
 import { payWayToText } from '../common/helpers';
-import { SIDEINTERVAL } from '../common/constants';
+import { SIDEINTERVAL, MONETARY } from '../common/constants';
 import { BORDER_COLOR } from '../styles/variables';
 import * as repaymentRecordActionCreators from '../common/actions/repaymentRecord';
 
@@ -108,7 +108,9 @@ class RepaymentRecord extends Component {
             </View>
             <View style={styles.cell}>
               <Text style={styles.textLeft}>{i18n.sum}</Text>
-              <Text style={styles.textRight}>{priceFormat(val.amount)} ₫</Text>
+              <Text style={styles.textRight}>
+                {`${priceFormat(val.amount)} ${MONETARY}`}
+              </Text>
             </View>
             <View style={styles.cell}>
               <Text style={styles.textLeft}>{i18n.date}</Text>
@@ -124,50 +126,6 @@ class RepaymentRecord extends Component {
             </View>
           </View>
         ))}
-        {/* <View style={styles.item}>
-          <View style={styles.number}>
-            <Text style={styles.textLeft}>number</Text>
-            <Text style={styles.textRight}>C0316011200001560047</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text style={styles.textLeft}>sum</Text>
-            <Text style={styles.textRight}>8.000.500 ₫</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text style={styles.textLeft}>date</Text>
-            <Text style={styles.textRight}>2018.04.25</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text style={styles.textLeft}>bank</Text>
-            <Text style={styles.textRight}>visa</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text style={styles.textLeft}>way</Text>
-            <Text style={styles.textRight}>bank</Text>
-          </View>
-        </View>
-        <View style={styles.item}>
-          <View style={styles.number}>
-            <Text style={styles.textLeft}>number</Text>
-            <Text style={styles.textRight}>C0316011200001560047</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text style={styles.textLeft}>sum</Text>
-            <Text style={styles.textRight}>8.000.500 ₫</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text style={styles.textLeft}>date</Text>
-            <Text style={styles.textRight}>2018.04.25</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text style={styles.textLeft}>bank</Text>
-            <Text style={styles.textRight}>visa</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text style={styles.textLeft}>way</Text>
-            <Text style={styles.textRight}>bank</Text>
-          </View>
-        </View> */}
       </View>
     );
   }

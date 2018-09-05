@@ -19,6 +19,7 @@ import {
   SIDEINTERVAL,
   // APPBAR_HEIGHT,
   WINDOW_WIDTH,
+  MONETARY,
 } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
@@ -266,7 +267,9 @@ class Card extends Component {
           <View style={stylesX.cardMain}>
             <Text style={stylesX.logoText}>{i18n.funCard}</Text>
             <Text style={stylesX.title}>{i18n.availableQuota}</Text>
-            <Text style={stylesX.price}>{priceFormat(availableBalance)} ₫</Text>
+            <Text style={stylesX.price}>{`${priceFormat(
+              availableBalance,
+            )} ${MONETARY}`}</Text>
             <View style={stylesX.info}>
               <Text style={stylesX.cardId}>
                 {priceFormat(cardCode, ' ', 4)}

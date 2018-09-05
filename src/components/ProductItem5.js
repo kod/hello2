@@ -10,6 +10,7 @@ import {
   SIDEINTERVAL,
   SCREENS,
   OSS_IMAGE_QUALITY,
+  MONETARY,
 } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 
@@ -106,11 +107,11 @@ class ProductItem5 extends Component {
             </Text>
             {/* {!!val.orgPrice && (
               <Text style={styles.itemOrgPrice}>
-                {`${priceFormat(val.orgPrice)} ₫`}
+                {`${priceFormat(val.orgPrice)} ${MONETARY}`}
               </Text>
             )} */}
             <Text style={styles.itemPrice}>
-              {`${priceFormat(val.price)} ₫`}
+              {`${priceFormat(val.price)} ${MONETARY}`}
             </Text>
           </BYTouchable>
         ))}

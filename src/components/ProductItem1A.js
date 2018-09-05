@@ -11,7 +11,13 @@ import { withNavigation } from 'react-navigation';
 import Loader from './Loader';
 import BYTouchable from './BYTouchable';
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, SIDEINTERVAL, SCREENS, OSS_IMAGE_QUALITY } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  SCREENS,
+  OSS_IMAGE_QUALITY,
+  MONETARY,
+} from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 
 const itemIntervalWidth = SIDEINTERVAL;
@@ -82,17 +88,23 @@ class ProductItem1 extends Component {
       >
         <Image
           style={styles.itemImg}
-          source={{ uri: `${item.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }}
+          source={{
+            uri: `${
+              item.imageUrl
+            }?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
+          }}
         />
         <Text numberOfLines={2} style={styles.itemText}>
           {item.name}
         </Text>
         {!!item.orgPrice && (
           <Text style={styles.itemOrgPrice}>
-            {`${priceFormat(item.orgPrice)} ₫`}
+            {`${priceFormat(item.orgPrice)} ${MONETARY}`}
           </Text>
         )}
-        <Text style={styles.itemPrice}>{`${priceFormat(item.price)} ₫`}</Text>
+        <Text style={styles.itemPrice}>{`${priceFormat(
+          item.price,
+        )} ${MONETARY}`}</Text>
       </BYTouchable>
     );
   };

@@ -32,6 +32,7 @@ import {
   // APPBAR_HEIGHT,
   // STATUSBAR_HEIGHT,
   SCREENS,
+  MONETARY,
 } from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 import {
@@ -192,7 +193,7 @@ class Scrollable extends Component {
               </Text>
               <Text style={stylesScrollable.price}>{`${
                 i18n.subtotal
-              }: ${priceFormat(val.totalAmount)} ₫`}</Text>
+              }: ${priceFormat(val.totalAmount)} ${MONETARY}`}</Text>
             </View>
             <View style={stylesScrollable.pay}>
               {/* <Text style={stylesScrollable.payText}>

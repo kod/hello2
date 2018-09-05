@@ -25,6 +25,7 @@ import {
   STATUSBAR_HEIGHT,
   SCREENS,
   MODAL_TYPES,
+  MONETARY,
 } from '../common/constants';
 
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
@@ -206,7 +207,9 @@ class ProductDetail extends Component {
 
           <View style={styles.product}>
             <Text style={styles.productTitle}>{name}</Text>
-            <Text style={styles.productPrice}>{priceFormat(price || 0)} ₫</Text>
+            <Text style={styles.productPrice}>
+              {`${priceFormat(price || 0)} ${MONETARY}`}
+            </Text>
             <View style={styles.serverinfo}>
               <CustomIcon style={styles.serverinfoToBePaid} name="returns" />
               <Text style={styles.serverinfoToBePaidText}>

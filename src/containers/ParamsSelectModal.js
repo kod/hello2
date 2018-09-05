@@ -25,6 +25,7 @@ import {
   WINDOW_WIDTH,
   // SCREENS,
   SIDEINTERVAL,
+  MONETARY,
 } from '../common/constants';
 
 import * as modalActionCreators from '../common/actions/modal';
@@ -291,7 +292,9 @@ class ParamsSelectModal extends Component {
             />
           )}
           <View style={styles.paramInfoLeft}>
-            <Text style={styles.paramPrice}>{priceFormat(price)} ₫</Text>
+            <Text style={styles.paramPrice}>{`${priceFormat(
+              price,
+            )} ${MONETARY}`}</Text>
             <Text style={styles.paramHave}>
               {i18n.warehouse}: {numbers > 0 ? i18n.inStock : i18n.soldOut}
             </Text>

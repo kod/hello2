@@ -8,6 +8,7 @@ import {
   SIDEINTERVAL,
   APPBAR_HEIGHT,
   STATUSBAR_HEIGHT,
+  MONETARY,
 } from '../common/constants';
 
 import priceFormat from '../common/helpers/priceFormat';
@@ -205,7 +206,7 @@ class AddressAddModal extends Component {
                       ]}
                     >
                       {val.id
-                        ? `${priceFormat(val.waitingAmount)} ₫`
+                        ? `${priceFormat(val.waitingAmount)} ${MONETARY}`
                         : i18n.noBill}
                     </Text>
                   </View>
