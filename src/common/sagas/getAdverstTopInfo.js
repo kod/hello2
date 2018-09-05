@@ -59,8 +59,7 @@ export function* getAdverstTopInfoFetchWatchHandle() {
         currentpage,
       },
     ]);
-    console.log('responseresponseresponseresponse');
-    console.log(response);
+
     if (response.code !== 10000) {
       yield put(getAdverstTopInfoFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
