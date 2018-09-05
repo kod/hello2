@@ -124,6 +124,7 @@ import { getSquaresInfoFetchWatch } from './getSquaresInfo';
 import { addEvaluationFetchWatch } from './addEvaluation';
 import { getNewestInfoFetchWatch } from './getNewestInfo';
 import { getAdverstTopInfoFetchWatch } from './getAdverstTopInfo';
+import { getBillDetailFetchWatch } from './getBillDetail';
 
 export default function* rootSaga() {
   yield all([
@@ -231,5 +232,6 @@ export default function* rootSaga() {
     addEvaluationFetchWatch(),
     getNewestInfoFetchWatch(),
     getAdverstTopInfoFetchWatch(),
+    getBillDetailFetchWatch(),
   ]);
 }

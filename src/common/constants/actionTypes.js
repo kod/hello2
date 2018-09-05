@@ -537,6 +537,12 @@ export const SEARCH_MONTH_DETAIL = defineAction(
   appNamespace,
 );
 
+export const GET_BILL_DETAIL = defineAction(
+  'GET_BILL_DETAIL',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const BILL_BY_YEAR = defineAction(
   'BILL_BY_YEAR',
   [REQUEST, SUCCESS, FAILURE],

@@ -73,6 +73,7 @@ import userAddAddr from './userAddAddr';
 import getNewestInfo from './getNewestInfo';
 import getAdverstTopInfo from './getAdverstTopInfo';
 import searchMonthDetail from './searchMonthDetail';
+import getBillDetail from './getBillDetail';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -148,6 +149,7 @@ const rootReducer = combineReducers({
   getNewestInfo,
   getAdverstTopInfo,
   searchMonthDetail,
+  getBillDetail,
   form: formReducer,
 });
 
