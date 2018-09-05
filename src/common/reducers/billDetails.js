@@ -11,7 +11,7 @@ export default function billDetails(state = initState, action) {
   switch (action.type) {
     case BILL_DETAILS.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case BILL_DETAILS.REQUEST:
       return {
