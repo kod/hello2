@@ -16,7 +16,6 @@ import {
 
 import SwiperFlatList from './SwiperFlatList';
 import BannerHomeType from './BannerHomeType';
-// import DiscountsItem from './DiscountsItem';
 // import FeaturedGoodsItem from './FeaturedGoodsItem';
 // import CustomIcon from './CustomIcon';
 // import ProductItem1 from './ProductItem1';
