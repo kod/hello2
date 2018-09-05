@@ -74,6 +74,8 @@ export const MODAL_TYPES = {
   BILLSELECT: 'BILLSELECT',
   ENTERPASSWORD: 'ENTERPASSWORD',
   SHARE: 'SHARE',
+  PERMONTHPRICE: 'PERMONTHPRICE',
+  STAGINGDETAILS: 'STAGINGDETAILS',
 };
 
 export const SCREENS = {
@@ -140,4 +142,5 @@ export const SCREENS = {
   TransactionPasswordStepOne: 'TransactionPasswordStepOne',
   TransactionPasswordStepTwo: 'TransactionPasswordStepTwo',
   WebView: 'WebView',
+  StagingDetails: 'StagingDetails',
 };
