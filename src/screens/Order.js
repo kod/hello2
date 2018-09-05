@@ -202,6 +202,7 @@ class Scrollable extends Component {
                 <Text
                   style={stylesScrollable.payButton}
                   onPress={() => this.handleOnPressOperate(val1, val)}
+                  key={val1.tradeNo}
                 >
                   {val1}
                 </Text>
