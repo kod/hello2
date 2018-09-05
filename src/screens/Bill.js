@@ -50,7 +50,7 @@ import {
 import * as searchMonthActionCreators from '../common/actions/searchMonth';
 import * as billActionCreators from '../common/actions/bill';
 import * as billByYearActionCreators from '../common/actions/billByYear';
-// import * as orderCreateActionCreators from '../common/actions/orderCreate';
+import * as orderCreateActionCreators from '../common/actions/orderCreate';
 import * as billDetailsActionCreators from '../common/actions/billDetails';
 import * as modalActionCreators from '../common/actions/modal';
 
@@ -757,7 +757,7 @@ export default connectLocalization(
     {
       ...billActionCreators,
       ...billByYearActionCreators,
-      // ...orderCreateActionCreators,
+      ...orderCreateActionCreators,
       ...billDetailsActionCreators,
       ...searchMonthActionCreators,
       ...modalActionCreators,
