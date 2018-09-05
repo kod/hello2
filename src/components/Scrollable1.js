@@ -182,7 +182,7 @@ class Scrollable1 extends Component {
         />
 
         <SeparateBar />
-        <SeparateBar />
+        {/* <SeparateBar /> */}
 
         <Text style={styles.hotTittle}>{i18n.hotNewProduct}</Text>
         <ProductItem5
