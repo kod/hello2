@@ -86,7 +86,6 @@ export const SCREENS = {
   AboutAs: 'AboutAs',
   Bill: 'Bill',
   BillDetail: 'BillDetail',
-  BillingPeriodDetail: 'BillingPeriodDetail',
   Card: 'Card',
   Cart: 'Cart',
   Categories: 'Categories',

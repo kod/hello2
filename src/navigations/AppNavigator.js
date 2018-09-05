@@ -5,7 +5,6 @@ import AddressAdd from '../screens/AddressAdd';
 import AppTabNavigator from './AppTabNavigator';
 import Bill from '../screens/Bill';
 import BillDetail from '../screens/BillDetail';
-import BillingPeriodDetail from '../screens/BillingPeriodDetail';
 import Categories from '../screens/Categories';
 import CertifiedInformation from '../screens/CertifiedInformation';
 import CertifiedInformationSchool from '../screens/CertifiedInformationSchool';
@@ -240,12 +239,6 @@ const RouteConfigs = {
   },
   [SCREENS.BillDetail]: {
     screen: BillDetail,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  [SCREENS.BillingPeriodDetail]: {
-    screen: BillingPeriodDetail,
     navigationOptions: {
       header: null,
     },
