@@ -690,9 +690,11 @@ class OrderDetail extends Component {
             <Text style={stylesX.statusText}>
               {tradeStatusCodes(tradeStatus, i18n)}
             </Text>
-            <Text style={stylesX.statusTime}>
-              {this.makeRemainTimeText(timeoutExpress)}
-            </Text>
+            {tradeStatus === 10000 && (
+              <Text style={stylesX.statusTime}>
+                {this.makeRemainTimeText(timeoutExpress)}
+              </Text>
+            )}
           </View>
           {sourceOrderType !== 3 && (
             <Address addressSelectedItem={addressSelectedItem} />
