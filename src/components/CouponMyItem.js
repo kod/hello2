@@ -9,11 +9,11 @@ import {
   // SIDEINTERVAL,
 } from '../common/constants';
 
-import { connectLocalization } from '../components/Localization';
-import Loader from '../components/Loader';
-import CouponItem from '../components/CouponItem';
-// import BYTouchable from '../components/BYTouchable';
-import EmptyState from '../components/EmptyState';
+import { connectLocalization } from './Localization';
+import Loader from './Loader';
+import CouponItem from './CouponItem';
+// import BYTouchable from './BYTouchable';
+import EmptyState from './EmptyState';
 
 // import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 

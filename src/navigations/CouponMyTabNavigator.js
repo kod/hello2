@@ -1,6 +1,6 @@
 import { TabNavigator } from 'react-navigation';
 
-import CouponMyItem from '../screens/CouponMyItem';
+import CouponMyItem from '../components/CouponMyItem';
 import { SCREENS } from '../common/constants';
 
 import { PRIMARY_COLOR } from '../styles/variables';
