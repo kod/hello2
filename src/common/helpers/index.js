@@ -125,7 +125,7 @@ export const operateForTradeStatusCodes = (code = 10000, i18n) => {
 export const billStatusCodes = (code = 10000, i18n) => {
   const codes = {
     10000: i18n.unsettledBills, // 未出账
-    10001: i18n.billed, // 已出账
+    10001: i18n.notPaidOff, // 未还清
     10002: i18n.hasPaidOff, // 已还清
     10007: i18n.overdue, // '已逾期'
   };
