@@ -228,6 +228,7 @@
   "collect": "收藏",
   "service": "服务",
   "hasPaidOff": "已还清",
+  "notPaidOff": "未还清",
   "billed": "已出账",
   "mixedPayment": "混合支付",
   "hasAlso": "还有",
@@ -283,5 +284,6 @@
   "remainingReturned": "剩余待还",
   "billingDetails": "账单详情",
   "stagingDetails": "分期详情",
+  "orderTime": "下单时间",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }

@@ -228,6 +228,7 @@
   "collect": "Collect",
   "service": "Service",
   "hasPaidOff": "Has paid off",
+  "notPaidOff": "Not paid off",
   "billed": "Billed",
   "mixedPayment": "Mixed payment",
   "hasAlso": "Has also",
@@ -283,5 +284,6 @@
   "remainingReturned": "Remaining to be returned",
   "billingDetails": "Billing details",
   "stagingDetails": "Staging details",
+  "orderTime": "Order time",
   "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one"
 }

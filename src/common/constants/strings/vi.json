@@ -228,6 +228,7 @@
   "collect": "Sưu tập",
   "service": "Dịch vụ",
   "hasPaidOff": "Đã thanh toán",
+  "notPaidOff": "未还清",
   "billed": "Đã xuất hóa đơn",
   "mixedPayment": "Thanh toán kết hợp",
   "hasAlso": "Cũng có",
@@ -283,5 +284,6 @@
   "remainingReturned": "Còn lại để được trả lại",
   "billingDetails": "Chi tiết thanh toán",
   "stagingDetails": "Chi tiết dàn dựng",
+  "orderTime": "Thời gian gửi đơn hàng",
   "shareProduct2": ", bảo đảm hàng chính hãng, siêu rẻ, mau mau mua 1 món hàng thôi"
 }
