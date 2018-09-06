@@ -289,7 +289,7 @@ class Card extends Component {
       msisdn,
       navigation: { navigate },
       status,
-      periodHobbit,
+      // periodHobbit,
       isAuthUser,
     } = this.props;
 
@@ -392,7 +392,7 @@ export default connectLocalization(
         initPassword: cardQuery.item.initPassword,
         item: cardQuery.item,
         status: cardQuery.item.status,
-        periodHobbit: cardQuery.item.periodHobbit,
+        // periodHobbit: cardQuery.item.periodHobbit,
         isAuthUser: !!login.user,
         msisdn: login.user ? login.user.msisdn : '',
       };

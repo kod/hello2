@@ -59,6 +59,42 @@ export function* billByYearFetchWatchHandle(action) {
 
     const response = yield apply(buyoo, buyoo.billByYear, options);
     let { result } = response;
+    // let result = [{
+    //     "totalAmount": 1148085,
+    //     "month": 201809,
+    //     "waitingAmount": 1148085,
+    //     "expireDate": 1538758799000,
+    //     "id": 237,
+    //     "status": 10002,
+    //     "createDate": 1536049696000
+    // },
+    // {
+    //     "totalAmount": 1148083,
+    //     "month": 201810,
+    //     "waitingAmount": 1148083,
+    //     "expireDate": 1541437199000,
+    //     "id": 238,
+    //     "status": 10007,
+    //     "createDate": 1536049696000
+    // },
+    // {
+    //     "totalAmount": 1148083,
+    //     "month": 201811,
+    //     "waitingAmount": 1148083,
+    //     "expireDate": 1544029199000,
+    //     "id": 239,
+    //     "status": 10001,
+    //     "createDate": 1536049696000
+    // },
+    // {
+    //     "totalAmount": 1148083,
+    //     "month": 201812,
+    //     "waitingAmount": 1148083,
+    //     "expireDate": 1546707599000,
+    //     "id": 240,
+    //     "status": 10000,
+    //     "createDate": 1536049696000
+    // }];
 
     if (response.code !== 10000) {
       yield put(billByYearFetchFailure());
