@@ -33,7 +33,6 @@ export function* orderPayFetchWatchHandle(action) {
       payvalue = 0,
       screen = '',
     } = action.payload;
-    console.log(action.payload);
     const funid = yield select(getAuthUserFunid);
 
     const Key = 'tradeKey';
