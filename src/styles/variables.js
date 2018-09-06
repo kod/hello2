@@ -15,6 +15,7 @@ export const FONT_COLOR_THIRD = '#999';
 export const FONT_COLOR_FOURTH = '#CCC';
 export const FONT_COLOR_FIFTH = '#FFF';
 export const FONT_COLOR_SIXTH = '#FD5147';
+export const FONT_COLOR_SEVENTH = '#00A971';
 
 export const FONT_SIZE_PRIMARY = PRIMARY_COLOR;
 export const FONT_SIZE_FIRST = 12;

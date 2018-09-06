@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 // import { withNavigation } from 'react-navigation';
-import { RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import {
+  PRIMARY_COLOR,
+  FONT_COLOR_SIXTH,
+  FONT_COLOR_SEVENTH,
+} from '../styles/variables';
 import {
   WINDOW_HEIGHT,
   SIDEINTERVAL,
@@ -144,7 +148,10 @@ class AddressAddModal extends Component {
         textAlign: 'right',
       },
       itemTipsActive: {
-        color: RED_COLOR,
+        color: FONT_COLOR_SIXTH,
+      },
+      itemHasPaidOff: {
+        color: FONT_COLOR_SEVENTH,
       },
     });
 
@@ -215,6 +222,7 @@ class AddressAddModal extends Component {
                       style={[
                         stylesX.itemTips,
                         val.status === 10007 && stylesX.itemTipsActive,
+                        val.status === 10002 && stylesX.itemHasPaidOff,
                       ]}
                     >
                       {val.status && billStatusCodes(val.status, i18n)}

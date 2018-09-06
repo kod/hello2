@@ -14,7 +14,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import priceFormat from '../common/helpers/priceFormat';
-import { billInitDate } from '../common/helpers';
+import {
+  billInitDate,
+  payWayArray,
+  submitDuplicateFreeze,
+} from '../common/helpers';
 import { getBillMonthItem } from '../common/selectors';
 
 import Loader from '../components/Loader';
@@ -45,6 +49,9 @@ import {
   MODAL_TYPES,
   MINIMUM_PAYMENT_AMOUNT,
   MONETARY,
+  INTERNET_BANK_PAYWAY,
+  OFFLINE_PAYWAY,
+  CREDIT_PAYWAY,
 } from '../common/constants';
 
 import * as searchMonthActionCreators from '../common/actions/searchMonth';
@@ -84,8 +91,10 @@ class Bill extends Component {
 
     this.state = {
       isOpenPay: false,
-      payWayButtons: [i18n.repaymentRecord],
+      operateButtons: [i18n.repaymentRecord],
       totalPrice: '0',
+      payWayButtons: payWayArray(i18n),
+      submitfreeze: false,
     };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
   }
@@ -250,7 +259,7 @@ class Bill extends Component {
       },
     });
 
-    const { payWayButtons } = this.state;
+    const { operateButtons } = this.state;
     const { openModal } = this.props;
     return (
       <BYTouchable
@@ -259,7 +268,7 @@ class Bill extends Component {
         onPress={() =>
           openModal(MODAL_TYPES.ACTIONSHEET, {
             callback: ret => this.actionSheetCallback(ret),
-            data: payWayButtons,
+            data: operateButtons,
           })
         }
       >
@@ -275,6 +284,7 @@ class Bill extends Component {
   };
 
   handleOnPressPaySubmit() {
+    const { payWayButtons, submitfreeze } = this.state;
     const {
       i18n,
       price,
@@ -282,8 +292,37 @@ class Bill extends Component {
       orderCreateFetch,
       isAuthUser,
       navigation: { navigate },
+      openModal,
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
+
+    const paymentCallback = ret => {
+      let payway = INTERNET_BANK_PAYWAY;
+      if (ret.buttonIndex === 0) {
+        // 网银付首付
+        payway = INTERNET_BANK_PAYWAY;
+      } else {
+        // 线下付首付
+        payway = OFFLINE_PAYWAY;
+      }
+      submitDuplicateFreeze(submitfreeze, this, () =>
+        orderCreateFetch({
+          // BYPayPassword: ret.val,
+          BYtype: 'billPay',
+          BYpayway: payway,
+          goodsdetail: JSON.stringify([
+            {
+              number: 0,
+              cartitemid: 0,
+              productid: 0,
+              rechargeaccount: '',
+              rechargecode: '',
+              repaymentamount: price,
+            },
+          ]),
+        }),
+      );
+    };
 
     if (totalPrice >= MINIMUM_PAYMENT_AMOUNT) {
       if (~~price < MINIMUM_PAYMENT_AMOUNT) {
@@ -327,19 +366,12 @@ class Bill extends Component {
 
     this.handleOnPressToggleModal('isOpenPay');
 
-    orderCreateFetch({
-      // BYPayPassword: ret.val,
-      BYtype: 'billPay',
-      goodsdetail: JSON.stringify([
-        {
-          number: 0,
-          cartitemid: 0,
-          productid: 0,
-          rechargeaccount: '',
-          rechargecode: '',
-          repaymentamount: price,
-        },
-      ]),
+    openModal(MODAL_TYPES.ACTIONSHEET, {
+      title: i18n.downPaymentMethod,
+      callback: ret => paymentCallback(ret),
+      data: payWayButtons
+        .filter(val => val.key !== CREDIT_PAYWAY)
+        .map(val => val.value),
     });
 
     return true;
@@ -508,7 +540,7 @@ class Bill extends Component {
       },
       detailWrap: {
         alignItems: 'center',
-        marginBottom: 50,
+        marginBottom: 30,
       },
       detail: {
         fontSize: 12,
@@ -544,6 +576,7 @@ class Bill extends Component {
       },
       topTwo: {
         alignItems: 'center',
+        paddingTop: 15,
       },
       image: {
         width: 230,
@@ -552,7 +585,7 @@ class Bill extends Component {
       topTwoTitle: {
         fontSize: 16,
         color: '#333',
-        marginBottom: 25,
+        marginBottom: 15,
         paddingLeft: SIDEINTERVAL * 4,
         paddingRight: SIDEINTERVAL * 4,
         flexWrap: 'wrap',
@@ -628,11 +661,11 @@ class Bill extends Component {
                 {i18n.thisMonthBillPaidOff}
               </Text>
               <View style={stylesX.topTwoTextWrap}>
-                <Text style={stylesX.topTwoTextOne}>
+                {/* <Text style={stylesX.topTwoTextOne}>
                   {`${i18n.hasAlso} ${priceFormat(
                     billMonthItem.waitingAmount,
                   )} ${MONETARY}`}
-                </Text>
+                </Text> */}
                 <Text
                   style={stylesX.topTwoTextTwo}
                   onPress={() =>
@@ -649,6 +682,13 @@ class Bill extends Component {
           <SeparateBar />
           {!!billDetailsItem.expireDate && (
             <View style={stylesX.bottom}>
+              <NavBar2
+                valueLeft={i18n.billingAmount}
+                valueMiddle={`${priceFormat(
+                  billDetailsItem.principal + billDetailsItem.interest,
+                )} ${MONETARY}`}
+                isShowRight={false}
+              />
               <NavBar2
                 valueLeft={i18n.principal}
                 valueMiddle={`${priceFormat(
