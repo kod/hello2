@@ -150,6 +150,8 @@ class OrderWrite extends Component {
       tradeNo,
       queryOrderFetch,
       cardQueryFetch,
+      cardQueryClear,
+      queryOrderClear,
       // navigation,
       navigation: { navigate, pop },
     } = this.props;
@@ -157,7 +159,9 @@ class OrderWrite extends Component {
     if (!isAuthUser) return navigate(SCREENS.Login);
 
     this.screenListener = DeviceEventEmitter.addListener(SCREENS.Pay, () => {
+      cardQueryClear();
       cardQueryFetch();
+      queryOrderClear();
       queryOrderFetch({
         orderNo,
         tradeNo,
@@ -202,10 +206,6 @@ class OrderWrite extends Component {
   }
 
   componentWillUnmount() {
-    const { cardQueryClear, queryOrderClear, returnMoneyClear } = this.props;
-    cardQueryClear();
-    queryOrderClear();
-    returnMoneyClear();
     this.screenListener.remove();
   }
 
@@ -261,7 +261,7 @@ class OrderWrite extends Component {
 
   initArrayForFirstPaymentRate(queryOrderItem, cardQueryItem, callback) {
     const { repaymentMonthArray } = this.state;
-    const { returnMoneyFetch } = this.props;
+    const { returnMoneyFetch, returnMoneyClear } = this.props;
     const { advance } = queryOrderItem;
     const { availableBalance } = cardQueryItem;
     const firstPaymentRateArray = FIRST_PAYMENT_RATE;
@@ -271,6 +271,7 @@ class OrderWrite extends Component {
       let isUseFirstPay = false;
       let firstPayType = 'A';
 
+      returnMoneyClear();
       if (availableBalance >= advance) {
         // 可以额度大于等于支付金额
         // 可选择首付
