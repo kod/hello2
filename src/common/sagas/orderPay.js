@@ -99,10 +99,6 @@ export function* orderPayFetchWatchHandle(action) {
       },
     ];
 
-    console.log(options);
-    console.log(JSON.stringify(options));
-    // return false;
-
     if (payway !== CREDIT_PAYWAY) {
       yield put(orderPayFetchFailure());
       NavigatorService.navigate(SCREENS.WebView, {

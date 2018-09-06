@@ -26,7 +26,12 @@ export default function cardQuery(state = initState, action) {
         item: {
           ...action.payload.item,
           // status: 0,
-          // availableBalance: 9000000,
+          // availableBalance: 8000000,
+          // availableBalance: 7990000,
+          // availableBalance: 7989999,
+          // availableBalance: 3995001,
+          // availableBalance: 3995000,
+          // availableBalance: 3994999,
         },
       };
     case CARD_QUERY.FAILURE:
