@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
-import { SCREENS, CREDIT_PAYWAY } from '../constants';
+import { SCREENS, CREDIT_PAYWAY, INTERNET_BANK_PAYWAY } from '../constants';
 import {
   orderPayFetchSuccess,
   orderPayFetchFailure,
@@ -28,7 +28,7 @@ export function* orderPayFetchWatchHandle(action) {
       orderno,
       payway,
       paypassword = '',
-      payrate = 100,
+      payrate = 0,
       repaymentmonth = 0,
       payvalue = 0,
       screen = '',
@@ -98,7 +98,7 @@ export function* orderPayFetchWatchHandle(action) {
       },
     ];
 
-    if (payway !== CREDIT_PAYWAY) {
+    if (payway === INTERNET_BANK_PAYWAY) {
       yield put(orderPayFetchFailure());
       NavigatorService.navigate(SCREENS.WebView, {
         source: buyoo.orderPayInternetBank(options[0]),
@@ -108,6 +108,7 @@ export function* orderPayFetchWatchHandle(action) {
     }
 
     const response = yield apply(buyoo, buyoo.orderPay, options);
+    console.log(response);
 
     if (response.code !== 10000) {
       yield put(orderPayFetchFailure());

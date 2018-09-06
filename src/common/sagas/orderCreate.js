@@ -146,8 +146,8 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            payway: INTERNET_BANK_PAYWAY, // 账单还款全部使用网银
-            // payway: BYpayway,
+            // payway: INTERNET_BANK_PAYWAY, // 账单还款全部使用网银
+            payway: BYpayway,
             // paypassword: '123456',
             BYtype,
           }),
