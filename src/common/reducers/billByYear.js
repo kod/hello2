@@ -24,7 +24,10 @@ export default function billByYear(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        isOverdue: action.payload.isOverdue,
+        isOverdue:
+          state.isOverdue === false
+            ? action.payload.isOverdue
+            : state.isOverdue,
         items: {
           ...state.items,
           [action.payload.year]: action.payload.result,
