@@ -287,5 +287,8 @@
   "orderTime": "下单时间",
   "downPaymentMethod": "请选择首付支付方式",
   "productNotExistOrExpired": "产品不存在或已过期",
+  "deferredPaymentFee": "逾期费用",
+  "billingAmount": "账单金额",
+  "emergencyContactPhoneCannotSame": "紧急联系人的手机不能相同",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }

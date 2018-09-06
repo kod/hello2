@@ -287,5 +287,8 @@
   "orderTime": "Thời gian gửi đơn hàng",
   "downPaymentMethod": "请选择首付支付方式",
   "productNotExistOrExpired": "Sản phẩm không tồn tại hoặc đã hết hàng",
+  "deferredPaymentFee": "Phí trả chậm",
+  "billingAmount": "Số tiền hóa đơn",
+  "emergencyContactPhoneCannotSame": "Điện thoại liên lạc khẩn cấp không thể giống nhau",
   "shareProduct2": ", bảo đảm hàng chính hãng, siêu rẻ, mau mau mua 1 món hàng thôi"
 }

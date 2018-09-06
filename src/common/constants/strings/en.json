@@ -287,5 +287,8 @@
   "orderTime": "Order time",
   "downPaymentMethod": "Please choose the down payment method",
   "productNotExistOrExpired": "Product does not exist or has expired",
+  "deferredPaymentFee": "Deferred payment fee",
+  "billingAmount": "Billing amount",
+  "emergencyContactPhoneCannotSame": "Emergency contact's phone cannot be the same",
   "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one"
 }
