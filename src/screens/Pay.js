@@ -135,7 +135,7 @@ class OrderWrite extends Component {
       repaymentMonthIndex: 0,
       paypassword: '',
       isUseFirstPay: false, // 是否可选择首付
-      firstPayType: 'A', // 首付类型。A: 可以额度大于等于支付金额(不可选择首付); B: 可以额度小于支付金额，并且2倍的额度大于等于支付金额(可以选择首付); C: 2倍的额度小于支付金额(不可选择首付)
+      firstPayType: 'A', // 首付类型。A: 可以额度大于等于支付金额(可选择首付); B: 可以额度小于支付金额，并且2倍的额度大于等于支付金额(可以选择首付); C: 2倍的额度小于支付金额(不可选择首付)
       // isEnoughUseCredit: true, // 额度是否达到分期要求（暂时不启用）
     };
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
@@ -273,8 +273,8 @@ class OrderWrite extends Component {
 
       if (availableBalance >= advance) {
         // 可以额度大于等于支付金额
-        // 不可选择首付
-        isUseFirstPay = false;
+        // 可选择首付
+        isUseFirstPay = true;
         firstPayType = 'A';
         returnMoneyFetch(
           advance.toString(),
@@ -466,19 +466,18 @@ class OrderWrite extends Component {
     const mixedPaymentCallback = ret => {
       let payway = INTERNET_BANK_PAYWAY;
       let payvalue = advance;
+      if (isUseFirstPay === true) {
+        // 在2倍范围内，可以选择首付比例
+        payvalue = rateArray[rateIndex].value;
+      } else {
+        payvalue = advance - availableBalance;
+      }
       if (ret.buttonIndex === 0) {
         // 网银付首付
         payway = INTERNET_BANK_PAYWAY;
-        if (isUseFirstPay === true) {
-          // 在2倍范围内
-          payvalue = rateArray[rateIndex].value;
-        } else {
-          payvalue = advance - availableBalance;
-        }
       } else {
         // 线下付首付
         payway = OFFLINE_PAYWAY;
-        payvalue = advance - availableBalance;
       }
       submitDuplicateFreeze(submitfreeze, this, () =>
         orderPayFetch({
@@ -516,9 +515,9 @@ class OrderWrite extends Component {
         //   return payrate;
         // };
 
-        if (advance > availableBalance) {
-          // 组合支付
-          console.log('组合支付');
+        // 是否使用了首付
+        if (rateArray[rateIndex].value > 0 || advance > availableBalance) {
+          // 组合支付（使用了首付）
           openModal(MODAL_TYPES.ACTIONSHEET, {
             title: i18n.downPaymentMethod,
             callback: ret => mixedPaymentCallback(ret),
@@ -527,7 +526,7 @@ class OrderWrite extends Component {
               .map(val => val.value),
           });
         } else {
-          // 直接支付
+          // 直接支付（没有使用首付）
           submitDuplicateFreeze(submitfreeze, this, () =>
             orderPayFetch({
               orderno: orderNo,
@@ -620,7 +619,11 @@ class OrderWrite extends Component {
   }
 
   makePayButtonText() {
-    const { payWayIndex } = this.state;
+    const {
+      payWayIndex,
+      firstPaymentRateArray: rateArray,
+      firstPaymentRateIndex: rateIndex,
+    } = this.state;
     const {
       i18n,
       queryOrderItem: { advance },
@@ -630,11 +633,15 @@ class OrderWrite extends Component {
 
     switch (payWayIndex) {
       case CREDIT_PAYWAY:
-        if (advance > availableBalance) {
-          // 额度不足
+        // if (advance > availableBalance) {
+        if (
+          (rateArray.length > 0 && rateArray[rateIndex].value > 0) ||
+          advance > availableBalance
+        ) {
+          // 组合支付
           result = `组合支付 ${priceFormat(advance)} ${MONETARY}`;
         } else {
-          // 额度足够
+          // 全部金额用信用卡支付
           result = `func card 支付 ${priceFormat(advance)} ${MONETARY}`;
         }
         break;
