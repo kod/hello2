@@ -108,7 +108,6 @@ export function* orderPayFetchWatchHandle(action) {
     }
 
     const response = yield apply(buyoo, buyoo.orderPay, options);
-    console.log(response);
 
     if (response.code !== 10000) {
       yield put(orderPayFetchFailure());
