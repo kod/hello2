@@ -137,10 +137,10 @@ class EnterPasswordModal extends Component {
     });
 
     if (this.state.password.length === 6) {
+      this.handleOnModalClose();
       callback({
         val: this.state.password,
       });
-      this.handleOnModalClose();
     }
   }
 
