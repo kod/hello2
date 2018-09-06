@@ -502,6 +502,9 @@ class OrderDetail extends Component {
         advance = 0,
         // advance,
       },
+      tradeNo,
+      orderNo,
+      navigation: { navigate },
     } = this.props;
 
     return (
@@ -523,7 +526,12 @@ class OrderDetail extends Component {
         {tradeStatus === '10000' && (
           <Text
             style={stylesX.navRight}
-            onPress={() => this.handleOnPressSubmit()}
+            onPress={() =>
+              navigate(SCREENS.Pay, {
+                tradeNo,
+                orderNo,
+              })
+            }
           >
             {i18n.payment}
           </Text>
