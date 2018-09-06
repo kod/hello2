@@ -6,6 +6,7 @@ import {
   Image,
   UIManager,
   Platform,
+  Alert,
   InteractionManager,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -166,6 +167,31 @@ class ProductDetail extends Component {
 
     if (isAuthUser) {
       collectionFetch();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { loaded: prevLoaded } = this.props;
+    const {
+      loaded,
+      i18n,
+      propertiesArray,
+      navigation: { pop },
+    } = nextProps;
+    if (loaded !== prevLoaded && loaded === true) {
+      if (propertiesArray.length === 0) {
+        Alert.alert(
+          '',
+          i18n.productNotExistOrExpired,
+          [
+            {
+              text: i18n.confirm,
+              onPress: () => pop(1),
+            },
+          ],
+          { cancelable: false },
+        );
+      }
     }
   }
 
@@ -516,8 +542,10 @@ export default connectLocalization(
 
       const brandIdUsed = brandId || navigation.state.params.brandId;
       const item = groupon ? mergeGetDetail.item : productDetailInfo.item;
+      const loaded = groupon ? mergeGetDetail.loaded : productDetailInfo.loaded;
       return {
         ...item,
+        loaded,
         brandId: brandIdUsed,
         groupon,
         isMaster: !!mergeCheck.item.mergeMasterId,

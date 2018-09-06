@@ -286,5 +286,6 @@
   "stagingDetails": "Staging details",
   "orderTime": "Order time",
   "downPaymentMethod": "Please choose the down payment method",
+  "productNotExistOrExpired": "Product does not exist or has expired",
   "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one"
 }
