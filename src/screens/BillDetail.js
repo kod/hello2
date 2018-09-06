@@ -76,6 +76,11 @@ class BillDetail extends Component {
     }
   }
 
+  componentWillUnmount() {
+    const { searchMonthDetailClear } = this.props;
+    searchMonthDetailClear();
+  }
+
   renderContent() {
     const stylesX = StyleSheet.create({
       container: {

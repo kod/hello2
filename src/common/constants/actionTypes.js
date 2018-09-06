@@ -527,7 +527,7 @@ export const REPAYMENT_RECORD = defineAction(
 
 export const SEARCH_MONTH = defineAction(
   'SEARCH_MONTH',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 
@@ -545,7 +545,7 @@ export const GET_BILL_DETAIL = defineAction(
 
 export const BILL_BY_YEAR = defineAction(
   'BILL_BY_YEAR',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 

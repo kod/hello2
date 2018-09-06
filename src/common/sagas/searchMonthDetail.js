@@ -56,8 +56,6 @@ export function* searchMonthDetailFetchWatchHandle(action) {
     ];
 
     const response = yield apply(buyoo, buyoo.searchMonthDetail, options);
-    console.log('responseresponseresponseresponse');
-    console.log(response);
 
     if (response.code !== 10000) {
       yield put(searchMonthDetailFetchFailure());
@@ -70,8 +68,6 @@ export function* searchMonthDetailFetchWatchHandle(action) {
       );
     }
   } catch (err) {
-    console.log('errerrerrerrerrerrerrerrerr');
-    console.log(err);
     yield put(searchMonthDetailFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

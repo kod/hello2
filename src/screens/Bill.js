@@ -96,9 +96,6 @@ class Bill extends Component {
       // queryGoodsFetch,
       billByYearFetch,
       activeYear,
-      billMonthFetch,
-      billMonthItem,
-      billDetailsFetch,
       isAuthUser,
       navigation: { navigate },
     } = this.props;
@@ -107,23 +104,12 @@ class Bill extends Component {
     } else {
       // let nowTimeStr = moment().format('YYYY-MM-DD HH:mm:ss');
       if (activeMonth < 10) activeMonth = `0${activeMonth}`;
-      const billInitDateResult = billInitDate();
-      billMonthFetch(billInitDateResult.month);
-      if (billMonthItem.id) {
-        billDetailsFetch({
-          summaryid: billMonthItem.id,
-        });
-      }
-
-      // queryGoodsFetch({
-      //   createtime: `${activeYear}-${activeMonth}-26 11:11:11`,
-      // });
-
       billByYearFetch({
         year: activeYear,
         init: true,
       });
     }
+
     this.billPayResult_addListener = DeviceEventEmitter.addListener(
       SCREENS.Bill,
       () => {},
@@ -135,8 +121,9 @@ class Bill extends Component {
       // orderCreateLoading: prevOrderCreateLoading,
       activeYear: prevActiveYear,
       activeMonth: prevActiveMonth,
+      billByYearLoaded: prevBillByYearLoaded,
     } = this.props;
-    let { activeMonth } = nextProps;
+    const { billByYearLoaded, activeMonth } = nextProps;
     const {
       activeYear,
       // queryGoodsFetch,
@@ -147,8 +134,17 @@ class Bill extends Component {
       billDetailsFetch,
     } = nextProps;
 
+    if (
+      billByYearLoaded !== prevBillByYearLoaded &&
+      billByYearLoaded === true
+    ) {
+      billDetailsFetch({
+        summaryid: billMonthItem.id,
+      });
+    }
+
     if (prevActiveYear !== activeYear || prevActiveMonth !== activeMonth) {
-      if (activeMonth < 10) activeMonth = `0${activeMonth}`;
+      // if (activeMonth < 10) activeMonth = `0${activeMonth}`;
       if (billMonthItem.id) {
         billDetailsFetch({
           summaryid: billMonthItem.id,
@@ -169,6 +165,19 @@ class Bill extends Component {
   }
 
   componentWillUnmount() {
+    const {
+      searchMonthClear,
+      billByYearClear,
+      billMonthFetch,
+      billYearFetch,
+    } = this.props;
+    searchMonthClear();
+    billByYearClear();
+    // <<< 初始化年份和月份
+    const billInitDateResult = billInitDate();
+    billMonthFetch(billInitDateResult.month);
+    billYearFetch(billInitDateResult.year);
+    // 初始化年份和月份 >>>
     this.billPayResult_addListener.remove();
   }
 
@@ -206,9 +215,10 @@ class Bill extends Component {
     });
 
     const {
-      i18n,
+      // i18n,
       openModal,
       activeMonth,
+      activeYear,
       // activeMonth,
     } = this.props;
 
@@ -218,7 +228,7 @@ class Bill extends Component {
         backgroundColor="transparent"
         onPress={() => openModal(MODAL_TYPES.BILLSELECT)}
       >
-        <Text style={stylesX.title}>{`${i18n.month} ${activeMonth}`}</Text>
+        <Text style={stylesX.title}>{`${activeMonth}/${activeYear}`}</Text>
         <Ionicons style={stylesX.arrow} name="ios-arrow-down" />
       </BYTouchable>
     );

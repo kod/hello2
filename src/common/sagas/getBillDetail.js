@@ -61,8 +61,6 @@ export function* getBillDetailFetchWatchHandle(action) {
     ];
 
     const response = yield apply(buyoo, buyoo.getBillDetail, options);
-    console.log('responseresponseresponseresponse');
-    console.log(response);
 
     if (response.code !== 10000) {
       yield put(getBillDetailFetchFailure());
