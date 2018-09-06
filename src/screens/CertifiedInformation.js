@@ -281,6 +281,13 @@ class CertifiedInformation extends Component {
       )
         return tips(`${i18n.pleaseEnterEmergencyContactPerson} 3`);
 
+      if (
+        connectusermsisdn1 === connectusermsisdn2 ||
+        connectusermsisdn1 === connectusermsisdn3 ||
+        connectusermsisdn2 === connectusermsisdn3
+      )
+        return tips(i18n.emergencyContactPhoneCannotSame);
+
       if (!EMAIL_EXPR.test(email)) return tips(i18n.failedEMailPleaseReEnter);
     }
 
