@@ -285,5 +285,6 @@
   "billingDetails": "Chi tiết thanh toán",
   "stagingDetails": "Chi tiết dàn dựng",
   "orderTime": "Thời gian gửi đơn hàng",
+  "downPaymentMethod": "请选择首付支付方式",
   "shareProduct2": ", bảo đảm hàng chính hãng, siêu rẻ, mau mau mua 1 món hàng thôi"
 }

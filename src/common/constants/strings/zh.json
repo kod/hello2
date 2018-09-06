@@ -285,5 +285,6 @@
   "billingDetails": "账单详情",
   "stagingDetails": "分期详情",
   "orderTime": "下单时间",
+  "downPaymentMethod": "请选择首付支付方式",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }
