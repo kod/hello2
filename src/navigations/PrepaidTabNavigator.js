@@ -13,21 +13,18 @@ const RouteConfigs = {
     screen: PrepaidRecharge,
     navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.recharge,
-      // tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
     }),
   },
   [SCREENS.PrepaidPhoneCard]: {
     screen: PrepaidPhoneCard,
     navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.phoneCard,
-      // tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={16} color={tintColor} />
     }),
   },
   [SCREENS.PrepaidScratchCards]: {
     screen: PrepaidScratchCards,
     navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.scratchCard,
-      // tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
     }),
   },
 };
@@ -45,10 +42,6 @@ const TabNavigatorConfig = {
     showIcon: false,
     upperCaseLabel: false,
     style: {
-      // position: 'absolute',
-      // zIndex: 401,
-      // bottom: WINDOW_HEIGHT - STATUSBAR_HEIGHT - 90,
-      // left: 40,
       width: WINDOW_WIDTH - 80,
       height: 40,
       backgroundColor: 'transparent',
