@@ -23,7 +23,7 @@ import NavigatorService from '../../navigations/NavigatorService';
 export function* orderPayFetchWatchHandle(action) {
   try {
     const {
-      BYtype = 'normal',
+      screen = '',
       tradeno,
       orderno,
       payway,
@@ -31,7 +31,6 @@ export function* orderPayFetchWatchHandle(action) {
       payrate = 0,
       repaymentmonth = 0,
       payvalue = 0,
-      screen = '',
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
@@ -124,8 +123,8 @@ export function* orderPayFetchWatchHandle(action) {
       yield put(
         orderPayFetchSuccess({
           ret: response.result,
-          BYtype,
           screen,
+          payvalue,
         }),
       );
     }
@@ -142,29 +141,11 @@ export function* orderPayFetchWatch() {
 
 export function* orderPaySuccessWatchHandle(action) {
   try {
-    const { screen } = action.payload;
-    yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [screen]);
-    // switch (screen) {
-    //   case 'billPay':
-    //     // yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
-    //     //   SCREENS.Bill,
-    //     //   ret,
-    //     // ]);
-    //     break;
-
-    //   default:
-    //     yield put(cardQueryFetch());
-    //     Alert.alert('', i18n.successfulCopy, [
-    //       // { text: i18n.cancel },
-    //       {
-    //         text: i18n.confirm,
-    //         onPress: () => {
-    //           NavigatorService.pop(3);
-    //         },
-    //       },
-    //     ]);
-    //     break;
-    // }
+    const { screen, ret, payvalue } = action.payload;
+    yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
+      screen,
+      { ret, payvalue },
+    ]);
   } catch (err) {
     console.warn(err);
   }

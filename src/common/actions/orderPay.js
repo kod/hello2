@@ -1,10 +1,12 @@
 import { ORDER_PAY } from '../constants/actionTypes';
 
-export function orderPayFetchSuccess({ ret }) {
+export function orderPayFetchSuccess({ ret, screen, payvalue }) {
   return {
     type: ORDER_PAY.SUCCESS,
     payload: {
       ret,
+      screen,
+      payvalue,
     },
   };
 }

@@ -58,6 +58,7 @@ import * as searchMonthActionCreators from '../common/actions/searchMonth';
 import * as billActionCreators from '../common/actions/bill';
 import * as billByYearActionCreators from '../common/actions/billByYear';
 import * as orderCreateActionCreators from '../common/actions/orderCreate';
+import * as orderPayActionCreators from '../common/actions/orderPay';
 import * as billDetailsActionCreators from '../common/actions/billDetails';
 import * as modalActionCreators from '../common/actions/modal';
 
@@ -103,26 +104,33 @@ class Bill extends Component {
     let { activeMonth } = this.props;
     const {
       // queryGoodsFetch,
+      orderPayClear,
       billByYearFetch,
       activeYear,
       isAuthUser,
       navigation: { navigate },
+      price,
     } = this.props;
     if (!isAuthUser) {
       navigate(SCREENS.Login);
     } else {
       // let nowTimeStr = moment().format('YYYY-MM-DD HH:mm:ss');
+      orderPayClear();
       if (activeMonth < 10) activeMonth = `0${activeMonth}`;
       billByYearFetch({
         year: activeYear,
         init: true,
       });
+      this.billPayResult_addListener = DeviceEventEmitter.addListener(
+        SCREENS.Bill,
+        ret => {
+          navigate(SCREENS.PaymentCode, {
+            code: ret.ret,
+            advance: ret.payvalue,
+          });
+        },
+      );
     }
-
-    this.billPayResult_addListener = DeviceEventEmitter.addListener(
-      SCREENS.Bill,
-      () => {},
-    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -308,8 +316,9 @@ class Bill extends Component {
       submitDuplicateFreeze(submitfreeze, this, () =>
         orderCreateFetch({
           // BYPayPassword: ret.val,
-          BYtype: 'billPay',
+          screen: SCREENS.Bill,
           BYpayway: payway,
+          payvalue: price,
           goodsdetail: JSON.stringify([
             {
               number: 0,
@@ -317,7 +326,7 @@ class Bill extends Component {
               productid: 0,
               rechargeaccount: '',
               rechargecode: '',
-              repaymentamount: price,
+              repaymentamount: 0,
             },
           ]),
         }),
@@ -616,11 +625,16 @@ class Bill extends Component {
       billMonthItem,
       billDetailsItem,
       navigation: { navigate },
+      orderPayLoading,
+      orderCreateLoading,
     } = this.props;
 
     return (
       <View style={stylesX.container}>
         <View style={stylesX.main}>
+          {(orderPayLoading || orderCreateLoading) && (
+            <Loader absolutePosition />
+          )}
           {billMonthItem.status !== 10002 && (
             <View style={stylesX.topOne}>
               <Text style={stylesX.topOneTips}>
@@ -786,11 +800,13 @@ export default connectLocalization(
         billByYear,
         queryGoods,
         searchMonth,
-        // orderCreate,
+        orderPay,
+        orderCreate,
         billDetails,
       } = state;
       return {
-        // orderCreateLoading: orderCreate.loading,
+        orderCreateLoading: orderCreate.loading,
+        orderPayLoading: orderPay.loading,
         billMonthItem: getBillMonthItem(state, props),
         searchMonthItem: searchMonth.item,
         searchMonthLoading: searchMonth.loading,
@@ -810,6 +826,7 @@ export default connectLocalization(
       ...billActionCreators,
       ...billByYearActionCreators,
       ...orderCreateActionCreators,
+      ...orderPayActionCreators,
       ...billDetailsActionCreators,
       ...searchMonthActionCreators,
       ...modalActionCreators,

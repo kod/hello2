@@ -241,6 +241,7 @@ class OrderWrite extends Component {
       let result;
       if (groupon) {
         result = {
+          screen: SCREENS.OrderWrite,
           ordertype: isCart ? '3' : '2',
           addrid: addressSelectedId.toString(),
           goodsdetail: '',
@@ -258,6 +259,7 @@ class OrderWrite extends Component {
         };
       } else {
         result = {
+          screen: SCREENS.OrderWrite,
           ordertype: isCart ? '3' : '2',
           addrid: addressSelectedId.toString(),
           goodsdetail: JSON.stringify(getGoodsdetail()),
@@ -285,7 +287,6 @@ class OrderWrite extends Component {
     }
 
     return orderCreateFetch(getObject());
-    // return orderCreateFetch(getObject(), payWayButtons[payWayIndex].value);
   }
 
   calcMoney() {

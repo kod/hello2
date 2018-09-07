@@ -250,7 +250,7 @@ class PrepaidRecharge extends Component {
 
     if (this.isProcessSubmit()) {
       orderCreateFetch({
-        BYtype: 'Prepaid',
+        screen: 'Prepaid',
         BYpayway: payWayButtons[payWayIndex].payway,
         ordertype: '7',
         goodsdetail: JSON.stringify([

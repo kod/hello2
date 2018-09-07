@@ -17,7 +17,7 @@ import { getAuthUserFunid } from '../selectors';
 export function* orderCreateFetchWatchHandle(action) {
   try {
     const {
-      BYtype = 'normal',
+      screen,
       BYpayway = '1',
       currency = 'VN',
       ordertype = '1',
@@ -27,6 +27,7 @@ export function* orderCreateFetchWatchHandle(action) {
       coupondetail = '',
       subject = '',
       remark = '',
+      payvalue = 0,
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
@@ -107,10 +108,11 @@ export function* orderCreateFetchWatchHandle(action) {
     } else {
       yield put(
         orderCreateFetchSuccess({
-          BYtype,
+          screen,
           BYpayway,
           tradeNo: response.result.tradeNo,
           orderNo: response.result.orderNo,
+          payvalue,
         }),
       );
     }
@@ -126,9 +128,9 @@ export function* orderCreateFetchWatch() {
 
 export function* orderCreateSuccessWatchHandle(action) {
   try {
-    const { tradeNo, orderNo, BYtype, BYpayway } = action.payload;
-    switch (BYtype) {
-      case 'normal':
+    const { tradeNo, orderNo, payvalue, screen, BYpayway } = action.payload;
+    switch (screen) {
+      case SCREENS.OrderWrite:
         yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
           SCREENS.OrderWrite,
           {
@@ -141,15 +143,16 @@ export function* orderCreateSuccessWatchHandle(action) {
         ]);
         break;
 
-      case 'billPay':
+      case SCREENS.Bill:
         yield put(
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
             // payway: INTERNET_BANK_PAYWAY, // 账单还款全部使用网银
             payway: BYpayway,
+            payvalue,
             // paypassword: '123456',
-            BYtype,
+            screen,
           }),
         );
         break;
@@ -159,10 +162,11 @@ export function* orderCreateSuccessWatchHandle(action) {
           orderPayFetch({
             orderno: orderNo,
             tradeno: tradeNo,
-            payway: INTERNET_BANK_PAYWAY, // 充值目前只支持网银
-            // payway: BYpayway,
+            // payway: INTERNET_BANK_PAYWAY, // 充值目前只支持网银
+            payway: BYpayway,
+            payvalue,
             // paypassword: '123456',
-            BYtype,
+            screen,
           }),
         );
         break;

@@ -142,17 +142,19 @@ class PaymentCode extends Component {
       repaymentmonth,
       payvalue,
     } = this.props;
-    orderPayClear();
-    orderPayFetch({
-      orderno,
-      tradeno,
-      payway,
-      paypassword: '',
-      payrate,
-      repaymentmonth,
-      payvalue,
-      screen: SCREENS.PaymentCode,
-    });
+    if (orderno && tradeno) {
+      orderPayClear();
+      orderPayFetch({
+        orderno,
+        tradeno,
+        payway,
+        paypassword: '',
+        payrate,
+        repaymentmonth,
+        payvalue,
+        screen: SCREENS.PaymentCode,
+      });
+    }
   }
 
   async handleOnPressCopy(val) {
@@ -236,6 +238,7 @@ export default connectLocalization(
               payrate,
               repaymentmonth,
               advance,
+              code,
             },
           },
         },
@@ -247,7 +250,7 @@ export default connectLocalization(
         payway,
         payrate,
         repaymentmonth,
-        code: orderPay.ret,
+        code: code || orderPay.ret,
         loaded: orderPay.loaded,
         payvalue: advance,
         isAuthUser: !!login.user,
