@@ -290,5 +290,8 @@
   "deferredPaymentFee": "Phí trả chậm",
   "billingAmount": "Số tiền hóa đơn",
   "emergencyContactPhoneCannotSame": "Điện thoại liên lạc khẩn cấp không thể giống nhau",
+  "viewPaymentCode": "Xem mã thanh toán",
+  "payooPaymentCode": "Mã Thanh Toán Payoo",
+  "visitPayooStoreClickHere": "Đến cửa hàng/điểm giao dịch Payoo gần nhất, hoặc click xem tại đây",
   "shareProduct2": ", bảo đảm hàng chính hãng, siêu rẻ, mau mau mua 1 món hàng thôi"
 }

@@ -290,5 +290,8 @@
   "deferredPaymentFee": "Deferred payment fee",
   "billingAmount": "Billing amount",
   "emergencyContactPhoneCannotSame": "Emergency contact's phone cannot be the same",
+  "viewPaymentCode": "View payment code",
+  "payooPaymentCode": "Payoo Payment Code",
+  "visitPayooStoreClickHere": "Visit your nearest Payoo store / transaction office, or click here",
   "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one"
 }
