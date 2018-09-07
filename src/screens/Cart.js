@@ -31,17 +31,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  headerRight: {
-    height: APPBAR_HEIGHT,
-  },
-  headerRightText: {
-    fontSize: 16,
-    color: '#666',
-    height: APPBAR_HEIGHT,
-    lineHeight: APPBAR_HEIGHT,
-    paddingLeft: SIDEINTERVAL,
-    paddingRight: SIDEINTERVAL,
-  },
   overview: {
     flexDirection: 'row',
     backgroundColor: '#fff',
@@ -109,6 +98,20 @@ class Cart extends Component {
   }
 
   renderHeaderRight = () => {
+    const stylesX = StyleSheet.create({
+      headerRight: {
+        height: APPBAR_HEIGHT,
+      },
+      headerRightText: {
+        fontSize: 16,
+        color: '#666',
+        height: APPBAR_HEIGHT,
+        lineHeight: APPBAR_HEIGHT,
+        paddingLeft: SIDEINTERVAL,
+        paddingRight: SIDEINTERVAL,
+      },
+    });
+
     const {
       isEdit,
       i18n,
@@ -123,11 +126,38 @@ class Cart extends Component {
     };
 
     return (
-      <BYTouchable style={styles.headerRight} onPress={() => onPressHandle()}>
-        <Text style={styles.headerRightText}>
+      <BYTouchable style={stylesX.headerRight} onPress={() => onPressHandle()}>
+        <Text style={stylesX.headerRightText}>
           {isEdit ? i18n.save : i18n.edit}
         </Text>
       </BYTouchable>
+    );
+  };
+
+  renderHeaderTitle = () => {
+    const { cart } = this.props;
+    const stylesX = StyleSheet.create({
+      container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingLeft: cart.items.length === 0 ? 0 : 20,
+        paddingRight: cart.items.length === 0 ? 25 : 0,
+        flexDirection: 'row',
+      },
+      title: {
+        fontSize: 16,
+        color: '#333',
+        marginRight: 5,
+      },
+    });
+
+    const { i18n } = this.props;
+
+    return (
+      <View style={stylesX.container}>
+        <Text style={stylesX.title}>{i18n.cart}</Text>
+      </View>
     );
   };
 
@@ -203,24 +233,6 @@ class Cart extends Component {
         }
       }
 
-      // const productsCart = items.map(val => {
-      //   return {
-      //     id: products[val].id,
-      //     amount: products[val].quantity * details[products[val].detail].price
-      //   }
-      // })
-
-      // const adverstInfo = items.map(val => {
-      //   return {
-      //     brandId: details[products[val].detail].brandId,
-      //     propertiesIds: '',
-      //     imageUrl: details[products[val].detail].iconUrl,
-      //     name: details[products[val].detail].name,
-      //     price: details[products[val].detail].price,
-      //     number: products[val].quantity,
-      //   }
-      // })
-
       return {
         products: productsCart,
         adverstInfo,
@@ -231,11 +243,6 @@ class Cart extends Component {
       // submit
       const selectedIdStr = getSelectedId();
       if (!selectedIdStr) return false;
-
-      console.log({
-        ...submit(cart),
-        isCart: true,
-      });
 
       navigate(SCREENS.OrderWrite, {
         ...submit(cart),
@@ -275,12 +282,10 @@ class Cart extends Component {
     return (
       <View style={styles.container}>
         {loading && <Loader absolutePosition />}
-        {!isEmptyCart && (
-          <BYHeader
-            showBackButton={false}
-            headerRight={this.renderHeaderRight()}
-          />
-        )}
+        <BYHeader
+          headerTitle={this.renderHeaderTitle()}
+          headerRight={!isEmptyCart && this.renderHeaderRight()}
+        />
         {!isEmptyCart && (
           <ScrollView>
             <CartItem
