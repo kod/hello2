@@ -34,20 +34,15 @@ import { SCREENS } from '../common/constants';
 class WebView extends Component {
   componentDidMount() {
     const {
-      navigation: {
-        state,
-        // goBack,
-        pop,
-        // state,
-      },
-      // i18n,
+      navigation: { pop },
+      from,
     } = this.props;
 
-    switch (state.params.from) {
+    switch (from) {
       case SCREENS.Pay:
         this.backHandler = BackHandler.addEventListener(
           'hardwareBackPress',
-          () => pop(2),
+          () => pop(1),
         );
         break;
 
@@ -57,12 +52,8 @@ class WebView extends Component {
   }
 
   componentWillUnmount() {
-    const {
-      navigation: { state },
-      // i18n,
-    } = this.props;
-
-    switch (state.params.from) {
+    const { from } = this.props;
+    switch (from) {
       case SCREENS.Pay:
         this.backHandler.remove();
         break;
@@ -90,17 +81,21 @@ class WebView extends Component {
 
 export default connectLocalization(
   connect(
-    state => {
+    (state, props) => {
       const {
         login,
         // login,
       } = state;
 
-      // const {
-
-      // } = props;
+      const {
+        navigation: {
+          state: { params = {} },
+        },
+      } = props;
+      console.log(props);
 
       return {
+        from: params.from || '',
         auth: login || {},
       };
     },
