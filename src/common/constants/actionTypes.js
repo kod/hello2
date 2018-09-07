@@ -383,7 +383,7 @@ export const QUERY_ORDER_LIST_INDEX = defineAction(
 
 export const ORDER_PAY = defineAction(
   'ORDER_PAY',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 

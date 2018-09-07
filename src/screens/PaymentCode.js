@@ -134,6 +134,7 @@ class PaymentCode extends Component {
   componentDidMount() {
     const {
       orderPayFetch,
+      orderPayClear,
       orderno,
       tradeno,
       payway,
@@ -141,6 +142,7 @@ class PaymentCode extends Component {
       repaymentmonth,
       payvalue,
     } = this.props;
+    orderPayClear();
     orderPayFetch({
       orderno,
       tradeno,

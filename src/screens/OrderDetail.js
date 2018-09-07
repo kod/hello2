@@ -501,8 +501,10 @@ class OrderDetail extends Component {
       i18n,
       queryOrderItem: {
         tradeStatus,
+        payWay,
         advance = 0,
-        // advance,
+        payRate,
+        repaymentMonth,
       },
       tradeNo,
       orderNo,
@@ -529,13 +531,22 @@ class OrderDetail extends Component {
           <Text
             style={stylesX.navRight}
             onPress={() =>
-              navigate(SCREENS.Pay, {
-                tradeNo,
-                orderNo,
-              })
+              payWay === 5
+                ? navigate(SCREENS.PaymentCode, {
+                    orderNo,
+                    tradeNo,
+                    payway: payWay,
+                    payrate: payRate,
+                    repaymentmonth: repaymentMonth,
+                    advance,
+                  })
+                : navigate(SCREENS.Pay, {
+                    tradeNo,
+                    orderNo,
+                  })
             }
           >
-            {i18n.payment}
+            {payWay === 5 ? i18n.viewPaymentCode : i18n.payment}
           </Text>
         )}
       </View>
