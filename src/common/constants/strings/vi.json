@@ -264,7 +264,7 @@
   "downloadExperienceRightAway": "Tải về là trải nghiệm được ngay",
   "shareTip": "Để hoàn thành lời mời, Vui lòng mời bạn bè quét mã QR để tiến hành đăng kí. Bạn có thể chia sẽ mã QR này vào trang xã hội của bạn hoặc copy mà mời dưới đây gửi cho bạn bè để hoàn tất đăng kí.",
   "registerNow": "Đăng ký ngay",
-  "cardNum": "Mã số thẻ",
+  "cardNum": "Số thẻ",
   "password": "Mật mã",
   "usefulDate": "Thiết lập thời gian",
   "fillOrder": "Điền Đơn đặt hàng",
@@ -293,5 +293,6 @@
   "viewPaymentCode": "Xem mã thanh toán",
   "payooPaymentCode": "Mã Thanh Toán Payoo",
   "visitPayooStoreClickHere": "Đến cửa hàng/điểm giao dịch Payoo gần nhất, hoặc click xem tại đây",
+  "amountMoney": "Số tiền",
   "shareProduct2": ", bảo đảm hàng chính hãng, siêu rẻ, mau mau mua 1 món hàng thôi"
 }
