@@ -18,6 +18,7 @@ import {
   STATUSBAR_HEIGHT,
   MODAL_TYPES,
   MONETARY,
+  INTERNET_BANK_PAYWAY,
 } from '../common/constants';
 
 import { RED_COLOR } from '../styles/variables';
@@ -148,7 +149,9 @@ class PrepaidRecharge extends Component {
     super(props);
     const { i18n } = this.props;
     this.state = {
-      payWayButtons: [{ text: i18n.internetBanking, payway: 2 }],
+      payWayButtons: [
+        { text: i18n.internetBanking, payway: INTERNET_BANK_PAYWAY },
+      ],
       payWayIndex: 0,
       phoneNumber: '',
       buttonIndex: 0,

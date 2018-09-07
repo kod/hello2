@@ -19,6 +19,7 @@ import {
   PROVIDER_TYPE_MAP,
   MODAL_TYPES,
   MONETARY,
+  INTERNET_BANK_PAYWAY,
 } from '../common/constants';
 
 import * as get3GProvidersCardActionCreators from '../common/actions/get3GProvidersCard';
@@ -99,7 +100,9 @@ class PrepaidPhoneCard extends Component {
     super(props);
     const { i18n } = this.props;
     this.state = {
-      payWayButtons: [{ text: i18n.internetBanking, payway: 2 }],
+      payWayButtons: [
+        { text: i18n.internetBanking, payway: INTERNET_BANK_PAYWAY },
+      ],
       priceIndex: 0,
       payWayIndex: 0,
       numberItemIndex: 0,
