@@ -126,10 +126,12 @@ class OrderDetail extends Component {
       orderNo,
       tradeNo,
       queryOrderFetch,
+      queryOrderClear,
       cardQueryFetch,
       getUserInfoByIdFetch,
       navigation,
     } = this.props;
+    queryOrderClear();
 
     // 1分钟请求一次，刷新订单信息
     this.setIntervalId = setInterval(() => {
@@ -701,7 +703,7 @@ class OrderDetail extends Component {
             <Text style={stylesX.statusText}>
               {tradeStatusCodes(tradeStatus, i18n)}
             </Text>
-            {tradeStatus === 10000 && (
+            {parseInt(tradeStatus, 10) === 10000 && (
               <Text style={stylesX.statusTime}>
                 {this.makeRemainTimeText(timeoutExpress)}
               </Text>
