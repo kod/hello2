@@ -999,7 +999,7 @@ class OrderWrite extends Component {
                       data: firstPaymentRateArray.map(val => ({
                         key:
                           val.value === 0
-                            ? i18n.fullPayment
+                            ? i18n.zeroDownPayment
                             : `${val.key * 100}%`,
                         value: `${val.value} ${MONETARY}`,
                       })),
