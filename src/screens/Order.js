@@ -64,13 +64,13 @@ const stylesScrollable = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomColor: BORDER_COLOR,
+    borderBottomWidth: 1,
   },
   price: {
     height: 40,
     lineHeight: 40,
     textAlign: 'right',
-    borderBottomColor: BORDER_COLOR,
-    borderBottomWidth: 1,
     paddingRight: SIDEINTERVAL,
     color: '#666',
   },
@@ -123,6 +123,17 @@ class Scrollable extends Component {
           tradeNo: val.tradeNo,
           orderNo: val.orderNo,
           brandId: val.goodList[0].brandId,
+        });
+        break;
+
+      case i18n.viewPaymentCode:
+        navigate(SCREENS.PaymentCode, {
+          orderNo: val.orderNo,
+          tradeNo: val.tradeNo,
+          payway: val.payWay,
+          payrate: val.payRate,
+          repaymentmonth: val.repaymentMonth,
+          advance: val.advance,
         });
         break;
 
@@ -199,17 +210,19 @@ class Scrollable extends Component {
               {/* <Text style={stylesScrollable.payText}>
                 {tradeStatusCodes(val.tradeStatus, i18n)}
               </Text> */}
-              {operateForTradeStatusCodes(val.tradeStatus, i18n).map(
-                (val1, index1) => (
-                  <Text
-                    style={stylesScrollable.payButton}
-                    onPress={() => this.handleOnPressOperate(val1, val)}
-                    key={index1}
-                  >
-                    {val1}
-                  </Text>
-                ),
-              )}
+              {operateForTradeStatusCodes(
+                val.tradeStatus,
+                val.payWay,
+                i18n,
+              ).map((val1, index1) => (
+                <Text
+                  style={stylesScrollable.payButton}
+                  onPress={() => this.handleOnPressOperate(val1, val)}
+                  key={index1}
+                >
+                  {val1}
+                </Text>
+              ))}
             </View>
             <SeparateBar />
           </View>
