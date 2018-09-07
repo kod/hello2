@@ -107,10 +107,19 @@ class Main extends Component {
     //   navigation: { navigate },
     // } = this.props;
     // navigate(SCREENS.Pay, {
-    //   tradeNo: '000000210320180905153450075994',
-    //   orderNo: '220180905153450075766480466',
+    //   tradeNo: '000000210320180906161830379572',
+    //   orderNo: '220180906161830379966607775',
     // });
     // navigate(SCREENS.Bill);
+    // navigate(SCREENS.Order, { index: 0 });
+    // navigate(SCREENS.PaymentCode, {
+    //   orderNo: '220180906174130845482540208',
+    //   tradeNo: '000000210320180906174130845918',
+    //   payway: 5,
+    //   payrate: 10,
+    //   repaymentmonth: 3,
+    //   advance: 65000,
+    // });
     AppState.addEventListener('change', this.handleAppStateChange);
     this.runInvitationCodeForClipboard();
   }
