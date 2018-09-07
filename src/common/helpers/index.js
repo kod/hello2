@@ -84,15 +84,19 @@ export const tradeStatusCodes = (code = 10000, i18n) => {
 };
 
 // 不同订单状态下，可以的操作
-export const operateForTradeStatusCodes = (code = 10000, i18n) => {
-  let result = [];
+export const operateForTradeStatusCodes = (code = 10000, payWay = 2, i18n) => {
+  const result = [];
   switch (~~code) {
     case 10000:
-      result = [i18n.payment];
+      if (payWay === 5) {
+        result.push(i18n.viewPaymentCode);
+      } else {
+        result.push(i18n.payment);
+      }
       break;
 
     case 30001:
-      result = [i18n.evaluation];
+      result.push(i18n.evaluation);
       break;
 
     case 10001:
@@ -112,11 +116,11 @@ export const operateForTradeStatusCodes = (code = 10000, i18n) => {
     case 40003:
     case 40004:
     case 40005:
-      result = [i18n.view];
+      result.push(i18n.view);
       break;
 
     default:
-      result = [i18n.view];
+      result.push(i18n.view);
       break;
   }
   return result;

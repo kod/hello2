@@ -123,7 +123,7 @@ export function* orderPayFetchWatchHandle(action) {
     } else {
       yield put(
         orderPayFetchSuccess({
-          ret: response,
+          ret: response.result,
           BYtype,
           screen,
         }),

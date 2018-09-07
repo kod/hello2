@@ -18,6 +18,7 @@ export const ZALO = 'zalo';
 export const GOOGLE_PLUS = 'google+';
 export const FACEBOOK = 'facebook';
 export const MONETARY = '₫'; // 货币单位
+export const PAYOO_STORE_MAP = 'https://payoo.vn/map/public/?verify=true#'; // payoo门店地图
 
 export const CREDIT_PAYWAY = 1;
 export const INTERNET_BANK_PAYWAY = 2;
@@ -142,4 +143,5 @@ export const SCREENS = {
   TransactionPasswordStepTwo: 'TransactionPasswordStepTwo',
   WebView: 'WebView',
   StagingDetails: 'StagingDetails',
+  PaymentCode: 'PaymentCode',
 };

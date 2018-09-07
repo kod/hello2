@@ -49,6 +49,7 @@ import Computer from '../screens/Computer';
 import Mobile from '../screens/Mobile';
 import OrderDetail from '../screens/OrderDetail';
 import StagingDetails from '../screens/StagingDetails';
+import PaymentCode from '../screens/PaymentCode';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -59,6 +60,12 @@ const RouteConfigs = {
   },
   [SCREENS.ProductDetail]: {
     screen: ProductDetail,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.PaymentCode]: {
+    screen: PaymentCode,
     navigationOptions: {
       header: null,
     },

@@ -4,6 +4,7 @@ const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
+  ret: '',
 };
 
 export default function orderPay(state = initState, action) {
@@ -22,6 +23,7 @@ export default function orderPay(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
+        ret: action.payload.ret,
       };
     case ORDER_PAY.FAILURE:
       return {
