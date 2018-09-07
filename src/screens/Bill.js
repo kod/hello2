@@ -109,7 +109,7 @@ class Bill extends Component {
       activeYear,
       isAuthUser,
       navigation: { navigate },
-      price,
+      // price,
     } = this.props;
     if (!isAuthUser) {
       navigate(SCREENS.Login);
@@ -616,6 +616,7 @@ class Bill extends Component {
       cool: {
         textAlign: 'center',
         color: FONT_COLOR_FOURTH,
+        fontSize: FONT_SIZE_FIRST,
         marginBottom: 15,
       },
     });
