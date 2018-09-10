@@ -112,7 +112,7 @@ export function* orderPayFetchWatchHandle(action) {
       yield put(orderPayFetchFailure());
       switch (response.code) {
         case 60051:
-          yield put(addError(i18n.cardPasswordError));
+          yield put(addError(i18n.transactionPasswordWrong));
           break;
 
         default:

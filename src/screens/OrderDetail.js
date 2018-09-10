@@ -331,7 +331,7 @@ class OrderDetail extends Component {
         // 已开通信用卡
         if (initPassword !== 1) {
           // 未设置支付密码
-          Alert.alert('', i18n.youHaveNotSetCardPasswordYet, [
+          Alert.alert('', i18n.youHaveNotSetTransactionPasswordYet, [
             { text: i18n.cancel },
             {
               text: i18n.goToSet,

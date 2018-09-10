@@ -65,7 +65,7 @@ class SecurityCenter extends Component {
       <View style={styles.container}>
         <NavBar2
           onPress={() => navigate(SCREENS.TransactionPasswordStepOne)}
-          valueLeft={i18n.cardPassword}
+          valueLeft={i18n.transactionPassword}
           styleLeft={{ color: '#666' }}
           // styleMiddle={{ color: '#666' }}
           // isShowRight={false}

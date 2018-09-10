@@ -159,7 +159,7 @@ class EnterPasswordModal extends Component {
   renderContent() {
     const { password, keyboardItems, passwordLength } = this.state;
     const { i18n } = this.props;
-    const { title = i18n.cardPassword, navigate } = this.props;
+    const { title = i18n.transactionPassword, navigate } = this.props;
 
     return (
       <View style={styles.container}>
