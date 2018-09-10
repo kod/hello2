@@ -115,7 +115,7 @@ class RepaymentRecord extends Component {
             <View style={styles.cell}>
               <Text style={styles.textLeft}>{i18n.date}</Text>
               <Text style={styles.textRight}>
-                {moment(val.createTime).format('L')}
+                {moment(val.createTime).format('DD-MM-YYYY')}
               </Text>
             </View>
             <View style={styles.cell}>
