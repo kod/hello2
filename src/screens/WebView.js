@@ -36,13 +36,14 @@ class WebView extends Component {
     const {
       navigation: { pop },
       from,
+      pop: popLevel,
     } = this.props;
 
     switch (from) {
       case SCREENS.Pay:
         this.backHandler = BackHandler.addEventListener(
           'hardwareBackPress',
-          () => pop(1),
+          () => pop(popLevel),
         );
         break;
 
@@ -96,6 +97,7 @@ export default connectLocalization(
 
       return {
         from: params.from || '',
+        pop: params.pop || 1,
         auth: login || {},
       };
     },

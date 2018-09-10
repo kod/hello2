@@ -5,11 +5,11 @@ import {
   View,
   ScrollView,
   Alert,
-  DeviceEventEmitter,
+  // DeviceEventEmitter,
   Clipboard,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
+// import { NavigationActions } from 'react-navigation';
 import moment from 'moment';
 
 import ProductItem2 from '../components/ProductItem2';
@@ -33,7 +33,7 @@ import { getAddressSelectedItem } from '../common/selectors';
 
 import {
   tradeStatusCodes,
-  submitDuplicateFreeze,
+  // submitDuplicateFreeze,
   payWayToText,
 } from '../common/helpers';
 import priceFormat from '../common/helpers/priceFormat';
@@ -111,17 +111,17 @@ class OrderDetail extends Component {
     super(props);
 
     this.state = {
-      submitfreeze: false,
+      // submitfreeze: false,
       payWayIndex: 0,
-      paypassword: '',
+      // paypassword: '',
     };
-    this.actionSheetCallback = this.actionSheetCallback.bind(this);
-    this.enterPasswordCallback = this.enterPasswordCallback.bind(this);
+    // this.actionSheetCallback = this.actionSheetCallback.bind(this);
+    // this.enterPasswordCallback = this.enterPasswordCallback.bind(this);
   }
 
   componentDidMount() {
     const {
-      i18n,
+      // i18n,
       addressFetch,
       orderNo,
       tradeNo,
@@ -129,7 +129,7 @@ class OrderDetail extends Component {
       queryOrderClear,
       cardQueryFetch,
       getUserInfoByIdFetch,
-      navigation,
+      // navigation,
     } = this.props;
     queryOrderClear();
 
@@ -141,37 +141,6 @@ class OrderDetail extends Component {
       });
     }, 60 * 1000);
 
-    this.screenListener = DeviceEventEmitter.addListener(SCREENS.Pay, () => {
-      cardQueryFetch();
-      queryOrderFetch({
-        orderNo,
-        tradeNo,
-      });
-      Alert.alert('', i18n.successfulCopy, [
-        // { text: i18n.cancel },
-        {
-          text: i18n.confirm,
-          onPress: () => {
-            navigation.dispatch(
-              NavigationActions.reset({
-                index: 1,
-                actions: [
-                  NavigationActions.navigate({ routeName: SCREENS.Index }),
-                  NavigationActions.navigate({
-                    routeName: SCREENS.Pay,
-                    params: {
-                      orderNo,
-                      tradeNo,
-                    },
-                  }),
-                ],
-              }),
-            );
-          },
-        },
-      ]);
-    });
-
     addressFetch();
     getUserInfoByIdFetch();
     cardQueryFetch();
@@ -180,15 +149,9 @@ class OrderDetail extends Component {
       orderNo,
       tradeNo,
     });
-
-    // setTimeout(() => {
-    // navigate(SCREENS.TransactionPasswordStepOne);
-    // this.handleOnPressToggleBottomSheet();
-    // }, 300);
   }
 
   componentWillUnmount() {
-    this.screenListener.remove();
     clearInterval(this.setIntervalId);
   }
 
@@ -216,171 +179,6 @@ class OrderDetail extends Component {
       }
     }
   }
-
-  actionSheetCallback(ret) {
-    if (ret.buttonIndex === -1) return false;
-    return this.setState({
-      payWayIndex: ret.buttonIndex,
-    });
-  }
-
-  async enterPasswordCallback(ret) {
-    // const {
-    //   orderNo,
-    //   tradeNo,
-    // } = this.props;
-
-    await this.setState({
-      paypassword: ret.val,
-    });
-    this.handleOnPressSubmit();
-  }
-
-  handleOnPressToggleModal = (key, val) => {
-    const {
-      key: [key1],
-      // [key],
-    } = this.state;
-    this.setState({
-      [key]: typeof val !== 'boolean' ? !key1 : val,
-    });
-  };
-
-  handleOnPressSubmit = () => {
-    const {
-      submitfreeze,
-      payWayIndex,
-      paypassword,
-      // paypassword,
-    } = this.state;
-    const {
-      i18n,
-      isAuthUser,
-      initPassword,
-      userType,
-      orderNo,
-      tradeNo,
-      getUserInfoByIdFetch,
-      // cardSubmitFetch,
-      orderPayFetch,
-      navigation: { navigate },
-      cardQuery,
-      queryOrderItem: {
-        advance,
-        // advance,
-      },
-    } = this.props;
-    if (!isAuthUser) return navigate(SCREENS.Login);
-    if (!userType) return getUserInfoByIdFetch();
-
-    const payway = payWayIndex === 0 ? 1 : 2;
-
-    const creditCard = () => {
-      let paywayNow = 1;
-      // 判断额度是否充足，来选择支付方式
-      if (cardQuery.item.availableBalance) {
-        paywayNow = cardQuery.item.availableBalance < advance ? 5 : 1;
-      }
-
-      const alreadyPaypassword = () => {
-        const { openModal } = this.props;
-        if (paypassword.length === 0) {
-          openModal(MODAL_TYPES.ENTERPASSWORD, {
-            callback: ret => this.enterPasswordCallback(ret),
-            navigate,
-          });
-          return true;
-        }
-        if (paywayNow === 5) {
-          // 提示额度不足
-          Alert.alert('', i18n.amountNotEnoughWillPaidOnlineBanking, [
-            { text: i18n.cancel },
-            {
-              text: i18n.confirm,
-              onPress: () => {
-                submitDuplicateFreeze(submitfreeze, this, () =>
-                  orderPayFetch({
-                    orderno: orderNo,
-                    tradeno: tradeNo,
-                    payway: '2', // 如果额度不足，目前默认使用网银支付剩余的钱
-                    paypassword,
-                    payvalue: advance - cardQuery.item.availableBalance,
-                    screen: SCREENS.Pay,
-                  }),
-                );
-                this.setState({ paypassword: '' });
-              },
-            },
-          ]);
-        } else {
-          submitDuplicateFreeze(submitfreeze, this, () =>
-            orderPayFetch({
-              orderno: orderNo,
-              tradeno: tradeNo,
-              payway: paywayNow,
-              paypassword,
-              screen: SCREENS.Pay,
-            }),
-          );
-          this.setState({ paypassword: '' });
-        }
-        return false;
-      };
-      // const paywayNow = cardQuery.item.availableBalance
-      if (userType === 3) {
-        // 已开通信用卡
-        if (initPassword !== 1) {
-          // 未设置支付密码
-          Alert.alert('', i18n.youHaveNotSetTransactionPasswordYet, [
-            { text: i18n.cancel },
-            {
-              text: i18n.goToSet,
-              onPress: () => navigate(SCREENS.TransactionPasswordStepOne),
-            },
-          ]);
-        } else {
-          alreadyPaypassword();
-        }
-      } else {
-        Alert.alert('', `${i18n.didYouOpenYourCreditCardNow}?`, [
-          {
-            text: i18n.cancel,
-          },
-          {
-            text: i18n.join,
-            onPress: () => navigate(SCREENS.Card),
-          },
-        ]);
-      }
-    };
-
-    const internetBank = () => {
-      orderPayFetch({
-        orderno: orderNo,
-        tradeno: tradeNo,
-        payway,
-        screen: SCREENS.Pay,
-      });
-    };
-
-    switch (payway) {
-      case 1:
-        creditCard();
-        break;
-
-      case 2:
-        internetBank();
-        break;
-
-      // case 5:
-      //   creditCard();
-      //   break;
-
-      default:
-        break;
-    }
-    return true;
-  };
 
   handleOnPressCancel() {
     const {

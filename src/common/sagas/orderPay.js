@@ -31,6 +31,7 @@ export function* orderPayFetchWatchHandle(action) {
       payrate = 0,
       repaymentmonth = 0,
       payvalue = 0,
+      pop = 1, // 返回层级
     } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
@@ -102,6 +103,7 @@ export function* orderPayFetchWatchHandle(action) {
       NavigatorService.navigate(SCREENS.WebView, {
         source: buyoo.orderPayInternetBank(options[0]),
         from: SCREENS.Pay,
+        pop,
       });
       return false;
     }
@@ -125,6 +127,7 @@ export function* orderPayFetchWatchHandle(action) {
           ret: response.result,
           screen,
           payvalue,
+          pop,
         }),
       );
     }
@@ -141,10 +144,10 @@ export function* orderPayFetchWatch() {
 
 export function* orderPaySuccessWatchHandle(action) {
   try {
-    const { screen, ret, payvalue } = action.payload;
+    const { screen, pop, ret, payvalue } = action.payload;
     yield apply(DeviceEventEmitter, DeviceEventEmitter.emit, [
       screen,
-      { ret, payvalue },
+      { ret, payvalue, pop },
     ]);
   } catch (err) {
     console.warn(err);

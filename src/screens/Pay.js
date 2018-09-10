@@ -161,7 +161,7 @@ class OrderWrite extends Component {
     queryOrderClear();
     cardQueryClear();
 
-    this.screenListener = DeviceEventEmitter.addListener(SCREENS.Pay, () => {
+    this.screenListener = DeviceEventEmitter.addListener(SCREENS.Pay, ret => {
       cardQueryFetch();
       queryOrderFetch({
         orderNo,
@@ -172,7 +172,7 @@ class OrderWrite extends Component {
         {
           text: i18n.confirm,
           onPress: () => {
-            pop(1);
+            pop(ret.pop);
             // navigation.dispatch(
             //   NavigationActions.reset({
             //     index: 1,
@@ -447,7 +447,7 @@ class OrderWrite extends Component {
       submitfreeze,
       payWayIndex,
       paypassword,
-      payWayButtons,
+      // payWayButtons,
       isUseFirstPay,
       firstPaymentRateArray: rateArray,
       firstPaymentRateIndex: rateIndex,
@@ -465,70 +465,79 @@ class OrderWrite extends Component {
     if (!isAuthUser) return navigate(SCREENS.Login);
 
     // 组合支付
-    const mixedPaymentCallback = ret => {
-      let payway = INTERNET_BANK_PAYWAY;
-      let payvalue = advance;
-      if (isUseFirstPay === true) {
-        // 在2倍范围内，可以选择首付比例
-        payvalue = rateArray[rateIndex].value;
-      } else {
-        payvalue = advance - availableBalance;
-      }
-      if (ret.buttonIndex === 0) {
-        // 网银付首付
-        payway = INTERNET_BANK_PAYWAY;
-      } else {
-        // 线下付首付
-        payway = OFFLINE_PAYWAY;
-      }
-      submitDuplicateFreeze(submitfreeze, this, () =>
-        orderPayFetch({
-          orderno: orderNo,
-          tradeno: tradeNo,
-          payway,
-          paypassword,
-          payrate: parseInt((payvalue / advance) * 100, 10),
-          repaymentmonth: monthArray[monthIndex],
-          payvalue,
-          screen: SCREENS.Pay,
-        }),
-      );
-      this.setState({ paypassword: '' });
-    };
+    // const mixedPaymentCallback = ret => {
+    //   let payway = INTERNET_BANK_PAYWAY;
+    //   let payvalue = advance;
+    //   if (isUseFirstPay === true) {
+    //     // 在2倍范围内，可以选择首付比例
+    //     payvalue = rateArray[rateIndex].value;
+    //   } else {
+    //     payvalue = advance - availableBalance;
+    //   }
+    //   if (ret.buttonIndex === 0) {
+    //     // 网银付首付
+    //     payway = INTERNET_BANK_PAYWAY;
+    //   } else {
+    //     // 线下付首付
+    //     payway = OFFLINE_PAYWAY;
+    //   }
+    //   submitDuplicateFreeze(submitfreeze, this, () =>
+    //     orderPayFetch({
+    //       orderno: orderNo,
+    //       tradeno: tradeNo,
+    //       payway,
+    //       paypassword,
+    //       payrate: parseInt((payvalue / advance) * 100, 10),
+    //       repaymentmonth: monthArray[monthIndex],
+    //       payvalue,
+    //       screen: SCREENS.Pay,
+    //     }),
+    //   );
+    //   this.setState({ paypassword: '' });
+    // };
 
     const creditCard = () => {
       const alreadyPaypassword = () => {
         const { openModal } = this.props;
-        if (paypassword.length === 0) {
-          openModal(MODAL_TYPES.ENTERPASSWORD, {
-            callback: ret => this.enterPasswordCallback(ret),
-            navigate,
-          });
-          return false;
-        }
-        // const calcPayrate = () => {
-        //   const payvalue = 0; // 首付
-        //   let payrate = 100; // 首付比例
-        //   if (advance > availableBalance) {
-        //     // 额度不足
-        //     // payvalue = advance - availableBalance;
-        //     payrate = parseInt(payvalue / advance, 10);
-        //   }
-        //   return payrate;
-        // };
 
         // 是否使用了首付
         if (rateArray[rateIndex].value > 0 || advance > availableBalance) {
           // 组合支付（使用了首付）
-          openModal(MODAL_TYPES.ACTIONSHEET, {
-            title: i18n.downPaymentMethod,
-            callback: ret => mixedPaymentCallback(ret),
-            data: payWayButtons
-              .filter(val => val.key !== CREDIT_PAYWAY)
-              .map(val => val.value),
+          // openModal(MODAL_TYPES.ACTIONSHEET, {
+          //   title: i18n.downPaymentMethod,
+          //   callback: ret => mixedPaymentCallback(ret),
+          //   data: payWayButtons
+          //     .filter(val => val.key !== CREDIT_PAYWAY)
+          //     .map(val => val.value),
+          // });
+
+          // 转到新页面
+          let payvalue = advance;
+          if (isUseFirstPay === true) {
+            // 在2倍范围内，可以选择首付比例
+            payvalue = rateArray[rateIndex].value;
+          } else {
+            payvalue = advance - availableBalance;
+          }
+          navigate(SCREENS.CombinationPayment, {
+            orderno: orderNo,
+            tradeno: tradeNo,
+            payrate: parseInt((payvalue / advance) * 100, 10),
+            repaymentmonth: monthArray[monthIndex],
+            payvalue,
+            advance,
+            availableBalance,
           });
         } else {
           // 直接支付（没有使用首付）
+          if (paypassword.length === 0) {
+            openModal(MODAL_TYPES.ENTERPASSWORD, {
+              callback: ret => this.enterPasswordCallback(ret),
+              navigate,
+            });
+            return false;
+          }
+
           submitDuplicateFreeze(submitfreeze, this, () =>
             orderPayFetch({
               orderno: orderNo,
@@ -539,6 +548,7 @@ class OrderWrite extends Component {
               repaymentmonth: monthArray[monthIndex],
               payvalue: advance,
               screen: SCREENS.Pay,
+              pop: payWayIndex === INTERNET_BANK_PAYWAY ? 2 : 1,
             }),
           );
           this.setState({ paypassword: '' });
@@ -590,6 +600,7 @@ class OrderWrite extends Component {
             repaymentmonth: 0,
             payvalue: advance,
             screen: SCREENS.Pay,
+            pop: payWayIndex === INTERNET_BANK_PAYWAY ? 2 : 1,
           }),
         );
         break;
