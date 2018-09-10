@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const icStore1 = require('../images/grouphelp.png');
+const u84743493Png = require('../images/u84743493.png');
+const u8877434Png = require('../images/u8877434.png');
 
 class CombinationPayment extends Component {
   constructor(props) {
@@ -251,7 +252,7 @@ class CombinationPayment extends Component {
         <View style={stylesX.main}>
           <View style={stylesX.top}>
             <View style={stylesX.topLeft}>
-              <Image style={stylesX.topLeftImage} source={icStore1} />
+              <Image style={stylesX.topLeftImage} source={u84743493Png} />
             </View>
             <View style={stylesX.topRight}>
               <Text style={stylesX.topRightRow1}>{i18n.funCard}</Text>
@@ -268,7 +269,7 @@ class CombinationPayment extends Component {
           <View style={stylesX.bottom}>
             <View style={stylesX.bottomMain}>
               <View style={stylesX.bottomLeft}>
-                <Image style={stylesX.bottomLeftImage} source={icStore1} />
+                <Image style={stylesX.bottomLeftImage} source={u8877434Png} />
               </View>
               <View style={stylesX.bottomRight}>
                 <Text style={stylesX.bottomRightRow1}>
