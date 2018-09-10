@@ -205,6 +205,12 @@ export const OTP = defineAction(
   appNamespace,
 );
 
+export const CHECK_PAY_PASWORD = defineAction(
+  'CHECK_PAY_PASWORD',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const MODIFYPAYPASSWORD = defineAction(
   'MODIFYPAYPASSWORD',
   [REQUEST, SUCCESS, FAILURE],

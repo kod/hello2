@@ -1,15 +1,22 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Modal } from 'react-native';
+import { StyleSheet, View, Text, Modal, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import { RED_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, SIDEINTERVAL, SCREENS } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  SIDEINTERVAL,
+  SCREENS,
+  // MODAL_TYPES,
+} from '../common/constants';
 import BYTouchable from '../components/BYTouchable';
+import Loader from '../components/Loader';
 import { connectLocalization } from '../components/Localization';
 
+import * as checkPayPaswordActionCreators from '../common/actions/checkPayPasword';
 import * as modalActionCreators from '../common/actions/modal';
 
 const inputPasswordBackgroundItemWidth = (WINDOW_WIDTH - SIDEINTERVAL * 2) / 6;
@@ -125,23 +132,80 @@ class EnterPasswordModal extends Component {
     };
   }
 
-  componentDidMount() {}
-
-  async handleOnPressNumber(val) {
+  componentWillReceiveProps(nextProps) {
+    const { loaded: prevLoaded } = this.props;
     const {
+      loaded,
+      isCorrect,
+      i18n,
       modalProps: { callback = () => {} },
-    } = this.props;
+    } = nextProps;
 
-    await this.setState({
-      password: this.state.password + val,
-    });
+    // if (prevLoading !== loading) {
+    //   if (loading === false) {
+    //     closeModal();
+    //   } else {
+    //     openModal(MODAL_TYPES.LOADER);
+    //   }
+    // }
 
-    if (this.state.password.length === 6) {
-      this.handleOnModalClose();
-      callback({
-        val: this.state.password,
-      });
+    if (prevLoaded !== loaded && loaded === true) {
+      // 判断结果出来了
+      if (isCorrect) {
+        // 交易密码正确
+        this.handleOnModalClose();
+        callback({
+          val: this.state.password,
+        });
+      } else {
+        // 交易密码错误
+        Alert.alert(
+          '',
+          i18n.transactionPasswordWrong,
+          [
+            {
+              text: i18n.confirm,
+              onPress: () => {
+                this.setState({
+                  password: '',
+                });
+              },
+            },
+          ],
+          { cancelable: false },
+        );
+      }
     }
+  }
+
+  handleSubmit() {
+    const { password } = this.state;
+    const {
+      navigate,
+      checkPayPaswordFetchClear,
+      checkPayPaswordFetch,
+      isAuthUser,
+      user: { msisdn },
+    } = this.props;
+    if (isAuthUser) {
+      checkPayPaswordFetchClear();
+      checkPayPaswordFetch(msisdn, password);
+    } else {
+      navigate(SCREENS.Login);
+    }
+  }
+
+  handleOnPressNumber(val) {
+    this.setState(
+      {
+        password: this.state.password + val,
+      },
+      () => {
+        if (this.state.password.length === 6) {
+          this.handleSubmit();
+        }
+      },
+    );
   }
 
   handleOnModalClose = () => {
@@ -159,10 +223,11 @@ class EnterPasswordModal extends Component {
   renderContent() {
     const { password, keyboardItems, passwordLength } = this.state;
     const { i18n } = this.props;
-    const { title = i18n.transactionPassword, navigate } = this.props;
+    const { title = i18n.transactionPassword, navigate, loading } = this.props;
 
     return (
       <View style={styles.container}>
+        {loading && <Loader absolutePosition />}
         <View style={styles.header}>
           <Text style={styles.title} onPress={() => this.handleOnModalClose()}>
             {title}
@@ -246,14 +311,21 @@ export default connectLocalization(
     () => state => {
       const {
         modal: { modalProps = {} },
-        // billByYear,
+        checkPayPasword,
+        login,
       } = state;
       return {
+        loading: checkPayPasword.loading,
+        loaded: checkPayPasword.loaded,
+        isCorrect: checkPayPasword.isCorrect,
+        user: login.user,
+        isAuthUser: !!login.user,
         modalProps,
       };
     },
     {
       ...modalActionCreators,
+      ...checkPayPaswordActionCreators,
     },
   )(EnterPasswordModal),
 );
