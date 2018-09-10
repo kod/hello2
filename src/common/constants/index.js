@@ -28,7 +28,7 @@ export const PHONE_EXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
 export const EMAIL_EXPR = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/; // 邮箱
 export const NAME_EXPR = /^.*\s.*$/; // 越南姓名
 export const IDENTIFICATION_EXPR = /^(\d{9}|\d{12})$/; // 越南身份证
-export const CARD_PASSWORD_EXPR = /^\d{6}$/; // 卡密码
+export const CARD_PASSWORD_EXPR = /^\d{6}$/; // 交易密码
 export const LOGIN_PASSWORD_EXPR = /^[\w~!@#$%^&*()_+`\-=[\]{}\\|;:,./<>?]{8,20}$/; // 登录密码
 export const HTML_REGEX = /html\/(\w+).html/;
 export const BRANDID_REGEX = /brandId=(\d+)/;
@@ -144,4 +144,5 @@ export const SCREENS = {
   WebView: 'WebView',
   StagingDetails: 'StagingDetails',
   PaymentCode: 'PaymentCode',
+  CombinationPayment: 'CombinationPayment',
 };

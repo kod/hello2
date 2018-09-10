@@ -50,6 +50,7 @@ import Mobile from '../screens/Mobile';
 import OrderDetail from '../screens/OrderDetail';
 import StagingDetails from '../screens/StagingDetails';
 import PaymentCode from '../screens/PaymentCode';
+import CombinationPayment from '../screens/CombinationPayment';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -66,6 +67,12 @@ const RouteConfigs = {
   },
   [SCREENS.PaymentCode]: {
     screen: PaymentCode,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.CombinationPayment]: {
+    screen: CombinationPayment,
     navigationOptions: {
       header: null,
     },
