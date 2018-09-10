@@ -126,7 +126,7 @@ class Bill extends Component {
         ret => {
           navigate(SCREENS.PaymentCode, {
             code: ret.ret,
-            advance: ret.payvalue,
+            totalAmount: ret.payvalue,
           });
         },
       );

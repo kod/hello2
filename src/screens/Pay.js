@@ -263,7 +263,7 @@ class OrderWrite extends Component {
   initArrayForFirstPaymentRate(queryOrderItem, cardQueryItem, callback) {
     const { repaymentMonthArray } = this.state;
     const { returnMoneyFetch } = this.props;
-    const { advance } = queryOrderItem;
+    const { totalAmount } = queryOrderItem;
     const { availableBalance } = cardQueryItem;
     const firstPaymentRateArray = FIRST_PAYMENT_RATE;
 
@@ -272,26 +272,26 @@ class OrderWrite extends Component {
       let isUseFirstPay = false;
       let firstPayType = 'A';
 
-      if (availableBalance >= advance) {
+      if (availableBalance >= totalAmount) {
         // 可以额度大于等于支付金额
         // 可选择首付
         isUseFirstPay = true;
         firstPayType = 'A';
         returnMoneyFetch(
-          advance.toString(),
+          totalAmount.toString(),
           repaymentMonthArray.join(','),
           firstPaymentRateArray.join(','),
         );
       } else if (
-        availableBalance < advance &&
-        availableBalance * 2 >= advance
+        availableBalance < totalAmount &&
+        availableBalance * 2 >= totalAmount
       ) {
         // 可以额度小于支付金额，并且2倍的额度大于等于支付金额
         // 可以选择首付
         isUseFirstPay = true;
         firstPayType = 'B';
         returnMoneyFetch(
-          advance.toString(),
+          totalAmount.toString(),
           repaymentMonthArray.join(','),
           firstPaymentRateArray.join(','),
         );
@@ -306,7 +306,6 @@ class OrderWrite extends Component {
           firstPaymentRateArray.join(','),
         );
       }
-      console.log(isUseFirstPay);
       this.setState(
         {
           isUseFirstPay,
@@ -321,7 +320,7 @@ class OrderWrite extends Component {
         {
           firstPaymentRateArray: firstPaymentRateArray.map(val => ({
             key: val,
-            value: advance * val,
+            value: totalAmount * val,
           })),
         },
         callback,
@@ -336,14 +335,14 @@ class OrderWrite extends Component {
       // repaymentMonthArray,
       // repaymentMonthIndex,
     } = this.state;
-    const { advance } = queryOrderItem;
+    const { totalAmount } = queryOrderItem;
     const { status, availableBalance } = cardQueryItem;
 
     const notEnough = () => {
       const result = [];
       // 如果支付金额，大于可用额度 + 最大首付金额；则不能使用分期
       if (
-        advance >
+        totalAmount >
         availableBalance +
           firstPaymentRateArray[firstPaymentRateArray.length - 1].value
       ) {
@@ -356,7 +355,7 @@ class OrderWrite extends Component {
         // 首付 + 分期
         console.log('首付 + 分期');
         firstPaymentRateArray.forEach(val => {
-          if (availableBalance + val.value >= advance) {
+          if (availableBalance + val.value >= totalAmount) {
             result.push(val);
           }
         });
@@ -369,7 +368,7 @@ class OrderWrite extends Component {
             //   firstPaymentRateArray: newFirstPaymentRateArray,
             // } = this.state;
             // returnMoneyFetch(
-            //   advance.toString(),
+            //   totalAmount.toString(),
             //   repaymentMonthArray.join(','),
             //   newFirstPaymentRateArray.map(val => val.key).join(','),
             // );
@@ -380,7 +379,7 @@ class OrderWrite extends Component {
 
     if (status === 3) {
       // 已激活信用卡
-      if (availableBalance >= advance) {
+      if (availableBalance >= totalAmount) {
         // 卡额度充足
         console.log('卡额度充足');
       } else {
@@ -459,7 +458,7 @@ class OrderWrite extends Component {
       isAuthUser,
       orderPayFetch,
       navigation: { navigate },
-      queryOrderItem: { advance, orderNo, tradeNo },
+      queryOrderItem: { totalAmount, orderNo, tradeNo },
       cardQueryItem: { status, initPassword, availableBalance },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
@@ -467,12 +466,12 @@ class OrderWrite extends Component {
     // 组合支付
     // const mixedPaymentCallback = ret => {
     //   let payway = INTERNET_BANK_PAYWAY;
-    //   let payvalue = advance;
+    //   let payvalue = totalAmount;
     //   if (isUseFirstPay === true) {
     //     // 在2倍范围内，可以选择首付比例
     //     payvalue = rateArray[rateIndex].value;
     //   } else {
-    //     payvalue = advance - availableBalance;
+    //     payvalue = totalAmount - availableBalance;
     //   }
     //   if (ret.buttonIndex === 0) {
     //     // 网银付首付
@@ -487,7 +486,7 @@ class OrderWrite extends Component {
     //       tradeno: tradeNo,
     //       payway,
     //       paypassword,
-    //       payrate: parseInt((payvalue / advance) * 100, 10),
+    //       payrate: parseInt((payvalue / totalAmount) * 100, 10),
     //       repaymentmonth: monthArray[monthIndex],
     //       payvalue,
     //       screen: SCREENS.Pay,
@@ -501,7 +500,7 @@ class OrderWrite extends Component {
         const { openModal } = this.props;
 
         // 是否使用了首付
-        if (rateArray[rateIndex].value > 0 || advance > availableBalance) {
+        if (rateArray[rateIndex].value > 0 || totalAmount > availableBalance) {
           // 组合支付（使用了首付）
           // openModal(MODAL_TYPES.ACTIONSHEET, {
           //   title: i18n.downPaymentMethod,
@@ -512,20 +511,20 @@ class OrderWrite extends Component {
           // });
 
           // 转到新页面
-          let payvalue = advance;
+          let payvalue = totalAmount;
           if (isUseFirstPay === true) {
             // 在2倍范围内，可以选择首付比例
             payvalue = rateArray[rateIndex].value;
           } else {
-            payvalue = advance - availableBalance;
+            payvalue = totalAmount - availableBalance;
           }
           navigate(SCREENS.CombinationPayment, {
             orderno: orderNo,
             tradeno: tradeNo,
-            payrate: parseInt((payvalue / advance) * 100, 10),
+            payrate: parseInt((payvalue / totalAmount) * 100, 10),
             repaymentmonth: monthArray[monthIndex],
             payvalue,
-            advance,
+            totalAmount,
             availableBalance,
           });
         } else {
@@ -546,7 +545,7 @@ class OrderWrite extends Component {
               paypassword,
               payrate: 0,
               repaymentmonth: monthArray[monthIndex],
-              payvalue: advance,
+              payvalue: totalAmount,
               screen: SCREENS.Pay,
               pop: payWayIndex === INTERNET_BANK_PAYWAY ? 2 : 1,
             }),
@@ -598,7 +597,7 @@ class OrderWrite extends Component {
             paypassword: '',
             payrate: 0,
             repaymentmonth: 0,
-            payvalue: advance,
+            payvalue: totalAmount,
             screen: SCREENS.Pay,
             pop: payWayIndex === INTERNET_BANK_PAYWAY ? 2 : 1,
           }),
@@ -639,39 +638,39 @@ class OrderWrite extends Component {
     } = this.state;
     const {
       i18n,
-      queryOrderItem: { advance },
+      queryOrderItem: { totalAmount },
       cardQueryItem: { availableBalance },
     } = this.props;
     let result = '';
 
     switch (payWayIndex) {
       case CREDIT_PAYWAY:
-        // if (advance > availableBalance) {
+        // if (totalAmount > availableBalance) {
         if (
           (rateArray.length > 0 && rateArray[rateIndex].value > 0) ||
-          advance > availableBalance
+          totalAmount > availableBalance
         ) {
           // 组合支付
           result = `${i18n.combinationPaymentPayment
-            .replace('%1$d', priceFormat(advance))
+            .replace('%1$d', priceFormat(totalAmount))
             .replace('₫', MONETARY)}`;
         } else {
           // 全部金额用信用卡支付
           result = `${i18n.funCardPayment
-            .replace('%1$d', priceFormat(advance))
+            .replace('%1$d', priceFormat(totalAmount))
             .replace('₫', MONETARY)}`;
         }
         break;
 
       case INTERNET_BANK_PAYWAY:
         result = `${i18n.onlineBankingPayment
-          .replace('%1$d', priceFormat(advance))
+          .replace('%1$d', priceFormat(totalAmount))
           .replace('₫', MONETARY)}`;
         break;
 
       case OFFLINE_PAYWAY:
         result = `${i18n.paymentCollectingShop} ${priceFormat(
-          advance,
+          totalAmount,
         )} ${MONETARY}`;
         break;
 
@@ -690,12 +689,12 @@ class OrderWrite extends Component {
       firstPayType,
     } = this.state;
     const {
-      queryOrderItem: { advance = 0 },
+      queryOrderItem: { totalAmount = 0 },
       cardQueryItem: { availableBalance },
       returnMoneyItems,
     } = this.props;
 
-    const price = firstPayType === 'C' ? availableBalance : advance;
+    const price = firstPayType === 'C' ? availableBalance : totalAmount;
     const month = monthArray[monthIndex];
     const rate = rateArray[rateIndex]
       ? rateArray[rateIndex].key || '0.0'
@@ -719,12 +718,12 @@ class OrderWrite extends Component {
       firstPayType,
     } = this.state;
     const {
-      queryOrderItem: { advance = 0 },
+      queryOrderItem: { totalAmount = 0 },
       cardQueryItem: { availableBalance },
       returnMoneyItems,
     } = this.props;
 
-    const price = firstPayType === 'C' ? availableBalance : advance;
+    const price = firstPayType === 'C' ? availableBalance : totalAmount;
     const rate = rateArray[rateIndex]
       ? rateArray[rateIndex].key || '0.0'
       : '0.0';
@@ -866,11 +865,11 @@ class OrderWrite extends Component {
     } = this.state;
     const {
       i18n,
-      queryOrderItem: { advance = 0 },
+      queryOrderItem: { totalAmount = 0 },
       cardQueryItem: { availableBalance },
     } = this.props;
 
-    const price = firstPayType === 'C' ? availableBalance : advance;
+    const price = firstPayType === 'C' ? availableBalance : totalAmount;
     const rate = rateArray[rateIndex]
       ? rateArray[rateIndex].key || '0.0'
       : '0.0';
@@ -966,7 +965,7 @@ class OrderWrite extends Component {
       // navigation: { navigate },
       i18n,
       openModal,
-      queryOrderItem: { advance },
+      queryOrderItem: { totalAmount },
       cardQueryItem: { status: cardStatus, availableBalance },
       queryOrderLoaded,
       cardQueryLoaded,
@@ -980,7 +979,7 @@ class OrderWrite extends Component {
         <ScrollView>
           <NavBar2
             valueLeft={i18n.totalMoney}
-            valueMiddle={`${priceFormat(advance)} ${MONETARY}`}
+            valueMiddle={`${priceFormat(totalAmount)} ${MONETARY}`}
             isShowRight={false}
           />
           <SeparateBar />
@@ -1034,7 +1033,7 @@ class OrderWrite extends Component {
               <NavBar2
                 valueLeft={i18n.installment}
                 valueMiddle={`${i18n.firstPayment} ${priceFormat(
-                  advance - availableBalance,
+                  totalAmount - availableBalance,
                 )} ${MONETARY}`}
                 isShowMiddle={firstPayType === 'C'}
                 isShowRight={false}
@@ -1058,12 +1057,12 @@ class OrderWrite extends Component {
                 }
               />
               {/* {cardStatus === 3 &&
-                advance > availableBalance &&
+                totalAmount > availableBalance &&
                 isUseFirstPay === false && (
                   <NavBar2
                     valueLeft={i18n.firstPayment}
                     valueMiddle={`${priceFormat(
-                      advance - availableBalance,
+                      totalAmount - availableBalance,
                     )} ${MONETARY}`}
                     isShowRight={false}
                   />

@@ -142,7 +142,13 @@ class CombinationPayment extends Component {
 
   renderContent() {
     const { payWayButtons, payWayIndex } = this.state;
-    const { i18n, openModal, payvalue, availableBalance, advance } = this.props;
+    const {
+      i18n,
+      openModal,
+      payvalue,
+      availableBalance,
+      totalAmount,
+    } = this.props;
     const stylesX = StyleSheet.create({
       container: {},
       main: {
@@ -257,7 +263,7 @@ class CombinationPayment extends Component {
             <View style={stylesX.topRight}>
               <Text style={stylesX.topRightRow1}>{i18n.funCard}</Text>
               <Text style={stylesX.topRightRow2}>{`${priceFormat(
-                advance - payvalue,
+                totalAmount - payvalue,
               )} ${MONETARY}`}</Text>
               <Text style={stylesX.bottomRightRow3}>
                 {`${i18n.availableQuota} ${priceFormat(
@@ -300,7 +306,7 @@ class CombinationPayment extends Component {
           <MaterialIcons name="add" style={stylesX.add} />
         </View>
         <BYButton
-          text={`${i18n.payment} ${priceFormat(advance)} ${MONETARY}`}
+          text={`${i18n.payment} ${priceFormat(totalAmount)} ${MONETARY}`}
           styleText={stylesX.buttonText}
           onPress={() => this.handleOnPressSubmit()}
         />
@@ -333,7 +339,7 @@ export default connectLocalization(
               payrate,
               repaymentmonth,
               payvalue,
-              advance,
+              totalAmount,
               availableBalance,
             },
           },
@@ -345,7 +351,7 @@ export default connectLocalization(
         payrate,
         repaymentmonth,
         payvalue,
-        advance,
+        totalAmount,
         availableBalance,
         isAuthUser: !!login.user,
       };

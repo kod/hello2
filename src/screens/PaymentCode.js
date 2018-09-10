@@ -237,7 +237,7 @@ export default connectLocalization(
               payway,
               payrate,
               repaymentmonth,
-              advance,
+              totalAmount,
               code,
             },
           },
@@ -252,7 +252,7 @@ export default connectLocalization(
         repaymentmonth,
         code: code || orderPay.ret,
         loaded: orderPay.loaded,
-        payvalue: advance,
+        payvalue: totalAmount,
         isAuthUser: !!login.user,
       };
     },

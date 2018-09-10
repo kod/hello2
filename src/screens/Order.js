@@ -133,7 +133,7 @@ class Scrollable extends Component {
           payway: val.payWay,
           payrate: val.payRate,
           repaymentmonth: val.repaymentMonth,
-          advance: val.advance,
+          totalAmount: val.totalAmount,
         });
         break;
 

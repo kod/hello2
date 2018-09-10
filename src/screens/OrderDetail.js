@@ -300,7 +300,7 @@ class OrderDetail extends Component {
       queryOrderItem: {
         tradeStatus,
         payWay,
-        advance = 0,
+        totalAmount = 0,
         payRate,
         repaymentMonth,
       },
@@ -314,7 +314,7 @@ class OrderDetail extends Component {
         <View style={stylesX.navLeft}>
           <Text style={stylesX.navLeftTop}>{i18n.subtotal}</Text>
           <Text style={stylesX.navLeftBottom}>{`${priceFormat(
-            advance,
+            totalAmount,
           )} ${MONETARY}`}</Text>
         </View>
         {tradeStatus === '10000' && (
@@ -336,7 +336,7 @@ class OrderDetail extends Component {
                     payway: payWay,
                     payrate: payRate,
                     repaymentmonth: repaymentMonth,
-                    advance,
+                    totalAmount,
                   })
                 : navigate(SCREENS.Pay, {
                     tradeNo,
@@ -459,7 +459,7 @@ class OrderDetail extends Component {
       getUserInfoById,
       cardQuery,
       queryOrderItem: {
-        advance,
+        totalAmount,
         goodsDetail,
         address,
         couponValue,
@@ -529,7 +529,7 @@ class OrderDetail extends Component {
             isPress={sourceOrderType !== 3}
           />
           <Text style={styles.totalPrice}>
-            {`${priceFormat(advance + couponValue)} ${MONETARY}`}
+            {`${priceFormat(totalAmount + couponValue)} ${MONETARY}`}
           </Text>
           <SeparateBar />
           {tradeStatus !== '10000' && (
