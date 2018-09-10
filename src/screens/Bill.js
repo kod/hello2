@@ -376,7 +376,7 @@ class Bill extends Component {
     this.handleOnPressToggleModal('isOpenPay');
 
     openModal(MODAL_TYPES.ACTIONSHEET, {
-      title: i18n.downPaymentMethod,
+      // title: i18n.downPaymentMethod,
       callback: ret => paymentCallback(ret),
       data: payWayButtons
         .filter(val => val.key !== CREDIT_PAYWAY)
