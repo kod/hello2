@@ -77,7 +77,7 @@ class ForgotPasswordOne extends Component {
           style={{ marginBottom: 70 }}
           value={msisdn}
           editable={msisdn.length === 0}
-          autoFocus
+          // autoFocus
           i18n={i18n}
         />
         <BYButton
