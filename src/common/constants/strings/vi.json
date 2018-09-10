@@ -182,7 +182,7 @@
   "noteSubscriberLockedChargeWillNotAblePerformService": "Lưu ý: Thuê bao bị khóa chiều nạp tiền (sim bị khóa 2 chiều, sim bị khóa do nhập sai mã thẻ điện thoại trước đó nhiều lần, ...) sẽ không thể thực hiện được dịch vụ này.",
   "goToSet": "Đi tới bộ",
   "amountNotEnoughWillPaidOnlineBanking": "Hạn mức tín dụng còn lại không đủ, phần còn thiếu sẽ thanh toán bằng thẻ ngân hàng của bạn",
-  "youHaveNotSetCardPasswordYet": "Bạn vẫn chưa cài đặt mật khẩu giao dịch",
+  "youHaveNotSetTransactionPasswordYet": "Bạn vẫn chưa cài đặt mật khẩu giao dịch",
   "didYouOpenYourCreditCardNow": "Bạn vẫn chưa mở thẻ tín dụng, bạn có muốn mở thẻ ngay bây giờ không",
   "firstPayment": "Trả lần đầu",
   "cancelOrder": "Hủy đơn hàng",
@@ -230,7 +230,7 @@
   "hasPaidOff": "Đã thanh toán",
   "notPaidOff": "未还清",
   "billed": "Đã xuất hóa đơn",
-  "mixedPayment": "Thanh toán kết hợp",
+  "combinationPayment": "Thanh toán kết hợp",
   "hasAlso": "Cũng có",
   "discountCode": "Mã Giảm Giá",
   "temporarilyUnableReceiveVoucher": "Tạm thời chưa thể nhận Voucher",
@@ -296,5 +296,6 @@
   "amountMoney": "Số tiền",
   "zeroDownPayment": "Thanh toán bằng không",
   "transactionPassword": "Mật mã giao dịch",
+  "transactionPasswordWrong": "Mật mã giao dịch sai",
   "shareProduct2": ", bảo đảm hàng chính hãng, siêu rẻ, mau mau mua 1 món hàng thôi"
 }

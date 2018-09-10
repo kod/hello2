@@ -182,7 +182,7 @@
   "noteSubscriberLockedChargeWillNotAblePerformService": "注意：订户已被锁定费用（SIM卡被锁定在两个方向，由于错误输入电话代码而被卡住多次，...）将无法执行此服务。",
   "goToSet": "去设置",
   "amountNotEnoughWillPaidOnlineBanking": "当前可用额度不够, 其余金额将通过网银支付",
-  "youHaveNotSetCardPasswordYet": "您尚未设置交易密码",
+  "youHaveNotSetTransactionPasswordYet": "您尚未设置交易密码",
   "didYouOpenYourCreditCardNow": "您尚未开通信用卡是否现在去开通",
   "firstPayment": "首付",
   "cancelOrder": "取消订单",
@@ -230,7 +230,7 @@
   "hasPaidOff": "已还清",
   "notPaidOff": "未还清",
   "billed": "已出账",
-  "mixedPayment": "混合支付",
+  "combinationPayment": "组合支付",
   "hasAlso": "还有",
   "discountCode": "折扣代码",
   "temporarilyUnableReceiveVoucher": "暂无优惠券可领",
@@ -296,5 +296,6 @@
   "amountMoney": "金额",
   "zeroDownPayment": "零首付",
   "transactionPassword": "交易密码",
+  "transactionPasswordWrong": "交易密码错误",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }
