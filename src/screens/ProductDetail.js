@@ -176,10 +176,14 @@ class ProductDetail extends Component {
       loaded,
       i18n,
       propertiesArray,
+      productDetailSort,
       navigation: { pop },
     } = nextProps;
     if (loaded !== prevLoaded && loaded === true) {
-      if (propertiesArray.length === 0) {
+      if (
+        propertiesArray.length === 0 ||
+        Object.keys(productDetailSort).length === 0
+      ) {
         Alert.alert(
           '',
           i18n.productNotExistOrExpired,
