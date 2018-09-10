@@ -652,24 +652,21 @@ class OrderWrite extends Component {
           advance > availableBalance
         ) {
           // 组合支付
-          result = `${i18n.combinationPaymentPayment.replace(
-            '%1$d',
-            priceFormat(advance),
-          )}`;
+          result = `${i18n.combinationPaymentPayment
+            .replace('%1$d', priceFormat(advance))
+            .replace('₫', MONETARY)}`;
         } else {
           // 全部金额用信用卡支付
-          result = `${i18n.funCardPayment.replace(
-            '%1$d',
-            priceFormat(advance),
-          )}`;
+          result = `${i18n.funCardPayment
+            .replace('%1$d', priceFormat(advance))
+            .replace('₫', MONETARY)}`;
         }
         break;
 
       case INTERNET_BANK_PAYWAY:
-        result = `${i18n.onlineBankingPayment.replace(
-          '%1$d',
-          priceFormat(advance),
-        )}`;
+        result = `${i18n.onlineBankingPayment
+          .replace('%1$d', priceFormat(advance))
+          .replace('₫', MONETARY)}`;
         break;
 
       case OFFLINE_PAYWAY:
