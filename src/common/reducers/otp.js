@@ -11,7 +11,7 @@ export default function otp(state = initState, action) {
   switch (action.type) {
     case OTP.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case OTP.REQUEST:
       return {
