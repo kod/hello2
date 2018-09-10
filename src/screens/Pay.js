@@ -652,15 +652,24 @@ class OrderWrite extends Component {
           advance > availableBalance
         ) {
           // 组合支付
-          result = `组合支付 ${priceFormat(advance)} ${MONETARY}`;
+          result = `${i18n.combinationPaymentPayment.replace(
+            '%1$d',
+            priceFormat(advance),
+          )}`;
         } else {
           // 全部金额用信用卡支付
-          result = `func card 支付 ${priceFormat(advance)} ${MONETARY}`;
+          result = `${i18n.funCardPayment.replace(
+            '%1$d',
+            priceFormat(advance),
+          )}`;
         }
         break;
 
       case INTERNET_BANK_PAYWAY:
-        result = `网银支付 ${priceFormat(advance)} ${MONETARY}`;
+        result = `${i18n.onlineBankingPayment.replace(
+          '%1$d',
+          priceFormat(advance),
+        )}`;
         break;
 
       case OFFLINE_PAYWAY:

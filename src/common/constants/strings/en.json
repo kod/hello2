@@ -297,5 +297,9 @@
   "zeroDownPayment": "Zero down payment",
   "transactionPassword": "Transaction password",
   "transactionPasswordWrong": "Transaction password is wrong",
+  "buyooProvidesSecurity": "Buyoo provides security",
+  "onlineBankingPayment": "Online banking payment %1$d ₫",
+  "funCardPayment": "Fun Card Payment %1$d ₫",
+  "combinationPaymentPayment": "Combination Payment %1$d ₫",
   "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one"
 }
