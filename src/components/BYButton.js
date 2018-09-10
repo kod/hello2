@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { SIDEINTERVAL } from '../common/constants';
 import { PRIMARY_COLOR } from '../styles/variables';
 import BYTouchable from './BYTouchable';
 
 const styles = StyleSheet.create({
   componentWrap: {
-    paddingLeft: SIDEINTERVAL, 
+    paddingLeft: SIDEINTERVAL,
     paddingRight: SIDEINTERVAL,
   },
   component: {
-    backgroundColor: PRIMARY_COLOR
+    backgroundColor: PRIMARY_COLOR,
   },
   componentText: {
     textAlign: 'center',
     height: 50,
     lineHeight: 50,
     color: '#fff',
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
 
 export default ({ data, styleWrap, style, styleText, text, ...restProps }) => {
