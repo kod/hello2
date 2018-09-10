@@ -155,9 +155,11 @@ class Bill extends Component {
       billByYearLoaded !== prevBillByYearLoaded &&
       billByYearLoaded === true
     ) {
-      billDetailsFetch({
-        summaryid: billMonthItem.id,
-      });
+      if (billMonthItem.id) {
+        billDetailsFetch({
+          summaryid: billMonthItem.id,
+        });
+      }
     }
 
     if (prevActiveYear !== activeYear || prevActiveMonth !== activeMonth) {
