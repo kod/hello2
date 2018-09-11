@@ -21,7 +21,6 @@ export function searchHistoryRemove(item) {
 export function searchHistoryClear() {
   return {
     type: SEARCH_HISTORY.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

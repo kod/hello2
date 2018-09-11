@@ -39,11 +39,13 @@ const styles = StyleSheet.create({
 class Settings extends Component {
   componentDidMount() {
     const {
+      findProductsClear,
       findProductsFetch,
       findcontent,
       // findcontent,
     } = this.props;
     Keyboard.dismiss();
+    findProductsClear();
     findProductsFetch({
       findcontent,
     });

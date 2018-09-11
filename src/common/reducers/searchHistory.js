@@ -12,7 +12,9 @@ export default function searchHistory(state = initState, action) {
       };
     case SEARCH_HISTORY.ADD:
       return {
-        items: [...action.payload.item, ...state.items].filter(key => key < 10),
+        items: [...action.payload.item, ...state.items].filter(
+          (val, key) => key < 10,
+        ),
       };
     case SEARCH_HISTORY.REMOVE:
       return {

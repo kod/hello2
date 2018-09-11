@@ -12,15 +12,11 @@ export function findProductsFetchSuccess(items) {
 export function findProductsFetchFailure() {
   return {
     type: FIND_PRODUCTS.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function findProductsFetch(
-  params,
-) {
+export function findProductsFetch(params) {
   return {
     type: FIND_PRODUCTS.REQUEST,
     payload: {
@@ -32,7 +28,6 @@ export function findProductsFetch(
 export function findProductsClear() {
   return {
     type: FIND_PRODUCTS.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }
