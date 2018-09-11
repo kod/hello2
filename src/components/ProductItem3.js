@@ -5,11 +5,19 @@ import { withNavigation } from 'react-navigation';
 import BYTouchable from './BYTouchable';
 
 import { RED_COLOR, BORDER_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, OSS_IMAGE_QUALITY, SIDEINTERVAL, SCREENS, MONETARY } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  OSS_IMAGE_QUALITY,
+  SIDEINTERVAL,
+  SCREENS,
+  MONETARY,
+  APPBAR_HEIGHT,
+  STATUSBAR_HEIGHT,
+} from '../common/constants';
 import priceFormat from '../common/helpers/priceFormat';
 
 const itemIntervalWidth = SIDEINTERVAL;
-const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
+const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 4) / 3;
 const paddingInerval = SIDEINTERVAL / 2;
 
 const styles = StyleSheet.create({
@@ -17,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingLeft: SIDEINTERVAL,
-    marginBottom: 5
+    marginBottom: APPBAR_HEIGHT + STATUSBAR_HEIGHT,
   },
   item: {
     width: itemWidth,
@@ -26,12 +34,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: BORDER_COLOR,
     borderWidth: 1,
-    marginBottom: itemIntervalWidth
+    marginBottom: itemIntervalWidth,
   },
   itemImg: {
     width: itemWidth - 2,
     height: itemWidth - 2,
-    marginBottom: 5
+    marginBottom: 5,
   },
   itemText: {
     paddingLeft: paddingInerval,
@@ -47,7 +55,7 @@ const styles = StyleSheet.create({
     paddingLeft: paddingInerval,
     paddingRight: paddingInerval,
     textDecorationLine: 'line-through',
-    textDecorationStyle: 'solid'
+    textDecorationStyle: 'solid',
   },
   itemPrice: {
     color: RED_COLOR,
@@ -55,44 +63,57 @@ const styles = StyleSheet.create({
     paddingLeft: paddingInerval,
     paddingRight: paddingInerval,
     fontWeight: '700',
-    marginBottom: 10
+    marginBottom: 10,
   },
 });
 
 class ProductItem3 extends Component {
-  renderItem = ({ item, key }) => {
+  renderItem = ({ item }) => {
     const {
       groupon = false,
       navigation: { navigate },
     } = this.props;
 
     return (
-      <BYTouchable style={styles.item} onPress={() => navigate(SCREENS.ProductDetail, { brandId: item.brandId, groupon })}>
-        <Image style={styles.itemImg} source={{ uri: `${item.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}` }} />
+      <BYTouchable
+        style={styles.item}
+        onPress={() =>
+          navigate(SCREENS.ProductDetail, { brandId: item.brandId, groupon })
+        }
+      >
+        <Image
+          style={styles.itemImg}
+          source={{
+            uri: `${
+              item.imageUrl
+            }?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`,
+          }}
+        />
         <Text numberOfLines={2} style={styles.itemText}>
           {item.name}
         </Text>
-        {!!item.orgPrice && <Text style={styles.itemOrgPrice}>{`${priceFormat(item.orgPrice)} ${MONETARY}`}</Text>}
-        <Text style={styles.itemPrice}>{`${priceFormat(item.price)} ${MONETARY}`}</Text>
+        {!!item.orgPrice && (
+          <Text style={styles.itemOrgPrice}>
+            {`${priceFormat(item.orgPrice)} ${MONETARY}`}
+          </Text>
+        )}
+        <Text style={styles.itemPrice}>
+          {`${priceFormat(item.price)} ${MONETARY}`}
+        </Text>
       </BYTouchable>
     );
   };
 
   render() {
-    const {
-      data,
-      style,
-      ...restProps
-    } = this.props;
-
+    const { data, style, ...restProps } = this.props;
+    console.log(data);
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
-
         <FlatList
           data={data}
           renderItem={this.renderItem}
-          keyExtractor={item => `item${item.id}`}
-          numColumns={2}
+          keyExtractor={item => `${item.brandId || item.id}`}
+          numColumns={3}
           initialNumToRender={6}
         />
       </View>
