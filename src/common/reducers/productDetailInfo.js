@@ -9,6 +9,8 @@ const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
+  isTrue: false,
+  msg: '',
   item: {
     propertiesIdsObject: '',
     imageDesc: [],
@@ -38,6 +40,7 @@ export default function productDetailInfo(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
+        isTrue: true,
         item: {
           ...state.item,
           ...action.payload.detail,
@@ -55,6 +58,8 @@ export default function productDetailInfo(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
+        isTrue: false,
+        msg: action.payload.msg,
         // [action.payload.brand_id]: {
         //   ...state[action.payload.brand_id],
         // },

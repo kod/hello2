@@ -1,35 +1,23 @@
-import { Platform, Alert, } from 'react-native';
+import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
+import moment from 'moment';
 import {
-  updatePeriodFetch,
   updatePeriodFetchSuccess,
   updatePeriodFetchFailure,
 } from '../actions/updatePeriod';
-import {
-  cardQueryFetch,
-} from '../actions/cardQuery';
+import { cardQueryFetch } from '../actions/cardQuery';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
-import i18n from '../helpers/i18n';
-import {
-  UPDATE_PERIOD,
-} from '../constants/actionTypes';
+import { UPDATE_PERIOD } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
-
-import NavigatorService from '../../navigations/NavigatorService';
-
-import { SCREENS } from '../constants';
 
 import { getAuthUserFunid } from '../selectors';
 
 export function* updatePeriodFetchWatchHandle(action) {
   try {
-    const {
-      period,
-    } = action.payload;
+    const { period } = action.payload;
     const funid = yield select(getAuthUserFunid);
-    
+
     const Key = 'userKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.account.period';
@@ -38,19 +26,19 @@ export function* updatePeriodFetchWatchHandle(action) {
     const version = '2.0';
 
     const signType = signTypeMD5(appId, method, charset, Key, true);
-  
+
     const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'period',
-          value: period
+          value: period,
         },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.updatePeriod, [
@@ -63,17 +51,16 @@ export function* updatePeriodFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        period: period,
-      }
+        period,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(updatePeriodFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(updatePeriodFetchSuccess());
     }
-    yield put(updatePeriodFetchSuccess());
-
   } catch (err) {
     yield put(updatePeriodFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -86,20 +73,7 @@ export function* updatePeriodFetchWatch() {
 export function* updatePeriodSuccessWatchHandle() {
   try {
     yield put(cardQueryFetch());
-    Alert.alert(
-      '',
-      i18n.success,
-      [
-        {
-          text: i18n.confirm,
-          onPress: () => {
-            NavigatorService.pop(1);
-          },
-        },
-      ],
-      { cancelable: false },
-    );
-  } catch (error) {
+  } catch (err) {
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }

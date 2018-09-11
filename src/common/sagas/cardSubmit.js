@@ -1,4 +1,4 @@
-import { Platform, Alert } from 'react-native';
+import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
 import {
@@ -18,11 +18,7 @@ import {
 } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
-
-import i18n from '../helpers/i18n';
 
 export function* cardSubmitFetchWatchHandle(action) {
   try {
@@ -93,19 +89,6 @@ export function* cardSubmitFetchWatch() {
 export function* cardSubmitSuccessWatchHandle() {
   try {
     yield put(cardQueryFetch());
-    Alert.alert(
-      '',
-      i18n.ambassadorContactYou,
-      [
-        {
-          text: i18n.confirm,
-          onPress: () => {
-            NavigatorService.pop(1);
-          },
-        },
-      ],
-      { cancelable: false },
-    );
   } catch (err) {
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

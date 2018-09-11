@@ -20,8 +20,6 @@ import moment from 'moment';
 
 import { getAuthUserFunid } from '../selectors';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
 export function* orderCancelFetchWatchHandle(action) {
   try {
     const {

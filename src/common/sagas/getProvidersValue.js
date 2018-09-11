@@ -12,8 +12,6 @@ import priceFormat from '../helpers/priceFormat';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from 'moment';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
 export function* getProvidersValueFetchWatchHandle(action) {
   try {
     const {
@@ -94,10 +92,6 @@ export function* getProvidersValueFetchWatch(res) {
 export function* getProvidersValueSuccessWatchHandle(action) {
   try {
     // const { tradeNo, orderNo } = action.payload;
-    // yield NavigatorService.navigate(SCREENS.Pay, {
-    //   tradeNo,
-    //   orderNo,
-    // });
   } catch (err) {
     console.log(err);
   }

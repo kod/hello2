@@ -1,21 +1,23 @@
-import {
-  MODIFYPAYPASSWORD,
-} from '../constants/actionTypes';
+import { MODIFYPAYPASSWORD } from '../constants/actionTypes';
+
+export function modifyPayPasswordFetchClear() {
+  return {
+    type: MODIFYPAYPASSWORD.CLEAR,
+    payload: {},
+  };
+}
 
 export function modifyPayPasswordFetchSuccess() {
   return {
     type: MODIFYPAYPASSWORD.SUCCESS,
-    payload: {
-    },
+    payload: {},
   };
 }
 
 export function modifyPayPasswordFetchFailure() {
   return {
     type: MODIFYPAYPASSWORD.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 

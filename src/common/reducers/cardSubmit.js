@@ -4,13 +4,14 @@ const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
+  isTrue: false,
 };
 
 export default function cardSubmit(state = initState, action) {
   switch (action.type) {
     case CARD_SUBMIT.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case CARD_SUBMIT.REQUEST:
       return {
@@ -22,7 +23,7 @@ export default function cardSubmit(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        // certUser: action.payload.certUser,
+        isTrue: true,
       };
     case CARD_SUBMIT.FAILURE:
       return {

@@ -213,7 +213,7 @@ export const CHECK_PAY_PASWORD = defineAction(
 
 export const MODIFYPAYPASSWORD = defineAction(
   'MODIFYPAYPASSWORD',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 
@@ -225,7 +225,7 @@ export const REGISTER = defineAction(
 
 export const UPDATE_PERIOD = defineAction(
   'UPDATE_PERIOD',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 
@@ -401,7 +401,7 @@ export const ORDER_CANCEL = defineAction(
 
 export const CARD_SUBMIT = defineAction(
   'CARD_SUBMIT',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 

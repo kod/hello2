@@ -13,8 +13,6 @@ import priceFormat from '../helpers/priceFormat';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 import moment from 'moment';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
 export function* get3GProvidersCardFetchWatchHandle(action) {
   try {
     // const {

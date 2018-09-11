@@ -5,7 +5,7 @@ import {
   View,
   ScrollView,
   WebView,
-  // WebView,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { connectLocalization } from '../components/Localization';
@@ -149,6 +149,34 @@ class ProductDetail extends Component {
     commentFetch(brandId);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { loaded: prevLoaded } = this.props;
+    const {
+      loaded,
+      isTrue,
+      i18n,
+      msg,
+      navigation: { pop },
+    } = nextProps;
+
+    if (prevLoaded !== loaded && loaded === true && isTrue === false) {
+      // 修改交易密码成功
+      Alert.alert(
+        '',
+        msg,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {
+              pop(1);
+            },
+          },
+        ],
+        { cancelable: false },
+      );
+    }
+  }
+
   handleOnScroll = event => {
     const { productDetailOpacityFetch } = this.props;
     let opacity = 0;
@@ -290,29 +318,29 @@ class ProductDetail extends Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      console.log();
-      return (state, props) => {
-        const {
-          productDetailInfo,
-          comment,
-          // productDetail,
-        } = state;
-        const {
-          screenProps: {
-            brandId,
-            propertiesIds,
-            // propertiesIds,
-          },
-        } = props;
-
-        return {
-          ...productDetailInfo.item,
+    () => (state, props) => {
+      const {
+        productDetailInfo,
+        comment,
+        // productDetail,
+      } = state;
+      const {
+        screenProps: {
           brandId,
           propertiesIds,
-          comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
-          isAuthUser: !!state.login.user,
-        };
+          // propertiesIds,
+        },
+      } = props;
+
+      return {
+        ...productDetailInfo.item,
+        loaded: productDetailInfo.loaded,
+        isTrue: productDetailInfo.isTrue,
+        msg: productDetailInfo.msg,
+        brandId,
+        propertiesIds,
+        comment: comment.items.detail ? comment.items.detail.slice(0, 1) : [],
+        isAuthUser: !!state.login.user,
       };
     },
     {

@@ -1,21 +1,16 @@
-import {
-  CARD_SUBMIT,
-} from '../constants/actionTypes';
+import { CARD_SUBMIT } from '../constants/actionTypes';
 
 export function cardSubmitFetchSuccess() {
   return {
     type: CARD_SUBMIT.SUCCESS,
-    payload: {
-    },
+    payload: {},
   };
 }
 
 export function cardSubmitFetchFailure() {
   return {
     type: CARD_SUBMIT.FAILURE,
-    payload: {
-      // rankingMode,
-    },
+    payload: {},
   };
 }
 
@@ -23,16 +18,14 @@ export function cardSubmitFetch(params) {
   return {
     type: CARD_SUBMIT.REQUEST,
     payload: {
-      ...params
+      ...params,
     },
   };
 }
 
-export function cardSubmitClear(user) {
+export function cardSubmitClear() {
   return {
     type: CARD_SUBMIT.CLEAR,
-    payload: {
-      user,
-    },
+    payload: {},
   };
 }

@@ -1,4 +1,4 @@
-import { Platform, Alert } from 'react-native';
+import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 // import moment from 'moment';
 import {
@@ -13,11 +13,7 @@ import i18n from '../helpers/i18n';
 import { MODIFYPAYPASSWORD } from '../constants/actionTypes';
 import { encryptMD5 } from '../../components/AuthEncrypt';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
 import { getAuthUserMsisdn } from '../selectors';
-
-// import { SCREENS } from '../constants';
 
 export function* modifyPayPasswordFetchWatchHandle(action) {
   try {
@@ -86,16 +82,7 @@ export function* modifyPayPasswordFetchWatch() {
 
 export function* modifyPayPasswordSuccessWatchHandle() {
   try {
-    // const { from } = action.payload;
     yield put(cardQueryFetch());
-    Alert.alert('', i18n.success, [
-      {
-        text: i18n.confirm,
-        onPress: () => {
-          NavigatorService.pop(3);
-        },
-      },
-    ]);
   } catch (error) {
     yield put(addError(typeof err === 'string' ? error : error.toString()));
   }

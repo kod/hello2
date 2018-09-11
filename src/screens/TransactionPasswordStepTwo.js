@@ -62,20 +62,34 @@ class TransactionPasswordStepTwo extends Component {
   }
 
   componentDidMount() {
-    // this.readSeconds();
+    const { modifyPayPasswordFetchClear } = this.props;
+    modifyPayPasswordFetchClear();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { loading: prevLoading } = this.props;
-    const { loading, openModal, closeModal } = nextProps;
+    const { loading: prevLoading, loaded: prevLoaded } = this.props;
+    const {
+      loading,
+      openModal,
+      closeModal,
+      loaded,
+      isTrue,
+      i18n,
+      navigation: { pop },
+    } = nextProps;
 
-    // if (prevAddLoading !== addLoading) {
-    //   if (addLoading) {
-    //     openModal(MODAL_TYPES.LOADER);
-    //   } else {
+    if (prevLoaded !== loaded && loaded === true && isTrue === true) {
+      // 修改交易密码成功
+      Alert.alert('', i18n.success, [
+        {
+          text: i18n.confirm,
+          onPress: () => {
+            pop(3);
+          },
+        },
+      ]);
+    }
 
-    //   }
-    // }
     if (prevLoading !== loading) {
       if (loading === false) {
         closeModal();
@@ -226,6 +240,8 @@ export default connectLocalization(
       return {
         msisdn: login.user ? login.user.msisdn : '',
         loading: modifyPayPassword.loading,
+        loaded: modifyPayPassword.loaded,
+        isTrue: modifyPayPassword.isTrue,
         formValue: TransactionPasswordStepTwoX
           ? TransactionPasswordStepTwoX.values
           : '',

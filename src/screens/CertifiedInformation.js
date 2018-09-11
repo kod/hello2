@@ -124,8 +124,10 @@ class CertifiedInformation extends Component {
       schoolInfoFetch,
       schoolInfoItems,
       userCertificateInfoFetch,
+      cardSubmitClear,
     } = this.props;
     // if (!isAuthUser) return navigate(SCREENS.Login);
+    cardSubmitClear();
     if (isAuthUser) userCertificateInfoFetch();
     if (schoolInfoItems.length === 0) schoolInfoFetch();
   }
@@ -134,13 +136,17 @@ class CertifiedInformation extends Component {
     const {
       cardSubmitLoading: prevCardSubmitLoading,
       addLoading: prevAddLoading,
+      cardSubmitLoaded: prevCardSubmitLoaded,
     } = this.props;
     const {
       cardSubmitLoading,
       addLoading,
       openModal,
       closeModal,
-      // closeModal,
+      cardSubmitLoaded,
+      cardSubmitIsTrue,
+      i18n,
+      navigation: { pop },
     } = nextProps;
 
     if (prevAddLoading !== addLoading) {
@@ -148,10 +154,32 @@ class CertifiedInformation extends Component {
         openModal(MODAL_TYPES.LOADER);
       }
     }
+
     if (prevCardSubmitLoading !== cardSubmitLoading) {
       if (cardSubmitLoading === false) {
         closeModal();
       }
+    }
+
+    if (
+      prevCardSubmitLoaded !== cardSubmitLoaded &&
+      cardSubmitLoaded === true &&
+      cardSubmitIsTrue === true
+    ) {
+      // 提交申请信用卡成功
+      Alert.alert(
+        '',
+        i18n.ambassadorContactYou,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {
+              pop(1);
+            },
+          },
+        ],
+        { cancelable: false },
+      );
     }
   }
 
@@ -637,6 +665,8 @@ export default connectLocalization(
           loading: userCertificateInfo.loading,
           addLoading: userAddDetailInfo.loading,
           cardSubmitLoading: cardSubmit.loading,
+          cardSubmitLoaded: cardSubmit.loaded,
+          cardSubmitIsTrue: cardSubmit.isTrue,
           isCertify,
           isAuthUser: !!state.login.user,
           schoolInfoItems: schoolInfo.items,

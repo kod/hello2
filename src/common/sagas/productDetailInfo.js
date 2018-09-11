@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Platform, Alert } from 'react-native';
+import { Platform } from 'react-native';
 // import { normalize } from 'normalizr';
 import { takeEvery, apply, put } from 'redux-saga/effects';
 import moment from 'moment';
@@ -11,8 +11,6 @@ import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { PRODUCT_DETAIL_INFO } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import NavigatorService from '../../navigations/NavigatorService';
-import i18n from '../helpers/i18n';
 
 export function* productDetailInfoFetchWatchHandle(action) {
   // 获取默认显示商品(库存不为0)
@@ -111,21 +109,7 @@ export function* productDetailInfoFetchWatchHandle(action) {
     ]);
 
     if (response.code !== 10000) {
-      yield put(productDetailInfoFetchFailure());
-      // yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      Alert.alert(
-        '',
-        response.msg,
-        [
-          {
-            text: i18n.confirm,
-            onPress: () => {
-              NavigatorService.pop(1);
-            },
-          },
-        ],
-        { cancelable: false },
-      );
+      yield put(productDetailInfoFetchFailure(response.msg));
     } else {
       const { properties_detail, brand_detail } = response;
 

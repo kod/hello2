@@ -18,8 +18,6 @@ import {
   getBillNowMonth,
 } from '../selectors';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
 export function* billDetailsFetchWatchHandle(action) {
   try {
     const {

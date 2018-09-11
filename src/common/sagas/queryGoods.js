@@ -14,8 +14,6 @@ import {
   getAuthUserFunid,
 } from '../selectors';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
 export function* queryGoodsFetchWatchHandle(action) {
   try {
     const {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
@@ -86,11 +86,39 @@ class PeriodSelect extends Component {
   }
 
   componentDidMount() {
-    const { periodHobbit } = this.props;
+    const { periodHobbit, updatePeriodFetchClear } = this.props;
 
+    updatePeriodFetchClear();
     this.setState({
       period: periodHobbit,
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { loaded: prevLoaded } = this.props;
+    const {
+      loaded,
+      isTrue,
+      i18n,
+      navigation: { pop },
+    } = nextProps;
+
+    if (prevLoaded !== loaded && loaded === true && isTrue === true) {
+      // 修改交易密码成功
+      Alert.alert(
+        '',
+        i18n.success,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {
+              pop(1);
+            },
+          },
+        ],
+        { cancelable: false },
+      );
+    }
   }
 
   handleOnPressItem(val) {
@@ -288,6 +316,8 @@ export default connectLocalization(
       } = state;
       return {
         loading: updatePeriod.loading,
+        loaded: updatePeriod.loaded,
+        isTrue: updatePeriod.isTrue,
         initPassword: cardQuery.item.initPassword,
         status: cardQuery.item.status,
         periodHobbit: cardQuery.item.periodHobbit,

@@ -31,10 +31,12 @@ export function productDetailInfoFetchSuccess({
   };
 }
 
-export function productDetailInfoFetchFailure() {
+export function productDetailInfoFetchFailure(msg) {
   return {
     type: PRODUCT_DETAIL_INFO.FAILURE,
-    payload: {},
+    payload: {
+      msg,
+    },
   };
 }
 

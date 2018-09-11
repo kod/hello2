@@ -18,8 +18,6 @@ import {
   getBillNowMonth,
 } from '../selectors';
 
-import NavigatorService from '../../navigations/NavigatorService';
-
 export function* repaymentRecordFetchWatchHandle(action) {
   try {
     const {

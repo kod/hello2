@@ -4,6 +4,7 @@ const initState = {
   loading: false,
   loaded: false,
   refreshing: false,
+  isTrue: false,
 };
 
 export default function modifyPayPassword(state = initState, action) {
@@ -22,6 +23,7 @@ export default function modifyPayPassword(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
+        isTrue: true,
       };
     case MODIFYPAYPASSWORD.FAILURE:
       return {
