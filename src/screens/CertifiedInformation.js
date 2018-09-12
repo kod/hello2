@@ -583,6 +583,22 @@ class CertifiedInformation extends Component {
               <CustomIcon style={styles.icon} name="arrowright" />
             </View>
           </BYTouchable>
+          <BYTouchable
+            style={styles.item}
+            onPress={() => navigate(SCREENS.StudentCardUpload)}
+          >
+            <View style={styles.main}>
+              <Text style={styles.label}>{i18n.document}</Text>
+              <Text style={styles.value}>
+                {connectusermsisdn3.length &&
+                connectusername3.length &&
+                connectuserrelation3.length
+                  ? connectusername3
+                  : ''}
+              </Text>
+              <CustomIcon style={styles.icon} name="arrowright" />
+            </View>
+          </BYTouchable>
           <View style={styles.item}>
             <View style={styles.main}>
               <Text style={styles.label}>{i18n.email}</Text>

@@ -51,10 +51,17 @@ import OrderDetail from '../screens/OrderDetail';
 import StagingDetails from '../screens/StagingDetails';
 import PaymentCode from '../screens/PaymentCode';
 import CombinationPayment from '../screens/CombinationPayment';
+import StudentCardUpload from '../screens/StudentCardUpload';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
     screen: AppTabNavigator,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.StudentCardUpload]: {
+    screen: StudentCardUpload,
     navigationOptions: {
       header: null,
     },

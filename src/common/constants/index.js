@@ -145,4 +145,5 @@ export const SCREENS = {
   StagingDetails: 'StagingDetails',
   PaymentCode: 'PaymentCode',
   CombinationPayment: 'CombinationPayment',
+  StudentCardUpload: 'StudentCardUpload',
 };
