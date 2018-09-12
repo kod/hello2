@@ -75,6 +75,8 @@ import getAdverstTopInfo from './getAdverstTopInfo';
 import searchMonthDetail from './searchMonthDetail';
 import getBillDetail from './getBillDetail';
 import checkPayPasword from './checkPayPasword';
+import uploadImg from './uploadImg';
+import getImgUrl from './getImgUrl';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -152,6 +154,8 @@ const rootReducer = combineReducers({
   searchMonthDetail,
   getBillDetail,
   checkPayPasword,
+  uploadImg,
+  getImgUrl,
   form: formReducer,
 });
 

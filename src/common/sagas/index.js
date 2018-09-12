@@ -126,6 +126,8 @@ import { getNewestInfoFetchWatch } from './getNewestInfo';
 import { getAdverstTopInfoFetchWatch } from './getAdverstTopInfo';
 import { getBillDetailFetchWatch } from './getBillDetail';
 import { checkPayPaswordFetchWatch } from './checkPayPasword';
+import { uploadImgFetchWatch } from './uploadImg';
+import { getImgUrlFetchWatch } from './getImgUrl';
 
 export default function* rootSaga() {
   yield all([
@@ -235,5 +237,7 @@ export default function* rootSaga() {
     getAdverstTopInfoFetchWatch(),
     getBillDetailFetchWatch(),
     checkPayPaswordFetchWatch(),
+    uploadImgFetchWatch(),
+    getImgUrlFetchWatch(),
   ]);
 }

@@ -489,6 +489,12 @@ export const GET_VOUCHER = defineAction(
   appNamespace,
 );
 
+export const GET_IMG_URL = defineAction(
+  'GET_IMG_URL',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const COLLECTION = defineAction(
   'COLLECTION',
   [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],
@@ -570,6 +576,12 @@ export const BILL_TOTAL_PRICE = defineAction(
 export const COLLECT_FILES = defineAction(
   'COLLECT_FILES',
   [REQUEST, SUCCESS, FAILURE, REMOVE],
+  appNamespace,
+);
+
+export const UPLOAD_IMG = defineAction(
+  'UPLOAD_IMG',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 

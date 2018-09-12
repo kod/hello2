@@ -1402,6 +1402,37 @@ class ReactStore {
     return this.requestUrl(`${PORT_80}/fun/userfile/collectFiles`, options);
   }
 
+  uploadImg(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data: options,
+    };
+    return this.requestUrl(`${PORT_80}/fun/userfile/uploadImg`, options);
+  }
+
+  getImgUrl(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    return this.requestUrl(`${PORT_80}/fun/userfile/getImgUrl`, options);
+  }
+
   getVoucher(options) {
     if (!options) {
       return Promise.reject(new Error('fields required'));
