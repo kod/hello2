@@ -172,15 +172,16 @@ class PrepaidPhoneCard extends Component {
       providerCode,
       // providerCode,
     } = this.props;
-
     if (this.isProcessSubmit()) {
+      const number = buttonSelectNumber[numberItemIndex].text;
       orderCreateFetch({
         screen: 'Prepaid',
         BYpayway: payWayButtons[payWayIndex].payway,
         ordertype: '7',
+        payvalue: ProvidersValueItems[priceIndex].price * number,
         goodsdetail: JSON.stringify([
           {
-            number: buttonSelectNumber[numberItemIndex].text,
+            number,
             cartitemid: 0,
             productid: ProvidersValueItems[priceIndex].id,
             rechargeaccount: '',
