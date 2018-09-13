@@ -74,7 +74,7 @@ export function* commentFetchWatchHandle(action) {
     const responseEdited = {
       ...response,
       detail: response.detail.map((val, key) => {
-        val.imageUrls = val.imageUrls.split('|');
+        val.imageUrls = val.imageUrls === '' ? [] : val.imageUrls.split('|');
         val.updateTime = val.updateTime.slice(0, 10);
         return val;
       }),

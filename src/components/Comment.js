@@ -99,18 +99,19 @@ export default ({ data, styleWrap, style, ...restProps }) => (
             {val.content}
           </Text>
           <View style={styles.componentimageWrap}>
-            {val.imageUrls.map((val1, key1) => (
-              <Image
-                style={styles.componentimageItem}
-                key={key1}
-                source={{
-                  uri: `${val1}?x-oss-process=image/resize,w_${parseInt(
-                    imageItemWidth,
-                    10,
-                  ) * 2}`,
-                }}
-              />
-            ))}
+            {val.imageUrls.length > 0 &&
+              val.imageUrls.map((val1, key1) => (
+                <Image
+                  style={styles.componentimageItem}
+                  key={key1}
+                  source={{
+                    uri: `${val1}?x-oss-process=image/resize,w_${parseInt(
+                      imageItemWidth,
+                      10,
+                    ) * 2}`,
+                  }}
+                />
+              ))}
           </View>
         </View>
       ))}
