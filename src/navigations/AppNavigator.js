@@ -47,11 +47,14 @@ import AboutAs from '../screens/AboutAs';
 import CouponSelect from '../screens/CouponSelect';
 import Computer from '../screens/Computer';
 import Mobile from '../screens/Mobile';
+import SmartDigital from '../screens/SmartDigital';
 import OrderDetail from '../screens/OrderDetail';
 import StagingDetails from '../screens/StagingDetails';
 import PaymentCode from '../screens/PaymentCode';
 import CombinationPayment from '../screens/CombinationPayment';
 import StudentCardUpload from '../screens/StudentCardUpload';
+import IdCardUpload from '../screens/IdCardUpload';
+import HandHeldPhotoUpload from '../screens/HandHeldPhotoUpload';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -104,6 +107,12 @@ const RouteConfigs = {
   },
   [SCREENS.Mobile]: {
     screen: Mobile,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.SmartDigital]: {
+    screen: SmartDigital,
     navigationOptions: {
       header: null,
     },
@@ -362,6 +371,18 @@ const RouteConfigs = {
   },
   [SCREENS.CouponSelect]: {
     screen: CouponSelect,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.IdCardUpload]: {
+    screen: IdCardUpload,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.HandHeldPhotoUpload]: {
+    screen: HandHeldPhotoUpload,
     navigationOptions: {
       header: null,
     },

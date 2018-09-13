@@ -18,11 +18,11 @@ import {
   SCREENS,
 } from '../common/constants';
 
-import ScrollableTabView from '../components/ScrollableTabView';
+// import ScrollableTabView from '../components/ScrollableTabView';
 import Scrollable1 from '../components/Scrollable1';
-import Scrollable2 from '../components/Scrollable2';
-import Scrollable3 from '../components/Scrollable3';
-import Scrollable4 from '../components/Scrollable4';
+// import Scrollable2 from '../components/Scrollable2';
+// import Scrollable3 from '../components/Scrollable3';
+// import Scrollable4 from '../components/Scrollable4';
 import { connectLocalization } from '../components/Localization';
 // import i18n from '../common/helpers/i18n';
 // import CustomIcon from '../components/CustomIcon';
@@ -110,7 +110,7 @@ class Main extends Component {
     //   tradeNo: '000000210320180906161830379572',
     //   orderNo: '220180906161830379966607775',
     // });
-    // navigate(SCREENS.Bill);
+    // navigate(SCREENS.StudentCardUpload);
     // navigate(SCREENS.Order, { index: 0 });
     // navigate(SCREENS.PaymentCode, {
     //   orderNo: '220180906174130845482540208',
@@ -224,47 +224,48 @@ class Main extends Component {
   }
 
   render() {
+    const { refreshing } = this.state;
     const {
       navigation: { navigate },
       i18n,
     } = this.props;
 
-    const scrollableTabKeys = [
-      {
-        tabLabel: i18n.recommend,
-        view: <Scrollable1 {...this.props} />,
-      },
-      {
-        tabLabel: i18n.mobileCommunications,
-        view: <Scrollable2 {...this.props} />,
-      },
-      {
-        tabLabel: i18n.computerOffice,
-        view: <Scrollable3 {...this.props} />,
-      },
-      {
-        tabLabel: i18n.digitalDevices,
-        view: <Scrollable4 {...this.props} />,
-      },
-    ];
+    // const scrollableTabKeys = [
+    //   {
+    //     tabLabel: i18n.recommend,
+    //     view: <Scrollable1 {...this.props} />,
+    //   },
+    //   {
+    //     tabLabel: i18n.mobileCommunications,
+    //     view: <Scrollable2 {...this.props} />,
+    //   },
+    //   {
+    //     tabLabel: i18n.computerOffice,
+    //     view: <Scrollable3 {...this.props} />,
+    //   },
+    //   {
+    //     tabLabel: i18n.digitalDevices,
+    //     view: <Scrollable4 {...this.props} />,
+    //   },
+    // ];
 
-    const content = scrollableTabKeys.map((val, key) => {
-      const { refreshing } = this.state;
-      return (
-        <View tabLabel={val.tabLabel} style={styles.base} key={val.tabLabel}>
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={() => this.onRefresh()}
-              />
-            }
-          >
-            {scrollableTabKeys[key].view}
-          </ScrollView>
-        </View>
-      );
-    });
+    // const content = scrollableTabKeys.map((val, key) => {
+    //   const { refreshing } = this.state;
+    //   return (
+    //     <View tabLabel={val.tabLabel} style={styles.base} key={val.tabLabel}>
+    //       <ScrollView
+    //         refreshControl={
+    //           <RefreshControl
+    //             refreshing={refreshing}
+    //             onRefresh={() => this.onRefresh()}
+    //           />
+    //         }
+    //       >
+    //         {scrollableTabKeys[key].view}
+    //       </ScrollView>
+    //     </View>
+    //   );
+    // });
 
     return (
       <View style={styles.container}>
@@ -273,7 +274,17 @@ class Main extends Component {
           leftOnPress={() => navigate(SCREENS.QrCodeScanner)}
           middleOnPress={() => navigate(SCREENS.SearchResult)}
         />
-        <ScrollableTabView content={content} onChangeTab={this.onChangeTab} />
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => this.onRefresh()}
+            />
+          }
+        >
+          <Scrollable1 {...this.props} />
+        </ScrollView>
+        {/* <ScrollableTabView content={content} onChangeTab={this.onChangeTab} /> */}
       </View>
     );
   }
