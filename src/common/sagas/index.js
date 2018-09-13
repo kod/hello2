@@ -128,6 +128,8 @@ import { getBillDetailFetchWatch } from './getBillDetail';
 import { checkPayPaswordFetchWatch } from './checkPayPasword';
 import { uploadImgFetchWatch } from './uploadImg';
 import { getImgUrlFetchWatch } from './getImgUrl';
+import { submitInfoFetchWatch } from './submitInfo';
+import { auditGetInfoFetchWatch } from './auditGetInfo';
 
 export default function* rootSaga() {
   yield all([
@@ -239,5 +241,7 @@ export default function* rootSaga() {
     checkPayPaswordFetchWatch(),
     uploadImgFetchWatch(),
     getImgUrlFetchWatch(),
+    auditGetInfoFetchWatch(),
+    submitInfoFetchWatch(),
   ]);
 }

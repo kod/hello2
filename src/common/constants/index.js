@@ -36,6 +36,7 @@ export const CLASSIFYID_REGEX = /classifyId=(\d+)/;
 export const SUBCLASSFYID_REGEX = /subClassfyId=(\d+)/;
 export const THIRDCLASSFYID_REGEX = /thirdClassfyId=(\d+)/;
 export const SHAREID_REGEX = /userID=([A-Z0-9]+)/;
+export const PRIVATE_URL_REGEX = /(.*)\?/;
 export const INVITATION_CODE_REGEX = /₫ ([A-Z0-9]+) ₫/;
 
 export const WINDOW_WIDTH = Math.floor(Dimensions.get('window').width);
@@ -82,6 +83,7 @@ export const MODAL_TYPES = {
 export const SCREENS = {
   Computer: 'Computer',
   Mobile: 'Mobile',
+  SmartDigital: 'SmartDigital',
   Address: 'Address',
   AddressAdd: 'AddressAdd',
   AboutAs: 'AboutAs',
@@ -146,4 +148,6 @@ export const SCREENS = {
   PaymentCode: 'PaymentCode',
   CombinationPayment: 'CombinationPayment',
   StudentCardUpload: 'StudentCardUpload',
+  IdCardUpload: 'IdCardUpload',
+  HandHeldPhotoUpload: 'HandHeldPhotoUpload',
 };

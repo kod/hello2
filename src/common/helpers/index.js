@@ -331,6 +331,11 @@ export const analyzeUrlNavigate = ({
         customNavigate(SCREENS.Mobile);
         break;
 
+      case 'shumapeijian':
+        // 智能数码
+        customNavigate(SCREENS.SmartDigital);
+        break;
+
       case 'details':
         // 商品详情
         brandIdRegexResult = linkUrl.match(BRANDID_REGEX);

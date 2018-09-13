@@ -16,6 +16,7 @@ const PORT_80 = DEBUG ? ':8180' : 'https://uc.buyoo.vn';
 const PORT_83 = DEBUG ? ':8183' : 'https://trade.buyoo.vn';
 const PORT_84 = DEBUG ? ':8184' : 'https://settlement.buyoo.vn';
 const PORT_85 = DEBUG ? ':8185' : 'https://commodity.buyoo.vn';
+const PORT_86 = DEBUG ? ':8186' : 'https://risk.buyoo.vn';
 const PORT_87 = DEBUG ? ':8187' : 'https://market.buyoo.vn';
 
 function callApi(url, options) {
@@ -1431,6 +1432,38 @@ class ReactStore {
       data,
     };
     return this.requestUrl(`${PORT_80}/fun/userfile/getImgUrl`, options);
+  }
+
+  submitInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    return this.requestUrl(`${PORT_86}/fun/risk/audit/submitInfo`, options);
+  }
+
+  auditGetInfo(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+    return this.requestUrl(`${PORT_86}/fun/risk/audit/getInfo`, options);
   }
 
   getVoucher(options) {

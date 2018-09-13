@@ -1,20 +1,26 @@
 /* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Alert } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
 
 import BYHeader from '../components/BYHeader';
 import SeparateBar from '../components/SeparateBar';
-import { BACKGROUND_COLOR_SECOND } from '../styles/variables';
+import {
+  BACKGROUND_COLOR_SECOND,
+  BACKGROUND_COLOR_THIRD,
+  FONT_COLOR_FIRST,
+} from '../styles/variables';
 import {
   SIDEINTERVAL,
   SCREENS,
   MODAL_TYPES,
   PRIVATE_URL_REGEX,
+  WINDOW_WIDTH,
 } from '../common/constants';
 import { connectLocalization } from '../components/Localization';
+// import Loader from '../components/Loader';
 import Upload from '../components/Upload';
 import BYButton from '../components/BYButton';
 
@@ -23,6 +29,8 @@ import * as modalActionCreators from '../common/actions/modal';
 import * as getImgUrlActionCreators from '../common/actions/getImgUrl';
 import * as submitInfoActionCreators from '../common/actions/submitInfo';
 
+const WechatIMG6425Png = require('../images/WechatIMG6425.png');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -30,12 +38,12 @@ const styles = StyleSheet.create({
   },
 });
 
-class StudentCardUpload extends Component {
+class HandHeldPhotoUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
       positive: '',
-      obverse: '',
+      // obverse: '',
       status: '', // positive: 正面 obverse: 反面
       isFocus: true, // 页面是否显示在前端
     };
@@ -43,14 +51,16 @@ class StudentCardUpload extends Component {
 
   componentDidMount() {
     const {
-      navigation,
       getImgUrlClear,
       getImgUrlFetch,
-      auditGetInfoStudentCard,
+      auditGetInfoPersonalPhotos,
+      navigation,
     } = this.props;
-    if (auditGetInfoStudentCard !== '') {
+    console.log('auditGetInfoPersonalPhotosauditGetInfoPersonalPhotos');
+    console.log(auditGetInfoPersonalPhotos);
+    if (auditGetInfoPersonalPhotos !== '') {
       getImgUrlClear();
-      getImgUrlFetch(auditGetInfoStudentCard);
+      getImgUrlFetch(auditGetInfoPersonalPhotos);
     }
 
     this.didFocusSubscription = navigation.addListener('didFocus', () => {
@@ -68,9 +78,10 @@ class StudentCardUpload extends Component {
   componentWillReceiveProps(nextProps) {
     const { status, isFocus } = this.state;
     const {
+      // loading: prevLoading,
       loaded: prevLoaded,
+      // getImgUrlLoading: prevGetImgUrlLoading,
       getImgUrlLoaded: prevGetImgUrlLoaded,
-      auditGetInfoLoaded: prevAuditGetInfoLoaded,
       submitInfoLoaded: prevSubmitInfoLoaded,
     } = this.props;
     const {
@@ -81,25 +92,18 @@ class StudentCardUpload extends Component {
       closeModal,
       getImgUrlClear,
       getImgUrlFetch,
-      getImgUrlLoading,
-      getImgUrlLoaded,
-      auditGetInfoLoaded,
-      auditGetInfoLoading,
-      auditGetInfoStudentCard,
+      // getImgUrlLoading,
       submitInfoLoading,
       submitInfoLoaded,
       submitInfoIsTrue,
+      getImgUrlLoaded,
       urls,
-      navigation: { navigate },
+      i18n,
+      navigation: { pop },
     } = nextProps;
 
     if (isFocus === true) {
-      if (
-        auditGetInfoLoading ||
-        submitInfoLoading ||
-        getImgUrlLoading ||
-        loading
-      ) {
+      if (submitInfoLoading || loading) {
         openModal(MODAL_TYPES.LOADER);
       } else {
         closeModal();
@@ -127,10 +131,10 @@ class StudentCardUpload extends Component {
         // 获取私服链接成功
         if (status === '') {
           // 初始化数据
-          const urlsArray = urls.split('|');
+          // const urlsArray = urls.split('|');
           this.setState({
-            positive: urlsArray[0] || '',
-            obverse: urlsArray[1] || '',
+            positive: urls || '',
+            // obverse: urlsArray[1] || '',
           });
         } else {
           this.setState({
@@ -151,25 +155,19 @@ class StudentCardUpload extends Component {
       if (submitInfoIsTrue === true) {
         // 提交审核信息成功
         console.log('提交审核信息成功');
-        navigate(SCREENS.IdCardUpload);
+        Alert.alert(
+          '',
+          i18n.success,
+          [
+            {
+              text: i18n.confirm,
+              onPress: () => pop(3),
+            },
+          ],
+          { cancelable: false },
+        );
       } else {
         // 提交审核信息失败
-      }
-    }
-
-    if (
-      prevAuditGetInfoLoaded !== auditGetInfoLoaded &&
-      auditGetInfoLoaded === true &&
-      isFocus === true
-    ) {
-      // 获取用户审核信息完成
-      if (auditGetInfoStudentCard !== '') {
-        // 学生证已传
-        // 获取私服链接
-        getImgUrlClear();
-        getImgUrlFetch(auditGetInfoStudentCard);
-      } else {
-        // 学生证未传
       }
     }
   }
@@ -213,17 +211,8 @@ class StudentCardUpload extends Component {
   }
 
   handleOnPressSubmit() {
-    const { positive, obverse } = this.state;
-    const {
-      i18n,
-      submitInfoClear,
-      submitInfoFetch,
-      isAuthUser,
-      navigation: { navigate },
-    } = this.props;
-
-    if (!isAuthUser) navigate(SCREENS.Login);
-
+    const { positive } = this.state;
+    const { i18n, submitInfoFetch, submitInfoClear } = this.props;
     if (positive === '')
       return Alert.alert('', i18n.pleaseUploadFront, [
         {
@@ -232,19 +221,19 @@ class StudentCardUpload extends Component {
         },
       ]);
 
-    if (obverse === '')
-      return Alert.alert('', i18n.pleaseUploadReverseSide, [
-        {
-          text: i18n.confirm,
-          onPress: () => {},
-        },
-      ]);
+    // if (obverse === '')
+    //   return Alert.alert('', i18n.pleaseUploadReverseSide, [
+    //     {
+    //       text: i18n.confirm,
+    //       onPress: () => {},
+    //     },
+    //   ]);
 
     const positiveMatch = positive.match(PRIVATE_URL_REGEX)[1];
-    const obverseMatch = obverse.match(PRIVATE_URL_REGEX)[1];
+    // const obverseMatch = obverse.match(PRIVATE_URL_REGEX)[1];
     submitInfoClear();
     submitInfoFetch({
-      studentcard: `${positiveMatch}|${obverseMatch}`,
+      personalphotos: positiveMatch,
     });
     return true;
   }
@@ -267,7 +256,7 @@ class StudentCardUpload extends Component {
   }
 
   renderContent() {
-    const { positive, obverse } = this.state;
+    const { positive } = this.state;
     const { i18n } = this.props;
 
     const stylesX = StyleSheet.create({
@@ -279,25 +268,40 @@ class StudentCardUpload extends Component {
         paddingRight: SIDEINTERVAL,
         marginBottom: 15,
       },
+      example: {
+        backgroundColor: BACKGROUND_COLOR_THIRD,
+      },
+      exampleTitle: {
+        position: 'absolute',
+        top: 15,
+        left: 0,
+        right: 0,
+        textAlign: 'center',
+        color: FONT_COLOR_FIRST,
+      },
+      exampleImage: {
+        height: 180,
+        width: WINDOW_WIDTH - SIDEINTERVAL * 2,
+        resizeMode: 'contain',
+      },
     });
 
     return (
       <View style={stylesX.container}>
         <View style={stylesX.main}>
           <Upload
-            title={i18n.studentCardPositive}
+            title={i18n.handHeldPhoto}
             onPress={() => this.handleOnPressUploadImage('positive')}
             url={positive}
           />
           <SeparateBar />
-          <Upload
-            title={i18n.studentCardObverse}
-            onPress={() => this.handleOnPressUploadImage('obverse')}
-            url={obverse}
-          />
+          <View style={stylesX.example}>
+            <Text style={stylesX.exampleTitle}>{i18n.holdingProofs}</Text>
+            <Image style={stylesX.exampleImage} source={WechatIMG6425Png} />
+          </View>
         </View>
         <BYButton
-          text={i18n.nextStep}
+          text={i18n.submit}
           onPress={() => this.handleOnPressSubmit()}
         />
       </View>
@@ -308,7 +312,7 @@ class StudentCardUpload extends Component {
     const { i18n } = this.props;
     return (
       <View style={styles.container}>
-        <BYHeader title={i18n.uploadStudentCard} />
+        <BYHeader title={i18n.uploadHandHeldPhoto} />
         <ScrollView>{this.renderContent()}</ScrollView>
       </View>
     );
@@ -329,11 +333,7 @@ export default connectLocalization(
         submitInfoIsTrue: submitInfo.isTrue,
         getImgUrlLoading: getImgUrl.loading,
         getImgUrlLoaded: getImgUrl.loaded,
-        auditGetInfoLoading: auditGetInfo.loading,
-        auditGetInfoLoaded: auditGetInfo.loaded,
-        // auditGetInfoIdentification: auditGetInfo.identification,
-        auditGetInfoStudentCard: auditGetInfo.studentCard,
-        // auditGetInfoPersonalPhotos: auditGetInfo.personalPhotos,
+        auditGetInfoPersonalPhotos: auditGetInfo.personalPhotos,
         urls: getImgUrl.urls,
         isAuthUser: !!login.user,
       };
@@ -344,5 +344,5 @@ export default connectLocalization(
       ...getImgUrlActionCreators,
       ...submitInfoActionCreators,
     },
-  )(StudentCardUpload),
+  )(HandHeldPhotoUpload),
 );

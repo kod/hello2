@@ -77,6 +77,8 @@ import getBillDetail from './getBillDetail';
 import checkPayPasword from './checkPayPasword';
 import uploadImg from './uploadImg';
 import getImgUrl from './getImgUrl';
+import submitInfo from './submitInfo';
+import auditGetInfo from './auditGetInfo';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -156,6 +158,8 @@ const rootReducer = combineReducers({
   checkPayPasword,
   uploadImg,
   getImgUrl,
+  submitInfo,
+  auditGetInfo,
   form: formReducer,
 });
 

@@ -22,6 +22,7 @@ import * as uploadImgActionCreators from '../common/actions/uploadImg';
 import * as modalActionCreators from '../common/actions/modal';
 import * as getImgUrlActionCreators from '../common/actions/getImgUrl';
 import * as submitInfoActionCreators from '../common/actions/submitInfo';
+import * as auditGetInfoActionCreators from '../common/actions/auditGetInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class StudentCardUpload extends Component {
+class IdCardUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,14 +44,14 @@ class StudentCardUpload extends Component {
 
   componentDidMount() {
     const {
-      navigation,
       getImgUrlClear,
       getImgUrlFetch,
-      auditGetInfoStudentCard,
+      auditGetInfoIdentification,
+      navigation,
     } = this.props;
-    if (auditGetInfoStudentCard !== '') {
+    if (auditGetInfoIdentification !== '') {
       getImgUrlClear();
-      getImgUrlFetch(auditGetInfoStudentCard);
+      getImgUrlFetch(auditGetInfoIdentification);
     }
 
     this.didFocusSubscription = navigation.addListener('didFocus', () => {
@@ -70,7 +71,7 @@ class StudentCardUpload extends Component {
     const {
       loaded: prevLoaded,
       getImgUrlLoaded: prevGetImgUrlLoaded,
-      auditGetInfoLoaded: prevAuditGetInfoLoaded,
+      // auditGetInfoLoaded: prevAuditGetInfoLoaded,
       submitInfoLoaded: prevSubmitInfoLoaded,
     } = this.props;
     const {
@@ -83,9 +84,9 @@ class StudentCardUpload extends Component {
       getImgUrlFetch,
       getImgUrlLoading,
       getImgUrlLoaded,
-      auditGetInfoLoaded,
+      // auditGetInfoLoaded,
       auditGetInfoLoading,
-      auditGetInfoStudentCard,
+      // auditGetInfoStudentCard,
       submitInfoLoading,
       submitInfoLoaded,
       submitInfoIsTrue,
@@ -151,27 +152,27 @@ class StudentCardUpload extends Component {
       if (submitInfoIsTrue === true) {
         // 提交审核信息成功
         console.log('提交审核信息成功');
-        navigate(SCREENS.IdCardUpload);
+        navigate(SCREENS.HandHeldPhotoUpload);
       } else {
         // 提交审核信息失败
       }
     }
 
-    if (
-      prevAuditGetInfoLoaded !== auditGetInfoLoaded &&
-      auditGetInfoLoaded === true &&
-      isFocus === true
-    ) {
-      // 获取用户审核信息完成
-      if (auditGetInfoStudentCard !== '') {
-        // 学生证已传
-        // 获取私服链接
-        getImgUrlClear();
-        getImgUrlFetch(auditGetInfoStudentCard);
-      } else {
-        // 学生证未传
-      }
-    }
+    // if (
+    //   prevAuditGetInfoLoaded !== auditGetInfoLoaded &&
+    //   auditGetInfoLoaded === true &&
+    //   isFocus === true
+    // ) {
+    //   // 获取用户审核信息完成
+    //   if (auditGetInfoStudentCard !== '') {
+    //     // 学生证已传
+    //     // 获取私服链接
+    //     getImgUrlClear();
+    //     getImgUrlFetch(auditGetInfoStudentCard);
+    //   } else {
+    //     // 学生证未传
+    //   }
+    // }
   }
 
   componentWillUnmount() {
@@ -244,7 +245,7 @@ class StudentCardUpload extends Component {
     const obverseMatch = obverse.match(PRIVATE_URL_REGEX)[1];
     submitInfoClear();
     submitInfoFetch({
-      studentcard: `${positiveMatch}|${obverseMatch}`,
+      identification: `${positiveMatch}|${obverseMatch}`,
     });
     return true;
   }
@@ -285,13 +286,13 @@ class StudentCardUpload extends Component {
       <View style={stylesX.container}>
         <View style={stylesX.main}>
           <Upload
-            title={i18n.studentCardPositive}
+            title={i18n.idCardPositive}
             onPress={() => this.handleOnPressUploadImage('positive')}
             url={positive}
           />
           <SeparateBar />
           <Upload
-            title={i18n.studentCardObverse}
+            title={i18n.idCardObverse}
             onPress={() => this.handleOnPressUploadImage('obverse')}
             url={obverse}
           />
@@ -308,7 +309,7 @@ class StudentCardUpload extends Component {
     const { i18n } = this.props;
     return (
       <View style={styles.container}>
-        <BYHeader title={i18n.uploadStudentCard} />
+        <BYHeader title={i18n.uploadIdCard} />
         <ScrollView>{this.renderContent()}</ScrollView>
       </View>
     );
@@ -331,8 +332,8 @@ export default connectLocalization(
         getImgUrlLoaded: getImgUrl.loaded,
         auditGetInfoLoading: auditGetInfo.loading,
         auditGetInfoLoaded: auditGetInfo.loaded,
-        // auditGetInfoIdentification: auditGetInfo.identification,
-        auditGetInfoStudentCard: auditGetInfo.studentCard,
+        auditGetInfoIdentification: auditGetInfo.identification,
+        // auditGetInfoStudentCard: auditGetInfo.studentCard,
         // auditGetInfoPersonalPhotos: auditGetInfo.personalPhotos,
         urls: getImgUrl.urls,
         isAuthUser: !!login.user,
@@ -343,6 +344,7 @@ export default connectLocalization(
       ...modalActionCreators,
       ...getImgUrlActionCreators,
       ...submitInfoActionCreators,
+      ...auditGetInfoActionCreators,
     },
-  )(StudentCardUpload),
+  )(IdCardUpload),
 );

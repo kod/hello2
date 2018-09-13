@@ -495,6 +495,18 @@ export const GET_IMG_URL = defineAction(
   appNamespace,
 );
 
+export const SUBMIT_INFO = defineAction(
+  'SUBMIT_INFO',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const AUDIT_GET_INFO = defineAction(
+  'AUDIT_GET_INFO',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const COLLECTION = defineAction(
   'COLLECTION',
   [REQUEST, SUCCESS, FAILURE, CLEAR, ADD, REMOVE],

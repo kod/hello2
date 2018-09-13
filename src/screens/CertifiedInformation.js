@@ -54,6 +54,7 @@ import * as certifiedInformationActionCreators from '../common/actions/certified
 import * as schoolInfoActionCreators from '../common/actions/schoolInfo';
 import * as cardSubmitActionCreators from '../common/actions/cardSubmit';
 import * as modalActionCreators from '../common/actions/modal';
+import * as auditGetInfoActionCreators from '../common/actions/auditGetInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -120,16 +121,29 @@ class CertifiedInformation extends Component {
   componentDidMount() {
     const {
       isAuthUser,
-      // navigation: { navigate },
+      navigation: { navigate },
+      navigation,
       schoolInfoFetch,
       schoolInfoItems,
       userCertificateInfoFetch,
       cardSubmitClear,
+      auditGetInfoClear,
+      auditGetInfoFetch,
     } = this.props;
     // if (!isAuthUser) return navigate(SCREENS.Login);
     cardSubmitClear();
-    if (isAuthUser) userCertificateInfoFetch();
-    if (schoolInfoItems.length === 0) schoolInfoFetch();
+    if (isAuthUser) {
+      userCertificateInfoFetch();
+      auditGetInfoClear();
+      auditGetInfoFetch();
+      if (schoolInfoItems.length === 0) schoolInfoFetch();
+      this.didFocusSubscription = navigation.addListener('didFocus', () => {
+        auditGetInfoClear();
+        auditGetInfoFetch();
+      });
+    } else {
+      navigate(SCREENS.Login);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -185,6 +199,7 @@ class CertifiedInformation extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.setTimeoutId);
+    this.didFocusSubscription.remove();
   }
 
   getSexName() {
@@ -405,7 +420,9 @@ class CertifiedInformation extends Component {
       i18n,
       username,
       loading,
-      // addLoading,
+      auditGetInfoIdentification,
+      auditGetInfoStudentCard,
+      auditGetInfoPersonalPhotos,
     } = this.props;
 
     if (loading) {
@@ -590,10 +607,10 @@ class CertifiedInformation extends Component {
             <View style={styles.main}>
               <Text style={styles.label}>{i18n.document}</Text>
               <Text style={styles.value}>
-                {connectusermsisdn3.length &&
-                connectusername3.length &&
-                connectuserrelation3.length
-                  ? connectusername3
+                {auditGetInfoStudentCard.length &&
+                auditGetInfoIdentification.length &&
+                auditGetInfoPersonalPhotos.length
+                  ? i18n.uploaded
                   : ''}
               </Text>
               <CustomIcon style={styles.icon} name="arrowright" />
@@ -659,6 +676,7 @@ export default connectLocalization(
           userAddDetailInfo,
           cardSubmit,
           schoolInfo,
+          auditGetInfo,
         } = state;
 
         const {
@@ -687,6 +705,9 @@ export default connectLocalization(
           isAuthUser: !!state.login.user,
           schoolInfoItems: schoolInfo.items,
           schoolName: getSchoolName(state, props),
+          auditGetInfoIdentification: auditGetInfo.identification,
+          auditGetInfoStudentCard: auditGetInfo.studentCard,
+          auditGetInfoPersonalPhotos: auditGetInfo.personalPhotos,
         };
       };
     },
@@ -697,6 +718,7 @@ export default connectLocalization(
       ...userAddDetailInfoActionCreators,
       ...cardSubmitActionCreators,
       ...modalActionCreators,
+      ...auditGetInfoActionCreators,
     },
   )(CertifiedInformation),
 );
