@@ -131,6 +131,7 @@ class Categories extends Component {
     const {
       itemsList,
       itemsClassfy,
+      i18n,
       navigation: { navigate },
     } = this.props;
 
@@ -163,7 +164,7 @@ class Categories extends Component {
                 ) : null,
             )}
         </View>
-        <Text style={stylesX.rightItemTitle} />
+        <Text style={stylesX.rightItemTitle}>{i18n.brand}</Text>
         <View style={stylesX.rightItemMain}>
           {itemsClassfy.length !== 0 &&
             itemsClassfy[key].map(
