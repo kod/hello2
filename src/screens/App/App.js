@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
+  Linking,
   // DeviceEventEmitter,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -29,6 +30,7 @@ class App extends Component {
       // call when reopen app after exit by back button on android
       SplashScreen.hide();
     }
+    Linking.addEventListener('url', this.handleOpenURL);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,8 +41,14 @@ class App extends Component {
     }
   }
 
-  // componentWillUnmount() {
-  // }
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this.handleOpenURL);
+  }
+
+  handleOpenURL(event) {
+    // TODO Handle url
+    console.log(event.url);
+  }
 
   render() {
     const { i18n, rehydrated } = this.props;
