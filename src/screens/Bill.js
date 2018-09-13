@@ -509,12 +509,13 @@ class Bill extends Component {
               keyboardType="numeric"
               value={price}
               onChangeText={text => billPriceFetch(text)}
+              editable={false}
             />
-            <Text style={stylesX.enterPriceText}>{i18n.changeAmount}</Text>
+            {/* <Text style={stylesX.enterPriceText}>{i18n.changeAmount}</Text> */}
           </View>
         </View>
         <Text style={stylesX.tips}>
-          {`${i18n.havenPaidAmount}: ${priceFormat(totalPrice)} ${MONETARY}`}
+          {/* {`${i18n.havenPaidAmount}: ${priceFormat(totalPrice)} ${MONETARY}`} */}
         </Text>
         <BYButton
           text={i18n.payment}
