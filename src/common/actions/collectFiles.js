@@ -12,9 +12,7 @@ export function collectFilesFetchSuccess(item) {
 export function collectFilesFetchFailure() {
   return {
     type: COLLECT_FILES.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
@@ -28,8 +26,7 @@ export function collectFilesFetch(params) {
 export function collectFilesClear() {
   return {
     type: COLLECT_FILES.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }
 
@@ -37,7 +34,7 @@ export function collectFilesRemove(index) {
   return {
     type: COLLECT_FILES.REMOVE,
     payload: {
-      index
+      index,
     },
   };
 }
