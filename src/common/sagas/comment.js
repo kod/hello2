@@ -9,7 +9,7 @@ import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
 export function* commentFetchWatchHandle(action) {
   try {
-    const { brandId } = action.payload;
+    const { brand_id: brandId } = action.payload;
 
     const msisdn = '';
     const pagesize = '4';
