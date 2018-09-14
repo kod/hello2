@@ -84,6 +84,8 @@ class BYWebView extends Component {
     console.log(`------------url----------> ${url}`);
     if (event === 0 || event === 2) {
       // 关闭当前页面
+      // 0 客服
+      // 2 关闭按钮
       console.log('-------已处理Intent----------');
     } else if (url && url.length !== 0) {
       if (url.startsWith('http') || url.startsWith('https')) {
