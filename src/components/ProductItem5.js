@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, Text, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';

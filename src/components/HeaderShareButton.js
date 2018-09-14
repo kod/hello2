@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import CustomIcon from './CustomIcon';
 import BYTouchable from './BYTouchable';
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HeaderShareButton = ({ onPress, color, style, ...restProps }) =>
+const HeaderShareButton = ({ onPress, color, style, ...restProps }) => (
   <BYTouchable onPress={onPress} style={style} {...restProps}>
     <CustomIcon
       name="share"
@@ -19,6 +19,7 @@ const HeaderShareButton = ({ onPress, color, style, ...restProps }) =>
       style={styles.icon}
       color={color || '#fff'}
     />
-  </BYTouchable>;
+  </BYTouchable>
+);
 
 export default HeaderShareButton;

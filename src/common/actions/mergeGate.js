@@ -9,26 +9,23 @@ export function mergeGateFetchSuccess(items) {
   };
 }
 
-export function mergeGetInfoFetchFailure() {
+export function mergeGateFetchFailure() {
   return {
     type: MERGE_GATE.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function mergeGetInfoFetch(params) {
+export function mergeGateFetch(params) {
   return {
     type: MERGE_GATE.REQUEST,
     payload: params,
   };
 }
 
-export function mergeGetInfoClear() {
+export function mergeGateClear() {
   return {
     type: MERGE_GATE.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

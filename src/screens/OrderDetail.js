@@ -9,7 +9,6 @@ import {
   Clipboard,
 } from 'react-native';
 import { connect } from 'react-redux';
-// import { NavigationActions } from 'react-navigation';
 import moment from 'moment';
 
 import ProductItem2 from '../components/ProductItem2';

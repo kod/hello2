@@ -1,29 +1,20 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
-import { SCREENS } from '../constants';
-import { repaymentRecordFetchSuccess, repaymentRecordFetchFailure } from '../actions/repaymentRecord';
-import { billPriceFetch, } from '../actions/bill';
+import moment from 'moment';
+import {
+  repaymentRecordFetchSuccess,
+  repaymentRecordFetchFailure,
+} from '../actions/repaymentRecord';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { REPAYMENT_RECORD } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
-import {
-  getAuthUserFunid,
-  getrepaymentRecordItem,
-  getBillByYearItems,
-  getBillNowYear,
-  getBillNowMonth,
-} from '../selectors';
+import { getAuthUserFunid } from '../selectors';
 
 export function* repaymentRecordFetchWatchHandle(action) {
   try {
-    const {
-      currentpage = 1,
-      pagesize = 20,
-    } = action.payload;
+    const { currentpage = 1, pagesize = 20 } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
     const Key = 'settleKey';
@@ -39,18 +30,18 @@ export function* repaymentRecordFetchWatchHandle(action) {
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'currentpage',
-          value: currentpage
+          value: currentpage,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
       ],
-      Key
+      Key,
     );
 
     const options = [
@@ -63,9 +54,9 @@ export function* repaymentRecordFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        currentpage: currentpage,
-        pagesize: pagesize,
-      }
+        currentpage,
+        pagesize,
+      },
     ];
 
     const response = yield apply(buyoo, buyoo.repaymentRecord, options);
@@ -73,53 +64,19 @@ export function* repaymentRecordFetchWatchHandle(action) {
     if (response.code !== 10000) {
       yield put(repaymentRecordFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(
+        repaymentRecordFetchSuccess({
+          result: response.result,
+        }),
+      );
     }
-
-    yield put(repaymentRecordFetchSuccess({
-      result: response.result,
-    }));
   } catch (err) {
     yield put(repaymentRecordFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }
 
-export function* repaymentRecordFetchWatch(res) {
+export function* repaymentRecordFetchWatch() {
   yield takeEvery(REPAYMENT_RECORD.REQUEST, repaymentRecordFetchWatchHandle);
-}
-
-
-export function* repaymentRecordSuccessWatchHandle(action) {
-  try {
-    // const {
-    //   isHaveBill
-    // } = action.payload;
-    // getrepaymentRecordItem,
-    // getBillByYearItems,
-    // getBillNowYear,
-    // getBillNowMonth,
-  
-    // const repaymentRecordItem = yield select(getrepaymentRecordItem);
-    // const billByYearItems = yield select(getBillByYearItems);
-    // const billNowYear = yield select(getBillNowYear);
-    // const billNowMonth = yield select(getBillNowMonth);
-    // let result = 0;
-    // if (repaymentRecordItem.totalWaitingAmount && billByYearItems[billNowYear]) {
-    //   if (billByYearItems[billNowYear][billNowMonth - 1].status !== 10000) {
-    //     result = repaymentRecordItem.totalWaitingAmount + billByYearItems[billNowYear][billNowMonth - 1].waitingAmount;
-    //   } else {
-    //     result = repaymentRecordItem.totalWaitingAmount;
-    //   }
-    // }
-
-    // yield put(billPriceFetch(result.toString()));
-
-  } catch (err) {
-    
-  }
-}
-
-export function* repaymentRecordSuccessWatch() {
-  yield takeEvery(REPAYMENT_RECORD.SUCCESS, repaymentRecordSuccessWatchHandle);
 }

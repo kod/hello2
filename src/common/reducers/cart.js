@@ -27,7 +27,7 @@ export default function cart(state = initState, action) {
   switch (action.type) {
     case CART.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case CART.REQUEST:
       return {
@@ -79,18 +79,17 @@ export default function cart(state = initState, action) {
           ...state.products,
           [action.payload.id]: {
             ...state.products[action.payload.id],
-            [state.isEdit ? 'selectedDel' : 'selected']: action.payload.selected
+            [state.isEdit ? 'selectedDel' : 'selected']: action.payload
+              .selected,
           },
-        }
+        },
       };
     case CART_SELECT.SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        allSelected: state.items.every((elem, index, arr) => {
-          return state.products[elem].selected;
-        }), 
+        allSelected: state.items.every(elem => state.products[elem].selected),
         // totalMoney: state.items.reduce((a, b, index) => {
         //   if (index === 1) {
         //     const aPrice = state.products[a].selected ? state.details[state.products[a].detail].price * state.products[a].quantity : 0;
@@ -119,24 +118,23 @@ export default function cart(state = initState, action) {
               ...state.products,
               [a]: {
                 ...state.products[a],
-                selectedDel: !state.allSelectedDel
+                selectedDel: !state.allSelectedDel,
               },
               [b]: {
                 ...state.products[b],
-                selectedDel: !state.allSelectedDel
-              },
-            };
-          } else {
-            return {
-              ...a,
-              [b]: {
-                ...state.products[b],
-                selectedDel: !state.allSelectedDel
+                selectedDel: !state.allSelectedDel,
               },
             };
           }
+          return {
+            ...a,
+            [b]: {
+              ...state.products[b],
+              selectedDel: !state.allSelectedDel,
+            },
+          };
         }),
-      }
+      };
     case CART_SELECTALL.REQUEST:
       return {
         ...state,
@@ -147,24 +145,23 @@ export default function cart(state = initState, action) {
               ...state.products,
               [a]: {
                 ...state.products[a],
-                selected: !state.allSelected
+                selected: !state.allSelected,
               },
               [b]: {
                 ...state.products[b],
-                selected: !state.allSelected
-              },
-            };
-          } else {
-            return {
-              ...a,
-              [b]: {
-                ...state.products[b],
-                selected: !state.allSelected
+                selected: !state.allSelected,
               },
             };
           }
+          return {
+            ...a,
+            [b]: {
+              ...state.products[b],
+              selected: !state.allSelected,
+            },
+          };
         }),
-      }
+      };
     case CART_SELECTALL.SUCCESS:
       return {
         ...state,
@@ -179,14 +176,13 @@ export default function cart(state = initState, action) {
         //   }
         //   return a + b;
         // }),
-      }
-    case CART_EDIT.REQUEST: 
+      };
+    case CART_EDIT.REQUEST:
       return {
         ...state,
         isEdit: !state.isEdit,
-        
-      }
-    case CART_EDITINIT.REQUEST: 
+      };
+    case CART_EDITINIT.REQUEST:
       return {
         ...state,
         allSelectedDel: false,
@@ -196,34 +192,33 @@ export default function cart(state = initState, action) {
               ...state.products,
               [a]: {
                 ...state.products[a],
-                selectedDel: false
+                selectedDel: false,
               },
               [b]: {
                 ...state.products[b],
-                selectedDel: false
-              },
-            };
-          } else {
-            return {
-              ...a,
-              [b]: {
-                ...state.products[b],
-                selectedDel: false
+                selectedDel: false,
               },
             };
           }
+          return {
+            ...a,
+            [b]: {
+              ...state.products[b],
+              selectedDel: false,
+            },
+          };
         }),
-      }
-    case CART_SUBMIT.REQUEST: 
+      };
+    case CART_SUBMIT.REQUEST:
       return {
         ...state,
         loading: true,
-      }
-    case CART_DELETE.REQUEST: 
+      };
+    case CART_DELETE.REQUEST:
       return {
         ...state,
         loading: true,
-      }
+      };
     default:
       return state;
   }

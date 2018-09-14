@@ -11,7 +11,7 @@ export default function judgeVoucher(state = initState, action) {
   switch (action.type) {
     case JUDGE_VOUCHER.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case JUDGE_VOUCHER.REQUEST:
       return {
@@ -23,7 +23,7 @@ export default function judgeVoucher(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        items: action.payload.items
+        items: action.payload.items,
       };
     case JUDGE_VOUCHER.FAILURE:
       return {

@@ -11,7 +11,7 @@ import {
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import QRCode from 'react-native-qrcode';
-import { ShareDialog, ShareApi } from 'react-native-fbsdk';
+import { ShareDialog } from 'react-native-fbsdk';
 
 import {
   // SCREENS,
@@ -85,30 +85,30 @@ class Invite extends Component {
     //   }
     // );
 
-    console.log(this.state.shareLinkContent);
-    var tmp = this;
-    ShareDialog.canShow(this.state.shareLinkContent).then(
-      function(canShow) {
+    const tmp = this;
+    const { shareLinkContent } = this.state;
+    ShareDialog.canShow(shareLinkContent)
+      .then(canShow => {
         if (canShow) {
           console.log(tmp.state.shareLinkContent);
           console.log(tmp.state.shareLinkContent);
           console.log(tmp.state.shareLinkContent);
           return ShareDialog.show(tmp.state.shareLinkContent);
         }
-      }
-    ).then(
-      function(result) {
-        if (result.isCancelled) {
-          console.log('Share cancelled');
-        } else {
-          console.log('Share success with postId: '
-            + result.postId);
-        }
-      },
-      function(error) {
-        console.log('Share fail with error: ' + error);
-      }
-    );
+        return false;
+      })
+      .then(
+        result => {
+          if (result.isCancelled) {
+            console.log('Share cancelled');
+          } else {
+            console.log(`Share success with postId: ${result.postId}`);
+          }
+        },
+        error => {
+          console.log(`Share fail with error: ${error}`);
+        },
+      );
   }
 
   async handleOnPressCopy() {

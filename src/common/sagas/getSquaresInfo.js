@@ -7,7 +7,6 @@ import {
   // select,
 } from 'redux-saga/effects';
 import moment from 'moment';
-// import { NavigationActions } from 'react-navigation';
 // import { SCREENS } from '../constants';
 import {
   getSquaresInfoFetchSuccess,

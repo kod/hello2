@@ -11,7 +11,7 @@ export default function mergeGate(state = initState, action) {
   switch (action.type) {
     case MERGE_GATE.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case MERGE_GATE.REQUEST:
       return {
@@ -23,7 +23,7 @@ export default function mergeGate(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        items: action.payload.items
+        items: action.payload.items,
       };
     case MERGE_GATE.FAILURE:
       return {

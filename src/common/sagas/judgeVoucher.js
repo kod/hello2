@@ -1,33 +1,22 @@
-import { Platform, Alert } from 'react-native';
+import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
+import moment from 'moment';
 import {
-  judgeVoucherFetch,
   judgeVoucherFetchSuccess,
   judgeVoucherFetchFailure,
 } from '../actions/judgeVoucher';
-import {
-  getVoucherFetch,
-} from '../actions/getVoucher';
+import { getVoucherFetch } from '../actions/getVoucher';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
-import {
-  JUDGE_VOUCHER,
-} from '../constants/actionTypes';
+import { JUDGE_VOUCHER } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
-import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
-
-import i18n from '../helpers/i18n';
+import { getAuthUserFunid } from '../selectors';
 
 export function* judgeVoucherFetchWatchHandle(action) {
   try {
     const funid = yield select(getAuthUserFunid);
-    const {
-      products = '',
-      currentpage = 1,
-      pagesize = 100,
-    } = action.payload;
+    const { products = '', currentpage = 1, pagesize = 100 } = action.payload;
 
     const Key = 'userKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
@@ -42,22 +31,22 @@ export function* judgeVoucherFetchWatchHandle(action) {
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'products',
-          value: products
+          value: products,
         },
         {
           key: 'currentpage',
-          value: currentpage
+          value: currentpage,
         },
         {
           key: 'pagesize',
-          value: pagesize
-        }
+          value: pagesize,
+        },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.judgeVoucher, [
@@ -70,21 +59,22 @@ export function* judgeVoucherFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        products: products,
-        currentpage: currentpage,
-        pagesize: pagesize
-      }
+        products,
+        currentpage,
+        pagesize,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(judgeVoucherFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(
+        judgeVoucherFetchSuccess({
+          items: response.details,
+        }),
+      );
     }
-
-    yield put(judgeVoucherFetchSuccess({
-      items: response.details,
-    }));
   } catch (err) {
     yield put(judgeVoucherFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));

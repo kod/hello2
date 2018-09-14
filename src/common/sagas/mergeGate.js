@@ -1,11 +1,14 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { mergeGateFetchSuccess, mergeGateFetchFailure } from '../actions/mergeGate';
+import moment from 'moment';
+import {
+  mergeGateFetchSuccess,
+  mergeGateFetchFailure,
+} from '../actions/mergeGate';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { MERGE_GATE } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 export function* mergeGateFetchWatchHandle(action) {
   try {
@@ -16,7 +19,7 @@ export function* mergeGateFetchWatchHandle(action) {
       pagesize = 4,
       currentpage = 1,
     } = action.payload;
-    
+
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.merge.query';
@@ -30,26 +33,26 @@ export function* mergeGateFetchWatchHandle(action) {
       [
         {
           key: 'typeid',
-          value: typeid
+          value: typeid,
         },
         {
           key: 'classfyid',
-          value: classfyid
+          value: classfyid,
         },
         {
           key: 'position',
-          value: position
+          value: position,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
         {
           key: 'currentpage',
-          value: currentpage
-        }
+          value: currentpage,
+        },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.mergeGate, [
@@ -61,30 +64,29 @@ export function* mergeGateFetchWatchHandle(action) {
         encrypt,
         timestamp,
         version,
-        typeid: typeid,
-        classfyid: classfyid,
-        position: position,
-        pagesize: pagesize,
-        currentpage: currentpage
-      }
+        typeid,
+        classfyid,
+        position,
+        pagesize,
+        currentpage,
+      },
     ]);
 
-    let result = [];
-    
+    const result = [];
+
     if (response.code !== 10000) {
       yield put(mergeGateFetchFailure());
-      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));  
-      return false;
-    }
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
+    } else {
+      const array = response.details;
+      for (let index = 0; index < array.length; index += 1) {
+        const element = array[index];
+        element.price = element.mergePrice;
+        result.push(element);
+      }
 
-    const array = response.details;
-    for (let index = 0; index < array.length; index += 1) {
-      let element = array[index];
-      element.price = element.mergePrice;
-      result.push(element);
+      yield put(mergeGateFetchSuccess(result));
     }
-
-    yield put(mergeGateFetchSuccess(result));
   } catch (err) {
     yield put(mergeGateFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));

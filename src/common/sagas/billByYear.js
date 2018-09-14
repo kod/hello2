@@ -1,7 +1,6 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
-// import { NavigationActions } from 'react-navigation';
 // import { SCREENS } from '../constants';
 import {
   billByYearFetchSuccess,

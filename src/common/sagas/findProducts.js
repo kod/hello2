@@ -1,11 +1,14 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
-import { findProductsFetchSuccess, findProductsFetchFailure } from '../actions/findProducts';
+import moment from 'moment';
+import {
+  findProductsFetchSuccess,
+  findProductsFetchFailure,
+} from '../actions/findProducts';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { FIND_PRODUCTS } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 import { getAuthUserFunid, getAuthUser } from '../selectors';
 
@@ -13,12 +16,8 @@ export function* findProductsFetchWatchHandle(action) {
   try {
     const authUser = yield select(getAuthUser) || '';
     const funid = authUser ? yield select(getAuthUserFunid) : '';
-    const {
-      findcontent,
-      pagesize = 50,
-      currentpage = 1,
-    } = action.payload;
-    
+    const { findcontent, pagesize = 50, currentpage = 1 } = action.payload;
+
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.find.finding';
@@ -32,22 +31,22 @@ export function* findProductsFetchWatchHandle(action) {
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'findcontent',
-          value: findcontent
+          value: findcontent,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
         {
           key: 'currentpage',
-          value: currentpage
-        }
-        ],
-      Key
+          value: currentpage,
+        },
+      ],
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.findProducts, [
@@ -60,24 +59,25 @@ export function* findProductsFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        findcontent: findcontent,
-        pagesize: pagesize,
-        currentpage: currentpage
-      }
+        findcontent,
+        pagesize,
+        currentpage,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(findProductsFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(
+        findProductsFetchSuccess(
+          response.details.map(val => {
+            val.imageUrl = val.iconUrl;
+            return val;
+          }),
+        ),
+      );
     }
-
-    yield put(findProductsFetchSuccess(
-      response.details.map((val, key) => {
-        val.imageUrl = val.iconUrl;
-        return val;
-      }))
-    );
   } catch (err) {
     yield put(findProductsFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));

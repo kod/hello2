@@ -5,11 +5,16 @@ import {
   PRODUCT_DETAIL_OPACITY,
 } from '../constants/actionTypes';
 
-export function mergeGetDetailFetchSuccess(product_detail, detail, propertiesIds, imageDesc) {
+export function mergeGetDetailFetchSuccess(
+  productDetail,
+  detail,
+  propertiesIds,
+  imageDesc,
+) {
   return {
     type: MERGE_GETDETAIL.SUCCESS,
     payload: {
-      product_detail,
+      product_detail: productDetail,
       detail,
       propertiesIds,
       imageDesc,
@@ -20,15 +25,11 @@ export function mergeGetDetailFetchSuccess(product_detail, detail, propertiesIds
 export function mergeGetDetailFetchFailure() {
   return {
     type: MERGE_GETDETAIL.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function mergeGetDetailFetch(
-  brandid,
-) {
+export function mergeGetDetailFetch(brandid) {
   return {
     type: MERGE_GETDETAIL.REQUEST,
     payload: {
@@ -37,11 +38,11 @@ export function mergeGetDetailFetch(
   };
 }
 
-export function mergeGetDetailClear(brand_id) {
+export function mergeGetDetailClear(brandId) {
   return {
     type: MERGE_GETDETAIL.CLEAR,
     payload: {
-      brand_id
+      brand_id: brandId,
     },
   };
 }
@@ -56,9 +57,7 @@ export function productDetailSelect(propertiesIdsObject, productDetail) {
   };
 }
 
-export function productDetailNumberFetch(
-  number,
-) {
+export function productDetailNumberFetch(number) {
   return {
     type: PRODUCT_DETAIL_NUMBER.REQUEST,
     payload: {
@@ -67,9 +66,7 @@ export function productDetailNumberFetch(
   };
 }
 
-export function productDetailOpacityFetch(
-  opacity = 0,
-) {
+export function productDetailOpacityFetch(opacity = 0) {
   return {
     type: PRODUCT_DETAIL_OPACITY.REQUEST,
     payload: {

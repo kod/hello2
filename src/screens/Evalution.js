@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -154,11 +156,11 @@ class Evalution extends Component {
     return true;
   }
 
-  handleOnPressToggleModal = (key, val) => {
-    this.setState({
-      [key]: typeof val !== 'boolean' ? !this.state[key] : val,
-    });
-  };
+  // handleOnPressToggleModal = (key, val) => {
+  //   this.setState({
+  //     [key]: typeof val !== 'boolean' ? !this.state[key] : val,
+  //   });
+  // };
 
   handleOnPressStar(index) {
     this.setState({

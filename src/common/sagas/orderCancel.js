@@ -1,32 +1,22 @@
-import { Platform, DeviceEventEmitter } from 'react-native';
+import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
-import { SCREENS } from '../constants';
-import { orderCancelFetchSuccess, orderCancelFetchFailure } from '../actions/orderCancel';
+import moment from 'moment';
 import {
-  cardQueryFetch,
-} from '../actions/cardQuery';
-import {
-  queryOrderListFetch,
-} from '../actions/queryOrderList';
-import {
-  queryOrderFetch,
-} from '../actions/queryOrder';
+  orderCancelFetchSuccess,
+  orderCancelFetchFailure,
+} from '../actions/orderCancel';
+import { queryOrderListFetch } from '../actions/queryOrderList';
+import { queryOrderFetch } from '../actions/queryOrder';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { ORDER_CANCEL } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 import { getAuthUserFunid } from '../selectors';
 
 export function* orderCancelFetchWatchHandle(action) {
   try {
-    const {
-      tradeno,
-      orderno,
-      status,
-    } = action.payload;
+    const { tradeno, orderno, status } = action.payload;
     const funid = yield select(getAuthUserFunid);
 
     const Key = 'tradeKey';
@@ -42,22 +32,22 @@ export function* orderCancelFetchWatchHandle(action) {
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'orderno',
-          value: orderno
+          value: orderno,
         },
         {
           key: 'tradeno',
-          value: tradeno
+          value: tradeno,
         },
         {
           key: 'status',
-          value: status
-        }
+          value: status,
+        },
       ],
-      Key
+      Key,
     );
 
     const options = [
@@ -70,10 +60,10 @@ export function* orderCancelFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        orderno: orderno,
-        tradeno: tradeno,
-        status: status
-      }
+        orderno,
+        tradeno,
+        status,
+      },
     ];
 
     const response = yield apply(buyoo, buyoo.orderCancel, options);
@@ -81,15 +71,14 @@ export function* orderCancelFetchWatchHandle(action) {
     if (response.code !== 10000) {
       yield put(orderCancelFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(
+        orderCancelFetchSuccess({
+          orderno,
+          tradeno,
+        }),
+      );
     }
-
-    yield put(
-      orderCancelFetchSuccess({
-        orderno: orderno,
-        tradeno: tradeno,
-      })
-    );
   } catch (err) {
     console.log(err);
     yield put(orderCancelFetchFailure());
@@ -101,34 +90,29 @@ export function* orderCancelFetchWatch() {
   yield takeEvery(ORDER_CANCEL.REQUEST, orderCancelFetchWatchHandle);
 }
 
-
 export function* orderCancelSuccessWatchHandle(action) {
   try {
-    const {
-      orderno,
-      tradeno,
-    } = action.payload;
+    const { orderno, tradeno } = action.payload;
     yield put(
       queryOrderFetch({
         orderNo: orderno,
         tradeNo: tradeno,
-      })
+      }),
     );
     yield put(
       queryOrderListFetch({
         index: 0,
         status: '99999',
-      })
+      }),
     );
     yield put(
       queryOrderListFetch({
         index: 1,
         status: '10000',
-      })
+      }),
     );
-
   } catch (err) {
-    
+    console.warn(err);
   }
 }
 

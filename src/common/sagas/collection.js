@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
+import moment from 'moment';
 import {
   collectionFetch,
   collectionFetchSuccess,
@@ -17,11 +18,10 @@ import {
   COLLECTION_REMOVE,
 } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
 
-export function* collectionFetchWatchHandle(action) {
+export function* collectionFetchWatchHandle() {
   try {
     const funid = yield select(getAuthUserFunid);
     const msisdn = yield select(getAuthUserMsisdn);
@@ -34,64 +34,62 @@ export function* collectionFetchWatchHandle(action) {
     const charset = 'utf-8';
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '1.0';
-  
+
     const signType = signTypeMD5(appId, method, charset, Key, false);
 
     const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'msisdn',
-          value: msisdn
+          value: msisdn,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
         {
           key: 'currentpage',
-          value: currentpage
-        }
+          value: currentpage,
+        },
       ],
-      Key
+      Key,
     );
 
-    const response = yield apply(buyoo, buyoo.userGetCollection, [
+    let response = yield apply(buyoo, buyoo.userGetCollection, [
       {
-        appId: appId,
+        appId,
         method,
         charset,
-        signType: signType,
+        signType,
         encrypt,
         timestamp,
         version,
         funid,
         msisdn,
-        pagesize: pagesize,
-        currentpage: currentpage
-      }
+        pagesize,
+        currentpage,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(collectionFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      response = {
+        ...response,
+        details: response.details.map(val => {
+          val.imageUrl = val.brandImage;
+          val.name = val.brandName;
+          val.price = val.brandPrice;
+          return val;
+        }),
+      };
+      yield put(collectionFetchSuccess(response));
     }
-
-    response = {
-      ...response,
-      details: response.details.map((val, key) => {
-        val.imageUrl = val.brandImage;
-        val.name = val.brandName;
-        val.price = val.brandPrice;
-        return val;
-      })
-    }
-
-    yield put(collectionFetchSuccess(response));
   } catch (err) {
     yield put(collectionFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -101,7 +99,7 @@ export function* collectionFetchWatchHandle(action) {
 export function* collectionAddFetchWatchHandle(action) {
   try {
     const funid = yield select(getAuthUserFunid);
-    const brandids = action.payload.brandIds;    
+    const brandids = action.payload.brandIds;
 
     const Key = 'userKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
@@ -109,21 +107,21 @@ export function* collectionAddFetchWatchHandle(action) {
     const charset = 'utf-8';
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '2.0';
-  
+
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
     const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'brandids',
-          value: brandids
+          value: brandids,
         },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.userBatchCollection, [
@@ -136,17 +134,16 @@ export function* collectionAddFetchWatchHandle(action) {
         timestamp,
         version,
         funid,
-        brandids: brandids,
-      }
+        brandids,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(collectionAddFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(collectionAddFetchSuccess());
     }
-
-    yield put(collectionAddFetchSuccess());
   } catch (err) {
     yield put(collectionAddFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -157,15 +154,15 @@ export function* collectionAddSuccessWatchHandle() {
   try {
     yield put(collectionFetch());
   } catch (err) {
-    
+    console.warn(err);
   }
 }
 
 export function* collectionRemoveFetchWatchHandle(action) {
+  const { brand_id: brandId } = action.payload;
   try {
     const funid = yield select(getAuthUserFunid);
     const msisdn = yield select(getAuthUserMsisdn);
-    const brand_id = action.payload.brand_id;    
 
     const Key = 'userKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
@@ -173,49 +170,48 @@ export function* collectionRemoveFetchWatchHandle(action) {
     const charset = 'utf-8';
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '1.0';
-  
+
     const signType = signTypeMD5(appId, method, charset, Key, false);
 
     const encrypt = encryptMD5(
       [
         {
           key: 'funid',
-          value: funid
+          value: funid,
         },
         {
           key: 'msisdn',
-          value: msisdn
+          value: msisdn,
         },
         {
           key: 'brand_id',
-          value: brand_id
+          value: brandId,
         },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.userCancelCollection, [
       {
-        appId: appId,
+        appId,
         method,
         charset,
-        signType: signType,
+        signType,
         encrypt,
         timestamp,
         version,
         funid,
         msisdn,
-        brand_id: brand_id,
-      }
+        brand_id: brandId,
+      },
     ]);
 
     if (response.code !== 10000) {
       yield put(collectionRemoveFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
-      return false;
+    } else {
+      yield put(collectionRemoveFetchSuccess());
     }
-
-    yield put(collectionRemoveFetchSuccess());
   } catch (err) {
     yield put(collectionRemoveFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
@@ -226,7 +222,7 @@ export function* collectionRemoveSuccessWatchHandle() {
   try {
     yield put(collectionFetch());
   } catch (err) {
-    
+    console.warn(err);
   }
 }
 
@@ -247,5 +243,8 @@ export function* collectionRemoveFetchWatch() {
 }
 
 export function* collectionRemoveSuccessWatch() {
-  yield takeEvery(COLLECTION_REMOVE.SUCCESS, collectionRemoveSuccessWatchHandle);
+  yield takeEvery(
+    COLLECTION_REMOVE.SUCCESS,
+    collectionRemoveSuccessWatchHandle,
+  );
 }

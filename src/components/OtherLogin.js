@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
 import { BORDER_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
+
+const fbPng = require('../images/fb.png');
+const zaloPng = require('../images/zalo.png');
+const GooglePng = require('../images/Google.png');
 
 const styles = StyleSheet.create({
   other: {
@@ -14,7 +18,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 11,
     color: '#999',
-    marginBottom: 10
+    marginBottom: 10,
   },
   otherMain: {
     flexDirection: 'row',
@@ -26,51 +30,49 @@ const styles = StyleSheet.create({
     backgroundColor: '#305CA5',
     height: 50,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   otherFbImg: {
     height: 25,
-    width: 25
+    width: 25,
   },
   otherGo: {
     flex: 1,
     backgroundColor: '#fff',
     height: 50,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   otherGoImg: {
     height: 25,
-    width: 25
+    width: 25,
   },
   otherZl: {
     flex: 1,
     backgroundColor: '#2988E4',
     height: 50,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   otherZlImg: {
     height: 25,
-    width: 26.75
-  }
+    width: 26.75,
+  },
 });
 
-export default ({ style, ...restProps }) => {
-  return (
-    <View style={[styles.other, style]} {...restProps}>
-      <Text style={styles.otherTitle}>第三方登录</Text>
-      <View style={styles.otherMain}>
-        <View style={styles.otherFb}>
-          <Image style={styles.otherFbImg} source={require('../images/fb.png')} />
-        </View>
-        <View style={styles.otherZl}>
-          <Image style={styles.otherZlImg} source={require('../images/zalo.png')} />
-        </View>
-        <View style={styles.otherGo}>
-          <Image style={styles.otherGoImg} source={require('../images/Google.png')} />
-        </View>
+export default ({ style, ...restProps }) => (
+  <View style={[styles.other, style]} {...restProps}>
+    <Text style={styles.otherTitle}>第三方登录</Text>
+    <View style={styles.otherMain}>
+      <View style={styles.otherFb}>
+        <Image style={styles.otherFbImg} source={fbPng} />
+      </View>
+      <View style={styles.otherZl}>
+        <Image style={styles.otherZlImg} source={zaloPng} />
+      </View>
+      <View style={styles.otherGo}>
+        <Image style={styles.otherGoImg} source={GooglePng} />
       </View>
     </View>
-  );
-};
+  </View>
+);

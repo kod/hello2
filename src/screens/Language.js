@@ -1,22 +1,22 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import BYHeader from '../components/BYHeader';
 import BYTouchable from '../components/BYTouchable';
-import { PRIMARY_COLOR } from '../styles/variables';
-import { BACKGROUND_COLOR } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, } from '../common/constants';
+import { BACKGROUND_COLOR, PRIMARY_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH } from '../common/constants';
 import { connectLocalization } from '../components/Localization';
 
-import * as i18nActionCreators from "../common/actions/i18n";
+import * as i18nActionCreators from '../common/actions/i18n';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR,
-  }
+  },
 });
 
 const languageList = [
@@ -34,61 +34,65 @@ const languageList = [
     title: '中文',
     multipleId: true,
   },
-]
+];
 
 class Language extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    const { bannerHomeRecommendFetch } = this.props;
-    // bannerHomeRecommendFetch();
-  }
-
   handleOnPressListItem = id => {
     const { setLanguage, navigation } = this.props;
     setLanguage(id);
     navigation.goBack();
-  }
+  };
 
   renderList = list => {
     const { lang } = this.props;
     return (
       <View>
-        {list.map((val, key) => 
-          <BYTouchable delayPressIn={0} key={key} onPress={ () => this.handleOnPressListItem(val.id) }>
-            <View style={{ flexDirection: 'row', alignItems: 'center', height: 50, paddingLeft: WINDOW_WIDTH * 0.04, paddingRight: WINDOW_WIDTH * 0.02, borderBottomColor: '#eee', borderBottomWidth: StyleSheet.hairlineWidth,  }}>
-              <Text style={{ flex: 1 }}>{ val.title }</Text>
-              { val.id === lang && <MaterialIcons name="check-circle" style={{ fontSize: 26, color: PRIMARY_COLOR }} /> }
+        {list.map((val, key) => (
+          <BYTouchable
+            delayPressIn={0}
+            key={key}
+            onPress={() => this.handleOnPressListItem(val.id)}
+          >
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                height: 50,
+                paddingLeft: WINDOW_WIDTH * 0.04,
+                paddingRight: WINDOW_WIDTH * 0.02,
+                borderBottomColor: '#eee',
+                borderBottomWidth: StyleSheet.hairlineWidth,
+              }}
+            >
+              <Text style={{ flex: 1 }}>{val.title}</Text>
+              {val.id === lang && (
+                <MaterialIcons
+                  name="check-circle"
+                  style={{ fontSize: 26, color: PRIMARY_COLOR }}
+                />
+              )}
             </View>
           </BYTouchable>
-        )}
+        ))}
       </View>
-    )
-  }
+    );
+  };
 
   handleOnPressHeaderBackButton = () => {
-    const { goBack } = this.props.navigation;
+    const { navigation } = this.props;
+    const { goBack } = navigation;
     goBack();
   };
 
-  renderHeaderTitle = () => {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
-        <Text style={{ fontSize: 18, color: '#fff' }}>Language</Text>
-      </View>
-    )
-  }
+  renderHeaderTitle = () => (
+    <View style={{ flex: 1, alignItems: 'center', paddingRight: 60 }}>
+      <Text style={{ fontSize: 18, color: '#fff' }}>Language</Text>
+    </View>
+  );
 
-  renderHeaderRight = () => {
-    return (
-      <View />
-    )
-  }
+  renderHeaderRight = () => <View />;
 
   render() {
-    const { bannerHomeRecommend, navigation: { navigate } } = this.props;
     return (
       <View style={styles.container}>
         <BYHeader />
@@ -104,25 +108,21 @@ class Language extends Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          bannerHomeRecommend,
-        } = state;
+    () => state => {
+      const { login } = state;
 
-        // const {
+      // const {
 
-        // } = props;
+      // } = props;
 
-        return {
-          bannerHomeRecommend: bannerHomeRecommend || {}
-        }
-      }
+      return {
+        login: login || {},
+      };
     },
     {
       ...i18nActionCreators,
-    }
-  )(Language)
+    },
+  )(Language),
 );
 
 // function mapStateToProps(state, props) {

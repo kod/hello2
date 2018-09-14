@@ -1,4 +1,5 @@
 /* eslint-disable react/no-multi-comp */
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import {
   StyleSheet,

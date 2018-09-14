@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

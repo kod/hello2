@@ -1,26 +1,28 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { promotionInfoFetchSuccess, promotionInfoFetchFailure } from '../actions/promotionInfo';
+import {
+  promotionInfoFetchSuccess,
+  promotionInfoFetchFailure,
+} from '../actions/promotionInfo';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { PROMOTION_INFO } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
 
-export function* promotionInfoFetchWatchHandle(action) {
+export function* promotionInfoFetchWatchHandle() {
   try {
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.promotion.query';
     const charset = 'utf-8';
-    const timestamp = (Date.now() + '').slice(3);
+    const timestamp = `${Date.now()}`.slice(3);
     const version = '2.0';
 
-
-    let typeid = '0';
-    let classfyid = '0';
-    let position = '0';
-    let pagesize = '6';
-    let currentpage = '1';
+    const typeid = '0';
+    const classfyid = '0';
+    const position = '0';
+    const pagesize = '6';
+    const currentpage = '1';
 
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
@@ -28,26 +30,26 @@ export function* promotionInfoFetchWatchHandle(action) {
       [
         {
           key: 'typeid',
-          value: typeid
+          value: typeid,
         },
         {
           key: 'classfyid',
-          value: classfyid
+          value: classfyid,
         },
         {
           key: 'position',
-          value: position
+          value: position,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
         {
           key: 'currentpage',
-          value: currentpage
-        }
+          value: currentpage,
+        },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.getPromotionInfo, [
@@ -59,12 +61,12 @@ export function* promotionInfoFetchWatchHandle(action) {
         encrypt,
         timestamp,
         version,
-        typeid: typeid,
-        classfyid: classfyid,
-        position: position,
-        pagesize: pagesize,
-        currentpage: currentpage
-      }
+        typeid,
+        classfyid,
+        position,
+        pagesize,
+        currentpage,
+      },
     ]);
 
     yield put(promotionInfoFetchSuccess(response));

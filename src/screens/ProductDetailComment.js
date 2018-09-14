@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Image, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import ImageGetSize from "../components/ImageGetSize";
 import Comment from '../components/Comment';
 import { connectLocalization } from '../components/Localization';
 
-import { BORDER_COLOR, PRIMARY_COLOR, RED_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT, } from '../common/constants';
-
+import { WINDOW_WIDTH, STATUSBAR_HEIGHT } from '../common/constants';
 
 import * as productDetailInfoActionCreators from '../common/actions/productDetailInfo';
+
+const emptycommentPng = require('../images/emptycomment.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -25,12 +21,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    paddingTop: WINDOW_WIDTH * 0.3
+    paddingTop: WINDOW_WIDTH * 0.3,
   },
   emptyCommentImage: {
     height: 160,
     width: 160,
-    marginBottom: WINDOW_WIDTH * 0.06
+    marginBottom: WINDOW_WIDTH * 0.06,
   },
   emptyCommentText: {
     fontSize: 11,
@@ -39,30 +35,25 @@ const styles = StyleSheet.create({
 });
 
 class ProductDetailComment extends Component {
-  componentDidMount() {
-    const { bannerSwiperFetch } = this.props;
-    
-  }
-  
   render() {
     const {
       comment,
-      screenProps: {i18n},
+      screenProps: { i18n },
     } = this.props;
 
     return (
       <View style={styles.container}>
-        {comment.length !== 0 &&
-          <ScrollView >
-            <Comment data={comment} style={{ paddingTop: 20}} />
+        {comment.length !== 0 && (
+          <ScrollView>
+            <Comment data={comment} style={{ paddingTop: 20 }} />
           </ScrollView>
-        }
-        {comment.length === 0 &&
+        )}
+        {comment.length === 0 && (
           <View style={styles.emptyComment}>
-            <Image style={styles.emptyCommentImage} source={require('../images/emptycomment.png')} />
+            <Image style={styles.emptyCommentImage} source={emptycommentPng} />
             <Text style={styles.emptyCommentText}>{i18n.noCommentYet}</Text>
           </View>
-        }
+        )}
       </View>
     );
   }
@@ -70,23 +61,19 @@ class ProductDetailComment extends Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      return (state, props) => {
-        const {
-          comment,
-        } = state;
+    () => state => {
+      const { comment } = state;
 
-        // const {
+      // const {
 
-        // } = props;
+      // } = props;
 
-        return {
-          comment: comment.items.detail ? comment.items.detail : [],
-        }
-      }
+      return {
+        comment: comment.items.detail ? comment.items.detail : [],
+      };
     },
     {
       ...productDetailInfoActionCreators,
-    }
+    },
   )(ProductDetailComment),
 );

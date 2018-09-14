@@ -296,7 +296,9 @@ class CombinationPayment extends Component {
                 })
               }
             >
-              <Text style={stylesX.bottomChangeText}>Change payment combination</Text>
+              <Text style={stylesX.bottomChangeText}>
+                {i18n.changePaymentCombination}
+              </Text>
               <Ionicons
                 name="ios-arrow-forward"
                 style={stylesX.bottomChangeIcon}

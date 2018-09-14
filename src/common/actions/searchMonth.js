@@ -12,15 +12,11 @@ export function searchMonthFetchSuccess(params) {
 export function searchMonthFetchFailure() {
   return {
     type: SEARCH_MONTH.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function searchMonthFetch(
-  params
-) {
+export function searchMonthFetch(params) {
   return {
     type: SEARCH_MONTH.REQUEST,
     payload: {
@@ -32,7 +28,6 @@ export function searchMonthFetch(
 export function searchMonthClear() {
   return {
     type: SEARCH_MONTH.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

@@ -12,7 +12,7 @@ export default function topComputer(state = initState, action) {
   switch (action.type) {
     case TOP_COMPUTER.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case TOP_COMPUTER.REQUEST:
       return {

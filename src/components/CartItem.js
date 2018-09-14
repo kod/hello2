@@ -326,13 +326,10 @@ class CartItem extends Component {
 
 export default connectLocalization(
   connect(
-    state => {
-      console.log();
-      return {
-        authUser: state.login.user,
-        isEdit: state.cart.isEdit,
-      };
-    },
+    state => ({
+      authUser: state.login.user,
+      isEdit: state.cart.isEdit,
+    }),
     {
       ...cartActionCreators,
     },

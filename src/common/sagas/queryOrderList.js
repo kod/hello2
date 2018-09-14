@@ -1,6 +1,5 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
-// import { NavigationActions } from 'react-navigation';
 // import { SCREENS } from '../constants';
 import moment from 'moment';
 import {

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
@@ -42,7 +43,9 @@ class PhoneAdBaner extends Component {
             }
           >
             <ImageGetSize
-              uri={`${val.imageUrl}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`}
+              uri={`${
+                val.imageUrl
+              }?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`}
               key={key}
             />
             <SeparateBar />

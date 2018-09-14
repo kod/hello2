@@ -105,7 +105,7 @@ class CertifiedInformationSchool extends Component {
       certifiedInformationEdit,
       collegeaddr,
       department,
-      graduationtime,
+      // graduationtime,
       schoolName,
       specialty,
       navigation: { goBack, navigate },

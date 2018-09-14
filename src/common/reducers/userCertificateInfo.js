@@ -11,7 +11,7 @@ export default function userCertificateInfo(state = initState, action) {
   switch (action.type) {
     case USER_CERTIFICATE_INFO.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case USER_CERTIFICATE_INFO.REQUEST:
       return {

@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
-import { SCREENS, CREDIT_PAYWAY, INTERNET_BANK_PAYWAY } from '../constants';
+import { SCREENS, INTERNET_BANK_PAYWAY } from '../constants';
 import {
   orderPayFetchSuccess,
   orderPayFetchFailure,

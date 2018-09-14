@@ -204,11 +204,11 @@ class PrepaidPhoneCard extends Component {
     return result;
   }
 
-  handleOnPressToggleModal = (key, val) => {
-    this.setState({
-      [key]: typeof val !== 'boolean' ? !this.state[key] : val,
-    });
-  };
+  // handleOnPressToggleModal = (key, val) => {
+  //   this.setState({
+  //     [key]: typeof val !== 'boolean' ? !this.state[key] : val,
+  //   });
+  // };
 
   handleOnPressSubmit() {
     const {

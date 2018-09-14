@@ -10,7 +10,7 @@ export function mergeGetInfoFetchSuccess(items, currentpage) {
   };
 }
 
-export function mergeGetInfoFetchFailure() {
+export function mergeGateFetchFailure() {
   return {
     type: MERGE_GETINFO.FAILURE,
     payload: {

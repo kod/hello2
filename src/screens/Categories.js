@@ -284,26 +284,23 @@ class Categories extends Component {
 
 export default connectLocalization(
   connect(
-    () => {
-      console.log();
-      return state => {
-        const {
-          getMenu,
-          // getMenu,
-        } = state;
+    () => state => {
+      const {
+        getMenu,
+        // getMenu,
+      } = state;
 
-        // const {
+      // const {
 
-        // } = props;
+      // } = props;
 
-        return {
-          loading: getMenu.loading,
-          loaded: getMenu.loaded,
-          items: getMenu.items,
-          itemsList: getMenu.itemsList,
-          itemsClassfy: getMenu.itemsClassfy,
-          itemsIndex: getMenu.itemsIndex,
-        };
+      return {
+        loading: getMenu.loading,
+        loaded: getMenu.loaded,
+        items: getMenu.items,
+        itemsList: getMenu.itemsList,
+        itemsClassfy: getMenu.itemsClassfy,
+        itemsIndex: getMenu.itemsIndex,
       };
     },
     {

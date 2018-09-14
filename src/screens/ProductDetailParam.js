@@ -25,7 +25,11 @@ import { jointWebViewImages } from '../common/helpers';
 //   PRIMARY_COLOR,
 // } from '../styles/variables';
 
-import { WINDOW_WIDTH, STATUSBAR_HEIGHT, OSS_IMAGE_QUALITY } from '../common/constants';
+import {
+  WINDOW_WIDTH,
+  STATUSBAR_HEIGHT,
+  OSS_IMAGE_QUALITY,
+} from '../common/constants';
 
 import * as bannerSwiperActionCreators from '../common/actions/bannerSwiper';
 
@@ -44,7 +48,10 @@ class ProductDetailParam extends Component {
   // }
 
   renderItem = item => (
-    <BYCacheImage uri={`${item}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`} key={item} />
+    <BYCacheImage
+      uri={`${item}?x-oss-process=image/quality,Q_${OSS_IMAGE_QUALITY}`}
+      key={item}
+    />
   );
 
   render() {
@@ -53,7 +60,9 @@ class ProductDetailParam extends Component {
     return (
       <WebView
         source={{
-          html: `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${jointWebViewImages(goodsProperties)}</body></html>`,
+          html: `<!DOCTYPE html><html lang="en"><head><style>body,img{display:block;margin:0;padding:0;width:${WINDOW_WIDTH}px;}</style></head><body>${jointWebViewImages(
+            goodsProperties,
+          )}</body></html>`,
         }}
         style={{ marginTop: STATUSBAR_HEIGHT + 40 }}
       />

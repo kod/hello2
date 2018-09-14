@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Animated, StyleSheet } from 'react-native';
+import { View, Animated, StyleSheet } from 'react-native';
 import { TabBarTop } from 'react-navigation';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-import { PRIMARY_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
+import { WINDOW_HEIGHT, STATUSBAR_HEIGHT } from '../common/constants';
 
 import CustomIcon from './CustomIcon';
 
@@ -51,57 +50,72 @@ const styles = StyleSheet.create({
 });
 
 export default class ProductDetailTabBarComponent extends Component {
-
   renderMain(style, opacity, type) {
     const {
       // navigation: { goBack },
       screenProps: { mainNavigation, handleOnPressToggleMenuBottomSheet },
+      style: propsStyle,
     } = this.props;
     const { goBack } = mainNavigation;
-    
+
     if (type === 'main') {
       return (
-        <Animated.View style={[style,]}>
-          <View style={[styles.headerMiddle, { opacity, backgroundColor: '#fff', }]} />
-          <View style={{flexDirection: 'row'}}>
-            <CustomIcon name="back" 
-              onPress={() => goBack()} 
-              style={[styles.headerLeft, { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})`, }]} 
+        <Animated.View style={[style]}>
+          <View
+            style={[styles.headerMiddle, { opacity, backgroundColor: '#fff' }]}
+          />
+          <View style={{ flexDirection: 'row' }}>
+            <CustomIcon
+              name="back"
+              onPress={() => goBack()}
+              style={[
+                styles.headerLeft,
+                { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})` },
+              ]}
             />
-            <TabBarTop 
-              {...this.props} 
+            <TabBarTop
+              {...this.props}
               style={{
-                ...this.props.style,
-                opacity: opacity,
+                ...propsStyle,
+                opacity,
                 backgroundColor: '#fff',
               }}
             />
-            <SimpleLineIcons 
-              name="share" 
-              onPress={() => handleOnPressToggleMenuBottomSheet('share')} 
-              style={[styles.headerRight, { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})`, }]} 
+            <SimpleLineIcons
+              name="share"
+              onPress={() => handleOnPressToggleMenuBottomSheet('share')}
+              style={[
+                styles.headerRight,
+                { opacity: 1, backgroundColor: `rgba(255,255,255,${opacity})` },
+              ]}
             />
           </View>
         </Animated.View>
       );
     }
-    
+
     return (
-      <Animated.View style={[style, {opacity: opacity}]}>
-        <CustomIcon name="back" style={styles.headerLeft} onPress={() => goBack()} />
+      <Animated.View style={[style, { opacity }]}>
+        <CustomIcon
+          name="back"
+          style={styles.headerLeft}
+          onPress={() => goBack()}
+        />
         <TabBarTop {...this.props} />
-        <SimpleLineIcons name="share" style={styles.headerRight} onPress={() => handleOnPressToggleMenuBottomSheet()} />
+        <SimpleLineIcons
+          name="share"
+          style={styles.headerRight}
+          onPress={() => handleOnPressToggleMenuBottomSheet()}
+        />
       </Animated.View>
     );
   }
-  
-  render() {
-    const { BYopacity = 1 } = this.props.screenProps;
 
-    const {
-      position,
-      navigation,
-    } = this.props;
+  render() {
+    const { screenProps } = this.props;
+    const { BYopacity = 1 } = screenProps;
+
+    const { position, navigation } = this.props;
 
     const { routes } = navigation.state;
     const inputRange = [-1, ...routes.map((x, i) => i)];

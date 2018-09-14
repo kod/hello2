@@ -175,26 +175,23 @@ RegisterStepTwo = reduxForm({
 
 export default connectLocalization(
   connect(
-    () => {
-      console.log();
-      return (state, props) => {
-        const {
-          form: { RegisterStepOne },
-          register,
-        } = state;
-        const {
-          navigation: {
-            state: {
-              params: { msisdn, inviterno },
-            },
+    () => (state, props) => {
+      const {
+        form: { RegisterStepOne },
+        register,
+      } = state;
+      const {
+        navigation: {
+          state: {
+            params: { msisdn, inviterno },
           },
-        } = props;
-        return {
-          msisdn,
-          inviterno,
-          registerStepOneValues: RegisterStepOne ? RegisterStepOne.values : '',
-          loading: register.loading,
-        };
+        },
+      } = props;
+      return {
+        msisdn,
+        inviterno,
+        registerStepOneValues: RegisterStepOne ? RegisterStepOne.values : '',
+        loading: register.loading,
       };
     },
     {

@@ -1,4 +1,7 @@
-import { QUERY_ORDER_LIST, QUERY_ORDER_LIST_INDEX } from '../constants/actionTypes';
+import {
+  QUERY_ORDER_LIST,
+  QUERY_ORDER_LIST_INDEX,
+} from '../constants/actionTypes';
 
 const initState = {
   scrollTabIndex: 0,
@@ -7,21 +10,21 @@ const initState = {
     0: {
       loading: false,
       loaded: false,
-      refreshing: false,    
+      refreshing: false,
       page: 1,
       items: [],
     },
     1: {
       loading: false,
       loaded: false,
-      refreshing: false,    
+      refreshing: false,
       page: 1,
       items: [],
     },
     2: {
       loading: false,
       loaded: false,
-      refreshing: false,    
+      refreshing: false,
       page: 1,
       items: [],
     },
@@ -39,7 +42,7 @@ export default function queryOrderList(state = initState, action) {
   switch (action.type) {
     case QUERY_ORDER_LIST.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case QUERY_ORDER_LIST.REQUEST:
       return {
@@ -49,7 +52,7 @@ export default function queryOrderList(state = initState, action) {
           [action.payload.index]: {
             ...state.item[action.payload.index],
             loading: true,
-          }
+          },
         },
       };
     case QUERY_ORDER_LIST.SUCCESS:
@@ -60,11 +63,11 @@ export default function queryOrderList(state = initState, action) {
           [action.payload.index]: {
             ...state.item[action.payload.index],
             loading: false,
-            loaded: true,      
+            loaded: true,
             page: action.payload.page,
-            items: action.payload.result
+            items: action.payload.result,
             // items: [ ...state.item[action.payload.index].items, ...action.payload.result ]
-          }
+          },
         },
       };
     case QUERY_ORDER_LIST.FAILURE:
@@ -75,9 +78,9 @@ export default function queryOrderList(state = initState, action) {
           [action.payload.index]: {
             ...state.item[action.payload.index],
             loading: false,
-            loaded: true,      
+            loaded: true,
             page: action.payload.page,
-          }
+          },
         },
       };
     case QUERY_ORDER_LIST_INDEX.REQUEST:

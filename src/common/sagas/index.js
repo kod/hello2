@@ -49,10 +49,6 @@ import {
   updatePeriodSuccessWatch,
 } from './updatePeriod';
 import {
-  repaymentRecordFetchWatch,
-  repaymentRecordSuccessWatch,
-} from './repaymentRecord';
-import {
   receiveVoucherFetchWatch,
   receiveVoucherSuccessWatch,
 } from './receiveVoucher';
@@ -78,6 +74,7 @@ import {
   // searchMonthDetailSuccessWatch,
 } from './searchMonthDetail';
 import { watchError } from './error';
+import { repaymentRecordFetchWatch } from './repaymentRecord';
 import { bannerSwiperFetchWatch } from './bannerSwiper';
 import { bannerHomeTypeFetchWatch } from './bannerHomeType';
 import { bannerHomeRecommendFetchWatch } from './bannerHomeRecommend';
@@ -108,8 +105,8 @@ import { cardQueryFetchWatch } from './cardQuery';
 import { registerFetchWatch, registerSuccessWatch } from './register';
 import { billByYearFetchWatch, billByYearSuccessWatch } from './billByYear';
 import { searchMonthFetchWatch, searchMonthSuccessWatch } from './searchMonth';
-import { billDetailsFetchWatch, billDetailsSuccessWatch } from './billDetails';
-import { queryGoodsFetchWatch, queryGoodsSuccessWatch } from './queryGoods';
+import { billDetailsFetchWatch } from './billDetails';
+import { queryGoodsFetchWatch } from './queryGoods';
 import { collectFilesFetchWatch } from './collectFiles';
 import { getMenuFetchWatch } from './getMenu';
 import { getAllProductInfoFetchWatch } from './getAllProductInfo';
@@ -206,11 +203,8 @@ export default function* rootSaga() {
     searchMonthDetailFetchWatch(),
     // searchMonthDetailSuccessWatch(),
     repaymentRecordFetchWatch(),
-    repaymentRecordSuccessWatch(),
     billDetailsFetchWatch(),
-    billDetailsSuccessWatch(),
     queryGoodsFetchWatch(),
-    queryGoodsSuccessWatch(),
     collectFilesFetchWatch(),
     getMenuFetchWatch(),
     getAllProductInfoFetchWatch(),

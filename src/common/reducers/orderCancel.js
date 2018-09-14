@@ -10,7 +10,7 @@ export default function orderCancel(state = initState, action) {
   switch (action.type) {
     case ORDER_CANCEL.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case ORDER_CANCEL.REQUEST:
       return {

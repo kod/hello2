@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';

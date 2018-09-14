@@ -1,8 +1,6 @@
-import {
-  JUDGE_VOUCHER,
-} from '../constants/actionTypes';
+import { JUDGE_VOUCHER } from '../constants/actionTypes';
 
-export function judgeVoucherFetchSuccess({items, status}) {
+export function judgeVoucherFetchSuccess({ items, status }) {
   return {
     type: JUDGE_VOUCHER.SUCCESS,
     payload: {
@@ -25,7 +23,7 @@ export function judgeVoucherFetch(params) {
   return {
     type: JUDGE_VOUCHER.REQUEST,
     payload: {
-      ...params
+      ...params,
     },
   };
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';

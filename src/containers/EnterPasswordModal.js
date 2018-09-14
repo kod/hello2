@@ -1,4 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Modal, Alert } from 'react-native';
 import { connect } from 'react-redux';

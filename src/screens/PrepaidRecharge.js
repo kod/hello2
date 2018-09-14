@@ -155,7 +155,7 @@ class PrepaidRecharge extends Component {
       payWayIndex: 0,
       phoneNumber: '',
       buttonIndex: 0,
-      telNumberJudgeSetTimeoutId: null,
+      // telNumberJudgeSetTimeoutId: null,
     };
 
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
@@ -188,11 +188,11 @@ class PrepaidRecharge extends Component {
     });
   }
 
-  handleOnPressToggleModal = (key, val) => {
-    this.setState({
-      [key]: typeof val !== 'boolean' ? !this.state[key] : val,
-    });
-  };
+  // handleOnPressToggleModal = (key, val) => {
+  //   this.setState({
+  //     [key]: typeof val !== 'boolean' ? !this.state[key] : val,
+  //   });
+  // };
 
   actionSheetCallback(ret) {
     if (ret.buttonIndex < 0) return false;

@@ -93,7 +93,6 @@ export default connectLocalization(
           state: { params = {} },
         },
       } = props;
-      console.log(props);
 
       return {
         from: params.from || '',

@@ -6,7 +6,11 @@ import {
   TouchableWithoutFeedback,
   Animated,
 } from 'react-native';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../common/constants';
+import {
+  WINDOW_HEIGHT,
+  APPBAR_HEIGHT,
+  STATUSBAR_HEIGHT,
+} from '../common/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,10 +28,7 @@ const styles = StyleSheet.create({
 class BYBottomSheet extends Component {
   static defaultProps = {
     duration: 300,
-    height:
-      WINDOW_HEIGHT -
-      APPBAR_HEIGHT -
-      STATUSBAR_HEIGHT,
+    height: WINDOW_HEIGHT - APPBAR_HEIGHT - STATUSBAR_HEIGHT,
   };
 
   constructor(props) {
@@ -66,23 +67,13 @@ class BYBottomSheet extends Component {
     }
   };
 
-  handleOnCloseModal = () => {
-    const { listenCloseModal } = this.props;
-    // this.setModalVisible(false);
-    // listenCloseModal && listenCloseModal();
-    // 
-    // this.setState({ modalVisible: !this.state.modalVisible });
-  };
-
   render() {
-    const { children, onCancel, visible, containerStyle, } = this.props;
-    const { animatedHeight, modalVisible, } = this.state;
+    const { children, onCancel, visible, containerStyle } = this.props;
     return (
       <Modal
         transparent
         visible={visible}
         onRequestClose={onCancel}
-        // onRequestClose={this.handleOnCloseModal}
         animationType="fade"
         supportedOrientations={[
           'portrait',
@@ -95,9 +86,7 @@ class BYBottomSheet extends Component {
         <TouchableWithoutFeedback onPress={onCancel}>
           <View style={[styles.container, containerStyle]}>
             <TouchableWithoutFeedback>
-              <View style={styles.innerContainer}>
-                {children}
-              </View>
+              <View style={styles.innerContainer}>{children}</View>
             </TouchableWithoutFeedback>
             {/* <Animated.View
               style={[styles.innerContainer, { maxHeight: animatedHeight }]}

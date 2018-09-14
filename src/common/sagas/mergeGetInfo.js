@@ -1,12 +1,14 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
-import { mergeGetInfoFetchSuccess, mergeGetInfoFetchFailure } from '../actions/mergeGetInfo';
+import moment from 'moment';
+import {
+  mergeGetInfoFetchSuccess,
+  mergeGateFetchFailure,
+} from '../actions/mergeGetInfo';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { MERGE_GETINFO } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
-
 
 export function* mergeGetInfoFetchWatchHandle(action) {
   try {
@@ -17,7 +19,7 @@ export function* mergeGetInfoFetchWatchHandle(action) {
       pagesize = 4,
       currentpage,
     } = action.payload;
-    
+
     const Key = 'commodityKey';
     const appId = Platform.OS === 'ios' ? '1' : '2';
     const method = 'fun.merge.query';
@@ -31,26 +33,26 @@ export function* mergeGetInfoFetchWatchHandle(action) {
       [
         {
           key: 'typeid',
-          value: typeid
+          value: typeid,
         },
         {
           key: 'classfyid',
-          value: classfyid
+          value: classfyid,
         },
         {
           key: 'position',
-          value: position
+          value: position,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
         {
           key: 'currentpage',
-          value: currentpage
-        }
+          value: currentpage,
+        },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.mergeGetInfo, [
@@ -62,32 +64,30 @@ export function* mergeGetInfoFetchWatchHandle(action) {
         encrypt,
         timestamp,
         version,
-        typeid: typeid,
-        classfyid: classfyid,
-        position: position,
-        pagesize: pagesize,
-        currentpage: currentpage
-      }
+        typeid,
+        classfyid,
+        position,
+        pagesize,
+        currentpage,
+      },
     ]);
 
-    let result = [];
-    
+    const result = [];
+
     if (response.code !== 10000) {
-      yield put(mergeGetInfoFetchFailure());
-      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));  
-      return false;
+      yield put(mergeGateFetchFailure());
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
+    } else {
+      const array = response.details;
+      for (let index = 0; index < array.length; index += 1) {
+        const element = array[index];
+        element.price = element.mergePrice;
+        result.push(element);
+      }
+      yield put(mergeGetInfoFetchSuccess(result, currentpage));
     }
-
-    const array = response.details;
-    for (let index = 0; index < array.length; index += 1) {
-      let element = array[index];
-      element.price = element.mergePrice;
-      result.push(element);
-    }
-
-    yield put(mergeGetInfoFetchSuccess(result, currentpage));
   } catch (err) {
-    yield put(mergeGetInfoFetchFailure());
+    yield put(mergeGateFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }
 }

@@ -1,4 +1,3 @@
-
 import { NavigationActions } from 'react-navigation';
 import type { NavigationParams, NavigationRoute } from 'react-navigation';
 
@@ -33,7 +32,9 @@ function navigate(routeName: string, params?: NavigationParams) {
   );
 }
 
-function navigateDeep(actions: { routeName: string, params?: NavigationParams }[]) {
+function navigateDeep(
+  actions: { routeName: string, params?: NavigationParams }[],
+) {
   _container.dispatch(
     actions.reduceRight(
       (prevAction, action): any =>
@@ -59,7 +60,7 @@ function getCurrentRoute(): NavigationRoute | null {
 function back(key?: string) {
   _container.dispatch(
     NavigationActions.back({
-      key
+      key,
     }),
   );
 }
@@ -67,7 +68,7 @@ function back(key?: string) {
 function pop(key: number) {
   _container.dispatch(
     NavigationActions.pop({
-      n: key
+      n: key,
     }),
   );
 }

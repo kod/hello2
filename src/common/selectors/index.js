@@ -2,6 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable camelcase */
 /* eslint-disable no-else-return */
+/* eslint-disable no-unused-vars */
 
 import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';

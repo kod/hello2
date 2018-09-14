@@ -106,7 +106,6 @@ class ProductItem3 extends Component {
 
   render() {
     const { data, style, ...restProps } = this.props;
-    console.log(data);
     return (
       <View style={[styles.itemWrap, style]} {...restProps}>
         <FlatList

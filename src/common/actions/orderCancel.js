@@ -4,7 +4,7 @@ export function orderCancelFetchSuccess(params) {
   return {
     type: ORDER_CANCEL.SUCCESS,
     payload: {
-      ...params
+      ...params,
     },
   };
 }
@@ -12,15 +12,11 @@ export function orderCancelFetchSuccess(params) {
 export function orderCancelFetchFailure() {
   return {
     type: ORDER_CANCEL.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function orderCancelFetch(
-  params
-) {
+export function orderCancelFetch(params) {
   return {
     type: ORDER_CANCEL.REQUEST,
     payload: {
@@ -32,7 +28,6 @@ export function orderCancelFetch(
 export function orderCancelClear() {
   return {
     type: ORDER_CANCEL.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

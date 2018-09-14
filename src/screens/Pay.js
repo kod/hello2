@@ -8,7 +8,6 @@ import {
   DeviceEventEmitter,
 } from 'react-native';
 import { connect } from 'react-redux';
-// import { NavigationActions } from 'react-navigation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import NavBar2 from '../components/NavBar2';
@@ -346,14 +345,14 @@ class OrderWrite extends Component {
         availableBalance +
           firstPaymentRateArray[firstPaymentRateArray.length - 1].value
       ) {
-        console.log('不能使用分期');
+        // console.log('不能使用分期');
         // 不能使用分期(暂时不启用)
         // this.setState({
         //   isEnoughUseCredit: false,
         // });
       } else {
         // 首付 + 分期
-        console.log('首付 + 分期');
+        // console.log('首付 + 分期');
         firstPaymentRateArray.forEach(val => {
           if (availableBalance + val.value >= totalAmount) {
             result.push(val);
@@ -381,10 +380,10 @@ class OrderWrite extends Component {
       // 已激活信用卡
       if (availableBalance >= totalAmount) {
         // 卡额度充足
-        console.log('卡额度充足');
+        // console.log('卡额度充足');
       } else {
         // 卡额度充不足
-        console.log('卡额度充不足');
+        // console.log('卡额度充不足');
         notEnough();
       }
     }

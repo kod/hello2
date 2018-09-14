@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -481,7 +483,7 @@ class Bill extends Component {
     const {
       i18n,
       price,
-      totalPrice,
+      // totalPrice,
       billPriceFetch,
       searchMonthLoading,
       // searchMonthLoading,

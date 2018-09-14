@@ -21,7 +21,7 @@ class ImageGetSize extends Component {
         });
       },
       error => {
-        console.dir(error);
+        console.log(error);
       },
     );
   }

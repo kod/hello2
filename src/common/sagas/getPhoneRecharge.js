@@ -1,7 +1,6 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
 import moment from 'moment';
-// import { NavigationActions } from 'react-navigation';
 import {
   getPhoneRechargeFetchSuccess,
   getPhoneRechargeFetchFailure,

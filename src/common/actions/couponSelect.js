@@ -1,12 +1,10 @@
-import {
-  COUPON_SELECT,
-} from '../constants/actionTypes';
+import { COUPON_SELECT } from '../constants/actionTypes';
 
 export function couponSelectFetch(item) {
   return {
     type: COUPON_SELECT.REQUEST,
     payload: {
-      item
+      item,
     },
   };
 }
@@ -14,7 +12,6 @@ export function couponSelectFetch(item) {
 export function couponSelectClear() {
   return {
     type: COUPON_SELECT.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

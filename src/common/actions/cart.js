@@ -6,7 +6,6 @@ import {
   CART_SELECTALL,
   CART_EDIT,
   CART_EDITINIT,
-  CART_SUBMIT,
   CART_DELETE,
   CART_SELECTDELALL,
 } from '../constants/actionTypes';
@@ -14,14 +13,14 @@ import {
 export function cartAddSuccess() {
   return {
     type: CART_ADD.SUCCESS,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartAddFailure() {
   return {
     type: CART_ADD.FAILURE,
-    payload: {}
+    payload: {},
   };
 }
 
@@ -30,21 +29,21 @@ export function cartAddRequest(cartitems) {
     type: CART_ADD.REQUEST,
     payload: {
       cartitems,
-    }
+    },
   };
 }
 
 export function cartDeleteSuccess() {
   return {
     type: CART_DELETE.SUCCESS,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartDeleteFailure() {
   return {
     type: CART_DELETE.FAILURE,
-    payload: {}
+    payload: {},
   };
 }
 
@@ -53,107 +52,105 @@ export function cartDeleteRequest(cartitemids) {
     type: CART_DELETE.REQUEST,
     payload: {
       cartitemids,
-    }
+    },
   };
 }
 
 export function cartEditInitSuccess() {
   return {
     type: CART_EDITINIT.SUCCESS,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartEditInitFailure() {
   return {
     type: CART_EDITINIT.FAILURE,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartEditInitRequest() {
   return {
     type: CART_EDITINIT.REQUEST,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartEditSuccess() {
   return {
     type: CART_EDIT.SUCCESS,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartEditFailure() {
   return {
     type: CART_EDIT.FAILURE,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartEditRequest() {
   return {
     type: CART_EDIT.REQUEST,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartSelectDelAllSuccess() {
   return {
     type: CART_SELECTDELALL.SUCCESS,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartSelectDelAllFailure() {
   return {
     type: CART_SELECTDELALL.FAILURE,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartSelectDelAllRequest() {
   return {
     type: CART_SELECTDELALL.REQUEST,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartSelectAllSuccess() {
   return {
     type: CART_SELECTALL.SUCCESS,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartSelectAllFailure() {
   return {
     type: CART_SELECTALL.FAILURE,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartSelectAllRequest() {
   return {
     type: CART_SELECTALL.REQUEST,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartSelectSuccess() {
   return {
     type: CART_SELECT.SUCCESS,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartSelectFailure() {
   return {
     type: CART_SELECT.FAILURE,
-    payload: {
-      
-    }
+    payload: {},
   };
 }
 
@@ -163,23 +160,21 @@ export function cartSelectRequest(id, selected) {
     payload: {
       id,
       selected,
-    }
+    },
   };
 }
 
 export function cartNumberSuccess() {
   return {
     type: CART_NUMBER.SUCCESS,
-    payload: {}
+    payload: {},
   };
 }
 
 export function cartNumberFailure() {
   return {
     type: CART_NUMBER.FAILURE,
-    payload: {
-      
-    }
+    payload: {},
   };
 }
 
@@ -190,7 +185,7 @@ export function cartNumberRequest(funid, cartitemid, quetity) {
       funid,
       cartitemid,
       quetity,
-    }
+    },
   };
 }
 
@@ -201,7 +196,7 @@ export function cartSuccess(items, products, details) {
       items,
       products,
       details,
-    }
+    },
   };
 }
 
@@ -209,21 +204,20 @@ export function cartFailure(rankingMode) {
   return {
     type: CART.FAILURE,
     payload: {
-      rankingMode
-    }
+      rankingMode,
+    },
   };
 }
 
 export function cartRequest() {
   return {
     type: CART.REQUEST,
-    payload: {
-    }
+    payload: {},
   };
 }
 
 export function cartClear() {
   return {
-    type: CART.CLEAR
+    type: CART.CLEAR,
   };
 }

@@ -1,7 +1,7 @@
 import { Platform, DeviceEventEmitter } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
-import { SCREENS, INTERNET_BANK_PAYWAY } from '../constants';
+import { SCREENS } from '../constants';
 import {
   orderCreateFetchSuccess,
   orderCreateFetchFailure,

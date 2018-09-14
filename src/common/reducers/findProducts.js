@@ -11,7 +11,7 @@ export default function findProducts(state = initState, action) {
   switch (action.type) {
     case FIND_PRODUCTS.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case FIND_PRODUCTS.REQUEST:
       return {
