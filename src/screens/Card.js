@@ -5,12 +5,16 @@ import {
   Text,
   View,
   Image,
+  ScrollView,
   // ScrollView,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   PRIMARY_COLOR,
+  FONT_SIZE_FIRST,
+  FONT_COLOR_SECOND,
+  BACKGROUND_COLOR_SECOND,
   // PRIMARY_COLOR,
 } from '../styles/variables';
 import {
@@ -27,6 +31,7 @@ import NavBar2 from '../components/NavBar2';
 import SeparateBar from '../components/SeparateBar';
 import BYButton from '../components/BYButton';
 import Loader from '../components/Loader';
+import BYTouchable from '../components/BYTouchable';
 import { connectLocalization } from '../components/Localization';
 
 import priceFormat from '../common/helpers/priceFormat';
@@ -38,12 +43,18 @@ const hh8d9sadiua8Jpg = require('../images/hh8d9sadiua8.jpg');
 const WechatIMG6104Png = require('../images/WechatIMG6104.png');
 const WechatIMG6103Png = require('../images/WechatIMG6103.png');
 const jafsdbufnlPng = require('../images/jafsdbufnl.png');
-// const kasdifghosjfilPng = require('../images/kasdifghosjfil.png');
+const cardhelp1Png = require('../images/cardhelp/1.png');
+const cardhelp2Png = require('../images/cardhelp/2.png');
+const cardhelp3Png = require('../images/cardhelp/3.png');
+const cardhelp4Png = require('../images/cardhelp/4.png');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  help: {
+    flexDirection: 'row',
   },
 });
 
@@ -282,6 +293,62 @@ class Card extends Component {
     );
   }
 
+  renderHelp() {
+    const { i18n } = this.props;
+
+    const stylesX = StyleSheet.create({
+      help: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      },
+      helpItem: {
+        width: WINDOW_WIDTH / 2,
+        height: 100,
+        paddingLeft: SIDEINTERVAL,
+        paddingRight: SIDEINTERVAL,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: BACKGROUND_COLOR_SECOND,
+        borderRightWidth: 1,
+        borderRightColor: BACKGROUND_COLOR_SECOND,
+      },
+      helpItemImage: {
+        height: 30,
+        width: 30,
+        marginBottom: 5,
+      },
+      helpItemText: {
+        textAlign: 'center',
+        fontSize: FONT_SIZE_FIRST,
+        color: FONT_COLOR_SECOND,
+      },
+    });
+
+    return (
+      <View style={stylesX.help}>
+        <BYTouchable style={stylesX.helpItem}>
+          <Image style={stylesX.helpItemImage} source={cardhelp1Png} />
+          <Text style={stylesX.helpItemText}>
+            {`${i18n.whatBuyooFuncard}?`}
+          </Text>
+        </BYTouchable>
+        <BYTouchable style={stylesX.helpItem}>
+          <Image style={stylesX.helpItemImage} source={cardhelp2Png} />
+          <Text style={stylesX.helpItemText}>{`${i18n.howApply}?`}</Text>
+        </BYTouchable>
+        <BYTouchable style={stylesX.helpItem}>
+          <Image style={stylesX.helpItemImage} source={cardhelp3Png} />
+          <Text style={stylesX.helpItemText}>{`${i18n.howStage}?`}</Text>
+        </BYTouchable>
+        <BYTouchable style={stylesX.helpItem}>
+          <Image style={stylesX.helpItemImage} source={cardhelp4Png} />
+          <Text style={stylesX.helpItemText}>{`${i18n.howRepay}?`}</Text>
+        </BYTouchable>
+      </View>
+    );
+  }
+
   renderContent() {
     const {
       i18n,
@@ -324,8 +391,6 @@ class Card extends Component {
               );
             },
           })}
-        <SeparateBar />
-        {/* <SeparateBar /> */}
         <NavBar2
           onPress={() =>
             judge(status === 3 && initPassword === 1, () =>
@@ -335,24 +400,9 @@ class Card extends Component {
           valueLeft={i18n.myBill}
           // valueMiddle={'on the 5th of each month'}
         />
-        {/* <NavBar2
-          onPress={() =>
-            judge(status === 3 && initPassword === 1, () =>
-              navigate(SCREENS.PeriodSelect),
-            )
-          }
-          valueLeft={i18n.stageSetting}
-          valueMiddle={periodHobbit ? `${periodHobbit} ${i18n.period}` : ''}
-        /> */}
-        {/* <SeparateBar /> */}
-        <NavBar2
-          onPress={() =>
-            judge(status === 3 && initPassword === 1, () =>
-              navigate(SCREENS.SecurityCenter),
-            )
-          }
-          valueLeft={i18n.securitySettings}
-        />
+        <SeparateBar />
+        {this.renderHelp()}
+        <SeparateBar />
       </View>
     );
   }
@@ -371,9 +421,9 @@ class Card extends Component {
         <BYHeader
           headerTitle={this.renderHeaderTitle()}
           showBackButton={false}
-          isShowHeaderLine={false}
+          // isShowHeaderLine={false}
         />
-        {this.renderContent()}
+        <ScrollView>{this.renderContent()}</ScrollView>
       </View>
     );
   }
