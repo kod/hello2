@@ -24,6 +24,10 @@ import {
   // APPBAR_HEIGHT,
   WINDOW_WIDTH,
   MONETARY,
+  FUNCARD_HELP_WHAT,
+  FUNCARD_HELP_APPLY,
+  FUNCARD_HELP_STAGE,
+  FUNCARD_HELP_REPAY,
 } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
@@ -79,6 +83,15 @@ class Card extends Component {
 
   componentWillUnmount() {
     this.didBlurSubscription.remove();
+  }
+
+  handleOnPrssLink(url) {
+    const {
+      navigation: { navigate },
+    } = this.props;
+    navigate(SCREENS.WebView, {
+      source: url,
+    });
   }
 
   renderHeaderTitle = () => {
@@ -327,21 +340,33 @@ class Card extends Component {
 
     return (
       <View style={stylesX.help}>
-        <BYTouchable style={stylesX.helpItem}>
+        <BYTouchable
+          style={stylesX.helpItem}
+          onPress={() => this.handleOnPrssLink(FUNCARD_HELP_WHAT)}
+        >
           <Image style={stylesX.helpItemImage} source={cardhelp1Png} />
           <Text style={stylesX.helpItemText}>
             {`${i18n.whatBuyooFuncard}?`}
           </Text>
         </BYTouchable>
-        <BYTouchable style={stylesX.helpItem}>
+        <BYTouchable
+          style={stylesX.helpItem}
+          onPress={() => this.handleOnPrssLink(FUNCARD_HELP_APPLY)}
+        >
           <Image style={stylesX.helpItemImage} source={cardhelp2Png} />
           <Text style={stylesX.helpItemText}>{`${i18n.howApply}?`}</Text>
         </BYTouchable>
-        <BYTouchable style={stylesX.helpItem}>
+        <BYTouchable
+          style={stylesX.helpItem}
+          onPress={() => this.handleOnPrssLink(FUNCARD_HELP_STAGE)}
+        >
           <Image style={stylesX.helpItemImage} source={cardhelp3Png} />
           <Text style={stylesX.helpItemText}>{`${i18n.howStage}?`}</Text>
         </BYTouchable>
-        <BYTouchable style={stylesX.helpItem}>
+        <BYTouchable
+          style={stylesX.helpItem}
+          onPress={() => this.handleOnPrssLink(FUNCARD_HELP_REPAY)}
+        >
           <Image style={stylesX.helpItemImage} source={cardhelp4Png} />
           <Text style={stylesX.helpItemText}>{`${i18n.howRepay}?`}</Text>
         </BYTouchable>
