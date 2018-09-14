@@ -31,7 +31,7 @@ import SearchResult from '../screens/SearchResult';
 import SearchResultList from '../screens/SearchResultList';
 import SecurityCenter from '../screens/SecurityCenter';
 import Settings from '../screens/Settings';
-import Test from '../screens/Test';
+// import Test from '../screens/Test';
 import TransactionPasswordStepOne from '../screens/TransactionPasswordStepOne';
 import TransactionPasswordStepTwo from '../screens/TransactionPasswordStepTwo';
 import ProductDetailImages from '../screens/ProductDetailImages';
@@ -195,12 +195,12 @@ const RouteConfigs = {
       header: null,
     },
   },
-  [SCREENS.Test]: {
-    screen: Test,
-    navigationOptions: {
-      header: null,
-    },
-  },
+  // [SCREENS.Test]: {
+  //   screen: Test,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
   [SCREENS.Address]: {
     screen: Address,
     navigationOptions: {

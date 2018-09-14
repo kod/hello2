@@ -1,38 +1,35 @@
-import React, { Component } from 'react';
-// import { View, Text, } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 
-import ProductDetailMainGroupon from '../screens/ProductDetailMainGroupon';
+// import ProductDetailMainGroupon from '../screens/ProductDetailMainGroupon';
 import ProductDetailParam from '../screens/ProductDetailParam';
 import ProductDetailComment from '../screens/ProductDetailComment';
 
-import { SCREENS } from '../common/constants';
-import ProductDetailTabBarComponent from "../components/ProductDetailTabBarComponent";
-import { PRIMARY_COLOR, } from '../styles/variables';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
+import ProductDetailTabBarComponent from '../components/ProductDetailTabBarComponent';
+import { PRIMARY_COLOR } from '../styles/variables';
+import { WINDOW_WIDTH, SCREENS } from '../common/constants';
 
 const RouteConfigs = {
-  [SCREENS.ProductDetailMainGroupon]: {
-    screen: ProductDetailMainGroupon,
-    navigationOptions: ({ screenProps: { i18n } }) => ({
-      tabBarLabel: i18n.product,
-      // tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={16} color={tintColor} />
-    })
-  },
+  // [SCREENS.ProductDetailMainGroupon]: {
+  //   screen: ProductDetailMainGroupon,
+  //   navigationOptions: ({ screenProps: { i18n } }) => ({
+  //     tabBarLabel: i18n.product,
+  //     // tabBarIcon: ({ tintColor }) => <CustomIcon name="home" size={16} color={tintColor} />
+  //   }),
+  // },
   [SCREENS.ProductDetailParam]: {
     screen: ProductDetailParam,
     navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.parameter,
       // tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
-    })
+    }),
   },
   [SCREENS.ProductDetailComment]: {
     screen: ProductDetailComment,
     navigationOptions: ({ screenProps: { i18n } }) => ({
       tabBarLabel: i18n.comment,
       // tabBarIcon: ({ tintColor }) => <CustomIcon name="user" size={16} color={tintColor} />
-    })
-  }
+    }),
+  },
 };
 
 const TabNavigatorConfig = {
@@ -40,7 +37,7 @@ const TabNavigatorConfig = {
   lazy: true,
   swipeEnabled: true,
   animationEnabled: false,
-  initialRouteName: SCREENS.ProductDetailMainGroupon,
+  initialRouteName: SCREENS.ProductDetailParam,
   tabBarPosition: 'bottom',
   tabBarOptions: {
     activeTintColor: PRIMARY_COLOR,
@@ -65,24 +62,24 @@ const TabNavigatorConfig = {
       width: (WINDOW_WIDTH - 80) / 3,
       backgroundColor: PRIMARY_COLOR,
       padding: 0,
-      margin: 0
+      margin: 0,
     },
     tabStyle: {
       padding: 0,
       margin: 0,
       height: 40,
-      width: (WINDOW_WIDTH - 80) / 3
+      width: (WINDOW_WIDTH - 80) / 3,
     },
     labelStyle: {
       fontSize: 14,
       padding: 0,
-      margin: 0
+      margin: 0,
     },
     iconStyle: {
       padding: 0,
-      margin: 0
-    }
-  }
+      margin: 0,
+    },
+  },
 };
 
 const TabContainer = TabNavigator(RouteConfigs, TabNavigatorConfig);

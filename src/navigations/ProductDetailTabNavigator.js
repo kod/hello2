@@ -7,7 +7,7 @@ import ProductDetailParam from '../screens/ProductDetailParam';
 import ProductDetailComment from '../screens/ProductDetailComment';
 
 import { SCREENS } from '../common/constants';
-import ProductDetailTabBarComponent from "../components/ProductDetailTabBarComponent";
+import ProductDetailTabBarComponent from '../components/ProductDetailTabBarComponent';
 import { PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, SIDEINTERVAL, STATUSBAR_HEIGHT, } from '../common/constants';
 
