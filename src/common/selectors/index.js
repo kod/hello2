@@ -203,25 +203,6 @@ export const getBillMonthItem = createSelector(
       : defaultObject,
 );
 
-export const getBillTotalMoney = createSelector(
-  [getSearchMonthItem, getBillByYearItems, getBillNowYear, getBillNowMonth],
-  (searchMonthItem, billByYearItems, billNowYear, billNowMonth) => {
-    if (!searchMonthItem.totalWaitingAmount) return 0;
-    if (!billByYearItems[billNowYear]) return 0;
-    if (
-      billByYearItems[billNowYear][billNowMonth - 1].status &&
-      billByYearItems[billNowYear][billNowMonth - 1].status !== 10000
-    ) {
-      return (
-        searchMonthItem.totalWaitingAmount +
-        billByYearItems[billNowYear][billNowMonth - 1].waitingAmount
-      );
-    } else {
-      return searchMonthItem.totalWaitingAmount;
-    }
-  },
-);
-
 export const getOrderItem = createSelector(
   [getQueryOrderListItem, getQueryOrderListScrollTabIndex],
   (queryOrderListItem, queryOrderListScrollTabIndex) =>

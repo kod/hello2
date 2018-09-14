@@ -93,7 +93,7 @@ export function* searchMonthSuccessWatchHandle() {
     // const billNowYear = yield select(getBillNowYear);
     // const billNowMonth = yield select(getBillNowMonth);
     let result = 0;
-    result = searchMonthItem.totalWaitingAmount + searchMonthItem.waitingAmount;
+    result = searchMonthItem.totalWaitingAmount;
     // if (searchMonthItem.totalWaitingAmount && billByYearItems[billNowYear]) {
     //   if (
     //     billByYearItems[billNowYear][billNowMonth - 1].status &&
