@@ -646,9 +646,10 @@ class CertifiedInformation extends Component {
       isOpenModal,
       // isOpenModal,
     } = this.state;
+    const { i18n } = this.props;
     return (
       <View style={styles.container}>
-        <BYHeader />
+        <BYHeader title={i18n.applyCreditCard} />
         {this.renderMainContent()}
         <BYModal
           visible={isOpenModal}
