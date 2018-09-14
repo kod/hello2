@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-import com.burnweb.rnwebview.RNWebViewPackage;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.react.ReactApplication;
@@ -54,7 +53,6 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNDeviceInfo(),
                     new ReactNativeLocalizationPackage(),
                     new VectorIconsPackage(),
-                    new RNWebViewPackage(),
                     new NativePackage()
             );
         }

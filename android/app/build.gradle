@@ -170,7 +170,6 @@ dependencies {
     implementation project(':react-native-localization')
     implementation project(':react-native-fbsdk')
     implementation project(':react-native-vector-icons')
-    implementation project(':RNWebView')
     implementation "com.android.support:appcompat-v7:" + rootProject.ext.buildToolsVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }

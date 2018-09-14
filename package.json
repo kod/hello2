@@ -36,7 +36,6 @@
     "react-native-swiper": "^1.5.13",
     "react-native-swiper-flatlist": "^1.0.5",
     "react-native-vector-icons": "^4.6.0",
-    "react-native-webview-android": "^1.1.17",
     "react-navigation": "^1.5.12",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
