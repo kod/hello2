@@ -178,7 +178,7 @@
   "productShelves": "数量",
   "forgetPassword": "忘记密码",
   "signUpSuccessfully": "注册成功",
-  "funCardApplicationSuccessfulPleaseActivate": "Fun Card申请成功，请激活",
+  "funCardApplicationSuccessfulPleaseActivate": "申请成功，请设置交易密码以激活卡片",
   "noteSubscriberLockedChargeWillNotAblePerformService": "注意：订户已被锁定费用（SIM卡被锁定在两个方向，由于错误输入电话代码而被卡住多次，...）将无法执行此服务。",
   "goToSet": "去设置",
   "amountNotEnoughWillPaidOnlineBanking": "当前可用额度不够, 其余金额将通过网银支付",
@@ -303,7 +303,7 @@
   "combinationPaymentPayment": "组合支付 %1$d ₫",
   "document": "证件",
   "studentCard": "学生证",
-  "uploadStudentCard": "上传学生证",
+  "uploadStudentCard": "上传学生证照片",
   "uploadIdCard": "上传身份证",
   "handHeldPhoto": "手持照",
   "studentCardPositive": "学生证正面",
@@ -326,5 +326,7 @@
   "howRepay": "如何还款",
   "changePaymentCombination": "更换支付组合",
   "notApplied": "未申请",
+  "setTransactionPassword": "设置交易密码",
+  "signInWith": "第三方登录",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }
