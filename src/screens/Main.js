@@ -137,9 +137,6 @@ class Main extends Component {
   handleOpenURL(event) {
     // TODO Handle url
     const { url = '' } = event;
-    console.log(this);
-    console.log(event);
-    console.log(url);
     const { navigation, i18n } = this.props;
     analyzeUrlNavigate({ linkUrl: url, navigation, i18n });
   }
