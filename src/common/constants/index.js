@@ -7,7 +7,7 @@ export const LINE_HEIGHT_RATIO = 1.618; // 行高
 
 export const DOMAIN = 'https://buyoo.vn';
 export const SHARE_URL = `${DOMAIN}/html/downloadApp.html?userID=XXX`;
-export const SUPPORT_CENTER_URL = `${DOMAIN}/html/paystepM.html`;
+export const SUPPORT_CENTER_URL = `${DOMAIN}/html/buyIntroM.html`;
 export const HOW_TO_BUY_URL = `${DOMAIN}/html/paystepM.html`;
 export const BUSINESS_EMAIL = 'business.vn@buyoo.aisa';
 export const SERVICE_EMAIL = 'service.vn@buyoo.aisa';
