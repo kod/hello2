@@ -27,7 +27,7 @@ class Mobile extends Component {
 
     return (
       <View style={styles.container}>
-        <BYHeader />
+        <BYHeader title={i18n.mobileCommunications} />
         <ScrollView>
           <Scrollable2 i18n={i18n} />
         </ScrollView>

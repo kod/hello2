@@ -27,7 +27,7 @@ class SmartDigital extends Component {
 
     return (
       <View style={styles.container}>
-        <BYHeader />
+        <BYHeader title={i18n.digitalDevices} />
         <ScrollView>
           <Scrollable4 i18n={i18n} />
         </ScrollView>

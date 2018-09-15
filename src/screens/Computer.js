@@ -27,7 +27,7 @@ class Computer extends Component {
 
     return (
       <View style={styles.container}>
-        <BYHeader />
+        <BYHeader title={i18n.computerOffice} />
         <ScrollView>
           <Scrollable3 i18n={i18n} />
         </ScrollView>
