@@ -461,6 +461,7 @@ class OrderWrite extends Component {
       cardQueryItem: { status, initPassword, availableBalance },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
+    if (status !== 3) return navigate(SCREENS.Card);
 
     // 组合支付
     // const mixedPaymentCallback = ret => {
@@ -638,44 +639,50 @@ class OrderWrite extends Component {
     const {
       i18n,
       queryOrderItem: { totalAmount },
-      cardQueryItem: { availableBalance },
+      cardQueryItem: { status, availableBalance },
     } = this.props;
     let result = '';
 
-    switch (payWayIndex) {
-      case CREDIT_PAYWAY:
-        // if (totalAmount > availableBalance) {
-        if (
-          (rateArray.length > 0 && rateArray[rateIndex].value > 0) ||
-          totalAmount > availableBalance
-        ) {
-          // 组合支付
-          result = `${i18n.combinationPaymentPayment
+    if (status === 3) {
+      // 已激活卡
+      switch (payWayIndex) {
+        case CREDIT_PAYWAY:
+          // if (totalAmount > availableBalance) {
+          if (
+            (rateArray.length > 0 && rateArray[rateIndex].value > 0) ||
+            totalAmount > availableBalance
+          ) {
+            // 组合支付
+            result = `${i18n.combinationPaymentPayment
+              .replace('%1$d', priceFormat(totalAmount))
+              .replace('₫', MONETARY)}`;
+          } else {
+            // 全部金额用信用卡支付
+            result = `${i18n.funCardPayment
+              .replace('%1$d', priceFormat(totalAmount))
+              .replace('₫', MONETARY)}`;
+          }
+          break;
+
+        case INTERNET_BANK_PAYWAY:
+          result = `${i18n.onlineBankingPayment
             .replace('%1$d', priceFormat(totalAmount))
             .replace('₫', MONETARY)}`;
-        } else {
-          // 全部金额用信用卡支付
-          result = `${i18n.funCardPayment
-            .replace('%1$d', priceFormat(totalAmount))
-            .replace('₫', MONETARY)}`;
-        }
-        break;
+          break;
 
-      case INTERNET_BANK_PAYWAY:
-        result = `${i18n.onlineBankingPayment
-          .replace('%1$d', priceFormat(totalAmount))
-          .replace('₫', MONETARY)}`;
-        break;
+        case OFFLINE_PAYWAY:
+          result = `${i18n.paymentCollectingShop} ${priceFormat(
+            totalAmount,
+          )} ${MONETARY}`;
+          break;
 
-      case OFFLINE_PAYWAY:
-        result = `${i18n.paymentCollectingShop} ${priceFormat(
-          totalAmount,
-        )} ${MONETARY}`;
-        break;
-
-      default:
-        break;
+        default:
+          break;
+      }
+    } else {
+      result = i18n.applyCreditCard;
     }
+
     return result;
   }
 
@@ -982,16 +989,16 @@ class OrderWrite extends Component {
             isShowRight={false}
           />
           <SeparateBar />
-          {cardStatus === 3 && (
-            <View style={stylesX.funCard}>
-              <Text style={stylesX.funCardTop}>{i18n.funCard}</Text>
-              <Text style={stylesX.funCardBottom}>
-                {`${i18n.availableQuota}: ${priceFormat(
-                  availableBalance,
-                )} ${MONETARY}`}
-              </Text>
-            </View>
-          )}
+          <View style={stylesX.funCard}>
+            <Text style={stylesX.funCardTop}>{i18n.funCard}</Text>
+            <Text style={stylesX.funCardBottom}>
+              {cardStatus === 3
+                ? `${i18n.availableQuota}: ${priceFormat(
+                    availableBalance,
+                  )} ${MONETARY}`
+                : i18n.notApplied}
+            </Text>
+          </View>
           <SeparateBar />
           <NavBar2
             onPress={() =>
