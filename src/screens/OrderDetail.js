@@ -471,6 +471,8 @@ class OrderDetail extends Component {
         tradeStatus,
         sourceOrderType,
         timeoutExpress,
+        orderNo,
+        createTime,
       },
     } = this.props;
 
@@ -542,6 +544,16 @@ class OrderDetail extends Component {
             // onPress={() => this.handleOnPressToggleBottomSheet()}
             valueLeft={i18n.couponValue}
             valueMiddle={couponValue}
+            isShowRight={false}
+          />
+          <NavBar2
+            valueLeft={i18n.orderTime}
+            valueMiddle={`${moment(createTime).format('DD-MM-YYYY HH:mm:ss')}`}
+            isShowRight={false}
+          />
+          <NavBar2
+            valueLeft={i18n.orderNumber}
+            valueMiddle={orderNo}
             isShowRight={false}
           />
           <View style={{ height: 5 }} />
