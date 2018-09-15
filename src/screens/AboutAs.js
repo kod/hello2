@@ -122,14 +122,14 @@ class AboutAs extends Component {
           }),
         tips: '',
       },
-      {
-        name: i18n.howToBuy,
-        func: () =>
-          navigate(SCREENS.WebView, {
-            source: HOW_TO_BUY_URL,
-          }),
-        tips: '',
-      },
+      // {
+      //   name: i18n.howToBuy,
+      //   func: () =>
+      //     navigate(SCREENS.WebView, {
+      //       source: HOW_TO_BUY_URL,
+      //     }),
+      //   tips: '',
+      // },
       {
         name: i18n.businessEmail,
         func: () => this.handleOpenPhoneMailFunc(`mailto:${BUSINESS_EMAIL}`),
