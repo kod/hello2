@@ -91,12 +91,12 @@ class Settings extends Component {
         func: () => navigate(SCREENS.AboutAs),
         tips: '',
       },
-      {
-        iconImg: personPng,
-        name: i18n.language,
-        func: () => navigate(SCREENS.Language),
-        tips: '',
-      },
+      // {
+      //   iconImg: personPng,
+      //   name: i18n.language,
+      //   func: () => navigate(SCREENS.Language),
+      //   tips: '',
+      // },
     ];
 
     return (
