@@ -4,7 +4,7 @@ import {
   AppState,
   StyleSheet,
   View,
-  // Text,
+  Linking,
   RefreshControl,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -28,7 +28,10 @@ import { connectLocalization } from '../components/Localization';
 // import CustomIcon from '../components/CustomIcon';
 // import BYTouchable from '../components/BYTouchable';
 import SearchHeader from '../components/SearchHeader';
-import { invitationCodeForClipboard } from '../common/helpers';
+import {
+  invitationCodeForClipboard,
+  analyzeUrlNavigate,
+} from '../common/helpers';
 
 import * as i18nActionCreators from '../common/actions/i18n';
 import * as scrollableTabViewActionCreators from '../common/actions/scrollableTabView';
@@ -97,6 +100,7 @@ class Main extends Component {
 
     this.onChangeTab = this.onChangeTab.bind(this);
     this.onRefresh = this.onRefresh.bind(this);
+    this.handleOpenURL = this.handleOpenURL.bind(this);
     this.state = {
       refreshing: false,
     };
@@ -121,11 +125,23 @@ class Main extends Component {
     //   advance: 65000,
     // });
     AppState.addEventListener('change', this.handleAppStateChange);
+    Linking.addEventListener('url', this.handleOpenURL);
     this.runInvitationCodeForClipboard();
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
+    Linking.removeEventListener('url', this.handleOpenURL);
+  }
+
+  handleOpenURL(event) {
+    // TODO Handle url
+    const { url = '' } = event;
+    console.log(this);
+    console.log(event);
+    console.log(url);
+    const { navigation, i18n } = this.props;
+    analyzeUrlNavigate({ linkUrl: url, navigation, i18n });
   }
 
   handleAppStateChange = nextAppState => {

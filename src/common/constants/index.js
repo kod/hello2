@@ -19,10 +19,10 @@ export const GOOGLE_PLUS = 'google+';
 export const FACEBOOK = 'facebook';
 export const MONETARY = '₫'; // 货币单位
 export const PAYOO_STORE_MAP = 'https://payoo.vn/map/public/?verify=true#'; // payoo门店地图
-export const FUNCARD_HELP_WHAT = 'https://buyoo.vn/html/aboutFunCard.html#Buyoo-Funcard-la-gi'; // buyoo card 是什么
-export const FUNCARD_HELP_APPLY = 'https://buyoo.vn/html/aboutFunCard.html#Cach-thuc-dang-ki-the-Buyoo-Fun-Card'; // 如何申请
-export const FUNCARD_HELP_STAGE = 'https://buyoo.vn/html/aboutFunCard.html#Huong-dan-mua-hang-bang-Buyoo-Fun-Card'; // 如何分期
-export const FUNCARD_HELP_REPAY = 'https://buyoo.vn/html/aboutFunCard.html#Thanh-toan-no-hang-thang-the-Buyoo-Fun-Card-nhu-the-nao'; // 如何还款
+export const FUNCARD_HELP_WHAT = `${DOMAIN}/html/aboutFunCard.html#Buyoo-Funcard-la-gi`; // buyoo card 是什么
+export const FUNCARD_HELP_APPLY = `${DOMAIN}/html/aboutFunCard.html#Cach-thuc-dang-ki-the-Buyoo-Fun-Card`; // 如何申请
+export const FUNCARD_HELP_STAGE = `${DOMAIN}/html/aboutFunCard.html#Huong-dan-mua-hang-bang-Buyoo-Fun-Card`; // 如何分期
+export const FUNCARD_HELP_REPAY = `${DOMAIN}/html/aboutFunCard.html#Thanh-toan-no-hang-thang-the-Buyoo-Fun-Card-nhu-the-nao`; // 如何还款
 
 export const CREDIT_PAYWAY = 1;
 export const INTERNET_BANK_PAYWAY = 2;
@@ -34,7 +34,7 @@ export const NAME_EXPR = /^.*\s.*$/; // 越南姓名
 export const IDENTIFICATION_EXPR = /^(\d{9}|\d{12})$/; // 越南身份证
 export const CARD_PASSWORD_EXPR = /^\d{6}$/; // 交易密码
 export const LOGIN_PASSWORD_EXPR = /^[\w~!@#$%^&*()_+`\-=[\]{}\\|;:,./<>?]{8,20}$/; // 登录密码
-export const HTML_REGEX = /html\/(\w+).html/;
+export const HTML_REGEX = /\/(\w+).html/;
 export const BRANDID_REGEX = /brandId=(\d+)/;
 export const CLASSIFYID_REGEX = /classifyId=(\d+)/;
 export const SUBCLASSFYID_REGEX = /subClassfyId=(\d+)/;
