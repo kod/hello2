@@ -1013,7 +1013,7 @@ class OrderWrite extends Component {
           />
           {payWayIndex === CREDIT_PAYWAY && (
             <View style={{ flex: 1 }}>
-              {isUseFirstPay === true && (
+              {firstPayType !== 'C' && (
                 <NavBar2
                   onPress={() =>
                     isUseFirstPay &&
@@ -1036,14 +1036,16 @@ class OrderWrite extends Component {
                   isShowRight={false}
                 />
               )}
-              <NavBar2
-                valueLeft={i18n.installment}
-                valueMiddle={`${i18n.firstPayment} ${priceFormat(
-                  totalAmount - availableBalance,
-                )} ${MONETARY}`}
-                isShowMiddle={firstPayType === 'C'}
-                isShowRight={false}
-              />
+              {firstPayType === 'C' && (
+                <NavBar2
+                  valueLeft={i18n.installment}
+                  valueMiddle={`${i18n.firstPayment} ${priceFormat(
+                    totalAmount - availableBalance,
+                  )} ${MONETARY}`}
+                  // isShowMiddle={}
+                  isShowRight={false}
+                />
+              )}
               {this.renderRepaymentMonth()}
               <NavBar2
                 onPress={() =>
