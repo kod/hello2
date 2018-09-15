@@ -146,7 +146,6 @@ class AboutAs extends Component {
         tips: SERVICE_PHONE,
       },
     ];
-    // navigate(SCREENS.WebView, { source: 'https://buyoo.vn/html/paystepM.html' })
     return (
       <View style={styles.WrapContainer}>
         <View style={{ flex: 1 }}>
