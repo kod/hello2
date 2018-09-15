@@ -1,26 +1,20 @@
 /* eslint-disable import/no-unresolved */
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Alert, Image, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageResizer from 'react-native-image-resizer';
 
 import BYHeader from '../components/BYHeader';
 import SeparateBar from '../components/SeparateBar';
-import {
-  BACKGROUND_COLOR_SECOND,
-  BACKGROUND_COLOR_THIRD,
-  FONT_COLOR_FIRST,
-} from '../styles/variables';
+import { BACKGROUND_COLOR_SECOND } from '../styles/variables';
 import {
   SIDEINTERVAL,
   SCREENS,
   MODAL_TYPES,
   PRIVATE_URL_REGEX,
-  WINDOW_WIDTH,
 } from '../common/constants';
 import { connectLocalization } from '../components/Localization';
-// import Loader from '../components/Loader';
 import Upload from '../components/Upload';
 import BYButton from '../components/BYButton';
 
@@ -28,8 +22,7 @@ import * as uploadImgActionCreators from '../common/actions/uploadImg';
 import * as modalActionCreators from '../common/actions/modal';
 import * as getImgUrlActionCreators from '../common/actions/getImgUrl';
 import * as submitInfoActionCreators from '../common/actions/submitInfo';
-
-const WechatIMG6425Png = require('../images/WechatIMG6425.png');
+import * as auditGetInfoActionCreators from '../common/actions/auditGetInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,7 +36,7 @@ class HandHeldPhotoUpload extends Component {
     super(props);
     this.state = {
       positive: '',
-      // obverse: '',
+      obverse: '',
       status: '', // positive: 正面 obverse: 反面
       isFocus: true, // 页面是否显示在前端
     };
@@ -56,8 +49,6 @@ class HandHeldPhotoUpload extends Component {
       auditGetInfoPersonalPhotos,
       navigation,
     } = this.props;
-    console.log('auditGetInfoPersonalPhotosauditGetInfoPersonalPhotos');
-    console.log(auditGetInfoPersonalPhotos);
     if (auditGetInfoPersonalPhotos !== '') {
       getImgUrlClear();
       getImgUrlFetch(auditGetInfoPersonalPhotos);
@@ -78,10 +69,9 @@ class HandHeldPhotoUpload extends Component {
   componentWillReceiveProps(nextProps) {
     const { status, isFocus } = this.state;
     const {
-      // loading: prevLoading,
       loaded: prevLoaded,
-      // getImgUrlLoading: prevGetImgUrlLoading,
       getImgUrlLoaded: prevGetImgUrlLoaded,
+      // auditGetInfoLoaded: prevAuditGetInfoLoaded,
       submitInfoLoaded: prevSubmitInfoLoaded,
     } = this.props;
     const {
@@ -92,18 +82,26 @@ class HandHeldPhotoUpload extends Component {
       closeModal,
       getImgUrlClear,
       getImgUrlFetch,
-      // getImgUrlLoading,
+      getImgUrlLoading,
+      getImgUrlLoaded,
+      // auditGetInfoLoaded,
+      auditGetInfoLoading,
+      // auditGetInfoStudentCard,
       submitInfoLoading,
       submitInfoLoaded,
       submitInfoIsTrue,
-      getImgUrlLoaded,
       urls,
-      i18n,
       navigation: { pop },
+      i18n,
     } = nextProps;
 
     if (isFocus === true) {
-      if (submitInfoLoading || loading) {
+      if (
+        auditGetInfoLoading ||
+        submitInfoLoading ||
+        getImgUrlLoading ||
+        loading
+      ) {
         openModal(MODAL_TYPES.LOADER);
       } else {
         closeModal();
@@ -131,10 +129,10 @@ class HandHeldPhotoUpload extends Component {
         // 获取私服链接成功
         if (status === '') {
           // 初始化数据
-          // const urlsArray = urls.split('|');
+          const urlsArray = urls.split('|');
           this.setState({
-            positive: urls || '',
-            // obverse: urlsArray[1] || '',
+            positive: urlsArray[0] || '',
+            obverse: urlsArray[1] || '',
           });
         } else {
           this.setState({
@@ -151,6 +149,15 @@ class HandHeldPhotoUpload extends Component {
       submitInfoLoaded === true &&
       isFocus === true
     ) {
+      // // 提交审核信息完成
+      // if (submitInfoIsTrue === true) {
+      //   // 提交审核信息成功
+      //   console.log('提交审核信息成功');
+      //   // navigate(SCREENS.HandHeldPhotoUpload);
+      // } else {
+      //   // 提交审核信息失败
+      // }
+
       // 提交审核信息完成
       if (submitInfoIsTrue === true) {
         // 提交审核信息成功
@@ -170,6 +177,22 @@ class HandHeldPhotoUpload extends Component {
         // 提交审核信息失败
       }
     }
+
+    // if (
+    //   prevAuditGetInfoLoaded !== auditGetInfoLoaded &&
+    //   auditGetInfoLoaded === true &&
+    //   isFocus === true
+    // ) {
+    //   // 获取用户审核信息完成
+    //   if (auditGetInfoStudentCard !== '') {
+    //     // 学生证已传
+    //     // 获取私服链接
+    //     getImgUrlClear();
+    //     getImgUrlFetch(auditGetInfoStudentCard);
+    //   } else {
+    //     // 学生证未传
+    //   }
+    // }
   }
 
   componentWillUnmount() {
@@ -211,29 +234,38 @@ class HandHeldPhotoUpload extends Component {
   }
 
   handleOnPressSubmit() {
-    const { positive } = this.state;
-    const { i18n, submitInfoFetch, submitInfoClear } = this.props;
+    const { positive, obverse } = this.state;
+    const {
+      i18n,
+      submitInfoClear,
+      submitInfoFetch,
+      isAuthUser,
+      navigation: { navigate },
+    } = this.props;
+
+    if (!isAuthUser) navigate(SCREENS.Login);
+
     if (positive === '')
-      return Alert.alert('', i18n.pleaseUploadFront, [
+      return Alert.alert('', i18n.pleaseUploadHandheldStudentIDCard, [
         {
           text: i18n.confirm,
           onPress: () => {},
         },
       ]);
 
-    // if (obverse === '')
-    //   return Alert.alert('', i18n.pleaseUploadReverseSide, [
-    //     {
-    //       text: i18n.confirm,
-    //       onPress: () => {},
-    //     },
-    //   ]);
+    if (obverse === '')
+      return Alert.alert('', i18n.pleaseUploadHandheldIDCard, [
+        {
+          text: i18n.confirm,
+          onPress: () => {},
+        },
+      ]);
 
     const positiveMatch = positive.match(PRIVATE_URL_REGEX)[1];
-    // const obverseMatch = obverse.match(PRIVATE_URL_REGEX)[1];
+    const obverseMatch = obverse.match(PRIVATE_URL_REGEX)[1];
     submitInfoClear();
     submitInfoFetch({
-      personalphotos: positiveMatch,
+      personalphotos: `${positiveMatch}|${obverseMatch}`,
     });
     return true;
   }
@@ -256,7 +288,7 @@ class HandHeldPhotoUpload extends Component {
   }
 
   renderContent() {
-    const { positive } = this.state;
+    const { positive, obverse } = this.state;
     const { i18n } = this.props;
 
     const stylesX = StyleSheet.create({
@@ -268,37 +300,22 @@ class HandHeldPhotoUpload extends Component {
         paddingRight: SIDEINTERVAL,
         marginBottom: 15,
       },
-      example: {
-        backgroundColor: BACKGROUND_COLOR_THIRD,
-      },
-      exampleTitle: {
-        position: 'absolute',
-        top: 15,
-        left: 0,
-        right: 0,
-        textAlign: 'center',
-        color: FONT_COLOR_FIRST,
-      },
-      exampleImage: {
-        height: 180,
-        width: WINDOW_WIDTH - SIDEINTERVAL * 2,
-        resizeMode: 'contain',
-      },
     });
 
     return (
       <View style={stylesX.container}>
         <View style={stylesX.main}>
           <Upload
-            title={i18n.handHeldPhoto}
+            title={i18n.handHeldStudentIDCard}
             onPress={() => this.handleOnPressUploadImage('positive')}
             url={positive}
           />
           <SeparateBar />
-          <View style={stylesX.example}>
-            <Text style={stylesX.exampleTitle}>{i18n.holdingProofs}</Text>
-            <Image style={stylesX.exampleImage} source={WechatIMG6425Png} />
-          </View>
+          <Upload
+            title={i18n.handHeldIdentityCard}
+            onPress={() => this.handleOnPressUploadImage('obverse')}
+            url={obverse}
+          />
         </View>
         <BYButton
           text={i18n.submit}
@@ -333,6 +350,9 @@ export default connectLocalization(
         submitInfoIsTrue: submitInfo.isTrue,
         getImgUrlLoading: getImgUrl.loading,
         getImgUrlLoaded: getImgUrl.loaded,
+        auditGetInfoLoading: auditGetInfo.loading,
+        auditGetInfoLoaded: auditGetInfo.loaded,
+        // auditGetInfoStudentCard: auditGetInfo.studentCard,
         auditGetInfoPersonalPhotos: auditGetInfo.personalPhotos,
         urls: getImgUrl.urls,
         isAuthUser: !!login.user,
@@ -343,6 +363,7 @@ export default connectLocalization(
       ...modalActionCreators,
       ...getImgUrlActionCreators,
       ...submitInfoActionCreators,
+      ...auditGetInfoActionCreators,
     },
   )(HandHeldPhotoUpload),
 );
