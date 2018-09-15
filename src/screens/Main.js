@@ -110,6 +110,10 @@ class Main extends Component {
     // const {
     //   navigation: { navigate },
     // } = this.props;
+    // navigate(SCREENS.OrderDetail, {
+    //   tradeNo: '000000210320180915150604222826',
+    //   orderNo: '220180915150604222465706411',
+    // });
     // navigate(SCREENS.Pay, {
     //   tradeNo: '000000210320180906161830379572',
     //   orderNo: '220180906161830379966607775',
