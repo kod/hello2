@@ -60,9 +60,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ style, ...restProps }) => (
+export default ({ style, i18n, ...restProps }) => (
   <View style={[styles.other, style]} {...restProps}>
-    <Text style={styles.otherTitle}>第三方登录</Text>
+    <Text style={styles.otherTitle}>{i18n.signInWith}</Text>
     <View style={styles.otherMain}>
       <View style={styles.otherFb}>
         <Image style={styles.otherFbImg} source={fbPng} />
