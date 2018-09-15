@@ -279,17 +279,19 @@ export const analyzeUrlNavigate = ({
   };
 
   if (!htmlRegexResult) {
-    Alert.alert(
-      '',
-      i18n.error,
-      [
-        {
-          text: i18n.confirm,
-          onPress: () => goBack(),
-        },
-      ],
-      { cancelable: false },
-    );
+    if (isQrCode) {
+      Alert.alert(
+        '',
+        i18n.error,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => goBack(),
+          },
+        ],
+        { cancelable: false },
+      );
+    }
   } else {
     switch (htmlRegexResult[1]) {
       case 'more':
@@ -369,7 +371,19 @@ export const analyzeUrlNavigate = ({
         break;
 
       default:
-        alert('error');
+        if (isQrCode) {
+          Alert.alert(
+            '',
+            i18n.error,
+            [
+              {
+                text: i18n.confirm,
+                onPress: () => goBack(),
+              },
+            ],
+            { cancelable: false },
+          );
+        }
         break;
     }
   }

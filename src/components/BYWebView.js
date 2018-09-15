@@ -7,6 +7,7 @@ import BYHeader from './BYHeader';
 // import { PRIMARY_COLOR } from '../styles/colors';
 import { PRIMARY_COLOR } from '../styles/variables';
 import { WINDOW_WIDTH, SCREENS } from '../common/constants';
+import { analyzeUrlNavigate } from '../common/helpers';
 
 const WebViewAndroid = require('./BYWebViewComponent');
 
@@ -80,6 +81,7 @@ class BYWebView extends Component {
   };
 
   onShouldStartLoadWithRequest = msg => {
+    const { navigation, i18n } = this.props;
     const { url, event } = msg;
     console.log(`------------url----------> ${url}`);
     if (event === 0 || event === 2) {
@@ -91,6 +93,7 @@ class BYWebView extends Component {
       if (url.startsWith('http') || url.startsWith('https')) {
         // TODO 跳转并关闭当前页面
         console.log('-------已拦截住url----------');
+        analyzeUrlNavigate({ linkUrl: url, navigation, i18n });
       } else {
         console.log('-------未拦截住url----------');
       }
