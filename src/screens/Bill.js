@@ -705,7 +705,9 @@ class Bill extends Component {
               <NavBar2
                 valueLeft={i18n.billingAmount}
                 valueMiddle={`${priceFormat(
-                  billDetailsItem.principal + billDetailsItem.interest,
+                  billDetailsItem.principal +
+                    billDetailsItem.interest +
+                    billDetailsItem.fee,
                 )} ${MONETARY}`}
                 isShowRight={false}
               />
