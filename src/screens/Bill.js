@@ -724,6 +724,11 @@ class Bill extends Component {
                 isShowRight={false}
               />
               <NavBar2
+                valueLeft={i18n.deferredPaymentFee}
+                valueMiddle={`${priceFormat(billDetailsItem.fee)} ${MONETARY}`}
+                isShowRight={false}
+              />
+              <NavBar2
                 valueLeft={i18n.billingDate}
                 valueMiddle={`${moment(billDetailsItem.billData).format(
                   'DD-MM-YYYY',
