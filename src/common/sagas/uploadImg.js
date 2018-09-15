@@ -22,7 +22,6 @@ export function* uploadImgFetchWatchHandle(action) {
     formData.append('funid', funid);
 
     const response = yield apply(buyoo, buyoo.uploadImg, [formData]);
-    console.log(response);
 
     if (response.code !== 10000) {
       yield put(uploadImgFetchFailure());

@@ -45,7 +45,6 @@ export function* auditGetInfoFetchWatchHandle() {
         funid,
       },
     ]);
-    console.log(response);
 
     const { code, result } = response;
 

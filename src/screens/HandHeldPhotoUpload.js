@@ -152,7 +152,6 @@ class HandHeldPhotoUpload extends Component {
       // // 提交审核信息完成
       // if (submitInfoIsTrue === true) {
       //   // 提交审核信息成功
-      //   console.log('提交审核信息成功');
       //   // navigate(SCREENS.HandHeldPhotoUpload);
       // } else {
       //   // 提交审核信息失败
@@ -161,7 +160,6 @@ class HandHeldPhotoUpload extends Component {
       // 提交审核信息完成
       if (submitInfoIsTrue === true) {
         // 提交审核信息成功
-        console.log('提交审核信息成功');
         Alert.alert(
           '',
           i18n.success,

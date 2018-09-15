@@ -151,7 +151,6 @@ class IdCardUpload extends Component {
       // 提交审核信息完成
       if (submitInfoIsTrue === true) {
         // 提交审核信息成功
-        console.log('提交审核信息成功');
         navigate(SCREENS.HandHeldPhotoUpload);
       } else {
         // 提交审核信息失败
