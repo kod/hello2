@@ -81,8 +81,10 @@ export function* adverstInfoFetchWatchHandle(action) {
         element.orgPrice = element.maxprice;
         result.push(element);
       }
-    } else {
       yield put(adverstInfoFetchSuccess(result));
+    } else {
+      yield put(adverstInfoFetchFailure());
+      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
     }
   } catch (err) {
     yield put(adverstInfoFetchFailure());
