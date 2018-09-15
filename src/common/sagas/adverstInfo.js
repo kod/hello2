@@ -23,7 +23,7 @@ export function* adverstInfoFetchWatchHandle(action) {
     const typeId = params.type_id || '1';
     const classfyId = params.classfy_id || '0';
     const position = params.position || '3';
-    const pagesize = params.pagesize || '3';
+    const pagesize = params.pagesize || '9';
     const currentPage = params.currentPage || '1';
 
     const signType = signTypeMD5(appId, method, charset, Key, false);
