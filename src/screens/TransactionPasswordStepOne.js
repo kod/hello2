@@ -100,7 +100,7 @@ class TransactionPasswordStepOne extends Component {
     } = this.props;
     return (
       <View style={styles.container}>
-        <BYHeader />
+        <BYHeader title={i18n.setTransactionPassword} />
         <View style={styles.componentWrap}>
           <View style={styles.component}>
             <Image source={viemnamPng} style={styles.componentFlag} />

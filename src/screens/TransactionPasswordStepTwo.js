@@ -180,7 +180,7 @@ class TransactionPasswordStepTwo extends Component {
 
     return (
       <View style={styles.container}>
-        <BYHeader />
+        <BYHeader title={i18n.setTransactionPassword} />
         <ScrollView keyboardShouldPersistTaps="always">
           <Field
             name="code"
