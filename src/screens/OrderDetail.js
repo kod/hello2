@@ -18,6 +18,7 @@ import BYHeader from '../components/BYHeader';
 import Address from '../components/Address';
 import Loader from '../components/Loader';
 import SeparateBar from '../components/SeparateBar';
+import SmallButton from '../components/SmallButton';
 
 import { BORDER_COLOR, RED_COLOR, PRIMARY_COLOR } from '../styles/variables';
 import {
@@ -448,6 +449,42 @@ class OrderDetail extends Component {
     );
   }
 
+  renderOrderNo() {
+    const {
+      i18n,
+      queryOrderItem: { orderNo },
+    } = this.props;
+    const stylesX = StyleSheet.create({
+      orderNo: {},
+      orderNoTitle: {
+        paddingLeft: SIDEINTERVAL,
+        paddingTop: 10,
+      },
+      orderNoMain: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: SIDEINTERVAL,
+        paddingRight: SIDEINTERVAL,
+      },
+      orderNoLeft: {
+        height: 35,
+        lineHeight: 35,
+      },
+    });
+    return (
+      <View style={stylesX.orderNo}>
+        <Text style={stylesX.orderNoTitle}>{`${i18n.orderNumber}:`}</Text>
+        <View style={stylesX.orderNoMain}>
+          <Text style={stylesX.orderNoLeft}>{orderNo}</Text>
+          <SmallButton
+            text={i18n.copy}
+            onPress={() => this.handleOnPressCopy(orderNo)}
+          />
+        </View>
+      </View>
+    );
+  }
+
   renderContent() {
     const { payWayIndex } = this.state;
 
@@ -471,7 +508,6 @@ class OrderDetail extends Component {
         tradeStatus,
         sourceOrderType,
         timeoutExpress,
-        orderNo,
         createTime,
       },
     } = this.props;
@@ -551,11 +587,7 @@ class OrderDetail extends Component {
             valueMiddle={`${moment(createTime).format('DD-MM-YYYY HH:mm:ss')}`}
             isShowRight={false}
           />
-          <NavBar2
-            valueLeft={i18n.orderNumber}
-            valueMiddle={orderNo}
-            isShowRight={false}
-          />
+          {this.renderOrderNo()}
           <View style={{ height: 5 }} />
           {this.renderCard()}
         </ScrollView>
