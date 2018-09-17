@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
-import { SCREENS, SIDEINTERVAL } from '../common/constants';
+import { SCREENS, SIDEINTERVAL, IS_I18N } from '../common/constants';
 
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
@@ -65,39 +65,54 @@ class Settings extends Component {
       isAuthUser,
     } = this.props;
 
-    const navBar1List = [
-      // {
-      //   iconImg: personPng,
-      //   name: i18n.personalInformation,
-      //   navigate: SCREENS.Login,
-      //   tips: '',
-      // },
-      // {
-      //   iconImg: osindfaofisPng,
-      //   name: i18n.securityCenter,
-      //   navigate: SCREENS.SecurityCenter,
-      //   callback: () =>
-      //   tips: '',
-      // },
-      // {
-      //   iconImg: ufifhiufaisfudPng,
-      //   name: i18n.clearCache,
-      //   navigate: SCREENS.Login,
-      //   tips: '',
-      // },
-      {
-        iconImg: aboutPng,
-        name: i18n.aboutAs,
-        func: () => navigate(SCREENS.AboutAs),
-        tips: '',
-      },
-      // {
-      //   iconImg: personPng,
-      //   name: i18n.language,
-      //   func: () => navigate(SCREENS.Language),
-      //   tips: '',
-      // },
-    ];
+    const navBar1List = IS_I18N
+      ? [
+          {
+            iconImg: aboutPng,
+            name: i18n.aboutAs,
+            func: () => navigate(SCREENS.AboutAs),
+            tips: '',
+          },
+          {
+            iconImg: personPng,
+            name: i18n.language,
+            func: () => navigate(SCREENS.Language),
+            tips: '',
+          },
+        ]
+      : [
+          // {
+          //   iconImg: personPng,
+          //   name: i18n.personalInformation,
+          //   navigate: SCREENS.Login,
+          //   tips: '',
+          // },
+          // {
+          //   iconImg: osindfaofisPng,
+          //   name: i18n.securityCenter,
+          //   navigate: SCREENS.SecurityCenter,
+          //   callback: () =>
+          //   tips: '',
+          // },
+          // {
+          //   iconImg: ufifhiufaisfudPng,
+          //   name: i18n.clearCache,
+          //   navigate: SCREENS.Login,
+          //   tips: '',
+          // },
+          {
+            iconImg: aboutPng,
+            name: i18n.aboutAs,
+            func: () => navigate(SCREENS.AboutAs),
+            tips: '',
+          },
+          // {
+          //   iconImg: personPng,
+          //   name: i18n.language,
+          //   func: () => navigate(SCREENS.Language),
+          //   tips: '',
+          // },
+        ];
 
     return (
       <View style={styles.container}>
