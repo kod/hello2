@@ -371,7 +371,7 @@ export const ADDRESS_SELECT = defineAction(
 
 export const ORDER_CREATE = defineAction(
   'ORDER_CREATE',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 
