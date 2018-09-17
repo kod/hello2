@@ -13,6 +13,8 @@ import {
   SCREENS,
   MODAL_TYPES,
   PRIVATE_URL_REGEX,
+  ID_CARD_POSITIVE_IMAGE,
+  ID_CARD_OBVERSE_IMAGE,
 } from '../common/constants';
 import { connectLocalization } from '../components/Localization';
 import Upload from '../components/Upload';
@@ -285,13 +287,15 @@ class IdCardUpload extends Component {
       <View style={stylesX.container}>
         <View style={stylesX.main}>
           <Upload
-            title={i18n.idCardPositive}
+            // title={i18n.idCardPositive}
+            defaultUrl={ID_CARD_POSITIVE_IMAGE}
             onPress={() => this.handleOnPressUploadImage('positive')}
             url={positive}
           />
           <SeparateBar />
           <Upload
-            title={i18n.idCardObverse}
+            // title={i18n.idCardObverse}
+            defaultUrl={ID_CARD_OBVERSE_IMAGE}
             onPress={() => this.handleOnPressUploadImage('obverse')}
             url={obverse}
           />

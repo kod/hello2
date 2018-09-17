@@ -1,6 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {
+  StyleSheet,
+  Image,
+  // View,
+  // Text,
+} from 'react-native';
+// import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SIDEINTERVAL, WINDOW_WIDTH } from '../common/constants';
 import {
   BACKGROUND_COLOR_THIRD,
@@ -43,9 +48,10 @@ const styles = StyleSheet.create({
 });
 
 export default ({
-  title = '',
-  desc = '',
+  // title = '',
+  // desc = '',
   url = '',
+  defaultUrl = '',
   onPress = () => {},
   ...restProps
 }) => (
@@ -55,13 +61,19 @@ export default ({
     {...restProps}
   >
     {url === '' ? (
-      <View style={styles.main}>
-        <Ionicons name="ios-camera" style={styles.camera} />
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.desc} numberOfLines={2}>
-          {desc}
-        </Text>
-      </View>
+      // <View style={styles.main}>
+      //   <Ionicons name="ios-camera" style={styles.camera} />
+      //   <Text style={styles.title}>{title}</Text>
+      //   <Text style={styles.desc} numberOfLines={2}>
+      //     {desc}
+      //   </Text>
+      // </View>
+      <Image
+        style={styles.image}
+        source={{
+          uri: defaultUrl,
+        }}
+      />
     ) : (
       <Image
         style={styles.image}

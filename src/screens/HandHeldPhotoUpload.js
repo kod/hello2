@@ -13,6 +13,8 @@ import {
   SCREENS,
   MODAL_TYPES,
   PRIVATE_URL_REGEX,
+  HANDHELD_STUDENT_ID_CARD_IMAGE,
+  HANDHELD_IDENTITY_CARD_IMAGE,
 } from '../common/constants';
 import { connectLocalization } from '../components/Localization';
 import Upload from '../components/Upload';
@@ -304,13 +306,15 @@ class HandHeldPhotoUpload extends Component {
       <View style={stylesX.container}>
         <View style={stylesX.main}>
           <Upload
-            title={i18n.handHeldStudentIDCard}
+            // title={i18n.handHeldStudentIDCard}
+            defaultUrl={HANDHELD_STUDENT_ID_CARD_IMAGE}
             onPress={() => this.handleOnPressUploadImage('positive')}
             url={positive}
           />
           <SeparateBar />
           <Upload
-            title={i18n.handHeldIdentityCard}
+            // title={i18n.handHeldIdentityCard}
+            defaultUrl={HANDHELD_IDENTITY_CARD_IMAGE}
             onPress={() => this.handleOnPressUploadImage('obverse')}
             url={obverse}
           />
