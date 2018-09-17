@@ -47,7 +47,8 @@ export const CREDIT_PAYWAY = 1;
 export const INTERNET_BANK_PAYWAY = 2;
 export const OFFLINE_PAYWAY = 5;
 
-export const PHONE_EXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
+export const PHONE_EXPR = /^0?[0-9]{9}|0?[0-9]{10}$/; // 手机号
+// export const PHONE_EXPR = /^0?9[0-9]{8}|0?1[0-9]{9}$/; // 手机号
 export const EMAIL_EXPR = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/; // 邮箱
 export const NAME_EXPR = /^.*\s.*$/; // 越南姓名
 export const IDENTIFICATION_EXPR = /^(\d{9}|\d{12})$/; // 越南身份证
