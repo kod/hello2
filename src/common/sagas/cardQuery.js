@@ -56,7 +56,21 @@ export function* cardQueryFetchWatchHandle(/* action */) {
       yield put(cardQueryFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
     } else {
-      yield put(cardQueryFetchSuccess(response.result));
+      // yield put(cardQueryFetchSuccess(response.result));
+      yield put(
+        cardQueryFetchSuccess({
+          ...response.result,
+          // username: 'Nguyễn Thị Ban',
+          // availableBalance: 7000000,
+          // status: 0,
+          // availableBalance: 8000000,
+          // availableBalance: 7990000,
+          // availableBalance: 7989999,
+          // availableBalance: 3995001,
+          // availableBalance: 3995000,
+          // availableBalance: 3994999,
+        }),
+      );
     }
   } catch (err) {
     yield put(cardQueryFetchFailure());
