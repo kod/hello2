@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
+  NativeModules,
   // DeviceEventEmitter,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -32,8 +33,15 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { rehydrated: prevRehydrated } = this.props;
-    const { rehydrated } = nextProps;
+    const { rehydrated: prevRehydrated, user: oldUser } = this.props;
+    const { rehydrated, user } = nextProps;
+    if (oldUser !== user) {
+      if (user) {
+        NativeModules.IntentHandler.setFunID(user.result);
+      } else {
+        NativeModules.IntentHandler.setFunID('');
+      }
+    }
     if (!prevRehydrated && rehydrated) {
       SplashScreen.hide();
     }
@@ -67,5 +75,6 @@ class App extends Component {
 export default connectLocalization(
   connect(state => ({
     rehydrated: state.auth.rehydrated,
+    user: state.login.user,
   }))(App),
 );

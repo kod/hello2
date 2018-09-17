@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "232079328784",
+    "firebase_url": "https://buyoo-vn.firebaseio.com",
+    "project_id": "buyoo-vn",
+    "storage_bucket": "buyoo-vn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232079328784:android:2da6389146596c62",
+        "android_client_info": {
+          "package_name": "com.store.creditstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232079328784-n6fmrkgikc9vbiq6s5eqjj9egn5kphs4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.store.creditstore",
+            "certificate_hash": "1c94b59eec39ea54c2a87d30702e89750d90335f"
+          }
+        },
+        {
+          "client_id": "232079328784-0uufk4o2utejaut4vqpoohkdmc6cn5u8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.store.creditstore",
+            "certificate_hash": "b998161f8374d227ea778a32bf3ff226e03b6bef"
+          }
+        },
+        {
+          "client_id": "232079328784-ficrp8aufp0strue930juidt7r5ncei6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMmqHEZAUanlRU5NSJE7V2AWvzKN7337c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232079328784-ficrp8aufp0strue930juidt7r5ncei6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

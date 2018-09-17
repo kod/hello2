@@ -6,6 +6,7 @@ import {
   View,
   Linking,
   RefreshControl,
+  DeviceEventEmitter,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -130,12 +131,18 @@ class Main extends Component {
     // });
     AppState.addEventListener('change', this.handleAppStateChange);
     Linking.addEventListener('url', this.handleOpenURL);
+    this.msgEmitter = DeviceEventEmitter.addListener('msg_notify', msg => {
+      // TODO
+      console.warn(msg);
+    });
+
     this.runInvitationCodeForClipboard();
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
     Linking.removeEventListener('url', this.handleOpenURL);
+    this.msgEmitter.remove();
   }
 
   handleOpenURL(event) {
