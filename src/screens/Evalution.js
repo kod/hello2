@@ -176,9 +176,26 @@ class Evalution extends Component {
       tradeNo,
       orderNo,
       brandId,
+      i18n,
       // orderNo,
     } = this.props;
-    submitDuplicateFreeze(submitfreeze, this, () =>
+
+    if (textValue.length === 0) {
+      Alert.alert(
+        '',
+        i18n.pleaseEnterYourComment,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {},
+          },
+        ],
+        // { cancelable: false },
+      );
+      return false;
+    }
+
+    return submitDuplicateFreeze(submitfreeze, this, () =>
       addEvaluationFetch({
         screen: SCREENS.Evalution,
         trade_no: tradeNo,
