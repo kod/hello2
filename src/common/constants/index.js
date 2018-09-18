@@ -56,6 +56,8 @@ export const CARD_PASSWORD_EXPR = /^\d{6}$/; // 交易密码
 export const LOGIN_PASSWORD_EXPR = /^[\w~!@#$%^&*()_+`\-=[\]{}\\|;:,./<>?]{8,20}$/; // 登录密码
 export const HTML_REGEX = /\/(\w+)\.html/;
 export const BRANDID_REGEX = /brandId=(\d+)/;
+export const ORDERNO_REGEX = /orderNo=(\d+)/;
+export const TRADENO_REGEX = /tradeNo=(\d+)/;
 export const CLASSIFYID_REGEX = /classifyId=(\d+)/;
 export const SUBCLASSFYID_REGEX = /subClassfyId=(\d+)/;
 export const THIRDCLASSFYID_REGEX = /thirdClassfyId=(\d+)/;

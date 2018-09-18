@@ -13,6 +13,8 @@ import {
   CREDIT_PAYWAY,
   INTERNET_BANK_PAYWAY,
   OFFLINE_PAYWAY,
+  ORDERNO_REGEX,
+  TRADENO_REGEX,
 } from '../constants';
 
 const invitationCodeNavigate = (navigation, id) => {
@@ -240,6 +242,8 @@ export const analyzeUrlNavigate = ({
   const htmlRegexResult = linkUrl.match(HTML_REGEX);
 
   let shareIdResult = null;
+  let orderNoRegexResult = null;
+  let tradeNoRegexResult = null;
   let brandIdRegexResult = null;
   let classifyIdRegexResult = null;
   let subClassfyIdRegexResult = null;
@@ -344,6 +348,18 @@ export const analyzeUrlNavigate = ({
         if (brandIdRegexResult) {
           customNavigate(SCREENS.ProductDetail, {
             brandId: brandIdRegexResult[1],
+          });
+        }
+        break;
+
+      case 'orderDetail':
+        // 订单详情
+        orderNoRegexResult = linkUrl.match(ORDERNO_REGEX);
+        tradeNoRegexResult = linkUrl.match(TRADENO_REGEX);
+        if (brandIdRegexResult) {
+          customNavigate(SCREENS.OrderDetail, {
+            tradeNo: tradeNoRegexResult[1],
+            orderNo: orderNoRegexResult[1],
           });
         }
         break;
