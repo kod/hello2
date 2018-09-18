@@ -81,13 +81,18 @@ class BYWebView extends Component {
   };
 
   onShouldStartLoadWithRequest = msg => {
-    const { navigation, i18n } = this.props;
+    const {
+      navigation,
+      navigation: { pop },
+      i18n,
+    } = this.props;
     const { url, event } = msg;
     console.log(`------------url----------> ${url}`);
     if (event === 0 || event === 2) {
       // 关闭当前页面
       // 0 客服
       // 2 关闭按钮
+      pop(1);
       console.log('-------已处理Intent----------');
     } else if (url && url.length !== 0) {
       if (url.startsWith('http') || url.startsWith('https')) {
