@@ -20,6 +20,7 @@ class WebViewAndroid extends Component {
     this.onShouldOverrideUrlLoading = this.onShouldOverrideUrlLoading.bind(
       this,
     );
+    this.onProgressChanged = this.onProgressChanged.bind(this);
   }
 
   onShouldOverrideUrlLoading(event) {
@@ -31,11 +32,32 @@ class WebViewAndroid extends Component {
     onShouldStartLoadWithRequest(event.nativeEvent);
   }
 
+  onProgressChanged(event) {
+    const { renderLoading, onLoadStart, onLoadEnd } = this.props;
+    const { progress } = event.nativeEvent;
+    if (progress === 0) {
+      if (onLoadStart) {
+        onLoadStart();
+      } else if (renderLoading) {
+        renderLoading(progress);
+      }
+    } else if (progress === 100) {
+      if (onLoadEnd) {
+        onLoadEnd();
+      } else if (renderLoading) {
+        renderLoading(progress);
+      }
+    } else if (renderLoading) {
+      renderLoading(progress);
+    }
+  }
+
   render() {
     return (
       <WebViewInner
         {...this.props}
         onShouldOverrideUrlLoading={this.onShouldOverrideUrlLoading}
+        onProgressChanged={this.onProgressChanged}
       />
     );
   }
@@ -43,10 +65,16 @@ class WebViewAndroid extends Component {
 
 WebViewAndroid.propTypes = {
   onShouldStartLoadWithRequest: PropTypes.func,
+  renderLoading: PropTypes.func,
+  onLoadStart: PropTypes.func,
+  onLoadEnd: PropTypes.func,
 };
 
 WebViewAndroid.defaultProps = {
   onShouldStartLoadWithRequest: null,
+  renderLoading: null,
+  onLoadStart: null,
+  onLoadEnd: null,
 };
 
 module.exports = WebViewAndroid;

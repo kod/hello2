@@ -41,7 +41,8 @@ public class WebViewAndroid extends SimpleViewManager<WebView> {
     private Boolean mHandleIntentFlag = false;
     private WebView mWebview;
 
-    private static final String EVENT_NAME = "shouldOverrideUrlLoading";
+    private static final String OVERRIDE_URL_EVENT = "shouldOverrideUrlLoading";
+    private static final String PROGRESS_UPDATE_EVENT = "onProgressChanged";
 
     @Override
     public String getName() {
@@ -106,6 +107,7 @@ public class WebViewAndroid extends SimpleViewManager<WebView> {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                updateProgressBar(newProgress);
             }
 
             @Override
@@ -198,7 +200,7 @@ public class WebViewAndroid extends SimpleViewManager<WebView> {
                                 ReactContext reactContext = (ReactContext) webview.getContext();
                                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                                         webview.getId(),
-                                        EVENT_NAME,
+                                        OVERRIDE_URL_EVENT,
                                         event);
                             } else {
                                 String fallbackUrl = intent.getStringExtra("browser_fallback_url");
@@ -224,7 +226,7 @@ public class WebViewAndroid extends SimpleViewManager<WebView> {
                         ReactContext reactContext = (ReactContext) webview.getContext();
                         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                                 webview.getId(),
-                                EVENT_NAME,
+                                OVERRIDE_URL_EVENT,
                                 event);
                     }
                     view.loadUrl(url);
@@ -246,6 +248,16 @@ public class WebViewAndroid extends SimpleViewManager<WebView> {
 
     }
 
+    private void updateProgressBar(int progress){
+        WritableMap event = Arguments.createMap();
+        event.putInt("progress", progress);
+        ReactContext reactContext = (ReactContext) mWebview.getContext();
+        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                mWebview.getId(),
+                PROGRESS_UPDATE_EVENT,
+                event);
+    }
+
     @JavascriptInterface
     public void closeView(boolean result) {
         WritableMap event = Arguments.createMap();
@@ -253,7 +265,7 @@ public class WebViewAndroid extends SimpleViewManager<WebView> {
         ReactContext reactContext = (ReactContext) mWebview.getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 mWebview.getId(),
-                EVENT_NAME,
+                OVERRIDE_URL_EVENT,
                 event);
     }
 
@@ -282,13 +294,15 @@ public class WebViewAndroid extends SimpleViewManager<WebView> {
     @ReactProp(name = "url")
     public void setUrl(WebView view, @Nullable String url) {
         view.loadUrl(url);
+        updateProgressBar(0);
     }
 
     @Override
     public @Nullable
     Map<String, Object> getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.<String, Object>builder()
-                .put(EVENT_NAME, MapBuilder.of("registrationName", "onShouldOverrideUrlLoading"))
+                .put(OVERRIDE_URL_EVENT, MapBuilder.of("registrationName", "onShouldOverrideUrlLoading"))
+                .put(PROGRESS_UPDATE_EVENT, MapBuilder.of("registrationName", "onProgressChanged"))
                 .build();
     }
 }

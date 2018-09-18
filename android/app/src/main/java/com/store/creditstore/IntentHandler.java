@@ -3,11 +3,16 @@ package com.store.creditstore;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.store.creditstore.Data.SharedPreferencesUtil;
+import com.store.creditstore.Data.UserProfile;
+import com.store.creditstore.Service.MQTTJobService;
+import com.store.creditstore.Service.MQTTService;
 
 import java.net.URISyntaxException;
 
@@ -48,6 +53,19 @@ public class IntentHandler extends ReactContextBaseJavaModule {
                 e.printStackTrace();
                 error.invoke(url);
             }
+        }
+    }
+
+    @ReactMethod
+    public void setFunID(String funID) {
+        SharedPreferencesUtil.getInstance(mContext);
+        UserProfile profile = UserProfile.getInstance();
+        profile.saveUserId(funID);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            MQTTJobService.setFunID(funID);
+        } else {
+            MQTTService.setFunID(funID);
         }
     }
 }
