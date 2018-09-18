@@ -2,7 +2,9 @@ package com.store.creditstore;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
@@ -138,5 +140,11 @@ public class MainApplication extends Application implements ReactApplication {
 
     public static MainApplication getInstance() {
         return mInstance;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
