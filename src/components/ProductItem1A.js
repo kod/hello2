@@ -21,7 +21,7 @@ import {
 import priceFormat from '../common/helpers/priceFormat';
 
 const itemIntervalWidth = SIDEINTERVAL;
-const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 3) / 2;
+const itemWidth = (WINDOW_WIDTH - itemIntervalWidth * 4) / 3;
 const paddingInerval = SIDEINTERVAL / 2;
 
 const styles = StyleSheet.create({
@@ -133,7 +133,7 @@ class ProductItem1 extends Component {
               offset: (WINDOW_WIDTH / 2) * index,
               index,
             })}
-            numColumns={2}
+            numColumns={3}
             initialNumToRender={6}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
