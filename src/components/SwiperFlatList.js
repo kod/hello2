@@ -9,7 +9,6 @@ import { analyzeUrlNavigate } from '../common/helpers';
 
 import {
   WINDOW_WIDTH,
-  SCREENS,
   OSS_IMAGE_QUALITY,
   // BRANDID_REGEX,
 } from '../common/constants';
@@ -71,15 +70,10 @@ const Pagination = ({
 
 class App extends Component {
   onPressHandle(val) {
-    const {
-      navigation,
-      navigation: { navigate },
-    } = this.props;
+    const { navigation } = this.props;
 
     if (val.actionUrl) {
       analyzeUrlNavigate({ linkUrl: val.actionUrl, navigation });
-    } else {
-      navigate(SCREENS.ProductDetail, { brandId: val.brandId });
     }
   }
 
