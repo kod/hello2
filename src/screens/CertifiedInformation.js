@@ -263,6 +263,9 @@ class CertifiedInformation extends Component {
       connectusermsisdn3,
       connectuserrelation3,
       // connectuseridentification3,
+      auditGetInfoIdentification,
+      auditGetInfoStudentCard,
+      auditGetInfoPersonalPhotos,
       birthday,
       isCertify,
       i18n,
@@ -330,6 +333,13 @@ class CertifiedInformation extends Component {
         connectusermsisdn2 === connectusermsisdn3
       )
         return tips(i18n.emergencyContactPhoneCannotSame);
+
+      if (
+        !auditGetInfoStudentCard.length ||
+        !auditGetInfoIdentification.length ||
+        !auditGetInfoPersonalPhotos.length
+      )
+        return tips(i18n.pleaseUploadDocument);
 
       if (!EMAIL_EXPR.test(email)) return tips(i18n.failedEMailPleaseReEnter);
     }
