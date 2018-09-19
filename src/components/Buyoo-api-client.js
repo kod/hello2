@@ -2,14 +2,14 @@
 
 'use strict';
 
+import { DEBUG } from '../common/constants';
+
 const axios = require('axios');
 const qs = require('qs');
 
-const DEBUG = true;
-
 const TIMEOUT = 30 * 1000;
 
-const BASE_URL = DEBUG ? 'http://14.162.145.248' : '';
+const BASE_URL = DEBUG ? 'http://buyoo.club' : '';
 
 const PORT_80 = DEBUG ? ':8180' : 'https://uc.buyoo.vn';
 // const PORT_81 = DEBUG ? ':8181' : 'https://payment.buyoo.vn';
