@@ -25,6 +25,7 @@ import { connectLocalization } from '../components/Localization';
 
 import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
+import * as userCertificateInfoActionCreators from '../common/actions/userCertificateInfo';
 
 const aioru09230fPng = require('../images/aioru09230f.png');
 
@@ -119,6 +120,7 @@ class Me extends Component {
       authUser,
       // queryOrderListFetch,
       cardQueryFetch,
+      userCertificateInfoFetch,
       navigation,
     } = this.props;
 
@@ -126,7 +128,10 @@ class Me extends Component {
       this.didFocusAddListener(),
     );
 
-    if (authUser) cardQueryFetch();
+    if (authUser) {
+      cardQueryFetch();
+      userCertificateInfoFetch();
+    }
   }
 
   componentWillUnmount() {
@@ -412,6 +417,7 @@ export default connectLocalization(
     {
       ...queryOrderListActionCreators,
       ...cardQueryActionCreators,
+      ...userCertificateInfoActionCreators,
     },
   )(Me),
 );
