@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { connectLocalization } from '../components/Localization';
 import BYHeader from '../components/BYHeader';
 import ProductItem1A from '../components/ProductItem1A';
+import EmptyState from '../components/EmptyState';
 // import Loader from '../components/Loader';
 // import { RED_COLOR } from '../styles/variables';
 import { SIDEINTERVAL } from '../common/constants';
@@ -14,6 +15,8 @@ import { SIDEINTERVAL } from '../common/constants';
 import * as getAllProductInfoActionCreators from '../common/actions/getAllProductInfo';
 import * as authActionCreators from '../common/actions/auth';
 import { getGetAllProductInfoItems } from '../common/selectors';
+
+const ouhrigdfnjsoeijehrJpg = require('../images/ouhrigdfnjsoeijehr.jpg');
 
 const styles = StyleSheet.create({
   container: {
@@ -92,7 +95,7 @@ class CateList extends Component {
       },
     });
 
-    const { items, getAllProductInfo } = this.props;
+    const { items, getAllProductInfo, i18n, loaded } = this.props;
 
     return (
       <View style={stylesX.container}>
@@ -102,16 +105,19 @@ class CateList extends Component {
           loadMoreItems={this.loadMoreItems}
           groupon={false}
         />
+        {loaded &&
+          items.length === 0 && (
+            <EmptyState
+              source={ouhrigdfnjsoeijehrJpg}
+              text={i18n.noData}
+              styleText={{ marginBottom: 0 }}
+            />
+          )}
       </View>
     );
   }
 
   render() {
-    // const {
-    //   // navigation: { navigate },
-    //   loading,
-    // } = this.props;
-
     return (
       <View style={styles.container}>
         <BYHeader />
@@ -137,6 +143,7 @@ export default connectLocalization(
       return {
         getAllProductInfo,
         loading: getAllProductInfo.loading,
+        loaded: getAllProductInfo.loaded,
         // items: [],
         items: getGetAllProductInfoItems(state, props),
         // items: getAllProductInfo.items,
