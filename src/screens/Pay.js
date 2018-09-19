@@ -263,7 +263,7 @@ class OrderWrite extends Component {
     const { repaymentMonthArray } = this.state;
     const { returnMoneyFetch } = this.props;
     const { totalAmount } = queryOrderItem;
-    const { availableBalance } = cardQueryItem;
+    const { status, availableBalance } = cardQueryItem;
     const firstPaymentRateArray = FIRST_PAYMENT_RATE;
 
     // 判断是否可以选择首付
@@ -271,9 +271,43 @@ class OrderWrite extends Component {
       let isUseFirstPay = false;
       let firstPayType = 'A';
 
-      if (availableBalance >= totalAmount) {
-        // 可以额度大于等于支付金额
-        // 可选择首付
+      if (status === 3) {
+        // 已激活
+        if (availableBalance >= totalAmount) {
+          // 可以额度大于等于支付金额
+          // 可选择首付
+          isUseFirstPay = true;
+          firstPayType = 'A';
+          returnMoneyFetch(
+            totalAmount.toString(),
+            repaymentMonthArray.join(','),
+            firstPaymentRateArray.join(','),
+          );
+        } else if (
+          availableBalance < totalAmount &&
+          availableBalance * 2 >= totalAmount
+        ) {
+          // 可以额度小于支付金额，并且2倍的额度大于等于支付金额
+          // 可以选择首付
+          isUseFirstPay = true;
+          firstPayType = 'B';
+          returnMoneyFetch(
+            totalAmount.toString(),
+            repaymentMonthArray.join(','),
+            firstPaymentRateArray.join(','),
+          );
+        } else {
+          // 2倍的额度小于支付金额
+          // 不可选择首付
+          isUseFirstPay = false;
+          firstPayType = 'C';
+          returnMoneyFetch(
+            availableBalance.toString(),
+            repaymentMonthArray.join(','),
+            firstPaymentRateArray.join(','),
+          );
+        }
+      } else {
         isUseFirstPay = true;
         firstPayType = 'A';
         returnMoneyFetch(
@@ -281,30 +315,8 @@ class OrderWrite extends Component {
           repaymentMonthArray.join(','),
           firstPaymentRateArray.join(','),
         );
-      } else if (
-        availableBalance < totalAmount &&
-        availableBalance * 2 >= totalAmount
-      ) {
-        // 可以额度小于支付金额，并且2倍的额度大于等于支付金额
-        // 可以选择首付
-        isUseFirstPay = true;
-        firstPayType = 'B';
-        returnMoneyFetch(
-          totalAmount.toString(),
-          repaymentMonthArray.join(','),
-          firstPaymentRateArray.join(','),
-        );
-      } else {
-        // 2倍的额度小于支付金额
-        // 不可选择首付
-        isUseFirstPay = false;
-        firstPayType = 'C';
-        returnMoneyFetch(
-          availableBalance.toString(),
-          repaymentMonthArray.join(','),
-          firstPaymentRateArray.join(','),
-        );
       }
+
       this.setState(
         {
           isUseFirstPay,
