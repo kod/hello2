@@ -111,7 +111,7 @@ class Categories extends Component {
       },
       rightItemSubItem: {
         width: (WINDOW_WIDTH * 0.74 - SIDEINTERVAL * 2) / 3,
-        height: (WINDOW_WIDTH * 0.74 - SIDEINTERVAL * 2) / 3,
+        minHeight: (WINDOW_WIDTH * 0.74 - SIDEINTERVAL * 2) / 3,
         alignItems: 'center',
         marginBottom: 25,
       },
