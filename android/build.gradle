@@ -36,10 +36,9 @@ ext {
     targetSdkVersion = 27
     googlePlayServicesVersion = '12.0.1'
     supportLibVersion = "27.1.1"
-    versionCode = 74
-    versionName = "2.3.5"
+    versionCode = 47
+    versionName = "2.0.0"
     applicationId = "com.store.creditstore"
-    minSdkVersion = 16
 }
 
 subprojects {
