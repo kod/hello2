@@ -180,6 +180,7 @@ class Main extends Component {
       bannerSwiperFetch,
       bannerHomeTypeFetch,
       promotionInfoFetch,
+      adverstInfoClear,
       adverstInfoFetch,
       // mergeGetInfoFetch,
       adPhoneFetch,
@@ -194,6 +195,7 @@ class Main extends Component {
         bannerSwiperFetch('one');
         bannerHomeTypeFetch();
         promotionInfoFetch();
+        adverstInfoClear();
         adverstInfoFetch({
           type_id: '1',
         });
