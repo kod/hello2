@@ -26,6 +26,7 @@ import entities from './entities';
 import comment from './comment';
 import collection from './collection';
 import address from './address';
+import addressModify from './addressModify';
 import cityInfos from './cityInfos';
 import schoolInfo from './schoolInfo';
 import otp from './otp';
@@ -107,6 +108,7 @@ const rootReducer = combineReducers({
   comment,
   collection,
   address,
+  addressModify,
   cityInfos,
   schoolInfo,
   otp,

@@ -7,7 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   // Platform,
-  DeviceEventEmitter,
+  // DeviceEventEmitter,
   Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -22,7 +22,7 @@ import {
   WINDOW_HEIGHT,
   SIDEINTERVAL,
   MODAL_TYPES,
-  SCREENS,
+  // SCREENS,
   PHONE_EXPR,
   NAME_EXPR,
 } from '../common/constants';
@@ -41,6 +41,7 @@ import { submitDuplicateFreeze } from '../common/helpers';
 import * as cityInfosActionCreators from '../common/actions/cityInfos';
 import * as addressActionCreators from '../common/actions/address';
 import * as modalActionCreators from '../common/actions/modal';
+import Loader from '../components/Loader';
 
 const styles = StyleSheet.create({
   container: {
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class AddressEdit extends Component {
+class AddressModify extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -103,39 +104,60 @@ class AddressEdit extends Component {
       division2ndName: null,
       division3rdName: null,
       division4thName: null,
+      isFocus: true, // 页面是否显示在前端
     };
   }
 
   componentDidMount() {
     const {
-      i18n,
       initialize,
+      navigation,
+      addressModifyClear,
       navigation: {
-        goBack,
         state: { params },
       },
     } = this.props;
 
-    this.screenListener = DeviceEventEmitter.addListener(
-      SCREENS.AddressAdd,
-      () => {
-        Alert.alert(
-          '',
-          i18n.success,
-          [
-            {
-              text: i18n.confirm,
-              onPress: () => {
-                goBack();
-              },
-            },
-          ],
-          { cancelable: false },
-        );
-      },
-    );
+    // this.screenListener = DeviceEventEmitter.addListener(
+    //   SCREENS.AddressModify,
+    //   () => {
+    //     Alert.alert(
+    //       '',
+    //       i18n.success,
+    //       [
+    //         {
+    //           text: i18n.confirm,
+    //           onPress: () => {
+    //             goBack();
+    //           },
+    //         },
+    //       ],
+    //       { cancelable: false },
+    //     );
+    //   },
+    // );
+    this.didFocusSubscription = navigation.addListener('didFocus', () => {
+      this.setState({
+        isFocus: true,
+      });
+    });
+    this.willBlurSubscription = navigation.addListener('willBlur', () => {
+      this.setState({
+        isFocus: false,
+      });
+    });
+
+    addressModifyClear();
 
     if (params) {
+      this.setState({
+        division2ndID: params.division2nd,
+        division3rdID: params.division3rd,
+        division4thID: params.division4th,
+        division2ndName: params.division2ndName,
+        division3rdName: params.division3rdName,
+        division4thName: params.division4thName,
+      });
       initialize({
         name: params.username,
         phone: params.msisdn,
@@ -144,22 +166,50 @@ class AddressEdit extends Component {
     }
   }
 
-  componentWillUnmount() {
-    clearTimeout(this.setTimeoutId);
-    this.screenListener.remove();
+  componentWillReceiveProps(nextProps) {
+    const { isFocus } = this.state;
+    const { loading: prevLoading } = this.props;
+    const {
+      addressModifyLoading,
+      addressModifyLoaded,
+      addressModifyIsTrue,
+      i18n,
+      navigation: { pop },
+      openModal,
+      closeModal,
+    } = nextProps;
+
+    if (
+      addressModifyLoaded === true &&
+      addressModifyIsTrue === true &&
+      isFocus === true
+    ) {
+      console.log('addressModifyLoadedaddressModifyLoadedaddressModifyLoaded');
+      Alert.alert(
+        '',
+        i18n.success,
+        [
+          {
+            text: i18n.confirm,
+            onPress: () => {
+              pop(1);
+            },
+          },
+        ],
+        { cancelable: false },
+      );
+    }
+
+    // if (addressModifyLoading && isFocus === true) {
+    //   openModal(MODAL_TYPES.LOADER);
+    // } else {
+    //   closeModal();
+    // }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { loading: prevLoading } = this.props;
-    const { loading, openModal, closeModal } = nextProps;
-
-    if (prevLoading !== loading) {
-      if (loading === false) {
-        closeModal();
-      } else {
-        openModal(MODAL_TYPES.LOADER);
-      }
-    }
+  componentWillUnmount() {
+    this.didFocusSubscription.remove();
+    this.willBlurSubscription.remove();
   }
 
   callbackToggleMenuBottomSheet(ret) {
@@ -179,9 +229,8 @@ class AddressEdit extends Component {
       navigation: {
         state: { params },
       },
-      addressAddFetch,
       addressModifyFetch,
-      addressAddInfo: { values },
+      addressModifyInfo: { values },
       i18n,
     } = this.props;
     // return false;
@@ -268,48 +317,36 @@ class AddressEdit extends Component {
       return false;
     }
 
-    if (params) {
-      submitDuplicateFreeze(submitfreeze, this, () =>
-        addressModifyFetch({
-          id: params.id,
-          msisdn: phone,
-          address,
-          isdefault: params.isdefault,
-          username: name,
-          division2nd: division2ndID,
-          division3rd: division3rdID,
-          division4th: division4thID,
-        }),
-      );
-      return false;
-    }
-
-    submitDuplicateFreeze(submitfreeze, this, () =>
-      addressAddFetch({
+    return submitDuplicateFreeze(submitfreeze, this, () =>
+      addressModifyFetch({
+        id: params.id,
         msisdn: phone,
         address,
-        isdefault: 'Y',
+        isdefault: params.isdefault,
         username: name,
         division2nd: division2ndID,
         division3rd: division3rdID,
         division4th: division4thID,
-        screen: SCREENS.AddressAdd,
       }),
     );
-    return true;
   }
 
   render() {
-    const { division2ndName, division3rdName, division4thName } = this.state;
-
     const {
-      // navigation: { goBack, navigate },
-      i18n,
-      openModal,
-    } = this.props;
+      division2ndID,
+      division3rdID,
+      division4thID,
+      division2ndName,
+      division3rdName,
+      division4thName,
+    } = this.state;
+
+    const { addressModifyLoading, i18n, openModal } = this.props;
 
     return (
       <View style={styles.container}>
+        <Loader absolutePosition />
+        {/* {addressModifyLoading && <Loader absolutePosition />} */}
         <BYHeader />
         <ScrollView keyboardShouldPersistTaps="always">
           <View style={styles.item}>
@@ -348,6 +385,14 @@ class AddressEdit extends Component {
             onPress={() =>
               openModal(MODAL_TYPES.ADDRESSADD, {
                 callback: ret => this.callbackToggleMenuBottomSheet(ret),
+                params: {
+                  division2nd: division2ndID,
+                  division3rd: division3rdID,
+                  division4th: division4thID,
+                  division2ndName,
+                  division3rdName,
+                  division4thName,
+                },
               })
             }
           >
@@ -377,9 +422,9 @@ class AddressEdit extends Component {
   }
 }
 
-AddressEdit = reduxForm({
-  form: 'AddressEdit',
-})(AddressEdit);
+AddressModify = reduxForm({
+  form: 'AddressModify',
+})(AddressModify);
 
 export default connectLocalization(
   connect(
@@ -388,11 +433,15 @@ export default connectLocalization(
         cityInfos,
         form,
         userAddAddr,
+        addressModify,
         // form,
       } = state;
       return {
         loading: userAddAddr.loading,
-        addressAddInfo: form.AddressAdd ? form.AddressAdd : {},
+        addressModifyLoading: addressModify.loading,
+        addressModifyLoaded: addressModify.loaded,
+        addressModifyIsTrue: addressModify.isTrue,
+        addressModifyInfo: form.AddressModify ? form.AddressModify : {},
         division2ndItems: cityInfos.division2nd,
         division3rdItems: cityInfos.division3rd,
         division4thItems: cityInfos.division4th,
@@ -403,5 +452,5 @@ export default connectLocalization(
       ...addressActionCreators,
       ...modalActionCreators,
     },
-  )(AddressEdit),
+  )(AddressModify),
 );

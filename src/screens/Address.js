@@ -237,7 +237,7 @@ class Address extends Component {
                           style={styles.editIcon}
                           name="ios-create-outline"
                           onPress={() =>
-                            navigate(SCREENS.AddressAdd, {
+                            navigate(SCREENS.AddressModify, {
                               id: val.id,
                               msisdn: val.msisdn,
                               address: val.address,

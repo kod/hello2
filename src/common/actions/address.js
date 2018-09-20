@@ -87,6 +87,13 @@ export function addressRemoveFetch(adds) {
   };
 }
 
+export function addressModifyClear() {
+  return {
+    type: ADDRESS_MODIFY.CLEAR,
+    payload: {},
+  };
+}
+
 export function addressModifySuccess() {
   return {
     type: ADDRESS_MODIFY.SUCCESS,
