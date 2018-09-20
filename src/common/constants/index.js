@@ -113,6 +113,7 @@ export const SCREENS = {
   SmartDigital: 'SmartDigital',
   Address: 'Address',
   AddressAdd: 'AddressAdd',
+  AddressEdit: 'AddressEdit',
   AboutAs: 'AboutAs',
   Bill: 'Bill',
   BillDetail: 'BillDetail',
