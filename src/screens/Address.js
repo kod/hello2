@@ -131,13 +131,12 @@ class Address extends Component {
     item.division2ndName;
 
   handleOnPressAddressDefault(item) {
-    const {
-      addressModifyFetch,
-      // addressModifyFetch,
-    } = this.props;
+    const { addressModifyFetch } = this.props;
     if (item.isdefault === 'Y') return false;
-    item.isdefault = 'Y';
-    return addressModifyFetch(item);
+    return addressModifyFetch({
+      ...item,
+      isdefault: 'Y',
+    });
   }
 
   handleOnPressAddressDel(id) {
