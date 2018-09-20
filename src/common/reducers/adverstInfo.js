@@ -11,7 +11,7 @@ export default function adverstInfo(state = initState, action) {
   switch (action.type) {
     case ADVERST_INFO.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case ADVERST_INFO.REQUEST:
       return {
