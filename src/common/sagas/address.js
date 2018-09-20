@@ -390,17 +390,17 @@ export function* addressModifyWatchHandle(action) {
 export function* addressModifySuccessWatchHandle() {
   try {
     yield put(addressFetch(true));
-    Alert.alert(
-      '',
-      i18n.success,
-      [
-        {
-          text: i18n.confirm,
-          onPress: () => {},
-        },
-      ],
-      // { cancelable: false },
-    );
+    // Alert.alert(
+    //   '',
+    //   i18n.success,
+    //   [
+    //     {
+    //       text: i18n.confirm,
+    //       onPress: () => {},
+    //     },
+    //   ],
+    //   // { cancelable: false },
+    // );
   } catch (err) {
     console.log(err);
   }

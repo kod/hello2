@@ -128,6 +128,7 @@ class AddressAddModal extends Component {
         params.division4th,
         params.division4thName,
         2,
+        true,
       );
     }
   }
@@ -137,7 +138,14 @@ class AddressAddModal extends Component {
     closeModal();
   };
 
-  handleOnPressCitySelect(id, name, key) {
+  /**
+   * 选择
+   * @param {number} id id
+   * @param {string}} name 名称
+   * @param {number} key 第几栏
+   * @param {bool} init 是否为初始化
+   */
+  handleOnPressCitySelect(id, name, key, init = true) {
     let item;
 
     const {
@@ -188,21 +196,29 @@ class AddressAddModal extends Component {
           // division3rdID: division3rd.id,
           division4thID: id,
         };
-        callback({
-          division2ndName,
-          division3rdName,
-          division4thName: name,
-          division2ndID,
-          division3rdID,
-          division4thID: id,
-        });
-        this.handleOnModalClose();
         break;
 
       default:
         break;
     }
-    this.setState(item);
+    this.setState(item, () => {
+      // 是否为第三个地址
+      if (key === 2) {
+        // 是否为初始化
+        if (init === false) {
+          // 非初始化
+          callback({
+            division2ndName,
+            division3rdName,
+            division4thName: name,
+            division2ndID,
+            division3rdID,
+            division4thID: id,
+          });
+          this.handleOnModalClose();
+        }
+      }
+    });
   }
 
   renderContent() {
@@ -240,7 +256,12 @@ class AddressAddModal extends Component {
               style={styles.scrollViewItem}
               key={val.id}
               onPress={() =>
-                this.handleOnPressCitySelect(val.id, val.name, scrollViewKey)
+                this.handleOnPressCitySelect(
+                  val.id,
+                  val.name,
+                  scrollViewKey,
+                  scrollViewKey !== 2,
+                )
               }
             >
               <Text

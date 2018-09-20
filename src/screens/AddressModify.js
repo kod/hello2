@@ -168,15 +168,15 @@ class AddressModify extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { isFocus } = this.state;
-    const { loading: prevLoading } = this.props;
+    // const { loading: prevLoading } = this.props;
     const {
-      addressModifyLoading,
+      // addressModifyLoading,
       addressModifyLoaded,
       addressModifyIsTrue,
       i18n,
       navigation: { pop },
-      openModal,
-      closeModal,
+      // openModal,
+      // closeModal,
     } = nextProps;
 
     if (
@@ -184,7 +184,6 @@ class AddressModify extends Component {
       addressModifyIsTrue === true &&
       isFocus === true
     ) {
-      console.log('addressModifyLoadedaddressModifyLoadedaddressModifyLoaded');
       Alert.alert(
         '',
         i18n.success,
@@ -345,8 +344,7 @@ class AddressModify extends Component {
 
     return (
       <View style={styles.container}>
-        <Loader absolutePosition />
-        {/* {addressModifyLoading && <Loader absolutePosition />} */}
+        {addressModifyLoading && <Loader absolutePosition modal />}
         <BYHeader />
         <ScrollView keyboardShouldPersistTaps="always">
           <View style={styles.item}>

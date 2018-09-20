@@ -24,7 +24,7 @@ import {
   MODAL_TYPES,
   SCREENS,
   PHONE_EXPR,
-  NAME_EXPR,
+  // NAME_EXPR,
 } from '../common/constants';
 
 import BYHeader from '../components/BYHeader';
@@ -212,7 +212,7 @@ class AddressAdd extends Component {
     if (!values) {
       Alert.alert(
         '',
-        i18n.pleaseEnterYourActualName,
+        i18n.pleaseEnterCorrectFullName,
         [
           {
             text: i18n.confirm,
@@ -231,10 +231,10 @@ class AddressAdd extends Component {
       // address = '',
     } = values;
 
-    if (!NAME_EXPR.test(name)) {
+    if (!name) {
       Alert.alert(
         '',
-        i18n.pleaseEnterCorrectFullName,
+        i18n.pleaseEnterYourActualName,
         [
           {
             text: i18n.confirm,
