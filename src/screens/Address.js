@@ -107,12 +107,18 @@ class Address extends Component {
     const {
       isAuthUser,
       addressFetch,
-      items,
+      // items,
+      navigation,
       // items,
     } = this.props;
-    if (isAuthUser) {
-      if (items.length === 0) addressFetch();
-    }
+    this.didFocusSubscription = navigation.addListener('didFocus', () => {
+      // this.setState({
+      //   isFocus: true,
+      // });
+      if (isAuthUser) {
+        addressFetch();
+      }
+    });
   }
 
   editAddress = item =>
@@ -159,8 +165,10 @@ class Address extends Component {
       navigation: { goBack, state },
     } = this.props;
     const isSelect = state.params ? state.params.isSelect : false;
-    if (isSelect) addressSelectFetch(item.id);
-    goBack();
+    if (isSelect) {
+      addressSelectFetch(item.id);
+      goBack();
+    }
   }
 
   renderMainContent() {
@@ -168,25 +176,27 @@ class Address extends Component {
       i18n,
       items,
       loading,
+      loaded,
       refreshing,
       navigation: { navigate, state },
     } = this.props;
 
     const isSelect = state.params ? state.params.isSelect : false;
 
-    if (loading && !refreshing) {
-      return <Loader />;
-    }
+    // if (loading && !refreshing) {
+    //   return <Loader />;
+    // }
 
     return (
       <View style={styles.container}>
-        {items.length === 0 ? (
+        {loaded === true && items.length === 0 ? (
           <EmptyState
             source={afiasifsdhfsPng}
             text={i18n.pleaseAddYourShippingAddress}
           />
         ) : (
           <ScrollView style={styles.container}>
+            {loading && !refreshing && <Loader absolutePosition />}
             {items.map((val, key) => (
               <BYTouchable
                 style={styles.item}
@@ -279,24 +289,22 @@ class Address extends Component {
 export default withNavigation(
   connectLocalization(
     connect(
-      () => {
-        console.log();
-        return state => {
-          const {
-            address,
-            // address,
-          } = state;
+      () => state => {
+        const {
+          address,
+          // address,
+        } = state;
 
-          // const {
+        // const {
 
-          // } = props;
+        // } = props;
 
-          return {
-            isAuthUser: !!state.login.user,
-            items: address.items,
-            loading: address.loading,
-            refreshing: address.refreshing,
-          };
+        return {
+          isAuthUser: !!state.login.user,
+          items: address.items,
+          loading: address.loading,
+          loaded: address.loaded,
+          refreshing: address.refreshing,
         };
       },
       {
