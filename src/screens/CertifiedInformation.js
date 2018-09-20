@@ -254,7 +254,7 @@ class CertifiedInformation extends Component {
       connectusername1,
       connectusermsisdn1,
       connectuserrelation1,
-      connectuseridentification1,
+      // connectuseridentification1,
       connectusername2,
       connectusermsisdn2,
       connectuserrelation2,
@@ -308,8 +308,8 @@ class CertifiedInformation extends Component {
       if (
         !connectusername1.length ||
         !connectusermsisdn1.length ||
-        !connectuserrelation1.length ||
-        !connectuseridentification1.length
+        !connectuserrelation1.length
+        // !connectuseridentification1.length
       )
         return tips(`${i18n.pleaseEnterEmergencyContactPerson} 1`);
 
@@ -407,7 +407,7 @@ class CertifiedInformation extends Component {
       birthday,
       collegeaddr,
       certifiedInformationEdit,
-      connectuseridentification1,
+      // connectuseridentification1,
       // connectuseridentification2,
       // connectuseridentification3,
       connectusermsisdn1,
@@ -564,8 +564,8 @@ class CertifiedInformation extends Component {
             <View style={styles.main}>
               <Text style={styles.label}>{i18n.emergencyContactPerson} 1</Text>
               <Text style={styles.value}>
-                {connectuseridentification1.length &&
-                connectusermsisdn1.length &&
+                {/* connectuseridentification1.length && */}
+                {connectusermsisdn1.length &&
                 connectusername1.length &&
                 connectuserrelation1.length
                   ? connectusername1
