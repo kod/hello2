@@ -453,12 +453,6 @@ export const ADDRESS_ADD = defineAction(
   appNamespace,
 );
 
-export const ADDRESS_EDIT = defineAction(
-  'ADDRESS_EDIT',
-  [REQUEST, SUCCESS, FAILURE],
-  appNamespace,
-);
-
 export const ADDRESS_REMOVE = defineAction(
   'ADDRESS_REMOVE',
   [REQUEST, SUCCESS, FAILURE],
@@ -467,7 +461,7 @@ export const ADDRESS_REMOVE = defineAction(
 
 export const ADDRESS_MODIFY = defineAction(
   'ADDRESS_MODIFY',
-  [REQUEST, SUCCESS, FAILURE],
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
   appNamespace,
 );
 
