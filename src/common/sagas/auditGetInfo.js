@@ -52,7 +52,12 @@ export function* auditGetInfoFetchWatchHandle() {
       yield put(auditGetInfoFetchFailure());
       yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
     } else {
-      yield put(auditGetInfoFetchSuccess(result));
+      yield put(
+        auditGetInfoFetchSuccess({
+          ...result,
+          // studentCard: '',
+        }),
+      );
     }
   } catch (err) {
     console.log(err);
