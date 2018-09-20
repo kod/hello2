@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Spinner from 'react-native-spinkit';
 
+import { APPBAR_HEIGHT, STATUSBAR_HEIGHT } from '../common/constants';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -18,7 +20,7 @@ const styles = StyleSheet.create({
   // },
   absolutePositionModalTrue: {
     position: 'absolute',
-    top: 0,
+    top: APPBAR_HEIGHT + STATUSBAR_HEIGHT,
     bottom: 0,
     left: 0,
     right: 0,
@@ -40,11 +42,11 @@ const Loader = ({ absolutePosition, modal = false, style, color }) => (
   <View
     style={[
       styles.container,
-      style,
       absolutePosition &&
         (modal
           ? styles.absolutePositionModalTrue
           : styles.absolutePositionModalFalse),
+      style,
     ]}
   >
     <Spinner type="ThreeBounce" color={color} />
