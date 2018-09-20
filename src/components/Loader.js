@@ -8,7 +8,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  absolutePosition: {
+  // absolutePosition: {
+  //   position: 'absolute',
+  //   top: '50%',
+  //   bottom: '50%',
+  //   left: '50%',
+  //   right: '50%',
+  //   zIndex: 999,
+  // },
+  absolutePositionModalTrue: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
+  },
+  absolutePositionModalFalse: {
     position: 'absolute',
     top: '50%',
     bottom: '50%',
@@ -17,12 +33,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const Loader = ({ absolutePosition, style, color }) => (
+/**
+ * modal false: 页面可交互；true: 页面不可交互
+ */
+const Loader = ({ absolutePosition, modal = false, style, color }) => (
   <View
     style={[
       styles.container,
-      absolutePosition && styles.absolutePosition,
       style,
+      absolutePosition &&
+        (modal
+          ? styles.absolutePositionModalTrue
+          : styles.absolutePositionModalFalse),
     ]}
   >
     <Spinner type="ThreeBounce" color={color} />
