@@ -305,6 +305,12 @@ class Me extends Component {
     ];
     const renderCellItem1List2 = [
       {
+        name: i18n.myBill,
+        navigate: SCREENS.BillMy,
+        func: () => this.handleOnNavBar1Callback(SCREENS.BillMy),
+        tips: '',
+      },
+      {
         name: i18n.cart,
         navigate: SCREENS.Cart,
         func: () => this.handleOnNavBar1Callback(SCREENS.Cart),

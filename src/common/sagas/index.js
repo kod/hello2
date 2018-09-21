@@ -127,6 +127,8 @@ import { uploadImgFetchWatch } from './uploadImg';
 import { getImgUrlFetchWatch } from './getImgUrl';
 import { submitInfoFetchWatch } from './submitInfo';
 import { auditGetInfoFetchWatch } from './auditGetInfo';
+import { queryBillListFetchWatch } from './queryBillList';
+import { inquiryBillFetchWatch } from './inquiryBill';
 
 export default function* rootSaga() {
   yield all([
@@ -237,5 +239,7 @@ export default function* rootSaga() {
     getImgUrlFetchWatch(),
     auditGetInfoFetchWatch(),
     submitInfoFetchWatch(),
+    queryBillListFetchWatch(),
+    inquiryBillFetchWatch(),
   ]);
 }

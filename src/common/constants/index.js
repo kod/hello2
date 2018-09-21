@@ -77,15 +77,6 @@ export const STATUSBAR_HEIGHT =
 export const FIRST_PAYMENT_RATE = [0, 0.1, 0.2, 0.3, 0.4, 0.5]; // 首付比例
 export const REPAYMENT_MONTH = [3, 6, 9, 12]; // 分期数
 
-export const COUPONMY_TABNAVIGATOR_MAP = {
-  CouponMyUnused: 1,
-  CouponMyUsed: 2,
-  CouponMyPast: 0,
-  1: 'CouponMyUnused',
-  2: 'CouponMyUsed',
-  0: 'CouponMyPast',
-};
-
 export const PROVIDER_TYPE_MAP = {
   recharge: 32,
   phoneCard: 33,
@@ -130,6 +121,10 @@ export const SCREENS = {
   CouponMyUnused: 'CouponMyUnused',
   CouponMyPast: 'CouponMyPast',
   CouponSelect: 'CouponSelect',
+  BillMy: 'BillMy',
+  BillCurrent: 'BillCurrent',
+  BillOut: 'BillOut',
+  BillOverdue: 'BillOverdue',
   Evalution: 'Evalution',
   ForgotPasswordOne: 'ForgotPasswordOne',
   ForgotPasswordTwo: 'ForgotPasswordTwo',
@@ -178,4 +173,23 @@ export const SCREENS = {
   StudentCardUpload: 'StudentCardUpload',
   IdCardUpload: 'IdCardUpload',
   HandHeldPhotoUpload: 'HandHeldPhotoUpload',
+  BillDetailOld: 'BillDetailOld',
+};
+
+export const COUPONMY_TABNAVIGATOR_MAP = {
+  CouponMyUnused: 1,
+  CouponMyUsed: 2,
+  CouponMyPast: 0,
+  1: 'CouponMyUnused',
+  2: 'CouponMyUsed',
+  0: 'CouponMyPast',
+};
+
+export const BILLMY_TABNAVIGATOR_MAP = {
+  [SCREENS.BillCurrent]: 1,
+  [SCREENS.BillOut]: 3,
+  [SCREENS.BillOverdue]: 5,
+  1: SCREENS.BillCurrent,
+  3: SCREENS.BillOut,
+  5: SCREENS.BillOverdue,
 };

@@ -80,6 +80,9 @@ import uploadImg from './uploadImg';
 import getImgUrl from './getImgUrl';
 import submitInfo from './submitInfo';
 import auditGetInfo from './auditGetInfo';
+import queryBillList from './queryBillList';
+import inquiryBill from './inquiryBill';
+import createNormalOrder from './createNormalOrder';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -162,6 +165,9 @@ const rootReducer = combineReducers({
   getImgUrl,
   submitInfo,
   auditGetInfo,
+  queryBillList,
+  inquiryBill,
+  createNormalOrder,
   form: formReducer,
 });
 

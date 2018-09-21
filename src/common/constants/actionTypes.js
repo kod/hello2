@@ -375,6 +375,24 @@ export const ORDER_CREATE = defineAction(
   appNamespace,
 );
 
+export const CREATE_NORMAL_ORDER = defineAction(
+  'CREATE_NORMAL_ORDER',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const QUERY_BILL_LIST = defineAction(
+  'QUERY_BILL_LIST',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
+export const INQUIRY_BILL = defineAction(
+  'INQUIRY_BILL',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const QUERY_ORDER_LIST = defineAction(
   'QUERY_ORDER_LIST',
   [REQUEST, SUCCESS, FAILURE, CLEAR],

@@ -84,6 +84,57 @@ class ReactStore {
     return this.requestUrl(`${PORT_83}/fun/trade/order/create`, options);
   }
 
+  createNormalOrder(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+
+    return this.requestUrl(`${PORT_83}/fun/trade/createNormalOrder`, options);
+  }
+
+  queryBillList(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+
+    return this.requestUrl(`${PORT_84}/fun/trade/queryBillList`, options);
+  }
+
+  inquiryBill(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+
+    return this.requestUrl(`${PORT_84}/fun/trade/inquiryBill`, options);
+  }
+
   getPhoneRecharge(options) {
     if (!options) {
       return Promise.reject(new Error('fields required'));

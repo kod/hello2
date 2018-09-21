@@ -41,6 +41,7 @@ import Evalution from '../screens/Evalution';
 import CateList from '../screens/CateList';
 import Coupon from '../screens/Coupon';
 import CouponMy from '../screens/CouponMy';
+import BillMy from '../screens/BillMy';
 import QrCodeScanner from '../screens/QrCodeScanner';
 import Prepaid from '../screens/Prepaid';
 import Cart from '../screens/Cart';
@@ -56,6 +57,7 @@ import CombinationPayment from '../screens/CombinationPayment';
 import StudentCardUpload from '../screens/StudentCardUpload';
 import IdCardUpload from '../screens/IdCardUpload';
 import HandHeldPhotoUpload from '../screens/HandHeldPhotoUpload';
+import BillDetailOld from '../screens/BillDetailOld';
 
 const RouteConfigs = {
   [SCREENS.Index]: {
@@ -334,6 +336,12 @@ const RouteConfigs = {
       header: null,
     },
   },
+  [SCREENS.BillMy]: {
+    screen: BillMy,
+    navigationOptions: {
+      header: null,
+    },
+  },
   [SCREENS.QrCodeScanner]: {
     screen: QrCodeScanner,
     navigationOptions: {
@@ -390,6 +398,12 @@ const RouteConfigs = {
   },
   [SCREENS.HandHeldPhotoUpload]: {
     screen: HandHeldPhotoUpload,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  [SCREENS.BillDetailOld]: {
+    screen: BillDetailOld,
     navigationOptions: {
       header: null,
     },
