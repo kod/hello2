@@ -24,6 +24,7 @@ import * as uploadImgActionCreators from '../common/actions/uploadImg';
 import * as modalActionCreators from '../common/actions/modal';
 import * as getImgUrlActionCreators from '../common/actions/getImgUrl';
 import * as submitInfoActionCreators from '../common/actions/submitInfo';
+import { certificateUploadImage } from '../common/helpers';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,11 +36,14 @@ const styles = StyleSheet.create({
 class StudentCardUpload extends Component {
   constructor(props) {
     super(props);
+
+    const { i18n } = this.props;
     this.state = {
       positive: '',
       obverse: '',
       status: '', // positive: 正面 obverse: 反面
       isFocus: true, // 页面是否显示在前端
+      wayButtons: [i18n.album, i18n.takePhoto],
     };
   }
 
@@ -181,39 +185,6 @@ class StudentCardUpload extends Component {
     this.willBlurSubscription.remove();
   }
 
-  createResizedImageImageResizer({ uri, width, height }) {
-    const {
-      uploadImgFetch,
-      uploadImgClear,
-      isAuthUser,
-      navigation: { navigate },
-    } = this.props;
-    if (isAuthUser) {
-      ImageResizer.createResizedImage(
-        uri,
-        width * 0.5,
-        height * 0.5,
-        'JPEG',
-        50,
-      )
-        .then(response => {
-          uploadImgClear();
-          uploadImgFetch({
-            files: {
-              uri: response.uri,
-              name: response.name,
-            },
-            fileType: '2',
-          });
-        })
-        .catch(err => {
-          console.dir(err);
-        });
-    } else {
-      navigate(SCREENS.Login);
-    }
-  }
-
   handleOnPressSubmit() {
     const { positive, obverse } = this.state;
     const {
@@ -252,20 +223,40 @@ class StudentCardUpload extends Component {
   }
 
   handleOnPressUploadImage(status) {
+    const { wayButtons } = this.state;
+    const {
+      uploadImgFetch,
+      uploadImgClear,
+      isAuthUser,
+      openModal,
+      navigation: { navigate },
+    } = this.props;
+
     this.setState({
       status,
     });
-    ImagePicker.openCamera({
-      // width: 300,
-      // height: 400,
-      // cropping: true
-    }).then(image => {
-      this.createResizedImageImageResizer({
-        uri: image.path,
-        width: image.width,
-        height: image.height,
+
+    if (isAuthUser) {
+      certificateUploadImage({
+        ImagePicker,
+        ImageResizer,
+        openModal,
+        MODAL_TYPES,
+        wayButtons,
+        callback: response => {
+          uploadImgClear();
+          uploadImgFetch({
+            files: {
+              uri: response.uri,
+              name: response.name,
+            },
+            fileType: '2',
+          });
+        },
       });
-    });
+    } else {
+      navigate(SCREENS.Login);
+    }
   }
 
   renderContent() {

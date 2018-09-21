@@ -466,6 +466,62 @@ export const invitationCodeForClipboard = async (navigation, i18n) => {
   }
 };
 
+export const certificateUploadImage = ({
+  ImagePicker,
+  ImageResizer,
+  openModal,
+  MODAL_TYPES,
+  wayButtons,
+  callback,
+}) => {
+  const createResizedImageImageResizer = ({ uri, width, height }) => {
+    ImageResizer.createResizedImage(uri, width * 0.5, height * 0.5, 'JPEG', 30)
+      .then(response => {
+        callback(response);
+      })
+      .catch(err => {
+        console.dir(err);
+      });
+  };
+
+  const actionSheetCallback = ret => {
+    if (ret.buttonIndex === -1) return false;
+    if (ret.buttonIndex === 0) {
+      // 相册
+      ImagePicker.openPicker({
+        // width: 300,
+        // height: 400,
+        // cropping: true
+      }).then(image => {
+        createResizedImageImageResizer({
+          uri: image.path,
+          width: image.width,
+          height: image.height,
+        });
+      });
+    } else {
+      // 拍照
+      ImagePicker.openCamera({
+        // width: 300,
+        // height: 400,
+        // cropping: true
+      }).then(image => {
+        createResizedImageImageResizer({
+          uri: image.path,
+          width: image.width,
+          height: image.height,
+        });
+      });
+    }
+    return true;
+  };
+
+  openModal(MODAL_TYPES.ACTIONSHEET, {
+    callback: ret => actionSheetCallback(ret),
+    data: wayButtons,
+  });
+};
+
 /**
  * 字母大写工具包
  * capitalize: 字符串中第一个单词首字母大写
