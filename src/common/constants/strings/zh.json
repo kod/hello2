@@ -199,6 +199,8 @@
   "interest": "利息",
   "currentBill": "本期账单",
   "pastBill": "往期账单",
+  "outBill": "未出账单",
+  "overdueBill": "逾期账单",
   "theFinalRepaymentDate5thEachMonth": "最后还款日为每个月5号",
   "thisMonthBillPaidOff": "本月账单已还清",
   "album": "相册",
@@ -330,5 +332,11 @@
   "signInWith": "第三方登录",
   "selectPrepaidRate": "选择首付比",
   "pleaseUploadDocument": "请上传证件",
+  "repaymentPeriod": "还款期数",
+  "repaymentAmount": "还款金额",
+  "orderStatus": "订单状态",
+  "alreadyPaid": "已还金额",
+  "overdueTime": "逾期时间",
+  "balance": "余额",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }

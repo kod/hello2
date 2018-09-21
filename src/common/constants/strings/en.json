@@ -199,6 +199,8 @@
   "interest": "Interest",
   "currentBill": "Current bill",
   "pastBill": "Past bill",
+  "outBill": "Out bill",
+  "overdueBill": "Overdue bills",
   "theFinalRepaymentDate5thEachMonth": "The final repayment date is 5th of each month.",
   "thisMonthBillPaidOff": "This month's bill has been paid off",
   "album": "Album",
@@ -330,5 +332,11 @@
   "signInWith": "Sign in with",
   "selectPrepaidRate": "Select the prepaid rate",
   "pleaseUploadDocument": "Please upload document",
+  "repaymentPeriod": "Repayment period",
+  "repaymentAmount": "Repayment amount",
+  "orderStatus": "Order Status",
+  "alreadyPaid": "Already paid",
+  "overdueTime": "Overdue time",
+  "balance": "Balance",
   "shareProduct2": " on buyoo.vn, perfect quality, 100%% licensed, buy one"
 }
