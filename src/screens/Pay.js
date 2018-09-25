@@ -371,14 +371,12 @@ class OrderWrite extends Component {
         availableBalance +
           firstPaymentRateArray[firstPaymentRateArray.length - 1].value
       ) {
-        // console.log('不能使用分期');
         // 不能使用分期(暂时不启用)
         // this.setState({
         //   isEnoughUseCredit: false,
         // });
       } else {
         // 首付 + 分期
-        // console.log('首付 + 分期');
         firstPaymentRateArray.forEach(val => {
           if (availableBalance + val.value >= totalAmount) {
             result.push(val);

@@ -44,20 +44,6 @@ export function* inquiryBillFetchWatchHandle(action) {
       Key,
     );
 
-    console.log({
-      appId,
-      method,
-      charset,
-      signType,
-      encrypt,
-      timestamp,
-      version,
-      notifyUrlBg,
-      orderNo,
-      tradeNo,
-      useraccount,
-    });
-
     const response = yield apply(buyoo, buyoo.inquiryBill, [
       {
         appId,
@@ -74,7 +60,6 @@ export function* inquiryBillFetchWatchHandle(action) {
       },
     ]);
 
-    console.log(response);
     const { code, detail, msg = '' } = response;
 
     if (code !== 10000) {
@@ -84,7 +69,6 @@ export function* inquiryBillFetchWatchHandle(action) {
       yield put(inquiryBillFetchSuccess(detail));
     }
   } catch (err) {
-    console.log(err);
     yield put(inquiryBillFetchFailure());
     yield put(addError(typeof err === 'string' ? err : err.toString()));
   }

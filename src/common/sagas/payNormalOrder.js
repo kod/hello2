@@ -82,8 +82,6 @@ export function* payNormalOrderFetchWatchHandle(action) {
       paypassword,
     };
 
-    console.log('optionsoptionsoptionsoptions');
-    console.log(options);
     if (payway === '2') {
       yield put(payNormalOrderFetchFailure());
       NavigatorService.navigate(SCREENS.WebView, {
@@ -107,7 +105,6 @@ export function* payNormalOrderFetchWatchHandle(action) {
           paypassword,
         },
       ]);
-      console.log(response);
 
       if (response.code !== 10000) {
         yield put(payNormalOrderFetchFailure());

@@ -14,8 +14,6 @@ import { getAuthUserFunid } from '../selectors';
 
 export function* createNormalOrderFetchWatchHandle(action) {
   const funid = yield select(getAuthUserFunid);
-
-  console.log(action.payload);
   try {
     const {
       // orderNo,
@@ -119,28 +117,6 @@ export function* createNormalOrderFetchWatchHandle(action) {
         tradeNo1,
       },
     ]);
-    console.log('xxxxxxxxxxx');
-    console.log({
-      appId,
-      method,
-      charset,
-      signType,
-      encrypt,
-      timestamp,
-      version,
-      notifyUrlBg,
-      orderNo,
-      funid,
-      totalAmount,
-      currency,
-      subject,
-      repaymentMonth,
-      goodsDetail,
-      timeoutExpress,
-      orderNo1,
-      tradeNo1,
-    });
-    console.log(response);
 
     const { code, msg } = response;
 
