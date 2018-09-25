@@ -1,6 +1,6 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
 
-export const DEBUG = false;
+export const DEBUG = true;
 export const IS_I18N = DEBUG; // 是否支持多语言; 默认为越南语
 export const CARMAXNUMBER = 50;
 export const MINIMUM_PAYMENT_AMOUNT = 10000; // 最小支付金额
