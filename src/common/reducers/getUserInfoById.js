@@ -11,7 +11,7 @@ export default function getUserInfoById(state = initState, action) {
   switch (action.type) {
     case GET_USERINFO_BYID.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case GET_USERINFO_BYID.REQUEST:
       return {
@@ -23,7 +23,10 @@ export default function getUserInfoById(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        item: action.payload.item,
+        item: {
+          ...action.payload.item,
+          // userType: 2,
+        },
       };
     case GET_USERINFO_BYID.FAILURE:
       return {

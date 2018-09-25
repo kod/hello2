@@ -26,6 +26,7 @@ import { connectLocalization } from '../components/Localization';
 import * as queryOrderListActionCreators from '../common/actions/queryOrderList';
 import * as cardQueryActionCreators from '../common/actions/cardQuery';
 import * as userCertificateInfoActionCreators from '../common/actions/userCertificateInfo';
+import * as getUserInfoByIdActionCreators from '../common/actions/getUserInfoById';
 
 const aioru09230fPng = require('../images/aioru09230f.png');
 
@@ -122,6 +123,7 @@ class Me extends Component {
       cardQueryFetch,
       userCertificateInfoFetch,
       navigation,
+      getUserInfoByIdFetch,
     } = this.props;
 
     this.didBlurSubscription = navigation.addListener('didFocus', () =>
@@ -131,6 +133,7 @@ class Me extends Component {
     if (authUser) {
       cardQueryFetch();
       userCertificateInfoFetch();
+      getUserInfoByIdFetch();
     }
   }
 
@@ -279,6 +282,7 @@ class Me extends Component {
       screenProps: { i18n },
       certUser,
       authUser,
+      getUserInfoByIdUserType,
       // initPassword,
       // status,
     } = this.props;
@@ -304,12 +308,6 @@ class Me extends Component {
       },
     ];
     const renderCellItem1List2 = [
-      {
-        name: i18n.myBill,
-        navigate: SCREENS.BillMy,
-        func: () => this.handleOnNavBar1Callback(SCREENS.BillMy),
-        tips: '',
-      },
       {
         name: i18n.cart,
         navigate: SCREENS.Cart,
@@ -357,6 +355,15 @@ class Me extends Component {
         tips: '',
       },
     ];
+
+    if (getUserInfoByIdUserType === 2) {
+      renderCellItem1List2.unshift({
+        name: i18n.myBill,
+        navigate: SCREENS.BillMy,
+        func: () => this.handleOnNavBar1Callback(SCREENS.BillMy),
+        tips: '',
+      });
+    }
 
     // if (status !== undefined && status !== 3) {
     //   renderCellItem1List2.unshift(
@@ -410,9 +417,10 @@ export default connectLocalization(
         login,
         queryOrderList,
         cardQuery,
-        // cardQuery,
+        getUserInfoById,
       } = state;
       return {
+        getUserInfoByIdUserType: getUserInfoById.item.userType,
         orderItem: queryOrderList.item,
         certUser: userCertificateInfo.certUser,
         authUser: login.user,
@@ -421,6 +429,7 @@ export default connectLocalization(
       };
     },
     {
+      ...getUserInfoByIdActionCreators,
       ...queryOrderListActionCreators,
       ...cardQueryActionCreators,
       ...userCertificateInfoActionCreators,
