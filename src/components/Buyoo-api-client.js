@@ -101,6 +101,23 @@ class ReactStore {
     return this.requestUrl(`${PORT_83}/fun/trade/createNormalOrder`, options);
   }
 
+  payNormalOrder(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const data = qs.stringify(options);
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data,
+    };
+
+    return this.requestUrl(`${PORT_83}/fun/trade/payNormalOrder`, options);
+  }
+
   queryBillList(options) {
     if (!options) {
       return Promise.reject(new Error('fields required'));
@@ -296,6 +313,22 @@ class ReactStore {
       ),
     );
     return `${BASE_URL}${PORT_83}/fun/trade/order/pay?${queryString}`;
+  }
+
+  payNormalOrderInternetBank(options) {
+    if (!options) {
+      return Promise.reject(new Error('fields required'));
+    }
+
+    const queryString = qs.stringify(
+      Object.assign(
+        {
+          // filter,
+        },
+        options,
+      ),
+    );
+    return `${BASE_URL}${PORT_83}/fun/trade/payNormalOrder?${queryString}`;
   }
 
   // queryOrder(options) {

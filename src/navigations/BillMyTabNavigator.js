@@ -35,7 +35,7 @@ const TabContainer = TabNavigator(
     lazy: true,
     swipeEnabled: true,
     animationEnabled: true,
-    initialRouteName: SCREENS.BillCurrent,
+    initialRouteName: SCREENS.BillOverdue,
     tabBarPosition: 'top',
     tabBarOptions: {
       activeTintColor: FONT_COLOR_PRIMARY,

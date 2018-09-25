@@ -129,6 +129,8 @@ import { submitInfoFetchWatch } from './submitInfo';
 import { auditGetInfoFetchWatch } from './auditGetInfo';
 import { queryBillListFetchWatch } from './queryBillList';
 import { inquiryBillFetchWatch } from './inquiryBill';
+import { createNormalOrderFetchWatch } from './createNormalOrder';
+import { payNormalOrderFetchWatch } from './payNormalOrder';
 
 export default function* rootSaga() {
   yield all([
@@ -241,5 +243,7 @@ export default function* rootSaga() {
     submitInfoFetchWatch(),
     queryBillListFetchWatch(),
     inquiryBillFetchWatch(),
+    createNormalOrderFetchWatch(),
+    payNormalOrderFetchWatch(),
   ]);
 }

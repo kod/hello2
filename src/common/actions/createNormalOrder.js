@@ -1,9 +1,12 @@
 import { CREATE_NORMAL_ORDER } from '../constants/actionTypes';
 
-export function createNormalOrderFetchSuccess() {
+export function createNormalOrderFetchSuccess(orderNo, tradeNo) {
   return {
     type: CREATE_NORMAL_ORDER.SUCCESS,
-    payload: {},
+    payload: {
+      orderNo,
+      tradeNo,
+    },
   };
 }
 
@@ -15,9 +18,9 @@ export function createNormalOrderFetchFailure() {
 }
 
 export function createNormalOrderFetch({
-  orderNo,
+  // orderNo,
   totalAmount,
-  currency = '',
+  currency = 'VND',
   subject = 'VND',
   repaymentMonth,
   goodsDetail,
@@ -29,7 +32,7 @@ export function createNormalOrderFetch({
   return {
     type: CREATE_NORMAL_ORDER.REQUEST,
     payload: {
-      orderNo,
+      // orderNo,
       totalAmount,
       currency,
       subject,

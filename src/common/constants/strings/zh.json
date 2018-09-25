@@ -338,5 +338,6 @@
   "alreadyPaid": "已还金额",
   "overdueTime": "逾期时间",
   "balance": "余额",
+  "pleaseSelectFirstPaymentRate": "请选择首付比例",
   "shareProduct2": "，保证正品，超便宜，快来买一件吧"
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Alert } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -11,6 +11,7 @@ import { billStatusCodes } from '../common/helpers';
 import Loader from '../components/Loader';
 
 import * as createNormalOrderActionCreators from '../common/actions/createNormalOrder';
+import * as payNormalOrderActionCreators from '../common/actions/payNormalOrder';
 import * as loginActionCreators from '../common/actions/login';
 import * as queryOrderActionCreators from '../common/actions/queryOrder';
 import * as inquiryBillActionCreators from '../common/actions/inquiryBill';
@@ -33,21 +34,96 @@ class BillDetailOld extends Component {
     this.state = {
       payWayButtons: ['ATM/Visa/Master', i18n.balance],
       payWayIndex: 0,
+      isFocus: true, // 页面是否显示在前端
     };
 
     this.actionSheetCallback = this.actionSheetCallback.bind(this);
   }
 
   componentDidMount() {
-    const { orderNo, tradeNo, queryOrderFetch, inquiryBillFetch } = this.props;
-    queryOrderFetch({
+    const {
       orderNo,
       tradeNo,
+      queryOrderFetch,
+      inquiryBillFetch,
+      navigation,
+    } = this.props;
+    this.didFocusSubscription = navigation.addListener('didFocus', () => {
+      this.setState({
+        isFocus: true,
+      });
+      queryOrderFetch({
+        orderNo,
+        tradeNo,
+      });
+      inquiryBillFetch({
+        orderNo,
+        tradeNo,
+      });
     });
-    inquiryBillFetch({
-      orderNo,
-      tradeNo,
+    this.willBlurSubscription = navigation.addListener('willBlur', () => {
+      this.setState({
+        isFocus: false,
+      });
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { isFocus, payWayIndex } = this.state;
+    const {
+      // loading: prevLoading,
+      createNormalOrderLoaded: prevCreateNormalOrderLoaded,
+    } = this.props;
+    const {
+      // loading,
+      // openModal,
+      // closeModal,
+      createNormalOrderLoaded,
+      createNormalOrderTradeNo,
+      createNormalOrderOrderNo,
+      payNormalOrderFetch,
+      inquiryBillItem: { interest, principal },
+      // navigate,
+      periods,
+    } = nextProps;
+
+    if (
+      prevCreateNormalOrderLoaded !== createNormalOrderLoaded &&
+      createNormalOrderLoaded === true &&
+      isFocus === true
+    ) {
+      // 创建订单完成
+      if (createNormalOrderTradeNo !== '' && createNormalOrderOrderNo !== '') {
+        // 创建订单成功
+
+        console.log('创建订单成功');
+        console.log(payWayIndex);
+
+        if (payWayIndex === 0) {
+          // 网银
+          payNormalOrderFetch({
+            orderNo: createNormalOrderOrderNo,
+            tradeNo: createNormalOrderTradeNo,
+            totalAmount: interest + principal,
+            repaymentMonth: periods,
+            payway: '2',
+            paypassword: '',
+          });
+        } else {
+          // 余额
+          payNormalOrderFetch({
+            orderNo: createNormalOrderOrderNo,
+            tradeNo: createNormalOrderTradeNo,
+            totalAmount: interest + principal,
+            repaymentMonth: periods,
+            payway: '1',
+            paypassword: '123456',
+          });
+        }
+      } else {
+        // 创建订单失败
+      }
+    }
   }
 
   handleOnPressSelectPics() {
@@ -73,10 +149,12 @@ class BillDetailOld extends Component {
 
   handleSubmit() {
     const {
+      createNormalOrderClear,
       createNormalOrderFetch,
       inquiryBillItem: { status, interest, principal },
       periodIndex,
-      queryOrderItem: { orderNo, tradeNo },
+      queryOrderItem: { orderNo, tradeNo, goodsDetail },
+      periods,
     } = this.props;
     const isPay = status === '10002' || status === '20001';
 
@@ -90,12 +168,15 @@ class BillDetailOld extends Component {
 
     if (!isShow) return false;
 
-    createNormalOrderFetch({
+    console.log('handleSubmit');
+    createNormalOrderClear();
+    return createNormalOrderFetch({
       totalAmount: interest + principal,
+      goodsDetail: JSON.stringify(goodsDetail),
       orderNo1: orderNo,
       tradeNo1: tradeNo,
+      repaymentMonth: periods,
     });
-    console.log('handleSubmit');
   }
 
   renderContent() {
@@ -105,6 +186,7 @@ class BillDetailOld extends Component {
       i18n,
       queryOrderLoaded,
       queryOrderLoading,
+      createNormalOrderLoading,
       inquiryBillLoaded,
       inquiryBillLoading,
       inquiryBillItem: {
@@ -139,6 +221,7 @@ class BillDetailOld extends Component {
 
     return (
       <ScrollView>
+        {createNormalOrderLoading && <Loader absolutePosition modal />}
         <NavBar2
           isShowRight={false}
           valueLeft={i18n.orderStatus}
@@ -179,15 +262,16 @@ class BillDetailOld extends Component {
             // isShowRight={false}
             valueLeft={i18n.paymentMethod}
             valueMiddle={payWayButtons[payWayIndex]}
+            isShowRight={false}
             isShowBorderBottom
-            onPress={() => this.handleOnPressSelectPics()}
+            // onPress={() => this.handleOnPressSelectPics()}
           />
         )}
         {isShow && (
           <BYButton
             text={i18n.payment}
             style={{ marginTop: 15, marginBottom: 30 }}
-            onPress={this.handleSubmit()}
+            onPress={() => this.handleSubmit()}
           />
         )}
       </ScrollView>
@@ -207,7 +291,7 @@ class BillDetailOld extends Component {
 export default connectLocalization(
   connect(
     (state, props) => {
-      const { login, queryOrder, inquiryBill } = state;
+      const { login, queryOrder, inquiryBill, createNormalOrder } = state;
 
       const {
         navigation: {
@@ -229,6 +313,10 @@ export default connectLocalization(
         queryOrderItem: queryOrder.item,
         queryOrderLoading: queryOrder.loading,
         queryOrderLoaded: queryOrder.loaded,
+        createNormalOrderLoading: createNormalOrder.loading,
+        createNormalOrderLoaded: createNormalOrder.loaded,
+        createNormalOrderTradeNo: createNormalOrder.tradeNo,
+        createNormalOrderOrderNo: createNormalOrder.orderNo,
         orderNo,
         tradeNo,
         periods,
@@ -238,6 +326,7 @@ export default connectLocalization(
     },
     {
       ...createNormalOrderActionCreators,
+      ...payNormalOrderActionCreators,
       ...queryOrderActionCreators,
       ...inquiryBillActionCreators,
       ...loginActionCreators,

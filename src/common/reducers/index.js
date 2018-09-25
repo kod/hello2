@@ -83,6 +83,7 @@ import auditGetInfo from './auditGetInfo';
 import queryBillList from './queryBillList';
 import inquiryBill from './inquiryBill';
 import createNormalOrder from './createNormalOrder';
+import payNormalOrder from './payNormalOrder';
 
 const rootReducer = combineReducers({
   bannerSwiper,
@@ -168,6 +169,7 @@ const rootReducer = combineReducers({
   queryBillList,
   inquiryBill,
   createNormalOrder,
+  payNormalOrder,
   form: formReducer,
 });
 

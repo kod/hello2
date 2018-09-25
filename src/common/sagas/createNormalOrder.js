@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+// import { Platform } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
 import {
@@ -15,9 +15,10 @@ import { getAuthUserFunid } from '../selectors';
 export function* createNormalOrderFetchWatchHandle(action) {
   const funid = yield select(getAuthUserFunid);
 
+  console.log(action.payload);
   try {
     const {
-      orderNo,
+      // orderNo,
       totalAmount,
       currency,
       subject,
@@ -30,11 +31,23 @@ export function* createNormalOrderFetchWatchHandle(action) {
     } = action.payload;
 
     const Key = 'tradeKey';
-    const appId = Platform.OS === 'ios' ? '1' : '2';
+    const appId = funid;
     const method = 'fun.trade.createnormal';
     const charset = 'utf-8';
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '1.0';
+    const orderNo = (() => {
+      const mydate = new Date();
+      return (
+        appId +
+        mydate.getDay() +
+        mydate.getHours() +
+        mydate.getMinutes() +
+        mydate.getSeconds() +
+        mydate.getMilliseconds() +
+        Math.round(Math.random() * 10000)
+      );
+    })();
 
     const signType = signTypeMD5(appId, method, charset, Key, false);
 
@@ -106,14 +119,37 @@ export function* createNormalOrderFetchWatchHandle(action) {
         tradeNo1,
       },
     ]);
+    console.log('xxxxxxxxxxx');
+    console.log({
+      appId,
+      method,
+      charset,
+      signType,
+      encrypt,
+      timestamp,
+      version,
+      notifyUrlBg,
+      orderNo,
+      funid,
+      totalAmount,
+      currency,
+      subject,
+      repaymentMonth,
+      goodsDetail,
+      timeoutExpress,
+      orderNo1,
+      tradeNo1,
+    });
     console.log(response);
 
-    if (response.code !== 10000) {
+    const { code, msg } = response;
+
+    if (code !== 10000) {
       yield put(createNormalOrderFetchFailure());
-      yield put(addError(`msg: ${response.msg}; code: ${response.code}`));
+      yield put(addError(`msg: ${msg}; code: ${code}`));
     } else {
       yield put(
-        createNormalOrderFetchSuccess({}),
+        createNormalOrderFetchSuccess(response.orderNo, response.tradeNo),
       );
     }
   } catch (err) {

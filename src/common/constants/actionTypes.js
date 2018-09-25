@@ -381,6 +381,12 @@ export const CREATE_NORMAL_ORDER = defineAction(
   appNamespace,
 );
 
+export const PAY_NORMAL_ORDER = defineAction(
+  'PAY_NORMAL_ORDER',
+  [REQUEST, SUCCESS, FAILURE, CLEAR],
+  appNamespace,
+);
+
 export const QUERY_BILL_LIST = defineAction(
   'QUERY_BILL_LIST',
   [REQUEST, SUCCESS, FAILURE, CLEAR],
