@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -43,6 +44,7 @@ import {
   MONETARY,
   FIRST_PAYMENT_RATE,
   REPAYMENT_MONTH,
+  IS_PROMPT_FIRSTPAY,
 } from '../common/constants';
 
 // import { getAddressSelectedItem } from '../common/selectors';
@@ -129,7 +131,7 @@ class OrderWrite extends Component {
       payWayButtons: payWayArray(i18n),
       payWayIndex: CREDIT_PAYWAY,
       firstPaymentRateArray: [],
-      firstPaymentRateIndex: 0,
+      firstPaymentRateIndex: IS_PROMPT_FIRSTPAY ? -1 : 0,
       repaymentMonthArray: REPAYMENT_MONTH,
       repaymentMonthIndex: 0,
       paypassword: '',
@@ -484,7 +486,7 @@ class OrderWrite extends Component {
       cardQueryItem: { status, initPassword, availableBalance },
     } = this.props;
     if (!isAuthUser) return navigate(SCREENS.Login);
-    if (status !== 3) return navigate(SCREENS.Card);
+    // if (status !== 3) return navigate(SCREENS.Card);
 
     // 组合支付
     // const mixedPaymentCallback = ret => {
@@ -522,8 +524,36 @@ class OrderWrite extends Component {
       const alreadyPaypassword = () => {
         const { openModal } = this.props;
 
+        if (IS_PROMPT_FIRSTPAY && isUseFirstPay && rateIndex === -1) {
+          Alert.alert('', i18n.pleaseSelectFirstPaymentRate, [
+            { text: i18n.cancel },
+            {
+              text: i18n.confirm,
+              onPress: () => {
+                openModal(MODAL_TYPES.ACTIONSHEET, {
+                  data: rateArray.map(val => ({
+                    key:
+                      val.value === 0
+                        ? i18n.zeroDownPayment
+                        : `${val.key * 100}%`,
+                    value: `${val.value} ${MONETARY}`,
+                  })),
+                  title: i18n.firstPayment,
+                  renderItem: this.renderFirstPaymentRateItem,
+                  keyExtractor: 'key',
+                });
+              },
+            },
+          ]);
+          return true;
+        }
+
         // 是否使用了首付
-        if (rateArray[rateIndex].value > 0 || totalAmount > availableBalance) {
+        if (
+          IS_PROMPT_FIRSTPAY
+            ? rateIndex !== -1
+            : rateArray[rateIndex].value > 0 || totalAmount > availableBalance
+        ) {
           // 组合支付（使用了首付）
           // openModal(MODAL_TYPES.ACTIONSHEET, {
           //   title: i18n.downPaymentMethod,
@@ -642,13 +672,27 @@ class OrderWrite extends Component {
     const { i18n } = this.props;
     let result = '';
     if (isUseFirstPay === false) return result;
-    if (rateArray[rateIndex]) {
-      result =
-        rateArray[rateIndex].value === 0
-          ? i18n.useDownPayment
-          : `${i18n.firstPayment} ${rateArray[rateIndex].value} ${MONETARY}`;
+    if (IS_PROMPT_FIRSTPAY) {
+      if (rateIndex !== -1 && rateArray[rateIndex]) {
+        result = `${i18n.firstPayment} ${
+          rateArray[rateIndex].value
+        } ${MONETARY}`;
+        // result =
+        //   rateArray[rateIndex].value === 0
+        //     ? i18n.useDownPayment
+        //     : `${i18n.firstPayment} ${rateArray[rateIndex].value} ${MONETARY}`;
+      } else {
+        result = i18n.useDownPayment;
+      }
     } else {
-      result = i18n.useDownPayment;
+      if (rateArray[rateIndex]) {
+        result =
+          rateArray[rateIndex].value === 0
+            ? i18n.useDownPayment
+            : `${i18n.firstPayment} ${rateArray[rateIndex].value} ${MONETARY}`;
+      } else {
+        result = i18n.useDownPayment;
+      }
     }
     return result;
   }
@@ -672,7 +716,9 @@ class OrderWrite extends Component {
         case CREDIT_PAYWAY:
           // if (totalAmount > availableBalance) {
           if (
-            (rateArray.length > 0 && rateArray[rateIndex].value > 0) ||
+            (rateArray.length > 0 &&
+              rateArray[rateIndex] &&
+              rateArray[rateIndex].value > 0) ||
             totalAmount > availableBalance
           ) {
             // 组合支付
