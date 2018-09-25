@@ -45,6 +45,7 @@ import {
   FIRST_PAYMENT_RATE,
   REPAYMENT_MONTH,
   IS_PROMPT_FIRSTPAY,
+  MIN_FIRSTPAY_RATE,
 } from '../common/constants';
 
 // import { getAddressSelectedItem } from '../common/selectors';
@@ -405,10 +406,14 @@ class OrderWrite extends Component {
       // 已激活信用卡
       if (availableBalance >= totalAmount) {
         // 卡额度充足
-        // console.log('卡额度充足');
+        // MIN_FIRSTPAY_RATE
+        this.setState({
+          firstPaymentRateArray: firstPaymentRateArray.filter(
+            val => val.key >= MIN_FIRSTPAY_RATE,
+          ),
+        });
       } else {
         // 卡额度充不足
-        // console.log('卡额度充不足');
         notEnough();
       }
     }
