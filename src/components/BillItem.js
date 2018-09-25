@@ -86,7 +86,7 @@ class BillItem extends Component {
             </View>
             <View style={styles.itemRow3}>
               <Text style={styles.itemRow3Button} onPress={() => onPress(val)}>
-                {i18n.seeDetails}
+                {i18n.payment}
               </Text>
             </View>
           </View>
