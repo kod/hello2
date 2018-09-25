@@ -102,9 +102,10 @@ class RegisterStepOne extends Component {
                 backgroundColor: '#E0E3EF',
                 marginBottom: 75,
               }}
-              placeholder={`${i18n.pleaseEnterInvitationCode}(${
-                i18n.selectFill
-              })`}
+              placeholder={`${i18n.pleaseEnterInvitationCode}`}
+              // placeholder={`${i18n.pleaseEnterInvitationCode}(${
+              //   i18n.selectFill
+              // })`}
               placeholderTextColor="#6D7592"
               editable={inviterno === ''}
             />

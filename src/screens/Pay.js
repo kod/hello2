@@ -260,9 +260,9 @@ class OrderWrite extends Component {
   }
 
   initArrayForFirstPaymentRate(queryOrderItem, cardQueryItem, callback) {
-    const { repaymentMonthArray } = this.state;
+    const { repaymentMonthArray, payWayButtons } = this.state;
     const { returnMoneyFetch } = this.props;
-    const { totalAmount } = queryOrderItem;
+    const { totalAmount, goodsDetail } = queryOrderItem;
     const { status, availableBalance } = cardQueryItem;
     const firstPaymentRateArray = FIRST_PAYMENT_RATE;
 
@@ -325,6 +325,17 @@ class OrderWrite extends Component {
         callback1,
       );
     };
+
+    if (
+      goodsDetail[0].tradeStatus === '32' ||
+      goodsDetail[0].tradeStatus === '33' ||
+      goodsDetail[0].tradeStatus === '34'
+    ) {
+      this.setState({
+        payWayButtons: payWayButtons.filter(val => val.key !== CREDIT_PAYWAY),
+        payWayIndex: INTERNET_BANK_PAYWAY,
+      });
+    }
 
     setIsUseFirstPay(() => {
       this.setState(
