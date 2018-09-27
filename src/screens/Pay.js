@@ -713,46 +713,69 @@ class OrderWrite extends Component {
     } = this.props;
     let result = '';
 
-    if (status === 3) {
-      // 已激活卡
-      switch (payWayIndex) {
-        case CREDIT_PAYWAY:
-          // if (totalAmount > availableBalance) {
-          if (
-            (rateArray.length > 0 &&
-              rateArray[rateIndex] &&
-              rateArray[rateIndex].value > 0) ||
-            totalAmount > availableBalance
-          ) {
-            // 组合支付
-            result = `${i18n.combinationPaymentPayment
-              .replace('%1$d', priceFormat(totalAmount))
-              .replace('₫', MONETARY)}`;
-          } else {
-            // 全部金额用信用卡支付
-            result = `${i18n.funCardPayment
-              .replace('%1$d', priceFormat(totalAmount))
-              .replace('₫', MONETARY)}`;
-          }
-          break;
+    const creditCardText = () => {
+      if (status === 3) {
+        // 已激活卡
+        switch (payWayIndex) {
+          case CREDIT_PAYWAY:
+            // if (totalAmount > availableBalance) {
+            if (
+              (rateArray.length > 0 &&
+                rateArray[rateIndex] &&
+                rateArray[rateIndex].value > 0) ||
+              totalAmount > availableBalance
+            ) {
+              // 组合支付
+              result = `${i18n.combinationPaymentPayment
+                .replace('%1$d', priceFormat(totalAmount))
+                .replace('₫', MONETARY)}`;
+            } else {
+              // 全部金额用信用卡支付
+              result = `${i18n.funCardPayment
+                .replace('%1$d', priceFormat(totalAmount))
+                .replace('₫', MONETARY)}`;
+            }
+            break;
 
-        case INTERNET_BANK_PAYWAY:
-          result = `${i18n.onlineBankingPayment
-            .replace('%1$d', priceFormat(totalAmount))
-            .replace('₫', MONETARY)}`;
-          break;
+          // case INTERNET_BANK_PAYWAY:
+          //   result = `${i18n.onlineBankingPayment
+          //     .replace('%1$d', priceFormat(totalAmount))
+          //     .replace('₫', MONETARY)}`;
+          //   break;
 
-        case OFFLINE_PAYWAY:
-          result = `${i18n.paymentCollectingShop} ${priceFormat(
-            totalAmount,
-          )} ${MONETARY}`;
-          break;
+          // case OFFLINE_PAYWAY:
+          //   result = `${i18n.paymentCollectingShop} ${priceFormat(
+          //     totalAmount,
+          //   )} ${MONETARY}`;
+          //   break;
 
-        default:
-          break;
+          default:
+            break;
+        }
+      } else {
+        result = i18n.applyCreditCard;
       }
-    } else {
-      result = i18n.applyCreditCard;
+    };
+
+    switch (payWayIndex) {
+      case CREDIT_PAYWAY:
+        creditCardText();
+        break;
+
+      case INTERNET_BANK_PAYWAY:
+        result = `${i18n.onlineBankingPayment
+          .replace('%1$d', priceFormat(totalAmount))
+          .replace('₫', MONETARY)}`;
+        break;
+
+      case OFFLINE_PAYWAY:
+        result = `${i18n.paymentCollectingShop} ${priceFormat(
+          totalAmount,
+        )} ${MONETARY}`;
+        break;
+
+      default:
+        break;
     }
 
     return result;
