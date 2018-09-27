@@ -22,6 +22,7 @@ import {
   MODAL_TYPES,
   MONETARY,
   INTERNET_BANK_PAYWAY,
+  SCREENS,
 } from '../common/constants';
 
 import * as getProvidersCardActionCreators from '../common/actions/getProvidersCard';
@@ -170,8 +171,12 @@ class PrepaidPhoneCard extends Component {
       ProvidersValueItems,
       orderCreateFetch,
       providerCode,
-      // providerCode,
+      isAuthUser,
+      navigation: { navigate },
     } = this.props;
+
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
     if (this.isProcessSubmit()) {
       const number = buttonSelectNumber[numberItemIndex].text;
       orderCreateFetch({
@@ -191,6 +196,7 @@ class PrepaidPhoneCard extends Component {
         ]),
       });
     }
+    return true;
   }
 
   actionSheetCallback(ret) {
@@ -369,6 +375,7 @@ export default connectLocalization(
       const {
         getProvidersCard,
         getProvidersValue,
+        login,
         // getProvidersValue,
       } = state;
 
@@ -382,7 +389,7 @@ export default connectLocalization(
         providerCode: getProvidersValue.phoneCard.providerCode,
         ProvidersValueItems: getProvidersValue.phoneCard.items,
         supCreditCard: getProvidersValue.phoneCard.supCreditCard,
-        // payWayButtons: getProvidersValue.phoneCard.payWayButtons,
+        isAuthUser: !!login.user,
       };
     },
     {

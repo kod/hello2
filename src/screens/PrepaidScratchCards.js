@@ -20,6 +20,7 @@ import {
   MODAL_TYPES,
   MONETARY,
   INTERNET_BANK_PAYWAY,
+  SCREENS,
 } from '../common/constants';
 
 import * as get3GProvidersCardActionCreators from '../common/actions/get3GProvidersCard';
@@ -223,17 +224,22 @@ class PrepaidPhoneCard extends Component {
       ProvidersValueItems,
       orderCreateFetch,
       providerCode,
-      // providerCode,
+      isAuthUser,
+      navigation: { navigate },
     } = this.props;
 
+    if (!isAuthUser) return navigate(SCREENS.Login);
+
     if (this.isProcessSubmit()) {
+      const number = buttonSelectNumber[numberItemIndex].text;
       orderCreateFetch({
         screen: 'Prepaid',
         BYpayway: payWayButtons[payWayIndex].payway,
         ordertype: '7',
+        payvalue: ProvidersValueItems[priceIndex].price * number,
         goodsdetail: JSON.stringify([
           {
-            number: buttonSelectNumber[numberItemIndex].text,
+            number,
             cartitemid: 0,
             productid: ProvidersValueItems[priceIndex].id,
             rechargeaccount: '',
@@ -243,6 +249,7 @@ class PrepaidPhoneCard extends Component {
         ]),
       });
     }
+    return true;
   }
 
   actionSheetCallback(ret) {
@@ -359,6 +366,7 @@ export default connectLocalization(
       const {
         get3GProvidersCard,
         getProvidersValue,
+        login,
         // getProvidersValue,
       } = state;
 
@@ -372,7 +380,7 @@ export default connectLocalization(
         providerCode: getProvidersValue.scratchCards.providerCode,
         ProvidersValueItems: getProvidersValue.scratchCards.items,
         supCreditCard: getProvidersValue.scratchCards.supCreditCard,
-        // payWayButtons: getProvidersValue.scratchCards.payWayButtons,
+        isAuthUser: !!login.user,
       };
     },
     {
