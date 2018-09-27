@@ -19,6 +19,8 @@ import {
   MODAL_TYPES,
   MONETARY,
   INTERNET_BANK_PAYWAY,
+  SCREENS,
+  PHONE_EXPR,
 } from '../common/constants';
 
 import { RED_COLOR } from '../styles/variables';
@@ -162,10 +164,6 @@ class PrepaidRecharge extends Component {
     this.buttonSelectPriceCallback = this.buttonSelectPriceCallback.bind(this);
   }
 
-  // componentDidMount() {
-  //   const { bannerSwiperFetch } = this.props;
-  // }
-
   componentWillReceiveProps(nextProps) {
     const { supCreditCard: prevSupCreditCard } = this.props;
     const { supCreditCard, i18n } = nextProps;
@@ -224,7 +222,7 @@ class PrepaidRecharge extends Component {
       loading === false &&
       payWayButtons[payWayIndex] &&
       errorText === '' &&
-      phoneNumber.length > 0 &&
+      PHONE_EXPR.test(phoneNumber) &&
       items[buttonIndex] &&
       items[buttonIndex].price > 0
     ) {
@@ -248,13 +246,19 @@ class PrepaidRecharge extends Component {
       items,
       orderCreateFetch,
       providerCode,
-      // payWayButtons,
+      isAuthUser,
+      screenProps: {
+        mainNavigation: { navigate },
+      },
     } = this.props;
+
+    if (!isAuthUser) return navigate(SCREENS.Login);
 
     if (this.isProcessSubmit()) {
       orderCreateFetch({
         screen: 'Prepaid',
         BYpayway: payWayButtons[payWayIndex].payway,
+        payvalue: items[buttonIndex].price * 1,
         ordertype: '7',
         goodsdetail: JSON.stringify([
           {
@@ -268,6 +272,7 @@ class PrepaidRecharge extends Component {
         ]),
       });
     }
+    return true;
   }
 
   handleOnChangeText(text) {
@@ -316,116 +321,6 @@ class PrepaidRecharge extends Component {
   }
 
   renderContent() {
-    // const styles = StyleSheet.create({
-    //   container: {
-    //     flex: 1,
-    //   },
-    //   title: {
-    //     fontSize: 11,
-    //     color: '#666',
-    //     paddingLeft: SIDEINTERVAL,
-    //     marginBottom: 10,
-    //   },
-    //   payMethod: {
-    //     paddingLeft: SIDEINTERVAL,
-    //     paddingRight: SIDEINTERVAL,
-    //     flexDirection: 'row',
-    //     height: 50,
-    //     backgroundColor: '#f5f5f5',
-    //     alignItems: 'center',
-    //     marginBottom: 20
-    //   },
-    //   payMethodLeft: {
-    //     flex: 1,
-    //     fontSize: 11,
-    //     color: '#666',
-    //   },
-    //   payMethodMiddle: {
-    //     fontSize: 11,
-    //     color: '#333',
-    //     marginRight: 3,
-    //   },
-    //   payMethodRight: {
-    //     fontSize: 8,
-    //     color: '#333',
-    //   },
-    //   price: {
-    //     paddingLeft: SIDEINTERVAL,
-    //     paddingRight: SIDEINTERVAL,
-    //     marginBottom: 25,
-    //   },
-    //   priceTitle: {
-    //     fontSize: 10,
-    //     lineHeight: 10 * 1.618,
-    //     color: '#333',
-    //   },
-    //   priceMain: {
-    //     flexDirection: 'row',
-    //   },
-    //   priceRed: {
-    //     color: RED_COLOR,
-    //     fontSize: 18,
-    //     lineHeight: 18 * 1.618,
-    //     marginRight: 5,
-    //   },
-    //   priceGrey: {
-    //     color: '#ccc',
-    //     fontSize: 10,
-    //     paddingTop: 9,
-    //   },
-    //   phoneNumberWrap: {
-    //     paddingLeft: SIDEINTERVAL,
-    //     paddingRight: SIDEINTERVAL,
-    //     marginBottom: 15,
-    //   },
-    //   phoneNumber: {
-    //     flexDirection: 'row',
-    //     height: 50,
-    //     alignItems: 'center',
-    //     backgroundColor: '#f5f5f5',
-    //     marginBottom: 10,
-    //   },
-    //   phoneInput: {
-    //     flex: 1,
-    //     paddingLeft: SIDEINTERVAL,
-    //     paddingRight: SIDEINTERVAL,
-    //     fontSize: 18,
-    //     fontWeight: '700',
-    //     color: '#333',
-    //   },
-    //   phoneImg: {
-    //     height: 35,
-    //     width: 80,
-    //     marginRight: SIDEINTERVAL,
-    //     resizeMode: 'contain',
-    //   },
-    //   phoneTips: {
-    //     fontSize: 10,
-    //     lineHeight: 10 * 1.618,
-    //     color: '#ccc',
-    //     marginBottom: 5,
-    //     paddingRight: SIDEINTERVAL,
-    //   },
-    //   phoneError: {
-    //     flexDirection: 'row',
-    //     paddingRight: SIDEINTERVAL,
-    //   },
-    //   phoneErrorIcon: {
-    //     fontSize: 14,
-    //     color: RED_COLOR,
-    //     marginRight: 8,
-    //     paddingTop: 2,
-    //   },
-    //   phoneErrorText: {
-    //     fontSize: 11,
-    //     lineHeight: 11 * 1.618,
-    //     color: RED_COLOR,
-    //   },
-    //   byButton: {
-    //     backgroundColor: 'rgba(0, 118, 247, 0.5)',
-    //   },
-    // });
-
     const {
       phoneNumber,
       buttonIndex,
@@ -534,6 +429,7 @@ export default connectLocalization(
         prepaid,
         orderCreate,
         getPhoneRecharge,
+        login,
         // getPhoneRecharge,
       } = state;
 
@@ -544,12 +440,12 @@ export default connectLocalization(
       return {
         errorText: prepaid.errorText,
         providerIcon: prepaid.providerIcon,
-        // payWayButtons: getPhoneRecharge.payWayButtons,
         supCreditCard: getPhoneRecharge.supCreditCard,
         providerCode: getPhoneRecharge.providerCode,
         items: getPhoneRecharge.items,
         loading: getPhoneRecharge.loading,
         orderCreateLoading: orderCreate.loading,
+        isAuthUser: !!login.user,
       };
     },
     {
