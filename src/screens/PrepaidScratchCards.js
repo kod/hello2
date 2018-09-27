@@ -225,7 +225,9 @@ class PrepaidPhoneCard extends Component {
       orderCreateFetch,
       providerCode,
       isAuthUser,
-      navigation: { navigate },
+      screenProps: {
+        mainNavigation: { navigate },
+      },
     } = this.props;
 
     if (!isAuthUser) return navigate(SCREENS.Login);
