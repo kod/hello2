@@ -449,11 +449,11 @@ class OrderWrite extends Component {
           /> */}
           <NavBar2
             onPress={() => this.handleOnPressCoupon()}
-            valueLeft={i18n.useVoucher}
+            valueLeft={i18n.coupon}
             valueMiddle={
               couponSelectItem.id
                 ? couponSelectItem.voucherName
-                : i18n.canNotUseVoucher
+                : i18n.useVoucher
             }
           />
         </ScrollView>
