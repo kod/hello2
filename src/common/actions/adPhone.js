@@ -1,6 +1,10 @@
 import { AD_PHONE } from '../constants/actionTypes';
 
-export function adPhoneFetchSuccess(phoneAdList, phoneAdBanerList, classfyinfo) {
+export function adPhoneFetchSuccess(
+  phoneAdList,
+  phoneAdBanerList,
+  classfyinfo,
+) {
   return {
     type: AD_PHONE.SUCCESS,
     payload: {
@@ -14,15 +18,11 @@ export function adPhoneFetchSuccess(phoneAdList, phoneAdBanerList, classfyinfo) 
 export function adPhoneFetchFailure() {
   return {
     type: AD_PHONE.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function adPhoneFetch(
-  refreshing = false,
-) {
+export function adPhoneFetch(refreshing = false) {
   return {
     type: AD_PHONE.REQUEST,
     payload: {
@@ -34,7 +34,6 @@ export function adPhoneFetch(
 export function adPhoneClear() {
   return {
     type: AD_PHONE.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

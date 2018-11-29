@@ -11,7 +11,7 @@ export default function getVoucher(state = initState, action) {
   switch (action.type) {
     case GET_VOUCHER.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case GET_VOUCHER.REQUEST:
       return {
@@ -23,7 +23,7 @@ export default function getVoucher(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        items: action.payload.items
+        items: action.payload.items,
       };
     case GET_VOUCHER.FAILURE:
       return {

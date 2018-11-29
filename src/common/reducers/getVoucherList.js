@@ -1,6 +1,4 @@
-import {
-  GET_VOUCHER_LIST,
-} from '../constants/actionTypes';
+import { GET_VOUCHER_LIST } from '../constants/actionTypes';
 
 import { COUPONMY_TABNAVIGATOR_MAP } from '../constants';
 
@@ -17,7 +15,7 @@ export default function getVoucherList(state = initState, action) {
   switch (action.type) {
     case GET_VOUCHER_LIST.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case GET_VOUCHER_LIST.REQUEST:
       return {
@@ -29,7 +27,8 @@ export default function getVoucherList(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        [COUPONMY_TABNAVIGATOR_MAP[action.payload.status]]: action.payload.items,
+        [COUPONMY_TABNAVIGATOR_MAP[action.payload.status]]:
+          action.payload.items,
       };
     case GET_VOUCHER_LIST.FAILURE:
       return {

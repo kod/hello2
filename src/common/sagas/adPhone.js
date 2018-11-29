@@ -1,11 +1,11 @@
 import { Platform } from 'react-native';
 import { takeEvery, apply, put } from 'redux-saga/effects';
+import moment from 'moment';
 import { adPhoneFetchSuccess, adPhoneFetchFailure } from '../actions/adPhone';
 import { addError } from '../actions/error';
 import buyoo from '../helpers/apiClient';
 import { AD_PHONE } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-import moment from 'moment';
 
 export function* adPhoneFetchWatchHandle(action) {
   try {
@@ -17,9 +17,9 @@ export function* adPhoneFetchWatchHandle(action) {
     const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
     const version = '1.0';
 
-    let typeid = params.typeid || '1';
-    let pagesize = params.pagesize || '8';
-    let currentpage = params.currentpage || '1';
+    const typeid = params.typeid || '1';
+    const pagesize = params.pagesize || '8';
+    const currentpage = params.currentpage || '1';
 
     const signType = signTypeMD5(appId, method, charset, Key, true);
 
@@ -27,18 +27,18 @@ export function* adPhoneFetchWatchHandle(action) {
       [
         {
           key: 'typeid',
-          value: typeid
+          value: typeid,
         },
         {
           key: 'pagesize',
-          value: pagesize
+          value: pagesize,
         },
         {
           key: 'currentpage',
-          value: currentpage
-        }
+          value: currentpage,
+        },
       ],
-      Key
+      Key,
     );
 
     const response = yield apply(buyoo, buyoo.initAdCellphone, [
@@ -50,15 +50,14 @@ export function* adPhoneFetchWatchHandle(action) {
         encrypt,
         timestamp,
         version,
-        typeid: typeid,
-        pagesize: pagesize,
-        currentpage: currentpage
-      }
+        typeid,
+        pagesize,
+        currentpage,
+      },
     ]);
 
-
-    let phoneAdList = [];
-    let phoneAdBanerList = [];
+    const phoneAdList = [];
+    const phoneAdBanerList = [];
     let classfyinfo = [];
 
     if (response.code === 10000) {
@@ -73,7 +72,7 @@ export function* adPhoneFetchWatchHandle(action) {
           phoneAdList.push(element);
         }
       }
-      classfyinfo = response.classfyinfo;
+      ({ classfyinfo } = response);
     }
 
     yield put(adPhoneFetchSuccess(phoneAdList, phoneAdBanerList, classfyinfo));

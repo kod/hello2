@@ -11,7 +11,7 @@ export default function comment(state = initState, action) {
   switch (action.type) {
     case COMMENT.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case COMMENT.REQUEST:
       return {
@@ -23,7 +23,7 @@ export default function comment(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        items: action.payload.items
+        items: action.payload.items,
       };
     case COMMENT.FAILURE:
       return {

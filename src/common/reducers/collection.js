@@ -11,7 +11,7 @@ export default function collection(state = initState, action) {
   switch (action.type) {
     case COLLECTION.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case COLLECTION.REQUEST:
       return {
@@ -23,7 +23,7 @@ export default function collection(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        items: action.payload.items
+        items: action.payload.items,
       };
     case COLLECTION.FAILURE:
       return {

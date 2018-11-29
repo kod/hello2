@@ -10,7 +10,7 @@ export default function receiveVoucher(state = initState, action) {
   switch (action.type) {
     case RECEIVE_VOUCHER.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case RECEIVE_VOUCHER.REQUEST:
       return {
@@ -22,7 +22,6 @@ export default function receiveVoucher(state = initState, action) {
         ...state,
         loading: false,
         loaded: true,
-        // certUser: action.payload.certUser,
       };
     case RECEIVE_VOUCHER.FAILURE:
       return {

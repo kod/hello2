@@ -17,7 +17,7 @@ export function login(phone, password, isProvisionalAccount = false) {
   };
 }
 
-export function loginSuccess(json, options) {
+export function loginSuccess(json) {
   const payload = {
     user: {
       ...json,

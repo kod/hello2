@@ -1,8 +1,6 @@
-import {
-  GET_VOUCHER_LIST,
-} from '../constants/actionTypes';
+import { GET_VOUCHER_LIST } from '../constants/actionTypes';
 
-export function getVoucherListFetchSuccess({items, status}) {
+export function getVoucherListFetchSuccess({ items, status }) {
   return {
     type: GET_VOUCHER_LIST.SUCCESS,
     payload: {
@@ -25,7 +23,7 @@ export function getVoucherListFetch(params) {
   return {
     type: GET_VOUCHER_LIST.REQUEST,
     payload: {
-      ...params
+      ...params,
     },
   };
 }

@@ -13,7 +13,7 @@ export default function cityInfos(state = initState, action) {
   switch (action.type) {
     case CITY_INFOS.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case CITY_INFOS.REQUEST:
       return {

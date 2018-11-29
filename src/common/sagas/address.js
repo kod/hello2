@@ -1,4 +1,4 @@
-import { Platform, Alert, DeviceEventEmitter } from 'react-native';
+import { Platform, DeviceEventEmitter } from 'react-native';
 import { takeEvery, apply, put, select } from 'redux-saga/effects';
 import moment from 'moment';
 // import { SCREENS } from '../constants';
@@ -22,8 +22,6 @@ import {
   ADDRESS_MODIFY,
 } from '../constants/actionTypes';
 import { encryptMD5, signTypeMD5 } from '../../components/AuthEncrypt';
-
-import i18n from '../helpers/i18n';
 
 import { getAuthUserFunid, getAuthUserMsisdn } from '../selectors';
 

@@ -13,7 +13,7 @@ export default function adPhone(state = initState, action) {
   switch (action.type) {
     case AD_PHONE.CLEAR:
       return {
-        ...initState
+        ...initState,
       };
     case AD_PHONE.REQUEST:
       return {

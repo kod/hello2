@@ -1,12 +1,9 @@
-import {
-  RECEIVE_VOUCHER,
-} from '../constants/actionTypes';
+import { RECEIVE_VOUCHER } from '../constants/actionTypes';
 
 export function receiveVoucherFetchSuccess() {
   return {
     type: RECEIVE_VOUCHER.SUCCESS,
-    payload: {
-    },
+    payload: {},
   };
 }
 
@@ -23,7 +20,7 @@ export function receiveVoucherFetch(params) {
   return {
     type: RECEIVE_VOUCHER.REQUEST,
     payload: {
-      ...params
+      ...params,
     },
   };
 }

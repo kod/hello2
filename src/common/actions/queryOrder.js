@@ -12,15 +12,11 @@ export function queryOrderFetchSuccess(item) {
 export function queryOrderFetchFailure() {
   return {
     type: QUERY_ORDER.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function queryOrderFetch(
-  params
-) {
+export function queryOrderFetch(params) {
   return {
     type: QUERY_ORDER.REQUEST,
     payload: {
@@ -32,7 +28,6 @@ export function queryOrderFetch(
 export function queryOrderClear() {
   return {
     type: QUERY_ORDER.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

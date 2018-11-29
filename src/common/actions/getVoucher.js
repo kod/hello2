@@ -1,6 +1,4 @@
-import {
-  GET_VOUCHER,
-} from '../constants/actionTypes';
+import { GET_VOUCHER } from '../constants/actionTypes';
 
 export function getVoucherFetchSuccess(items) {
   return {
@@ -14,9 +12,7 @@ export function getVoucherFetchSuccess(items) {
 export function getVoucherFetchFailure() {
   return {
     type: GET_VOUCHER.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
@@ -24,7 +20,7 @@ export function getVoucherFetch(params) {
   return {
     type: GET_VOUCHER.REQUEST,
     payload: {
-      ...params
+      ...params,
     },
   };
 }
@@ -32,7 +28,6 @@ export function getVoucherFetch(params) {
 export function getVoucherClear() {
   return {
     type: GET_VOUCHER.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }

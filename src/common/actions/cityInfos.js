@@ -1,6 +1,4 @@
-import {
-  CITY_INFOS,
-} from '../constants/actionTypes';
+import { CITY_INFOS } from '../constants/actionTypes';
 
 export function cityInfosFetchSuccess(items, level) {
   return {
@@ -15,16 +13,11 @@ export function cityInfosFetchSuccess(items, level) {
 export function cityInfosFetchFailure() {
   return {
     type: CITY_INFOS.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function cityInfosFetch(
-  pid,
-  level
-) {
+export function cityInfosFetch(pid, level) {
   return {
     type: CITY_INFOS.REQUEST,
     payload: {

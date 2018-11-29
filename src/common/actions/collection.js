@@ -16,15 +16,11 @@ export function collectionFetchSuccess(items) {
 export function collectionFetchFailure() {
   return {
     type: COLLECTION.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function collectionFetch(
-
-) {
+export function collectionFetch() {
   return {
     type: COLLECTION.REQUEST,
     payload: {},
@@ -34,32 +30,25 @@ export function collectionFetch(
 export function collectionClear() {
   return {
     type: COLLECTION.CLEAR,
-    payload: {
-    },
+    payload: {},
   };
 }
 
 export function collectionAddFetchSuccess() {
   return {
     type: COLLECTION_ADD.SUCCESS,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
 export function collectionAddFetchFailure() {
   return {
     type: COLLECTION_ADD.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function collectionAddFetch(
-  brandIds
-) {
+export function collectionAddFetch(brandIds) {
   return {
     type: COLLECTION_ADD.REQUEST,
     payload: {
@@ -70,28 +59,22 @@ export function collectionAddFetch(
 export function collectionRemoveFetchSuccess() {
   return {
     type: COLLECTION_REMOVE.SUCCESS,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
 export function collectionRemoveFetchFailure() {
   return {
     type: COLLECTION_REMOVE.FAILURE,
-    payload: {
-
-    },
+    payload: {},
   };
 }
 
-export function collectionRemoveFetch(
-  brand_id
-) {
+export function collectionRemoveFetch(brandId) {
   return {
     type: COLLECTION_REMOVE.REQUEST,
     payload: {
-      brand_id,
+      brand_id: brandId,
     },
   };
 }
